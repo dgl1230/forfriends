@@ -17,6 +17,7 @@ class UserProfile(models.Model):
 	gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
 	last_name = models.CharField(max_length =20)
 	modified = models.DateTimeField(auto_now=True)
+	#picture
 	state = models.CharField(max_length=2, blank=True)
 	summary = models.CharField(max_length=420)
 	username = models.CharField(max_length=20)
