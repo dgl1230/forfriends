@@ -1,0 +1,82 @@
+<DOCTYPE HTML>
+{% extends 'base.html' %}
+{% block content %}
+		<!-- <form action='.' method='POST'> {% csrf_token %}
+		{{ form }}
+		<input type='submit' value='Join'>
+		</form> -->
+<html>
+<head>
+<title>ForFriends</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
+    
+<!-- Bootstrap -->
+    <link href="static/css/bootstrap.css" rel="stylesheet"> 
+<!-- CSS TOP MENU 
+    <link rel="stylesheet" href="static/css/top_menu.css">
+<!--CSS Sign up menu-->
+    <link rel="stylesheet" href="static/css/signup_menu.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"> 
+
+<!-- Required Padding for Header -->
+<style type="text/css">
+ body { padding-top: 60px; }
+ body { padding-bottom: 20px; } 
+</style>
+
+</head>
+
+<body>
+<!--<body style="background-color:DDDDDD;">
+<!-- Sign in form -->
+<div class="container">
+
+<div class="row" style="margin-top:30px">
+    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+		<form role="form">
+			<fieldset>
+				<h2>Please Sign In</h2>
+				<hr class="colorgraph">
+				<div class="form-group">
+                    <input type="email" name="email" id="email" class="form-control input-lg" placeholder="Email Address">
+				</div>
+				<div class="form-group">
+                    <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password">
+				</div>
+				<span class="button-checkbox">
+					<button type="button" class="btn" data-color="info">Remember Me</button>
+                    <input type="checkbox" name="remember_me" id="remember_me" checked="checked" class="hidden">
+					<a href="" class="btn btn-link pull-right">Forgot Password?</a>
+				</span>
+				<hr class="colorgraph">
+				<div class="row">
+					<div class="col-xs-6 col-sm-6 col-md-6">
+                        <input type="submit" class="btn btn-lg btn-success btn-block" value="Sign In">
+					</div>
+					<div class="col-xs-6 col-sm-6 col-md-6">
+						<a href="" class="btn btn-lg btn-primary btn-block">Register</a>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</div>
+
+</div>
+             
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="static/js/signin.js"></script>
+<!-- Jquery -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+</body>
+{% endblock %}
+</html>

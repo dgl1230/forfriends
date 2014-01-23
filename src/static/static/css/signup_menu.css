@@ -1,0 +1,10 @@
+.colorgraph {
+  height: 10px;
+  border-top: 10;
+  background:#3BA3F8;
+  border-radius: 10px;
+  background-image: -webkit-linear-gradient(left, #3BA3F8);
+  background-image: -moz-linear-gradient(left,#3BA3F8);
+  background-image: -o-linear-gradient(left, #3BA3F8);
+  background-image: linear-gradient(to right, #3BA3F84);
+}
