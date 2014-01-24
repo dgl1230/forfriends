@@ -9,90 +9,96 @@
 	</head>
 	 
 	<body>
-	    <header>
-	        <div class="wrapper">
-	            <h1>ForFriends<h1>
-<!-- Basic Layout -->
+	<meta name="author" content="Jake Rocheleau">
+  <link rel="shortcut icon" href="http://designshack.net/favicon.ico">
+  <link rel="icon" href="http://designshack.net/favicon.ico">
+  <link rel="stylesheet" type="text/css" media="all" href="css/styles.css">
+  <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+</head>
 
-	            <span id="usernav"><a href="#">Logout</a> - <a href="#">Settings</a> - <a href="#">Edit Profile<span><img src="static/img/user_avatar_s.jpg" /></span></a></span>
-	        </div>
-	    </header>
-	     
-	    <nav>
-	        <ul id="n" class="clearfix">
-	            <li><a href="#">Home</a></li>
-	            <li><a href="#">Interests</a></li>
-	            <li><a href="#">Who's Interested</a></li>
-		    <li><a href="#">Recommended Friends</a></li>
-	        </ul>
-	    </nav>
-	     
-	    <div id="content" class="clearfix">
-	        <section id="left">
-	            <div id="userStats" class="clearfix">
-	                <div class="pic">
-	                    <a href="#"><img src="static/img/user_avatar.jpg" width="150" height="150" /></a>
-	                </div>
-	                 
-	                <div class="data">
-	                    <h1>Nick</h1>
-	                    <h3>San Francisco, CA</h3>
-	                    <h4><a href="http://spyrestudios.com/">http://spyrestudios.com/</a></h4>
-	                    <div class="socialMediaLinks">
-	                        <a href="http://twitter.com/jakerocheleau" rel="me" target="_blank"><img src="static/img/twitter.png" alt="@jakerocheleau" /></a>
-	                        <a href="http://gowalla.com/users/JakeRocheleau" rel="me" target="_blank"><img src="static/img/gowalla.png" /></a>
-	                    </div>
-	                    <div class="sep"></div>
-	                    <ul class="numbers clearfix">
-	                        <li>Reputation<strong>185</strong></li>
-	                        <li>Matches<strong>344</strong></li>
-	                        <li class="nobrdr">Days Out<strong>127</strong></li>
-	                    </ul>
-	                </div>
-	            </div>
-	             
-	            <h1>About Me:</h1>
-	            <p>Hello There</p>
-	        </section>
-<!-- Right side Content -->
-	        <section id="right">
-	             
-	            <div class="gcontent">
-<!-- Friends List -->
-	                <div class="head"><h1>Friends</h1></div>
-	                <div class="boxy">
-	                    <p>Your friends</p>
-	                     
-	                    <div class="friendslist clearfix">
-	                        <div class="friend">
-	                            <a href="#"><img src="static/img/friend_avatar_default.jpg" width="30" height="30" alt="Jerry K." /></a><span class="friendly"><a href="#">Jerry K.</a></span>
-	                        </div>
-	                         
-	                        <div class="friend">
-	                            <a href="#"><img src="static/img/friend_avatar_default.jpg" width="30" height="30" alt="Katie F." /></a><span class="friendly"><a href="#">Katie F.</a></span>
-	                        </div>
-	                         
-	                        <div class="friend">
-	                            <a href="#"><img src="img/friend_avatar_default.jpg" width="30" height="30" alt="Ash K." /></a><span class="friendly"><a href="#">Ash K.</a></span>
-	                        </div>
-	                         
-	                        <div class="friend">
-	                            <a href="#"><img src="img/friend_avatar_default.jpg" width="30" height="30" alt="Sponge B." /></a><span class="friendly"><a href="#">Sponge B.</a></span>
-	                        </div>
-	                         
-	                        <div class="friend">
-	                            <a href="#"><img src="img/friend_avatar_default.jpg" width="30" height="30" alt="Frank" /></a><span class="friendly"><a href="#">Frank</a></span>
-	                        </div>
-	                         
-	                        <div class="friend">
-	                            <a href="#"><img src="img/friend_avatar_default.jpg" width="30" height="30" alt="Alexa S." /></a><span class="friendly"><a href="#">Alexa S.</a></span>
-	                        </div>
-	                    </div>
-	                    <span><a href="#">See all...</a></span>
-	                </div>
-	            </div>
-	        </section>
-	    </div>
-	</body>
+<body>
+  <div id="topbar">
+  <a href="#">Edit Profile</a>
+  </div>
+  
+  <div id="w">
+    <div id="content" class="clearfix">
+      <div id="userphoto"><img src="images/avatar.png" alt="default avatar"></div>
+      <h1></h1>
+
+      <nav id="profiletabs">
+        <ul class="clearfix">
+          <li><a href="#bio" class="sel">Bio</a></li>
+          <li><a href="#activity">Interests</a></li>
+          <li><a href="#friends">Friends</a></li>
+          <li><a href="#settings">Settings</a></li>
+        </ul>
+      </nav>
+      
+      <section id="bio">
+        <p>Various content snippets courtesy of <a href="http://bluthipsum.com/">Bluth Ipsum</a>.</p>
+        
+        <p>Can't a guy call his mother pretty without it seeming strange? Amen. I think that's one of Mom's little fibs, you know, like I'll sacrifice anything for my children.</p>
+        
+        <p>She's always got to wedge herself in the middle of us so that she can control everything. Yeah. Mom's awesome. I run a pretty tight ship around here. With a pool table.</p>
+      </section>
+      
+      <section id="activity" class="hidden">
+        <p>Most recent actions:</p>
+        
+        <p class="activity">@10:15PM - Submitted a news article</p>
+        
+        <p class="activity">@9:50PM - Submitted a news article</p>
+        
+        <p class="activity">@8:15PM - Posted a comment</p>
+        
+        <p class="activity">@4:30PM - Added <strong>someusername</strong> as a friend</p>
+        
+        <p class="activity">@12:30PM - Submitted a news article</p>
+      </section>
+      
+      <section id="friends" class="hidden">
+        <p>Friends list:</p>
+        
+        <ul id="friendslist" class="clearfix">
+          <li><a href="#"><img src="images/avatar.png" width="22" height="22"> Username</a></li>
+          <li><a href="#"><img src="images/avatar.png" width="22" height="22"> SomeGuy123</a></li>
+          <li><a href="#"><img src="images/avatar.png" width="22" height="22"> PurpleGiraffe</a></li>
+        </ul>
+      </section>
+      
+      <section id="settings" class="hidden">
+        <p>Edit your user settings:</p>
+        
+        <p class="setting"><span>E-mail Address <img src="images/edit.png" alt="*Edit*"></span> lolno@gmail.com</p>
+        
+        <p class="setting"><span>Language <img src="images/edit.png" alt="*Edit*"></span> English(US)</p>
+        
+        <p class="setting"><span>Profile Status <img src="images/edit.png" alt="*Edit*"></span> Public</p>
+        
+        <p class="setting"><span>Update Frequency <img src="images/edit.png" alt="*Edit*"></span> Weekly</p>
+        
+        <p class="setting"><span>Connected Accounts <img src="images/edit.png" alt="*Edit*"></span> None</p>
+      </section>
+    </div><!-- @end #content -->
+  </div><!-- @end #w -->
+<script type="text/javascript">
+$(function(){
+  $('#profiletabs ul li a').on('click', function(e){
+    e.preventDefault();
+    var newcontent = $(this).attr('href');
+    
+    $('#profiletabs ul li a').removeClass('sel');
+    $(this).addClass('sel');
+    
+    $('#content section').each(function(){
+      if(!$(this).hasClass('hidden')) { $(this).addClass('hidden'); }
+    });
+    
+    $(newcontent).removeClass('hidden');
+  });
+});
+</script>
+</body>
 	{% endblock %}
 	</html>

@@ -20,18 +20,36 @@
 		{{ form }}
 
     <div class="fieldContainer">
-
         <div class="formRow">
             <div class="label">
 
-                <label for="name">Name:</label>
+                <label for="firstname">First Name:</label>
             </div>
             
             <div class="field">
-                <input type="text" name="name" id="name" />
+                <input type="text" name="firstname" id="firstname" />
             </div>
-        </div>
-        
+        </div>	
+	 <div class="formRow">
+            <div class="label">
+
+                <label for="lastname">Last Name:</label>
+            </div>
+            
+            <div class="field">
+                <input type="text" name="lastname" id="lastname" />
+            </div>
+        </div>        
+        <div class="formRow">
+            <div class="label">
+
+                <label for="username">Username:</label>
+            </div>
+            
+            <div class="field">
+                <input type="text" name="username" id="username" />
+            </div>
+        </div>    
         <div class="formRow">
             <div class="label">
                 <label for="email">Email:</label>
@@ -51,8 +69,29 @@
                 <input type="password" name="pass" id="pass" />
             </div>
         </div>
-        
-        
+	 
+	 <div class="formRow">
+            <div class="label">
+
+                <label for="state">State:</label>
+            </div>
+            
+            <div class="field">
+                <input type="text" name="state" id="state" />
+            </div>
+        </div>      
+        <div class="formRow">
+            <div class="label">
+
+                <label for="gender">Gender:</label>
+            </div>
+            
+            <div class="field">
+                <input type="radio" name="sex" value="male">Male<br>
+<input type="radio" name="sex" value="female">Female
+            </div>
+        </div>      
+            
     </div> <!-- Closing fieldContainer -->
     
     <div class="signupButton">
