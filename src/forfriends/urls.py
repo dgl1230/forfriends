@@ -11,6 +11,6 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', 'userprofile.views.registration'),
-    url(r'^signup/', 'userprofile.views.signup'),
+    url(r'^$', 'userprofile.views.signup'),
+    
 )
