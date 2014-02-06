@@ -5,20 +5,60 @@
 	<head>
 	    <meta charset="utf-8" />
 	    <title>ForFriends Profile</title>
-	    <link rel="stylesheet" type="text/css" href="static/css/profile_home.css" />
-	</head>
-	 
-	<body>
-	<meta name="author" content="Jake Rocheleau">
-  <link rel="shortcut icon" href="http://designshack.net/favicon.ico">
-  <link rel="icon" href="http://designshack.net/favicon.ico">
-  <link rel="stylesheet" type="text/css" media="all" href="css/styles.css">
-  <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+	      <!-- Body CSS -->
+	    <link rel="stylesheet" type="text/css" href="static/css/profile_home.css">
+               <!-- Bootstrap  --> 
+            <link href="static/css/profile_view.css" rel="stylesheet">
+	    
+	    <meta name="author" content="Jake Rocheleau">
+            <link rel="shortcut icon" href="http://designshack.net/favicon.ico">
+            <link rel="icon" href="http://designshack.net/favicon.ico">
+            <link rel="stylesheet" type="text/css" media="all" href="static/css/styles.css">
+  
 </head>
 
 <body>
-  <div id="topbar">
-  <a href="#">Edit Profile</a>
+<!--Top Nav Bar -->
+  <div class="navbar-wrapper">
+      <div class="container">
+
+        <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">Project name</a>
+            </div>
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Edit Profile</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Logout</a></li>
+                    <li><a href="#">Search Friends</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li class="dropdown-header">Nav header</li>
+                    <li><a href="#">Separated link</a></li>
+                    <li><a href="#">One more separated link</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+<!-- Profile Body-->
   </div>
   
   <div id="w">
@@ -29,32 +69,31 @@
       <nav id="profiletabs">
         <ul class="clearfix">
           <li><a href="#bio" class="sel">Bio</a></li>
-          <li><a href="#activity">Interests</a></li>
+          <li><a href="#interests">Interests</a></li>
           <li><a href="#friends">Friends</a></li>
-          <li><a href="#settings">Settings</a></li>
         </ul>
       </nav>
       
       <section id="bio">
-        <p>Various content snippets courtesy of <a href="http://bluthipsum.com/">Bluth Ipsum</a>.</p>
+        <p>Various content snippets courtesy of <a href="http://bluthipsum.com/">Bio</a>.</p>
         
-        <p>Can't a guy call his mother pretty without it seeming strange? Amen. I think that's one of Mom's little fibs, you know, like I'll sacrifice anything for my children.</p>
+        <p>Here's the little about me section</p>
         
-        <p>She's always got to wedge herself in the middle of us so that she can control everything. Yeah. Mom's awesome. I run a pretty tight ship around here. With a pool table.</p>
+        <p>Here's some more of the little about me section</p>
       </section>
       
-      <section id="activity" class="hidden">
+      <section id="interests" class="hidden">
         <p>Most recent actions:</p>
         
-        <p class="activity">@10:15PM - Submitted a news article</p>
+        <p class="interests">@10:15PM - Submitted a news article</p>
         
-        <p class="activity">@9:50PM - Submitted a news article</p>
+        <p class="interests">@9:50PM - Submitted a news article</p>
         
-        <p class="activity">@8:15PM - Posted a comment</p>
+        <p class="interests">@8:15PM - Posted a comment</p>
         
-        <p class="activity">@4:30PM - Added <strong>someusername</strong> as a friend</p>
+        <p class="interests">@4:30PM - Added <strong>someusername</strong> as a friend</p>
         
-        <p class="activity">@12:30PM - Submitted a news article</p>
+        <p class="interests">@12:30PM - Submitted a news article</p>
       </section>
       
       <section id="friends" class="hidden">
@@ -82,23 +121,10 @@
       </section>
     </div><!-- @end #content -->
   </div><!-- @end #w -->
-<script type="text/javascript">
-$(function(){
-  $('#profiletabs ul li a').on('click', function(e){
-    e.preventDefault();
-    var newcontent = $(this).attr('href');
-    
-    $('#profiletabs ul li a').removeClass('sel');
-    $(this).addClass('sel');
-    
-    $('#content section').each(function(){
-      if(!$(this).hasClass('hidden')) { $(this).addClass('hidden'); }
-    });
-    
-    $(newcontent).removeClass('hidden');
-  });
-});
-</script>
+     <!-- JQuery -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="static/js/profile_home.js"></script>
+{% endblock %}
 </body>
-	{% endblock %}
 	</html>

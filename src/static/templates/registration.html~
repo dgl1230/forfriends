@@ -16,8 +16,8 @@
 <div id="carbonForm">
 	<h1>Signup</h1>
 
-    <form action='.' method='POST' id='signupForm'> {% csrf_token %}
-		{{ form }}
+    <!--form action='.' method='POST' id='signupForm'> {% csrf_token %}
+		{{ form }} -->
 
     <div class="fieldContainer">
         <div class="formRow">
@@ -87,8 +87,8 @@
             </div>
             
             <div class="field">
-                <input type="radio" name="sex" value="male">Male:<br>
-<input type="radio" name="sex" value="female">Female/>
+                <input type="radio" name="sex" value="male">Male<br>
+<input type="radio" name="sex" value="female">Female
             </div>
         </div>      
             
@@ -101,8 +101,6 @@
     </form>
         
 </div>
-
-<h2 id="footer"><a href="http://tutorialzine.com/2010/04/carbon-signup-form/">Go Back To The Tutorial &raquo;</a></h2>
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 <script type="text/javascript" src="registration.js"></script>
