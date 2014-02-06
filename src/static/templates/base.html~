@@ -11,7 +11,7 @@
 </head>
 
 <body>
-<body style="background-color:BAC4D8;">
+
 {% block content %}{% endblock %}
     <div class="container">        
     <p>&copy; ForFriends 2014</p>

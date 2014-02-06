@@ -1,0 +1,13 @@
+<!doctype html>
+<html>
+<head>
+<title>Bootstrap 101 Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="static/css/styles.css" rel="stylesheet" type="text/css" >
+</head>
+<body>
+	<div class="shape" id="shape1"></div>
+	<div class="shape" id="shape2"></div>
+	<div class="shape" id="shape3"></div>
+</body>
+</html>

@@ -7,7 +7,7 @@
 		</form> -->
 <html>
 <head>
-<title>ForFriends</title>
+<title>ForFriends Login</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,59 +15,161 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
     
-<!-- Bootstrap -->
-    <link href="static/css/bootstrap.css" rel="stylesheet"> 
+<!-- Bootstrap --> 
 <!-- CSS TOP MENU 
     <link rel="stylesheet" href="static/css/top_menu.css">
 <!--CSS Sign up menu-->
-    <link rel="stylesheet" href="static/css/signup_menu.css">
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"> 
-
-<!-- Required Padding for Header -->
-<style type="text/css">
- body { padding-top: 60px; }
- body { padding-bottom: 20px; } 
-</style>
-
+    <link rel="stylesheet" href="src/static/css/signup_menu.css">
 </head>
-
 <body>
-<!--<body style="background-color:DDDDDD;">
-<!-- Sign in form -->
-<div class="container">
+<!--Banner-->
+<div id="banner">
+    <div id="banner-content">
+    <p>ForFriends<p>
+		<div id="subbanner">
+		<p>A place to meet people.<p>
+    </div>
+  </div>
+</div>
 
-<div class="row" style="margin-top:30px">
-    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-		<form role="form">
-			<fieldset>
-				<h2>Please Sign In</h2>
-				<hr class="colorgraph">
+
+<div class="all">
+<!-- Sign in form -->
+<div class="left">
+				<h3 class="heading">Welcome Back!</h3>
+				<hr>
 				<div class="form-group">
-                    <input type="email" name="email" id="email" class="form-control input-lg" placeholder="Email Address">
+                    <input type="email" name="email" id="email" placeholder="Email Address">
 				</div>
 				<div class="form-group">
-                    <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password">
+        <input type="password" name="password" id="password" placeholder="Password">
 				</div>
 				<span class="button-checkbox">
-					<button type="button" class="btn" data-color="info">Remember Me</button>
+					Remember Me
                     <input type="checkbox" name="remember_me" id="remember_me" checked="checked" class="hidden">
-					<a href="" class="btn btn-link pull-right">Forgot Password?</a>
+					<a href="" class="pw">Forgot your Password?</a>
 				</span>
-				<hr class="colorgraph">
 				<div class="row">
-					<div class="col-xs-6 col-sm-6 col-md-6">
-                        <input type="submit" class="btn btn-lg btn-success btn-block" value="Sign In">
+                        <input type="submit" id="submit" value="Sign In">
 					</div>
-					<div class="col-xs-6 col-sm-6 col-md-6">
-						<a href="" class="btn btn-lg btn-primary btn-block">Register</a>
-					</div>
-				</div>
 			</fieldset>
 		</form>
 	</div>
 </div>
+</div>
 
+
+<!--Registration-->
+<div class="right">
+
+	<h1 class="heading">New Member? Sign up here!</h1>
+
+    <!--form action='.' method='POST' id='signupForm'> {% csrf_token %}
+		{{ form }} -->
+		
+    <div class="fieldContainer">
+				<h1>New Member? Sign up here!</h1>
+				<hr>
+        
+		<div class="formRow">
+            <div class="label">
+
+                <label for="firstname">First Name:</label>
+            </div>
+            
+            <div class="field">
+                <input type="text" name="firstname" id="firstname" />
+            </div>
+        </div>	
+
+		<div class="formRow">
+            <div class="label">
+
+                <label for="lastname">Last Name:</label>
+            </div>
+            
+            <div class="field">
+                <input type="text" name="lastname" id="lastname" />
+            </div>
+        </div>        
+        
+		<div class="formRow">
+            <div class="label">
+
+                <label for="username">Username:</label>
+            </div>
+            
+            <div class="field">
+                <input type="text" name="username" id="username" />
+            </div>
+        </div>    
+        
+		<div class="formRow">
+            <div class="label">
+                <label for="email">Email:</label>
+            </div>
+            
+            <div class="field">
+                <input type="text" name="email" id="email" />
+            </div>
+        </div>
+        
+        <div class="formRow">
+            <div class="label">
+                <label for="pass">Password:</label>
+            </div>
+            
+            <div class="field">
+                <input type="password" name="pass" id="pass" placeholder="******" />
+            </div>
+        </div>
+	 
+	 <div class="formRow">
+            <div class="label">
+
+                <label for="state">State:</label>
+            </div>
+            
+            <div class="field">
+                <input type="text" name="state" id="state" />
+            </div>
+        </div>      
+        
+		<div class="formRow">
+            <div class="label">
+
+                <label for="gender">Gender:</label>
+            </div>
+            
+            <div class="field">
+                <input type="radio" name="sex" value="male">Male<br>
+<input type="radio" name="sex" value="female">Female
+            </div>
+        </div>   
+   		<br>
+		<div class="terms">
+            <div class="termslabel">
+                <label for="terms">Agree to Terms and Conditions:</label>
+            </div>
+            
+            <div class="field">
+                <input type="checkbox" name="terms" id="terms" checked="checked" class="hidden"/>
+            </div>
+        </div>  
+        <div class="formRow">
+            <div class="label">   
+		</div>
+		</div>
+    
+    <div class="signupButton">
+        <input type="submit" name="submit" id="submit" value="Sign Up"/>
+		</div>
+		</div> <!-- Closing fieldContainer -->
+    
+    </form>
+        
+</div>
+</div>
 </div>
              
 
@@ -76,7 +178,7 @@
 <script type="text/javascript" src="static/js/signin.js"></script>
 <!-- Jquery -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-
-</body>
 {% endblock %}
+</body>
+
 </html>

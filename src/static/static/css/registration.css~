@@ -4,45 +4,33 @@
 	padding:0;
 }
 
-html{
-	overflow:auto;
 }
 
-body{
+.right{
 	/* Setting default text color, background and a font stack */
 	font-size:0.825em;
 	color:#eee;
-	background:url("img/bg.png") repeat-x #eee;
-	font-family:Arial, Helvetica, sans-serif;
+	font-family: Helvetica, sans-serif;
+	float: right;
 }
 
-#carbonForm{
-	/* The main form container */
-	background-color:#505055;
-	border:1px solid #080808;
-	margin:20px auto;
-	padding:20px;
-	width:500px;
-	
-	-moz-box-shadow:0 0 1px #444 inset;
-	-webkit-box-shadow:0 0 1px #444 inset;
-	box-shadow:0 0 1px #444 inset;
-}
 
-#carbonForm h1{
+.right h1{
 	/* The form heading */
-	font-family:Century Gothic,Myriad Pro,Arial,Helvetica,sans-serif;
-	font-size:60px;
+	font-family: sans-serif,Century Gothic,Myriad Pro,Arial,Helvetica,;
+	font-size:20px;
 	font-weight:normal;
-	padding:0 0 30px 10px;
-	text-align:left;
+	text-align:right;
+	color: #f8f8f8
 }
 
 .fieldContainer{
 	/* The light rounded section, which contans the fields */
-	background-color:#3BA3F8;
-	border:1px solid #3BA3F8;
-	padding:30px 10px;
+	background-color:#9B9BAB;
+	border:5px solid #FFE0F0;
+	padding:20px 10px;
+	float:right;
+	margin-top: 123px;
 	
 	/* CSS3 box shadow, used as an inner glow */
 	-moz-box-shadow:0 0 20px #134CF9 inset;
@@ -52,9 +40,9 @@ body{
 
 #carbonForm,.fieldContainer,.errorTip{
 	/* Rounding the divs at once */
-	-moz-border-radius:12px;
-	-webkit-border-radius:12px;
-	border-radius:12px;
+	-moz-border-radius:1px;
+	-webkit-border-radius:1px;
+	border-radius:1px;
 }
 
 
@@ -67,7 +55,7 @@ body{
 .label{
 	float:left;
 	padding:0 20px 0 0;
-	text-align:right;
+	text-align:left;
 	width:70px;
 }
 
@@ -80,14 +68,17 @@ label{
 
 .field{
 	float:left;
-}
+	font-family: Helvetica,sans-serif, Arial;
+	font-size:11px;
+	letter-spacing:1px;
+	line-height:35px;
 
 .field input{
 	/* The text boxes */
-	border:1px solid white;
-	color:#3BA3F8;
-	font-family:Arial,Helvetica,sans-serif;
-	font-size:22px;
+	border:1px solid #f8f8f8;
+	color:#00005c;
+	font-family:Helvetica,sans-serif;
+	font-size:20px;
 	padding:4px 5px;
 	background:url("img/box_bg.png") repeat-x scroll left top #eee;
 	outline:none; /* Preventing the default Safari and Chrome text box highlight */
@@ -103,10 +94,11 @@ label{
 	/* The submit button */
 	border:1px solid #3BA3F8;
 	cursor:pointer;
-	height:40px;
+	margin-top: 10px;
+	height:30px;
 	text-indent:-9999px;
 	text-transform:uppercase;
-	width:110px;
+	width:80px;
 	
 	background:url("img/submit.png") no-repeat center center #d0ecfd;
 	
@@ -122,7 +114,7 @@ label{
 
 #submit:hover{
 	background-color:#3BA3F8;
-	border:1px solid white;
+	border:1px solid #f8f8f8;
 }
 
 input:hover,
@@ -135,7 +127,7 @@ input:focus{
 .errorTip{
 	/* The error divs */
 	background-color:#970F08;
-	color:white;
+	color:#f8f8f8;
 	font-size:10px;
 	height:26px;
 	letter-spacing:0.4px;
@@ -145,32 +137,4 @@ input:focus{
 	text-shadow:1px 1px 0 #555555;
 	width:200px;
 	right:-130px;
-}
-
-
-/* The styles below are only necessary for the styling of the demo page: */
-
-#footer{
-	position:fixed;
-	bottom:0;
-	width:100%;
-	padding:10px;
-	color:#eee;
-	text-align:center;
-	font-weight:normal;
-	font-style:italic;
-}
-
-a, a:visited {
-	color:#0196e3;
-	text-decoration:none;
-	outline:none;
-}
-
-a:hover{
-	text-decoration:underline;
-}
-
-a img{
-	border:none;
 }
