@@ -22,9 +22,9 @@ color:#f8f8f8;
 	padding:20px 10px;
 	float:left;
 	margin-top:150px;
-	border-radius: 20px;
-	-moz-border-radius:20px;
-	-webkit-border-radius:20px;
+	border-radius: 10px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
 	
 	/* CSS3 box shadow, used as an inner glow */
 	-moz-box-shadow:0 0 20px #134CF9 inset;
@@ -94,9 +94,9 @@ padding: 10px 0px 5px;
 
 #carbonForm,.fieldContainer,.errorTip{
 	/* Rounding the divs at once */
-	-moz-border-radius:20px;
-	-webkit-border-radius:20px;
-	border-radius:20px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
 }
 
 
@@ -133,7 +133,7 @@ label{
 	color:#00005c;
 	font-family: sans-serif, Helvetica;
 	font-size:12px;
-	border-radius:5px;
+	border-radius:3px;
 	padding:4px 5px;
 	background:url("img/box_bg.png") repeat-x scroll left top #eee;
 	outline:none; /* Preventing the default Safari and Chrome text box highlight */
@@ -155,9 +155,9 @@ label{
 	width:90px;
 	font-weight: bold;
 	
-	-moz-border-radius:6px;
-	-webkit-border-radius:6px;
-	border-radius:6px;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
 }
 #submit.active{
 	/* Marking the submit button as active adds the preloader gif as background */

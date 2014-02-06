@@ -1,26 +1,77 @@
 <DOCTYPE HTML>
 {% extends 'base.html' %}
 {% block content %}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+		<!-- <form action='.' method='POST'> {% csrf_token %}
+		{{ form }}
+		<input type='submit' value='Join'>
+		</form> -->
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>ForFriends Registration Form</title>
+<title>ForFriends Login</title>
 
-<link rel="stylesheet" type="text/css" href="static/css/registration.css"/>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
+    
+<!-- Bootstrap --> 
+<!-- CSS TOP MENU 
+    <link rel="stylesheet" href="static/css/top_menu.css">
+<!--CSS Sign up menu-->
+    <link rel="stylesheet" href="css/signup_menu.css">
 </head>
-
 <body>
+<!--Banner-->
+<div id="banner">
+    <div id="banner-content">
+    <p>ForFriends<p>
+		<div id="subbanner">
+		<p>A place to meet people.<p>
+    </div>
+  </div>
+</div>
 
-<div id="carbonForm">
-	<h1>Signup</h1>
+
+<div class="all">
+<!-- Sign in form -->
+<div class="left">
+				<h3 class="heading">Welcome Back!</h3>
+				<hr>
+				<div class="form-group">
+                    <input type="email" name="email" id="email" placeholder="Email Address">
+				</div>
+				<div class="form-group">
+        <input type="password" name="password" id="password" placeholder="Password">
+				</div>
+				<span class="button-checkbox">
+					Remember Me
+                    <input type="checkbox" name="remember_me" id="remember_me" checked="checked" class="hidden">
+					<a href="" class="pw">Forgot your Password?</a>
+				</span>
+				<div class="row">
+                        <input type="submit" id="submit" value="Sign In">
+					</div>
+			</fieldset>
+		</form>
+	</div>
+</div>
+</div>
+
+
+<!--Registration-->
+<div class="right">
+
+	<h1 class="heading">New Member? Sign up here!</h1>
 
     <!--form action='.' method='POST' id='signupForm'> {% csrf_token %}
 		{{ form }} -->
-
+		
     <div class="fieldContainer">
-        <div class="formRow">
+				<h1>New Member? Sign up here!</h1>
+				<hr>
+        
+		<div class="formRow">
             <div class="label">
 
                 <label for="firstname">First Name:</label>
@@ -30,7 +81,8 @@
                 <input type="text" name="firstname" id="firstname" />
             </div>
         </div>	
-	 <div class="formRow">
+
+		<div class="formRow">
             <div class="label">
 
                 <label for="lastname">Last Name:</label>
@@ -40,7 +92,8 @@
                 <input type="text" name="lastname" id="lastname" />
             </div>
         </div>        
-        <div class="formRow">
+        
+		<div class="formRow">
             <div class="label">
 
                 <label for="username">Username:</label>
@@ -50,7 +103,8 @@
                 <input type="text" name="username" id="username" />
             </div>
         </div>    
-        <div class="formRow">
+        
+		<div class="formRow">
             <div class="label">
                 <label for="email">Email:</label>
             </div>
@@ -66,7 +120,7 @@
             </div>
             
             <div class="field">
-                <input type="password" name="pass" id="pass" />
+                <input type="password" name="pass" id="pass" placeholder="******" />
             </div>
         </div>
 	 
@@ -80,7 +134,8 @@
                 <input type="text" name="state" id="state" />
             </div>
         </div>      
-        <div class="formRow">
+        
+		<div class="formRow">
             <div class="label">
 
                 <label for="gender">Gender:</label>
@@ -90,20 +145,40 @@
                 <input type="radio" name="sex" value="male">Male<br>
 <input type="radio" name="sex" value="female">Female
             </div>
-        </div>      
+        </div>   
+   		<br>
+		<div class="terms">
+            <div class="termslabel">
+                <label for="terms">Agree to Terms and Conditions:</label>
+            </div>
             
-    </div> <!-- Closing fieldContainer -->
+            <div class="field">
+                <input type="checkbox" name="terms" id="terms" checked="checked" class="hidden"/>
+            </div>
+        </div>  
+        <div class="formRow">
+            <div class="label">   
+		</div>
+		</div>
     
     <div class="signupButton">
-        <input type="submit" name="submit" id="submit" value="Signup" />
-    </div>
+        <input type="submit" name="submit" id="submit" value="Sign Up"/>
+		</div>
+		</div> <!-- Closing fieldContainer -->
     
     </form>
         
 </div>
+</div>
+</div>
+             
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-<script type="text/javascript" src="registration.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="static/js/signin.js"></script>
+<!-- Jquery -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 {% endblock %}
 </body>
+
 </html>

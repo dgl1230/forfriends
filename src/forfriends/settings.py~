@@ -98,6 +98,8 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
+
+
 TEMPLATE_DIRS = (
     BASE_DIR + "/static/templates/"
     )
