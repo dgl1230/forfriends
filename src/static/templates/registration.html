@@ -66,103 +66,17 @@
 
     <!--form action='.' method='POST' id='signupForm'> {% csrf_token %}
 		{{ form }} -->
-		
+	
+     <form action="" method="post"> 
     <div class="fieldContainer">
 				<h1>New Member? Sign up here!</h1>
-				<hr>
-        
-		<div class="formRow">
-            <div class="label">
 
-                <label for="firstname">First Name:</label>
-            </div>
-            
-            <div class="field">
-                <input type="text" name="firstname" id="firstname" />
-            </div>
-        </div>	
+		{% for field in form %} {% csrf_token %}
+            {{ field }}
+        {% endfor %}
 
-		<div class="formRow">
-            <div class="label">
-
-                <label for="lastname">Last Name:</label>
-            </div>
-            
-            <div class="field">
-                <input type="text" name="lastname" id="lastname" />
-            </div>
-        </div>        
-        
-		<div class="formRow">
-            <div class="label">
-
-                <label for="username">Username:</label>
-            </div>
-            
-            <div class="field">
-                <input type="text" name="username" id="username" />
-            </div>
-        </div>    
-        
-		<div class="formRow">
-            <div class="label">
-                <label for="email">Email:</label>
-            </div>
-            
-            <div class="field">
-                <input type="text" name="email" id="email" />
-            </div>
-        </div>
-        
-        <div class="formRow">
-            <div class="label">
-                <label for="pass">Password:</label>
-            </div>
-            
-            <div class="field">
-                <input type="password" name="pass" id="pass" placeholder="******" />
-            </div>
-        </div>
-	 
-	 <div class="formRow">
-            <div class="label">
-
-                <label for="state">State:</label>
-            </div>
-            
-            <div class="field">
-                <input type="text" name="state" id="state" />
-            </div>
-        </div>      
-        
-		<div class="formRow">
-            <div class="label">
-
-                <label for="gender">Gender:</label>
-            </div>
-            
-            <div class="field">
-                <input type="radio" name="sex" value="male">Male<br>
-<input type="radio" name="sex" value="female">Female
-            </div>
-        </div>   
-   		<br>
-		<div class="terms">
-            <div class="termslabel">
-                <label for="terms">Agree to Terms and Conditions:</label>
-            </div>
-            
-            <div class="field">
-                <input type="checkbox" name="terms" id="terms" checked="checked" class="hidden"/>
-            </div>
-        </div>  
-        <div class="formRow">
-            <div class="label">   
-		</div>
-		</div>
-    
     <div class="signupButton">
-        <input type="submit" name="submit" id="submit" value="Sign Up"/>
+        <input type="submit" name="next" value="submit"/>
 		</div>
 		</div> <!-- Closing fieldContainer -->
     

@@ -101,3 +101,5 @@ STATICFILES_FINDERS = (
 TEMPLATE_DIRS = (
     BASE_DIR + "/static/templates/"
     )
+
+LOGIN_REDIRECT_URL = '/'
