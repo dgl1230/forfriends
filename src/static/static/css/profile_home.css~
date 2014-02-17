@@ -5,96 +5,173 @@ html, body
     font-family: sans-serif;
 }
 
-html{
-	background-color: #f8f8f8;
-}
-
-/* text in .top */
-.usernav{
-float: right;
-padding: 10px;
-margin-top: -20px;
-}
-
-.usernav a{
-text-decoration: none;
-color: black;
-}
-
-.usernav a:hover{
-color: gray;
-}
-
-
-.top{
-	position: absolute; 
-  top: 0; 
-  left: 0; 
-  background-color: #474B59; 
-  width: 800px; 
-  padding: 0px 150px;
-	height: 100px;
-	border:1px solid #FFE0F0;
-}
 body {
-  background: #fff;
+  background: #f8f8f8;
   margin: 0;  
 }
 
-.middle{
-float: right;
-margin-left: 200px;
-margin-right: 100px;
-margin-top: 100px;
-background-color: #f8f8f8;
-}
-
-.pic{
-	background-color: #f8f8f8;
+.logo{
+	margin-left: 15%;
+	padding: 4.5% 2%;
+	position: relative;
 }
 .toolbar {
   position: absolute;
-  background: #2F2F31;   
+  background: #333;   
   width: 15%;
   height: 100%;  
   left: 0;
   top: 0;
-  min-width: 100px; 
-}
-
-.sidebar{
-	padding: 20px 10px;
+  min-width: 100px;
 }
 .toolbar p a{
-     color: #FFE0F0;
-     font-weight: bold;
-		 text-decoration: none;
+	color: #FFE0F0;
+    font-weight: bold;
+    text-decoration: none; 
+	margin-top: 60%;
+	text-shadow: .1px .1px .1px #ddd;
+
+}
+.toolbar p a:hover{
+	text-shadow: .6px .6px .6px #069;
+}
+.toolbar p{
+margin-top: 30%;
+padding: 10px;
 }
 
-.toolbar p a:hover {
-color: white;
-}
-.left{
-	float: left;
-	margin-left: 150px;
-	margin-top: -100px;
-	background-color: #f8f8f8;
-}
-
-#name{
-margin-top: -180px;
-background-color: #f8f8f8;
-}
-
-#aboutme p{
-	font-size: 12px;
-}
-#aboutme h1{
-font-size: 18px;
-}
 #placeHolder{
   display: none;  
 }
-.wrapper { width: 850px; height:600; overflow: hidden; margin: 0 auto; background: none; }
 
+.header {height: 20.6%; background-color:  #C6C6C6; width: 100%; min-width: 850px; position: relative;}
 
+.nav {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+	border-radius: 10px;
+	margin-top: -140px;
+}
+
+.nav ul{
+	list-style: none;
+}
+
+.info{
+
+}
+.nav li {
+	float: right;
+	width: 160px;
+	position: relative;
+	border-radius: 5px;
+}
+
+.nav li a {
+	background: #333;
+	color: #FFE0F0;
+	display: block;
+	padding: 7px 8px;
+	text-decoration: none;
+	border: .5px solid #f8f8f8;
+	text-align: center;
+}
+
+.nav li a:hover{
+	text-shadow: .6px .6px .6px #069;
+}
+	
+
+.left { display: block; 
+        width: 40%; 
+        height: 300px;
+        position: absolute;
+        float: left;
+        overflow: hidden; 
+        background-color: none; 
+        margin-left: 16%;
+        margin-top: 35px;
+        border: solid 1px #f8f8f8;
+				border-radius: 6px;
+}
+
+#name{
+    float:left;
+    font-size: 24px;
+		background-color: #f8f8f8;
+		margin-left: 17%;
+		margin-top: 0;
+		padding-top: 5px;
+		padding-bottom: 5px;
+		position: absolute;
+		text-align: center;
+}
+
+.pic{
+	margin-top:0;
+    margin-left: 50px;
+    position: absolute;
+    float: left
+    width: 100px;
+    height: 100px;
+		border: solid 1px #f8f8f8;
+		padding:5px;
+}
+
+#tabs{
+		background-color:blue;
+		width: 40%;
+    margin-left:59%;
+    margin-top: 4%;
+ 		background-color: #333;
+    border: solid 1px #f8f8f8;
+    min-width: 280px;
+    max-width: 480px;
+		border-radius: 6px;
+		padding: 2px;
+		position: absolute;
+		float: right;
+		min-height:300px;
+}
+#tabs ul{
+	background-color:none;
+}
+#tabs ul li{
+	display: inline-block;
+}
+#tabs ul li a{
+	color: white;
+	text-decoration: none;
+	font-size: 16px;
+	padding-right:10px;
+	padding-left:10px;
+	text-align: center;
+	background-color: #333;
+	border-radius: 10px;
+}
+
+#tabs ul li a:hover{
+	border-top: 3px solid blue;
+	padding-top: 20px;
+}
+#tabs-1, #tabs-2, #tabs-3{
+	color: white;
+	text-align: center;
+}
+
+#one{
+	float: left;
+}
+
+#two{
+	float: center;
+}
+#three{
+	float: right;
+}
+
+.footer{
+	clear:both;
+	text-align:center;
+}

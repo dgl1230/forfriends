@@ -1,88 +1,104 @@
 <!DOCTYPE html>
-{% extends 'base.html' %}
-{% block content %}
 	<html lang="en">
 	<head>
 	    <meta charset="utf-8" />
 	    <title>ForFriends Profile</title>
 	      <!-- Body CSS -->
 	    <link rel="stylesheet" type="text/css" href="static/css/profile_home.css">
-               <!-- Bootstrap   
-            <link href="static/css/profile_view.css" rel="stylesheet"> -->
-	    
+
 	    <meta name="author" content="Jake Rocheleau">
             <link rel="shortcut icon" href="http://designshack.net/favicon.ico">
             <link rel="icon" href="http://designshack.net/favicon.ico">
             <link rel="stylesheet" type="text/css" media="all" href="static/css/styles.css">
-  
-</head>
-
-<body>
-<header>
-        <div class="wrapper">
-		<div class="top">
-			<p id="tophead"> For Friends </p>
-			<p id="subhead">A Place to meet People. </p>
-            <a href="#"></a>
-            <span class="usernav"><a href="#">Logout</a> - <a href="#">Settings</a> - <a href="#">My Profile<span></a></span>
-		</div>
-    </header>
-  <br/><br/>
-        <div class="toolbar" style="direction:ltr";>
-            <br><br><br><br><br>
-			<div class="sidebar">
-            <p class="sidebar"><a href="#">Homepage</a></p>
-			<hr>
-            <p class="sidebar"><a href="#">Profile</a><p>
-			<hr>
-            <p class="sidebar"><a href="#">Archives</a></p>
-			<hr>
-            <p class="sidebar"><a href="#">Interests</a></p>
-			<hr>
-            <p class="sidebar"><a href="#">Search</a></p>
-			<hr>
-            <p class="sidebar"><a href="#">Find Friends</a></p>        
-			</div>
-		</div>
-    </div>
-                <div class="middle">
-                    <h3>San Francisco, CA</h3>
-                    <h4><a href="http://spyrestudios.com/">http://spyrestudios.com/</a></h4>
-                    <div class="socialMediaLinks">
-                        <a href="http://twitter.com/jakerocheleau" rel="me" target="_blank"><img src="img/twitter.png" alt="@jakerocheleau" /></a>
-                        <a href="http://gowalla.com/users/JakeRocheleau" rel="me" target="_blank"><img src="img/gowalla.png" /></a>
-                    </div>
-                    <div class="head"><h2>Friends List</h2></div>
-                <div class="boxy">
-                    <p>Your friends</p>
-                        <div class="friend">
-                            <a href="#"><img src="img/friend_avatar_default.jpg" width="50" height="50" alt="Alexa S." /></a><span class="friendly"><a href="#">Alexa S.</a></span>
-                <span><a href="#friendslist">See all...</a></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <div class="left">
-            <h1 id="name">Johnny Appleseed</h1>
-                <a class="pic" href="#"><img src="static/img/friend_avatar_default.jpg" width="200" height="200"/></a>
-            <div id="aboutme">
-            <h1>About Me</h1>
-            <p>aaaaaaaaaaaaaaa</p>
-			<p>aaaaaaaaaaaaaaa </p>
-			<p>ppppppppppppppp </p>
-            </div>
-		</div>
-        </div>
-        </div>
-    </div>
-    </div>
-</body>
-</html>
-
-     <!-- JQuery -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+			
+<!--Javascript-->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <script src="static/js/profile_home.js"></script>
-{% endblock %}
-</body>
-	</html>
+		
+</head>
+<body>
+		<div class="header">
+		<!--Logo-->
+		<div class="logo">
+				<a href="#"><img src="static/img/logo2.png"/></a>	
+		</div>	
+		<!-- Horizontal Top Menu -->
+		<div class="navigation">
+  		<ul class="nav">
+			<li>
+  				<a href="#">Contact</a>
+  				<ul>
+  					<li><a href="#">Report a Problem</a></li>
+  					<li><a href="#">Give us Feedback!</a></li>
+  				</ul>
+  			</li>
+  			<li>
+  				<a href="#">Settings</a>
+  				<ul>
+  					<li><a href="#">Edit Profile</a></li>
+  					<li><a href="#">Help</a></li>
+  					<li><a href="#">Log out</a></li>
+  				</ul>
+  			</li>
+			<li>
+  				<a href="#">View Profile</a>
+  			</li>
+  		</ul>
+  	</div>
+    </div>
+    <nav>
+        <div class="toolbar" style="direction:ltr";>
+            <br></br><br></br>
+            <p class="homepage"><a href="#">Homepage</a></p>
+			<hr>
+            <p><a href="#">Friends</a></p>
+			<hr>
+            <p><a href="#">Archives</a></p>
+			<hr>            
+						<p><a href="#">Interests</a></p>
+			<hr>            
+						<p><a href="#">Search</a></p>
+			<hr>
+            <p><a href="#">Find Friends</a></p>
+        </div>
+    </nav>
+				<!--Tabs-->
+
+								<div id="tabs">
+									<ul>
+										<li><a href="#tabs-1">Current City</a></li>
+										<li><a href="#tabs-2">Friends</a></li>
+										<li><a href="#tabs-3">About Me</a></li>
+								</ul>
+								<hr>
+									<div id="tabs-1">
+										<div class="location">
+										<p>San Francisco, CA</p>
+										</div>
+									</div>
+									<div id="tabs-2">
+										<h5>Friends List</h5>
+                		<div class="boxy">
+                    <p>Your friends</p>
+                    	<div class="friend">
+                      	<a href="#"><img src="img/friend_avatar_default.jpg" width="30" height="30" alt="Nick Kebbas" /></a>
+                <span><a href="#friendslist">See all...</a></span>
+                      </div>
+                    </div>
+									</div>
+									<div id="tabs-3">
+										<p> Undergraduate at Cornell University, very interested in entrepreneurship, politics, technology and how they can all possibly go together. The world needs to take a lot of steps forward, and I'd like to contribute to these movements, however small they may be. </p>
+									</div>
+								</div>	
+
+		<h1 id="name">Johnny Appleseed</h1>
+        <div class="left">     
+            <div class="pic">
+                <a href="#"><img src="static/img/avatar.png"/></a>
+            </div>
+        </div>
+	</div>
+	<!--footer><div class="footer" id="footer">ForFriends</div>-->
+	</body>
+</html>
