@@ -59,12 +59,12 @@ WSGI_APPLICATION = 'forfriends.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'forfriends_db',
-        'USER': 'forfriends_login',
-        'PASSWORD': os.environ['FORFRIENDS_DB_PASS'],
-        'HOST':'localhost',
-        'PORT': '5432',
+        'USER': '',                      # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',   
     }
 }
 
@@ -102,4 +102,7 @@ TEMPLATE_DIRS = (
     BASE_DIR + "/static/templates/"
     )
 
-LOGIN_REDIRECT_URL = '/'
+
+
+AUTH_PROFILE_MODULE = "userprofile.UserProfile"
+

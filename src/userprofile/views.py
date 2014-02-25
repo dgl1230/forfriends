@@ -3,28 +3,44 @@ from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.core.context_processors import csrf
 from django.contrib.auth import authenticate, login
+from .models import UserProfile
 
-from .forms import CreateUserForm
+
+from .forms import CreateUserForm, AuthenticateForm
 
 
-def registration(request):
-	return render_to_response("profile_home.html")
+def login_view(request):
+	if request.method == 'POST':
+		form = AuthenticateForm(data=request.POST)
+		if form.is_valid():
+			login(request, form.get_user())
+			return HttpResponseRedirect('profile_home')
+		else: 
+			return HttpResponseRedirect('/')
+	return HttpResponseRedirect('/')
+
+
+def profilehome(request):
+	return render_to_response('profile_home.html', context_instance=RequestContext(request))
+
 
 def signup(request):
+	form = CreateUserForm(data=request.POST)
 	if request.method == 'POST':
-		user_form = CreateUserForm(data=request.POST)
-		print "userform created"
-		if user_form.is_valid():
-			print "it's valid"
-			username = request.POST['username']
-			password = user_form.clean_password2()
-			user_form.save()
-			#user = authenticate(username=username, password=password)
-			#login(request, user)
-			return HttpResponseRedirect('/')
+		if form.is_valid():
+			birthday = request.POST['birthday']
+			gender = request.POST['gender']
+			username = form.clean_username()
+			password = form.clean_password2()
+			form.save()
+			user = authenticate(username=username, password=password)
+			new_profile = UserProfile(user=user)
+			new_profile.birthday = birthday
+			new_profile.gender = gender
+			new_profile.save()
+			login(request, user)
+			return HttpResponseRedirect('profile_home')
 		else: 
-			print "it's not valid"
-			print user_form.errors
 			return HttpResponseRedirect('/')
 	else:
 		form  = CreateUserForm
