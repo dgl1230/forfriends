@@ -5,7 +5,7 @@ $(document).ready(function(){
         $('.pw').css('color', 'black');
         $('.forgot_menu').css('display', 'inline');
     });
-	$('#cancel').click(function(){
+		    $('#cancel').click(function(){
         $('.pw').css('color', 'black');
         $('.forgot_menu').css('display', 'none');
 		});		

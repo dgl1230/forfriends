@@ -19,13 +19,20 @@
 <!-- CSS TOP MENU 
     <link rel="stylesheet" href="static/css/top_menu.css">
 <!--CSS Sign up menu-->
-    <link rel="stylesheet" href="css/signup_menu.css">
+    <link rel="stylesheet" href="static/css/signup_menu.css">
+
+<!--JS-->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="static/js/registration.js"></script>
 </head>
+
 <body>
 <!--Banner-->
 <div id="banner">
     <div id="banner-content">
-    <p>ForFriends<p>
+		<div class="logo">
+			<a href="#"><img src="static/img/logo2.png"/></a>
+		</div>
 		<div id="subbanner">
 		<p>A place to meet people.<p>
     </div>
@@ -46,17 +53,25 @@
 				</div>
 				<span class="button-checkbox">
 					Remember Me
-                    <input type="checkbox" name="remember_me" id="remember_me" checked="checked" class="hidden">
-					<a href="" class="pw">Forgot your Password?</a>
+         	<input type="checkbox" name="remember_me" id="remember_me" checked="checked" class="hidden">
+				<a class="pw">Forgot your Password?</a>
 				</span>
 				<div class="row">
-                        <input type="submit" id="submit" value="Sign In">
-					</div>
-			</fieldset>
-		</form>
+        	<input type="submit" id="submit" value="Sign In">
+				</div>
 	</div>
-</div>
-</div>
+	
+	<div class='forgot_menu'>
+						<p> We'll Email you your Password! </p>
+						<div class="form-group">
+        			<input type="email" name="email" id="email" placeholder="Email Address">
+						</div>
+						<div class="row">
+        	<input type="submit" id="submit" value="Search">
+					<input type="submit" id="cancel" value="Cancel">
+				</div>
+	</div>
+	</div>
 
 
 <!--Registration-->
@@ -66,21 +81,18 @@
 
     <!--form action='.' method='POST' id='signupForm'> {% csrf_token %}
 		{{ form }} -->
-		
+	
+     <form action="" method="post"> 
     <div class="fieldContainer">
 				<h1>New Member? Sign up here!</h1>
 				<hr>
         
-		<div class="formRow">
-            <div class="label">
 
-                <label for="firstname">First Name:</label>
-            </div>
-            
-            <div class="field">
-                <input type="text" name="firstname" id="firstname" />
-            </div>
-        </div>	
+            <div class="label">	<div class="formRow">
+
+		{% for field in form %} {% csrf_token %}
+            {{ field }}
+        {% endfor %}
 
 		<div class="formRow">
             <div class="label">
@@ -135,34 +147,24 @@
             </div>
         </div>      
         
-		<div class="formRow">
-            <div class="label">
-
+				<div class="formRow">
+        		<div class="label">
                 <label for="gender">Gender:</label>
             </div>
-            
             <div class="field">
-                <input type="radio" name="sex" value="male">Male<br>
-<input type="radio" name="sex" value="female">Female
+                <input type="radio" name="sex" value="male" class="gender">Male
+								<input type="radio" name="sex" value="female" class="gender">Female
             </div>
-        </div>   
-   		<br>
-		<div class="terms">
-            <div class="termslabel">
-                <label for="terms">Agree to Terms and Conditions:</label>
+      </div>   
+		  <div class="field">
+			<span class="button-checkbox">
+					Agree to Terms and Conditions
+         	<input type="checkbox" name="terms" id="terms" checked="checked" class="hidden">
+				</span>  
             </div>
-            
-            <div class="field">
-                <input type="checkbox" name="terms" id="terms" checked="checked" class="hidden"/>
-            </div>
-        </div>  
-        <div class="formRow">
-            <div class="label">   
-		</div>
-		</div>
     
     <div class="signupButton">
-        <input type="submit" name="submit" id="submit" value="Sign Up"/>
+        <input type="submit" name="next" value="submit"/>
 		</div>
 		</div> <!-- Closing fieldContainer -->
     

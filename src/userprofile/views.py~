@@ -44,4 +44,4 @@ def signup(request):
 			return HttpResponseRedirect('/')
 	else:
 		form  = CreateUserForm
-		context_instance=RequestContext(request)
+		context_instance=RequestContext(request))
