@@ -3,7 +3,8 @@ $(document).ready(
   function () {
     $('.nav li').hover(
       function () { 
-        $('ul', this).fadeIn("fast");
+        $('.nav li ul li').css('display', 'inline');
+	$('ul', this).fadeIn("fast");
       },
       function () { 
         $('ul', this).fadeOut("fast");
