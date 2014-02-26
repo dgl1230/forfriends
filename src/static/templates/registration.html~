@@ -46,10 +46,10 @@
 				<h3 class="heading">Welcome Back!</h3>
 				<hr>
 				<div class="form-group">
-        	<input type="email" name="email" id="email" placeholder="Email Address">
+                    <input type="email" name="email" id="email" placeholder="Email Address">
 				</div>
 				<div class="form-group">
-        	<input type="password" name="password" id="password" placeholder="Password">
+        <input type="password" name="password" id="password" placeholder="Password">
 				</div>
 				<span class="button-checkbox">
 					Remember Me
@@ -77,23 +77,22 @@
 <!--Registration-->
 <div class="right">
 
+	<h1 class="heading">New Member? Sign up here!</h1>
+
     <!--form action='.' method='POST' id='signupForm'> {% csrf_token %}
 		{{ form }} -->
-		
+	
+     <form action="" method="post"> 
     <div class="fieldContainer">
 				<h1>New Member? Sign up here!</h1>
 				<hr>
         
-		<div class="formRow">
-            <div class="label">
 
-                <label for="firstname">First Name:</label>
-            </div>
-            
-            <div class="field">
-                <input type="text" name="firstname" id="firstname" />
-            </div>
-        </div>	
+            <div class="label">	<div class="formRow">
+
+		{% for field in form %} {% csrf_token %}
+            {{ field }}
+        {% endfor %}
 
 		<div class="formRow">
             <div class="label">
@@ -163,11 +162,9 @@
          	<input type="checkbox" name="terms" id="terms" checked="checked" class="hidden">
 				</span>  
             </div>
-        </div>  
     
     <div class="signupButton">
-        <input type="submit" name="submit" id="submit" value="Register"/>
-		</div>
+        <input type="submit" name="next" value="submit"/>
 		</div>
 		</div> <!-- Closing fieldContainer -->
     
@@ -180,7 +177,9 @@
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="static/js/signin.js"></script>
 <!-- Jquery -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 {% endblock %}
 </body>
 

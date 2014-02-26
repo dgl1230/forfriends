@@ -1,5 +1,5 @@
 """
-Django settings for forfriends project.
+Django settings for newapp project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.6/topics/settings/
@@ -36,8 +36,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'south',
-    'userprofile',
+	'south',
+	'userprofile',
 )
 
 TEMPLATE_DIRS = (
@@ -63,7 +63,15 @@ WSGI_APPLICATION = 'forfriends.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
+<<<<<<< HEAD
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+=======
+        'NAME': 'forfriends_db',
+        'USER': '',                      # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',   
+>>>>>>> c206818064e98bc14a8e95dd427a02a1ec9a0fbb
     }
 }
 
@@ -83,13 +91,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
-
-STATIC_URL = '/static/'
-
 STATICFILES_DIRS = (
-    os.path.join(os.path.dirname(os.path.dirname(__file__)), 'static/static'),
-    
+    '/home/nick/forfriends/src/static/static',
 )
+<<<<<<< HEAD
+STATIC_URL = '/static/'
+=======
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -97,6 +104,12 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
+TEMPLATE_DIRS = (
+    BASE_DIR + "/static/templates/"
+    )
+
+
 
 AUTH_PROFILE_MODULE = "userprofile.UserProfile"
 
+>>>>>>> c206818064e98bc14a8e95dd427a02a1ec9a0fbb

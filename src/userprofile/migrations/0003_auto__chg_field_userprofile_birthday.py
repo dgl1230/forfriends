@@ -8,26 +8,14 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'UserProfile'
-        db.create_table(u'userprofile_userprofile', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('birthday', self.gf('django.db.models.fields.DateTimeField')()),
-            ('city', self.gf('django.db.models.fields.CharField')(max_length=20)),
-            ('country', self.gf('django.db.models.fields.CharField')(max_length=40)),
-            ('created', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('gender', self.gf('django.db.models.fields.CharField')(max_length=1)),
-            ('last_name', self.gf('django.db.models.fields.CharField')(max_length=20)),
-            ('modified', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
-            ('summary', self.gf('django.db.models.fields.CharField')(max_length=420)),
-            ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
-        ))
-        db.send_create_signal(u'userprofile', ['UserProfile'])
 
+        # Changing field 'UserProfile.birthday'
+        db.alter_column(u'userprofile_userprofile', 'birthday', self.gf('django.db.models.fields.DateTimeField')())
 
     def backwards(self, orm):
-        # Deleting model 'UserProfile'
-        db.delete_table(u'userprofile_userprofile')
 
+        # Changing field 'UserProfile.birthday'
+        db.alter_column(u'userprofile_userprofile', 'birthday', self.gf('django.db.models.fields.DateField')())
 
     models = {
         u'auth.group': {

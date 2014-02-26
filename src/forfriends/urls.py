@@ -3,7 +3,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
 
-from userprofile.views import registration
+from userprofile.views import signup
 
 urlpatterns = patterns('',
     # Examples:
@@ -12,5 +12,8 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'userprofile.views.signup'),
+    url(r'^profile_home$', 'userprofile.views.profilehome'),
+    #url(r'^test/$', 'userprofile.views.registration'),
+    #url(r'submit', 'userprofile.views.registration'),
     
 )

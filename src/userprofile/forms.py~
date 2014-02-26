@@ -12,7 +12,7 @@ class CreateUserForm(UserCreationForm):
 
 	GENDER = (
 	('M', 'Male'),
-	('F', 'Female'),
+	('F', 'Female')
 )
 
 	#birthday = forms.DateField(required=True, widget=forms.widgets.TextInput(attrs={'placeholder': 'Birthday'}))
