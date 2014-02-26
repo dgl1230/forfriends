@@ -24,5 +24,5 @@ def signup(request):
 			return redirect('/')
 	else:
 		form  = CreateUserForm
-		return render_to_response('registration.html', {'form': form}, 
+		return render_to_response('profile_home.html', {'form': form}, 
 		 context_instance=RequestContext(request))
