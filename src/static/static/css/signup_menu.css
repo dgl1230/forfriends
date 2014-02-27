@@ -23,10 +23,10 @@ color:#f8f8f8;
 .left {
 	/* The light rounded section, which contans the fields */
 	background-color:#888888;
-	    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #888888), color-stop(1, #333) );
-    background:-moz-linear-gradient( center top, #888888 5%, #333 100% );
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #888888), color-stop(1, #333) );
+  background:-moz-linear-gradient( center top, #888888 5%, #333 100% );
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#888888', endColorstr='#333');
-    background-color:#ffffff;
+  background-color:#ffffff;
 	border:1px solid #FFE0F0;
 	padding:20px 10px;
 	float:left;
@@ -59,6 +59,8 @@ padding: 10px 0px 5px;
 
 .button-checkbox{
 	font-size: 10px;
+	display: inline;
+	
 }
 
 .pw{
@@ -106,7 +108,7 @@ padding: 10px 0px 5px;
 	
 }
 .forgot_menu p{
-		font-family: sans-serif,Century Gothic,Myriad Pro,Arial,Helvetica,;
+	font-family: sans-serif,Century Gothic,Myriad Pro,Arial,Helvetica,;
 	font-size:12px;
 	font-weight: bold;
 	text-align:left;
@@ -124,7 +126,7 @@ padding: 10px 0px 5px;
 	color:#eee;
 	font-family: sans-serif, Helvetica;
 	float: right;
-	height: 80%;
+	height: 85%;
 }
 
 
@@ -140,16 +142,16 @@ padding: 10px 0px 5px;
 .fieldContainer{
 	/* The light rounded section, which contans the fields */
 	background-color:#888888;
-	    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #888888), color-stop(1, #333) );
-    background:-moz-linear-gradient( center top, #888888 5%, #333 100% );
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #888888), color-stop(1, #333) );
+  background:-moz-linear-gradient( center top, #888888 5%, #333 100% );
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#888888', endColorstr='#333');
-    background-color:#ffffff;
+  background-color:#ffffff;
 	border:1px solid #FFE0F0;
 	padding:20px 10px;
 	position: absolute;
 	float:right;
-	margin-top: 10%;
-	margin-left: -35%;
+	margin-top: 5%;
+	margin-left: -15%;
 	font-size: 10px;
 	
 	/* CSS3 box shadow, used as an inner glow */
@@ -258,30 +260,30 @@ input:focus{
 	right:-130px;
 }
 .termslabel{
-position: inline;
-float: left;
+	position: inline;
+	float: left;
 }
 
 /*Banner*/
 
 div#banner { 
-	position: absolute; 
+		position: absolute; 
     top: 0; 
     left: 0; 
-		    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #888888), color-stop(1, #333) );
+		background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #888888), color-stop(1, #333) );
     background:-moz-linear-gradient( center top, #888888 5%, #333 100% );
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#888888', endColorstr='#333');
     background-color:#ffffff;
     background-color: #888888; 
     width: 100%; 
     padding-top: 0px;
-	padding-bottom: 0px;
-	height: 100px;
-	border:1px solid #FFE0F0;
+		padding-bottom: 0px;
+		height: 100px;
+		border:1px solid #FFE0F0;
 }
 div#banner-content{ 
-    width: 800px; 
-    margin: 0 auto; 
+	width: 800px; 
+	margin: 0 auto; 
 	font-size: 24px;
 	color: #f8f8f8;
 	padding-top: 0px;
