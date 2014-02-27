@@ -43,14 +43,14 @@
             <br>
             <p class="homepage"><a href="#">View Profile</a></p>
 			
-            <p><a href="#">Friends</a></p>
+            <p class="tools"><a href="#">Friends</a></p>
 			
-            <p><a href="#">Interests</a></p>
+            <p class="tools"><a href="#">Interests</a></p>
 			           
-						<p><a href="#">Archives</a></p>
+						<p class="tools"><a href="#">Archives</a></p>
 			            
-						<p><a href="#">Search</a></p>
-			      <p><a href="#">Find Friends</a></p>
+						<p class="tools"><a href="#">Search</a></p>
+			      <p class="tools"><a href="#">Find Friends</a></p>
         </div>
     </nav>
 				<!--Fun Button -->
