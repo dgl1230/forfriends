@@ -41,7 +41,7 @@ INSTALLED_APPS = (
 )
 
 TEMPLATE_DIRS = (
-    '/home/nick/forfriends/src/static/templates',
+    os.path.join(BASE_DIR, 'static/templates'),
 )
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
