@@ -1,11 +1,16 @@
 html{
-    	padding-top: 20px;
+  padding-top: 20px;
 	padding-bottom: 10px;
 	font-family:  sans-serif, Helvetica;
 	background-color: #f8f8f8;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #C6C6C6), color-stop(1, #f8f8f8) );
+  background:-moz-linear-gradient( center top, #C6C6C6 1%, #f8f8f8 75% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#C6C6C6', endColorstr='#f8f8f8');
 }
 body{ 
-  background-color: #f8f8f8;
+		background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #C6C6C6), color-stop(1, #f8f8f8) );
+    background:-moz-linear-gradient( center top, #C6C6C6 5%, #f8f8f8 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#C6C6C6', endColorstr='#f8f8f8');
 }
 
 h3{
@@ -18,13 +23,19 @@ color:#f8f8f8;
 .left {
 	/* The light rounded section, which contans the fields */
 	background-color:#888888;
+	    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #888888), color-stop(1, #333) );
+    background:-moz-linear-gradient( center top, #888888 5%, #333 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#888888', endColorstr='#333');
+    background-color:#ffffff;
 	border:1px solid #FFE0F0;
 	padding:20px 10px;
 	float:left;
-	margin-top:150px;
+	margin-top:0%;
+	position: absolute;
 	border-radius: 10px;
 	-moz-border-radius:10px;
 	-webkit-border-radius:10px;
+	
 	
 	/* CSS3 box shadow, used as an inner glow */
 	-moz-box-shadow:0 0 20px #134CF9 inset;
@@ -53,10 +64,58 @@ padding: 10px 0px 5px;
 .pw{
 	float: right;
 	color: black;
+	cursor:pointer;
 }
 .pw active{ color: blue;
 }
 
+/* left side */
+
+.all{
+	height: 80%;
+	width: 50%;
+	position: absolute;
+	background-color: none;
+	margin-top: 10%;
+}
+
+/*Forgot Password */
+
+.forgot_menu{
+	display: none;
+	position: absolute; 
+	border:1px solid #FFE0F0; 
+	background-color: #888888;
+	    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #888888), color-stop(1, #333) );
+    background:-moz-linear-gradient( center top, #888888 5%, #333 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#888888', endColorstr='#333');
+    background-color:#ffffff;
+	padding: 5px;
+	height: 30%;
+	width: 50%;
+	margin-top: 0%;
+	margin-left: 55%;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+
+	/* CSS3 box shadow, used as an inner glow */
+	-moz-box-shadow:0 0 20px #134CF9 inset;
+	-webkit-box-shadow:0 0 20px #292929 inset;
+	box-shadow:0 0 20px #292929 inset;
+	
+}
+.forgot_menu p{
+		font-family: sans-serif,Century Gothic,Myriad Pro,Arial,Helvetica,;
+	font-size:12px;
+	font-weight: bold;
+	text-align:left;
+	color: #f8f8f8
+}
+
+.forget_menu.active{
+	display: none;
+}
 /* Registration sheet */
 
 .right{
@@ -65,6 +124,7 @@ padding: 10px 0px 5px;
 	color:#eee;
 	font-family: sans-serif, Helvetica;
 	float: right;
+	height: 80%;
 }
 
 
@@ -80,10 +140,16 @@ padding: 10px 0px 5px;
 .fieldContainer{
 	/* The light rounded section, which contans the fields */
 	background-color:#888888;
+	    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #888888), color-stop(1, #333) );
+    background:-moz-linear-gradient( center top, #888888 5%, #333 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#888888', endColorstr='#333');
+    background-color:#ffffff;
 	border:1px solid #FFE0F0;
 	padding:20px 10px;
+	position: absolute;
 	float:right;
-	margin-top: 60px;
+	margin-top: 10%;
+	margin-left: -35%;
 	font-size: 10px;
 	
 	/* CSS3 box shadow, used as an inner glow */
@@ -108,16 +174,18 @@ padding: 10px 0px 5px;
 
 .label{
 	float:left;
-	padding:0 20px 0 0;
+	padding:0 10px 0 0;
 	text-align:left;
-	width:70px;
+	width:80px;
 }
 
+.gender{
+}
 label{
 	font-family: sans-serif, Century Gothic,Myriad Pro,Arial,Helvetica;
 	font-size:10px;
 	letter-spacing:1px;
-	line-height:35px;
+	line-height:25px;
 }
 
 .field{
@@ -125,7 +193,7 @@ label{
 	font-family: sans-serif, Helvetica, Arial;
 	font-size:10px;
 	letter-spacing:1px;
-	line-height:35px;
+	line-height:40px;
 }
 .field input{
 	/* The text boxes */
@@ -142,22 +210,21 @@ label{
 .signupButton{
 	/* The submit button container */
 	text-align:center;
-	padding:30px 0 10px;
+	padding:40px 0 10px;
 }
 
-#submit{
+#submit, #cancel{
 	/* The submit button */
-	border:1px solid #3BA3F8;
 	cursor:pointer;
 	margin-top: 10px;
 	height:30px;
 	text-indent:-0px;
 	width:90px;
 	font-weight: bold;
-	
-	-moz-border-radius:3px;
-	-webkit-border-radius:3px;
-	border-radius:3px;
+	text-align: center;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
 }
 #submit.active{
 	/* Marking the submit button as active adds the preloader gif as background */
@@ -193,16 +260,20 @@ input:focus{
 .termslabel{
 position: inline;
 float: left;
-
 }
+
 /*Banner*/
 
 div#banner { 
 	position: absolute; 
     top: 0; 
     left: 0; 
-    background-color: #474B59; 
-    width: 935px; 
+		    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #888888), color-stop(1, #333) );
+    background:-moz-linear-gradient( center top, #888888 5%, #333 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#888888', endColorstr='#333');
+    background-color:#ffffff;
+    background-color: #888888; 
+    width: 100%; 
     padding-top: 0px;
 	padding-bottom: 0px;
 	height: 100px;
@@ -222,3 +293,9 @@ div#subbanner {
 }
 div#main-content { 
 }
+
+.logo{
+margin-top: 15px;
+padding-bottom:5px;
+}
+
