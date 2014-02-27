@@ -14,14 +14,12 @@ def login_view(request):
 		form = AuthenticateForm(data=request.POST)
 		if form.is_valid():
 			login(request, form.get_user())
+			print "logged in holmes"
 			return HttpResponseRedirect('profile_home')
 		else: 
 			return HttpResponseRedirect('/')
-	return HttpResponseRedirect('/')
-
-
-def profilehome(request):
-	return render_to_response('profile_home.html', context_instance=RequestContext(request))
+	else: 
+		return HttpResponseRedirect('/')
 
 
 def signup(request):
@@ -45,4 +43,4 @@ def signup(request):
 	else:
 		form  = CreateUserForm
 		return render_to_response('registration.html', {'form': form},  
-		 context_instance=RequestContext(request))
+			 context_instance=RequestContext(request))

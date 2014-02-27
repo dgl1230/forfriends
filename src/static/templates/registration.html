@@ -38,8 +38,9 @@
 <div class="left">
 				<h3 class="heading">Welcome Back!</h3>
 				<hr>
+                <form action="profile_home/" method="post">{% csrf_token %}
 				<div class="form-group">
-                    <input type="email" name="email" id="email" placeholder="Email Address">
+                    <input type="username" name="username" id="username" placeholder="Username">
 				</div>
 				<div class="form-group">
         <input type="password" name="password" id="password" placeholder="Password">
@@ -50,8 +51,9 @@
 					<a href="" class="pw">Forgot your Password?</a>
 				</span>
 				<div class="row">
-                        <input type="submit" id="submit" value="Sign In">
+                        <input type="submit" name="login" value="submit">
 					</div>
+                </form>
 			</fieldset>
 		</form>
 	</div>
@@ -76,7 +78,7 @@
         {% endfor %}
 
     <div class="signupButton">
-        <input type="submit" name="next" value="submit"/>
+        <input type="submit" value="submit"/>
 		</div>
 		</div> <!-- Closing fieldContainer -->
     
@@ -86,6 +88,10 @@
 </div>
 </div>
              
+
+function changeValue(){
+   document.getElementById('button-name').value="register"
+}
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>

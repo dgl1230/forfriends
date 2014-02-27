@@ -15,7 +15,6 @@ class CreateUserForm(UserCreationForm):
 	('F', 'Female')
 )
 
-	#birthday = forms.DateField(required=True, widget=forms.widgets.TextInput(attrs={'placeholder': 'Birthday'}))
 	birthday = forms.DateField(required=True, widget=forms.widgets.DateInput(attrs={'placeholder': 'Birthday'}))
 	email = forms.EmailField(required=True, widget=forms.widgets.TextInput(attrs={'placeholder': 'Email'}))
 	first_name = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={'placeholder': 'First Name'}))
