@@ -3,11 +3,17 @@ from django.utils.encoding import smart_unicode
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 
+
+
 GENDER_CHOICES = (
 	('M', 'Male'),
 	('F', 'Female')
 )
 
+
+class Interest(models.Model):
+	content = models.CharField(max_length=30)
+	user = models.ForeignKey(User)
 
 class UserProfile(models.Model):
 	birthday = models.DateTimeField()

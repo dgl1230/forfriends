@@ -5,9 +5,11 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
 from django.utils.html import strip_tags
 from django.forms import extras
-from .models import UserProfile
+from .models import UserProfile, Interest
 
 class CreateUserForm(UserCreationForm): 
+
+	MY_DATE_FORMATS = ['%d/%m/%Y',]
     
 
 	GENDER = (
@@ -15,7 +17,7 @@ class CreateUserForm(UserCreationForm):
 	('F', 'Female'),
 )
 
-	birthday = forms.DateField(required=True, widget=forms.widgets.DateInput(attrs={'placeholder': 'Birthday'}))
+	birthday = forms.DateField(required=True, input_formats=MY_DATE_FORMATS, widget=forms.widgets.DateInput(attrs={'placeholder': 'Birthday'}))
 	email = forms.EmailField(required=True, widget=forms.widgets.TextInput(attrs={'placeholder': 'Email'}))
 	first_name = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={'placeholder': 'First Name'}))
 	gender = forms.ChoiceField(choices=GENDER)
@@ -26,6 +28,9 @@ class CreateUserForm(UserCreationForm):
 	
 	def is_valid(self):
 		form = super(CreateUserForm, self).is_valid()
+		#for f, error in self.errors.iteritems():
+			#if f != '__all__':
+				#self.fields[f].widget.attrs.update({'class': 'error', 'value': strip_tags(error)})
 		return form
 
 
@@ -41,5 +46,18 @@ class AuthenticateForm(AuthenticationForm):
 	password = forms.CharField(widget=forms.widgets.PasswordInput(attrs={'placeholder': 'Password'}))
 
 	def is_valid(self):
-		form = super(AuthenticationForm, self).is_valid()
+		form = super(AuthenticateForm, self).is_valid()
+		#for f, error in self.errors.iteritems():
+			#if f != '__all__':
+				#self.fields[f].widget.attrs.update({'class': 'error', 'value': strip_tags(error)})
+		#return form
+
+class InterestForm(forms.ModelForm):
+	interest = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={'placeholder': 'Create an interest'}))
+
+	def is_valid(self):
+		form = super(InterestForm, self).is_valid()
 		return form
+
+	class Meta:
+		model = Interest

@@ -12,7 +12,8 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'userprofile.views.signup'),
-    url(r'^profile_home$', 'userprofile.views.login_view'),
+    url(r'^profile_home$', 'userprofile.views.home'),
+    url(r'^logged_in$', 'userprofile.views.login_view'),
     #url(r'^test/$', 'userprofile.views.registration'),
     #url(r'submit', 'userprofile.views.registration'),
     
