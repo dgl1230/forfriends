@@ -9,7 +9,7 @@ from .models import UserProfile, Interest
 
 class CreateUserForm(UserCreationForm): 
 
-	MY_DATE_FORMATS = ['%d/%m/%Y',]
+	#MY_DATE_FORMATS = ['%d/%m/%Y',] input_formats=MY_DATE_FORMATS,
     
 
 	GENDER = (
@@ -17,7 +17,7 @@ class CreateUserForm(UserCreationForm):
 	('F', 'Female'),
 )
 
-	birthday = forms.DateField(required=True, input_formats=MY_DATE_FORMATS, widget=forms.widgets.DateInput(attrs={'placeholder': 'Birthday'}))
+	birthday = forms.DateField(required=True, widget=forms.widgets.DateInput(attrs={'placeholder': 'Birthday'}))
 	email = forms.EmailField(required=True, widget=forms.widgets.TextInput(attrs={'placeholder': 'Email'}))
 	first_name = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={'placeholder': 'First Name'}))
 	gender = forms.ChoiceField(choices=GENDER)
@@ -37,7 +37,7 @@ class CreateUserForm(UserCreationForm):
 	class Meta:
 		model = User
 		fields = ['email', 'username', 'first_name', 'last_name',  
-					'password1', 'password2']
+					'password1', 'password2', 'birthday', 'gender']
 
 
 
@@ -50,7 +50,7 @@ class AuthenticateForm(AuthenticationForm):
 		#for f, error in self.errors.iteritems():
 			#if f != '__all__':
 				#self.fields[f].widget.attrs.update({'class': 'error', 'value': strip_tags(error)})
-		#return form
+		return form
 
 class InterestForm(forms.ModelForm):
 	interest = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={'placeholder': 'Create an interest'}))

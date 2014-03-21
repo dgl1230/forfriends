@@ -31,7 +31,6 @@ def login_view(request):
 		form = AuthenticateForm(data=request.POST)
 		if form.is_valid():
 			login(request, form.get_user())
-
 			return HttpResponseRedirect('profile_home')
 		else: 
 			return HttpResponseRedirect('/')
@@ -40,10 +39,11 @@ def login_view(request):
 
 
 def signup(request):
+	form  = CreateUserForm
 	if request.method == 'POST':
 		form = CreateUserForm(data=request.POST)
 		if form.is_valid():
-			print "it's no valid"
+			print "it's valid"
 			birthday = request.POST['birthday']
 			gender = request.POST['gender']
 			username = form.clean_username()
@@ -59,7 +59,8 @@ def signup(request):
 			return HttpResponseRedirect('profile_home')
 		else: 
 			print "it's not valid"
-	form  = CreateUserForm
-	return render_to_response('registration.html', {'form': form},  
-		context_instance=RequestContext(request))
+			return HttpResponseRedirect('/')
+	else :
+		return render_to_response('registration.html', {'form': form},  
+			context_instance=RequestContext(request))
 
