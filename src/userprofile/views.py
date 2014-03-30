@@ -26,6 +26,15 @@ def add_interest(request):
 def home(request):
 	return render_to_response('profile_home.html', context_instance=RequestContext(request))
 
+def profile_view(request):
+	return render_to_response('profile_view.html', context_instance=RequestContext(request))
+
+def interests(request):
+	return render_to_response('interests.html', context_instance=RequestContext(request))
+
+def pictures(request):
+	return render_to_response('pictures.html', context_instance=RequestContext(request))
+
 def login_view(request):
 	if request.method == 'POST':
 		form = AuthenticateForm(data=request.POST)
