@@ -1,16 +1,6 @@
 html{
-  	padding-top: 20px;
-	padding-bottom: 10px;
-	font-family:  sans-serif, Helvetica;
-	background-color: #f8f8f8;
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #C6C6C6), color-stop(1, #f8f8f8) );
-  	background:-moz-linear-gradient( center top, #C6C6C6 1%, #f8f8f8 75% );
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#C6C6C6', endColorstr='#f8f8f8');
 }
 body{ 
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #C6C6C6), color-stop(1, #f8f8f8) );
-    background:-moz-linear-gradient( center top, #C6C6C6 5%, #f8f8f8 100% );
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#C6C6C6', endColorstr='#f8f8f8');
 }
 
 h3{
@@ -22,7 +12,7 @@ h3{
 }
 .left {
 	/* The light rounded section, which contans the fields */
-	background-color:#888888;
+	background-color: none;
 	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #888888), color-stop(1, #333) );
   	background:-moz-linear-gradient( center top, #888888 5%, #333 100% );
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#888888', endColorstr='#333');
@@ -30,6 +20,7 @@ h3{
 	border:1px solid #FFE0F0;
 	padding:20px 10px;
 	float:left;
+	height: 60%;
 	margin-top:0%;
 	position: absolute;
 	border-radius: 10px;
@@ -43,7 +34,7 @@ h3{
 	box-shadow:0 0 20px #292929 inset;
 }
 
-.row, .top, .formgroup{
+.slot, .top, .formgroup{
 	padding:10px;
 }
 
@@ -88,24 +79,15 @@ h3{
 	display: none;
 	position: absolute; 
 	border:1px solid #FFE0F0; 
-	background-color: #888888;
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #888888), color-stop(1, #333) );
-    background:-moz-linear-gradient( center top, #888888 5%, #333 100% );
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#888888', endColorstr='#333');
-    background-color:#ffffff;
+    background-color:#428bca;
 	padding: 5px;
 	height: 30%;
-	width: 50%;
+	width: 25%;
 	margin-top: 0%;
 	margin-left: 55%;
 	-moz-border-radius:10px;
 	-webkit-border-radius:10px;
 	border-radius:10px;
-
-	/* CSS3 box shadow, used as an inner glow */
-	-moz-box-shadow:0 0 20px #134CF9 inset;
-	-webkit-box-shadow:0 0 20px #292929 inset;
-	box-shadow:0 0 20px #292929 inset;
 	
 }
 .forgot_menu p{
@@ -142,18 +124,16 @@ h3{
 
 .fieldContainer{
 	/* The light rounded section, which contans the fields */
-	background-color:#888888;
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #888888), color-stop(1, #333) );
-  	background:-moz-linear-gradient( center top, #888888 5%, #333 100% );
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#888888', endColorstr='#333');
-  	background-color:#ffffff;
+  	background-color:#2c2c2c;
 	border:1px solid #FFE0F0;
 	padding:20px 10px;
 	position: absolute;
 	float:right;
 	margin-top: 5%;
-	margin-left: -15%;
+	margin-left: 5%;
+	width:80%;
 	font-size: 10px;
+	color: #FFF;
 	
 	/* CSS3 box shadow, used as an inner glow */
 	-moz-box-shadow:0 0 20px #134CF9 inset;
@@ -169,10 +149,11 @@ h3{
 }
 
 
-.formRow{
+.formslot{
 	height:35px;
 	padding:10px;
 	position:relative;
+	display: block;
 }
 
 .label{
@@ -186,7 +167,7 @@ h3{
 }
 label{
 	font-family: sans-serif, Century Gothic,Myriad Pro,Arial,Helvetica;
-	font-size:10px;
+	font-size:1.5em;
 	letter-spacing:1px;
 	line-height:25px;
 }
@@ -194,9 +175,10 @@ label{
 .field{
 	float:left;
 	font-family: sans-serif, Helvetica, Arial;
-	font-size:10px;
+	font-size:1.5em;
 	letter-spacing:1px;
-	line-height:40px;
+	line-height:1.5em;
+	display: block;
 }
 .field input{
 	/* The text boxes */
@@ -265,40 +247,6 @@ input:focus{
 	float: left;
 }
 
-/*Banner*/
-
-div#banner { 
-	position: absolute; 
-    top: 0; 
-    left: 0; 
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #888888), color-stop(1, #333) );
-    background:-moz-linear-gradient( center top, #888888 5%, #333 100% );
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#888888', endColorstr='#333');
-    background-color:#ffffff;
-    background-color: #888888; 
-    width: 100%; 
-    padding-top: 0px;
-	padding-bottom: 0px;
-	height: 100px;
-	border:1px solid #FFE0F0;
+.background-image{
+	z-index: -9999;
 }
-div#banner-content{ 
-	width: 800px; 
-	margin: 0 auto; 
-	font-size: 24px;
-	color: #f8f8f8;
-	padding-top: 0px;
-}
-div#subbanner { 
-	font-size: 12px; 
-	color: #f8f8f8;
-	margin-top: -20px;
-}
-div#main-content { 
-}
-
-.logo{
-	margin-top: 15px;
-	padding-bottom:5px;
-}
-

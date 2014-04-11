@@ -3,65 +3,24 @@
   <meta charset="utf-8" />
 
   <title>ForFriends Profile</title><!-- Body CSS -->
-  <link rel="stylesheet" type="text/css" href="static/css/profile_home.css" />
-  <link rel="stylesheet" type="text/css" media="all" href="static/css/styles.css" />
+  <link rel="stylesheet" href="static/css/profile_view.css">
+  <link rel="stylesheet" href="static/css/sidebar.css">
+  <link rel="stylesheet" media="all" href="static/css/styles.css">
+  <link rel="stylesheet" href="static/css/bootstrap.css">
   <!--Javascript-->
-
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js" type=
-  "text/javascript">
-</script>
-  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js" type="text/javascript">
-</script>
-  <script src="static/js/profile_view.js" type="text/javascript">
-</script>
 </head>
 
 <body>
-  <div class="header">
-    <!--Logo-->
+  {% include 'navbar.html' %}
+  <div style: padding-bottom:"20px";></div>
+  {% include 'sidebar.html' %}
 
-    <div class="logo">
-      <a href="#"><img src="static/img/logo2.png" /></a>
-    </div><!-- Horizontal Top Menu -->
-
-    <div class="navigation">
-      <ul class="nav">
-        <li>
-          <a href="#">4 FRIENDS</a>
-
-          <ul>
-            <li><a href="profile_home">Edit Profile</a></li>
-
-            <li><a href="#">Contact Us</a></li>
-
-            <li><a href="#">Help</a></li>
-
-            <li><a href="#">Log-out</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="toolbar" style="direction:ltr">
-    <br />
-
-    <p class="homepage"><a href="#">View Profile</a></p>
-
-    <p class="tools"><a href="#">Friends</a></p>
-
-    <p class="tools"><a href="interests">Interests</a></p>
-
-    <p class="tools"><a href="pictures">Pictures</a></p>
-
-    <p class="tools"><a href="#">Find Friends</a></p>
-  </div>
-  <h1 id="name">Johnny Appleseed</h1>
+  <h1 id="name">User Name</h1>
 
   <div class="left">
     <div class="pic">
       <figure>
-      <a href="#"><img src="static/img/avatar.png" width="150"></a>
+      <a href="#"><img src="static/img/white_girl.jpg" width="100%"></a>
       <figcaption class="caption"><a href="#">Change profile Picture</a></figcaption>
       </figure>
     </div>
@@ -81,7 +40,11 @@
 
       <li style="list-style: none">{% endfor %}</li>
     </ul>
-  </div><!--footer><div class="footer" id="footer">ForFriends</div>-->
+  </div>
+  {% include 'footer.html' %}
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"type="text/javascript"></script>
+  <script src="static/js/profile_view.js" type="text/javascript"></script>
+  <script src="static/js/bootstrap.js" type="text/javascript"></script>
 </body>
 </html>
 

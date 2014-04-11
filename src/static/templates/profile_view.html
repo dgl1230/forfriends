@@ -3,97 +3,25 @@
   <meta charset="utf-8" />
 
   <title>ForFriends Profile</title><!-- Body CSS -->
-  <link rel="stylesheet" type="text/css" href="static/css/profile_view.css" />
-  <link rel="stylesheet" type="text/css" media="all" href="static/css/styles.css" />
-  <!--Javascript-->
+  <link rel="stylesheet" href="static/css/profile_view.css">
+  <link rel="stylesheet" href="static/css/sidebar.css" rel="stylesheet">
+  <link rel="stylesheet" media="all" href="static/css/styles.css">
+  <link rel="stylesheet" href="static/css/bootstrap.css">
 
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js" type=
-  "text/javascript">
-</script>
-  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js" type="text/javascript">
-</script>
-  <script src="static/js/profile_view.js" type="text/javascript">
-</script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js" type="text/javascript"></script>
+  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js" type="text/javascript"></script>
+  <script src="static/js/profile_view.js" type="text/javascript"></script>
+  <script src="static/js/bootstrap.js" type="text/javascript"></script>
 </head>
 
 <body>
-  <div class="header">
-    <!--Logo-->
-
-    <div class="logo">
-      <a href="#"><img src="static/img/logo2.png" /></a>
-    </div><!-- Horizontal Top Menu -->
-
-    <div class="navigation">
-      <ul class="nav">
-        <li>
-          <a href="#">4 FRIENDS</a>
-
-          <ul>
-            <li><a href="profile_home">Home</a></li>
-
-            <li><a href="#">Contact Us</a></li>
-
-            <li><a href="#">Help</a></li>
-
-            <li><a href="#">Log-out</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  </div><!--Fun Button -->
-  <button type="input" class="myButton">Find a Friend!</button> <!--Tabs-->
-
-  <div id="tabs">
-    <ul>
-      <li><a href="#tabs-1">Current City</a></li>
-
-      <li><a href="#tabs-2">Friends</a></li>
-
-      <li><a href="#tabs-3">About Me</a></li>
-    </ul>
-    <hr />
-
-    <div id="tabs-1">
-      <div class="location">
-        {% for locations in location_list %}
-
-        <p>{{ location.name }}</p>{% empty %}
-
-        <p>San Francisco, CA</p>{% endfor %}
-      </div>
-    </div>
-
-    <div id="tabs-2">
-      <h5>Friends List</h5>
-
-      <div class="boxy">
-        <p>Your friends</p>
-
-        <div class="friend">
-          {% for friend in friend_list %}
-
-          <p>{{ friend.name }}</p><span><a href="#friendslist">See all...</a></span> {%
-          empty %}
-
-          <p>You have no friends</p>{% endfor %}
-        </div>
-      </div>
-    </div>
-
-    <div id="tabs-3">
-      <p>Undergraduate at Cornell University, very interested in entrepreneurship,
-      politics, technology and how they can all possibly go together. The world needs to
-      take a lot of steps forward, and I'd like to contribute to these movements, however
-      small they may be.</p>
-    </div>
-  </div>
+  {% include 'navbar.html' %}
+  {% include 'sidebar.html' %}
+  <!--Fun Button -->
   <div class="left">
   <h1 id="name">Johnny Appleseed</h1>
     <div class="pic">
-      <a href="#"><img src="static/img/avatar.png" width="300" /></a>
+      <a href="#"><img src="static/img/white_girl.jpg" width="300" /></a>
     </div>
   </div>
 
@@ -111,7 +39,52 @@
 
       <li style="list-style: none">{% endfor %}</li>
     </ul>
-  </div><!--footer><div class="footer" id="footer">ForFriends</div>-->
+  </div>
+
+  <div class="right">
+    <div id="tabs">
+      <ul>
+        <li><a href="#tabs-1">Interests</a></li>
+        <li><a href="#tabs-2">Friends</a></li>
+        <li><a href="#tabs-3">About Me</a></li>
+      </ul>
+
+      <div id="tabs-1">
+        <div class="Interests">
+          {% for interests in interest_list %}
+
+          <p>{{ interest.name }}</p>{% empty %}
+
+          <p>Coding</p>
+          <p> Discussing Politics </p>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div id="tabs-2">
+        <div class="boxy">
+          <div class="friend">
+            {% for friend in friend_list %}
+
+            <p>{{ friend.name }}</p><span><a href="#friendslist">See all...</a></span> {%empty %}
+
+            <p>You have no friends</p>{% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <div id="tabs-3">
+        <p>Undergraduate at Cornell University, very interested in entrepreneurship,
+        politics, technology and how they can all possibly go together. The world needs to
+        take a lot of steps forward, and I'd like to contribute to these movements, however
+        small they may be.</p>
+      </div>
+
+    </div>
+  </div>
+  <button type="input" class="myButton">Add Friend!</button> 
+  {% include 'footer.html' %}
+
 </body>
 </html>
 

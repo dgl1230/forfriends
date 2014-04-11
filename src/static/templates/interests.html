@@ -1,0 +1,51 @@
+
+{% block content %}
+<head>
+
+<title>Interests</title>
+<link rel="stylesheet" type="text/css" href="static/css/profile_home.css">
+<link rel="stylesheet" type="text/css" href="static/css/bootstrap.css">
+<link rel="stylesheet" href="static/css/sidebar.css">
+<link rel="stylesheet" href="static/css/interests.css">
+
+</head>
+<body>
+  {% include 'navbar.html' %}
+  {% include 'sidebar.html' %}
+  <hr>
+  <hr>
+
+
+	<div class="body">
+		<div class="top">
+		  <form class="navbar-form navbar-left" role="search">
+		  	<p> Search for one of your interests! </p>
+		  	<div class="form-group">
+		  		<input type="text" class="form-control" placeholder="Search">
+		  	</div>
+		  	<button type="submit" class="btn btn-default">Submit</button>
+		  </form>
+
+
+			<div class="row">
+
+				{% for interest in interests %}
+				{{ interest }}
+				<form method="POST" action=''> {% csrf_token %}
+					{% for ans in interest.answer_set.all %}
+					{{ ans }}
+					{% endfor %}
+				{% endfor %}
+			</div>
+			<div class="bottom">
+				<hr>
+				<h5> No Luck? Go ahead and enter your own! <h5>
+			</div>
+		</div>
+		{% include 'footer.html' %}
+	</div>
+
+
+</body>
+
+{% endblock %}
