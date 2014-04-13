@@ -1,0 +1,11 @@
+Hello, 
+
+Somebody signed up for you here:
+
+http://{{ site.domain }}{% url 'registration_activate' activation_key %}
+
+Link is valid for {{ expiration_days }} days.
+
+Thanks, 
+
+ - Team ForFriends

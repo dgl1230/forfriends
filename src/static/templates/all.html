@@ -1,0 +1,39 @@
+{% extends 'home.html' %}
+
+{% block content %}
+<br/>
+<br/>
+<br/>
+<br/>
+<div class='col-lg-6 '>
+	<center><h1>Users</h1></center>
+	<div class='row'>
+{% for user in users %}
+
+	{% if not request.user == user %}
+<div class='col-lg-4'>
+<a href='/members/{{ user.username}}'>
+	{% for pic in user.userpicture_set.all %}
+		{% if forloop.first %}
+		<img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' />
+		{% endif %}
+	{% endfor %}
+	{% if not user.userpicture_set.all %}
+		<img src='{{ STATIC_URL }}img/avatar.png' class='img-responsive' />
+	{% endif %}
+	{{ user }}
+	</a> <br/>
+	{% for item in user.address_set.all %} 
+		{% if forloop.first %} {{ item }}
+		{% endif %} 
+	{% endfor %}
+	<br/>
+	<br/>
+	</div>
+	{% endif %}
+	{% cycle '' '' '' '</div><div class="row">' %}
+{% endfor %}
+</div>
+</div>
+
+{% endblock %}

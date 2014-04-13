@@ -1,21 +1,81 @@
-<DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-<title>{% block title %}{% endblock %}</title>
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
-</head>
+    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
 
-<body>
+    <title>ForFriends{% block title %}{% endblock %}</title>
 
-{% block content %}{% endblock %}
-    <div class="container">        
-    <p>&copy; ForFriends 2014</p>
-    </div><!--/.container-->
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
 
-</body>
+    <!-- Custom styles for this template -->
+    <link href="/static/css/jumbotron.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    {% include 'navbar.html' %}
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    {% block jumbotron %}
+    
+    {% endblock %}
+<br/>
+<br/>
+<br/>
+
+    <div class="container">
+      <div class='row'>
+      {% if request.user.is_authenticated %}
+        <div class='col-lg-2 col-12'>
+          <ul class='nav nav-pills nav-stacked'>
+            <li><a href='/'><span class='badge pull-right'>8</span>Home</a></li>
+            <li><a href='{% if request.user.is_authenticated %}{% url "profile" request.user.username %} {% endif %}'>Profile</a></li>
+            <li><a href='{% url "interests" %}'>Interests</a></li>
+            <li><a href='/'><span class='badge pull-right'>8</span>Messages</a></li>
+            <li><a href='{% if request.user.is_authenticated %} {% url "edit_profile" %} {% endif %}'>Edit Profile</a></li>
+           
+
+          </ul>
+
+        </div>
+        {% endif %}
+        <div class='col-lg-10 col-12'>
+          
+{% block content %} {% endblock %}
+        </div>
+      </div>
+      <hr>
+
+      {% include 'footer.html' %}
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src=''></script>
+    <script>
+      $(document).ready(function(){
+        {% block jquery %}
+        {% endblock %}
+      });
+    </script>
+  </body>
 </html>

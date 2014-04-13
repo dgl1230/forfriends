@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block jquery %}
+$('#myTab a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+{% endblock %}
+
+{% block content %}
+<br/>
+<br/>
+
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+<ul class="nav nav-tabs" id="myTab">
+  <li class="active"><a href="#home" data-toggle="tab">Pictures</a></li>
+  <li><a href="#jobs" data-toggle="tab">Occupation</a></li>
+  <li><a href="#locations" data-toggle="tab">Location</a></li>
+  <li><a href="#info" data-toggle="tab">Info</a></li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane active" id="home">
+  	<form method='POST' action='' enctype="multipart/form-data"> {% csrf_token %}
+  	<div class='row'>
+  		<div class='col-lg-12'>
+		{{ user_picture_form.as_p }}
+		</div>
+	</div>
+	<input class='btn btn-success' type='submit' value='Update' />
+	</form>
+  </div>
+  <div class="tab-pane" id="jobs">
+  	<div class='row'>
+  		<div class='col-lg-12'>
+  			<form method='POST' action='/edit/jobs'> {% csrf_token %}
+        {{ formset_a.management_form }}
+			  {{ formset_j.as_p }}
+			<input class='btn btn-success' type='submit' value='Update' />
+			</form>
+		</div>
+	</div>
+  </div>
+  <div class="tab-pane" id="locations">
+  	<div class='row'>
+  		<div class='col-lg-12'>
+  			<form method='POST' action='/edit/addresses/'> {% csrf_token %}
+          {{ formset_a.management_form }}
+			    {{ formset_a.as_p }}
+			<input class='btn btn-success' type='submit' value='Update' />
+			</form>
+		</div>
+	</div>
+  </div>
+  <div class="tab-pane" id="info">
+    <div class='row'>
+      <div class='col-lg-12'>
+        <form method='POST' action='/edit/info/'> {% csrf_token %}
+          {{ formset_i.management_form }}
+          {{ formset_i.as_p }}
+      <input class='btn btn-success' type='submit' value='Update' />
+      </form>
+    </div>
+  </div>
+  </div>
+</div>
+
+
+
+
+
+
+{% endblock %}

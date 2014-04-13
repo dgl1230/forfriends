@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if messages %}
+<div class='row'>
+                <ul class="messages">
+                  {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                  {% endfor %}
+                </ul>
+</div>
+{% endif %}
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<center>
+<div class='row'>
+	{% for interest in interests %}
+		<h3>{{ interest.interest|title }}</h3><p>
+		{% if interest.description %}
+			<h5>{{ interest.description|title }}</h5>
+		{% endif %}
+		{% for pic in interest.interestpicture_set.all %}
+			{% if forloop.first %}
+				<img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' />
+			{% endif %}
+		{% endfor %}
+
+
+		<form method='POST' action=''> {% csrf_token %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+		How much do you like this? <select required='required' name='importance_level'>
+			{% for imp in importance_levels %}
+			<option {% for abc in interest.interestanswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected='selected' {% endif %} {% endfor %} value='{{ imp }}'>{{ imp }}</option>
+			{% endfor %}
+		</select></p> <p>
+		<input type='submit' class='btn' value='Save'></p>
+	</form>
+	{% endfor %}
+
+<div class="pagination">
+	<span class="step-links">
+		{% if interests.has_previous %}
+			<a href="?page={{ questions.previous_page_number }}">previous</a>
+		{% endif %}
+		<span class="current">
+			Page {{ interests.number }} of {{ interests.paginator.num_pages }}.
+		</span>
+
+		{% if interests.has_next %}
+			<a href="?page={{ interests.next_page_number }}">next</a>
+		{% endif %}
+	</span>
+</div>
+</center>
+</div>
+
+{% endblock %}
