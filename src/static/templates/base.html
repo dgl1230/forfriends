@@ -12,6 +12,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/sidebar.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="/static/css/jumbotron.css" rel="stylesheet">
@@ -29,7 +30,7 @@
   <body>
 
     {% include 'navbar.html' %}
-
+    {% include 'sidebar.html' %}
     <!-- Main jumbotron for a primary marketing message or call to action -->
     {% block jumbotron %}
     
@@ -39,45 +40,15 @@
 <br/>
 
     <div class="container">
-      <div class='row'>
-      {% if request.user.is_authenticated %}
-        <div class='col-lg-2 col-12'>
-          <ul class='nav nav-pills nav-stacked'>
-            <li><a href='/'><span class='badge pull-right'>8</span>Home</a></li>
-            <li><a href='{% if request.user.is_authenticated %}{% url "profile" request.user.username %} {% endif %}'>Profile</a></li>
-            <li><a href='{% url "interests" %}'>Interests</a></li>
-           
-              <li><a href='{% url "inbox" %}'>
-              {% if not 'messages' in request.get_full_path %}
-                <span class='badge pull-right'>
-              {{ request.session.num_of_messages }}
-               </span>
-              {% endif %}Messages</a></li>
-            {% if 'messages' in request.get_full_path %}
-               <li><a href='{% url "compose" %}'>Compose</a></li>
-               <li><a href='{% url "inbox" %}'>
-                <span class='badge pull-right'>
-               {{ request.session.num_of_messages }}
-               </span>Inbox</a></li>
-            <li><a href='{% url "sent" %}'>Sent</a></li>
-            {% endif %}
-          
-
-            <li><a href='{% if request.user.is_authenticated %} {% url "edit_profile" %} {% endif %}'>Edit Profile</a></li>
-           
-
-          </ul>
-
-        </div>
-        {% endif %}
+      <div class="middle">
         <div class='col-lg-10 col-12'>
           
 {% block content %} {% endblock %}
         </div>
-      </div>
       <hr>
 
       {% include 'footer.html' %}
+    </div>
     </div> <!-- /container -->
 
 
@@ -92,6 +63,12 @@
         {% block jquery %}
         {% endblock %}
       });
+    </script>
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("active");
+    });
     </script>
   </body>
 </html>

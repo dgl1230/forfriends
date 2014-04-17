@@ -1,24 +1,36 @@
 <body>
-<div id="sidebar-wrapper">
-    <ul class="sidebar-nav">
-            <li class="sidebar-brand"></a>
-            </li>
-            <li><a href="#">My Friends</a>
-            </li>
-            <li><a href="#">Pictures</a>
-            </li>
-            <li><a href="#">Find Friends</a>
-            </li>
-            <li><a href="#">Events</a>
-            </li>
-            <li><a href="#">Interests</a>
-            </li>
-            <li><a href="#">Services</a>
-            </li>
-            <li><a href="#">Contact</a>
-        </li>
-    </ul>
-</div>
+<div class='row'>
+      {% if request.user.is_authenticated %}
+        <div class='col-lg-2 col-12'>
+          <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+            <li><a href='/'><span class='badge pull-right'>8</span>Home</a></li>
+            <li><a href='{% if request.user.is_authenticated %}{% url "profile" request.user.username %} {% endif %}'>Profile</a></li>
+            <li><a href='{% url "interests" %}'>Interests</a></li>
+           
+              <li><a href='{% url "inbox" %}'>
+              {% if not 'messages' in request.get_full_path %}
+                <span class='badge pull-right'>
+              {{ request.session.num_of_messages }}
+               </span>
+              {% endif %}Messages</a></li>
+            {% if 'messages' in request.get_full_path %}
+               <li><a href='{% url "compose" %}'>Compose</a></li>
+               <li><a href='{% url "inbox" %}'>
+                <span class='badge pull-right'>
+               {{ request.session.num_of_messages }}
+               </span>Inbox</a></li>
+            <li><a href='{% url "sent" %}'>Sent</a></li>
+            {% endif %}
+            <li><a href='{% if request.user.is_authenticated %} {% url "edit_profile" %} {% endif %}'>Edit Profile</a></li>
+          </ul>
+          </div>
+           
+
+          </ul>
+
+        </div>
+        {% endif %}
 
     <script>
     $("#menu-toggle").click(function(e) {

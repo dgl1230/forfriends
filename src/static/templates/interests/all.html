@@ -22,6 +22,7 @@
 <div class='row'>
 	{% for interest in interests %}
 		<h3>{{ interest.interest|title }}</h3><p>
+		<hr>
 		{% if interest.description %}
 			<h5>{{ interest.description|title }}</h5>
 		{% endif %}
