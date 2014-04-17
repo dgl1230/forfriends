@@ -7,7 +7,7 @@
   margin-left: -250px;
   left: 250px;
   width: 20%;
-  max-width: 500px;
+  max-width: 200px;
   margin-top: 2%;
   background: #000;
   position: fixed;
@@ -120,4 +120,10 @@
 
 .middle{
   margin-left: 15%;
+}
+
+@media (max-width: 1000px) {
+  .footer-container{
+    margin-left: 20%;
+  }
 }
