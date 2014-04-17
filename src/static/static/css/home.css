@@ -1,3 +1,11 @@
-h1 {
-	font-size: 70px;
+{
+	font-family: 'Open Sans', sans-serif;!important
+}
+
+.moto-home{
+	font-size: 40px;
+	font-family: 'Open Sans', sans-serif;	
+}
+.register-home{
+	font-size: 24px;
 }

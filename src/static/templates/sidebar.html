@@ -15,12 +15,14 @@
                </span>
               {% endif %}Messages</a></li>
             {% if 'messages' in request.get_full_path %}
+              <ul>
                <li><a href='{% url "compose" %}'>Compose</a></li>
                <li><a href='{% url "inbox" %}'>
                 <span class='badge pull-right'>
                {{ request.session.num_of_messages }}
                </span>Inbox</a></li>
-            <li><a href='{% url "sent" %}'>Sent</a></li>
+              <li><a href='{% url "sent" %}'>Sent</a></li>
+              </ul>
             {% endif %}
             <li><a href='{% if request.user.is_authenticated %} {% url "edit_profile" %} {% endif %}'>Edit Profile</a></li>
           </ul>

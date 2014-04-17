@@ -1,9 +1,18 @@
+<head><link href="/static/css/home.css" rel="stylesheet"></head>
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
 <br/>
 <br/>
 <br/>
 
-<h1>This is home</h1>
+<div class="moto-home">
+	<p> Welcome! </p>
+</div>
+<hr>	
+<div class="register-home">
+	<p>{% trans "Not a member" %}? <a href="{% url 'registration_register' %}">{% trans "Register" %}</a>!</p>
+</div>
+
 {% endblock %}
