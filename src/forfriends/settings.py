@@ -7,7 +7,7 @@ https://docs.djangoproject.com/en/1.6/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
 """
-
+import os
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = os.environ["EMAIL_HOST_USER"]
 EMAIL_HOST_PASSWORD = os.environ["EMAIL_HOST_PASSWORD"]
@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     'south',
     'profiles',
     'interests',
+    'directmessages',
 )
 
 TEMPLATE_DIRS = (
