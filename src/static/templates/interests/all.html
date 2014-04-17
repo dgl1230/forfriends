@@ -39,7 +39,7 @@
 
 		<form method='POST' action=''> {% csrf_token %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
-		How much do you like this? <select required='required' name='importance_level'>
+		<p>How much do you like this? <select required='required' name='importance_level'></p>
 			{% for imp in importance_levels %}
 			<option {% for abc in interest.interestanswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected='selected' {% endif %} {% endfor %} value='{{ imp }}'>{{ imp }}</option>
 			{% endfor %}

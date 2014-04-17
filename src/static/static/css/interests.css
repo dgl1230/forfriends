@@ -1,10 +1,10 @@
-.body{
-
-	margin-left:20%;
-	margin-top: 0%;
+html, p, a, .body, .row h3, .row h5, .row p{
+	font-family: 'Open Sans', sans-serif;!important
 }
-
-
 .interests-title h3{
 	font-size: 40px;
+}
+
+.row h3 {
+	font-weight: 700;
 }
