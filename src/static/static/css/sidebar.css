@@ -1,3 +1,7 @@
+html, ul, ul li, li, li a, a{
+  font-family: 'Open Sans', sans-serif;
+}
+
 #wrapper {
   padding-left: 250px;
   transition: all 0.4s ease 0s;
