@@ -1,4 +1,4 @@
-html, ul, ul li, li, li a, a{
+html, p, a, .body, .row h3, .row h5, .row p ul, ul li, li, li a, h5, h3{
   font-family: 'Open Sans', sans-serif;
 }
 
