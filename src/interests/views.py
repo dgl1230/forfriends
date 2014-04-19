@@ -43,7 +43,11 @@ def all_interests(request):
 
 		user = User.objects.get(username=request.user)
 		interest = Interest.objects.get(id=interest_id)
+
 		interest_pic = InterestPicture.objects.get(interest=interest)
+
+
+
 
 		#user answer save
 		answer = UserInterestAnswer.objects.get(interest=interest)

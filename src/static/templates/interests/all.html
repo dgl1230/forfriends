@@ -31,7 +31,10 @@
 			{% if forloop.first %}
 				<img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' />
 			{% endif %}
+
 		{% endfor %}
+
+
 
 
 		<form method='POST' action=''> {% csrf_token %}

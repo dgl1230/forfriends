@@ -11,18 +11,23 @@
             <li><a href='{% if request.user.is_authenticated %}{% url "profile" request.user.username %} {% endif %}'>Profile</a></li>
             <li><a href='{% url "interests" %}'>Interests</a></li>
            
-              <li><a href='{% url "inbox" %}'>
+             <li><a href='{% url "inbox" %}'>
               {% if not 'messages' in request.get_full_path %}
+              {% if not request.session.num_of_messages == 0 %}
                 <span class='badge pull-right'>
               {{ request.session.num_of_messages }}
                </span>
-              {% endif %}Messages</a></li>
+              {% endif %}
+              {% endif %}
+              Messages</a></li>
             {% if 'messages' in request.get_full_path %}
               <ul>
                <li><a href='{% url "compose" %}'>Compose</a></li>
                <li><a href='{% url "inbox" %}'>
+               {% if not request.session.num_of_messages == 0 %}
                 <span class='badge pull-right'>
                {{ request.session.num_of_messages }}
+               {% endif %}
                </span>Inbox</a></li>
               <li><a href='{% url "sent" %}'>Sent</a></li>
               </ul>

@@ -2,6 +2,10 @@
 
 {% block content %}
 
+<a href="{% url 'reply' message.id %}">Reply</a>
+
+<br/>
+
 {{ message.body }}
 
 {% endblock %}

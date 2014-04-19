@@ -10,6 +10,6 @@ urlpatterns = patterns('directmessages.views',
     url(r'^inbox/$', 'inbox', name='inbox'),
     url(r'^sent/$', 'sent', name='sent'),
     url(r'^view/(?P<dm_id>[\d]+)/$', 'view_direct_message', name='view_direct_message'),
-
+    url(r'^view/(?P<dm_id>[\d]+)/reply/$', 'reply', name='reply'),
 
 )

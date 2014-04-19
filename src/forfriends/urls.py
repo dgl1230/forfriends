@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
+from django.views.generic import TemplateView
 
 from django.contrib import admin
 admin.autodiscover()
@@ -27,8 +28,10 @@ urlpatterns = patterns('',
     #url(r'^interests$', 'userprofile.views.interests'),
     #url(r'^pictures$', 'userprofile.views.pictures'),
     (r'^accounts/', include('registration.backends.default.urls')),
+    url(r'^about_us/$', TemplateView.as_view(template_name='about_us.html'), name="about_us"),
+)
 
     #url(r'^test/$', 'userprofile.views.registration'),
     #url(r'submit', 'userprofile.views.registration'),
     
-)
+

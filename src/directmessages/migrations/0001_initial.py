@@ -16,7 +16,10 @@ class Migration(SchemaMigration):
             ('sender', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='sent_direct_messages', null=True, to=orm['auth.User'])),
             ('receiver', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='recieved_direct_messages', null=True, to=orm['auth.User'])),
             ('sent', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
-            ('read', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
+            ('read_at', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
+            ('read', self.gf('django.db.models.fields.BooleanField')(default=False)),
+            ('parent', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='parent_message', null=True, to=orm['directmessages.DirectMessage'])),
+            ('replied', self.gf('django.db.models.fields.BooleanField')(default=False)),
         ))
         db.send_create_signal(u'directmessages', ['DirectMessage'])
 
@@ -64,11 +67,14 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
         u'directmessages.directmessage': {
-            'Meta': {'object_name': 'DirectMessage'},
+            'Meta': {'ordering': "['-sent']", 'object_name': 'DirectMessage'},
             'body': ('django.db.models.fields.CharField', [], {'max_length': '3000'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'read': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
+            'parent': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'parent_message'", 'null': 'True', 'to': u"orm['directmessages.DirectMessage']"}),
+            'read': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'read_at': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'receiver': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'recieved_direct_messages'", 'null': 'True', 'to': u"orm['auth.User']"}),
+            'replied': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'sender': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'sent_direct_messages'", 'null': 'True', 'to': u"orm['auth.User']"}),
             'sent': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'subject': ('django.db.models.fields.CharField', [], {'max_length': '150'})
