@@ -8,3 +8,13 @@ html, p, a, .body, .row h3, .row h5, .row p{
 .row h3 {
 	font-weight: 700;
 }
+
+.btn{
+	background-color: #00CCFF!important;
+	color: #fff !important;
+	border-color: #00CCFF !important;
+}
+
+.btn:hover{
+	background-color: #fff !important;
+	color: #00CCFF !important;

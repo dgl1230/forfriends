@@ -1,50 +1,33 @@
-<!DOCTYPE html>
-<head>
-  <meta charset="utf-8" />
+Example Profile Page, uses js tabs. 
 
-  <title>ForFriends Profile</title><!-- Body CSS -->
-  <link rel="stylesheet" href="static/css/profile_view.css">
-  <link rel="stylesheet" href="static/css/sidebar.css">
-  <link rel="stylesheet" media="all" href="static/css/styles.css">
-  <link rel="stylesheet" href="static/css/bootstrap.css">
-  <!--Javascript-->
-</head>
-
-<body>
-  {% include 'navbar.html' %}
-  <div style: padding-bottom:"20px";></div>
-  {% include 'sidebar.html' %}
-
-  <h1 id="name">User Name</h1>
-
-  <div class="left">
-    <div class="pic">
-      <figure>
-      <a href="#"><img src="static/img/white_girl.jpg" width="100%"></a>
-      <figcaption class="caption"><a href="#">Change profile Picture</a></figcaption>
-      </figure>
-    </div>
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#bio" data-toggle="tab">Bio</a></li>
+  <li><a href="#occupation" data-toggle="tab">Occupation</a></li>
+  <li><a href="#interests" data-toggle="tab">Interests</a></li>
+  <li><a href="#address" data-toggle="tab">Address</a></li>
+  </ul>
+  <div class="tab-content">
+  <div class="tab-pane active" id="bio">
+    {% for item in single_user.info_set.all %}
+      {% if forloop.first %}
+        {{ item.bio }}
+      {% endif %}
+    {% endfor %}
   </div>
-
-  <div class="pictures">
-    <h4>Pictures</h4>
-
-    <ul>
-      <li style="list-style: none">{% for picture in picture_list %}</li>
-
-      <li>{{ picture.name }}</li>
-
-      <li style="list-style: none">{% empty %}</li>
-
-      <li>No available pictures.</li>
-
-      <li style="list-style: none">{% endfor %}</li>
-    </ul>
+  <div class="tab-pane" id="occupation">
+    {% for item in single_user.job_set.all %} 
+      {{ item.position|title }} at {{ item.employer|title }}
+    {% endfor %}
   </div>
-  {% include 'footer.html' %}
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"type="text/javascript"></script>
-  <script src="static/js/profile_view.js" type="text/javascript"></script>
-  <script src="static/js/bootstrap.js" type="text/javascript"></script>
-</body>
-</html>
-
+  <div class="tab-pane" id="interests"></div>
+  <div class="tab-pane" id="address">
+    {% for item in single_user.address_set.all %}
+        {{ item.city|title }}, {{ item.state|upper }}
+    {% endfor %}
+  </div>
+  </div>
+<script>
+  $function () {
+    $('#mytab a:last').tab('show')
+  })
+</script>
