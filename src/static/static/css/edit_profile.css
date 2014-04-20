@@ -1,3 +1,15 @@
 html, ul, ul li, li, li a, a, p, .btn{
 	font-family: 'Open Sans', sans-serif;
 }
+
+.btn-success, .btn .btn-success{
+	background-color: #00CCFF!important;
+	color: #fff !important;
+	border-color: #00CCFF !important;
+}
+
+.btn-success:hover, .btn .btn-success:hover {
+	background-color: #fff !important;
+	color: #00CCFF !important;
+
+}

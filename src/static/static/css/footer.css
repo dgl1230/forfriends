@@ -1,0 +1,9 @@
+footer p a{
+	text-decoration: none; 
+	color: #333;
+}
+
+footer p a:hover{
+	text-decoration: none;
+	color: #333;
+	}

@@ -1,3 +1,26 @@
 .navbar-brand{
 	letter-spacing: .2em;
 }
+.dropdown-menu{
+	border-left: .5px solid;
+	border-bottom: .5px solid;
+	border-right: .5px solid;
+	box-shadow: 0px 0px 0px 0px;
+
+}
+.dropdown-menu li a:hover{
+	color:#00ccff;
+}
+.
+.dropdown-menu{
+	background-color: rgba(255,255,255,0.2) !important;
+	color: blue !important;
+}
+
+.dropdown a:focus, .dropdown a:active, .dropdown a{
+	background-color: rgba(255,255,255, .01) !important;	
+}
+
+.dropdown-toggle{
+	background-color: none !important;
+}
