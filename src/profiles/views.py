@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response, RequestContext, Http404, HttpRe
 from django.contrib.auth.models import User
 from django.forms.models import modelformset_factory
 
-#from interests.matching import points, match_percentage
+from interests.matching import points, match_percentage
 #from matches.models import Match, JobMatch
 from .models import Address, Job, Info, UserPicture
 from .forms import AddressForm, InfoForm, JobForm, UserPictureForm
@@ -119,4 +119,8 @@ def single_user(request, username):
 			single_user = user
 	except:
 		raise Http404
+	try:
+		match = round(match_percentage(request.user, single_user), 4) * 100
+	except:
+		match = 0
 	return render_to_response('single_user.html', locals(), context_instance=RequestContext(request))	
