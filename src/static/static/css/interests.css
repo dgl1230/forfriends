@@ -1,12 +1,5 @@
-html, p, a, .body, .row h3, .row h5, .row p{
-	font-family: 'Open Sans', sans-serif;
-}
 .interests-title h3{
 	font-size: 40px;
-}
-
-.row h3 {
-	font-weight: 700;
 }
 
 .btn{

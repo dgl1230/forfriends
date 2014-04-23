@@ -1,0 +1,31 @@
+html, p, a, .body, .row p{
+	font-family: 'Open Sans', sans-serif;
+}
+
+h1, h3, h5{
+	font-family: 'Merriweather', serif!important;
+}
+.btn{
+	background-color: #00CCFF!important;
+	color: #fff !important;
+	border-color: #00CCFF !important;
+	border-radius: 8px;
+}
+
+.btn:hover{
+	background-color: #fff !important;
+	color: #00CCFF !important;
+}
+
+input{
+	border-radius: 8px !important;
+}
+
+/* symbol on sidebar */
+.pull-right{
+	border-radius: 8px !important;
+}
+.glyphicon{
+	font-size:1em;
+	padding-right: 1em;
+}

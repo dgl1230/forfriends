@@ -2,6 +2,27 @@
   <link href="/static/css/sidebar.css" rel="stylesheet">
 </head>
 <body>
+
+<div class='row'>
+      {% if request.user.is_authenticated %}
+        <div class='col-lg-2 col-12'>
+          <div id="leftbar-wrapper">
+            <ul class="sidebar-nav">
+            <li><a href='/'><span class='glyphicon glyphicon-home'></span></a></li>
+            <li><a href='{% if request.user.is_authenticated %}{% url "profile" request.user.username %} {% endif %}'><span class='glyphicon glyphicon-user'></span></a></li>
+            <li><a href='{% url "interests" %}'><span class='glyphicon glyphicon-heart'></span></a></li>
+           
+             <li><a href='{% url "inbox" %}'>
+              <span class='glyphicon glyphicon-envelope'></span></a></li>
+            <li><a href='/pictures'><span class='glyphicon glyphicon-camera '></span></a></li>
+          </ul>
+          </div>
+           
+
+          </ul>
+
+        </div>
+        {% endif %}
 <div class='row'>
       {% if request.user.is_authenticated %}
         <div class='col-lg-2 col-12'>
@@ -32,7 +53,6 @@
               <li><a href='{% url "sent" %}'>Sent</a></li>
               </ul>
             {% endif %}
-            <li><a href='/findfriends'>Find Friends</a></li>
             <li><a href='/pictures'>Pictures</a></li>
           </ul>
           </div>
