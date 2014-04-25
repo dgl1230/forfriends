@@ -43,14 +43,16 @@ def all_interests(request):
 
 		user = User.objects.get(username=request.user)
 		interest = Interest.objects.get(id=interest_id)
-
-		interest_pic = InterestPicture.objects.get(interest=interest)
+		try:
+			interest_pic = InterestPicture.objects.get(interest=interest).filter(id=1)
+		except: 
+			pass
 
 
 
 
 		#user answer save
-		answer = UserInterestAnswer.objects.get(interest=interest)
+
 		answered, created = UserInterestAnswer.objects.get_or_create(user=user, interest=interest)
 		answered.importance_level = importance_level
 		answered.save()

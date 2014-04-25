@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.forms.models import modelformset_factory
 
 from interests.matching import points, match_percentage
-#from matches.models import Match, JobMatch
+from matches.models import Match
 from .models import Address, Job, Info, UserPicture
 from .forms import AddressForm, InfoForm, JobForm, UserPictureForm
 
@@ -119,8 +119,17 @@ def single_user(request, username):
 			single_user = user
 	except:
 		raise Http404
+	set_match, created = Match.objects.get_or_create(from_user=request.user, to_user=single_user)
 	try:
-		match = round(match_percentage(request.user, single_user), 4) * 100
-	except:
-		match = 0
+		set_match.percent = round(match_percentage(request.user, single_user), 4)
+	except: 
+		set_match.percent = 0
+	set_match.good_match = Match.objects.good_match(request.user, single_user)
+	set_match.save()
+	match = set_match.percent * 100
 	return render_to_response('single_user.html', locals(), context_instance=RequestContext(request))	
+
+
+def all_pictures(request): 
+	user = request.user
+	return render_to_response('pictures.html', locals(), context_instance=RequestContext(request))

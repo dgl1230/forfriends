@@ -1,21 +1,10 @@
-<!DOCTYPE html>
-<html>
-  <head>
-  <title>Pictures</title>
-  <link rel="stylesheet" type="text/css" href="static/css/pictures.css">
-  <link rel="stylesheet" href="static/css/sidebar.css">
-  <link rel="stylesheet" type="text/css" href="static/css/bootstrap.css">
-  </head>
-  <body>
-    {% include 'navbar.html' %}
-    {% include 'sidebar.html' %}
-  <div class="wrapper">
-    <a href="#n" id="n">
-      <a href="#img1"><img id="img1" src="http://farm5.static.flickr.com/4103/5213166214_d6b136586c_b.jpg" width="200" height="150" title="Some caption"></a>
-      <a href="#img2"><img id="img2" src="http://farm6.static.flickr.com/5281/5216852563_eca0af1b0d_b.jpg" width="200" height="150" title="Another title"></a>
-    </a>
-  </div>
-  {% include 'footer.html' %}
+{% extends 'base.html' %}
 
-   </body>
-</html>
+
+{% block content %}
+
+{% for pic in user.userpicture_set.all %}
+	<img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' />
+{% endfor %}
+
+{% endblock %}
