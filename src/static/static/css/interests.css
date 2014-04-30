@@ -11,3 +11,66 @@
 .btn:hover{
 	background-color: #fff !important;
 	color: #00CCFF !important;
+}
+.pager li a{
+	color: #999;
+	background-color: #222!important;
+	border-color: #222!important;
+	font-weight: bold;
+}
+
+.pager li a:hover{
+	color: white;
+}
+
+.main_interests{
+	background-color:#222;
+	border-radius: 2%;
+	color:white;
+	text-align: center;
+	min-width: 300px;
+}
+
+.img-container{
+	width: 75%;
+	margin: 0 auto;
+	margin-bottom: 1.5em;
+}
+
+.img-responsive{
+	margin:auto;
+}
+
+.previous{
+	float: left;
+}
+
+.next{
+	float: right;
+}
+.importance_level{
+	color: #000;
+
+}
+
+.current{
+	bottom:0;	
+	position:absolute;
+	margin:0 auto;
+	width: 50%;
+	margin:0 auto;
+
+}
+
+#interest_button{
+	margin-top: 0%;
+}
+
+footer{
+	margin-left: 10%;
+}
+
+.row{
+	width: 100%;
+	margin:0 auto;
+}

@@ -1,3 +1,4 @@
+<link href="/static/css/messages.css" rel="stylesheet">
 {% extends 'base.html' %}
 
 {% block content %}
@@ -8,4 +9,14 @@
 <input class='btn btn-default' type='submit'>
 </form>
 
+<div class="left-button">
+	<form action="/messages/inbox/">
+		<input class='btn btn-info btn-sm' type='submit' value="Inbox">
+	</form>
+</div>
+<div class="right-button">
+	<form action="/messages/sent/">
+		<input class='btn btn-info btn-sm' type='submit' value="Sent">
+	</form>
+</div>
 {% endblock %}

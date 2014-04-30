@@ -1,18 +1,18 @@
-html, p, a, .body, .row p{
+html, p, .body, .row p{
 	font-family: 'Open Sans', sans-serif;
 }
 
-h1, h3, h5{
+h1, h3, h5, a{
 	font-family: 'Merriweather', serif!important;
 }
-.btn{
+.btn, .btn-lg{
 	background-color: #00CCFF!important;
 	color: #fff !important;
 	border-color: #00CCFF !important;
 	border-radius: 8px;
 }
 
-.btn:hover{
+.btn:hover, .btn-lg:hover{
 	background-color: #fff !important;
 	color: #00CCFF !important;
 }
@@ -29,3 +29,22 @@ input{
 	font-size:1em;
 	padding-right: 1em;
 }
+
+.img-responsive{
+
+}
+
+.body_section{
+	background-color:#222;
+	border-radius: 5%;
+	color:white;
+}
+
+.col-lg-4 a{
+	color: black;
+	font-size: 1.2em;
+	text-transform: capitalize;
+}
+
+.col-lg-4 a:hover{
+	;

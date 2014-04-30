@@ -1,0 +1,22 @@
+.right-button{
+	float: right;
+}
+
+.left-button{
+	float: left;
+}
+
+th{
+	color: #999;
+}
+
+h3{
+	background-color: #333;
+}
+.col-12 h3{
+	color: white;
+}
+
+h4, td{
+	text-transform: capitalize;
+}
