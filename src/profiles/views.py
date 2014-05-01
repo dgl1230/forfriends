@@ -1,3 +1,5 @@
+import operator 
+
 from django.shortcuts import render
 from django.contrib import messages
 from django.shortcuts import render_to_response, RequestContext, Http404, HttpResponseRedirect
@@ -10,6 +12,9 @@ from .models import Address, Job, Info, UserPicture
 from .forms import AddressForm, InfoForm, JobForm, UserPictureForm
 
 
+
+
+#The view for the home page of a user 
 def all(request):
 	if request.user.is_authenticated():
 		users = User.objects.filter(is_active=True)
@@ -20,6 +25,14 @@ def all(request):
 		return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 	else:
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+
+
+
+#Shows all pictures that the logged in user has 
+def all_pictures(request): 
+	user = request.user
+	return render_to_response('pictures.html', locals(), context_instance=RequestContext(request))
+
 
 
 def edit_address(request):
@@ -112,6 +125,7 @@ def edit_profile(request):
 	return render_to_response('profiles/edit_profile.html', locals(), context_instance=RequestContext(request))
 
 
+#Displays the profile page of a specific user and their match % against the logged in user
 def single_user(request, username):
 	try:
 		user = User.objects.get(username=username)
@@ -130,6 +144,17 @@ def single_user(request, username):
 	return render_to_response('single_user.html', locals(), context_instance=RequestContext(request))	
 
 
-def all_pictures(request): 
-	user = request.user
-	return render_to_response('pictures.html', locals(), context_instance=RequestContext(request))
+def sort_friends_by_match(request):
+	users = User.objects.filter(active=True)
+	users_list = {}
+	for single_user in users: 
+		single_match, created = Match.objects.get_or_create(from_user=request.user, to_user=single_user)
+		try:
+			set_match.percent = round(match_percentage(request.user, single_user), 4)
+		except: 
+			set_match.percent = 0
+		match = set_match.percent * 100
+		users_list[single_user] = match
+	#this is now a list of tuples like [(user1, match), (user2, match)]
+	sorted_users = sorted(sorted_users.iteritems(), key=operator.itemgetter(1))
+

@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import Interest, UserInterestAnswer, InterestPicture
+from .forms import InterestForm
 
 
 def assign_points(query):
@@ -18,6 +19,17 @@ def assign_points(query):
 		return -50
 	else:
 		return -100
+
+def create_interest(request):
+	form = InterestForm(request.POST or None)
+	if form.is_valid():
+		interest = form.save(commit=False)
+		interest.user = request.user
+		interest.save()
+		messages.success(request, 'Interest Created')
+		return HttpResponseRedirect('/')
+	return render_to_response("interests/create.html", locals(),
+		 context_instance=RequestContext(request))
 
 
 def all_interests(request):
