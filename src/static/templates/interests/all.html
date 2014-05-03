@@ -12,63 +12,69 @@
                 </ul>
 </div>
 {% endif %}
-
-
-<br/>
-<br/>
-<div class="main_interests">
+<div class="interests-wrapper">
 	<div class='row'>
-		<div class="interests-title">
-		{% for interest in interests %}
-			<h3>{{ interest.interest|title }}</h3><p>
+		<div class='interests_intro'>
+			<h3><a href="/interests/create/">Add your interests!</a></h3>
+
+			<p>Or browse the ones we have!</p>
+		<hr>
 		</div>
-			<hr>
-			{% if interest.description %}
-				<h5>{{ interest.description|title }}</h5>
-			{% endif %}
-			{% for pic in interest.interestpicture_set.all %}
-				{% if forloop.first %}
-				<div class="img-container">
-					<img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' />
-				</div>
+	</div>
+
+	<br/>
+	<br/>
+	<div class='row'>
+			<div class="main_interests">
+			<div class="interests-title">
+			{% for interest in interests %}
+				<h3>{{ interest.interest|title }}</h3><p>
+			</div>	
+				{% if interest.description %}
+					<h5 class="description">{{ interest.description|title }}</h5>
 				{% endif %}
+				{% for pic in interest.interestpicture_set.all %}
+					{% if forloop.first %}
+					<div class="img-container">
+						<img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' />
+					</div>
+					{% endif %}
 
-			{% endfor %}
+				{% endfor %}
 
 
-
-
-		<form method='POST' action=''> {% csrf_token %}
-			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
-		<div class="interest_ranking">
-			<p>How much do you like this? <select class="importance_level" required='required' name='importance_level'></p>
+			<form method='POST' action=''> {% csrf_token %}
+				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<div class="interest_ranking">
+				<p>How much do you like this? <select class="importance_level" required='required' name='importance_level'></p>
+			</div>
+				{% for imp in importance_levels %}
+				<option {% for abc in interest.interestanswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected='selected' {% endif %} {% endfor %} value='{{ imp }}'>{{ imp }}</option>
+				{% endfor %}
+			</select></p>
+			</form>
+		{% endfor %}
+		<div class="pagination">
+			<span class="step-links">
+				<ul class="pager">
+					<div class="directions">
+					{% if interests.has_previous %}
+						<li class="previous"><a href="?page={{ questions.previous_page_number }}">&larr; Previous</a></li>
+					{% endif %}
+					{% if interests.has_next %}
+						<li class="next"><a href="?page={{ interests.next_page_number }}">Next &rarr;</a></li>
+					{% endif %}
+					<input type='submit' class='btn-lg' id="interest_button" value='Save'></p>
+					</div>
+				</ul>
+			</span>
 		</div>
-			{% for imp in importance_levels %}
-			<option {% for abc in interest.interestanswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected='selected' {% endif %} {% endfor %} value='{{ imp }}'>{{ imp }}</option>
-			{% endfor %}
-		</select></p>
-		</form>
-	{% endfor %}
-	<div class="pagination">
-		<span class="step-links">
-			<ul class="pager">
-				<div class="directions">
-				{% if interests.has_previous %}
-					<li class="previous"><a href="?page={{ questions.previous_page_number }}">&larr; Previous</a></li>
-				{% endif %}
-				{% if interests.has_next %}
-					<li class="next"><a href="?page={{ interests.next_page_number }}">Next &rarr;</a></li>
-				{% endif %}
-				<input type='submit' class='btn-lg' id="interest_button" value='Save'></p>
-				</div>
-			</ul>
+		<span class="current">
+			Page {{ interests.number }} of {{ interests.paginator.num_pages }}.
 		</span>
+		</div>
+		</div>
 	</div>
-	<span class="current">
-		Page {{ interests.number }} of {{ interests.paginator.num_pages }}.
-	</span>
 	</div>
 </div>
-</div>
-
 {% endblock %}

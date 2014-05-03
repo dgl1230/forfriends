@@ -1,5 +1,6 @@
 .navbar-brand{
-	letter-spacing: .2em;
+	letter-spacing: .3em;
+	font-style:italic;
 }
 .dropdown-menu{
 	border-left: .5px solid;
@@ -37,4 +38,11 @@
 
 a.dropdown-toggle{
 	text-transform: capitalize;
+}
+
+@media only screen and (min-width:1100px){
+	.navbar-brand{
+		letter-spacing:.4em;
+		margin-left: -20%!important;
+	}
 }

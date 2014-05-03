@@ -15,3 +15,6 @@
 .tab-pane{
 	min-height: 10em;
 }
+.img-responsive{
+	border-radius: 50%;
+}

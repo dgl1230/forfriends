@@ -1,5 +1,11 @@
 .interests-title h3{
 	font-size: 40px;
+	margin-top:-5%;
+}
+
+.interests-wrapper{
+	text-align: center;
+	min-width: 300px;
 }
 
 .btn{
@@ -11,26 +17,24 @@
 .btn:hover{
 	background-color: #fff !important;
 	color: #00CCFF !important;
+	border-color: #00CCFF !important;
 }
 .pager li a{
 	color: #999;
-	background-color: #222!important;
-	border-color: #222!important;
 	font-weight: bold;
 }
 
 .pager li a:hover{
-	color: white;
+	text-decoration: underline;
 }
 
-.main_interests{
-	background-color:#222;
-	border-radius: 2%;
-	color:white;
-	text-align: center;
+.main_interests{	
 	min-width: 300px;
 }
 
+.description{
+	font-style: italic;
+}
 .img-container{
 	width: 75%;
 	margin: 0 auto;
@@ -39,6 +43,8 @@
 
 .img-responsive{
 	margin:auto;
+	border-radius:50%;
+	border: .2em #333 solid;
 }
 
 .previous{
@@ -73,4 +79,29 @@ footer{
 .row{
 	width: 100%;
 	margin:0 auto;
+}
+
+.interests_intro h3{
+	font-style:italic;
+	font-weight: 700;
+	font-size: 2em;
+}
+
+.interests_intro a{
+	color: #00CCFF;
+}
+
+.interests_intro a:hover, .interests_intro a:active{
+	color: #00CCFF;
+}
+@media only screen and (min-width:950px){
+	.interests-wrapper{
+		margin-left: 10%;
+	}
+}
+
+@media only screen and (max-width:450px){
+	.interests_intro h3{
+		font-size: 1.5em;
+	}
 }

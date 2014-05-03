@@ -1,11 +1,50 @@
-{
-	font-family: 'Open Sans', sans-serif;!important
+.moto-home h1{
+	font-size: 4em;
+	font-style: italic;
+	letter-spacing:.5em;
 }
 
 .moto-home{
-	font-size: 40px;
-	font-family: 'Open Sans', sans-serif;	
 }
 .register-home{
 	font-size: 24px;
+}
+
+.register-home p a{
+	color: #00ffCC;
+}
+
+.register-home a{
+	text-decoration: italic!important;
+}
+.bottom{
+	height: 30%;
+}
+.bottom .row{
+	height:30%;
+}
+.img-circle{
+	width: 30%;
+	height: auto;
+}
+.container{
+	text-align:center;
+	margin:0!important;
+	padding:0;
+	width: 100%!important;
+}
+.wrapper{
+	margin-left:-20%;
+	background-image:url("/static/img/home_background.jpeg");
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+hr{
+	color:black;
+	height:0px;
+	width:0px;
+}
+footer{
+	color:white;
 }

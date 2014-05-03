@@ -1,18 +1,31 @@
 <head><link href="/static/css/home.css" rel="stylesheet"></head>
+<head><link href="/static/css/register.css" rel="stylesheet"></head>
 {% extends 'base.html' %}
 {% load i18n %}
 
 {% block content %}
+<div class="wrapper">
+	<div class="jumbotron">
 <br/>
 <br/>
 <br/>
 
 <div class="moto-home">
-	<p> Welcome! </p>
+	<h1> ForFriends</h1>
+		<p>Where people come together.</p>
 </div>
 <hr>	
 <div class="register-home">
-	<p>{% trans "Not a member" %}? <a href="{% url 'registration_register' %}">{% trans "Register" %}</a>!</p>
+	<p>{% trans "Not a member" %}? <a href="{% url 'registration_register' %}">{% trans "Find where you fit in." %}</a></p>
+</div>
+<div class="bottom">
+	<div class="row-fluid">
+		<div class="span3">
+			<img src="/static/img/friend_avatar_default.jpg" alt="" class="img-circle">
+			<img src="/static/img/friend_avatar_default.jpg" alt="" class="img-circle">
+			<img src="/static/img/friend_avatar_default.jpg" alt="" class="img-circle">
+		</div>
+	</div>
 </div>
 
 {% endblock %}
