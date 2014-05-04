@@ -4,19 +4,11 @@
 {% block content %}
 
 <h1>Compose</h1>
-<form action='' method='POST'> {% csrf_token %}
-{{ form.as_p }}
-<input class='btn btn-default' type='submit'>
-</form>
-
-<div class="left-button">
-	<form action="/messages/inbox/">
-		<input class='btn btn-info btn-sm' type='submit' value="Inbox">
+<div class name="container">
+	<form action='' method='POST'> {% csrf_token %}
+	{{ form.as_p }}
+	<input class='btn btn-default' type='submit' value="Send Message">
 	</form>
 </div>
-<div class="right-button">
-	<form action="/messages/sent/">
-		<input class='btn btn-info btn-sm' type='submit' value="Sent">
-	</form>
-</div>
+<br>
 {% endblock %}

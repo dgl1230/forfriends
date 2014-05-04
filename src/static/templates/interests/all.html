@@ -1,4 +1,4 @@
-<head> <link href="/static/css/interests.css" rel="stylesheet"> </head>
+<head><link href="/static/css/interests.css" rel="stylesheet"></head>
 {% extends 'base.html' %}
 
 {% block content %}
@@ -54,6 +54,14 @@
 			</select></p>
 			</form>
 		{% endfor %}
+		<div class="rating">
+				    <input type="radio" name="rating" value="0" checked /><span id="hide"></span>
+				    <input type="radio" name="rating" value="1" /><span></span>
+				    <input type="radio" name="rating" value="2" /><span></span>
+				    <input type="radio" name="rating" value="3" /><span></span>
+				    <input type="radio" name="rating" value="4" /><span></span>
+				    <input type="radio" name="rating" value="5" /><span></span>
+				</div>
 		<div class="pagination">
 			<span class="step-links">
 				<ul class="pager">

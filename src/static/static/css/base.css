@@ -5,6 +5,10 @@ html, p, .body, .row p{
 h1, h3, h5, a{
 	font-family: 'Merriweather', serif!important;
 }
+
+h1{
+	text-transform: capitalize;
+}
 .btn, .btn-lg{
 	background-color: #00CCFF!important;
 	color: #fff !important;
@@ -47,4 +51,29 @@ input{
 }
 
 .col-lg-4 a:hover{
+}
+
+/* Registration and General Form Improvement */
+
+form {
+	width: 80%;
+	margin: 0 auto;
+}
+
+label, input{
+	display: inline-block;
+}
+
+label {
+	width: 300px;
+}
+
+label + input{
+	min-width: 150px;
+	width: 50%;
+	margin: 0 30% 0 4%;
+}
+
+input + input {
+	float: right;
 }
