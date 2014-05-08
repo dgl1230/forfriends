@@ -16,11 +16,11 @@
 <a href='/members/{{ user.username}}'>
 	{% for pic in user.userpicture_set.all %}
 		{% if forloop.first %}
-		<img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' />
+		<img src='{{ MEDIA_URL }}{{ pic }}' id="myfriend" class='img-responsive' />
 		{% endif %}
 	{% endfor %}
 	{% if not user.userpicture_set.all %}
-		<img src='{{ STATIC_URL }}img/avatar.png' class='img-responsive' />
+		<img src='{{ STATIC_URL }}img/avatar.png' id="myfriend" class='img-responsive' />
 	{% endif %}
 	{{ user }}
 	</a> <br/>
@@ -28,7 +28,9 @@
 		{% if forloop.first %} {{ item }}
 		{% endif %} 
 	{% endfor %}
-	<br/>
+	<div class="matching">
+	{% if not request.user == single_user %}<p id="match">Match {{ match }}%	</p>{% endif %}
+		</div>
 	<br/>
 	</div>
 	{% endif %}
@@ -36,5 +38,6 @@
 {% endfor %}
 </div>
 </div>
+<script src="/static/js/profile_view.js"></script>
 
 {% endblock %}

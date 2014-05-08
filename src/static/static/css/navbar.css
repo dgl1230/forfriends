@@ -1,3 +1,7 @@
+.navbar-fixed-top{
+	opacity: 1;
+}
+
 .navbar-brand{
 	letter-spacing: .3em;
 	font-style:italic;

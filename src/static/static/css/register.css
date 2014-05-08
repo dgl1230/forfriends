@@ -1,3 +1,23 @@
 .registration-form{
 	margin-top: 10%;
 }
+
+}
+
+label, input{
+	display: inline-block;
+}
+
+label {
+	width: 300px;
+}
+
+label + input{
+	min-width: 150px;
+	width: 50%;
+	margin: 0 30% 0 4%;
+}
+
+input + input {
+	float: right;
+}

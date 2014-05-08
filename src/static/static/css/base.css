@@ -1,4 +1,7 @@
-html, p, .body, .row p{
+body{
+	background-color: #f8f8f8;
+}
+p, .body, .row p{
 	font-family: 'Open Sans', sans-serif;
 }
 
@@ -58,22 +61,3 @@ input{
 form {
 	width: 80%;
 	margin: 0 auto;
-}
-
-label, input{
-	display: inline-block;
-}
-
-label {
-	width: 300px;
-}
-
-label + input{
-	min-width: 150px;
-	width: 50%;
-	margin: 0 30% 0 4%;
-}
-
-input + input {
-	float: right;
-}

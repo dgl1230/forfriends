@@ -14,7 +14,7 @@
 
 {% for pic in single_user.userpicture_set.all %}
 	{% if forloop.first %}
-		<img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' />
+		<img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' id="myfriend"/>
 	{% endif %}
 {% endfor %}
 {% if not single_user.userpicture_set.all %}
@@ -53,6 +53,7 @@
 	</div>
 	</div>
 	</div>
+
 	</div>
 
 {% endblock %}

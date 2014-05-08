@@ -206,3 +206,12 @@ ul li, li, li a, h5, h3{
     margin-left: 20%;
   }
 }
+
+@media (min-width: 2500px) {
+      #sidebar-wrapper{
+        margin-top:0%;
+      }
+      #leftbar-wrapper{
+        margin-top:0%;
+      }
+}

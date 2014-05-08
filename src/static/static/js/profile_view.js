@@ -1,7 +1,6 @@
-/* Top Menu */
-$(document).ready(
- $(function() {
-$( "#tabs" ).tabs({
-event: "mouseover"
+$("#myfriend").mouseover(function() {
+	$("#match").show();
+}).mouseout(function() {
+	$("#match").hide();
 });
-});
+
