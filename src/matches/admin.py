@@ -10,6 +10,7 @@ admin.site.register(Match, MatchAdmin)
 
 
 class MatchListAdmin(admin.ModelAdmin):
+	list_display = ['user', 'match', 'percent']
 	class Meta:
 		model = MatchList
 admin.site.register(MatchList, MatchListAdmin)

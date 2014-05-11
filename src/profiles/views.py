@@ -20,6 +20,14 @@ def all(request):
 		users = User.objects.filter(is_active=True)
 		try: 
 			matches = MatchList.objects.filter(user=request.user)
+			for user in matches: 
+				try: 
+					user.percent = round(match_percentage(request.user, user.match), 4) 
+				except:
+					user.percent = 0
+				match_num = user.percent * 100
+				user.percent = match_num
+				user.save()
 		except Exception:
 			pass
 		return render_to_response('all.html', locals(), context_instance=RequestContext(request))
