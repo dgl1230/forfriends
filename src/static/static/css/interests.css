@@ -166,3 +166,17 @@ label + input{
 input + input {
 	float: right;
 }
+
+@media only screen and (min-width:975px){
+	.contain{
+		margin-left: 10%;
+	}
+	.footer-container{
+		margin-left: 20%;
+	}
+}
+
+@media only screen and (min-width:1275px){
+	.footer-container{
+		margin-top:30%;
+	}

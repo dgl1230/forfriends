@@ -14,6 +14,23 @@ html, ul, ul li, li, li a, a, p, .btn{
 
 }
 
+p label{
+	font-size: 1.125em;
+}
 #locations p{
-	width: 400px;
+	width: 300px;
+}
+
+.col-lg-12 p{
+	width:350px;
+}
+
+.col-lg-12 p input{
+	float:right;
+	width:200;
+}
+
+.col-lg-12 p select{
+	width:200;
+	float:right;
 }
