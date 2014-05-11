@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+
+
 class Interest(models.Model):
 	user = models.ForeignKey(User)
 	description = models.CharField(max_length=200)
@@ -32,3 +34,13 @@ class UserInterestAnswer(models.Model):
 
 	def __unicode__(self):
 		return self.interest.interest
+
+class Category(models.Model):
+	interests = models.ManyToManyField(Interest)
+	title = models.CharField(max_length=120)
+	slug = models.SlugField()
+	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
+	updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+	def __unicode__(self):
+		return str(self.title)

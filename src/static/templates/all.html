@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="/static/css/profile_view.css">
 {% extends 'base.html' %}
 
+
 {% block content %}
 <br/>
 <br/>
@@ -9,27 +10,27 @@
 <div class='col-lg-6 '>
 	<center><h1>Users</h1></center>
 	<div class='row'>
-{% for user in users %}
+{% for user in matches %}
 
 	{% if not request.user == user %}
 <div class='col-lg-4'>
-<a href='/members/{{ user.username}}'>
-	{% for pic in user.userpicture_set.all %}
+<a href='/members/{{ user.match.username}}'>
+	{% for pic in user.match.userpicture_set.all %}
 		{% if forloop.first %}
 		<img src='{{ MEDIA_URL }}{{ pic }}' id="myfriend" class='img-responsive' />
 		{% endif %}
 	{% endfor %}
-	{% if not user.userpicture_set.all %}
+	{% if not user.match.userpicture_set.all %}
 		<img src='{{ STATIC_URL }}img/avatar.png' id="myfriend" class='img-responsive' />
 	{% endif %}
-	{{ user }}
+	{{ user.match }}
 	</a> <br/>
 	{% for item in user.address_set.all %} 
 		{% if forloop.first %} {{ item }}
 		{% endif %} 
 	{% endfor %}
 	<div class="matching">
-	{% if not request.user == single_user %}<p id="match">Match {{ match }}%	</p>{% endif %}
+	{% if not request.user == user %}<p id="match">Match {{ user.match }}%	</p>{% endif %}
 		</div>
 	<br/>
 	</div>

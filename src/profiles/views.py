@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.forms.models import modelformset_factory
 
 from interests.matching import points, match_percentage
-from matches.models import Match
+from matches.models import Match, MatchList
 from .models import Address, Job, Info, UserPicture
 from .forms import AddressForm, InfoForm, JobForm, UserPictureForm
 
@@ -19,14 +19,12 @@ def all(request):
 	if request.user.is_authenticated():
 		users = User.objects.filter(is_active=True)
 		try: 
-			matches = Match.objects.user_matches(request.user)
+			matches = MatchList.objects.filter(user=request.user)
 		except Exception:
 			pass
 		return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 	else:
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
-
-
 
 #Shows all pictures that the logged in user has 
 def all_pictures(request): 

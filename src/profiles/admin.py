@@ -1,30 +1,38 @@
 from django.contrib import admin
+from django.contrib.auth.models import User
+
+
 from .models import Address, Job, Info, UserPicture
+from interests.models import UserInterestAnswer
 
 
-class AddressAdmin(admin.ModelAdmin):
-	class Meta:
-		model = Address
+class AddressInline(admin.TabularInline):
+	max_num = 1	
+	model = Address
 
-admin.site.register(Address, AddressAdmin)
-
-
-class InfoAdmin(admin.ModelAdmin):
-	class Meta:
-		model = Info
-
-admin.site.register(Info, InfoAdmin)
+class InfoInline(admin.TabularInline):
+	max_num = 1	
+	model = Info
 
 
-class JobAdmin(admin.ModelAdmin):
-	class Meta:
-		model = Job
-
-admin.site.register(Job, JobAdmin)
+class JobInline(admin.TabularInline):
+	max_num = 1	
+	model = Job
 
 
-class UserPictureAdmin(admin.ModelAdmin):
-	class Meta:
-		model = UserPicture
+class UserInterestAnswerInline(admin.TabularInline):
+	extra = 0
+	model = UserInterestAnswer
 
-admin.site.register(UserPicture, UserPictureAdmin)
+
+class UserPictureInline(admin.TabularInline):
+	extra = 0
+	model = UserPicture
+
+
+class UserAdmin(admin.ModelAdmin):
+    inlines = [AddressInline, InfoInline, JobInline, 
+    		UserPictureInline, UserInterestAnswerInline]
+
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
