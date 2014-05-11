@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 from .models import Address, Job, Info, UserPicture
 from interests.models import UserInterestAnswer
+from matches.models import Match
 
 
 class AddressInline(admin.TabularInline):

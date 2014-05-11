@@ -28,6 +28,7 @@ def create_interest(request):
 		interest.save()
 		messages.success(request, 'Interest Created')
 		return HttpResponseRedirect('/')
+
 	return render_to_response("interests/create.html", locals(),
 		 context_instance=RequestContext(request))
 
