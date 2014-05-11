@@ -1,6 +1,8 @@
     <!DOCTYPE HTML>
     <html lang="en">
     <head>
+    {% load i18n %}
+
     <meta charset="utf-8">
     <title>Forfriends Landing Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -69,13 +71,23 @@
             <div class="span12">
               <h2>Become a member here!</h2>
                 <div class="registration-form">
+
+                <!-- ********************Login *************-->
                   <div class='row'>
-                    <div class='col-lg-4 col-lg-offset-4'>
-                      <h3>Register for a new account</h3>
+                    <div class='col-lg-4 pull-right'>
+                      <h1>Login</h1>
                       <form method="post" action=".">
-                      {% csrf_token %}
-                      {{ form.as_p }}
-                    </form>
+                        {% csrf_token %} 
+                        {{ form.as_p }}
+
+                        <input class='btn' type="submit" value="{% trans 'Log in' %}" />
+                        <input type="hidden" name="next" value="{{ next }}" />
+                      </form>
+
+                      <p>{% trans "Forgot password" %}? <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a></p>
+                      <p>{% trans "Not a member" %}? <a href="{% url 'registration_register' %}">{% trans "Register" %}</a>!</p>
+                  
+                    </div>
                   </div>
                 </div>
             </div>

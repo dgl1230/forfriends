@@ -1,85 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<body>
-
-<div class="container">
-    <h1>Bootstrap Image Gallery Demo</h1>
-    <blockquote>
-        <p>Bootstrap Image Gallery is an extension to <a href="http://blueimp.github.io/Gallery/">blueimp Gallery</a>, a touch-enabled, responsive and customizable image &amp; video gallery.<br>It displays images and videos in the modal dialog of the <a href="http://getbootstrap.com/">Bootstrap</a> framework, features swipe, mouse and keyboard navigation, transition effects, fullscreen support and on-demand content loading and can be extended to display additional content types.</p>
-    </blockquote>
-    <form class="form-inline">
-        <div class="form-group">
-            <button id="video-gallery-button" type="button" class="btn btn-success btn-lg">
-                <i class="glyphicon glyphicon-film"></i>
-                Launch Video Gallery
-            </button>
-        </div>
-        <div class="form-group">
-            <button id="image-gallery-button" type="button" class="btn btn-primary btn-lg">
-                <i class="glyphicon glyphicon-picture"></i>
-                Launch Image Gallery
-            </button>
-        </div>
-        <div class="btn-group" data-toggle="buttons">
-          <label class="btn btn-success btn-lg">
-            <i class="glyphicon glyphicon-leaf"></i>
-            <input id="borderless-checkbox" type="checkbox"> Borderless
-          </label>
-          <label class="btn btn-primary btn-lg">
-            <i class="glyphicon glyphicon-fullscreen"></i>
-            <input id="fullscreen-checkbox" type="checkbox"> Fullscreen
-          </label>
-        </div>
-    </form>
-    <br>
-    <!-- The container for the list of example images -->
-    <div id="links"></div>
-    <br>
-</div>
-<!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
-<div id="blueimp-gallery" class="blueimp-gallery">
-    <!-- The container for the modal slides -->
-    <div class="slides"></div>
-    <!-- Controls for the borderless lightbox -->
-    <h3 class="title"></h3>
-    <a class="prev">‹</a>
-    <a class="next">›</a>
-    <a class="close">×</a>
-    <a class="play-pause"></a>
-    <ol class="indicator"></ol>
-    <!-- The modal dialog, which will be used to wrap the lightbox content -->
-    <div class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title"></h4>
-                </div>
-                <div class="modal-body next"></div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-left prev">
-                        <i class="glyphicon glyphicon-chevron-left"></i>
-                        Previous
-                    </button>
-                    <button type="button" class="btn btn-primary next">
-                        Next
-                        <i class="glyphicon glyphicon-chevron-right"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
+<div class="row">
+  <div class="col-sm-6 col-md-4">
+    {% for pic in user.userpicture_set.all %}
+    <div class="thumbnail">
+      <img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' />
+      <div class="caption">
+        <h3></h3>
+        <p></p>
+        <p><a href="#" class="btn btn-primary" role="button">Like</a> <a href="#" class="btn btn-default" role="button">Dislike</a></p>
+      </div>
     </div>
+    {% endfor %}
+  </div>
 </div>
-<!-- Bootstrap JS is not required, but included for the responsive demo navigation and button states -->
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
-<script src="http://blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
-<script src="/static/js/bootstrap-image-gallery.js"></script>
-<script src="/static/js/demo.js"></script>
-</body> 
-
-{% for pic in user.userpicture_set.all %}
-	<img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' />
-{% endfor %}
-
 {% endblock %}

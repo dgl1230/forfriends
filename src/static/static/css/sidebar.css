@@ -48,6 +48,14 @@ ul li, li, li a, h5, h3{
   padding: 0;
 }
 
+.sub_messages{
+  display:none;
+}
+
+.create_interest{
+  display:none;
+}
+
 #sidebar-wrapper .sidebar-nav li {
   line-height: 40px;
   text-indent: 20px;

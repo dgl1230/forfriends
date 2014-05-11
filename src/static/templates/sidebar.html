@@ -10,16 +10,15 @@
             <ul class="sidebar-nav">
             <li><a href='/'><span class='glyphicon glyphicon-home'></span></a></li>
             <li><a href='{% if request.user.is_authenticated %}{% url "profile" request.user.username %} {% endif %}'><span class='glyphicon glyphicon-user'></span></a></li>
-            <li><a href='{% url "interests" %}'><span class='glyphicon glyphicon-heart'></span></a></li>
-           
-             <li><a href='{% url "inbox" %}'>
-              <span class='glyphicon glyphicon-envelope'></span></a></li>
+              <li><a href='{% url "interests" %}'><span class='glyphicon glyphicon-heart'></span></a></li>
+              <li class="create_interest"><a href='{% url "create" %}'><span class='glyphicon glyphicon-plus'></span></a></li>
             <li><a href='/pictures'><span class='glyphicon glyphicon-camera '></span></a></li>
+            <li><a href='{% url "inbox" %}'>
+              <span class='glyphicon glyphicon-envelope'></span></a></li>
+            
           </ul>
           </div>
-           
-
-          </ul>
+          
 
         </div>
         {% endif %}
@@ -30,12 +29,13 @@
             <ul class="sidebar-nav">
             <li><a href='/'>Home</a></li>
             <li><a href='{% if request.user.is_authenticated %}{% url "profile" request.user.username %} {% endif %}'>Profile</a></li>
-            <li><a href='{% url "interests" %}'>Interests</a></li>
-            {% if 'interests' in request.get_full_path %}
-              <li><a href='{% url "create" %}'>Create</a></li>
-            {% endif %}
-           
-             <li><a href='{% url "inbox" %}'>
+            <div class="interests_all">
+              <li><a href='{% url "interests" %}'>Interests</a></li>
+                <li class="create_interest"><a href='{% url "create" %}'>Create</a></li>
+            </div>
+            <li><a href='/pictures'>Pictures</a></li>
+            <div class="messages_all">
+             <li><a id="messages" href='{% url "inbox" %}'>
               {% if not 'messages' in request.get_full_path %}
               {% if not request.session.num_of_messages == 0 %}
                 <span class='badge pull-right'>
@@ -43,9 +43,9 @@
                </span>
               {% endif %}
               {% endif %}
+
               Messages</a></li>
-            {% if 'messages' in request.get_full_path %}
-              <ul>
+              <div class="sub_messages">
                <li><a href='{% url "compose" %}'>Compose</a></li>
                <li><a href='{% url "inbox" %}'>
                {% if not request.session.num_of_messages == 0 %}
@@ -53,20 +53,30 @@
                {{ request.session.num_of_messages }}
                {% endif %}
                </span>Inbox</a></li>
-              <li><a href='{% url "sent" %}'>Sent</a></li>
-              </ul>
-            {% endif %}
-            <li><a href='/pictures'>Pictures</a></li>
+              <li><a href='{% url "sent" %}'>Sent</a>
+              </div>
+            </div>
           </ul>
           </div>
-           
-
-          </ul>
 
         </div>
         {% endif %}
 
     <script>
+      $(".messages_all").mouseover(function(){
+        $(".sub_messages").show();
+      });
+      $(".messages_all").mouseout(function() {
+        $(".sub_messages").hide();
+      });
+
+      $(".interests_all").mouseover(function(){
+        $(".create_interest").show();
+      });
+      $(".interests_all").mouseout(function() {
+        $(".create_interest").hide();
+      });
+
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("active");
