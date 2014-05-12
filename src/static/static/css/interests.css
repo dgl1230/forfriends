@@ -8,25 +8,7 @@
 	min-width: 300px;
 }
 
-.btn{
-	background-color: #00CCFF!important;
-	color: #fff !important;
-	border-color: #00CCFF !important;
-}
 
-.btn:hover{
-	background-color: #fff !important;
-	color: #00CCFF !important;
-	border-color: #00CCFF !important;
-}
-.pager li a{
-	color: #999;
-	font-weight: bold;
-}
-
-.pager li a:hover{
-	text-decoration: underline;
-}
 
 .main_interests{	
 	min-width: 300px;
@@ -72,42 +54,6 @@
 	margin-top: 0%;
 }
 
-/* Star Rating System */
-#hide {
-    display:none;
-}
- 
-.rating input {
-    position:absolute;
-    filter:alpha(opacity=0);
-    -moz-opacity:0;
-    -khtml-opacity:0;
-    opacity:0;
-    cursor:pointer;
-    width:17px;
-}
- 
-.rating span {
-    width:24px;
-    height:16px;
-    line-height:16px;
-    padding:1px 22px 1px 0; /* 1px FireFox fix */
-    background:url(/static/img/stars.jpeg) no-repeat -22px 0;
-}
- 
-/* Change span immediately following the checked radio */
- 
-.rating input:checked + span {
-    background-position:-22px 0;
-}
- 
-/* Reset all remaining stars back to default background.
-   This supersedes the above due to its ordering. */
- 
-.rating input:checked + span ~ span {
-    background-position:0 0;
-}
-
 /* Footer */
 footer{
 	margin-left: 10%;
@@ -131,6 +77,30 @@ footer{
 .interests_intro a:hover, .interests_intro a:active{
 	color: #00CCFF;
 }
+
+
+/* Buttons */
+.btn{
+	background-color: #00CCFF!important;
+	color: #fff !important;
+	border-color: #00CCFF !important;
+}
+
+.btn:hover{
+	background-color: #fff !important;
+	color: #00CCFF !important;
+	border-color: #00CCFF !important;
+}
+.pager li a{
+	color: #333;
+	font-weight: bold;
+}
+
+.pager li a:hover{
+	text-decoration: underline;
+}
+
+/* Media Queries */
 @media only screen and (min-width:950px){
 	.interests-wrapper{
 		margin-left: 10%;

@@ -34,3 +34,17 @@ p label{
 	width:200;
 	float:right;
 }
+
+#mytab li a:hover{
+	background:#333;
+	color:white;
+}
+
+#mytab li a{
+	color: black;
+	outline: none;
+}
+
+p a{
+	color:black;
+}

@@ -11,31 +11,34 @@
 	<center><h1>Users</h1></center>
 	<div class='row'>
 {% for user in matches %}
-
+	<div id="myfriend">
 	{% if not request.user == user %}
-<div class='col-lg-4'>
-<a href='/members/{{ user.match.username}}'>
-	{% for pic in user.match.userpicture_set.all %}
-		{% if forloop.first %}
-		<img src='{{ MEDIA_URL }}{{ pic }}' id="myfriend" class='img-responsive' />
+	<div class='col-lg-4'>
+	<a href='/members/{{ user.match.username}}'>
+		{% for pic in user.match.userpicture_set.all %}
+			
+			{% if forloop.first %}
+			<img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' />
+			{% endif %}
+		{% endfor %}
+		{% if not user.match.userpicture_set.all %}
+			<img src='{{ STATIC_URL }}img/avatar.png' class='img-responsive' />
 		{% endif %}
-	{% endfor %}
-	{% if not user.match.userpicture_set.all %}
-		<img src='{{ STATIC_URL }}img/avatar.png' id="myfriend" class='img-responsive' />
-	{% endif %}
-	{{ user.match }}
-	</a> <br/>
-	{% for item in user.address_set.all %} 
-		{% if forloop.first %} {{ item }}
-		{% endif %} 
-	{% endfor %}
-	<div class="matching">
-	{% if not request.user == user %}<p id="match">Match {{ user.percent }}%	</p>{% endif %}
+			
+		{{ user.match }}
+		</a> <br/>
+		{% for item in user.address_set.all %} 
+			{% if forloop.first %} {{ item }}
+			{% endif %} 
+		{% endfor %}
+		<div class="matching">
+		{% if not request.user == user %}<p id="match">Match: {{ user.percent }}%	</p>{% endif %}
+			</div>
+		<br/>
 		</div>
-	<br/>
-	</div>
-	{% endif %}
-	{% cycle '' '' '' '</div><div class="row">' %}
+		</div>
+		{% endif %}
+		{% cycle '' '' '' '</div><div class="row">' %}
 {% endfor %}
 </div>
 </div>

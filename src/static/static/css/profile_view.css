@@ -16,5 +16,18 @@
 	min-height: 10em;
 }
 .img-responsive{
-	border-radius: 50%;
+	border-radius: 0%;
+}
+
+#profile_interests{
+	float: right!important;
+	width: 40%;
+}
+
+#picture_row{
+	width: 100%;
+}
+
+.row .col-sm-12{
+	width: 60%;
 }

@@ -5,23 +5,24 @@
 
 {% block content %}
 
+	<div class = 'row' id="picture_row">
+		<div class='col col-sm-12'>
+			<h1>{% if single_user.first_name %} {{ single_user.first_name }} {% else %} {{ single_user }} {% endif %}</h1>
+			{% for pic in single_user.userpicture_set.all %}
+				{% if forloop.first %}
+					<img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' id="myfriend"/>
+				{% endif %}
+			{% endfor %}
+			{% if not single_user.userpicture_set.all %}
+				<img src='{{ STATIC_URL }}img/avatar.png' class='img-responsive' />
+			{% endif %}
+		</div>
+	
+		<div class="row" id="profile_interests">
+					<h2>Interests</h2>
+		</div>
+	</div>
 
-	<div class = 'row'>
-	<div class='col-lg-6'>
-
-<h1>{% if single_user.first_name %} {{ single_user.first_name }} {% else %} {{ single_user }} {% endif %}</h1>
-
-
-{% for pic in single_user.userpicture_set.all %}
-	{% if forloop.first %}
-		<img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' id="myfriend"/>
-	{% endif %}
-{% endfor %}
-{% if not single_user.userpicture_set.all %}
-	<img src='{{ STATIC_URL }}img/avatar.png' class='img-responsive' />
-{% endif %}
-
-</div> 
 	<div class='col-lg-6'>
 	{% if not request.user == single_user %}<h1>Match {{ match }}%	</h1>{% endif %}
 		<h1>Info</h1>
