@@ -7,6 +7,11 @@ p, .body, .row p{
 
 h1, h3, h5, a{
 	font-family: 'Merriweather', serif!important;
+	outline:none;
+}
+
+a:active{
+	outline:none;
 }
 
 h1{
@@ -61,3 +66,50 @@ input{
 form {
 	width: 80%;
 	margin: 0 auto;
+}
+
+/* all.html */
+#myfriend{
+	width: 50%;
+}
+
+#myfriend a{
+	text-transform: capitalize;
+	color: black;
+	font-size: 1.125em;
+}
+
+#myfriend a:hover{
+}
+
+#myfriend #match{
+	font-size: 1.125em;
+}
+
+ @media (max-width: 650px) {
+ 	#myfriend a{
+	font-size: 1em;
+	}
+	#myfriend #match{
+	font-size: 1em;
+	}
+}
+
+@media (min-width: 1200px){
+	#myfriend{
+		width: 400px;
+		height:auto;
+	}
+}
+
+@media (min-width: 1000px){
+	.container{
+		margin-left: 5%;
+	}
+}
+
+@media (min-width: 1150px){
+	.container{
+		margin-left: 10%;
+	}
+}

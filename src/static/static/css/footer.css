@@ -8,15 +8,15 @@ footer p a:hover{
 	color: #333;
 	}
 
-@media all and (min-width: 900px){
+@media all and (min-width: 700px){
 	footer{
 		margin-left:100px;
 	}
 }
 
-@media all and (min-width: 1100px){
+@media all and (min-width: 1000px){
 	footer{
-		margin-left:200px;
+		margin-left:300px;
 	}
 }
 

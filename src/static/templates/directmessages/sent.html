@@ -12,6 +12,10 @@ on {{ item.sent }}<br/>
 <div class="well">
 	{{ item.body }}
 </div>
+<br>
+<br>
+
+{% endfor %}
 <div class="left-button">
 	<form action="/messages/inbox/">
 		<input class='btn btn-info btn-sm' type='submit' value="Inbox">
@@ -22,10 +26,5 @@ on {{ item.sent }}<br/>
 		<input class='btn btn-info btn-sm' type='submit' value="New Message">
 	</form>
 </div>
-<br>
-<br>
-
-{% endfor %}
-
 
 {% endblock %}
