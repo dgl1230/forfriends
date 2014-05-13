@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form action='{% url "search" %}'>
+	<input type='text' name='q'>
+	<input type='submit'>
+
+</form>
+<br/>
+
+<h3>{{ query }}</h3>
+<h1> Users</h1>
+<ol>
+{% for user in results %}
+<div id="myfriend">
+	{% if not request.user == user %}
+	<div class='col-lg-4'>
+	<a href='/members/{{ user.username}}'>
+		{% for pic in user.userpicture_set.all %}
+			
+			{% if forloop.first %}
+			<img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' />
+			{% endif %}
+		{% endfor %}
+		{% if not user.userpicture_set.all %}
+			<img src='{{ STATIC_URL }}img/avatar.png' class='img-responsive' />
+		{% endif %}
+			
+		{{ user }}
+		</a> <br/>
+		{% for item in user.address_set.all %} 
+			{% if forloop.first %} {{ item }}
+			{% endif %} 
+		{% endfor %}
+		<div class="matching">
+		{% if not request.user == user %}<p id="match">Match: {{ user.percent }}%	</p>{% endif %}
+			</div>
+		<br/>
+		</div>
+		</div>
+		{% endif %}
+		{% cycle '' '' '' '</div><div class="row">' %}
+{% endfor %}
+
+{% endblock %}

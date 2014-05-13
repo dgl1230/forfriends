@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.shortcuts import render_to_response, RequestContext, Http404, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.forms.models import modelformset_factory
+from django.db.models import Q
 
 from interests.matching import points, match_percentage
 from matches.models import Match, MatchList
@@ -14,7 +15,8 @@ from .forms import AddressForm, InfoForm, JobForm, UserPictureForm
 
 
 
-#The view for the home page of a user 
+'''The view for the home page of a user. If they're logged in, it shows relevant
+matches for them, otherwise it shows the home page for non-logged in viewers '''
 def all(request):
 	if request.user.is_authenticated():
 		users = User.objects.filter(is_active=True)
@@ -148,6 +150,18 @@ def single_user(request, username):
 	set_match.save()
 	match = set_match.percent * 100
 	return render_to_response('single_user.html', locals(), context_instance=RequestContext(request))	
+
+
+def search(request):
+	try:
+		q = request.GET.get('q', '')
+	except: 
+		q = False
+	users_queryset = User.objects.filter(
+		Q(username__icontains=q)
+		)
+	results = users_queryset
+	return render_to_response('search.html', locals(), context_instance=RequestContext(request))	
 
 
 def sort_friends_by_match(request):
