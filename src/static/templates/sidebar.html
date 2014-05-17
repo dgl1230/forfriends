@@ -31,7 +31,10 @@
             <li><a href='{% if request.user.is_authenticated %}{% url "profile" request.user.username %} {% endif %}'>Profile</a></li>
             <div class="interests_all">
               <li><a href='{% url "interests" %}'>Interests</a></li>
-                <li class="create_interest"><a href='{% url "create" %}'>Create</a></li>
+            </div>
+            <div class="questionss_all">
+              <li><a href='{% url "questions" %}'>Questions</a></li>
+
             </div>
             <li><a href='/pictures'>Pictures</a></li>
             <div class="messages_all">

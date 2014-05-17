@@ -1,0 +1,16 @@
+<head><link href="/static/css/interests.css" rel="stylesheet"></head>
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class="contain">
+	<h1>Make a Question</h1>
+
+	<form method='POST' action=''>{% csrf_token %}
+	{{ q_form.as_p }}
+	{{ a_form.as_p }}
+	<input type='submit' value="Create" />
+	</form>
+
+{% endblock %}
+</div>

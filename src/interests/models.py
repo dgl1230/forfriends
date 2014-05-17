@@ -8,6 +8,7 @@ class Interest(models.Model):
 	user = models.ForeignKey(User)
 	description = models.CharField(max_length=200)
 	interest = models.CharField(max_length=120)
+	approved = models.BooleanField(default=False)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 	update = models.DateTimeField(auto_now_add=False, auto_now=True)
 
@@ -25,10 +26,22 @@ class InterestPicture(models.Model):
 
 
 class UserInterestAnswer(models.Model):
+	STRONGLY_LIKE = 'SL'
+	LIKE = 'L'
+	NEUTRAL = 'N'
+	DISLIKE = 'D'
+	STRONGLY_DISLIKE = 'SD'
+	IMPORTANCE_CHOICES = (
+		(STRONGLY_LIKE, 'Strongly Like'),
+		(LIKE, 'Like'),
+		(NEUTRAL, 'Neutral'),
+		(DISLIKE, 'Dislike'),
+		(STRONGLY_DISLIKE, 'Strongly Dislike'),
+	)
 	user = models.ForeignKey(User)
 	interest = models.ForeignKey(Interest)
-	importance_level = models.CharField(max_length=120, default='Neutral', null=True, blank=True)
-	points = models.IntegerField(default='20')
+	importance_level = models.CharField(max_length=2, choices=IMPORTANCE_CHOICES,
+							default=NEUTRAL, null=True, blank=True)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 	update = models.DateTimeField(auto_now_add=False, auto_now=True)
 

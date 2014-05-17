@@ -10,30 +10,29 @@
 <div class='col-lg-6 '>
 	<center><h1>Users</h1></center>
 	<div class='row'>
-{% for user in matches %}
+{% for match in matches %}
 	<div id="myfriend">
-	{% if not request.user == user %}
+	{% if not request.user == match.matched %}
 	<div class='col-lg-4'>
-	<a href='/members/{{ user.match.username}}'>
-		{% for pic in user.match.userpicture_set.all %}
+	<a href='/members/{{ match.matched.username}}'>
+		{% for pic in match.matched.userpicture_set.all %}
 			
 			{% if forloop.first %}
 			<img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' />
 			{% endif %}
 		{% endfor %}
-		{% if not user.match.userpicture_set.all %}
+		{% if not match.matched.userpicture_set.all %}
 			<img src='{{ STATIC_URL }}img/avatar.png' class='img-responsive' />
 		{% endif %}
 			
-		{{ user.match }}
+		{{ match.matched.username }}
 		</a> <br/>
-		{% for item in user.address_set.all %} 
+		{% for item in match.matched.address_set.all %} 
 			{% if forloop.first %} {{ item }}
 			{% endif %} 
 		{% endfor %}
 		<div class="matching">
-		{% if not request.user == user %}<p id="match">Match: {{ user.percent }}%	</p>{% endif %}
-			</div>
+		<p id="match">Match: {{ match.percent }}%	</p>
 		<br/>
 		</div>
 		</div>

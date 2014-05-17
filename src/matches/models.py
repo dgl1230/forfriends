@@ -8,47 +8,31 @@ from django.contrib.auth.signals import user_logged_in
 from interests.matching import points, match_percentage
 
 
-
-class MatchList(models.Model):
-	user = models.ForeignKey(User, related_name='main_user')
-	match = models.ForeignKey(User, related_name='matched_user')
-	percent = models.DecimalField(max_digits=10, decimal_places=4, default=Decimal('0.00'))
-	read = models.BooleanField(default=False)
-	read_at = models.DateTimeField(auto_now_add=True, auto_now=False, null=True, blank=True)
-	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
-	updated = models.DateTimeField(auto_now_add=False, auto_now=True)
-
-	def __unicode__(self):
-		return str(self.user.username)
-
-	class Meta:
-		ordering = ['-updated', '-timestamp']
-
 def login_user_matches(sender, user, request, **kwargs):
-		obj = Match.objects.filter(from_user=user)
+		obj = Match.objects.filter(user=user)
 		for abc in obj:
-			if abc.to_user != user:
+			if abc.user != user:
 				#if Match.objects.good_match(abc.to_user, user):
-				add_to_list, created = MatchList.objects.get_or_create(user=user, match=abc.to_user)
+				add_to_list, created = Match.objects.get_or_create(user=user, matched=abc.matched)
 				
-		obj2 = Match.objects.filter(to_user=user)
+		obj2 = Match.objects.filter(user=user)
 		for abc in obj2:
-			if abc.from_user != user:
+			if abc.matched != user:
 				#if Match.objects.good_match(abc.from_user, user):
-				add_to_list, created = MatchList.objects.get_or_create(user=user, match=abc.from_user)
-		request.session['new_matches_count'] = MatchList.objects.filter(user=user).filter(read=False).count()
+				add_to_list, created = Match.objects.get_or_create(user=user, matched=abc.matched)
+		request.session['new_matches_count'] = Match.objects.filter(user=user).count()
 
 user_logged_in.connect(login_user_matches)
 
 
 class MatchManager(models.Manager):
 	def are_matched(self, user1, user2):
-		if self.filter(from_user=user1, to_user=user2).count() > 0:
-			obj = Match.objects.get(from_user=user1, to_user=user2)
+		if self.filter(user=user1, matched=user2).count() > 0:
+			obj = Match.objects.get(user=user1, matched=user2)
 			percentage = obj.percent * 100
 			return percentage
-		if self.filter(from_user=user2, to_user=user1).count() > 0:
-			obj = Match.objects.get(from_user=user2, to_user=user1)
+		if self.filter(user=user2, matched=user1).count() > 0:
+			obj = Match.objects.get(user=user2, matched=user1)
 			percentage = obj.percent * 100
 			return percentage
 		else:
@@ -70,9 +54,9 @@ class MatchManager(models.Manager):
 
 
 class Match(models.Model):
-	to_user = models.ForeignKey(User, related_name="match")
-	from_user = models.ForeignKey(User, related_name="match2")
-	percent = models.DecimalField(max_digits=10, decimal_places=4, default=Decimal('0.00'))
+	user = models.ForeignKey(User, related_name="match")
+	matched = models.ForeignKey(User, related_name="match2", null=True, blank=True)
+	percent = models.IntegerField()
 	good_match = models.BooleanField(default=False)
 
 	objects = MatchManager()
@@ -81,4 +65,4 @@ class Match(models.Model):
 	updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 
 	def __unicode__(self):
-		return self.percent
+		return str(self.user.username)

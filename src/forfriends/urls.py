@@ -25,16 +25,8 @@ urlpatterns = patterns('',
     url(r'^pictures/$', 'profiles.views.all_pictures', name='pictures'),
     url(r'^messages/', include('directmessages.urls')),
     url(r'^search/', 'profiles.views.search', name="search"),
-    #url(r'^profile_home$', 'userprofile.views.home'),
-    #url(r'^logged_in$', 'userprofile.views.login_view'),
-    #url(r'^profile_view$', 'userprofile.views.profile_view'),
-    #url(r'^interests$', 'userprofile.views.interests'),
-    #url(r'^pictures$', 'userprofile.views.pictures'),
+    url(r'^questions/$', 'questions.views.all_questions', name='questions'),
+    url(r'^questions/create/$', 'questions.views.create_question', name='create_question'),
     (r'^accounts/', include('registration.backends.default.urls')),
     url(r'^about_us/$', TemplateView.as_view(template_name='about_us.html'), name="about_us"),
 )
-
-    #url(r'^test/$', 'userprofile.views.registration'),
-    #url(r'submit', 'userprofile.views.registration'),
-    
-

@@ -8,23 +8,14 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Match'
-        db.create_table(u'matches_match', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(related_name='match', to=orm['auth.User'])),
-            ('matched', self.gf('django.db.models.fields.related.ForeignKey')(related_name='match2', to=orm['auth.User'])),
-            ('percent', self.gf('django.db.models.fields.DecimalField')(default='0.00', max_digits=10, decimal_places=4)),
-            ('good_match', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('updated', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
-        ))
-        db.send_create_signal(u'matches', ['Match'])
 
+        # Changing field 'UserInterestAnswer.importance_level'
+        db.alter_column(u'interests_userinterestanswer', 'importance_level', self.gf('django.db.models.fields.CharField')(max_length=2, null=True))
 
     def backwards(self, orm):
-        # Deleting model 'Match'
-        db.delete_table(u'matches_match')
 
+        # Changing field 'UserInterestAnswer.importance_level'
+        db.alter_column(u'interests_userinterestanswer', 'importance_level', self.gf('django.db.models.fields.CharField')(max_length=120, null=True))
 
     models = {
         u'auth.group': {
@@ -63,16 +54,43 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'matches.match': {
-            'Meta': {'object_name': 'Match'},
-            'good_match': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+        u'interests.category': {
+            'Meta': {'object_name': 'Category'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'matched': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'match2'", 'to': u"orm['auth.User']"}),
-            'percent': ('django.db.models.fields.DecimalField', [], {'default': "'0.00'", 'max_digits': '10', 'decimal_places': '4'}),
+            'interests': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['interests.Interest']", 'symmetrical': 'False'}),
+            'slug': ('django.db.models.fields.SlugField', [], {'max_length': '50'}),
             'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'updated': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'match'", 'to': u"orm['auth.User']"})
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '120'}),
+            'updated': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'})
+        },
+        u'interests.interest': {
+            'Meta': {'object_name': 'Interest'},
+            'approved': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'description': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'interest': ('django.db.models.fields.CharField', [], {'max_length': '120'}),
+            'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'update': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"})
+        },
+        u'interests.interestpicture': {
+            'Meta': {'object_name': 'InterestPicture'},
+            'active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
+            'interest': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['interests.Interest']"}),
+            'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'})
+        },
+        u'interests.userinterestanswer': {
+            'Meta': {'object_name': 'UserInterestAnswer'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'importance_level': ('django.db.models.fields.CharField', [], {'default': "'N'", 'max_length': '2', 'null': 'True', 'blank': 'True'}),
+            'interest': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['interests.Interest']"}),
+            'points': ('django.db.models.fields.IntegerField', [], {'default': "'20'"}),
+            'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'update': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"})
         }
     }
 
-    complete_apps = ['matches']
+    complete_apps = ['interests']

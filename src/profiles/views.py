@@ -7,8 +7,8 @@ from django.contrib.auth.models import User
 from django.forms.models import modelformset_factory
 from django.db.models import Q
 
-from interests.matching import points, match_percentage
-from matches.models import Match, MatchList
+from forfriends.matching import match_percentage
+from matches.models import Match
 from .models import Address, Job, Info, UserPicture
 from .forms import AddressForm, InfoForm, JobForm, UserPictureForm
 
@@ -21,15 +21,15 @@ def all(request):
 	if request.user.is_authenticated():
 		users = User.objects.filter(is_active=True)
 		try: 
-			matches = MatchList.objects.filter(user=request.user)
-			for user in matches: 
+			matches = Match.objects.filter(user=request.user)
+			for match in matches: 
 				try: 
-					user.percent = round(match_percentage(request.user, user.match), 4) 
+					match.percent = match_percentage(request.user, match.matched)
 				except:
-					user.percent = 0
-				match_num = user.percent * 100
-				user.percent = match_num
-				user.save()
+					match.percent = 0
+				match_num = match.percent 
+				match.percent = match_num
+				match.save()
 		except Exception:
 			pass
 		return render_to_response('all.html', locals(), context_instance=RequestContext(request))
@@ -141,14 +141,15 @@ def single_user(request, username):
 			single_user = user
 	except:
 		raise Http404
-	set_match, created = Match.objects.get_or_create(from_user=request.user, to_user=single_user)
+	set_match, created = Match.objects.get_or_create(user=request.user, matched=single_user)
 	try:
-		set_match.percent = round(match_percentage(request.user, single_user), 4)
+		set_match.percent = match_percentage(request.user, single_user)
 	except: 
+		print "failed"
 		set_match.percent = 0
 	set_match.good_match = Match.objects.good_match(request.user, single_user)
 	set_match.save()
-	match = set_match.percent * 100
+	match = set_match.percent 
 	return render_to_response('single_user.html', locals(), context_instance=RequestContext(request))	
 
 

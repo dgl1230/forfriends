@@ -8,23 +8,14 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Match'
-        db.create_table(u'matches_match', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(related_name='match', to=orm['auth.User'])),
-            ('matched', self.gf('django.db.models.fields.related.ForeignKey')(related_name='match2', to=orm['auth.User'])),
-            ('percent', self.gf('django.db.models.fields.DecimalField')(default='0.00', max_digits=10, decimal_places=4)),
-            ('good_match', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('updated', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
-        ))
-        db.send_create_signal(u'matches', ['Match'])
 
+        # Changing field 'MatchAnswer.importance_level'
+        db.alter_column(u'questions_matchanswer', 'importance_level', self.gf('django.db.models.fields.CharField')(max_length=2, null=True))
 
     def backwards(self, orm):
-        # Deleting model 'Match'
-        db.delete_table(u'matches_match')
 
+        # Changing field 'MatchAnswer.importance_level'
+        db.alter_column(u'questions_matchanswer', 'importance_level', self.gf('django.db.models.fields.CharField')(max_length=120, null=True))
 
     models = {
         u'auth.group': {
@@ -63,16 +54,42 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'matches.match': {
-            'Meta': {'object_name': 'Match'},
-            'good_match': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+        u'questions.answer': {
+            'Meta': {'object_name': 'Answer'},
+            'answer': ('django.db.models.fields.CharField', [], {'max_length': '120'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'matched': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'match2'", 'to': u"orm['auth.User']"}),
-            'percent': ('django.db.models.fields.DecimalField', [], {'default': "'0.00'", 'max_digits': '10', 'decimal_places': '4'}),
+            'question': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['questions.Question']"}),
             'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'updated': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'match'", 'to': u"orm['auth.User']"})
+            'update': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'})
+        },
+        u'questions.matchanswer': {
+            'Meta': {'object_name': 'MatchAnswer'},
+            'answer': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['questions.Answer']", 'null': 'True', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'importance_level': ('django.db.models.fields.CharField', [], {'default': "'SI'", 'max_length': '2', 'null': 'True', 'blank': 'True'}),
+            'question': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['questions.Question']"}),
+            'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'update': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"})
+        },
+        u'questions.question': {
+            'Meta': {'object_name': 'Question'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'question': ('django.db.models.fields.CharField', [], {'max_length': '120'}),
+            'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'update': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"})
+        },
+        u'questions.useranswer': {
+            'Meta': {'object_name': 'UserAnswer'},
+            'answer': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['questions.Answer']", 'null': 'True', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'importance_level': ('django.db.models.fields.CharField', [], {'default': "'SI'", 'max_length': '2', 'null': 'True', 'blank': 'True'}),
+            'question': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['questions.Question']"}),
+            'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'update': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"})
         }
     }
 
-    complete_apps = ['matches']
+    complete_apps = ['questions']

@@ -8,23 +8,24 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Match'
-        db.create_table(u'matches_match', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(related_name='match', to=orm['auth.User'])),
-            ('matched', self.gf('django.db.models.fields.related.ForeignKey')(related_name='match2', to=orm['auth.User'])),
-            ('percent', self.gf('django.db.models.fields.DecimalField')(default='0.00', max_digits=10, decimal_places=4)),
-            ('good_match', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('updated', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
-        ))
-        db.send_create_signal(u'matches', ['Match'])
 
+        # Changing field 'Match.percent'
+        db.alter_column(u'matches_match', 'percent', self.gf('django.db.models.fields.IntegerField')())
+
+        # Changing field 'Match.matched'
+        db.alter_column(u'matches_match', 'matched_id', self.gf('django.db.models.fields.related.ForeignKey')(null=True, to=orm['auth.User']))
 
     def backwards(self, orm):
-        # Deleting model 'Match'
-        db.delete_table(u'matches_match')
 
+        # Changing field 'Match.percent'
+        db.alter_column(u'matches_match', 'percent', self.gf('django.db.models.fields.DecimalField')(max_digits=10, decimal_places=4))
+
+        # User chose to not deal with backwards NULL issues for 'Match.matched'
+        raise RuntimeError("Cannot reverse this migration. 'Match.matched' and its values cannot be restored.")
+        
+        # The following code is provided here to aid in writing a correct migration
+        # Changing field 'Match.matched'
+        db.alter_column(u'matches_match', 'matched_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User']))
 
     models = {
         u'auth.group': {
@@ -67,8 +68,8 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Match'},
             'good_match': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'matched': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'match2'", 'to': u"orm['auth.User']"}),
-            'percent': ('django.db.models.fields.DecimalField', [], {'default': "'0.00'", 'max_digits': '10', 'decimal_places': '4'}),
+            'matched': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'match2'", 'null': 'True', 'to': u"orm['auth.User']"}),
+            'percent': ('django.db.models.fields.IntegerField', [], {}),
             'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'updated': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'match'", 'to': u"orm['auth.User']"})
