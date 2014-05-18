@@ -10,6 +10,8 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = os.environ["EMAIL_HOST_USER"]
+DEFAULT_FROM_EMAIL = os.environ["EMAIL_HOST_USER"]
+SERVER_EMAIL = os.environ["EMAIL_HOST_USER"]
 EMAIL_HOST_PASSWORD = os.environ["EMAIL_HOST_PASSWORD"]
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587

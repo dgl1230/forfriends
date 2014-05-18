@@ -64,6 +64,7 @@ def edit_address(request):
 	else:
 		raise Http404
 
+
 def edit_info(request):
 	if request.method == 'POST':
 
@@ -133,6 +134,22 @@ def edit_profile(request):
 	return render_to_response('profiles/edit_profile.html', locals(), context_instance=RequestContext(request))
 
 
+#sorts the matches of user according to whatver the user specified 
+def find_friends(request):
+	matches = Match.objects.filter(user=request.user)
+	for match in matches: 
+				try: 
+					match.percent = match_percentage(request.user, match.matched)
+				except:
+					match.percent = 0
+				match_num = match.percent 
+				match.percent = match_num
+				match.save()
+	matches = matches.order_by('-percent')
+	return render_to_response('profiles/find_friends.html', locals(), context_instance=RequestContext(request))
+
+
+
 #Displays the profile page of a specific user and their match % against the logged in user
 def single_user(request, username):
 	try:
@@ -165,17 +182,4 @@ def search(request):
 	return render_to_response('search.html', locals(), context_instance=RequestContext(request))	
 
 
-def sort_friends_by_match(request):
-	users = User.objects.filter(active=True)
-	users_list = {}
-	for single_user in users: 
-		single_match, created = Match.objects.get_or_create(from_user=request.user, to_user=single_user)
-		try:
-			set_match.percent = round(match_percentage(request.user, single_user), 4)
-		except: 
-			set_match.percent = 0
-		match = set_match.percent * 100
-		users_list[single_user] = match
-	#this is now a list of tuples like [(user1, match), (user2, match)]
-	sorted_users = sorted(sorted_users.iteritems(), key=operator.itemgetter(1))
 
