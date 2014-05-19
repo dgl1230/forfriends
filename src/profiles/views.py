@@ -11,6 +11,7 @@ from forfriends.matching import match_percentage
 from matches.models import Match
 from .models import Address, Job, Info, UserPicture
 from .forms import AddressForm, InfoForm, JobForm, UserPictureForm
+from interests.models import UserInterestAnswer
 
 
 
@@ -167,6 +168,7 @@ def single_user(request, username):
 	set_match.good_match = Match.objects.good_match(request.user, single_user)
 	set_match.save()
 	match = set_match.percent 
+	interests = UserInterestAnswer.objects.filter(user=single_user)
 	return render_to_response('single_user.html', locals(), context_instance=RequestContext(request))	
 
 
