@@ -12,15 +12,8 @@
 </div>
 {% endif %}
 
-<div class="questions-wrapper">
-	<div class='row'>
-		<div class='interests_intro'>
-			<h3><a href="/questions/create/">Add Questions!</a></h3>
+<h3><a href="/questions/edit/">Edit your questions</a></h3>
 
-			<p><a href="/questions/edit/">Or Edit your current ones</a></p>
-		<hr>
-		</div>
-	</div>
 <div class='row'>
 	{% for question in questions %}
 		<h3>{{ question }}</h3><p>
@@ -48,8 +41,7 @@
 		<!-- Submit Button -->
 		<input type='submit' class='btn-lg' id="questions_button" value='Save'>
 		<!--Skip Button -->
-			<a href="?page={{ questions.next_page_number }}">
-						<input type='submit' class='btn-lg' value='Skip'></a>
+		
 		</div>
 	</form>
 	{% endfor %}

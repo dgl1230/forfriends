@@ -7,8 +7,24 @@ from .models import Question, Answer, UserAnswer, MatchAnswer
 from .forms import QuestionForm, AnswerForm
 
 
+"""Function for converting string representing importance level in the paginators
+to the UserAnswer and MatchAnswer model's choice field
+"""
+def convert_to_model_importance(il):
+	if il == "Mandatatory":
+		return "M"
+	if il == "Very Important":
+		return "VI"
+	if il == "Somewhat Important":
+		return "SI"
+	else:
+		return "NI"
+
+
+
 def all_questions(request):
-	questions_all = Question.objects.all()
+	
+	questions_all = Question.objects.exclude(useranswer__isnull=False)
 	paginator = Paginator(questions_all, 1)
 	importance_levels = ['Mandatatory', 'Very Important', 'Somewhat Important', 'Not Important']
 
@@ -42,18 +58,14 @@ def all_questions(request):
 		answer = Answer.objects.get(question=question, answer=answer_form)
 		answered, created = UserAnswer.objects.get_or_create(user=user, question=question)
 		answered.answer = answer
-		answered.importance_level = importance_level
-		points = assign_points(importance_level)
-		answered.points = points
+		answered.importance_level = convert_to_model_importance(importance_level)
 		answered.save()
 
 		#user match answer save
 		user_answer = Answer.objects.get(question=question, answer=match_answer_form)
 		answered, created = MatchAnswer.objects.get_or_create(user=user, question=question)
 		answered.answer = user_answer
-		answered.importance_level = match_importance_level
-		points = assign_points(match_importance_level)
-		answered.points = points
+		answered.importance_level = convert_to_model_importance(match_importance_level)
 		answered.save()
 
 		messages.success(request, 'Answer Saved')
@@ -77,4 +89,54 @@ def create_question(request):
 
 	return render_to_response("questions/create.html", locals(),
 		 context_instance=RequestContext(request))
+
+
+def edit_questions(request):
+	questions_all = Question.objects.exclude(useranswer__isnull=True)
+	paginator = Paginator(questions_all, 1)
+	importance_levels = ['Mandatatory', 'Very Important', 'Somewhat Important', 'Not Important']
+
+	page = request.GET.get('page')
+	try:
+		questions = paginator.page(page)
+	except PageNotAnInteger:
+		#If page is not an integer, deliver first page.
+		questions = paginator.page(1)
+	except EmptyPage:
+		#If page is out of range, deliver last page of results
+		questions = paginator.page(paginator.num_pages)
+
+	if request.method == 'POST':
+		question_id = request.POST['question_id']
+
+		#user answer
+		importance_level = request.POST['importance_level']
+		answer_form =  request.POST['answer']
+		#answer_form = request.POST.get('answer', False)
+
+		#user match answer
+		match_importance_level = request.POST['match_importance_level']
+		match_answer_form = request.POST['match_answer']
+		#match_answer_form = request.POST.get('match_answer', False)
+
+		user = User.objects.get(username=request.user)
+		question = Question.objects.get(id=question_id)
+
+		#user answer save
+		answer = Answer.objects.get(question=question, answer=answer_form)
+		answered, created = UserAnswer.objects.get_or_create(user=user, question=question)
+		answered.answer = answer
+		answered.importance_level = convert_to_model_importance(importance_level)
+		answered.save()
+
+		#user match answer save
+		user_answer = Answer.objects.get(question=question, answer=match_answer_form)
+		answered, created = MatchAnswer.objects.get_or_create(user=user, question=question)
+		answered.answer = user_answer
+		answered.importance_level = convert_to_model_importance(match_importance_level)
+		answered.save()
+
+		messages.success(request, 'Changes Saved')
+		return HttpResponseRedirect('')
+	return render_to_response('questions/edit.html', locals(), context_instance=RequestContext(request))
 

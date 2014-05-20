@@ -15,7 +15,6 @@ from interests.models import UserInterestAnswer
 
 
 
-
 '''The view for the home page of a user. If they're logged in, it shows relevant
 matches for them, otherwise it shows the home page for non-logged in viewers '''
 def all(request):
@@ -169,7 +168,7 @@ def single_user(request, username):
 	set_match.save()
 	match = set_match.percent 
 	interests = UserInterestAnswer.objects.filter(user=single_user)
-	return render_to_response('single_user.html', locals(), context_instance=RequestContext(request))	
+	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))	
 
 
 def search(request):
