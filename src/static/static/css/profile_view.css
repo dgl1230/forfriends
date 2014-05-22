@@ -25,7 +25,7 @@
 	overflow: hidden;
 }
 .img-responsive{
-	max-width: 100%;
+	width: 50%;
 }
 
 .col .col-sm-12 h1{
@@ -59,6 +59,6 @@
 }
 
 .col-lg-6{
-	margin-left: 12%;
+	margin-left: 15%;
 	width: 100%;
 }
