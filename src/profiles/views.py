@@ -204,6 +204,11 @@ def single_user(request, username):
 	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))	
 
 
+def single_user_pictures(request, username):
+	pictures = UserPicture.objects.filter(user__username=username)
+	return render_to_response('profiles/single_user_pictures.html', locals(), context_instance=RequestContext(request))
+
+
 def search(request):
 	try:
 		q = request.GET.get('q', '')

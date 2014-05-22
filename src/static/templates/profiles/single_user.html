@@ -19,7 +19,7 @@
 		</div>
 
 	</div>
-	
+	{% if not request.user == single_user %}
 		<div class="row" id="buttons_row">
 			<div class="buttons">
 				<div class="btn btn-default btn" id="message_button"><a href="/messages/compose/">Message {{ single_user.username }}</a></div>
@@ -28,10 +28,11 @@
 				<div class="btn btn-default btn" id="interests_button"><a href="/members/{{ single_user.username}}/questions/">View Questions</a></div>
 				<div class="btn btn-default btn" id="pictures_button"><a href="/members/{{ single_user.username}}/pictures/">Browse Pictures</a></div>
 			</div>
->>>>>>> 158e0d8d7f21a97713bf472779c8cff7b0e2597a
+
 		</div>
 	</div>
 	{% endif %}
+	
 
 	<div class='col-lg-6'>
 	{% if not request.user == single_user %}<h1>Match {{ match }}%	</h1>{% endif %}
