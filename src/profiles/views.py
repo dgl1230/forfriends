@@ -19,18 +19,29 @@ from interests.models import UserInterestAnswer
 matches for them, otherwise it shows the home page for non-logged in viewers '''
 def all(request):
 	if request.user.is_authenticated():
-		users = User.objects.filter(is_active=True)
 		try: 
+			#user already has matches generated
 			matches = Match.objects.filter(user=request.user)
-			for match in matches: 
-				try: 
-					match.percent = match_percentage(request.user, match.matched)
-				except:
-					match.percent = 0
-				match_num = match.percent 
-				match.percent = match_num
-				match.save()
-		except Exception:
+			if len(matches) >=1:
+				for match in matches: 
+					try: 
+						match.percent = match_percentage(request.user, match.matched)
+					except:
+						match.percent = 0
+					match_num = match.percent 
+					match.percent = match_num
+					match.save()
+			#we need to generate matches
+			else:
+				users = User.objects.filter(is_active=True)
+				matches = []
+				for u in users:
+					if u != request.user:
+						match = Match.objects.create(user=request.user, matched=u, percent=0)
+						match.percent = match_percentage(request.user, u)
+						match.save()
+						matches.append(match)
+		except:
 			pass
 		return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 	else:
@@ -109,15 +120,38 @@ def edit_jobs(request):
 	else:
 		raise Http404
 
+def edit_pictures(request):
+	if request.method == 'POST':
+
+		user = request.user
+		pictures = UserPicture.objects.filter(user=user)
+		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=0)
+		formset_p = PictureFormSet(request.POST or None, request.FILES, queryset=pictures)
+
+		if formset_p.is_valid():
+			for form in formset_p:
+				new_form = form.save(commit=False)
+				new_form.user = user
+				new_form.save()
+			messages.success(request, 'Profile details updated.')
+		else:
+			messages.error(request, 'Profile details did not update.')
+		#return render_to_response('profiles/edit_address.html', locals(), context_instance=RequestContext(request))
+		return HttpResponseRedirect('/edit/')
+	else:
+		raise Http404
+
 
 def edit_profile(request):
 	user = request.user
-	picture = UserPicture.objects.get(user=user)
+	pictures = UserPicture.objects.filter(user=user)
 	addresses = Address.objects.filter(user=user)
 	jobs = Job.objects.filter(user=user)
 	info = Info.objects.filter(user=user)
 
-	user_picture_form = UserPictureForm(request.POST or None, request.FILES or None, prefix='pic', instance=picture)
+	#user_picture_form = UserPictureForm(request.POST or None, request.FILES or None, prefix='pic', instance=picture)
+	PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=0)
+	formset_p = PictureFormSet(queryset=pictures)
 
 	AddressFormSet = modelformset_factory(Address, form=AddressForm, extra=0)
 	formset_a = AddressFormSet(queryset=addresses)
@@ -128,9 +162,7 @@ def edit_profile(request):
 	InfoFormSet = modelformset_factory(Info, form=InfoForm, extra=0)
 	formset_i = InfoFormSet(request.POST or None, queryset=info)
 
-	if user_picture_form.is_valid():
-		form3 = user_picture_form.save(commit=False)
-		form3.save()
+	
 	return render_to_response('profiles/edit_profile.html', locals(), context_instance=RequestContext(request))
 
 
@@ -158,15 +190,16 @@ def single_user(request, username):
 			single_user = user
 	except:
 		raise Http404
-	set_match, created = Match.objects.get_or_create(user=request.user, matched=single_user)
-	try:
-		set_match.percent = match_percentage(request.user, single_user)
-	except: 
-		print "failed"
-		set_match.percent = 0
-	set_match.good_match = Match.objects.good_match(request.user, single_user)
-	set_match.save()
-	match = set_match.percent 
+	if single_user != request.user:
+		set_match, created = Match.objects.get_or_create(user=request.user, matched=single_user)
+		try:
+			set_match.percent = match_percentage(request.user, single_user)
+		except: 
+			print "failed"
+			set_match.percent = 0
+		set_match.good_match = Match.objects.good_match(request.user, single_user)
+		set_match.save()
+		match = set_match.percent 
 	interests = UserInterestAnswer.objects.filter(user=single_user)
 	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))	
 

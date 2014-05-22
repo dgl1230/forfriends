@@ -5,6 +5,11 @@ from django.views.generic import TemplateView
 from django.contrib import admin
 admin.autodiscover()
 
+from registration.backends.simple.views import RegistrationView
+
+class MyRegistrationView(RegistrationView):
+    def get_success_url(self, request, user):
+        return "/"
 
 
 urlpatterns = patterns('',	
@@ -16,10 +21,13 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'profiles.views.all', name='home'),
     url(r'^members/(?P<username>\w+)/$', 'profiles.views.single_user', name='profile'),
+    url(r'^members/(?P<username>\w+)/interests/$', 'interests.views.single_user_interests', name='view_interests'),
+    url(r'^members/(?P<username>\w+)/questions/$', 'questions.views.single_user_questions', name='view_questions'),
     url(r'^sort/$', 'profiles.views.find_friends', name='find_friends'),
     url(r'^edit/$', 'profiles.views.edit_profile', name='edit_profile'),
     (r'^edit/jobs$', 'profiles.views.edit_jobs'),
     (r'^edit/addresses/$', 'profiles.views.edit_address'),
+    (r'^edit/pictures/$', 'profiles.views.edit_pictures'),
     (r'^edit/info/$', 'profiles.views.edit_info'),
     url(r'^interests/$', 'interests.views.all_interests', name='interests'),
     url(r'^interests/create/$', 'interests.views.create_interest', name='create'),
@@ -30,6 +38,7 @@ urlpatterns = patterns('',
     url(r'^questions/$', 'questions.views.all_questions', name='questions'),
     url(r'^questions/create/$', 'questions.views.create_question', name='create_question'),
     url(r'^questions/edit/$', 'questions.views.edit_questions', name='edit_questions'),
-    (r'^accounts/', include('registration.backends.default.urls')),
+    (r'^accounts/', include('registration.backends.simple.urls')),
+    url(r'^register/$', MyRegistrationView.as_view(), name='registration_register'),
     url(r'^about_us/$', TemplateView.as_view(template_name='about_us.html'), name="about_us"),
 )

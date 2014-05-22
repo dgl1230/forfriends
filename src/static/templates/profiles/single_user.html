@@ -19,11 +19,10 @@
 		</div>
 	
 		<div class="row" id="profile_interests">
-					<h2>Interests</h2>
-			
-					{% for interest in interests %}
-					{{ interest }}
-					{% endfor %}
+					<h3><a href="/members/{{ single_user.username}}/interests/">View their interests</a></h3>
+		</div>
+		<div class="row" id="profile_questions">
+					<h3><a href="/members/{{ single_user.username}}/questions/">View their questions</a></h3>
 		</div>
 	</div>
 

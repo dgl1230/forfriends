@@ -38,7 +38,7 @@ def create_interest(request):
 
 
 def all_interests(request):
-	interests_all = Interest.objects.exclude(userinterestanswer__isnull=False)
+	interests_all = Interest.objects.exclude(userinterestanswer__user=request.user)
 	paginator = Paginator(interests_all, 1)
 	importance_levels = ['Strongly Like', 'Like', 'Neutral', 'Dislike', 'Strongly Dislike']
 
@@ -64,9 +64,6 @@ def all_interests(request):
 			interest_pic = InterestPicture.objects.get(interest=interest).filter(id=1)
 		except: 
 			pass
-
-
-
 
 		#user answer save
 
@@ -79,7 +76,7 @@ def all_interests(request):
 
 
 def edit_interests(request):
-	interests_all = Interest.objects.exclude(userinterestanswer__isnull=True)
+	interests_all = Interest.objects.filter(userinterestanswer__user=request.user)
 	paginator = Paginator(interests_all, 1)
 	importance_levels = ['Strongly Like', 'Like', 'Neutral', 'Dislike', 'Strongly Dislike']
 
@@ -106,9 +103,6 @@ def edit_interests(request):
 		except: 
 			pass
 
-
-
-
 		#user answer save
 
 		answered, created = UserInterestAnswer.objects.get_or_create(user=user, interest=interest)
@@ -119,3 +113,20 @@ def edit_interests(request):
 		return HttpResponseRedirect('')
 	return render_to_response('interests/edit.html', locals(), context_instance=RequestContext(request))
 
+
+def single_user_interests(request, username):
+	interests_all = Interest.objects.filter(userinterestanswer__user__username=username)
+	paginator = Paginator(interests_all, 1)
+	importance_levels = ['Strongly Like', 'Like', 'Neutral', 'Dislike', 'Strongly Dislike']
+
+	page = request.GET.get('page')
+	try:
+		interests = paginator.page(page)
+	except PageNotAnInteger:
+		#If page is not an integer, deliver first page.
+		interests = paginator.page(1)
+	except EmptyPage:
+		#If page is out of range, deliver last page of results
+		interets = paginator.page(paginator.num_pages)
+
+	return render_to_response('interests/single_user.html', locals(), context_instance=RequestContext(request))
