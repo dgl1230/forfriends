@@ -1,4 +1,4 @@
-<head><link href="/static/css/interests.css" rel="stylesheet"></head>
+<head><link href="/static/css/single_user_interests.css" rel="stylesheet"></head>
 {% extends 'base.html' %}
 
 {% block content %}
@@ -8,27 +8,27 @@
 	<br/>
 	<div class='row'>
 			<div class="main_interests">
-			<div class="interests-title">
-			{% for interest in interests %}
-				<h3>{{ interest.interest|title }}</h3><p>
-			</div>	
-				{% if interest.description %}
-					<h5 class="description">{{ interest.description|title }}</h5>
-				{% endif %}
-				{% for pic in interest.interestpicture_set.all %}
-					{% if forloop.first %}
-					<div class="img-container">
-						<img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' />
+				<h1>User is Interested in: </h1>
+					<div class="interest_row">
+						<div class="interests-title">
+							{% for interest in interests %}
+							<h3>{{ interest.interest|title }}</h3>
+						</div>	
+							{% for pic in interest.interestpicture_set.all %}
+								{% if forloop.first %}
+								<div class="img-container">
+									<img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' />
+								</div>
 					</div>
-					{% endif %}
+								{% endif %}
 
-				{% endfor %}
+						{% endfor %}
 
 
 			<form method='POST' action=''> {% csrf_token %}
 				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<div class="interest_ranking">
-				<p>How much do you like this? <select class="importance_level" required='required' name='importance_level'></p>
+				<p>{{ single_user.username }}'s Interest Ranking<select class="importance_level" required='required' name='importance_level'></p>
 			</div>
 				{% for imp in importance_levels %}
 				<option {% for abc in interest.interestanswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected='selected' {% endif %} {% endfor %} value='{{ imp }}'>{{ imp }}</option>

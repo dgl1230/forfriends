@@ -17,12 +17,16 @@
 				<img src='{{ STATIC_URL }}img/avatar.png' class='img-responsive' />
 			{% endif %}
 		</div>
+	</div>
 	
-		<div class="row" id="profile_interests">
-					<h3><a href="/members/{{ single_user.username}}/interests/">View their interests</a></h3>
-		</div>
-		<div class="row" id="profile_questions">
-					<h3><a href="/members/{{ single_user.username}}/questions/">View their questions</a></h3>
+		<div class="row" id="buttons_row">
+			<div class="buttons">
+				<div class="btn btn-default btn" id="message_button"><a href="/messages/compose/">Message {{ single_user.username }}</a></div>
+				<div class="btn btn-default btn" id="friend_button"><a href="/messages/compose/">Add Friend</a></div>
+				<div class="btn btn-default btn" id="interests_button"><a href="/members/{{ single_user.username}}/interests/">View Interests</a></div>
+				<div class="btn btn-default btn" id="interests_button"><a href="/members/{{ single_user.username}}/questions/">View Questions</a></div>
+				<div class="btn btn-default btn" id="pictures_button"><a href="/members/{{ single_user.username}}/pictures/">Browse Pictures</a></div>
+			</div>
 		</div>
 	</div>
 

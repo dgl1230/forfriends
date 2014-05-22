@@ -6,6 +6,10 @@
 	float: left;
 }
 
+.row{
+	background: #c6c6c6;
+}
+
 th{
 	color: #999;
 }
@@ -17,10 +21,20 @@ h3{
 	color: white;
 }
 
-h4, td{
+h4, tbody td:first-child{
 	text-transform: capitalize;
 }
 label{
 	width: 65px!important;
 	margin: 0 5% 0 4%;
+}
+
+td{
+	background-color: #c6c6c6!important;
+}
+
+textarea{
+	max-width: 600px;
+	width: 100%;
+	height: auto;
 }

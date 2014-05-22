@@ -15,9 +15,22 @@
 .tab-pane{
 	min-height: 10em;
 }
-.img-responsive{
-	border-radius: 0%;
+.mask{
+	display: inline-block;
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+	overflow: hidden;
 }
+.img-responsive{
+	max-width: 100%;
+}
+
+.col .col-sm-12 h1{
+	text-align: center;
+} 
 
 #profile_interests{
 	float: right!important;
@@ -30,4 +43,22 @@
 
 .row .col-sm-12{
 	width: 60%;
+}
+
+#message_button{
+	float: left;
+
+}
+
+#friend_button{
+	float: left;
+}
+
+#buttons_row{
+	margin-top: 5%;
+}
+
+.col-lg-6{
+	margin-left: 12%;
+	width: 100%;
 }
