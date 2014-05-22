@@ -22,4 +22,7 @@ class JobForm(forms.ModelForm):
 class UserPictureForm(forms.ModelForm):
 	class Meta:
 		model = UserPicture
-		fields = ('image',)
+		fields = ('image', 'caption', 'is_profile_pic')
+		labels = {
+        	'is_profile_pic': 'Make Profile Pic',
+		}

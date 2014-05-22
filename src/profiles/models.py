@@ -52,11 +52,25 @@ class Job(models.Model):
 
 class UserPicture(models.Model):
 	user = models.ForeignKey(User)
+	caption = models.CharField(max_length=100, null=True, blank=True)
 	image = models.ImageField(upload_to='profiles/')
+	is_profile_pic = models.BooleanField(default=False)
 	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
+
 	
 	active = models.BooleanField(default=True)
 
 
 	def __unicode__(self):
 		return str(self.image)
+
+	'''def save(self, *args, **kwargs):
+		if self.is_profile_pic:
+			try:
+				temp = UserPicture.objects.get(is_profile_pic=True, user=self.user)
+				if self != temp:
+					temp.is_profile_pic = False
+					temp.save()
+			except UserPicture.DoesNotExist:
+				pass
+			super(UserPicture, self).save(*args, **kwargs)'''

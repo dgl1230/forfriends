@@ -141,8 +141,9 @@ def edit_questions(request):
 	return render_to_response('questions/edit.html', locals(), context_instance=RequestContext(request))
 
 
+#displays the questions for a particular user
 def single_user_questions(request, username):
-	
+	su_username = username
 	questions_all = Question.objects.filter(useranswer__user__username=username)
 	paginator = Paginator(questions_all, 1)
 	importance_level = ['Mandatatory', 'Very Important', 'Somewhat Important', 'Not Important']

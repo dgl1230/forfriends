@@ -114,8 +114,10 @@ def edit_interests(request):
 	return render_to_response('interests/edit.html', locals(), context_instance=RequestContext(request))
 
 
+# displays the interests for a particular user
 def single_user_interests(request, username):
 	interests_all = Interest.objects.filter(userinterestanswer__user__username=username)
+	#answers = UserInterestAnswer.objects.filter(user__username=username)
 	paginator = Paginator(interests_all, 1)
 	importance_levels = ['Strongly Like', 'Like', 'Neutral', 'Dislike', 'Strongly Dislike']
 
