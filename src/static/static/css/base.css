@@ -1,6 +1,11 @@
 body{
 	background-color: #f8f8f8;
 }
+
+.col-lg-10.col-12{
+	margin-left: 15%;
+	width: 100%;
+}
 p, .body, .row p{
 	font-family: 'Open Sans', sans-serif;
 }
@@ -16,17 +21,6 @@ a:active{
 
 h1{
 	text-transform: capitalize;
-}
-.btn, .btn-lg{
-	background-color: #00CCFF!important;
-	color: #fff !important;
-	border-color: #00CCFF !important;
-	border-radius: 8px;
-}
-
-.btn:hover, .btn-lg:hover{
-	background-color: #fff !important;
-	color: #00CCFF !important;
 }
 
 input{
@@ -48,7 +42,7 @@ input{
 
 .body_section{
 	background-color:#222;
-	border-radius: 5%;
+	border-radius: 0%;
 	color:white;
 }
 
@@ -86,6 +80,11 @@ form {
 	font-size: 1.125em;
 }
 
+a:hover{
+	text-decoration: none;
+}
+ /* Media Queries */
+
  @media (max-width: 650px) {
  	#myfriend a{
 	font-size: 1em;
@@ -104,12 +103,12 @@ form {
 
 @media (min-width: 1000px){
 	.container{
-		margin-left: 5%;
+		margin-left: 15%;
 	}
 }
 
 @media (min-width: 1150px){
 	.container{
-		margin-left: 10%;
+		margin-left: 20%;
 	}
 }

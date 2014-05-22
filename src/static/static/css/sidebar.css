@@ -33,6 +33,7 @@ ul li, li, li a, h5, h3{
   overflow-y: auto;
   z-index: 1000;
   transition: all 0.4s ease 0s;
+  background: rgba(255,255,255,0.2)
 }
 
 #page-content-wrapper {
@@ -195,7 +196,7 @@ ul li, li, li a, h5, h3{
 }
 #leftbar-wrapper{
   color: #fff;
-  background: #333;
+  background: #000;
 }
 
 #leftbar-wrapper a:hover{
