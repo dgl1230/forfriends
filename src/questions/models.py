@@ -21,12 +21,12 @@ class Answer(models.Model):
 		return self.answer
 
 class UserAnswer(models.Model):
-	MANDATORY = 'M'
-	VERY_IMPORTANT = 'VI'
-	SOMEWHAT_IMPORTANT = 'SI'
-	NOT_IMPORTANT = 'NI'
+	MANDATORY = 'Mandatory'
+	VERY_IMPORTANT = 'Very Important'
+	SOMEWHAT_IMPORTANT = 'Somewhat Important'
+	NOT_IMPORTANT = 'Not Important'
 	IMPORTANCE_CHOICES = (
-		(MANDATORY, 'Mandatatory'),
+		(MANDATORY, 'Mandatory'),
 		(VERY_IMPORTANT, 'Very Important'),
 		(SOMEWHAT_IMPORTANT, 'Somewhat Important'),
 		(NOT_IMPORTANT, 'Not Important'),
@@ -35,7 +35,7 @@ class UserAnswer(models.Model):
 	user = models.ForeignKey(User)
 	question = models.ForeignKey(Question)
 	answer = models.ForeignKey(Answer, null=True, blank=True)
-	importance_level = models.CharField(max_length=2, choices=IMPORTANCE_CHOICES,
+	importance_level = models.CharField(max_length=20, choices=IMPORTANCE_CHOICES,
 							default=SOMEWHAT_IMPORTANT, null=True, blank=True)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 	update = models.DateTimeField(auto_now_add=False, auto_now=True)
@@ -44,12 +44,12 @@ class UserAnswer(models.Model):
 		return self.answer.answer
 
 class MatchAnswer(models.Model):
-	MANDATORY = 'M'
-	VERY_IMPORTANT = 'VI'
-	SOMEWHAT_IMPORTANT = 'SI'
-	NOT_IMPORTANT = 'NI'
+	MANDATORY = 'Mandatory'
+	VERY_IMPORTANT = 'Very Important'
+	SOMEWHAT_IMPORTANT = 'Somewhat Important'
+	NOT_IMPORTANT = 'Not Important'
 	IMPORTANCE_CHOICES = (
-		(MANDATORY, 'Mandatatory'),
+		(MANDATORY, 'Mandatory'),
 		(VERY_IMPORTANT, 'Very Important'),
 		(SOMEWHAT_IMPORTANT, 'Somewhat Important'),
 		(NOT_IMPORTANT, 'Not Important'),
@@ -57,7 +57,7 @@ class MatchAnswer(models.Model):
 	user = models.ForeignKey(User)
 	question = models.ForeignKey(Question)
 	answer = models.ForeignKey(Answer, null=True, blank=True)
-	importance_level = models.CharField(max_length=2, choices=IMPORTANCE_CHOICES,
+	importance_level = models.CharField(max_length=20, choices=IMPORTANCE_CHOICES,
 							default=SOMEWHAT_IMPORTANT, null=True, blank=True)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 	update = models.DateTimeField(auto_now_add=False, auto_now=True)

@@ -18,31 +18,15 @@ from interests.models import UserInterestAnswer
 '''The view for the home page of a user. If they're logged in, it shows relevant
 matches for them, otherwise it shows the home page for non-logged in viewers '''
 def all(request):
-	if request.user.is_authenticated():
-		try: 
-			#user already has matches generated
-			matches = Match.objects.filter(user=request.user)
-			if len(matches) >=1:
-				for match in matches: 
-					try: 
-						match.percent = match_percentage(request.user, match.matched)
-					except:
-						match.percent = 0
-					match_num = match.percent 
-					match.percent = match_num
-					match.save()
-			#we need to generate matches
-			else:
-				users = User.objects.filter(is_active=True)
-				matches = []
-				for u in users:
-					if u != request.user:
-						match = Match.objects.create(user=request.user, matched=u, percent=0)
-						match.percent = match_percentage(request.user, u)
-						match.save()
-						matches.append(match)
-		except:
-			pass
+	if request.user.is_authenticated(): 
+		users = User.objects.filter(is_active=True)
+		matches = []
+		for u in users:
+			if u != request.user:
+				match, created = Match.objects.get_or_create(user=request.user, matched=u)
+				match.percent = match_percentage(request.user, u)
+				match.save()
+				matches.append(match)
 		return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 	else:
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
@@ -50,7 +34,7 @@ def all(request):
 #Shows all pictures that the logged in user has 
 def all_pictures(request): 
 	user = request.user
-	return render_to_response('pictures.html', locals(), context_instance=RequestContext(request))
+	return render_to_response('profiles/pictures.html', locals(), context_instance=RequestContext(request))
 
 
 
@@ -200,7 +184,7 @@ def single_user(request, username):
 		set_match.good_match = Match.objects.good_match(request.user, single_user)
 		set_match.save()
 		match = set_match.percent 
-	interests = UserInterestAnswer.objects.filter(user=single_user)
+	
 	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))	
 
 

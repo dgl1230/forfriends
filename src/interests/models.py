@@ -26,11 +26,11 @@ class InterestPicture(models.Model):
 
 
 class UserInterestAnswer(models.Model):
-	STRONGLY_LIKE = 'SL'
-	LIKE = 'L'
-	NEUTRAL = 'N'
-	DISLIKE = 'D'
-	STRONGLY_DISLIKE = 'SD'
+	STRONGLY_LIKE = 'Strongly Like'
+	LIKE = 'Like'
+	NEUTRAL = 'Neutral'
+	DISLIKE = 'Dislike'
+	STRONGLY_DISLIKE = 'Strongly Dislike'
 	IMPORTANCE_CHOICES = (
 		(STRONGLY_LIKE, 'Strongly Like'),
 		(LIKE, 'Like'),
@@ -40,7 +40,7 @@ class UserInterestAnswer(models.Model):
 	)
 	user = models.ForeignKey(User)
 	interest = models.ForeignKey(Interest)
-	importance_level = models.CharField(max_length=2, choices=IMPORTANCE_CHOICES,
+	importance_level = models.CharField(max_length=20, choices=IMPORTANCE_CHOICES,
 							default=NEUTRAL, null=True, blank=True)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 	update = models.DateTimeField(auto_now_add=False, auto_now=True)

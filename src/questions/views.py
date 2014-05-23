@@ -7,19 +7,6 @@ from .models import Question, Answer, UserAnswer, MatchAnswer
 from .forms import QuestionForm, AnswerForm
 
 
-"""Function for converting string representing importance level in the paginators
-to the UserAnswer and MatchAnswer model's choice field
-"""
-def convert_to_model_importance(il):
-	if il == "Mandatatory":
-		return "M"
-	if il == "Very Important":
-		return "VI"
-	if il == "Somewhat Important":
-		return "SI"
-	else:
-		return "NI"
-
 
 
 def all_questions(request):
@@ -58,14 +45,14 @@ def all_questions(request):
 		answer = Answer.objects.get(question=question, answer=answer_form)
 		answered, created = UserAnswer.objects.get_or_create(user=user, question=question)
 		answered.answer = answer
-		answered.importance_level = convert_to_model_importance(importance_level)
+		answered.importance_level = importance_level
 		answered.save()
 
 		#user match answer save
 		user_answer = Answer.objects.get(question=question, answer=match_answer_form)
 		answered, created = MatchAnswer.objects.get_or_create(user=user, question=question)
 		answered.answer = user_answer
-		answered.importance_level = convert_to_model_importance(match_importance_level)
+		answered.importance_level = match_importance_level
 		answered.save()
 
 		messages.success(request, 'Answer Saved')
@@ -126,14 +113,14 @@ def edit_questions(request):
 		answer = Answer.objects.get(question=question, answer=answer_form)
 		answered, created = UserAnswer.objects.get_or_create(user=user, question=question)
 		answered.answer = answer
-		answered.importance_level = convert_to_model_importance(importance_level)
+		answered.importance_level = importance_level
 		answered.save()
 
 		#user match answer save
 		user_answer = Answer.objects.get(question=question, answer=match_answer_form)
 		answered, created = MatchAnswer.objects.get_or_create(user=user, question=question)
 		answered.answer = user_answer
-		answered.importance_level = convert_to_model_importance(match_importance_level)
+		answered.importance_level = match_importance_level
 		answered.save()
 
 		messages.success(request, 'Changes Saved')
@@ -143,8 +130,9 @@ def edit_questions(request):
 
 #displays the questions for a particular user
 def single_user_questions(request, username):
-	su_username = username
 	questions_all = Question.objects.filter(useranswer__user__username=username)
+	answers = UserAnswer.objects.filter(user__username=username)
+	match_answers = MatchAnswer.objects.filter(user__username=username)
 	paginator = Paginator(questions_all, 1)
 	importance_level = ['Mandatatory', 'Very Important', 'Somewhat Important', 'Not Important']
 

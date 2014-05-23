@@ -6,6 +6,8 @@
 
 <div class='row'>
 	{% for question in questions %}
+	{% for answer in answers %}
+	{% for match_answer in match_answers %}
 		<h3>{{ question }}</h3><p>
 		<form method='' action=''> {% csrf_token %}
 			<input type='hidden' value='{{ question.id }}' />
@@ -13,22 +15,18 @@
 			<input type='radio' required=
 			'required' value='{{ ans}}' {% for abc in ans.useranswer_set.all %} {% if abc and abc.user == request.user %} checked='checked' {% endif %} {% endfor %} name='answer'> {{ ans }} <br/>
 		{% endfor %}
-		How important is this to you? <select  >
-			{% for imp in question.importance_levels %}
-			<option {% for abc in question.useranswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected='selected' {% endif %} {% endfor %} value='{{ imp }}'>{{ imp }}</option>
-			{% endfor %}
-		</select></p> <p>
+		How important is this to them? 
+		{{ answer.importance_level }}
 	<h4>Ideal Answer <small>How you would like them to answer</small></h4>
 	{% for ans in question.answer_set.all %}
 			<input type='radio' required='required' value='{{ ans}}' {% for abc in ans.matchanswer_set.all %} {% if abc and abc.user == request.user %} checked='checked' {% endif %} {% endfor %} name='match_answer'> {{ ans }} <br/>
 		{% endfor %}
-		How important is their answer to you? <select required='required' name='match_importance_level'>
-			{% for imp in importance_levels %}
-			<option {% for abc in question.matchanswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected='selected' {% endif %} {% endfor %} value='{{ imp }}'>{{ imp }}</option>
-			{% endfor %}
-		</select></p> <p>
+		How important is your answer to them? 
+		{{ match_answer.importance_level }}
 
 	</form>
+	{% endfor %}
+	{% endfor %}
 	{% endfor %}
 
 <div class="pagination">

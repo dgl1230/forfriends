@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.signals import user_logged_in
 from django.core.urlresolvers import reverse
 
-user_obj = User.objects.get(username='denisgearylopez')
+
 
 
 class DirectMessageManager(models.Manager):

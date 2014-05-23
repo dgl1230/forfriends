@@ -30,7 +30,7 @@
             <li><a href='/'>Home</a></li>
             <li><a href='{% if request.user.is_authenticated %}{% url "profile" request.user.username %} {% endif %}'>Profile</a></li>
             <div class="interests_all">
-              <li><a href='{% url "interests" %}'>Interests</a></li>
+              <li><a href='{% url "interests" %}' >Interests</a></li>
             </div>
             <div class="questionss_all">
               <li><a href='{% url "questions" %}'>Questions</a></li>

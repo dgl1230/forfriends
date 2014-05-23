@@ -8,7 +8,7 @@ from django.contrib.auth.signals import user_logged_in
 from interests.matching import points, match_percentage
 
 
-def login_user_matches(sender, user, request, **kwargs):
+'''def login_user_matches(sender, user, request, **kwargs):
 		obj = Match.objects.filter(user=user)
 		for abc in obj:
 			if abc.user != user:
@@ -22,7 +22,7 @@ def login_user_matches(sender, user, request, **kwargs):
 				add_to_list, created = Match.objects.get_or_create(user=user, matched=abc.matched)
 		request.session['new_matches_count'] = Match.objects.filter(user=user).count()
 
-user_logged_in.connect(login_user_matches)
+user_logged_in.connect(login_user_matches)'''
 
 
 class MatchManager(models.Manager):
@@ -56,9 +56,9 @@ class MatchManager(models.Manager):
 class Match(models.Model):
 	user = models.ForeignKey(User, related_name="match")
 	matched = models.ForeignKey(User, related_name="match2", null=True, blank=True)
-	percent = models.IntegerField()
+	percent = models.IntegerField(null=True, blank=True)
 	good_match = models.BooleanField(default=False)
-
+	approved = models.BooleanField(default=False)
 	objects = MatchManager()
 
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)

@@ -12,6 +12,7 @@
 					<div class="interest_row">
 						<div class="interests-title">
 							{% for interest in interests %}
+							{% for a in answers %}
 							<h3>{{ interest.interest|title }}</h3>
 						</div>	
 							{% for pic in interest.interestpicture_set.all %}
@@ -23,21 +24,20 @@
 								{% endif %}
 
 						{% endfor %}
+					
 
+			How they feel about {{ interest.interest }}: 
+			
+			{{ a.importance_level }}
+			
 
-			<form method='POST' action=''> {% csrf_token %}
-				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
-			<div class="interest_ranking">
-				<p>{{ single_user.username }}'s Interest Ranking<select class="importance_level" required='required' name='importance_level'></p>
-			</div>
-				{% for imp in importance_levels %}
-				<option {% for abc in interest.interestanswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected='selected' {% endif %} {% endfor %} value='{{ imp }}'>{{ imp }}</option>
-				{% endfor %}
-			</select></p>
-			</form>
+		{% endfor %}
 		{% endfor %}
 			</div>
-	
+		<br/>
+		<br/>
+		<br/>
+		<br/>
 				<div class="pagination">
 						<span class="step-links">
 							<ul class="pager">

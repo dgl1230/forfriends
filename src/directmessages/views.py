@@ -29,12 +29,12 @@ def compose(request):
 	form = ComposeForm(request.POST or None)
 
 	if form.is_valid():
-		send_message = form.save(commit=False)
-		send_message.sender = request.user
-		send_message.sent = datetime.datetime.now()
-		send_message.save()
-		messages.success(request, "Message sent!")
-		return HttpResponseRedirect(reverse('inbox'))
+			send_message = form.save(commit=False)
+			send_message.sender = request.user
+			send_message.sent = datetime.datetime.now()
+			send_message.save()
+			messages.success(request, "Message sent!")
+			return HttpResponseRedirect(reverse('inbox'))
 
 	return render_to_response('directmessages/compose.html', locals(), 
 									context_instance=RequestContext(request))

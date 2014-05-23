@@ -8,43 +8,43 @@ from questions.models import Question, Answer, UserAnswer, MatchAnswer
 
 '''Compares the first UserInterstAnswer importance level to the second 
 UserInterestAnswer importance level. Yes, this is a ratched way of doing it'''
-def calc_interst_importance(i1, i2):
+def calc_interest_importance(i1, i2):
 	#print i1
-	if i1 == "SL":
-		if i2 == "SL":
+	if i1 == "Strongly Like":
+		if i2 == "Strongly Like":
 			return 100
-		if i2 == "L":
+		if i2 == "Llike":
 			return 75
-		if i2 == "D":
+		if i2 == "Dislike":
 			return 20
-		if i2 == "SD":
+		if i2 == "Strongly Dislike":
 			return 10
-	elif i1 == "L":
-		if i2 == "SL":
+	elif i1 == "Like":
+		if i2 == "Strongly Like":
 			return 75
-		if i2 == "L":
+		if i2 == "Like":
 			return 100
-		if i2 == "D":
+		if i2 == "Dislike":
 			return 20
-		if i2 == "SD":
+		if i2 == "Strongly Dislike":
 			return 10
-	elif i1 == "D":
-		if i2 == "SL":
+	elif i1 == "Dislike":
+		if i2 == "Strongly Dislike":
 			return 10
-		if i2 == "L":
+		if i2 == "Like":
 			return 20
-		if i2 == "D":
+		if i2 == "Dislike":
 			return 100
-		if i2 == "SD":
+		if i2 == "Strongly Dislike":
 			return 75
-	elif i1 == "SD":
-		if i2 == "SL":
+	elif i1 == "Strongly Dislike":
+		if i2 == "Strongly Like":
 			return 10
-		if i2 == "L":
+		if i2 == "Like":
 			return 20
-		if i2 == "D":
+		if i2 == "Dislike":
 			return 75
-		if i2 == "SD":
+		if i2 == "Strongly Dislike":
 			return 100
 	# i1 is neutral 
 	else:
@@ -115,7 +115,10 @@ def interest_points(user1, user2):
 				interests_in_common +=1
 				points_possible += 100
 				print i.importance_level
-				points_awarded += calc_interst_importance(i.importance_level, i2.importance_level)
+				try:
+					points_awarded += calc_interest_importance(i.importance_level, i2.importance_level)
+				except: 
+					points_awarded = 0
 	if interests_in_common >= 1:
 		percentage = (float(points_awarded)/float(interests_in_common)) / 100
 	else: 
@@ -128,7 +131,6 @@ def interest_points(user1, user2):
 to questions '''
 def question_points(user1, user2):
 	pref_answers = MatchAnswer.objects.filter(user=user1)
-	print pref_answers
 	actual_answers = UserAnswer.objects.filter(user=user2)
 	total_questions = 0
 	questions_in_common = 0
@@ -156,9 +158,9 @@ def match_percentage(user1, user2):
 	#interest part of overall matching
 	print "NEW MATCH"
 	a_interests, a_i_percent = interest_points(user1, user2)
-	print "a_i_percent worked, a_i_percent is: " + str(a_i_percent)
+	#print "a_i_percent worked, a_i_percent is: " + str(a_i_percent)
 	b_interests, b_i_percent = interest_points(user2, user1)
-	print "b_i_percent worked, b_i_percent is: " + str(b_i_percent)
+	#print "b_i_percent worked, b_i_percent is: " + str(b_i_percent)
 	#find out largest number of liked interests between the two users. As in
 	# which user liked the most interests
 	if a_interests >= b_interests:
@@ -169,13 +171,13 @@ def match_percentage(user1, user2):
 		smaller_interests = a_interests
 	#calculate ratio of smaller interests to larger
 	interests_ratio = float(smaller_interests) / larger_interests
-	print "interests_ratio is: " + str(interests_ratio)
+	#print "interests_ratio is: " + str(interests_ratio)
 
 	#questions part of overall matching
 	a_questions, a_q_percent = question_points(user1, user2)
-	print "a_q_percent worked, a_q_percent is: " + str(a_q_percent)
+	#print "a_q_percent worked, a_q_percent is: " + str(a_q_percent)
 	b_questions, b_q_percent = question_points(user2, user1)
-	print "b_q_percent worked, b_q_percent is: " + str(b_q_percent)
+	#print "b_q_percent worked, b_q_percent is: " + str(b_q_percent)
 	#find out largest number of questions answered between two users. As in 
 	#which user answered the most overall questions. 
 	if a_questions >= b_questions:
@@ -186,7 +188,7 @@ def match_percentage(user1, user2):
 		smaller_questions = a_questions
 	#calculate ratio of less questions answered to more questions
 	questions_ratio = float(smaller_questions) / larger_questions
-	print "questions_ratio is: " + str(questions_ratio)
+	#print "questions_ratio is: " + str(questions_ratio)
 
 	#if user1 & user2 have both answered questions and liked interests
 	if a_interests >=1 and b_interests >= 1 and a_questions >=1 and b_questions >= 1:
