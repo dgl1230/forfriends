@@ -25,7 +25,8 @@
 	overflow: hidden;
 }
 .img-responsive{
-	width: 50%;
+	width: 200px;
+	height: 250px;
 }
 
 .col .col-sm-12 h1{
