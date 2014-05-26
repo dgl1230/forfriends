@@ -1,0 +1,9 @@
+#picture_string .item{
+	margin: 3px;
+}
+
+#picture_string .item img{
+	display: block;
+	width: 100%;
+	height: auto;
+}

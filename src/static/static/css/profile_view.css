@@ -53,6 +53,7 @@
 
 #friend_button{
 	float: left;
+	color: #00CCFF;
 }
 
 #buttons_row{
@@ -60,6 +61,30 @@
 }
 
 .col-lg-6{
-	margin-left: 15%;
 	width: 100%;
+}
+
+.buttons div a{
+	color: #00CCFF;
+}
+.buttons{
+	margin-top: 5%;
+}
+
+@media (max-width: 960px){
+.container{
+	margin-left: 5%;
+	}
+}
+
+@media (max-width: 980px){
+	.container{
+		margin-left: 20%;
+	}
+}
+
+@media (max-width: 850px){
+	.container{
+		margin-left: 25%;
+	}
 }

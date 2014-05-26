@@ -8,12 +8,12 @@
         <div class='col-lg-2 col-12'>
           <div id="leftbar-wrapper">
             <ul class="sidebar-nav">
-            <li><a href='/'><span class='glyphicon glyphicon-home'></span></a></li>
-            <li><a href='{% if request.user.is_authenticated %}{% url "profile" request.user.username %} {% endif %}'><span class='glyphicon glyphicon-user'></span></a></li>
-              <li><a href='{% url "interests" %}'><span class='glyphicon glyphicon-heart'></span></a></li>
-              <li class="create_interest"><a href='{% url "create" %}'><span class='glyphicon glyphicon-plus'></span></a></li>
-            <li><a href='/pictures'><span class='glyphicon glyphicon-camera '></span></a></li>
-            <li><a href='{% url "inbox" %}'>
+            <li data-toggle="tooltip" data-placement="right" title="Home"><a href='/'><span class='glyphicon glyphicon-home'></span></a></li>
+            <li data-toggle="tooltip" data-placement="right" title="View Profile"><a href='{% if request.user.is_authenticated %}{% url "profile" request.user.username %} {% endif %}'><span class='glyphicon glyphicon-user'></span></a></li>
+              <li data-toggle="tooltip" data-placement="right" title="Interests"><a href='{% url "interests" %}'><span class='glyphicon glyphicon-heart'></span></a></li>
+              <li data-toggle="tooltip" data-placement="right" title="Questions" class="Questions"><a href='{% url "create" %}'><span class='glyphicon glyphicon-plus'></span></a></li>
+            <li data-toggle="tooltip" data-placement="right" title="Pictures"><a href='/pictures'><span class='glyphicon glyphicon-camera '></span></a></li>
+            <li data-toggle="tooltip" data-placement="right" title="Inbox"><a href='{% url "inbox" %}'>
               <span class='glyphicon glyphicon-envelope'></span></a></li>
             
           </ul>
@@ -22,7 +22,7 @@
 
         </div>
         {% endif %}
-<div class='row'>
+<!--<div class='row'>
       {% if request.user.is_authenticated %}
         <div class='col-lg-2 col-12'>
           <div id="sidebar-wrapper">
@@ -64,6 +64,7 @@
 
         </div>
         {% endif %}
+      -->
 
     <script>
       $(".messages_all").mouseover(function(){

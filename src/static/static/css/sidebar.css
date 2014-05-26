@@ -24,8 +24,8 @@ ul li, li, li a, h5, h3{
 #leftbar-wrapper{
   margin-left: -250px;
   left: 250px;
-  width: 5%;
-  min-width: 50px;
+  width: 12%;
+  min-width: 100px;
   margin-top: 2%;
   background: #000;
   position: fixed;
@@ -47,6 +47,7 @@ ul li, li, li a, h5, h3{
   width: 100%;
   list-style: none;
   padding: 0;
+  text-align:center;
 }
 
 .sub_messages{
@@ -180,7 +181,7 @@ ul li, li, li a, h5, h3{
 }
 
 .sidebar-nav .glyphicon{
-  font-size:1em;
+  font-size:1.2em;
   padding-bottom: .85em;
   padding-top: 1em;
 }
