@@ -1,3 +1,6 @@
+.col-12{
+	min-width: 400px;
+}
 .nav-tabs {
 	background-color: #333;
 
@@ -77,14 +80,26 @@
 	}
 }
 
-@media (max-width: 980px){
-	.container{
-		margin-left: 20%;
+@media (max-width: 1000px){
+	.col-12{
+		margin-left: 10%;
 	}
 }
 
 @media (max-width: 850px){
-	.container{
-		margin-left: 25%;
+	.col-12{
+		margin-left: 15%;
+	}
+}
+
+@media (max-width: 600px){
+	.col-12{
+		margin-left: 20%;
+	}
+}
+
+@media (max-width: 500px){
+	.col-12, .col-lg-6{
+		margin-left: 100px!important;
 	}
 }
