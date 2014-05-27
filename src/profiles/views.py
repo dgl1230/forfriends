@@ -12,6 +12,7 @@ from matches.models import Match
 from .models import Address, Job, Info, UserPicture
 from .forms import AddressForm, InfoForm, JobForm, UserPictureForm
 from interests.models import UserInterestAnswer
+from visitors.models import Visitor
 
 
 
@@ -181,6 +182,9 @@ def single_user(request, username):
 		except: 
 			print "failed"
 			set_match.percent = 0
+		visited_list, created = Visitor.objects.get_or_create(main_user=single_user)
+		visited_list.visitors.add(request.user)
+		visited_list.save()
 		set_match.good_match = Match.objects.good_match(request.user, single_user)
 		set_match.save()
 		match = set_match.percent 
@@ -193,6 +197,7 @@ def single_user_pictures(request, username):
 	return render_to_response('profiles/single_user_pictures.html', locals(), context_instance=RequestContext(request))
 
 
+
 def search(request):
 	try:
 		q = request.GET.get('q', '')
@@ -203,6 +208,12 @@ def search(request):
 		)
 	results = users_queryset
 	return render_to_response('search.html', locals(), context_instance=RequestContext(request))	
+
+
+#Show all the visitors that have viewed the logged in user's profile page
+def all_visitors(request): 
+	visitors, created = Visitor.objects.get_or_create(main_user=request.user)
+	return render_to_response('profiles/visitors.html', locals(), context_instance=RequestContext(request))
 
 
 
