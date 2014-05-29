@@ -187,7 +187,10 @@ def match_percentage(user1, user2):
 		larger_questions = b_questions
 		smaller_questions = a_questions
 	#calculate ratio of less questions answered to more questions
-	questions_ratio = float(smaller_questions) / larger_questions
+	try:
+		questions_ratio = float(smaller_questions) / larger_questions
+	except:
+		questions_ratio = 0
 	#print "questions_ratio is: " + str(questions_ratio)
 
 	#if user1 & user2 have both answered questions and liked interests

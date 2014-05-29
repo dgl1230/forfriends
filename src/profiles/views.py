@@ -212,7 +212,8 @@ def search(request):
 
 #Show all the visitors that have viewed the logged in user's profile page
 def all_visitors(request): 
-	visitors, created = Visitor.objects.get_or_create(main_user=request.user)
+	visitors1, created = Visitor.objects.get_or_create(main_user=request.user)
+	visitors = [val for val in visitors1.visitors.all()]
 	return render_to_response('profiles/visitors.html', locals(), context_instance=RequestContext(request))
 
 

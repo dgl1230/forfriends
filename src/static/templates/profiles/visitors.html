@@ -10,11 +10,11 @@
 <div class='col-lg-6 '>
 	<center><h1>Visitors</h1></center>
 	<div class='row'>
-{% for visitor in visitors.visitors %}
+{% for visitor in visitors %}
 	<div id="myfriend">
 	{% if not request.user == visitor %}
 	<div class='col-lg-4'>
-	<a href='/members/{{ match.matched.username}}'>
+	<a href='/members/{{ visitor.username}}'>
 		{% for pic in visitor.userpicture_set.all %}
 			
 			{% if forloop.first %}
@@ -33,8 +33,7 @@
 			{% if forloop.first %} {{ item }}
 			{% endif %} 
 		{% endfor %}
-		<div class="matching">
-		<p id="match">Match: {{ match.percent }}%	</p>
+	
 		<br/>
 		</div>
 		</div>
