@@ -15,6 +15,21 @@ from interests.models import UserInterestAnswer
 from visitors.models import Visitor
 
 
+'''Implements the 'add friend' button when viewing a user's profile
+If both users click this button on each other's profile, they can message'''
+def add_friend(request, username):
+	user_match, created = Match.objects.get_or_create(user=request.user, 
+								matched__username=username)
+	visited_match, created = Match.objects.get_or_create(user__username=username, 
+											matched=request.user)
+	user_match.approved = True
+	user_match.save()
+	if (user_match.approved == True and visited_match.approved == True):
+		messages.success(request, "%s also is interested in being your friend - You can now message each other!" %username)
+	else:
+		messages.success(request, "%s has received your request. If %s is interested too, they will add you!" %(username, username))
+	return HttpResponseRedirect('/')
+
 
 '''The view for the home page of a user. If they're logged in, it shows relevant
 matches for them, otherwise it shows the home page for non-logged in viewers '''
@@ -185,7 +200,7 @@ def single_user(request, username):
 		visited_list, created = Visitor.objects.get_or_create(main_user=single_user)
 		visited_list.visitors.add(request.user)
 		visited_list.save()
-		set_match.good_match = Match.objects.good_match(request.user, single_user)
+		
 		set_match.save()
 		match = set_match.percent 
 	
