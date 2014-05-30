@@ -12,37 +12,37 @@ from matches.models import Match
 from .models import Address, Job, Info, UserPicture
 from .forms import AddressForm, InfoForm, JobForm, UserPictureForm
 from interests.models import UserInterestAnswer
+from visitors.models import Visitor
 
+
+'''Implements the 'add friend' button when viewing a user's profile
+If both users click this button on each other's profile, they can message'''
+def add_friend(request, username):
+	user_match, created = Match.objects.get_or_create(user=request.user, 
+								matched__username=username)
+	visited_match, created = Match.objects.get_or_create(user__username=username, 
+											matched=request.user)
+	user_match.approved = True
+	user_match.save()
+	if (user_match.approved == True and visited_match.approved == True):
+		messages.success(request, "%s also is interested in being your friend - You can now message each other!" %username)
+	else:
+		messages.success(request, "%s has received your request. If %s is interested too, they will add you!" %(username, username))
+	return HttpResponseRedirect('/')
 
 
 '''The view for the home page of a user. If they're logged in, it shows relevant
 matches for them, otherwise it shows the home page for non-logged in viewers '''
 def all(request):
-	if request.user.is_authenticated():
-		try: 
-			#user already has matches generated
-			matches = Match.objects.filter(user=request.user)
-			if len(matches) >=1:
-				for match in matches: 
-					try: 
-						match.percent = match_percentage(request.user, match.matched)
-					except:
-						match.percent = 0
-					match_num = match.percent 
-					match.percent = match_num
-					match.save()
-			#we need to generate matches
-			else:
-				users = User.objects.filter(is_active=True)
-				matches = []
-				for u in users:
-					if u != request.user:
-						match = Match.objects.create(user=request.user, matched=u, percent=0)
-						match.percent = match_percentage(request.user, u)
-						match.save()
-						matches.append(match)
-		except:
-			pass
+	if request.user.is_authenticated(): 
+		users = User.objects.filter(is_active=True)
+		matches = []
+		for u in users:
+			if u != request.user:
+				match, created = Match.objects.get_or_create(user=request.user, matched=u)
+				match.percent = match_percentage(request.user, u)
+				match.save()
+				matches.append(match)
 		return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 	else:
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
@@ -50,7 +50,7 @@ def all(request):
 #Shows all pictures that the logged in user has 
 def all_pictures(request): 
 	user = request.user
-	return render_to_response('pictures.html', locals(), context_instance=RequestContext(request))
+	return render_to_response('profiles/pictures.html', locals(), context_instance=RequestContext(request))
 
 
 
@@ -197,16 +197,20 @@ def single_user(request, username):
 		except: 
 			print "failed"
 			set_match.percent = 0
-		set_match.good_match = Match.objects.good_match(request.user, single_user)
+		visited_list, created = Visitor.objects.get_or_create(main_user=single_user)
+		visited_list.visitors.add(request.user)
+		visited_list.save()
+		
 		set_match.save()
 		match = set_match.percent 
-	interests = UserInterestAnswer.objects.filter(user=single_user)
+	
 	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))	
 
 
 def single_user_pictures(request, username):
 	pictures = UserPicture.objects.filter(user__username=username)
 	return render_to_response('profiles/single_user_pictures.html', locals(), context_instance=RequestContext(request))
+
 
 
 def search(request):
@@ -219,6 +223,13 @@ def search(request):
 		)
 	results = users_queryset
 	return render_to_response('search.html', locals(), context_instance=RequestContext(request))	
+
+
+#Show all the visitors that have viewed the logged in user's profile page
+def all_visitors(request): 
+	visitors1, created = Visitor.objects.get_or_create(main_user=request.user)
+	visitors = [val for val in visitors1.visitors.all()]
+	return render_to_response('profiles/visitors.html', locals(), context_instance=RequestContext(request))
 
 
 

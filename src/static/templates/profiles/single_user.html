@@ -4,6 +4,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% if messages %}
+<div class='row'>
+                <ul class="messages">
+                  {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                  {% endfor %}
+                </ul>
+</div>
+{% endif %}
 
 	<div class = 'row' id="picture_row">
 		<div class='col col-sm-12'>
@@ -22,9 +31,10 @@
 	{% if not request.user == single_user %}
 		<div class="row" id="buttons_row">
 			<div class="buttons">
-				<div class="btn btn-default btn" id="message_button" data-toggle="tooltip" data-placement="top" title="You have to be friends first!" type="button"><a href="/messages/compose/">Message {{ single_user.username }}</a></div>
-				<div class="btn btn-default btn" id="friend_button" type='button'>Add Friend</div>
-				<div class="btn btn-default btn" id="interests_button" type='button'><a href="/members/{{ single_user.username}}/interests/">View Interests</a></div>
+
+				<div class="btn btn-default btn" id="message_button" data-toggle="tooltip" data-placement="top" title="You have to be friends first!" type="button"><a href='{% url "su_compose" single_user.username %}'>Message {{ single_user.username }}</a></div>
+				<div class="btn btn-default btn" id="friend_button"><a href='{% url "add_friend" single_user.username %}'>Add Friend</a></div>
+				<div class="btn btn-default btn" id="interests_button"><a href="/members/{{ single_user.username}}/interests/">View Interests</a></div>
 				<div class="btn btn-default btn" id="interests_button"><a href="/members/{{ single_user.username}}/questions/">View Questions</a></div>
 				<div class="btn btn-default btn" id="pictures_button"><a href="/members/{{ single_user.username}}/pictures/">Browse Pictures</a></div>
 			</div>

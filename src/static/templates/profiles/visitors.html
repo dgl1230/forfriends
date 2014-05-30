@@ -1,0 +1,47 @@
+<link rel="stylesheet" href="/static/css/profile_view.css">
+{% extends 'base.html' %}
+
+
+{% block content %}
+<br/>
+<br/>
+<br/>
+<br/>
+<div class='col-lg-6 '>
+	<center><h1>Visitors</h1></center>
+	<div class='row'>
+{% for visitor in visitors %}
+	<div id="myfriend">
+	{% if not request.user == visitor %}
+	<div class='col-lg-4'>
+	<a href='/members/{{ visitor.username}}'>
+		{% for pic in visitor.userpicture_set.all %}
+			
+			{% if forloop.first %}
+				<img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' />
+			{% endif %}
+		{% endfor %}
+		{% if not visitor.userpicture_set.all %}
+			<div class="mask">
+				<img src='{{ STATIC_URL }}img/avatar.png' class='img-responsive' />
+			</div>
+		{% endif %}
+			
+		{{ visitor.username }}
+		</a> <br/>
+		{% for item in visitor.address_set.all %} 
+			{% if forloop.first %} {{ item }}
+			{% endif %} 
+		{% endfor %}
+	
+		<br/>
+		</div>
+		</div>
+		{% endif %}
+		{% cycle '' '' '' '</div><div class="row">' %}
+{% endfor %}
+</div>
+</div>
+<script src="/static/js/profile_view.js"></script>
+
+{% endblock %}

@@ -4,8 +4,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.signals import user_logged_in
 from django.core.urlresolvers import reverse
 
-
-
 class DirectMessageManager(models.Manager):
 	def get_num_unread_messages(self, user):
 		return super(DirectMessageManager, self).filter(read=False).filter(receiver=user).count()

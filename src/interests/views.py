@@ -8,22 +8,6 @@ from .models import Interest, UserInterestAnswer, InterestPicture
 from .forms import InterestForm
 
 
-"""Function for converting string representing importance level in the paginators
-to the UserInterestAnswer model's choice field
-"""
-def convert_to_model_importance(il):
-	if il == "Strongly Like":
-		return "SL"
-	if il == "Like":
-		return "L"
-	if il == "Dislike":
-		return "DL"
-	if il == "Strongly Dislike":
-		return "SD"
-	else:
-		return "N"
-
-
 def create_interest(request):
 	form = InterestForm(request.POST or None)
 	if form.is_valid():
@@ -68,7 +52,7 @@ def all_interests(request):
 		#user answer save
 
 		answered, created = UserInterestAnswer.objects.get_or_create(user=user, interest=interest)
-		answered.importance_level = convert_to_model_importance(importance_level)
+		answered.importance_level = importance_level
 		answered.save()
 
 		messages.success(request, 'Answer Saved')
@@ -106,7 +90,7 @@ def edit_interests(request):
 		#user answer save
 
 		answered, created = UserInterestAnswer.objects.get_or_create(user=user, interest=interest)
-		answered.importance_level = convert_to_model_importance(importance_level)
+		answered.importance_level = importance_level
 		answered.save()
 
 		messages.success(request, 'Changes Saved')
@@ -117,7 +101,7 @@ def edit_interests(request):
 # displays the interests for a particular user
 def single_user_interests(request, username):
 	interests_all = Interest.objects.filter(userinterestanswer__user__username=username)
-	#answers = UserInterestAnswer.objects.filter(user__username=username)
+	answers = UserInterestAnswer.objects.filter(user__username=username)
 	paginator = Paginator(interests_all, 1)
 	importance_levels = ['Strongly Like', 'Like', 'Neutral', 'Dislike', 'Strongly Dislike']
 

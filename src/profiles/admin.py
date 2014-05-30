@@ -6,6 +6,7 @@ from .models import Address, Job, Info, UserPicture
 from interests.models import UserInterestAnswer
 from matches.models import Match
 from questions.models import UserAnswer, MatchAnswer
+from visitors.models import Visitor
 
 
 class AddressInline(admin.TabularInline):
@@ -42,10 +43,15 @@ class UserPictureInline(admin.TabularInline):
 	model = UserPicture
 
 
+class VisitorInline(admin.TabularInline):
+	extra = 0
+	model = Visitor
+
+
 class UserAdmin(admin.ModelAdmin):
     inlines = [AddressInline, InfoInline, JobInline, 
     		UserPictureInline, UserInterestAnswerInline, UserAnswerInline, 
-    		MatchAnswerInline]
+    		MatchAnswerInline, VisitorInline]
 
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)

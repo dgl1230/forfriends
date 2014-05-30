@@ -54,6 +54,7 @@ INSTALLED_APPS = (
     'directmessages',
     'matches',
     'questions',
+    'visitors',
 )
 
 TEMPLATE_DIRS = (
