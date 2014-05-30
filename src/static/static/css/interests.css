@@ -64,32 +64,37 @@ footer{
 	margin:0 auto;
 }
 
+h1{
+	font-style: italic;
+
+}
+
 .interests_intro h3{
-	font-style:italic;
+	font-style: italic;
 	font-weight: 700;
 	font-size: 2em;
 }
 
 .interests_intro a{
-	color: #00CCFF;
+	color: #084c8d;
 }
 
 .interests_intro a:hover, .interests_intro a:active{
-	color: #00CCFF;
+	color: #084c8d;
 }
 
 
 /* Buttons */
 .btn, .btn-lg{
-	background-color: #00CCFF!important;
-	color: #fff !important;
-	border-color: #00CCFF !important;
+	background-color: #6682b5!important;
+	color: #d5d5d5 !important;
+	border-color: #6682b5 !important;
 	border-radius: 8px;
 }
 
 .btn:hover, .btn-lg:hover{
-	background-color: #fff !important;
-	color: #00CCFF !important;
+	background-color: !important;
+	color: #fff !important;
 }
 .pager li a{
 	color: #333;

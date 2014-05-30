@@ -1,7 +1,23 @@
 body{
 	background-color: #f8f8f8;
 }
+.container{
+	min-width: 480px;
+}
 
+.btn-default, .btn .btn-default{
+	background-color: #6682b5!important;
+	color: #fff !important;
+	border: none;
+	
+}
+
+.btn-default:hover, .btn .btn-default:hover {
+	background-color: #6682b5 !important;
+	color: #fff !important;
+	border: none;
+
+}
 .col-lg-10.col-12{
 	width: 100%;
 }
@@ -101,18 +117,22 @@ a:hover{
 
 @media (min-width: 1000px){
 	.container{
-		margin-left: 15%;
+		margin-left: 150px;
 	}
 }
 
 @media (min-width: 1150px){
 	.container{
-		margin-left: 20%;
+		margin-left: 150px;
 	}
 }
 
 @media (max-width: 480px){
-	.col-lg-10.col-12{
+	.container{
 		margin-left: 15%;
 	}
+}
+
+*:focus{
+	outline:0;
 }

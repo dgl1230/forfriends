@@ -1,16 +1,62 @@
 html, ul, ul li, li, li a, a, p, .btn{
 	font-family: 'Open Sans', sans-serif;
 }
-
+.tab-content{
+	min-height: 500px;
+}
 .btn-success, .btn .btn-success{
-	background-color: #00CCFF!important;
+	background-color: #6682b5!important;
 	color: #fff !important;
-	border-color: #00CCFF !important;
+	border: none;
+	
 }
 
 .btn-success:hover, .btn .btn-success:hover {
-	background-color: #fff !important;
-	color: #00CCFF !important;
+	background-color: #6682b5 !important;
+	color: #fff !important;
+	border: none;
+
+}
+
+#more_pictures_appear{
+	display:none;	
+}
+
+#pictures_appear{
+	/* Border Radius */
+
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	/* shadow */
+	-webkit-box-shadow: 1px 2px 2px rbga(0,0,0,0.6);
+	-moz-box-shadow: 1px 2px 2px rbga(0,0,0,0.6);
+	-box-shadow: 1px 2px 2px rbga(0,0,0,0.6);
+
+	padding: 5px 15px;
+	background: rgba(0,0,0,0.3);
+	display: inline-block;
+	outline: none;
+	color: #ffffff;
+	text-decoration: none;
+
+	-webkit-transition-duration: 0.20s;
+	-webkit-transition-timing-function: ease-out;
+	-moz-transition-duration: 0.20s;
+	-moz-transition-timing-function: ease-out;
+}
+
+#pictures_appear:hover{
+	text-decoration: none;
+	background: rgba(0,0,0,0.5);
+	padding: 5px 25px;
+}
+
+#pictures_appear:active{
+	background: rgba(0,0,0,0.1)
+	-webkit-box-shadow: 1px 1px 1px rbga(0,0,0,0.4);
+	-moz-box-shadow: 1px 1px 1px rbga(0,0,0,0.4);
+	-box-shadow: 1px 1px 1px rbga(0,0,0,0.4);
 
 }
 
@@ -36,7 +82,7 @@ p label{
 }
 
 #mytab li a:hover{
-	background:#333;
+	background:#084c8d;
 	color:white;
 }
 
@@ -47,4 +93,10 @@ p label{
 
 p a{
 	color:black;
+}
+
+@media (max-width: 850px){
+	.container{
+		margin-left: 12%;
+	}
 }

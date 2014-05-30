@@ -31,7 +31,6 @@ Tags: responsive, html5 template, one page, landing, startup, business, company,
 /* ==========================================================================
    01. GENERAL & BASIC STYLES
    ========================================================================== */
-
 #header{
 	margin-top: 10%;
 }
@@ -723,7 +722,7 @@ textarea {
    08. FOOTER
    ========================================================================== */
 #footer {
-	background-color: #1A1E23;
+	background-color: #d5d5d5;
 	padding: 60px 0 40px;
 }   
   

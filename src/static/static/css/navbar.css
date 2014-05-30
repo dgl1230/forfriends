@@ -1,6 +1,11 @@
 .navbar-fixed-top{
 	opacity: 1;
 }
+.navbar.navbar-inverse.navbar-fixed-top{
+	background-color:#084c8d;
+	border-bottom: #d5d5e5 5px solid;
+	border-top:#d5d5e5 5px solid;
+}
 
 .navbar-brand{
 	letter-spacing: .3em;
@@ -27,9 +32,10 @@
 }
 
 .dropdown-menu{
-	background-color: #000!important;
-	color: blue !important;
-	border: none;
+	background-color: #084c8d;
+	border-top:  5px #d5d5d5 solid;
+	border-right: none;
+	border-left: none;
 }
 
 .dropdown a:focus, .dropdown a:active, .dropdown a{

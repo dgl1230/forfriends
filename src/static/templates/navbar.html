@@ -10,14 +10,15 @@
           <a class="navbar-brand" href="/">ForFriends</a>
         </div>
         <div class="navbar-collapse collapse">
+          {% if request.user.is_authenticated %}
           <form class="navbar-form navbar-left" role="search" action='{% url "search" %}'>
             <div class="form-group">
               <input type="text" class="form-control" placeholder="Find Friends" name='q'>
             </div>
-            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="submit" class="btn btn-default">Go</button>
           </form>
-          {% if request.user.is_authenticated %}
           <ul class='nav navbar-nav pull-right'>
+            
             <li class= "dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ request.user }} <b class="caret"></b></a>
                 <ul class="dropdown-menu">
@@ -26,8 +27,19 @@
                 <li><a href="/accounts/logout">Logout</a></li>
           </ul>
           {% else %}
-          <ul class='nav navbar-nav pull-right'>
-            <li><a href='/accounts/login'>Login</a></li>
+          <div class='navbar'>
+              <div class='navbar-inner'>
+                  <div class='container-fluid'>
+                      <form class="navbar-form pull-right">
+                          <input type="text" class="span2" placeholder="Login">
+                          <input type="text" class="span2" placeholder="Password">
+                          <input type="submit" value="Login" class="btn"/>
+                      </form>
+                      
+                       <li><a href='/accounts/login'>Login</a></li>
+                  </div>
+              </div>
+          </div>
           </ul>
           {% endif %}
         </div><!--/.navbar-collapse -->

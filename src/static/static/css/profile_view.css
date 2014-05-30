@@ -9,7 +9,9 @@
 	min-width: 1	50px;
 	background-color: #f8f8f8;
 }
-
+h1{
+	font-style: italic;
+}
 .nav-tabs a{
 	color: black;
 	background-color:#f8f8f8;
@@ -56,7 +58,7 @@
 
 #friend_button{
 	float: left;
-	color: #00CCFF;
+	color: #084c8d;
 }
 
 #buttons_row{
@@ -64,11 +66,16 @@
 }
 
 .col-lg-6{
+	margin-top: 0%;
 	width: 100%;
 }
 
+#single_user_body{
+	margin-top:15%;
+}
+
 .buttons div a{
-	color: #00CCFF;
+	color: #084c8d;
 }
 .buttons{
 	margin-top: 5%;
@@ -81,19 +88,19 @@
 }
 
 @media (max-width: 1000px){
-	.col-12{
+	.container{
 		margin-left: 10%;
 	}
 }
 
 @media (max-width: 850px){
-	.col-12{
+	.container{
 		margin-left: 15%;
 	}
 }
 
 @media (max-width: 600px){
-	.col-12{
+	.container{
 		margin-left: 20%;
 	}
 }
