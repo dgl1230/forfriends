@@ -30,17 +30,18 @@ def compose(request):
 	title = "<h1>Compose</h1>"
 
 	form = ComposeForm(request.POST or None)
+	
 	message_users = []
 	matches = Match.objects.filter(user=request.user, approved=True)
-	'''for match in matches:
+	for match in matches:
 		try:
 			match2 = Match.objects.get(user=match.matched, matched=request.user)
 			if match2.approved == True:
 				message_users.append(match.matched.username)
 		except:
 			pass
-	form.fields['receiver'] = User.objects.all()
-	'''
+	form.fields['receiver'].queryset = User.objects.filter(username__in=message_users)
+	
 
 	if form.is_valid():
 			send_message = form.save(commit=False)
