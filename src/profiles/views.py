@@ -149,18 +149,33 @@ def edit_profile(request):
 	jobs = Job.objects.filter(user=user)
 	info = Info.objects.filter(user=user)
 
-	#user_picture_form = UserPictureForm(request.POST or None, request.FILES or None, prefix='pic', instance=picture)
-	PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=0)
-	formset_p = PictureFormSet(queryset=pictures)
+	if pictures.exists():
+		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=0)
+		formset_p = PictureFormSet(queryset=pictures)
+	else:
+		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=1)
+		formset_p = PictureFormSet(queryset=pictures)
 
-	AddressFormSet = modelformset_factory(Address, form=AddressForm, extra=0)
-	formset_a = AddressFormSet(queryset=addresses)
+	if addresses.exists():
+		AddressFormSet = modelformset_factory(Address, form=AddressForm, extra=0)
+		formset_a = AddressFormSet(queryset=addresses)
+	else:
+		AddressFormSet = modelformset_factory(Address, form=AddressForm, extra=1)
+		formset_a = AddressFormSet(queryset=addresses)
 
-	JobFormSet = modelformset_factory(Job, form=JobForm, extra=0)
-	formset_j = JobFormSet(queryset=jobs)
+	if jobs.exists():
+		JobFormSet = modelformset_factory(Job, form=JobForm, extra=0)
+		formset_j = JobFormSet(queryset=jobs)
+	else:
+		JobFormSet = modelformset_factory(Job, form=JobForm, extra=1)
+		formset_j = JobFormSet(queryset=jobs)
 
-	InfoFormSet = modelformset_factory(Info, form=InfoForm, extra=0)
-	formset_i = InfoFormSet(request.POST or None, queryset=info)
+	if info.exists():
+		InfoFormSet = modelformset_factory(Info, form=InfoForm, extra=0)
+		formset_i = InfoFormSet(request.POST or None, queryset=info)
+	else:
+		InfoFormSet = modelformset_factory(Info, form=InfoForm, extra=1)
+		formset_i = InfoFormSet(request.POST or None, queryset=info)
 
 	
 	return render_to_response('profiles/edit_profile.html', locals(), context_instance=RequestContext(request))
