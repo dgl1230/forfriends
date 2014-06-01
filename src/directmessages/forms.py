@@ -5,9 +5,6 @@ from matches.models import Match
 from visitors.models import Visitor
 
 class ComposeForm(forms.ModelForm):
-	'''def __init__(self, *args, **kwargs):
-		super(ComposeForm, self).__init__(*args, **kwargs)
-		self.fields['receiver'].label = "New Email Label"'''
 	class Meta:
 		model = DirectMessage
 		fields = ('receiver', 'subject', 'body',)

@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Question, Answer, UserAnswer, MatchAnswer
+from .models import Question, Answer, UserAnswer
 
 
 class QuestionForm(forms.ModelForm):

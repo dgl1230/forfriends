@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 
 from interests.models import Interest, UserInterestAnswer
-from questions.models import Question, Answer, UserAnswer, MatchAnswer
+from questions.models import Question, Answer, UserAnswer
 
 '''Compares the first UserInterstAnswer importance level to the second 
 UserInterestAnswer importance level. Yes, this is a ratched way of doing it'''
@@ -130,16 +130,16 @@ def interest_points(user1, user2):
 ''' Calculates the points for matching users based solely off their answers
 to questions '''
 def question_points(user1, user2):
-	pref_answers = MatchAnswer.objects.filter(user=user1)
-	actual_answers = UserAnswer.objects.filter(user=user2)
+	user1_answers = UserAnswer.objects.filter(user=user1)
+	user2_answers = UserAnswer.objects.filter(user=user2)
 	total_questions = 0
 	questions_in_common = 0
 	points_awarded = 0
 	points_possible = 0
 
-	for ans in pref_answers:
+	for ans in user1_answers:
 		total_questions += 1 
-		for act_ans in actual_answers:
+		for act_ans in user2_answers:
 			if ans.question == act_ans.question:
 				questions_in_common += 1
 				points_possible += 100

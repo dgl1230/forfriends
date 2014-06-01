@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Question, Answer, UserAnswer, MatchAnswer
+from .models import Question, Answer, UserAnswer
 
 class AnswerInline(admin.TabularInline):
 	extra = 0

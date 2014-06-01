@@ -11,7 +11,9 @@ from .forms import ComposeForm, FriendForm, ReplyForm
 from visitors.models import Visitor
 
 
-
+''' Gets a message using the dm_id in the url for the logged in user. The 
+user is not allowed to view a message sent from themselves (to prevent errors).
+If the user has not seen it already, it's read and read_at fields are changed.'''
 def view_direct_message(request, dm_id):
 	message = get_object_or_404(DirectMessage, id=dm_id)
 	if not message.sender != request.user or message.receiver != request.user:
@@ -26,6 +28,9 @@ def view_direct_message(request, dm_id):
 
 
 
+''' The logged in user creates a new message using ComposeForm. The logged in
+user can only send messages to users that have approved the logged in user for
+ friendship and that have also been approved by the logged in user. '''
 def compose(request):
 	title = "<h1>Compose</h1>"
 
@@ -55,6 +60,12 @@ def compose(request):
 									context_instance=RequestContext(request))
 
 
+
+'''The logged in user sends a message to the user who's profile they are currently viewing
+via the "send message" button. If both users have approved each other for 
+friendship, then the logged in user can message the viewed user from their profile. 
+Otherwise, the html template renders a response saying that they aren't both 
+approved yet. '''
 def su_compose(request, single_user):
 	user_match, created = Match.objects.get_or_create(user=request.user, 
 								matched__username=single_user)
@@ -85,6 +96,9 @@ def su_compose(request, single_user):
 									context_instance=RequestContext(request))
 
 
+
+'''The logged in user replies to a message that was sent to them, using
+the dm_id field to determine what the correct message to reply to is. '''
 def reply(request, dm_id):
 
 	parent_id = dm_id
@@ -109,6 +123,9 @@ def reply(request, dm_id):
 	return render_to_response('directmessages/compose.html', locals(), 
 									context_instance=RequestContext(request))
 
+
+
+'''The logged in user views all messages that they have'''
 def inbox(request):
 
 	messages_in_inbox = DirectMessage.objects.filter(receiver=request.user)
@@ -118,6 +135,8 @@ def inbox(request):
 									context_instance=RequestContext(request))
 
 
+
+'''The logged in viewer views all messages that they have sent'''
 def sent(request):
 
 	messages_in_inbox = DirectMessage.objects.filter(sender=request.user)

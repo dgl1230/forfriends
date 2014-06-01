@@ -3,17 +3,14 @@ from django.shortcuts import render_to_response, RequestContext, Http404, HttpRe
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from .models import Question, Answer, UserAnswer, MatchAnswer
+from .models import Question, Answer, UserAnswer
 from .forms import QuestionForm, AnswerForm
-
-
-
 
 def all_questions(request):
 	
 	questions_all = Question.objects.exclude(useranswer__user=request.user)
 	paginator = Paginator(questions_all, 1)
-	importance_levels = ['Mandatatory', 'Very Important', 'Somewhat Important', 'Not Important']
+	importance_levels = ['Mandatory', 'Very Important', 'Somewhat Important', 'Not Important']
 
 	page = request.GET.get('page')
 	try:
@@ -33,10 +30,7 @@ def all_questions(request):
 		answer_form =  request.POST['answer']
 		#answer_form = request.POST.get('answer', False)
 
-		#user match answer
-		match_importance_level = request.POST['match_importance_level']
-		match_answer_form = request.POST['match_answer']
-		#match_answer_form = request.POST.get('match_answer', False)
+	
 
 		user = User.objects.get(username=request.user)
 		question = Question.objects.get(id=question_id)
@@ -46,13 +40,6 @@ def all_questions(request):
 		answered, created = UserAnswer.objects.get_or_create(user=user, question=question)
 		answered.answer = answer
 		answered.importance_level = importance_level
-		answered.save()
-
-		#user match answer save
-		user_answer = Answer.objects.get(question=question, answer=match_answer_form)
-		answered, created = MatchAnswer.objects.get_or_create(user=user, question=question)
-		answered.answer = user_answer
-		answered.importance_level = match_importance_level
 		answered.save()
 
 		messages.success(request, 'Answer Saved')
@@ -81,7 +68,7 @@ def create_question(request):
 def edit_questions(request):
 	questions_all = Question.objects.filter(useranswer__user=request.user)
 	paginator = Paginator(questions_all, 1)
-	importance_levels = ['Mandatatory', 'Very Important', 'Somewhat Important', 'Not Important']
+	importance_levels = ['Mandatory', 'Very Important', 'Somewhat Important', 'Not Important']
 
 	page = request.GET.get('page')
 	try:
@@ -101,10 +88,6 @@ def edit_questions(request):
 		answer_form =  request.POST['answer']
 		#answer_form = request.POST.get('answer', False)
 
-		#user match answer
-		match_importance_level = request.POST['match_importance_level']
-		match_answer_form = request.POST['match_answer']
-		#match_answer_form = request.POST.get('match_answer', False)
 
 		user = User.objects.get(username=request.user)
 		question = Question.objects.get(id=question_id)
@@ -114,13 +97,6 @@ def edit_questions(request):
 		answered, created = UserAnswer.objects.get_or_create(user=user, question=question)
 		answered.answer = answer
 		answered.importance_level = importance_level
-		answered.save()
-
-		#user match answer save
-		user_answer = Answer.objects.get(question=question, answer=match_answer_form)
-		answered, created = MatchAnswer.objects.get_or_create(user=user, question=question)
-		answered.answer = user_answer
-		answered.importance_level = match_importance_level
 		answered.save()
 
 		messages.success(request, 'Changes Saved')

@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from .models import Address, Job, Info, UserPicture
 from interests.models import UserInterestAnswer
 from matches.models import Match
-from questions.models import UserAnswer, MatchAnswer
+from questions.models import UserAnswer
 from visitors.models import Visitor
 
 
@@ -23,10 +23,6 @@ class JobInline(admin.TabularInline):
 	max_num = 1	
 	model = Job
 
-
-class MatchAnswerInline(admin.TabularInline):
-	extra = 0
-	model = MatchAnswer
 
 class UserAnswerInline(admin.TabularInline):
 	extra = 0
@@ -51,7 +47,7 @@ class VisitorInline(admin.TabularInline):
 class UserAdmin(admin.ModelAdmin):
     inlines = [AddressInline, InfoInline, JobInline, 
     		UserPictureInline, UserInterestAnswerInline, UserAnswerInline, 
-    		MatchAnswerInline, VisitorInline]
+    		VisitorInline]
 
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)

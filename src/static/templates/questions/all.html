@@ -25,21 +25,19 @@
 <div class='row'>
 	{% for question in questions %}
 		<h3>{{ question }}</h3><p>
-		How important is this question to you? <select required='required' name='importance_level'>
+		<form method='POST' action=''> {% csrf_token %}
+		How important is this question to you? <select required='required' class='importance_level' name='importance_level'>
 			{% for imp in importance_levels %}
 			<option {% for abc in question.useranswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected='selected' {% endif %} {% endfor %} value='{{ imp }}'>{{ imp }}</option>
 			{% endfor %}
 		</select>
-		<form method='POST' action=''> {% csrf_token %}
+
+
+		
 			<input type='hidden' value='{{ question.id }}' name='question_id'/>
 		{% for ans in question.answer_set.all %}
 			<input type='radio' required=
 			'required' value='{{ ans}}' {% for abc in ans.useranswer_set.all %} {% if abc and abc.user == request.user %} checked='checked' {% endif %} {% endfor %} name='answer'> {{ ans }} <br/>
-		{% endfor %}
-		</p> <p>
-	<h4>Ideal Answer <small>How you would like them to answer</small></h4>
-	{% for ans in question.answer_set.all %}
-			<input type='radio' required='required' value='{{ ans}}' {% for abc in ans.matchanswer_set.all %} {% if abc and abc.user == request.user %} checked='checked' {% endif %} {% endfor %} name='match_answer'> {{ ans }} <br/>
 		{% endfor %}
 		</p> <p>
 		<div class="interest_buttons">
