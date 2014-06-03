@@ -2,7 +2,8 @@
 {% load i18n %}
 
 {% block content %}
-
+<div class="container">
+  <div class='col-lg-10 col-12'>
 {% if account %}
 
 <p>{% trans "Account successfully activated" %}</p>
@@ -14,5 +15,6 @@
 <p>{% trans "Account activation failed" %}</p>
 
 {% endif %}
-
+</div>
+</div>
 {% endblock %}

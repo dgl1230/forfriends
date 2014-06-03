@@ -2,9 +2,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-
-
+<div class="row">
+	<div class="col-md-1" id="secondary_navbar">
+        <h1>Questions</h1>
+	</div>
+</div>
+<div class="container">
+  <div class='col-lg-10 col-12'>
 <div class='row'>
 	{% for question in questions %}
 	{% for answer in answers %}
@@ -45,5 +49,6 @@
 	</span>
 </div>
 </div>
-
+</div>
+</div>
 {% endblock %}

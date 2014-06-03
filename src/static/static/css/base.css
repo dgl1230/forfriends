@@ -1,5 +1,6 @@
 body{
 	background-color: #f8f8f8;
+	margin-top: 40px;
 }
 .container{
 	min-width: 480px;
@@ -19,6 +20,9 @@ body{
 
 }
 .col-lg-10.col-12{
+	width: 100%;
+}
+.col-md-1{
 	width: 100%;
 }
 p, .body, .row p{

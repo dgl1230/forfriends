@@ -2,11 +2,18 @@
 
 {% extends "base.html" %}
 
-{% block content %}
-<br/>
 
+{% block content %}
+<div class="row">
+	<div class="col-md-1" id="secondary_navbar">
+        <h1>Users</h1>
+	</div>
+</div>
 <h3>{{ query }}</h3>
-<h1> Users</h1>
+<br/>
+<div class="container">
+  <div class='col-lg-10 col-12'>
+
 <ol>
 {% for user in results %}
 <div id="myfriend">
@@ -38,5 +45,7 @@
 		{% endif %}
 		{% cycle '' '' '' '</div><div class="row">' %}
 {% endfor %}
+</div>
+</div>
 
 {% endblock %}

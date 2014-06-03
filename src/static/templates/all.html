@@ -3,6 +3,8 @@
 
 
 {% block content %}
+<div class="container">
+  <div class='col-lg-10 col-12'>
 {% if messages %}
 <div class='row'>
                 <ul class="messages">
@@ -50,6 +52,8 @@
 		{% endif %}
 		{% cycle '' '' '' '</div><div class="row">' %}
 {% endfor %}
+</div>
+</div>
 </div>
 </div>
 <script src="/static/js/profile_view.js"></script>

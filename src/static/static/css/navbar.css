@@ -5,11 +5,42 @@
 	background-color:#084c8d;
 	border-bottom: #d5d5e5 5px solid;
 	border-top:#d5d5e5 5px solid;
+	min-width: 770px;
 }
 
 .navbar-brand{
 	letter-spacing: .3em;
 	font-style:italic;
+	color: white!important;
+}
+
+.navbar-brand:hover{
+	text-shadow: 
+  -1px -1px 0 black, 
+   1px -1px 0 black,
+  -1px  1px 0 black,
+   1px  1px 0 black;
+}
+
+.navbar a{
+	color: white!important;
+	
+}
+
+.navbar a:hover{
+	text-shadow: 
+  -1px -1px 0 black, 
+   1px -1px 0 black,
+  -1px  1px 0 black,
+   1px  1px 0 black;
+
+}
+
+
+
+.visitors{
+	border-right:#d5d5e5 5px solid;
+	border-left:#d5d5e5 5px solid;
 }
 .dropdown-menu{
 	border-left: .5px solid;
@@ -20,7 +51,7 @@
 }
 
 .dropdown-menu li a{
-	color: #999;
+	color: white;
 }
 .dropdown-menu li a:hover{
 	color:white;
@@ -28,7 +59,12 @@
 
 
 .dropdown-menu li:hover{
-	background-color: rgba(255,255,255, .2) ;
+	color: white ;
+	text-shadow: 
+  -1px -1px 0 black, 
+   1px -1px 0 black,
+  -1px  1px 0 black,
+   1px  1px 0 black;
 }
 
 .dropdown-menu{
@@ -55,4 +91,45 @@ a.dropdown-toggle{
 		letter-spacing:.4em;
 		margin-left: -20%!important;
 	}
+}
+
+#secondary_navbar{
+	background-color:#084c8d;
+	min-width: 480px;
+	padding-top: 5px;
+}
+#secondary_navbar a, #secondary_navbar h1{
+	color: white;
+}
+
+#secondary_navbar a:hover, #secondary_navbar a:focus, #secondary_navbar a:active {
+	background-color: #084c8d;
+}
+.navbar-brand{
+	text-align: center;
+}
+
+#secondary_navbar .navbar_nav{
+	float: none;
+	display: inline-block;
+}
+
+#secondary_navbar h1{
+	text-align:center;
+	width: 100%;
+}
+
+#secondary_navbar a{
+	text-align: center;
+}
+
+#tertiary_navbar{
+	background-color: #d5d5d5;
+	width: 100%!important;
+	text-align: center;
+}
+
+#tertiary_navbar a{
+	color: black;
+	text-align: center;
 }

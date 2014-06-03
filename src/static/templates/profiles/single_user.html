@@ -2,8 +2,9 @@
 	<link rel="stylesheet" href="/static/css/profile_view.css">
 </head>
 {% extends 'base.html' %}
-
 {% block content %}
+<div class="container">
+  <div class='col-lg-10 col-12'>
 {% if messages %}
 <div class='row'>
                 <ul class="messages">
@@ -13,7 +14,8 @@
                 </ul>
 </div>
 {% endif %}
-
+	<div class="container">
+	<div class="col-lg-10 col-12">
 	<div class = 'row' id="picture_row">
 		<div class='col col-sm-12'>
 			<h1>{% if single_user.first_name %} {{ single_user.first_name }} {% else %} {{ single_user }} {% endif %}</h1>
@@ -75,6 +77,8 @@
 	</div>
 	</div>
 	</div>
+</div>
+</div>
 </div>
 <script>
 	$('#friend_button').click(function(){

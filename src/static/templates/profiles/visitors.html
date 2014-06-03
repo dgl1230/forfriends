@@ -3,12 +3,18 @@
 
 
 {% block content %}
+<div class="row">
+	<div class="col-md-1" id="secondary_navbar">
+        <h1>Visitors Page</h1>
+	</div>
+</div>
+<div class="container">
+  <div class='col-lg-10 col-12'>
 <br/>
 <br/>
 <br/>
 <br/>
 <div class='col-lg-6 '>
-	<center><h1>Visitors</h1></center>
 	<div class='row'>
 {% for visitor in visitors %}
 	<div id="myfriend">
@@ -40,6 +46,8 @@
 		{% endif %}
 		{% cycle '' '' '' '</div><div class="row">' %}
 {% endfor %}
+</div>
+</div>
 </div>
 </div>
 <script src="/static/js/profile_view.js"></script>

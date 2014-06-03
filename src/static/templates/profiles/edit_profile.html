@@ -9,9 +9,14 @@ $('#myTab a').click(function (e) {
 {% endblock %}
 
 {% block content %}
-<br/>
+<div class="row">
+  <div class="col-md-1" id="secondary_navbar">
+        <h1>Edit Profile</h1>
+  </div>
+</div>
 
-
+<div class="container">
+  <div class='col-lg-10 col-12'>
 {% if messages %}
 <ul class="messages">
     {% for message in messages %}
@@ -81,6 +86,8 @@ $('#myTab a').click(function (e) {
     </div>
     </div>
   </div>
+</div>
+</div>
 </div>
 
 <script>
