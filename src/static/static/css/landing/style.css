@@ -69,6 +69,7 @@ Tags: responsive, html5 template, one page, landing, startup, business, company,
 	background-attachment: fixed !important;
 	background-position: center center;
 	background-repeat: no-repeat;
+	background-color: #6682b5;
 }
 
 #intro { 
@@ -87,7 +88,7 @@ Tags: responsive, html5 template, one page, landing, startup, business, company,
 }
 
 #call-to-action { 
-	background-image: url(/static/img/landing/parallax_bg/call_to_action_bkg.jpg); 
+	background-color: #6682b5;
 }
 
 /*------------------------------------------*/
@@ -104,23 +105,24 @@ h1, h2, h3, h4, h5, h6 {
 /*------------------------------------------*/
 
 a {
-	text-decoration: none;
+	text-decoration: underline;
 	-webkit-transition: all 250ms ease-in-out;
 	-moz-transition: all 250ms ease-in-out;
 	-o-transition: all 250ms ease-in-out;
 	-ms-transition: all 250ms ease-in-out;
 	transition: all 250ms ease-in-out;
 	color: black;
+
 }
 
 a:hover {
 	color: #444;
-	text-decoration: none;
+	text-decoration: underline;
 
 }
 
 a:focus {
-	color: #f8f8f8;
+	color: #333;
 	outline: none;
 	border: none;
 	text-decoration: none;
@@ -154,7 +156,7 @@ ul {
 .titlebar p {
 	color: #666;
 	font-size: 18px;
-	font-family: 'Lato', sans-serif;
+	font-family: 'Open sans', sans-serif;
 	font-weight: 300;
 }
 
@@ -176,6 +178,7 @@ ul {
 
 #header {
 	margin-bottom: 80px;
+	width: 100%;
 }
 
 #header img {
@@ -266,7 +269,7 @@ ul {
 
 .intro_feature p {
 	font-size: 16px;
-	font-family: 'Lato', sans-serif;
+	font-family: 'Open sans', sans-serif;
 	font-weight: 400;
 	padding-left: 25px;
 }
@@ -405,7 +408,7 @@ textarea {
 .accordion a { 
 	color: #666; 
 	font-size: 16px;
-	font-family: 'Lato', sans-serif;
+	font-family: 'Open sans', sans-serif;
 	font-weight: 400;
 	line-height: 26px;
 	padding: 10px 40px 10px 15px;
@@ -536,7 +539,7 @@ textarea {
 
 .quote-text a {
     color: #8c989e;
-	font-family: 'Lato', sans-serif;
+	font-family: 'Open sans', sans-serif;
 	font-weight: 400;
 }
 
@@ -612,7 +615,7 @@ textarea {
 }
 
 .feature-box-content h4 {
-	font-family: 'Lato', sans-serif;
+	font-family: 'Open sans', sans-serif;
 	font-weight: 700;
 }
 
@@ -649,7 +652,7 @@ textarea {
 
 .question p {
 	color: #666;
-	font-family: 'Lato', sans-serif;
+	font-family: 'Open sans', sans-serif;
 }
 
 
@@ -711,7 +714,7 @@ textarea {
 #call-to-action p {
 	color: #fff;
 	font-size: 20px;
-	font-family: 'Lato', sans-serif;
+	font-family: 'Open sans', sans-serif;
 	font-weight: 300;
 	padding: 0 10%;
 	margin-bottom: 30px;
@@ -738,7 +741,7 @@ textarea {
 .footer-nav li a {
 	color: #999;
 	font-size: 15px;
-	font-family: 'Lato', sans-serif;
+	font-family: 'Open sans', sans-serif;
 }
 
 .footer-nav li a:hover {
@@ -752,7 +755,7 @@ textarea {
 #footer_copy p {
 	color: #666;
 	font-size: 13px;
-	font-family: 'Lato', sans-serif;
+	font-family: 'Open sans', sans-serif;
 	margin-left: 10px;
 }
 
@@ -841,7 +844,7 @@ textarea {
 	color: #666;
 	font-size: 13px;
 	line-height: 16px;
-	font-family: 'Lato', sans-serif;
+	font-family: 'Open sans', sans-serif;
 	text-align: center;
 	margin-top: 10px;
 }
@@ -867,7 +870,7 @@ textarea {
 	background: #383e46;
     color: #fff;
 	font-size: 12px;
-	font-family: 'Lato', sans-serif;
+	font-family: 'Open sans', sans-serif;
 	font-weight: 700;
 	text-decoration:none;
 	text-transform: uppercase;
@@ -948,7 +951,35 @@ nav a#pull {
 
 #form_response p {
 	font-size: 18px; 
-	font-family: 'Lato', sans-serif;
+	font-family: 'Open sans', sans-serif;
 	font-weight: 400;
 	margin-bottom: 20px;
+}
+
+.opening{
+	background-color: #ffffff;
+	font-family: "Open Sans", sans-serif;
+	opacity: 0.8;
+	margin-top: 25%;
+}
+
+.opening h1{
+	font-size: 6em;
+	font-family: "Open Sans", sans-serif;
+	color: #084c8d;
+	letter-spacing: .25em;
+	text-align: center;
+}
+.opening a, h3{
+	font-family: "Open Sans", sans-serif;
+	color: #084c8d;
+	text-align: center;
+}
+.opening .col-xs-6{
+	text-align: center;
+}
+
+.opening a:hover{
+	opacity: 1;
+	font-weight: bold;
 }

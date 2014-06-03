@@ -44,12 +44,12 @@
     <link rel="apple-touch-icon" href="/static/img/landing/icons/apple-touch-icon.png">
       
     <!-- Google Fonts --> 
-    <link href='http://fonts.googleapis.com/css?family=Lato:400,900italic,900,700italic,400italic,300italic,300,100italic,100' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:600,400,700,800' rel='stylesheet'>
+    <link href='http://fonts.googleapis.com/css?family=Merriweather:400,700italic,700,800,900,400italic' rel='stylesheet'>
           
   </head>
     
   <body>
-  {% include 'navbar.html' %}
   
     <!-- PRELOADER
     ============================================= -->
@@ -73,12 +73,19 @@
         
           <!-- Header -->   
           <header id="header"> 
-            <div class="row"> 
+            <div class="opening">
+              <h1>Forfriends</h1>
+              <br><h3>Your friends are closer than you think.</h3>
 
               <!-- Logo Image -->
-              <div id="logo_image" class="col-xs-6">
-                <!--<a href="#intro"><img src="/static/img/logo.png" alt="logo" role="banner"></a> -->           
+            <div class="row" id="call_to_action"> 
+              <div class="col-xs-6" id="login">
+                <h2><a href='/accounts/login'>Login</a></h2>
               </div>
+              <div class="col-xs-6" id="register">
+                <h2><a href="{% url 'registration_register' %}">Register</a></h2>
+              </div>
+            </div>
             
               <!-- Header Social Icons -->
               <div id="social_icons" class="col-xs-6 text-right">                                 
@@ -117,7 +124,7 @@
             <div id="intro_description" class="col-sm-7 col-md-7">
             
               <!-- Intro Section Title -->
-              <h1><strong>Forfriends</strong> is the simplest way to meet<strong>people.</strong></h1>
+              It's the simplest way to meet<strong>people.</strong></h1>
                 
               <!-- Description #1 --> 
               <div class="intro_feature">
@@ -168,10 +175,6 @@
       <!-- FEATURES
       ============================================= -->
       
-      
-      
-      
-
       <!-- CLIENTS
       ============================================= -->
       
@@ -185,7 +188,7 @@
             <!-- Call To Action Content --> 
             <div class="col-sm-12 text-center">
             
-              <h1>The simplest way to meet people.</h1>
+              <h1>It's the simplest way to meet people.</h1>
               <p>
               </p>
               
@@ -258,7 +261,7 @@
                     <button type="submit" class="subscribe-submit">Subscribe</button>
                   </form>
                 </div>  
-                <p id="newsletter-paragraph" class="pull-right">Join our newsletter subscription, <span>be always informed</span></p>
+                <p id="newsletter-paragraph" class="pull-right">Join our newsletter subscription.</p>
               </div>
             </div>  <!-- End Newsletter Form -->
             
