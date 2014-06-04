@@ -19,6 +19,8 @@
           </form>
           <ul class='nav navbar-nav pull-right'>
             <li class='visitors'>
+              <a href="{% if request.user.is_authenticated %}{% url "profile" request.user.username %} {% endif %}">Profile</a>
+            <li class='visitors'>
               <a href="/visitors/">Visitors</a>
             
             <li class= "dropdown">
