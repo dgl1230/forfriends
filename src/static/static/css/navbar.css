@@ -127,9 +127,18 @@ a.dropdown-toggle{
 	background-color: #d5d5d5;
 	width: 100%!important;
 	text-align: center;
+	padding-top: 5px;
+	padding-bottom:5px;
+	min-width: 450px;
 }
 
 #tertiary_navbar a{
 	color: black;
 	text-align: center;
+}
+
+@media (max-width: 1000px) {
+	#tertiary_navbar{
+		margin-top: -10px;
+	}
 }

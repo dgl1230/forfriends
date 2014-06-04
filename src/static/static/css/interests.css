@@ -8,8 +8,6 @@
 	min-width: 300px;
 }
 
-
-
 .main_interests{	
 	min-width: 300px;
 }
@@ -18,7 +16,8 @@
 	font-style: italic;
 }
 .img-container{
-	width: 75%;
+	width: 200px;
+	height: auto;
 	margin: 0 auto;
 	margin-bottom: 1.5em;
 }
@@ -57,10 +56,6 @@
 /* Footer */
 footer{
 	margin-left: 10%;
-}
-
-.row{
-	width: 100%;
 }
 
 h1{

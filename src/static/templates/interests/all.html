@@ -6,7 +6,11 @@
 	<div class="col-md-1" id="secondary_navbar">
         <h1>Interests</h1>
 	</div>
-</div>
+	<div class="col-md-1" id="tertiary_navbar">
+     	<a href="/interests/edit/">Edit Interests</a>
+     	<a href="/interests/create/">Add Interests</a>
+	</div>
+</div>	
 <div class="container">
   <div class='col-lg-10 col-12'>
 {% if messages %}
@@ -21,10 +25,6 @@
 <div class="interests-wrapper">
 	<div class='row'>
 		<div class='interests_intro'>
-			<h3><a href="/interests/create/">Add your interests!</a></h3>
-
-			<p><a href="/interests/edit/" name="edit_interests" value="edit_interests">Or Edit your current ones</a></p>
-		<hr>
 		</div>
 	</div>
 
@@ -61,10 +61,7 @@
 			<div class="interest_buttons">
 				<!-- Submit Button -->
 			<input type='submit' class='btn-lg' id="interest_button" value='Save'>
-			<!--Skip Button -->
-			<a href="?page={{ interests.next_page_number }}">
-						<input type='submit' class='btn-lg' value='Skip'></a>
-					</div>
+			</div>
 			</form>
 		{% endfor %}
 			</div>

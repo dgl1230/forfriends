@@ -73,7 +73,7 @@ Tags: responsive, html5 template, one page, landing, startup, business, company,
 }
 
 #intro { 
-	background-image: url(/static/img/landing/crowd.jpg); 
+	background-image: url(/static/img/optimized_busy_people.jpeg); 
 }
 
 .parallax {
@@ -959,8 +959,9 @@ nav a#pull {
 .opening{
 	background-color: #ffffff;
 	font-family: "Open Sans", sans-serif;
-	opacity: 0.8;
+	opacity: 0.9;
 	margin-top: 25%;
+	min-width: 400px;
 }
 
 .opening h1{
@@ -982,4 +983,19 @@ nav a#pull {
 .opening a:hover{
 	opacity: 1;
 	font-weight: bold;
+}
+
+@media (max-width: 630px) {
+	.row a{
+		font-size: .75em;
+	}	
+	.opening h3{
+		font-size: .75em;
+	}
+	.opening h1{
+		font-size: 4em;
+	}
+	#header{
+		width:50%;
+	}
 }

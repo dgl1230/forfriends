@@ -140,3 +140,8 @@ a:hover{
 *:focus{
 	outline:0;
 }
+
+@media (max-width: 905px) {
+	.container{
+		margin-left: 120px;
+	}

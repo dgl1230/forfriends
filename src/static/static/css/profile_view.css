@@ -80,33 +80,3 @@ h1{
 .buttons{
 	margin-top: 5%;
 }
-
-@media (max-width: 960px){
-.container{
-	margin-left: 5%;
-	}
-}
-
-@media (max-width: 1000px){
-	.container{
-		margin-left: 10%;
-	}
-}
-
-@media (max-width: 850px){
-	.container{
-		margin-left: 15%;
-	}
-}
-
-@media (max-width: 600px){
-	.container{
-		margin-left: 20%;
-	}
-}
-
-@media (max-width: 500px){
-	.col-12, .col-lg-6{
-		margin-left: 100px!important;
-	}
-}

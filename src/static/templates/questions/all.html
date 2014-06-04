@@ -5,6 +5,10 @@
 	<div class="col-md-1" id="secondary_navbar">
         <h1>Questions</h1>
 	</div>
+	<div class="col-md-1" id="tertiary_navbar">
+     	<a href="/questions/edit/">Edit Questions</a>
+     	<a href="/questions/create/">Add Question</a>
+	</div>
 </div>
 <div class="container">
   <div class='col-lg-10 col-12'>
@@ -21,10 +25,6 @@
 <div class="questions-wrapper">
 	<div class='row' id="interests_intro">
 		<div class='interests_intro'>
-			<h3><a href="/questions/create/">Add Questions!</a></h3>
-
-			<p><a href="/questions/edit/">Or Edit your current ones</a></p>
-		<hr>
 		</div>
 	</div>
 <div class='row'>
@@ -48,9 +48,6 @@
 		<div class="interest_buttons">
 		<!-- Submit Button -->
 		<input type='submit' class='btn-lg' id="questions_button" value='Save'>
-		<!--Skip Button -->
-			<a href="?page={{ questions.next_page_number }}">
-						<input type='submit' class='btn-lg' value='Skip'></a>
 		</div>
 	</form>
 	{% endfor %}
