@@ -108,7 +108,6 @@ def edit_questions(request):
 def single_user_questions(request, username):
 	questions_all = Question.objects.filter(useranswer__user__username=username)
 	answers = UserAnswer.objects.filter(user__username=username)
-	match_answers = MatchAnswer.objects.filter(user__username=username)
 	paginator = Paginator(questions_all, 1)
 	importance_level = ['Mandatatory', 'Very Important', 'Somewhat Important', 'Not Important']
 

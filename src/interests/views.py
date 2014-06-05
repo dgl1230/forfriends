@@ -101,9 +101,11 @@ def edit_interests(request):
 # displays the interests for a particular user
 def single_user_interests(request, username):
 	interests_all = Interest.objects.filter(userinterestanswer__user__username=username)
-	answers = UserInterestAnswer.objects.filter(user__username=username)
+	answers1 = UserInterestAnswer.objects.filter(user__username=username)
+	answers = []
+	for a in answers1:
+		answers.append(a)
 	paginator = Paginator(interests_all, 1)
-	importance_levels = ['Strongly Like', 'Like', 'Neutral', 'Dislike', 'Strongly Dislike']
 
 	page = request.GET.get('page')
 	try:
@@ -113,6 +115,6 @@ def single_user_interests(request, username):
 		interests = paginator.page(1)
 	except EmptyPage:
 		#If page is out of range, deliver last page of results
-		interets = paginator.page(paginator.num_pages)
+		interests = paginator.page(paginator.num_pages)
 
 	return render_to_response('interests/single_user.html', locals(), context_instance=RequestContext(request))

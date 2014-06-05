@@ -36,13 +36,12 @@ matches for them, otherwise it shows the home page for non-logged in viewers '''
 def all(request):
 	if request.user.is_authenticated(): 
 		users = User.objects.filter(is_active=True)
-		matches = []
 		for u in users:
 			if u != request.user:
 				match, created = Match.objects.get_or_create(user=request.user, matched=u)
 				match.percent = match_percentage(request.user, u)
 				match.save()
-				matches.append(match)
+		matches = Match.objects.filter(user=request.user).order_by('-percent')
 		return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 	else:
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))

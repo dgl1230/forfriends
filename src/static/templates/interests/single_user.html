@@ -21,7 +21,7 @@
 					<div class="interest_row">
 						<div class="interests-title">
 							{% for interest in interests %}
-							{% for a in answers %}
+							
 							<h3>{{ interest.interest|title }}</h3>
 						</div>	
 							{% for pic in interest.interestpicture_set.all %}
@@ -37,11 +37,12 @@
 
 			How they feel about {{ interest.interest }}: 
 			
-			{{ a.importance_level }}
+			
+			{{ answers.importance_level }}
+			{% endfor %}
 			
 
-		{% endfor %}
-		{% endfor %}
+		
 			</div>
 		<br/>
 		<br/>
