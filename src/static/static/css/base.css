@@ -24,6 +24,7 @@ body{
 }
 .col-md-1{
 	width: 100%;
+	min-width: 480px;
 }
 p, .body, .row p{
 	font-family: 'Open Sans', sans-serif;

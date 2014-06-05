@@ -41,9 +41,7 @@
 				{% endif %}
 				{% for pic in interest.interestpicture_set.all %}
 					{% if forloop.first %}
-					<div class="img-container">
 						<img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' />
-					</div>
 					{% endif %}
 
 				{% endfor %}
@@ -60,7 +58,7 @@
 			</select></p>
 			<div class="interest_buttons">
 				<!-- Submit Button -->
-			<input type='submit' class='btn-lg' id="interest_button" value='Save'>
+			<input type='submit' class='btn-lg' value='Save'>
 			</div>
 			</form>
 		{% endfor %}

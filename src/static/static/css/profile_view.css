@@ -6,7 +6,7 @@
 
 }
 .nav-tabs li a{
-	min-width: 1	50px;
+	min-width: 150px;
 	background-color: #f8f8f8;
 }
 h1{
@@ -20,20 +20,6 @@ h1{
 .tab-pane{
 	min-height: 10em;
 }
-.mask{
-	display: inline-block;
-	width: 200px;
-	height: 200px;
-	border-radius: 50%;
-	-moz-border-radius: 50%;
-	-webkit-border-radius: 50%;
-	overflow: hidden;
-}
-.img-responsive{
-	width: 200px;
-	height: 250px;
-}
-
 .col .col-sm-12 h1{
 	text-align: center;
 } 
@@ -79,4 +65,10 @@ h1{
 }
 .buttons{
 	margin-top: 5%;
+}
+
+@media(min-width: 1500px){
+.container{
+		margin-left: 12.5%!important;
+	}
 }

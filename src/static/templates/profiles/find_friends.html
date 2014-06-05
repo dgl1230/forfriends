@@ -1,28 +1,31 @@
+<link rel="stylesheet" href="/static/css/profile_view.css">
 {% extends 'base.html' %}
 
+
 {% block content %}
-<div class="container">
+<div class="row">
+	<div class="col-md-1" id="secondary_navbar">
+	    <h1>Matches</h1>
+	</div>
+	<div class="col-md-1" id="tertiary_navbar">
+	</div>
+</div>
+<div class="container" id="find-friends-only">
   <div class='col-lg-10 col-12'>
-<br/>
-<br/>
-<br/>
-<br/>
 <div class='col-lg-6 '>
-	<center><h1>Matches</h1></center>
+	<br>
 	<div class='row'>
 {% for match in matches %}
-	<div id="myfriend">
 	{% if not request.user == match.matched %}
 	<div class='col-lg-4'>
-	<a href='/members/{{ match.matched.username}}'>
 		{% for pic in match.matched.userpicture_set.all %}
 			
 			{% if forloop.first %}
-			<img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' />
+			<a href='/members/{{ match.matched.username}}'><img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' /></a>
 			{% endif %}
 		{% endfor %}
 		{% if not match.matched.userpicture_set.all %}
-			<img src='{{ STATIC_URL }}img/avatar.png' class='img-responsive' />
+			<a href='/members/{{ match.matched.username}}'><img src='{{ STATIC_URL }}img/avatar.png' class='img-responsive' /></a>
 		{% endif %}
 			
 		{{ match.matched.username }}

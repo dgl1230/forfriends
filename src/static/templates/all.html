@@ -10,7 +10,7 @@
 	<div class="col-md-1" id="tertiary_navbar">
 	</div>
 </div>
-<div class="container">
+<div class="container" id="home-only">
   <div class='col-lg-10 col-12'>
 {% if messages %}
 <div class='row'>
@@ -22,28 +22,22 @@
 </div>
 {% endif %}
 <br/>
-<br/>
 <div class='col-lg-6 '>	
 	<div class='row'>
 {% for match in matches %}
-	<div id="myfriend">
 	{% if not request.user == match.matched %}
 	<div class='col-lg-4'>
-	<a href='/members/{{ match.matched.username}}'>
-		{% for pic in match.matched.userpicture_set.all %}
+			{% for pic in match.matched.userpicture_set.all %}
+				{% if forloop.first %}
+					<a href='/members/{{ match.matched.username}}'><img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive'/></a>
+				{% endif %}
+			{% endfor %}
+				{% if not match.matched.userpicture_set.all %}
+					<a href='/members/{{ match.matched.username}}'><img src='{{ STATIC_URL }}img/avatar.png' class='img-responsive' /></a>
+				{% endif %}
 			
-			{% if forloop.first %}
-				<img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' />
-			{% endif %}
-		{% endfor %}
-		{% if not match.matched.userpicture_set.all %}
-			<div class="mask">
-				<img src='{{ STATIC_URL }}img/avatar.png' class='img-responsive' />
-			</div>
-		{% endif %}
-			
-		{{ match.matched.username }}
-		</a> <br/>
+				{{ match.matched.username }}
+			</a> <br/>
 		{% for item in match.matched.address_set.all %} 
 			{% if forloop.first %} {{ item }}
 			{% endif %} 
@@ -56,7 +50,6 @@
 		{% endif %}
 		{% cycle '' '' '' '</div><div class="row">' %}
 {% endfor %}
-</div>
 </div>
 </div>
 </div>

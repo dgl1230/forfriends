@@ -5,7 +5,7 @@
 	background-color:#084c8d;
 	border-bottom: #d5d5e5 5px solid;
 	border-top:#d5d5e5 5px solid;
-	min-width: 770px;
+	min-width: 480px;
 }
 
 .navbar-brand{
@@ -38,9 +38,12 @@
 
 
 
-.visitors{
-	border-right:#d5d5e5 5px solid;
-	border-left:#d5d5e5 5px solid;
+.visitors a{
+	text-decoration: underline;
+}
+.profiles a{
+	text-decoration: underline;
+
 }
 .dropdown-menu{
 	border-left: .5px solid;
