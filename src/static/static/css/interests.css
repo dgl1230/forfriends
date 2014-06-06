@@ -1,6 +1,5 @@
 .interests-title h3{
 	font-size: 40px;
-	margin-top:-5%;
 }
 
 #interests-wrapper{
@@ -78,16 +77,21 @@ footer{
 
 
 /* Buttons */
-.btn, .btn-lg{
-	background-color: #6682b5!important;
-	color: #d5d5d5 !important;
-	border-color: #6682b5 !important;
-	border-radius: 8px;
+.btn-lg{
+	background-color: #d5d5d5!important;
+	color: #084c8d!important;
+	border: none;
+	-webkit-transition: all 250ms ease;
+  	-moz-transition: all 250ms ease;
+  	-o-transition: all 250ms ease;
+  	transition: all 250ms ease;
 }
 
-.btn:hover, .btn-lg:hover{
-	background-color: !important;
-	color: #fff !important;
+.btn-lg:hover{
+	background-color: #d5d5d5!important;
+	color: #084c8d!important;
+	border: none;
+	font-size: 1.5em;
 }
 .pager li a{
 	color: #333;

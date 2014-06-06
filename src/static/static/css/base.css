@@ -8,10 +8,24 @@ body{
 .btn-default, .btn .btn-default{
 	background-color: #d5d5d5!important;
 	color: #084c8d!important;
-	border: none;
-	
+	border: none;	
 }
 
+.btn.btn-info.btn-sm{
+	background-color: #d5d5d5!important;
+	color: #084c8d!important;
+	border: none;
+	-webkit-transition: all 500ms ease;
+	-moz-transition: all 500ms ease;
+	-o-transition: all 500ms ease;
+	transition: all 500ms ease;
+}
+
+.btn.btn-info.btn-sm:hover{
+	-webkit-transform: scale(1.05);
+  	transform: scale(1.05);
+  	color: #084c8d!important;
+}
 .btn.btn-default.btn:hover{
 	-webkit-transform: scale(1.05);
   	transform: scale(1.05);
@@ -145,3 +159,12 @@ a:hover{
 	.container{
 		margin-left: 120px;
 	}
+
+@media (max-width: 600px) {
+  h1{
+  font-size: 1.2em;
+}
+  a{
+  	font-size:.9em;
+  }
+}

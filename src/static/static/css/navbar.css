@@ -11,6 +11,10 @@
 .navbar-brand{
 	letter-spacing: .3em;
 	color: white!important;
+	-webkit-transition: all 500ms ease;
+ 	-moz-transition: all 500ms ease;
+ 	-o-transition: all 500ms ease;
+ 	transition: all 500ms ease;
 }
 
 .navbar-brand:hover{
@@ -23,6 +27,10 @@
 
 .navbar a{
 	color: white!important;
+	-webkit-transition: all 500ms ease;
+  	-moz-transition: all 500ms ease;
+  	-o-transition: all 500ms ease;
+  	transition: all 500ms ease;
 	
 }
 
@@ -39,9 +47,17 @@
 
 .visitors a{
 	text-decoration: none;
+	-webkit-transition: all 500ms ease;
+  	-moz-transition: all 500ms ease;
+  	-o-transition: all 500ms ease;
+  	transition: all 500ms ease;
 }
 .profiles a{
 	text-decoration: none;
+	-webkit-transition: all 500ms ease;
+  	-moz-transition: all 500ms ease;
+  	-o-transition: all 500ms ease;
+  	transition: all 500ms ease;
 
 }
 .dropdown-menu{
@@ -54,6 +70,10 @@
 
 .dropdown-menu li a{
 	color: white;
+	-webkit-transition: all 500ms ease;
+  	-moz-transition: all 500ms ease;
+  	-o-transition: all 500ms ease;
+  	transition: all 500ms ease;
 }
 .dropdown-menu li a:hover{
 	color:white;

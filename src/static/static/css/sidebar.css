@@ -75,6 +75,10 @@ ul li, li, li a, h5, h3{
   color: white!important;
   -webkit-transform: scale(1.5);
   transform: scale(1.5);
+  -webkit-transition: all 500ms ease;
+  -moz-transition: all 500ms ease;
+  -o-transition: all 500ms ease;
+  transition: all 500ms ease;
 }
 
 #sidebar-wrapper .sidebar-nav li a:hover{
@@ -237,4 +241,11 @@ ul li, li, li a, h5, h3{
       #leftbar-wrapper{
         margin-top:0%;
       }
+}
+
+@media (max-width: 600px) {
+  .sidebar-nav .glyphicon{
+  font-size: .9em;
+  padding-bottom: .85em;
+  padding-top: 1em;
 }
