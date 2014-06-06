@@ -5,7 +5,7 @@
 {% block content %}
 <div class="row">
 	<div class="col-md-1" id="secondary_navbar">
-        <h1>At A Glance</h1>
+        <h1></h1>
 	</div>
 </div>
 <div class="container">
@@ -34,10 +34,11 @@
 
 	</div>
 	{% if not request.user == single_user %}
+		<h1>Match {{ match }}%	</h1>
 		<div class="row" id="buttons_row">
 			<div class="buttons">
 
-				<div class="btn btn-default btn" id="message_button" data-toggle="tooltip" data-placement="top" title="You have to be friends first!" type="button"><a href='{% url "su_compose" single_user.username %}'>Message {{ single_user.username }}</a></div>
+				<div class="btn btn-default btn" id="message_button" data-toggle="tooltip" data-placement="top" title="You have to be friends first!" ><a href='{% url "su_compose" single_user.username %}'>Message {{ single_user.username }}</a></div>
 				<div class="btn btn-default btn" id="friend_button"><a href='{% url "add_friend" single_user.username %}'>Add Friend</a></div>
 				<div class="btn btn-default btn" id="interests_button"><a href="/members/{{ single_user.username}}/interests/">View Interests</a></div>
 				<div class="btn btn-default btn" id="interests_button"><a href="/members/{{ single_user.username}}/questions/">View Questions</a></div>
@@ -50,8 +51,6 @@
 	
 
 	<div class='col-lg-6' id="single_user_body">
-	{% if not request.user == single_user %}<h1>Match {{ match }}%	</h1>{% endif %}
-		<h1>Info</h1>
 		<div class='panel panel-default'>
 		<div class='panel-heading'>Bio</div>
 		<div class="panel-body">

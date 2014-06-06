@@ -3,14 +3,13 @@
 }
 .navbar.navbar-inverse.navbar-fixed-top{
 	background-color:#084c8d;
-	border-bottom: #d5d5e5 5px solid;
+	border-bottom: none;
 	border-top:#d5d5e5 5px solid;
 	min-width: 480px;
 }
 
 .navbar-brand{
 	letter-spacing: .3em;
-	font-style:italic;
 	color: white!important;
 }
 
@@ -39,10 +38,10 @@
 
 
 .visitors a{
-	text-decoration: underline;
+	text-decoration: none;
 }
 .profiles a{
-	text-decoration: underline;
+	text-decoration: none;
 
 }
 .dropdown-menu{
@@ -97,12 +96,12 @@ a.dropdown-toggle{
 }
 
 #secondary_navbar{
-	background-color:#084c8d;
+	background-color: #d5d5d5;
 	min-width: 480px;
 	padding-top: 5px;
 }
 #secondary_navbar a, #secondary_navbar h1{
-	color: white;
+	color: #084c8d;
 }
 
 #secondary_navbar a:hover, #secondary_navbar a:focus, #secondary_navbar a:active {

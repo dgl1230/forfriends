@@ -7,15 +7,15 @@ body{
 }
 
 .btn-default, .btn .btn-default{
-	background-color: #6682b5!important;
-	color: #fff !important;
+	background-color: #d5d5d5!important;
+	color: #084c8d!important;
 	border: none;
 	
 }
 
 .btn-default:hover, .btn .btn-default:hover {
-	background-color: #6682b5 !important;
-	color: #fff !important;
+	background-color: #d5d5d5!important;
+	color: #084c8d!important;
 	border: none;
 
 }
@@ -26,12 +26,12 @@ body{
 	width: 100%;
 	min-width: 480px;
 }
-p, .body, .row p{
+h1, h2, h3, h5, a{
 	font-family: 'Open Sans', sans-serif;
 }
 
-h1, h3, h5, a{
-	font-family: 'Merriweather', serif!important;
+p, form{
+	font-family: 'Gentium Basic', serif;
 	outline:none;
 }
 
@@ -41,6 +41,7 @@ a:active{
 
 h1{
 	text-transform: capitalize;
+	font-weight: 700;
 }
 
 input{

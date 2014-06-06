@@ -9,9 +9,6 @@
 	min-width: 150px;
 	background-color: #f8f8f8;
 }
-h1{
-	font-style: italic;
-}
 .nav-tabs a{
 	color: black;
 	background-color:#f8f8f8;
@@ -38,15 +35,15 @@ h1{
 }
 
 #message_button{
-	float: left;
 
 }
 
 #friend_button{
-	float: left;
 	color: #084c8d;
 }
-
+.buttons{
+	margin-left: 1%;
+}
 #buttons_row{
 	margin-top: 5%;
 }
@@ -57,7 +54,7 @@ h1{
 }
 
 #single_user_body{
-	margin-top:15%;
+	margin-top:10%;
 }
 
 .buttons div a{
