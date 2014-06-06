@@ -29,7 +29,10 @@
 #picture_row{
 	width: 100%;
 }
-
+img:hover{
+	-webkit-transform: scale(1.05);
+ 	transform: scale(1.05);
+}
 .row .col-sm-12{
 	width: 60%;
 }
@@ -40,11 +43,6 @@
 
 #friend_button{
 	color: #084c8d;
-}
-
-.btn.btn-default.btn:hover{
-	-webkit-transform: scale(1.05);
-  	transform: scale(1.05);
 }
 
 
@@ -64,8 +62,19 @@
 	margin-top:10%;
 }
 .panel-heading{
-	background-color: ;
+	background-color: #d5d5d5!important;
 }
+.panel-heading p{
+	color: #084c8d!important;
+	font-size: 1.5em;
+}
+#message_button a, #interests_button a, #friend_button a, #pictures_button a{
+	font-size: 1.25em;
+}
+#message_button, #interests_button, #friend_button, #pictures_button{
+	width: 180px;	
+}
+
 .buttons div a{
 	color: #084c8d;
 }

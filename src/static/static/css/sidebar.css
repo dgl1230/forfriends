@@ -188,9 +188,6 @@ ul li, li, li a, h5, h3{
   padding-bottom: 1em;
   padding-top: 1em;
 }
-.tooltip{
-
-}
 
 .sidebar-nav .glyphicon{
   font-size:1.4em;
@@ -216,6 +213,7 @@ ul li, li, li a, h5, h3{
   background: #084c8d;
 }
 
+
 #leftbar-wrapper a:hover{
   color: white;
 }
@@ -239,10 +237,4 @@ ul li, li, li a, h5, h3{
       #leftbar-wrapper{
         margin-top:0%;
       }
-}
-
-.side-tooltip .tooltip-arrow{
-  background-color: #f00!important;
-  color: blue;
-  font-size: 2em;
 }

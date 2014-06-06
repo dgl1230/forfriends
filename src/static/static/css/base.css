@@ -12,11 +12,10 @@ body{
 	
 }
 
-.btn-default:hover, .btn .btn-default:hover {
-	background-color: #d5d5d5!important;
-	color: #084c8d!important;
-	border: none;
-
+.btn.btn-default.btn:hover{
+	-webkit-transform: scale(1.05);
+  	transform: scale(1.05);
+  	color: #084c8d!important;
 }
 .col-lg-10.col-12{
 	width: 100%;
