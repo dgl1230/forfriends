@@ -5,7 +5,7 @@
 	background-color:#084c8d;
 	border-bottom: none;
 	border-top:#d5d5e5 5px solid;
-	min-width: 480px;
+	min-width: 480px!important;
 }
 
 .navbar-brand{
@@ -131,7 +131,7 @@ a.dropdown-toggle{
 	text-align: center;
 	padding-top: 5px;
 	padding-bottom:5px;
-	min-width: 450px;
+	min-width: 480px;
 }
 
 #tertiary_navbar a{

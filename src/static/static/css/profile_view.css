@@ -41,6 +41,13 @@
 #friend_button{
 	color: #084c8d;
 }
+
+.btn.btn-default.btn:hover{
+	-webkit-transform: scale(1.05);
+  	transform: scale(1.05);
+}
+
+
 .buttons{
 	margin-left: 1%;
 }
@@ -56,14 +63,15 @@
 #single_user_body{
 	margin-top:10%;
 }
-
+.panel-heading{
+	background-color: ;
+}
 .buttons div a{
 	color: #084c8d;
 }
 .buttons{
 	margin-top: 5%;
 }
-
 @media(min-width: 1500px){
 .container{
 		margin-left: 12.5%!important;

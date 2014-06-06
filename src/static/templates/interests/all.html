@@ -11,7 +11,7 @@
      	<a href="/interests/create/">Add Interests</a>
 	</div>
 </div>	
-<div class="container">
+<div class="row" >
   <div class='col-lg-10 col-12'>
 {% if messages %}
 <div class='row'>
@@ -23,14 +23,10 @@
 </div>
 {% endif %}
 <div class="interests-wrapper">
-	<div class='row'>
-		<div class='interests_intro'>
-		</div>
-	</div>
 
 	<br/>
 	<br/>
-	<div class='row'>
+	<div class='row' id="interests-wrapper">
 			<div class="main_interests">
 			<div class="interests-title">
 			{% for interest in interests %}

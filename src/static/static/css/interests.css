@@ -3,7 +3,7 @@
 	margin-top:-5%;
 }
 
-.interests-wrapper{
+#interests-wrapper{
 	text-align: center;
 	min-width: 300px;
 }
@@ -28,8 +28,7 @@
 }
 
 .img-responsive{
-	margin:auto;
-	border-radius:50%;
+	margin: auto;
 	border: .2em #333 solid;
 }
 
