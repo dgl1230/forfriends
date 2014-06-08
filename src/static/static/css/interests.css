@@ -75,7 +75,9 @@ footer{
 	color: #084c8d;
 }
 
-
+.answer_area{
+	min-height: 300px;
+}
 /* Buttons */
 .btn-lg{
 	background-color: #d5d5d5!important;
@@ -100,6 +102,13 @@ footer{
 
 .pager li a:hover{
 	text-decoration: underline;
+}
+
+#more_answers_appear1, #more_answers_appear1, #more_answers_appear2, #more_answers_appear3{
+	display: none;
+}
+#answers_remove1, #answers_remove2, #answers_remove3{
+	display: none;
 }
 
 /* Media Queries */
@@ -136,7 +145,6 @@ label + input{
 }
 
 input + input {
-	float: right;
 }
 
 @media only screen and (min-width:975px){

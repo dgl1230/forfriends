@@ -47,8 +47,14 @@ p, form{
 	outline:none;
 }
 
-a:active{
+a:active, a:focus{
 	outline:none;
+}
+li:active, li:focus{
+	outline:none!important;
+}
+input::-moz-focus-inner{
+	border:0;
 }
 
 h1{
