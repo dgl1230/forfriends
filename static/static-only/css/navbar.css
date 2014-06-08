@@ -1,0 +1,146 @@
+.navbar-fixed-top{
+	opacity: 1;
+}
+.navbar.navbar-inverse.navbar-fixed-top{
+	background-color:#084c8d;
+	border-bottom: none;
+	border-top:#d5d5e5 5px solid;
+	min-width: 480px!important;
+}
+
+.navbar-brand{
+	letter-spacing: .3em;
+	color: white!important;
+}
+
+.navbar-brand:hover{
+	text-shadow: 
+  -1px -1px 0 black, 
+   1px -1px 0 black,
+  -1px  1px 0 black,
+   1px  1px 0 black;
+}
+
+.navbar a{
+	color: white!important;
+	
+}
+
+.navbar a:hover{
+	text-shadow: 
+  -1px -1px 0 black, 
+   1px -1px 0 black,
+  -1px  1px 0 black,
+   1px  1px 0 black;
+
+}
+
+
+
+.visitors a{
+	text-decoration: none;
+}
+.profiles a{
+	text-decoration: none;
+
+}
+.dropdown-menu{
+	border-left: .5px solid;
+	border-bottom: .5px solid;
+	border-right: .5px solid;
+	box-shadow: 0px 0px 0px 0px;
+
+}
+
+.dropdown-menu li a{
+	color: white;
+}
+.dropdown-menu li a:hover{
+	color:white;
+}
+
+
+.dropdown-menu li:hover{
+	color: white ;
+	text-shadow: 
+  -1px -1px 0 black, 
+   1px -1px 0 black,
+  -1px  1px 0 black,
+   1px  1px 0 black;
+}
+
+.dropdown-menu{
+	background-color: #084c8d;
+	border-top:  5px #d5d5d5 solid;
+	border-right: none;
+	border-left: none;
+}
+
+.dropdown a:focus, .dropdown a:active, .dropdown a{
+	background-color: rgba(255,255,255, .01) !important;	
+}
+
+.dropdown-toggle{
+	background-color: none !important;
+}
+
+a.dropdown-toggle{
+	text-transform: capitalize;
+}
+
+@media only screen and (min-width:1100px){
+	.navbar-brand{
+		letter-spacing:.4em;
+		margin-left: -20%!important;
+	}
+}
+
+#secondary_navbar{
+	background-color: #d5d5d5;
+	min-width: 480px;
+	padding-top: 5px;
+}
+#secondary_navbar a, #secondary_navbar h1{
+	color: #084c8d;
+}
+
+#secondary_navbar a:hover, #secondary_navbar a:focus, #secondary_navbar a:active {
+	background-color: #084c8d;
+}
+.navbar-brand{
+	text-align: center;
+}
+
+#secondary_navbar .navbar_nav{
+	float: none;
+	display: inline-block;
+}
+
+#secondary_navbar h1{
+	text-align:center;
+	width: 100%;
+}
+
+#secondary_navbar a{
+	text-align: center;
+}
+
+#tertiary_navbar{
+	background-color: #d5d5d5;
+	width: 100%!important;
+	text-align: center;
+	padding-top: 5px;
+	padding-bottom:5px;
+	min-width: 480px;
+}
+
+#tertiary_navbar a{
+	color: black;
+	text-align: center;
+}
+
+@media (max-width: 1000px) {
+	#tertiary_navbar{
+		margin-top: -10px;
+	}
+}

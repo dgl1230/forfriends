@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from decimal import *
 
 from django.contrib.auth.models import User
@@ -114,7 +115,7 @@ def interest_points(user1, user2):
 			if i.interest == i2.interest:
 				interests_in_common +=1
 				points_possible += 100
-				print i.importance_level
+				#print i.importance_level
 				try:
 					points_awarded += calc_interest_importance(i.importance_level, i2.importance_level)
 				except: 
@@ -123,8 +124,9 @@ def interest_points(user1, user2):
 		percentage = (float(points_awarded)/float(interests_in_common)) / 100
 	else: 
 		percentage = 0
-	print "Out %s total interests and %s interests in common, %s points were awarded of %s points with a score of %s" %(
+	'''print "Out %s total interests and %s interests in common, %s points were awarded of %s points with a score of %s" %(
 		total_interests, interests_in_common, points_awarded, points_possible, percentage)
+	'''
 	return total_interests, percentage
 
 ''' Calculates the points for matching users based solely off their answers
@@ -150,13 +152,14 @@ def question_points(user1, user2):
 		percentage = (float(points_awarded)/float(questions_in_common)) / 100
 	else: 
 		percentage = 0
-	print "Out of %s total questions and %s questions in common, %s points were awarded of %s points with a score of %s" %(
+	'''print "Out of %s total questions and %s questions in common, %s points were awarded of %s points with a score of %s" %(
 		total_questions, questions_in_common, points_awarded, points_possible, percentage)
+	'''
 	return total_questions, percentage
 
 def match_percentage(user1, user2):
 	#interest part of overall matching
-	print "NEW MATCH"
+	#print "NEW MATCH"
 	a_interests, a_i_percent = interest_points(user1, user2)
 	#print "a_i_percent worked, a_i_percent is: " + str(a_i_percent)
 	b_interests, b_i_percent = interest_points(user2, user1)
@@ -199,21 +202,21 @@ def match_percentage(user1, user2):
 		question_percent = .8 * ((a_q_percent + b_q_percent) / 2) + (.2 * questions_ratio)
 		percent = (interest_percent + question_percent) / 2
 		overall_percent = int(percent * 100)
-		print "match based on interests and questions worked, it is: " + str(overall_percent)
+		#print "match based on interests and questions worked, it is: " + str(overall_percent)
 		return overall_percent
 	# if user1 & user2 have not both answered questions, but they have
 	# both liked interests
 	if a_interests >=1 and b_interests >= 1 and (a_questions == 0  or b_questions == 0):
 		percent = .8 * ((a_i_percent + b_i_percent) / 2) + (.2 * interests_ratio)
 		interest_percent = int(percent * 100)
-		print "match based on just interests worked, it is: " + str(interest_percent)
+		#print "match based on just interests worked, it is: " + str(interest_percent)
 		return interest_percent
 	# if user1 & user2 have not both liked interests, but have both answered
 	# questions
 	if (a_interests == 0 or b_interests == 0) and a_questions >= 1 and b_questions >= 1:
 		percent = .8 * ((a_q_percent + b_q_percent) / 2) + (.2 * questions_ratio)
 		question_percent = int(percent * 100)
-		print "match based on just questions worked, it is: " + str(question_percent)
+		#print "match based on just questions worked, it is: " + str(question_percent)
 		return question_percent
 	#else user1 & user2 have both not liked interests and questions
 	else:
