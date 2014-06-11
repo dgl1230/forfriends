@@ -14,6 +14,7 @@
 
 .main_interests{	
 	min-width: 300px;
+	text-align: center;
 }
 
 .description{
@@ -47,8 +48,6 @@
 	bottom:0;	
 	position:absolute;
 	margin:0 auto;
-	width: 50%;
-	margin:0 auto;
 
 }
 
@@ -78,28 +77,29 @@ footer{
 .answer_area{
 	min-height: 300px;
 }
-/* Buttons */
+/* Buttons 	-webkit-transition: all 250ms ease;
+  	-moz-transition: all 250ms ease;
+  	-o-transition: all 250ms ease;
+  	transition: all 250ms ease; */
 .btn-lg{
 	background-color: #d5d5d5!important;
 	color: #084c8d!important;
 	border: none;
-	-webkit-transition: all 250ms ease;
-  	-moz-transition: all 250ms ease;
-  	-o-transition: all 250ms ease;
-  	transition: all 250ms ease;
+
 }
 
 .btn-lg:hover{
 	background-color: #d5d5d5!important;
-	color: #084c8d!important;
+	color: white!important;
 	border: none;
-	font-size: 1.5em;
 }
 .pager li a{
 	color: #333;
 	font-weight: bold;
 }
-
+.pagination{
+	width: 50%;
+}
 .pager li a:hover{
 	text-decoration: underline;
 }
@@ -112,12 +112,6 @@ footer{
 }
 
 /* Media Queries */
-@media only screen and (min-width:950px){
-	.interests-wrapper{
-		margin-left: 10%;
-	}
-}
-
 @media only screen and (max-width:450px){
 	.interests_intro h3{
 		font-size: 1.5em;

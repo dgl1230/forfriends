@@ -76,6 +76,8 @@ input{
 }
 
 .img-responsive{
+	min-width: 75px;
+	height: auto;
 }
 
 .body_section{

@@ -45,6 +45,7 @@
 
 .buttons{
 	margin-left: 1%;
+
 }
 #buttons_row{
 	margin-top: 5%;
@@ -72,8 +73,9 @@
 	width: 180px;	
 }
 
-.buttons div a{
+.buttons a{
 	color: #084c8d;
+	display: inline-block;
 	
 }
 .buttons{

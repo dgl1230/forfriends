@@ -7,7 +7,7 @@ html, ul, ul li, li, li a, a, p, .btn{
 .btn-success, .btn .btn-success{
 	background-color: #6682b5!important;
 	color: #fff !important;
-	border: none;
+	border: none!important;
 	
 }
 
