@@ -11,9 +11,11 @@
 }
 
 th{
-	color: #999;
+	color: white;
 }
-
+thead{
+	background-color: #084c8d;
+}
 h3{
 	background-color: #333;
 }

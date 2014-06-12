@@ -1,3 +1,11 @@
+img:hover{
+	-webkit-transform: scale(1.05);
+ 	transform: scale(1.05);
+ 	-webkit-transition: all 500ms ease;
+  	-moz-transition: all 500ms ease;
+  	-o-transition: all 500ms ease;
+  	transition: all 500ms ease;
+}
 #picture_string .item{
 	margin: 3px;
 }

@@ -1,6 +1,5 @@
 .interests-title h3{
 	font-size: 40px;
-	margin-top:-5%;
 }
 
 #interests-wrapper{
@@ -15,6 +14,7 @@
 
 .main_interests{	
 	min-width: 300px;
+	text-align: center;
 }
 
 .description{
@@ -48,8 +48,6 @@
 	bottom:0;	
 	position:absolute;
 	margin:0 auto;
-	width: 50%;
-	margin:0 auto;
 
 }
 
@@ -76,35 +74,44 @@ footer{
 	color: #084c8d;
 }
 
+.answer_area{
+	min-height: 300px;
+}
+/* Buttons 	-webkit-transition: all 250ms ease;
+  	-moz-transition: all 250ms ease;
+  	-o-transition: all 250ms ease;
+  	transition: all 250ms ease; */
+.btn-lg{
+	background-color: #d5d5d5!important;
+	color: #084c8d!important;
+	border: none;
 
-/* Buttons */
-.btn, .btn-lg{
-	background-color: #6682b5!important;
-	color: #d5d5d5 !important;
-	border-color: #6682b5 !important;
-	border-radius: 8px;
 }
 
-.btn:hover, .btn-lg:hover{
-	background-color: !important;
-	color: #fff !important;
+.btn-lg:hover{
+	background-color: #d5d5d5!important;
+	color: white!important;
+	border: none;
 }
 .pager li a{
 	color: #333;
 	font-weight: bold;
 }
-
+.pagination{
+	width: 50%;
+}
 .pager li a:hover{
 	text-decoration: underline;
 }
 
-/* Media Queries */
-@media only screen and (min-width:950px){
-	.interests-wrapper{
-		margin-left: 10%;
-	}
+#more_answers_appear1, #more_answers_appear1, #more_answers_appear2, #more_answers_appear3{
+	display: none;
+}
+#answers_remove1, #answers_remove2, #answers_remove3{
+	display: none;
 }
 
+/* Media Queries */
 @media only screen and (max-width:450px){
 	.interests_intro h3{
 		font-size: 1.5em;
@@ -132,7 +139,6 @@ label + input{
 }
 
 input + input {
-	float: right;
 }
 
 @media only screen and (min-width:975px){

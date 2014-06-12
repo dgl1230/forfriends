@@ -1,4 +1,4 @@
-<head><link href="/static/css/single_user_interests.css" rel="stylesheet"></head>
+<head><link href="/static/css/interests.css" rel="stylesheet"></head>
 {% extends 'base.html' %}
 
 {% block content %}
@@ -7,8 +7,7 @@
         <h1>Interests</h1>
 	</div>
 	<div class="col-md-1" id="tertiary_navbar">
-     	<a href="/interests/edit/">Edit Interests</a>
-     	<a href="/interests/">Interests Home</a>
+     	<a href="/interests/edit/">Back to Profile</a>
 	</div>
 </div>
 <div class="container">
@@ -17,7 +16,7 @@
 	<br/>
 	<div class='row'>
 			<div class="main_interests">
-				<h1>User is Interested in: </h1>
+				<h1>User's Interests: </h1>
 					<div class="interest_row">
 						<div class="interests-title">
 							{% for interest in interests %}
@@ -40,10 +39,6 @@
 			
 			{{ answers.importance_level }}
 			{% endfor %}
-			
-
-		
-			</div>
 		<br/>
 		<br/>
 		<br/>
@@ -59,7 +54,7 @@
 									<li class="next"><a href="?page={{ interests.next_page_number }}">Next &rarr;</a></li>
 								</div>
 									{% endif %}			
-		</div>
+		
 				</ul>
 			</span>
 		</div>
@@ -68,6 +63,8 @@
 		</span>
 		</div>
 		</div>
+		</div>
+	</div>
 	</div>
 	</div>
 </div>

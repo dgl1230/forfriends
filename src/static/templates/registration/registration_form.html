@@ -1,4 +1,21 @@
-<head> <link href="/static/css/register.css" rel="stylesheet"></head>
+<head> <link href="/static/css/register.css" rel="stylesheet">
+<script>
+ function disableSubmit() {
+  document.getElementById("submit").disabled = true;
+ }
+
+  function activateButton(element) {
+
+      if(element.checked) {
+        document.getElementById("submit").disabled = false;
+       }
+       else  {
+        document.getElementById("submit").disabled = true;
+      }
+
+  }
+</script>
+</head>
 {% extends "base.html" %}
 {% load i18n %}
 
@@ -13,7 +30,8 @@
   {% csrf_token %}
   {{ form.as_p }}
 
-  <input class='btn' type="submit" value="{% trans 'Submit' %}" />
+  <input class='btn' type="submit" value="{% trans 'Submit' %}" id="submit" />
+  <input type="checkbox" name="terms" id="terms" onchange="activateButton(this)">
 </form>
 </div>
 </div>

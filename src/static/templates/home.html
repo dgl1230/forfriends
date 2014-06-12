@@ -38,7 +38,7 @@
     <link href="/static/css/navbar.css" rel="stylesheet"> 
                 
     <!-- Favicons --> 
-    <link rel="shortcut icon" href="/static/img/landing/icons/favicon.ico">
+    <link rel="shortcut icon" href="http://www.logomaker.com/logo-images/0766a28f4ca4192e.gif"/>
     <link rel="apple-touch-icon" sizes="114x114" href="/static/img/landing/icons/apple-touch-icon-114x114.png">
     <link rel="apple-touch-icon" sizes="72x72" href="img/icons/apple-touch-icon-72x72.png">
     <link rel="apple-touch-icon" href="/static/img/landing/icons/apple-touch-icon.png">
@@ -74,19 +74,86 @@
           <!-- Header -->   
           <header id="header"> 
             <div class="opening">
-              <h1>Forfriends</h1>
-              <br><h3>Your friends are closer than you think.</h3>
+              <h1 id="title">Forfriends</h1>
+              <br><h3>The new place to meet people.</h3>
 
               <!-- Logo Image -->
             <div class="row" id="call_to_action"> 
               <div class="col-xs-6" id="login">
                 <h2><a href='/accounts/login'>Login</a></h2>
+                  <div class="login">
+                    <h1>Login to Forfriends</h1>
+                  <form method="post" action="index.html">
+                  <p><input type="text" name="login" value="" placeholder="Username or Email"></p>
+                  <p><input type="password" name="password" value="" placeholder="Password"></p>
+                  <p class="remember_me">
+                    <label>
+                      <input type="checkbox" name="remember_me" id="remember_me">
+                      Remember me on this computer
+                    </label>
+                  </p>
+                  <p class="submit"><input type="submit" name="commit" value="Login"></p>
+                  </form>
               </div>
+
+    <div class="login-help">
+      <p>Forgot your password? <a href="index.html">Click here to reset it</a>.</p>
+    </div>
+  </div>
               <div class="col-xs-6" id="register">
-                <h2><a href="{% url 'registration_register' %}">Register</a></h2>
-              </div>
-            </div>
+                <h2><a href="{% url 'registration_register' %}">Sign up here.</a></h2>
+          <div  class="form">
+            <form id="contactform"> 
+              <p class="contact"><label for="name">Name</label></p> 
+              <input id="name" name="name" placeholder="First and last name" required="" tabindex="1" type="text"> 
+               
+              <p class="contact"><label for="email">Email</label></p> 
+              <input id="email" name="email" placeholder="example@domain.com" required="" type="email"> 
+                    
+                    <p class="contact"><label for="username">Create a username</label></p> 
+              <input id="username" name="username" placeholder="username" required="" tabindex="2" type="text"> 
+               
+                    <p class="contact"><label for="password">Create a password</label></p> 
+              <input type="password" id="password" name="password" required=""> 
+                    <p class="contact"><label for="repassword">Confirm your password</label></p> 
+              <input type="password" id="repassword" name="repassword" required=""> 
             
+                   <fieldset>
+                     <label>Birthday</label>
+                      <br>
+                      <label class="month"> 
+                      <select class="select-style" name="BirthMonth">
+                      <option value="">Month</option>
+                      <option  value="01">January</option>
+                      <option value="02">February</option>
+                      <option value="03" >March</option>
+                      <option value="04">April</option>
+                      <option value="05">May</option>
+                      <option value="06">June</option>
+                      <option value="07">July</option>
+                      <option value="08">August</option>
+                      <option value="09">September</option>
+                      <option value="10">October</option>
+                      <option value="11">November</option>
+                      <option value="12" >December</option>
+                      </label>
+                     </select>    
+                    <label>Day<input class="birthday" maxlength="2" name="BirthDay"  placeholder="Day" required=""></label>
+                    <label>Year <input class="birthyear" maxlength="4" name="BirthYear" placeholder="Year" required=""></label>
+                  </fieldset>
+                <label>Gender</label>
+                <select class="select-style gender" name="gender">
+                <option value="select">Gender</option>
+                <option value="m">Male</option>
+                <option value="f">Female</option>
+                </select><br><br><br>
+                <input class="buttom" name="submit" id="submit" tabindex="5" value="Sign me up!" type="submit">    
+               </form> 
+            </div>      
+            </div>
+                  
+                  </div>
+              
               <!-- Header Social Icons -->
               <div id="social_icons" class="col-xs-6 text-right">                                 
                 <!--<ul class="social-icons clearfix">
@@ -118,96 +185,15 @@
             </div>
           </header> <!-- End Header --> 
                   
-          <div class="row">
-                    
-            <!-- Intro Section Description -->    
-            <div id="intro_description" class="col-sm-7 col-md-7">
-            
-              <!-- Intro Section Title -->
-              It's the simplest way to meet<strong>people.</strong></h1>
-                
-              <!-- Description #1 --> 
-              <div class="intro_feature">
-                <h4><i class="fa fa-check"></i> Lorem ipsum consectetur adipisicing dolor</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 
-                      labore et dolore magna aliqua ullamco laboris aliquipea commodo consequat. 
-                </p>
-              </div>
-              
-              <!-- Description #2 --> 
-              <div class="intro_feature">
-                <h4><i class="fa fa-check"></i> Lorem ipsum dolor amet, consectetur adipisicing</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 
-                      labore et dolore magna aliqua ullamco laboris aliquipea commodo consequat. 
-                </p>
-              </div>
-              
-              <!-- Description #3 --> 
-              <div class="intro_feature">
-                <h4><i class="fa fa-check"></i> Lorem ipsum dolor, consectetur adipisicing</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 
-                      labore et dolore magna aliqua ullamco laboris aliquipea commodo consequat. 
-                </p>
-              </div>
-              
-              <!-- Intro Section Button --> 
-              <div class="intro_button text-center">
-                <a class="btn btn-primary btn-lg" href="#">Download Now</a>
-              </div>
-                
-            </div>  <!-- End Intro Section Description -->  
-            
-              
-            <!-- Intro Section Form -->   
-            <div id="intro_form" class="col-sm-5 col-md-5">
-            
-                    
-            </div>  <!-- End Intro Section Form -->
           
-          </div>  <!-- End row -->  
-          
-        </div>     <!-- End container -->   
-      </section>  <!-- END INTRO -->
-      
-      
-     
-      
-      <!-- FEATURES
-      ============================================= -->
-      
-      <!-- CLIENTS
-      ============================================= -->
-      
-      <!-- CALL TO ACTION
-      ============================================= -->
-      
-      <section id="call-to-action" class="parallax">
-        <div class="container"> 
-          <div class="row">
-          
-            <!-- Call To Action Content --> 
-            <div class="col-sm-12 text-center">
-            
-              <h1>It's the simplest way to meet people.</h1>
-              <p>
-              </p>
-              
-              
-            </div>  <!-- End Call To Action Content --> 
-          
-          </div>  <!-- End row -->  
-        </div>     <!-- End container -->   
-      </section>  <!-- END CALL TO ACTION -->
-      
-      
       <!-- FOOTER
-      ============================================= -->
+      ============================================= 
       
       <footer id="footer">
         <div class="container"> 
           <div class="row">
                     
-            <!-- Footer Navigation Menu -->
+             Footer Navigation Menu 
             <div id="footer_nav" class="col-sm-6 col-md-4">
               <ul class="footer-nav clearfix">
                 <li><a href="about.html">About</a></li>
@@ -218,9 +204,9 @@
               </ul>
 
               <div id="footer_copy">
-                <p>&copy; Copyright 2014 <span>Crossway</span> All Right Reserved</p>
+                <p>&copy; Copyright 2014 <span>Forfriends</span> All Right Reserved</p>
               </div>              
-            </div>  <!-- End Footer Navigation Menu -->
+            </div>   End Footer Navigation Menu -->
             
                         
             <!-- Footer Social Icons
@@ -250,9 +236,7 @@
                                
               </ul>
             </div> -->    <!-- End Footer Social Icons -->
-            
-      
-    
+
     </div>  <!-- END CONTENT WRAPPER -->
   
   

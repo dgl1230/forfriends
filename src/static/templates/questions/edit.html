@@ -8,6 +8,7 @@
 	</div>
 	<div class="col-md-1" id="tertiary_navbar">
      	<a href="/questions/create/">Add Question</a>
+     	<span class="glyphicon glyphicon-question-sign" id="tertiary-icon"></span>
      	<a href="/questions/">Questions Home</a>
 	</div>
 </div>
@@ -35,7 +36,7 @@
 			<input type='radio' required=
 			'required' value='{{ ans}}' {% for abc in ans.useranswer_set.all %} {% if abc and abc.user == request.user %} checked='checked' {% endif %} {% endfor %} name='answer'> {{ ans }} <br/>
 		{% endfor %}
-		How important is this to you? <select required='required' name='importance_level'>
+		Importance: <select required='required' name='importance_level'>
 			{% for imp in importance_levels %}
 			<option {% for abc in question.useranswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected='selected' {% endif %} {% endfor %} value='{{ imp }}'>{{ imp }}</option>
 			{% endfor %}
@@ -50,16 +51,18 @@
 
 <div class="pagination">
 	<span class="step-links">
+		<ul class="pager">
 		{% if questions.has_previous %}
-			<a href="?page={{ questions.previous_page_number }}">previous</a>
+			<li class="previous"><a href="?page={{ questions.previous_page_number }}">&larr; Previous</a></li>
 		{% endif %}
 		<span class="current">
 			Page {{ questions.number }} of {{ questions.paginator.num_pages }}.
 		</span>
 
 		{% if questions.has_next %}
-			<a href="?page={{ questions.next_page_number }}">next</a>
+			<li class="next"><a href="?page={{ questions.next_page_number }}">Next &rarr;</a></li>
 		{% endif %}
+		</ul>
 	</span>
 </div>
 </div>

@@ -29,10 +29,7 @@
 #picture_row{
 	width: 100%;
 }
-img:hover{
-	-webkit-transform: scale(1.05);
- 	transform: scale(1.05);
-}
+
 .row .col-sm-12{
 	width: 60%;
 }
@@ -48,6 +45,7 @@ img:hover{
 
 .buttons{
 	margin-left: 1%;
+
 }
 #buttons_row{
 	margin-top: 5%;
@@ -75,8 +73,10 @@ img:hover{
 	width: 180px;	
 }
 
-.buttons div a{
+.buttons a{
 	color: #084c8d;
+	display: inline-block;
+	
 }
 .buttons{
 	margin-top: 5%;

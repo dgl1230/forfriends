@@ -7,12 +7,13 @@
         <h1>Interests</h1>
 	</div>
 	<div class="col-md-1" id="tertiary_navbar">
-     	<a href="/interests/edit/">Edit Interests</a>
-     	<a href="/interests/create/">Add Interests</a>
+     		<a href="/interests/edit/" class="half-nav1">Edit Interests</a>
+     		<span class="glyphicon glyphicon-heart" id="tertiary-icon"></span>
+     		<a href="/interests/create/" class="half-nav2">Add Interests</a>
 	</div>
 </div>	
 <div class="row" >
-  <div class='col-lg-10 col-12'>
+  <div class='col-lg-10 col-12' id="interests-wrapper">
 {% if messages %}
 <div class='row'>
                 <ul class="messages">
