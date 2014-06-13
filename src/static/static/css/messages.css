@@ -40,3 +40,10 @@ textarea{
 	width: 100%;
 	height: auto;
 }
+/* Media Queries */
+
+@media (min-width: 1300px){
+	.container{
+		margin-left: 12%!important;
+	}
+}

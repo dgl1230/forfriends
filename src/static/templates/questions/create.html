@@ -6,7 +6,7 @@
 {% block content %}
 <div class="row">
 	<div class="col-md-1" id="secondary_navbar">
-        <h1>Questions</h1>
+        <h1>Create Questions</h1>
 	</div>
 	<div class="col-md-1" id="tertiary_navbar">
      	<a href="/questions/edit/">Edit Questions</a>
@@ -17,8 +17,6 @@
 <div class="container">
   <div class='col-lg-10 col-12'>
 	<div class="contain">
-		<h1>Make a Question</h1>
-
 		<form method='POST' action=''>{% csrf_token %}
 		{{ q_form.as_p }}
 		<div class="answer_area">
