@@ -173,7 +173,10 @@ def match_percentage(user1, user2):
 		larger_interests = b_interests
 		smaller_interests = a_interests
 	#calculate ratio of smaller interests to larger
-	interests_ratio = float(smaller_interests) / larger_interests
+	try:
+		interests_ratio = float(smaller_interests) / larger_interests
+	except:
+		interests_ratio = 0
 	#print "interests_ratio is: " + str(interests_ratio)
 
 	#questions part of overall matching

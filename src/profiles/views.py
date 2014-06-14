@@ -7,6 +7,7 @@ from django.shortcuts import render_to_response, RequestContext, Http404, HttpRe
 from django.contrib.auth.models import User
 from django.forms.models import modelformset_factory
 from django.db.models import Q
+from django.contrib.auth import authenticate, login, logout
 
 from forfriends.matching import match_percentage
 from matches.models import Match
@@ -196,6 +197,56 @@ def find_friends(request):
 	return render_to_response('profiles/find_friends.html', locals(), context_instance=RequestContext(request))
 
 
+def login_user(request):
+	try:
+		username = request.POST['username']
+		password = request.POST['password']
+		user = authenticate(username=username, password=password)
+		if user is not None:
+			if user.is_active:
+				login(request, user)
+				return HttpResponseRedirect('/')
+	except: 
+		messages.error(request, "Please double check your username and password")
+	return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+
+def logout_user(request):
+	logout(request)
+	return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+
+#Creates a new user and assigns the appropriate fields to the user
+def register_new_user(request):
+	try:
+		username = request.POST['username']
+		password = request.POST['password']
+		confirm_password = request.POST['repassword']
+		email = request.POST['email']
+		#gender = request.POST['gender']
+		year = request.POST['BirthYear']
+		try:
+			age_check = 2014 - int(year)
+		except:
+			messages.error(request, "Please enter a number for your birthday year")
+			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+
+
+		if username and password and email:
+			if password == confirm_password:
+				new_user,created = User.objects.get_or_create(username=username, email=email)
+				if created:
+					new_user.set_password(password)
+					#new_user.info.gender = gender
+					new_user.save()
+					new_user = authenticate(username=username, password=password)
+					login(request, new_user)
+					return HttpResponseRedirect('/')
+				else:
+					messages.error(request, "Sorry but this username is already taken")
+			else:
+				messages.error(request, "Please make sure both password match")
+	except:
+		messages.error(request, "Please fill out all fields")
+	return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
 #Displays the profile page of a specific user and their match % against the logged in user
 def single_user(request, username):
