@@ -6,8 +6,8 @@ from django.contrib.auth.models import User
 
 
 GENDER_CHOICES = (
-	('M', 'Male'),
-	('F', 'Female')
+	('Male', 'Male'),
+	('Female', 'Female')
 )
 
 class Address(models.Model):
@@ -27,11 +27,11 @@ class Address(models.Model):
 
 class Info(models.Model):
 	user = models.ForeignKey(User)
-	bio = models.CharField(max_length=420)
-	birthday = models.DateField()
-	first_name = models.CharField(max_length=20)
-	gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-	last_name = models.CharField(max_length =20)
+	bio = models.CharField(max_length=420, null=True, blank=True)
+	birthday = models.DateField(null=True, blank=True)
+	first_name = models.CharField(max_length=20, null=True, blank=True)
+	gender = models.CharField(max_length=6, choices=GENDER_CHOICES, null=True, blank=True)
+	last_name = models.CharField(max_length =20, null=True, blank=True)
 
 	def __unicode__(self):
 		return self.last_name
