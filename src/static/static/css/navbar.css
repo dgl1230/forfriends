@@ -1,8 +1,8 @@
 .navbar-fixed-top{
-	opacity: 1;
+	opacity: .8;
 }
 .navbar.navbar-inverse.navbar-fixed-top{
-	background-color:#084c8d;
+	background-color:#D5D5D5;
 	border-bottom: none;
 	border-top:#d5d5e5 5px solid;
 	min-width: 150px!important;
@@ -10,7 +10,6 @@
 
 .navbar-brand{
 	letter-spacing: .3em;
-	color: white!important;
 	-webkit-transition: all 500ms ease;
  	-moz-transition: all 500ms ease;
  	-o-transition: all 500ms ease;
@@ -19,14 +18,19 @@
 
 .navbar-brand:hover{
 	text-shadow: 
-  -1px -1px 0 black, 
-   1px -1px 0 black,
-  -1px  1px 0 black,
-   1px  1px 0 black;
+   -1px -1px 0 white, 
+   1px -1px 0 white,
+  -1px  1px 0 white,
+   1px  1px 0 white;
 }
 
 .navbar a{
-	color: white!important;
+	color: #084C8D!important;
+	text-shadow:
+	-1px -1px 0 white, 
+    1px -1px 0 white,
+   -1px  1px 0 white,
+    1px  1px 0 white;
 	-webkit-transition: all 500ms ease;
   	-moz-transition: all 500ms ease;
   	-o-transition: all 500ms ease;
@@ -36,10 +40,10 @@
 
 .navbar a:hover{
 	text-shadow: 
-  -1px -1px 0 black, 
-   1px -1px 0 black,
-  -1px  1px 0 black,
-   1px  1px 0 black;
+  -1px -1px 0 white, 
+   1px -1px 0 white,
+  -1px  1px 0 white,
+   1px  1px 0 white;
 
 }
 
@@ -67,31 +71,32 @@
 }
 
 .dropdown-menu li a{
-	color: white;
+	color: blue;
 	-webkit-transition: all 500ms ease;
   	-moz-transition: all 500ms ease;
   	-o-transition: all 500ms ease;
   	transition: all 500ms ease;
 }
 .dropdown-menu li a:hover{
-	color:white;
+	color:black;
 }
 
 
 .dropdown-menu li:hover{
-	color: white ;
-	text-shadow: 
-  -1px -1px 0 black, 
-   1px -1px 0 black,
-  -1px  1px 0 black,
-   1px  1px 0 black;
+	color: black ; 
+ 	text-shadow:
+   -1px -1px 0 white, 
+    1px -1px 0 white,
+   -1px  1px 0 white,
+    1px  1px 0 white;
 }
 
 .dropdown-menu{
-	background-color: #084c8d;
-	border-top:  1px white solid;
+	background-color: #d5d5d5;
+	border-top:  1px solid white;
 	border-right: none;
 	border-left: none;
+	border-bottom: none;
 }
 
 .dropdown a:focus, .dropdown a:active, .dropdown a{
@@ -114,7 +119,7 @@ a.dropdown-toggle{
 }
 
 #secondary_navbar{
-	background-color: #d5d5d5;
+	background-color: #f8f8f8;
 	min-width: 480px;
 	padding-top: 5px;
 }
@@ -161,7 +166,7 @@ a.dropdown-toggle{
 }
 
 #tertiary_navbar{
-	background-color: #d5d5d5;
+	background-color: #f8f8f8;
 	width: 100%!important;
 	text-align: center;
 	padding-top: 5px;

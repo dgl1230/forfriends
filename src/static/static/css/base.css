@@ -41,6 +41,11 @@ body{
 h1, h2, h3, h5, a{
 	font-family: 'Open Sans', sans-serif;
 }
+h1{
+	color: #084c8d!important;
+	letter-spacing:.2em;
+    font-weight: 500!important;
+}
 
 p, form{
 	font-family: 'Gentium Basic', serif;

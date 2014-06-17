@@ -11,24 +11,24 @@ ul li, li, li a, h5, h3{
   transition: all 0.4s ease 0s;
 }
 #sidebar-wrapper {
-  margin-left: -200px;
-  left: 250px;
+  left: 0px;
   width: 15%;
-  min-width:150px;
+  min-width:100px;
   margin-top: 2%;
-  background: #000;
+  background: #D5D5D5;
   position: fixed;
   height: 100%;
   overflow-y: auto;
   z-index: 1000;
   transition: all 0.4s ease 0s;
+
 }
 
 #leftbar-wrapper{
   margin-left: -250px;
-  left: 250px;
-  width: 12%;
-  min-width: 100px;
+  left: 200px;
+  width: 5%;
+  min-width: 80px;
   margin-top: 0%;
   background: #6682b5;
   position: fixed;
@@ -37,7 +37,7 @@ ul li, li, li a, h5, h3{
   z-index: 1000;
   transition: all 0.4s ease 0s;
   background: rgba(255,255,255,0.2);
-  border-left, border-right: black 5px solid;
+  border-radius: 50%;
 }
 
 #page-content-wrapper {
@@ -67,18 +67,28 @@ ul li, li, li a, h5, h3{
 }
 
 .sidebar-nav li a {
-  color: #fff;
+  color: #084C8D;
   display: block;
   text-decoration: none;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
-.sidebar-nav li a:hover{
-  color: white!important;
+/*.sidebar-nav li a:hover{
+  color: #084C8D!important;
   -webkit-transform: scale(1.5);
   transform: scale(1.5);
   -webkit-transition: all 500ms ease;
   -moz-transition: all 500ms ease;
   -o-transition: all 500ms ease;
   transition: all 500ms ease;
+} */
+
+.sidebar-nav li a:hover{
+    text-shadow:
+   -1px -1px 0 black, 
+    1px -1px 0 black,
+   -1px  1px 0 black,
+    1px  1px 0 black;
 }
 
 #sidebar-wrapper .sidebar-nav li a:hover{
@@ -189,8 +199,6 @@ ul li, li, li a, h5, h3{
 
 .sidebar-nav li a{
   font-size:1em;
-  padding-bottom: 1em;
-  padding-top: 1em;
 }
 
 .sidebar-nav .glyphicon{
@@ -214,12 +222,29 @@ ul li, li, li a, h5, h3{
 }
 #leftbar-wrapper{
   color: #fff;
-  background: #084c8d;
+  background: none;
+  opacity: .8;
+  margin-top: 15px;
+  position: fixed;
+  height: 75%;
+  top: 10%;
+  width: 200px;
+}
+#leftbar-wrapper:hover{
+
 }
 
+#leftbar-wrapper a{
+  color: #084C8D;
+    text-shadow:
+   -1px -1px 0 white, 
+    1px -1px 0 white,
+   -1px  1px 0 white,
+    1px  1px 0 white;
+}
 
 #leftbar-wrapper a:hover{
-  color: white;
+  color: #084C8D;
 }
 
 @media (max-width: 950px){
