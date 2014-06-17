@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import datetime
 
 from django.shortcuts import render_to_response, RequestContext, Http404, get_object_or_404, HttpResponseRedirect

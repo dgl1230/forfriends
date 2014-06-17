@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 
 from django.contrib.auth.models import User
@@ -34,7 +35,10 @@ class DirectMessage(models.Model):
 		ordering = ['-sent',]
 
 def set_messages_in_session(sender, user, request, **kwargs):
-	direct_messages = DirectMessage.objects.get_num_unread_messages(user)
+	try:
+		direct_messages = DirectMessage.objects.get_num_unread_messages(user)
+	except:
+		direct_messages = 0
 	request.session['num_of_messages'] = direct_messages
 
 

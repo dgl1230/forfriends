@@ -95,8 +95,6 @@ p a{
 	color:black;
 }
 
-@media (max-width: 850px){
-	.container{
-		margin-left: 12%;
-	}
+.container{
+	margin-left: 12%!important;
 }

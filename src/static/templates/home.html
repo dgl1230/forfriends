@@ -48,7 +48,15 @@
     <link href='http://fonts.googleapis.com/css?family=Merriweather:400,700italic,700,800,900,400italic' rel='stylesheet'>
           
   </head>
-    
+     {% if messages %}
+            <div class='row'>
+              <ul class="messages">
+                {% for message in messages %}
+                  <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                  {% endfor %}
+             </ul>
+            </div>
+          {% endif %}
   <body>
   
     <!-- PRELOADER
@@ -80,11 +88,10 @@
               <!-- Logo Image -->
             <div class="row" id="call_to_action"> 
               <div class="col-xs-6" id="login">
-                <h2><a href='/accounts/login'>Login</a></h2>
                   <div class="login">
                     <h1>Login to Forfriends</h1>
-                  <form method="post" action="index.html">
-                  <p><input type="text" name="login" value="" placeholder="Username or Email"></p>
+                  <form method="post" action='{% url "login_user" %}'>{% csrf_token %}
+                  <p><input type="text" name="username" value="" placeholder="Username"></p>
                   <p><input type="password" name="password" value="" placeholder="Password"></p>
                   <p class="remember_me">
                     <label>
@@ -101,10 +108,10 @@
     </div>
   </div>
               <div class="col-xs-6" id="register">
-                <h2><a href="{% url 'registration_register' %}">Sign up here.</a></h2>
-          <div  class="form">
-            <form id="contactform"> 
-              <h1>Become a Member</h1>
+                <h2>Sign up here.</h2>
+          <div class="form" >
+            <form id="contactform" method='POST' action='{% url "register_user" %}'>{% csrf_token %}
+              <h1>Sign up here.</h1>
               <p class="contact"><label for="name">Name</label></p> 
               <input id="name" name="name" placeholder="First and last name" required="" tabindex="1" type="text"> 
                

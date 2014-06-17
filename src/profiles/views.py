@@ -1,4 +1,7 @@
+# -*- coding: utf-8 -*-
 import operator 
+import datetime
+from datetime import date
 
 from django.shortcuts import render
 from django.contrib import messages
@@ -6,6 +9,7 @@ from django.shortcuts import render_to_response, RequestContext, Http404, HttpRe
 from django.contrib.auth.models import User
 from django.forms.models import modelformset_factory
 from django.db.models import Q
+from django.contrib.auth import authenticate, login, logout
 
 from forfriends.matching import match_percentage
 from matches.models import Match
@@ -195,6 +199,89 @@ def find_friends(request):
 	return render_to_response('profiles/find_friends.html', locals(), context_instance=RequestContext(request))
 
 
+def login_user(request):
+	try:
+		username = request.POST['username']
+		password = request.POST['password']
+		user = authenticate(username=username, password=password)
+		if user is not None:
+			if user.is_active:
+				login(request, user)
+				return HttpResponseRedirect('/')
+	except: 
+		messages.error(request, "Please double check your username and password")
+	return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+
+def logout_user(request):
+	logout(request)
+	return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+
+#Calculates a new users age
+def calculate_age(born):
+	today = date.today()
+	try:
+		birthday = born.replace(year=today.year)
+	except ValueError:
+		birthday = born.replace(year=today.year, month=born.month+1, day=1)
+	if birthday > today:
+		return today.year - born.year -1 
+	else:
+		return today.year - born.year
+
+#Creates a new user and assigns the appropriate fields to the user
+def register_new_user(request):
+	try:
+		username = request.POST['username']
+		password = request.POST['password']
+		confirm_password = request.POST['repassword']
+		email = request.POST['email']
+		gender1 = request.POST['gender']
+		day = request.POST['BirthDay']
+		month = request.POST['BirthMonth']
+		year = request.POST['BirthYear']
+		datestr = str(year) + '-' + str(month) + '-' + str(day)
+		birthday = datetime.datetime.strptime(datestr, '%Y-%m-%d').date()
+		user_age = calculate_age(birthday)
+
+		if gender1 == 'm':
+			gender = 'Male'
+		else:
+			gender = 'Female'
+		try:
+			test_year = int(year)
+			test_day = int(day)
+		except:
+			messages.error(request, "Please enter a number for your birthday year and day")
+			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+
+		if user_age >= 18:
+			datestr = str(year) + '-' + str(month) + '-' + str(day)
+			birthday = datetime.datetime.strptime(datestr, '%Y-%m-%d').date()
+			user_age = calculate_age(birthday)
+
+			if username and password and email:
+				if password == confirm_password:
+					new_user,created = User.objects.get_or_create(username=username, email=email)
+					if created:
+						new_user.set_password(password)
+						new_info = Info(user=new_user)
+						new_info.gender = gender
+						new_info.birthday = birthday
+						new_info.save()
+						new_user.save()
+						new_user = authenticate(username=username, password=password)
+						login(request, new_user)
+						return HttpResponseRedirect('/')
+					else:
+						messages.error(request, "Sorry but this username is already taken")
+				else:
+					messages.error(request, "Please make sure both password match")
+		else:
+			messages.error(request, "We're sorry but you must be at least 18 to signup!")
+			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+	except:
+		messages.error(request, "Please fill out all fields")
+	return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
 #Displays the profile page of a specific user and their match % against the logged in user
 def single_user(request, username):

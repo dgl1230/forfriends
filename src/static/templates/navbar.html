@@ -28,7 +28,7 @@
                 <ul class="dropdown-menu">
                 <li><a href="/edit">Edit Profile</a></li>
                 <li><a href="/about_us">About Us</a></li>
-                <li><a href="/accounts/logout">Logout</a></li>
+                <li><a href='{% url "logout_user" %}'>Logout</a></li>
           </ul>
           {% else %}
           <div class='navbar'>
