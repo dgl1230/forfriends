@@ -12,8 +12,8 @@ ul li, li, li a, h5, h3{
 }
 #sidebar-wrapper {
   left: 0px;
-  width: 15%;
-  min-width:100px;
+  width: 5%;
+  min-width:50px;
   margin-top: 2%;
   background: #D5D5D5;
   position: fixed;
@@ -25,19 +25,24 @@ ul li, li, li a, h5, h3{
 }
 
 #leftbar-wrapper{
-  margin-left: -250px;
-  left: 200px;
   width: 5%;
-  min-width: 80px;
+  min-width: 50px;
   margin-top: 0%;
-  background: #6682b5;
+  background-color: #fff;
   position: fixed;
   height: 100%;
   overflow-y: auto;
   z-index: 1000;
   transition: all 0.4s ease 0s;
   background: rgba(255,255,255,0.2);
-  border-radius: 50%;
+  color: #fff;
+  background: none;
+  opacity: 1;
+  margin-top: 15px;
+  position: fixed;
+  height: 100%;
+  top: 8%;
+  width: 100px;
 }
 
 #page-content-wrapper {
@@ -52,6 +57,7 @@ ul li, li, li a, h5, h3{
   list-style: none;
   padding: 0;
   text-align:center;
+  background-color: #fff;
 }
 
 .sub_messages{
@@ -219,16 +225,6 @@ ul li, li, li a, h5, h3{
 #leftbar-wrapper .sidebar-nav li{
   line-height: 40px;
   text-indent: 10px;
-}
-#leftbar-wrapper{
-  color: #fff;
-  background: none;
-  opacity: .8;
-  margin-top: 15px;
-  position: fixed;
-  height: 75%;
-  top: 10%;
-  width: 200px;
 }
 #leftbar-wrapper:hover{
 

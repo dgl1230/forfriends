@@ -29,7 +29,9 @@
 
 .img-responsive{
 	margin: auto;
-	border: .2em #333 solid;
+	border: .1em #d5d5d5 solid;
+	width: 200px;
+	height: 150px;
 }
 
 .previous{

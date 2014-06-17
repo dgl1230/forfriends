@@ -5,15 +5,15 @@ html, ul, ul li, li, li a, a, p, .btn{
 	min-height: 500px;
 }
 .btn-success, .btn .btn-success{
-	background-color: #6682b5!important;
-	color: #fff !important;
+	background-color: #dbdbdb!important;
+	color: #084c8d !important;
 	border: none!important;
 	
 }
 
 .btn-success:hover, .btn .btn-success:hover {
-	background-color: #6682b5 !important;
-	color: #fff !important;
+	background-color: #dbdbdb !important;
+	color: #084c8d !important;
 	border: none;
 
 }
