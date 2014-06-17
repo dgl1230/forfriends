@@ -26,7 +26,9 @@
 	margin: 0 auto;
 	margin-bottom: 1.5em;
 }
-
+.contain{
+	margin-top: 5%;
+}
 .img-responsive{
 	margin: auto;
 	border: .1em #d5d5d5 solid;

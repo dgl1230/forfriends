@@ -3,7 +3,7 @@ ul li, li, li a, h5, h3{
 }
 
 .tooltip-inner{
-  width: 10%!important;
+  display: none;
 }
 
 #wrapper {
@@ -24,9 +24,16 @@ ul li, li, li a, h5, h3{
 
 }
 
+span.glyphicon{
+  padding-bottom: 0px!important;
+}
+
+.sidebar-nav a{
+  font-style: italic;
+}
+
 #leftbar-wrapper{
   width: 5%;
-  min-width: 50px;
   margin-top: 0%;
   background-color: #fff;
   position: fixed;
@@ -41,8 +48,7 @@ ul li, li, li a, h5, h3{
   margin-top: 15px;
   position: fixed;
   height: 100%;
-  top: 8%;
-  width: 100px;
+  width: 80px;
 }
 
 #page-content-wrapper {
@@ -90,11 +96,7 @@ ul li, li, li a, h5, h3{
 } */
 
 .sidebar-nav li a:hover{
-    text-shadow:
-   -1px -1px 0 black, 
-    1px -1px 0 black,
-   -1px  1px 0 black,
-    1px  1px 0 black;
+  opacity: 1!important;
 }
 
 #sidebar-wrapper .sidebar-nav li a:hover{
@@ -111,6 +113,7 @@ ul li, li, li a, h5, h3{
 
 .sidebar-nav li a {
   font-size: 1em;
+  opacity: .8;
 }
 
 .sidebar-nav li a:focus {

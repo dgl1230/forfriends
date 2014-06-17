@@ -1,6 +1,15 @@
 .navbar-fixed-top{
 	opacity: .8;
 }
+button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:focus{
+	background-color: #084c8d!important;
+	border-color:#084c8d!important;
+
+}
+
+.navbar-fixed-top:hover{
+	opacity: 1;
+}
 .navbar.navbar-inverse.navbar-fixed-top{
 	background-color:#D5D5D5;
 	border-bottom: none;
@@ -199,5 +208,11 @@ a.dropdown-toggle{
 	}
 	#tertiary_navbar{
 		margin-left: 62px;
+	}
+}
+
+@media (min-width: 1200px){
+	.form-control{
+	width: 400px;
 	}
 }
