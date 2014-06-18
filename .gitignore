@@ -1,2 +1,9 @@
 db.sqlite3
 forfriends_db
+bin/
+include/
+lib/
+local/
+.DS_STORE
+Python-2.7.3/
+*.pyc[cod]
