@@ -1,0 +1,33 @@
+Example Profile Page, uses js tabs. 
+
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#bio" data-toggle="tab">Bio</a></li>
+  <li><a href="#occupation" data-toggle="tab">Occupation</a></li>
+  <li><a href="#interests" data-toggle="tab">Interests</a></li>
+  <li><a href="#address" data-toggle="tab">Address</a></li>
+  </ul>
+  <div class="tab-content">
+  <div class="tab-pane active" id="bio">
+    {% for item in single_user.info_set.all %}
+      {% if forloop.first %}
+        {{ item.bio }}
+      {% endif %}
+    {% endfor %}
+  </div>
+  <div class="tab-pane" id="occupation">
+    {% for item in single_user.job_set.all %} 
+      {{ item.position|title }} at {{ item.employer|title }}
+    {% endfor %}
+  </div>
+  <div class="tab-pane" id="interests"></div>
+  <div class="tab-pane" id="address">
+    {% for item in single_user.address_set.all %}
+        {{ item.city|title }}, {{ item.state|upper }}
+    {% endfor %}
+  </div>
+  </div>
+<script>
+  $function () {
+    $('#mytab a:last').tab('show')
+  })
+</script>

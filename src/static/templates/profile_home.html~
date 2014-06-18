@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+	<html lang="en">
+	<head>
+	    <meta charset="utf-8" />
+	    <title>ForFriends Profile</title>
+	      <!-- Body CSS -->
+	    <link rel="stylesheet" type="text/css" href="static/css/profile_home.css">
+
+	    <meta name="author" content="Jake Rocheleau">
+            <link rel="shortcut icon" href="http://designshack.net/favicon.ico">
+            <link rel="icon" href="http://designshack.net/favicon.ico">
+            <link rel="stylesheet" type="text/css" media="all" href="static/css/styles.css">
+			
+<!--Javascript-->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script src="static/js/profile_home.js"></script>
+		
+</head>
+<body>
+		<div class="header">
+		<!--Logo-->
+		<div class="logo">
+				<a href="#"><img src="static/img/logo2.png"/></a>	
+		</div>	
+		<!-- Horizontal Top Menu -->
+		<div class="navigation">
+  		<ul class="nav">
+			<li>
+  				<a href="#">4 FRIENDS</a>
+  				<ul>
+  					<li><a href="#">Edit Profile</a></li>
+  					<li><a href="#">Contact Us</a></li>
+						<li><a href="#">Help</a></li>
+						<li><a href="#">Log-out</a></li>
+  				</ul>
+  			</li>
+  		</ul>
+  	</div>
+    </div>
+    <nav>
+        <div class="toolbar" style="direction:ltr";>
+            <br>
+            <p class="homepage"><a href="#">View Profile</a></p>
+			
+            <p class="tools"><a href="#">Friends</a></p>
+			
+            <p class="tools"><a href="#">Interests</a></p>
+			           
+						<p class="tools"><a href="#">Archives</a></p>
+			            
+						<p class="tools"><a href="#">Search</a></p>
+			      <p class="tools"><a href="#">Find Friends</a></p>
+        </div>
+    </nav>
+				<!--Fun Button -->
+					<button type="input" class="myButton"> Find a Friend!</button>
+				<!--Tabs-->
+								<div id="tabs">
+									<ul>
+										<li><a href="#tabs-1">Current City</a></li>
+										<li><a href="#tabs-2">Friends</a></li>
+										<li><a href="#tabs-3">About Me</a></li>
+								</ul>
+								<hr>
+									<div id="tabs-1">
+										<div class="location">
+				{% for locations in location_list %}
+						<p>{{ location.name }}</p>
+				{% empty %}
+						<p> San Francisco, CA </p>
+				{% endfor %}
+										</div>
+									</div>
+									<div id="tabs-2">
+										<h5>Friends List</h5>
+                		<div class="boxy">
+                    <p>Your friends</p>
+                    	<div class="friend">
+                      	{% for friend in friend_list %}
+													<p>{{ friend.name }}</p>
+													<span><a href="#friendslist">See all...</a></span>
+												{% empty %}
+													<p> You have no friends</p>
+												{% endfor %}
+                      </div>
+                    </div>
+									</div>
+									<div id="tabs-3">
+										<p> Undergraduate at Cornell University, very interested in entrepreneurship, politics, technology and how they can all possibly go together. The world needs to take a lot of steps forward, and I'd like to contribute to these movements, however small they may be. </p>
+									</div>
+								</div>	
+	<h1 id="name">Johnny Appleseed</h1>
+        <div class="left">     
+            <div class="pic">
+                <a href="#"><img src="static/img/avatar.png"/></a>
+            </div>
+	</div>
+	<div class="pictures">
+		<h4>Pictures</h4>
+				<ul>
+				{% for picture in picture_list %}
+						<li>{{ picture.name }}</li>
+				{% empty %}
+						<li> No available pictures. </li>
+				{% endfor %}
+				</ul>
+        </div>
+	
+	<!--footer><div class="footer" id="footer">ForFriends</div>-->
+	</body>
+</html>

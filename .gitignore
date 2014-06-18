@@ -6,4 +6,5 @@ lib/
 local/
 .DS_STORE
 Python-2.7.3/
-*.py[cod]
+*.pyc[cod]
+

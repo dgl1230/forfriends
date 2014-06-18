@@ -1,0 +1,38 @@
+<link href="/static/css/messages.css" rel="stylesheet">
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+	<div class="col-md-1" id="secondary_navbar">
+        <h1>Sent Messages</h1>
+	</div>
+</div>
+<div class="container">
+  <div class='col-lg-10 col-12'>
+{% for item in messages_in_inbox %}
+
+<h4>From: {{ item }}</h4>
+<h4>To: {{ item.receiver }}</h4>
+on {{ item.sent }}<br/>
+
+<div class="well">
+	{{ item.body }}
+</div>
+<br>
+<br>
+
+{% endfor %}
+<div class="left-button">
+	<form action="/messages/inbox/">
+		<input class='btn btn-info btn-sm' type='submit' value="Inbox">
+	</form>
+</div>
+<div class="right-button">
+	<form action="/messages/compose/">
+		<input class='btn btn-info btn-sm' type='submit' value="New Message">
+	</form>
+</div>
+</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+<link rel="stylesheet" href="/static/css/profile_view.css">
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="row">
+	<div class="col-md-1" id="secondary_navbar">
+	    <h1>Matches</h1>
+	</div>
+	<div class="col-md-1" id="tertiary_navbar">
+     	<a href="#">Randomize</a>
+     	<span class="glyphicon glyphicon-user" id="tertiary-icon"></span>
+     	<a href="#">Sort by Match %</a>
+	</div>
+	</div>
+</div>
+<div class="container" id="find-friends-only">
+  <div class='col-lg-10 col-12'>
+<div class='col-lg-6 '>
+	<br>
+	<div class='row'>
+{% for match in matches %}
+	{% if not request.user == match.matched %}
+	<div class='col-lg-4'>
+		{% for pic in match.matched.userpicture_set.all %}
+			
+			{% if forloop.first %}
+			<a href='/members/{{ match.matched.username}}'><img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' /></a>
+			{% endif %}
+		{% endfor %}
+		{% if not match.matched.userpicture_set.all %}
+			<a href='/members/{{ match.matched.username}}'><img src='{{ STATIC_URL }}img/avatar.png' class='img-responsive' /></a>
+		{% endif %}
+			
+		{{ match.matched.username }}
+		</a> <br/>
+		{% for item in match.matched.address_set.all %} 
+			{% if forloop.first %} {{ item }}
+			{% endif %} 
+		{% endfor %}
+		<div class="matching">
+		<p id="match">Match: {{ match.percent }}%	</p>
+		<br/>
+		</div>
+		</div>
+		{% endif %}
+		{% cycle '' '' '' '</div><div class="row">' %}
+{% endfor %}
+</div>
+</div>
+</div>
+</div>
+<script src="/static/js/profile_view.js"></script>
+
+{% endblock %}

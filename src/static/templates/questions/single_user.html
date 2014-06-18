@@ -1,0 +1,61 @@
+<head><link href="/static/css/interests.css" rel="stylesheet"></head>
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+	<div class="col-md-1" id="secondary_navbar">
+        <h1>questions</h1>
+	</div>
+	<div class="col-md-1" id="tertiary_navbar">
+     	<a href="#">Back to Profile</a>
+	</div>
+</div>
+<div class="container">
+  <div class='col-lg-10 col-12'>
+<div class='row'>
+	{% for question in questions %}
+	{% for answer in answers %}
+	{% for match_answer in match_answers %}
+		<h3>{{ question }}</h3><p>
+		<form method='' action=''> {% csrf_token %}
+			<input type='hidden' value='{{ question.id }}' />
+		{% for ans in question.answer_set.all %}
+			<input type='radio' required=
+			'required' value='{{ ans}}' {% for abc in ans.useranswer_set.all %} {% if abc and abc.user == request.user %} checked='checked' {% endif %} {% endfor %} name='answer'> {{ ans }} <br/>
+		{% endfor %}
+		How important is this to them? 
+		{{ answer.importance_level }}
+	<h4>Ideal Answer <small>How you would like them to answer</small></h4>
+	{% for ans in question.answer_set.all %}
+			<input type='radio' required='required' value='{{ ans}}' {% for abc in ans.matchanswer_set.all %} {% if abc and abc.user == request.user %} checked='checked' {% endif %} {% endfor %} name='match_answer'> {{ ans }} <br/>
+		{% endfor %}
+		How important is your answer to them? 
+		{{ match_answer.importance_level }}
+
+	</form>
+	{% endfor %}
+	{% endfor %}
+	{% endfor %}
+
+<div class="pagination">
+	<span class="step-links">
+		<ul class="pager">
+			<div class="directions">
+				{% if questions.has_previous %}
+					<li class="previous"><a href="?page={{ questions.previous_page_number }}">&larr; Previous</a></li>
+				{% endif %}
+				<span class="current">
+					Page {{ questions.number }} of {{ questions.paginator.num_pages }}.
+				</span>
+
+				{% if questions.has_next %}
+					<li class="next"><a href="?page={{ interests.next_page_number }}">Next &rarr;</a></li>
+				{% endif %}
+			</div>
+		</ul>
+	</span>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}
