@@ -1,0 +1,73 @@
+<head><link href="/static/css/interests.css" rel="stylesheet"></head>
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+	<div class="col-md-1" id="secondary_navbar">
+        <h1>Interests</h1>
+	</div>
+	<div class="col-md-1" id="tertiary_navbar">
+     	<a href="/interests/edit/">Back to Profile</a>
+	</div>
+</div>
+<div class="container">
+  <div class='col-lg-10 col-12'>
+	<br/>
+	<br/>
+	<div class='row'>
+			<div class="main_interests">
+				<h1>User's Interests: </h1>
+					<div class="interest_row">
+						<div class="interests-title">
+							{% for interest in interests %}
+							
+							<h3>{{ interest.interest|title }}</h3>
+						</div>	
+							{% for pic in interest.interestpicture_set.all %}
+								{% if forloop.first %}
+								<div class="img-container">
+									<img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' />
+								</div>
+					</div>
+								{% endif %}
+
+						{% endfor %}
+					
+
+			How they feel about {{ interest.interest }}: 
+			
+			
+			{{ answers.importance_level }}
+			{% endfor %}
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+				<div class="pagination">
+						<span class="step-links">
+							<ul class="pager">
+								<div class="directions">
+									{% if interests.has_previous %}
+									<li class="previous"><a href="?page={{ questions.previous_page_number }}">&larr; Previous</a></li>
+									{% endif %}
+									{% if interests.has_next %}
+									<li class="next"><a href="?page={{ interests.next_page_number }}">Next &rarr;</a></li>
+								</div>
+									{% endif %}			
+		
+				</ul>
+			</span>
+		</div>
+		<span class="current">
+			Page {{ interests.number }} of {{ interests.paginator.num_pages }}.
+		</span>
+		</div>
+		</div>
+		</div>
+	</div>
+	</div>
+	</div>
+</div>
+</div>
+</div>
+{% endblock %}

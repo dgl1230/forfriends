@@ -1,0 +1,89 @@
+<head><link href="/static/css/interests.css" rel="stylesheet"></head>
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+	<div class="col-md-1" id="secondary_navbar">
+        <h1>Interests</h1>
+	</div>
+	<div class="col-md-1" id="tertiary_navbar">
+     		<a href="/interests/edit/" class="half-nav1">Edit Interests</a>
+     		<span class="glyphicon glyphicon-heart" id="tertiary-icon"></span>
+     		<a href="/interests/create/" class="half-nav2">Add Interests</a>
+	</div>
+</div>	
+<div class="row" >
+  <div class='col-lg-10 col-12' id="interests-wrapper">
+{% if messages %}
+<div class='row'>
+                <ul class="messages">
+                  {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                  {% endfor %}
+                </ul>
+</div>
+{% endif %}
+<div class="interests-wrapper">
+
+	<br/>
+	<br/>
+	<div class='row' id="interests-wrapper">
+			<div class="main_interests">
+			<div class="interests-title">
+			{% for interest in interests %}
+				<h3>{{ interest.interest|title }}</h3><p>
+			</div>	
+				{% if interest.description %}
+					<h5 class="description">{{ interest.description|title }}</h5>
+				{% endif %}
+				{% for pic in interest.interestpicture_set.all %}
+					{% if forloop.first %}
+						<img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' />
+					{% endif %}
+
+				{% endfor %}
+
+
+			<form method='POST' action=''> {% csrf_token %}
+				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<div class="interest_ranking">
+				<p>How much do you like this? <select class="importance_level" required='required' name='importance_level'></p>
+			</div>
+				{% for imp in importance_levels %}
+				<option {% for abc in interest.interestanswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected='selected' {% endif %} {% endfor %} value='{{ imp }}'>{{ imp }}</option>
+				{% endfor %}
+			</select></p>
+			<div class="interest_buttons">
+				<!-- Submit Button -->
+			<input type='submit' class='btn-lg' value='Save'>
+			</div>
+			</form>
+		{% endfor %}
+			</div>
+	
+				<div class="pagination">
+						<span class="step-links">
+							<ul class="pager">
+								<div class="directions">
+									{% if interests.has_previous %}
+									<li class="previous"><a href="?page={{ interests.previous_page_number }}">&larr; Previous</a></li>
+									{% endif %}
+									{% if interests.has_next %}
+									<li class="next"><a href="?page={{ interests.next_page_number }}">Next &rarr;</a></li>
+								</div>
+									{% endif %}			
+		</div>
+				</ul>
+			</span>
+		</div>
+		<span class="current">
+			Page {{ interests.number }} of {{ interests.paginator.num_pages }}.
+		</span>
+		</div>
+		</div>
+	</div>
+	</div>
+</div>
+</div>
+</div>
+{% endblock %}

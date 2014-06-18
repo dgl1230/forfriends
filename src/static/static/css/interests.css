@@ -1,0 +1,156 @@
+.interests-title h3{
+	font-size: 40px;
+}
+
+#interests-wrapper{
+	text-align: center;
+	min-width: 300px;
+}
+
+.questions-wrapper{
+	text-align: center;
+	min-width: 300px;
+}
+
+.main_interests{	
+	min-width: 300px;
+	text-align: center;
+}
+
+.description{
+	font-style: italic;
+}
+.img-container{
+	width: 200px;
+	height: auto;
+	margin: 0 auto;
+	margin-bottom: 1.5em;
+}
+
+.img-responsive{
+	margin: auto;
+	border: .2em #333 solid;
+}
+
+.previous{
+	float: left;
+}
+
+.next{
+	float: right;
+}
+.importance_level{
+	color: #000;
+
+}
+
+.current{
+	bottom:0;	
+	position:absolute;
+	margin:0 auto;
+
+}
+
+#interest_button{
+	margin-top: 0%;
+}
+
+/* Footer */
+footer{
+	margin-left: 10%;
+}
+
+.interests_intro h3{
+	font-style: italic;
+	font-weight: 700;
+	font-size: 2em;
+}
+
+.interests_intro a{
+	color: #084c8d;
+}
+
+.interests_intro a:hover, .interests_intro a:active{
+	color: #084c8d;
+}
+
+.answer_area{
+	min-height: 300px;
+}
+/* Buttons 	-webkit-transition: all 250ms ease;
+  	-moz-transition: all 250ms ease;
+  	-o-transition: all 250ms ease;
+  	transition: all 250ms ease; */
+.btn-lg{
+	background-color: #d5d5d5!important;
+	color: #084c8d!important;
+	border: none;
+
+}
+
+.btn-lg:hover{
+	background-color: #d5d5d5!important;
+	color: white!important;
+	border: none;
+}
+.pager li a{
+	color: #333;
+	font-weight: bold;
+}
+.pagination{
+	width: 50%;
+}
+.pager li a:hover{
+	text-decoration: underline;
+}
+
+#more_answers_appear1, #more_answers_appear1, #more_answers_appear2, #more_answers_appear3{
+	display: none;
+}
+#answers_remove1, #answers_remove2, #answers_remove3{
+	display: none;
+}
+
+/* Media Queries */
+@media only screen and (max-width:450px){
+	.interests_intro h3{
+		font-size: 1.5em;
+	}
+}
+
+/* Create */
+form {
+	width: 100%;
+	margin: 0 auto;
+}
+
+label, input{
+	display: inline-block;
+}
+
+label {
+	width: 400px;
+}
+
+label + input{
+	min-width: 150px;
+	width: 50%;
+	margin: 0 30% 0 4%;
+}
+
+input + input {
+}
+
+@media only screen and (min-width:975px){
+	.contain{
+		margin-left: 10%;
+	}
+	.footer-container{
+		margin-left: 20%;
+	}
+}
+
+@media only screen and (min-width:1275px){
+	.footer-container{
+		margin-top:30%;
+	}

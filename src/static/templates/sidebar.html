@@ -1,0 +1,103 @@
+<head>
+  <link href="/static/css/sidebar.css" rel="stylesheet">
+</head>
+<body>
+
+<div class='row'>
+      {% if request.user.is_authenticated %}
+        <div class='col-lg-2 col-12'>
+          <div id="leftbar-wrapper">
+            <ul class="sidebar-nav">
+              <li>
+                <a href='/' title="Home" class="side-tooltip" id="home_sidebar"><span class='glyphicon glyphicon-home' ></span></a>
+              </li> 
+              <li>
+                <a href='/sort/' title="Find Friends" class="side-tooltip"><span class='glyphicon glyphicon-user' id="find_friends_sidebar"></span></a>
+              </li>
+              <li>
+                <a href='{% url "interests" %}' title="Interests" class="side-tooltip"><span class='glyphicon glyphicon-heart' id="interests_sidebar"></span></a>
+              </li>
+              <li>
+                <a href='{% url "questions" %}' title="Questions" class="side-tooltip"><span class='glyphicon glyphicon-question-sign' id="questions_sidebar"></span></a>
+              </li>
+              <li>
+                <a href='/pictures' title="Pictures" class="side-tooltip"><span class='glyphicon glyphicon-camera ' id="pictures_sidebar"></span></a>
+              </li>
+              <li>
+                <a href='{% url "inbox" %}' title="Inbox" class="side-tooltip" id="messages_sidebar">
+                <span class='glyphicon glyphicon-envelope'></span></a>
+              </li>
+            
+          </ul>
+          </div>
+          
+
+        </div>
+        {% endif %}
+<!--<div class='row'>
+      {% if request.user.is_authenticated %}
+        <div class='col-lg-2 col-12'>
+          <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+            <li><a href='/'>Home</a></li>
+            <li><a href='{% if request.user.is_authenticated %}{% url "profile" request.user.username %} {% endif %}'>Profile</a></li>
+            <div class="interests_all">
+              <li><a href='{% url "interests" %}' >Interests</a></li>
+            </div>
+            <div class="questionss_all">
+              <li><a href='{% url "questions" %}'>Questions</a></li>
+
+            </div>
+            <li><a href='/pictures'>Pictures</a></li>
+            <div class="messages_all">
+             <li><a id="messages" href='{% url "inbox" %}'>
+              {% if not 'messages' in request.get_full_path %}
+              {% if not request.session.num_of_messages == 0 %}
+                <span class='badge pull-right'>
+              {{ request.session.num_of_messages }}
+               </span>
+              {% endif %}
+              {% endif %}
+
+              Messages</a></li>
+              <div class="sub_messages">
+               <li><a href='{% url "compose" %}'>Compose</a></li>
+               <li><a href='{% url "inbox" %}'>
+               {% if not request.session.num_of_messages == 0 %}
+                <span class='badge pull-right'>
+               {{ request.session.num_of_messages }}
+               {% endif %}
+               </span>Inbox</a></li>
+              <li><a href='{% url "sent" %}'>Sent</a>
+              </div>
+            </div>
+             <li><a href='/visitors'>Visitors</a></li>
+          </ul>
+          </div>
+      
+        </div>
+        {% endif %}
+      -->
+
+    <script>
+      $(".messages_all").mouseover(function(){
+        $(".sub_messages").show();
+      });
+      $(".messages_all").mouseout(function() {
+        $(".sub_messages").hide();
+      });
+      $("[data-toggle='tooltip']").tooltip()
+      //$(".interests_all").mouseover(function(){
+      //  $(".create_interest").show();
+      //});
+      //$(".interests_all").mouseout(function() {
+      //  $(".create_interest").hide();
+      //});
+
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("active");
+    });
+    </script>
+
+</body>

@@ -1,0 +1,178 @@
+body{
+	background-color: #f8f8f8;
+	margin-top: 40px;
+}
+.container{
+}
+
+.btn-default, .btn .btn-default{
+	background-color: #d5d5d5!important;
+	color: #084c8d!important;
+	border: none;	
+}
+
+.btn.btn-info.btn-sm{
+	background-color: #d5d5d5!important;
+	color: #084c8d!important;
+	border: none;
+	-webkit-transition: all 500ms ease;
+	-moz-transition: all 500ms ease;
+	-o-transition: all 500ms ease;
+	transition: all 500ms ease;
+}
+
+.btn.btn-info.btn-sm:hover{
+	-webkit-transform: scale(1.05);
+  	transform: scale(1.05);
+  	color: #084c8d!important;
+}
+.btn.btn-default.btn:hover{
+	-webkit-transform: scale(1.05);
+  	transform: scale(1.05);
+  	color: #084c8d!important;
+}
+.col-lg-10.col-12{
+	width: 100%;
+}
+.col-md-1{
+	width: 100%;
+	min-width: 480px;
+}
+h1, h2, h3, h5, a{
+	font-family: 'Open Sans', sans-serif;
+}
+
+p, form{
+	font-family: 'Gentium Basic', serif;
+	outline:none;
+}
+
+a:active, a:focus{
+	outline:none;
+}
+li:active, li:focus{
+	outline:none!important;
+}
+input::-moz-focus-inner{
+	border:0;
+}
+
+h1{
+	text-transform: capitalize;
+	font-weight: 700;
+}
+
+input{
+	border-radius: 8px !important;
+}
+
+/* symbol on sidebar */
+.pull-right{
+	border-radius: 8px !important;
+}
+.glyphicon{
+	font-size:1em;
+	padding-right: 1em;
+}
+
+.img-responsive{
+	min-width: 75px;
+	height: auto;
+}
+
+.body_section{
+	background-color:#222;
+	border-radius: 0%;
+	color:white;
+}
+
+.col-lg-4 a{
+	color: black;
+	font-size: 1.2em;
+	text-transform: capitalize;
+}
+
+.col-lg-4 a:hover{
+}
+
+/* Registration and General Form Improvement */
+
+form {
+	width: 80%;
+	margin: 0 auto;
+}
+
+/* all.html */
+#myfriend{
+	width: 50%;
+}
+
+#myfriend a{
+	text-transform: capitalize;
+	color: black;
+	font-size: 1.125em;
+}
+
+#myfriend a:hover{
+}
+
+#myfriend #match{
+	font-size: 1.125em;
+}
+
+a:hover{
+	text-decoration: none;
+}
+ /* Media Queries */
+
+ @media (max-width: 650px) {
+ 	#myfriend a{
+	font-size: 1em;
+	}
+	#myfriend #match{
+	font-size: 1em;
+	}
+}
+
+@media (min-width: 1200px){
+	#myfriend{
+		width: 400px;
+		height:auto;
+	}
+}
+
+@media (min-width: 1000px){
+	.container{
+		margin-left: 150px;
+	}
+}
+
+@media (min-width: 1150px){
+	.container{
+		margin-left: 150px;
+	}
+}
+
+@media (max-width: 480px){
+	.container{
+		margin-left: 15%;
+	}
+}
+
+*:focus{
+	outline:0;
+}
+
+@media (max-width: 905px) {
+	.container{
+		margin-left: 120px;
+	}
+
+@media (max-width: 600px) {
+  h1{
+  font-size: 1.2em;
+}
+  a{
+  	font-size:.9em;
+  }
+}
