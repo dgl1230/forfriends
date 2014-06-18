@@ -18,6 +18,10 @@ html, ul, ul li, li, li a, a, p, .btn{
 
 }
 
+.success{
+	text-align:center;
+	color: #084c8d;
+}
 #more_pictures_appear{
 	display:none;	
 }
@@ -87,7 +91,7 @@ p label{
 }
 
 #mytab li a{
-	color: black;
+	color: #084c8d;
 	outline: none;
 }
 

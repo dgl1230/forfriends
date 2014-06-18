@@ -213,6 +213,6 @@ a.dropdown-toggle{
 
 @media (min-width: 1200px){
 	.form-control{
-	width: 400px;
+	width: 400px!important;
 	}
 }

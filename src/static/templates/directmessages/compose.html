@@ -4,12 +4,11 @@
 {% block content %}
 <div class="row">
 	<div class="col-md-1" id="secondary_navbar">
-        <h1>Messages</h1>
+        <h1>New Message</h1>
 	</div>
 </div>
 <div class="container">
   <div class='col-lg-10 col-12'>
-<h1>Compose</h1>
 <div class name="container">
 	<form action='' method='POST'> {% csrf_token %}
 	{{ form.as_p }}
@@ -24,8 +23,8 @@
 	</form>
 </div>
 <div class="right-button">
-	<form action="/messages/compose/">
-		<input class='btn btn-info btn-sm' type='submit' value="New Message">
+	<form action="/messages/sent/">
+		<input class='btn btn-info btn-sm' type='submit' value="Sent">
 	</form>
 </div>
 </div>
