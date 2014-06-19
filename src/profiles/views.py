@@ -234,7 +234,7 @@ def register_new_user(request):
 	password = request.POST['password']
 	confirm_password = request.POST['repassword']
 	email = request.POST['email']
-	gender1 = request.POST['gender']
+	#gender1 = request.POST['gender']
 	day = request.POST['BirthDay']
 	month = request.POST['BirthMonth']
 	year = request.POST['BirthYear']
@@ -242,10 +242,11 @@ def register_new_user(request):
 	birthday = datetime.datetime.strptime(datestr, '%Y-%m-%d').date()
 	user_age = calculate_age(birthday)
 
-	if gender1 == 'm':
+	'''if gender1 == 'm':
 		gender = 'Male'
 	else:
 		gender = 'Female'
+	'''
 	try:
 		test_year = int(year)
 		test_day = int(day)
@@ -264,7 +265,7 @@ def register_new_user(request):
 				if created:
 					new_user.set_password(password)
 					new_info = Info(user=new_user)
-					new_info.gender = gender
+					#new_info.gender = gender
 					new_info.birthday = birthday
 					new_info.save()
 					new_user.save()
