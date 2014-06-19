@@ -7,12 +7,11 @@
 	min-width: 300px;
 }
 
-.questions-wrapper{
+#question-wrapper{
 	text-align: center;
-	min-width: 300px;
 }
 
-.main_interests{	
+#main_interests{	
 	min-width: 300px;
 	text-align: center;
 }
@@ -22,7 +21,7 @@
 }
 .img-container{
 	width: 200px;
-	height: auto;
+	height: 175px;
 	margin: 0 auto;
 	margin-bottom: 1.5em;
 }

@@ -23,12 +23,12 @@
 </div>
 {% endif %}
 
-<div class="questions-wrapper">
+
 	<div class='row' id="interests_intro">
 		<div class='interests_intro'>
 		</div>
 	</div>
-<div class='row'>
+<div class='row' id="question-wrapper">
 	{% for question in questions %}
 		<h3>{{ question }}</h3><p>
 		<form method='POST' action=''> {% csrf_token %}
@@ -37,10 +37,9 @@
 			<option {% for abc in question.useranswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected='selected' {% endif %} {% endfor %} value='{{ imp }}'>{{ imp }}</option>
 			{% endfor %}
 		</select>
-
-
-		
 			<input type='hidden' value='{{ question.id }}' name='question_id'/>
+			<br>
+		<br>
 		{% for ans in question.answer_set.all %}
 			<input type='radio' required=
 			'required' value='{{ ans}}' {% for abc in ans.useranswer_set.all %} {% if abc and abc.user == request.user %} checked='checked' {% endif %} {% endfor %} name='answer'> {{ ans }} <br/>

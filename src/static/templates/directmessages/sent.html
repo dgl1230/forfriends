@@ -11,7 +11,7 @@
   <div class='col-lg-10 col-12'>
 {% for item in messages_in_inbox %}
 
-<h4>From: {{ item }}</h4>
+<h4>From: {{ item.sender }}</h4>
 <h4>To: {{ item.receiver }}</h4>
 on {{ item.sent }}<br/>
 

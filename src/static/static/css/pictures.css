@@ -1,3 +1,8 @@
+img{
+	width: 175px;
+	height: 200px;
+}
+
 img:hover{
 	-webkit-transform: scale(1.05);
  	transform: scale(1.05);
