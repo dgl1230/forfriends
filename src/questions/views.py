@@ -60,7 +60,7 @@ def create_question(request):
 			answer.question = question
 			answer.save()
 			messages.success(request, 'Question Created')
-			return HttpResponseRedirect('/')
+			return HttpResponseRedirect('/questions/')
 
 	return render_to_response("questions/create.html", locals(),
 		 context_instance=RequestContext(request))
