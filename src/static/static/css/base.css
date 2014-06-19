@@ -80,11 +80,6 @@ input{
 	padding-right: 1em;
 }
 
-.img-responsive{
-	min-width: 75px;
-	height: auto;
-}
-
 .body_section{
 	background-color:#222;
 	border-radius: 0%;

@@ -227,3 +227,15 @@ a.dropdown-toggle{
 	width: 400px!important;
 	}
 }
+
+@media (max-width: 480px){
+	.navbar-brand{
+		letter-spacing: .3em;
+		-webkit-transition: all 500ms ease;
+	 	-moz-transition: all 500ms ease;
+	 	-o-transition: all 500ms ease;
+	 	transition: all 500ms ease;
+	 	font-size: 1em;
+	 	margin-left: -90px!important;
+	}
+}

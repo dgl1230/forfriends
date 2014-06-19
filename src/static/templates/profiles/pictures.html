@@ -14,14 +14,58 @@
      <a href="/edit">Edit Pictures</a>
   </div>
 </div>
-
-<div class="container">
-  <div class='col-lg-10 col-12'>
 <div class="row">
-    <div class="owl-carousel" id="picture_string1">
+    <!--<div class="owl-carousel" id="picture_string1">
       {% for pic in user.userpicture_set.all %}
-      <div class="item">
-        <img src='{{ MEDIA_URL }}{{ pic }}' alt="Owl Image"></div>
+        <div class="item"><img src=' {{ MEDIA_URL }}{{ pic }}'></div>
+        -->
+<div class="container">
+  <div class="row">
+      {% for pic in user.userpicture_set.all %}
+      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 2"><img src="{{ MEDIA_URL }}{{ pic }}" class="thumbnail img-responsive"></a></div>
+      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 3"><img src="{{ MEDIA_URL }}{{ pic }}" class="thumbnail img-responsive"></a></div>
+      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 4"><img src="//placehold.it/600x350/992233" class="thumbnail img-responsive"></a></div>
+      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 5"><img src="//placehold.it/600x350/2255EE" class="thumbnail img-responsive"></a></div>
+      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 6"><img src="//placehold.it/600x350/449955/FFF" class="thumbnail img-responsive"></a></div>
+      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 8"><img src="//placehold.it/600x350/777" class="thumbnail img-responsive"></a></div>
+      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 9"><img src="//placehold.it/600x350/992233" class="thumbnail img-responsive"></a></div>
+      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 10"><img src="//placehold.it/600x350/EEE" class="thumbnail img-responsive"></a></div>
+      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 11"><img src="//placehold.it/600x350/449955/FFF" class="thumbnail img-responsive"></a></div>
+      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 12"><img src="//placehold.it/600x350/DDD" class="thumbnail img-responsive"></a></div>
+      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 13"><img src="//placehold.it/600x350/992233" class="thumbnail img-responsive"></a></div>
+    </div>
+    {% endfor %}
+    <hr>
+    <a href="http://bootply.com/71401">Edit on Bootply</a>
+    <hr>
+  </div>
+</div>
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+  <div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3 class="modal-title">Heading</h3>
+  </div>
+  <div class="modal-body">
+    
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-default" data-dismiss="modal">Close</button>
+  </div>
+   </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+        <!--<img src='{{ MEDIA_URL }}{{ pic }}' alt="Owl Image"></div>
         <div class="carousel-caption">
           <h1>Slide 1<h1>
         </div>
@@ -112,5 +156,15 @@
     });
 
   });
+</script> -->
+
+<script>
+$('.thumbnail').click(function(){
+    $('.modal-body').empty();
+    var title = $(this).parent('a').attr("title");
+    $('.modal-title').html(title);
+    $($(this).parents('div').html()).appendTo('.modal-body');
+    $('#myModal').modal({show:true});
+});
 </script>
 {% endblock %}
