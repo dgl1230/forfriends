@@ -266,7 +266,7 @@ def register_new_user(request):
 					new_user.set_password(password)
 					new_info = Info(user=new_user)
 					new_info.gender = gender
-					#new_info.birthday = birthday
+					new_info.birthday = birthday
 					new_info.save()
 					new_user.save()
 					new_user = authenticate(username=username, password=password)
