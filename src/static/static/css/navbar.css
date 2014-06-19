@@ -17,6 +17,17 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 	min-width: 150px!important;
 }
 
+#go_button:hover{
+	background-color: #084c8d!important;
+	color: #d5d5d5!important;
+}
+
+#go_button{
+	background-color: #d5d5d5!important;
+	border: 1px solid #084c8d!important;
+	color: #084c8d!important;
+
+}
 .navbar-brand{
 	letter-spacing: .3em;
 	-webkit-transition: all 500ms ease;
