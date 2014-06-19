@@ -52,7 +52,7 @@ def all(request):
 
 #Shows all pictures that the logged in user has 
 def all_pictures(request): 
-	user = request.user
+	pictures = UserPicture.objects.filter(user=request.user)
 	return render_to_response('profiles/pictures.html', locals(), context_instance=RequestContext(request))
 
 
