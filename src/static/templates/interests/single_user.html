@@ -14,8 +14,7 @@
   <div class='col-lg-10 col-12'>
 	<br/>
 	<br/>
-	<div class='row'>
-			<div class="main_interests">
+	<div class='row' id="main-interests">
 					<div class="interest_row">
 						<div class="interests-title">
 							{% for interest in interests %}
@@ -60,7 +59,6 @@
 		<span class="current">
 			Page {{ interests.number }} of {{ interests.paginator.num_pages }}.
 		</span>
-		</div>
 		</div>
 		</div>
 	</div>
