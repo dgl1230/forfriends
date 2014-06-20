@@ -156,7 +156,7 @@ def edit_profile(request):
 		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=0)
 		formset_p = PictureFormSet(queryset=pictures)
 	else:
-		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=1)
+		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=4)
 		formset_p = PictureFormSet(queryset=pictures)
 
 	if addresses.exists():
@@ -208,6 +208,8 @@ def login_user(request):
 			if user.is_active:
 				login(request, user)
 				return HttpResponseRedirect('/')
+		else:
+			messages.error(request, "Please double check your username and password")
 	except: 
 		messages.error(request, "Please double check your username and password")
 	return render_to_response('home.html', locals(), context_instance=RequestContext(request))
@@ -230,57 +232,58 @@ def calculate_age(born):
 
 #Creates a new user and assigns the appropriate fields to the user
 def register_new_user(request):
-	username = request.POST['username']
-	password = request.POST['password']
-	confirm_password = request.POST['repassword']
-	email = request.POST['email']
-	gender1 = request.POST['gender']
-	day = request.POST['BirthDay']
-	month = request.POST['BirthMonth']
-	year = request.POST['BirthYear']
-	datestr = str(year) + '-' + str(month) + '-' + str(day)
-	birthday = datetime.datetime.strptime(datestr, '%Y-%m-%d').date()
-	user_age = calculate_age(birthday)
-
-	if gender1 == 'm':
-		gender = 'Male'
-	else:
-		gender = 'Female'
-	
 	try:
-		test_year = int(year)
-		test_day = int(day)
-	except:
-		messages.error(request, "Please enter a number for your birthday year and day")
-		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
-
-	if user_age >= 18:
+		username = request.POST['username']
+		password = request.POST['password']
+		confirm_password = request.POST['repassword']
+		email = request.POST['email']
+		gender1 = request.POST['gender']
+		day = request.POST['BirthDay']
+		month = request.POST['BirthMonth']
+		year = request.POST['BirthYear']
 		datestr = str(year) + '-' + str(month) + '-' + str(day)
 		birthday = datetime.datetime.strptime(datestr, '%Y-%m-%d').date()
 		user_age = calculate_age(birthday)
 
-		if username and password and email:
-			if password == confirm_password:
-				new_user,created = User.objects.get_or_create(username=username, email=email)
-				if created:
-					new_user.set_password(password)
-					new_info = Info(user=new_user)
-					new_info.gender = gender
-					new_info.birthday = birthday
-					new_info.save()
-					new_user.save()
-					new_user = authenticate(username=username, password=password)
-					login(request, new_user)
-					return HttpResponseRedirect('/')
+		if gender1 == 'm':
+			gender = 'Male'
+		else:
+			gender = 'Female'
+		
+		try:
+			test_year = int(year)
+			test_day = int(day)
+		except:
+			messages.error(request, "Please enter a number for your birthday year and day")
+			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+
+		if user_age >= 18:
+			datestr = str(year) + '-' + str(month) + '-' + str(day)
+			birthday = datetime.datetime.strptime(datestr, '%Y-%m-%d').date()
+			user_age = calculate_age(birthday)
+
+			if username and password and email:
+				if password == confirm_password:
+					new_user,created = User.objects.get_or_create(username=username, email=email)
+					if created:
+						new_user.set_password(password)
+						new_info = Info(user=new_user)
+						new_info.gender = gender
+						new_info.birthday = birthday
+						new_info.save()
+						new_user.save()
+						new_user = authenticate(username=username, password=password)
+						login(request, new_user)
+						return HttpResponseRedirect('/')
+					else:
+						messages.error(request, "Sorry but this username is already taken")
 				else:
-					messages.error(request, "Sorry but this username is already taken")
-			else:
-				messages.error(request, "Please make sure both password match")
-	else:
-		messages.error(request, "We're sorry but you must be at least 18 to signup!")
-		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
-	'''except:
-		messages.error(request, "Please fill out all fields")'''
+					messages.error(request, "Please make sure both password match")
+		else:
+			messages.error(request, "We're sorry but you must be at least 18 to signup!")
+			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+	except:
+		messages.error(request, "Please fill out all fields")
 	return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
 #Displays the profile page of a specific user and their match % against the logged in user
@@ -331,6 +334,13 @@ def all_visitors(request):
 	visitors1, created = Visitor.objects.get_or_create(main_user=request.user)
 	visitors = [val for val in visitors1.visitors.all()]
 	return render_to_response('profiles/visitors.html', locals(), context_instance=RequestContext(request))
+
+
+def terms_and_agreement(request): 
+	return render_to_response('terms.html', locals(), context_instance=RequestContext(request))
+
+
+
 
 
 

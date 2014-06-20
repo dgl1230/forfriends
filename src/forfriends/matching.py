@@ -14,7 +14,7 @@ def calc_interest_importance(i1, i2):
 	if i1 == "Strongly Like":
 		if i2 == "Strongly Like":
 			return 100
-		if i2 == "Llike":
+		if i2 == "Like":
 			return 75
 		if i2 == "Dislike":
 			return 20
@@ -30,7 +30,7 @@ def calc_interest_importance(i1, i2):
 		if i2 == "Strongly Dislike":
 			return 10
 	elif i1 == "Dislike":
-		if i2 == "Strongly Dislike":
+		if i2 == "Strongly Like":
 			return 10
 		if i2 == "Like":
 			return 20
