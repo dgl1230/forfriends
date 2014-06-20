@@ -42,7 +42,7 @@
 		<br>
 		{% for ans in question.answer_set.all %}
 			<input type='radio' required=
-			'required' value='{{ ans}}' {% for abc in ans.useranswer_set.all %} {% if abc and abc.user == request.user %} checked='checked' {% endif %} {% endfor %} name='answer'> {{ ans }} <br/>
+			'required' value='{{ ans }}' {% for abc in ans.useranswer_set.all %} {% if abc and abc.user == request.user %} checked='checked' {% endif %} {% endfor %} name='answer'> {{ ans }} <br/>
 		{% endfor %}
 		</p> <p>
 		<div class="interest_buttons">
@@ -64,7 +64,7 @@
 				</span>
 
 				{% if questions.has_next %}
-					<li class="next"><a href="?page={{ interests.next_page_number }}">Next &rarr;</a></li>
+					<li class="next"><a href="?page={{ questions.next_page_number }}">Next &rarr;</a></li>
 				{% endif %}
 			</div>
 		</ul>

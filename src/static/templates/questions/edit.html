@@ -31,7 +31,7 @@
 			<input type='hidden' value='{{ question.id }}' name='question_id'/>
 		{% for ans in question.answer_set.all %}
 			<input type='radio' required=
-			'required' value='{{ ans}}' {% for abc in ans.useranswer_set.all %} {% if abc and abc.user == request.user %} checked='checked' {% endif %} {% endfor %} name='answer'> {{ ans }} <br/>
+			'required' value='{{ ans }}' {% for abc in ans.useranswer_set.all %} {% if abc and abc.user == request.user %} checked='checked' {% endif %} {% endfor %} name='answer'> {{ ans }} <br/>
 		{% endfor %}
 		Importance: <select required='required' name='importance_level'>
 			{% for imp in importance_levels %}
