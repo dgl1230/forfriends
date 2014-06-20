@@ -2,6 +2,10 @@ body{
 	background-color: #fff;
 	margin-top: 40px;
 }
+
+.entire-wrapper{
+	width: 100%;
+}
 .container{
 }
 

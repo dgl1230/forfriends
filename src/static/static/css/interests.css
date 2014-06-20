@@ -114,6 +114,13 @@ footer{
 	display: none;
 }
 
+.question_answers{
+	width: 100px;
+	margin: 0 auto;
+}
+.question_answers input{
+	float: left;
+}
 /* Media Queries */
 @media only screen and (max-width:450px){
 	.interests_intro h3{

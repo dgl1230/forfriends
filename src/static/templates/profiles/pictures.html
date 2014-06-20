@@ -21,23 +21,10 @@
         -->
 <div class="container">
   <div class="row">
-      {% for pic in user.userpicture_set.all %}
-      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 2"><img src="{{ MEDIA_URL }}{{ pic }}" class="thumbnail img-responsive"></a></div>
-      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 3"><img src="{{ MEDIA_URL }}{{ pic }}" class="thumbnail img-responsive"></a></div>
-      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 4"><img src="//placehold.it/600x350/992233" class="thumbnail img-responsive"></a></div>
-      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 5"><img src="//placehold.it/600x350/2255EE" class="thumbnail img-responsive"></a></div>
-      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 6"><img src="//placehold.it/600x350/449955/FFF" class="thumbnail img-responsive"></a></div>
-      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 8"><img src="//placehold.it/600x350/777" class="thumbnail img-responsive"></a></div>
-      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 9"><img src="//placehold.it/600x350/992233" class="thumbnail img-responsive"></a></div>
-      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 10"><img src="//placehold.it/600x350/EEE" class="thumbnail img-responsive"></a></div>
-      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 11"><img src="//placehold.it/600x350/449955/FFF" class="thumbnail img-responsive"></a></div>
-      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 12"><img src="//placehold.it/600x350/DDD" class="thumbnail img-responsive"></a></div>
-      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 13"><img src="//placehold.it/600x350/992233" class="thumbnail img-responsive"></a></div>
-    </div>
+      {% for pic in pictures %}
+      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="{{ pic.caption }}"><img src=" {{ MEDIA_URL }}{{ pic }}" class="thumbnail img-responsive"></a></div>
+      </div>
     {% endfor %}
-    <hr>
-    <a href="http://bootply.com/71401">Edit on Bootply</a>
-    <hr>
   </div>
 </div>
 <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
