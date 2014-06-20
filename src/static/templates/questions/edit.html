@@ -12,8 +12,6 @@
      	<a href="/questions/">Questions Home</a>
 	</div>
 </div>
-<div class="row">
-  <div class='col-lg-10 col-12'>
 {% if messages %}
 <div class='row'>
                 <ul class="messages">
@@ -23,7 +21,7 @@
                 </ul>
 </div>
 {% endif %}
-<div class='row' id="interests-wrapper">
+<div class='row' id="question-wrapper">
 
 	{% for question in questions %}
 		<h3>{{ question }}</h3><p>

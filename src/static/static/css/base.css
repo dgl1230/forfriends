@@ -2,6 +2,10 @@ body{
 	background-color: #fff;
 	margin-top: 40px;
 }
+
+.entire-wrapper{
+	width: 100%;
+}
 .container{
 }
 
@@ -78,11 +82,6 @@ input{
 .glyphicon{
 	font-size:1em;
 	padding-right: 1em;
-}
-
-.img-responsive{
-	min-width: 75px;
-	height: auto;
 }
 
 .body_section{

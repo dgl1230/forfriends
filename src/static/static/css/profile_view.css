@@ -66,6 +66,7 @@
 }
 .panel-heading{
 	background-color: #d5d5d5!important;
+	padding: 0px 5px!important;
 }
 .panel-heading p{
 	color: #084c8d!important;

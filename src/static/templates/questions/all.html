@@ -11,8 +11,7 @@
      	<a href="/questions/create/">Add Question</a>
 	</div>
 </div>
-<div class="container">
-  <div class='col-lg-10 col-12'>
+
 {% if messages %}
 <div class='row'>
                 <ul class="messages">
@@ -40,10 +39,13 @@
 			<input type='hidden' value='{{ question.id }}' name='question_id'/>
 			<br>
 		<br>
+
+		<div class="question_answers">
 		{% for ans in question.answer_set.all %}
 			<input type='radio' required=
 			'required' value='{{ ans }}' {% for abc in ans.useranswer_set.all %} {% if abc and abc.user == request.user %} checked='checked' {% endif %} {% endfor %} name='answer'> {{ ans }} <br/>
 		{% endfor %}
+		</div>
 		</p> <p>
 		<div class="interest_buttons">
 		<!-- Submit Button -->
