@@ -6,7 +6,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.signals import user_logged_in
 
-from forfriends.matching import points, match_percentage
+from forfriends.matching import match_percentage
 
 
 '''def login_user_matches(sender, user, request, **kwargs):
