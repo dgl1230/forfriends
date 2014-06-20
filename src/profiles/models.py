@@ -30,7 +30,7 @@ class Info(models.Model):
 	bio = models.CharField(max_length=420, null=True, blank=True)
 	birthday = models.DateField(null=True, blank=True)
 	first_name = models.CharField(max_length=20, null=True, blank=True)
-	gender = models.CharField(max_length=6, choices=GENDER_CHOICES, null=True, blank=True)
+	gender = models.CharField(max_length=20, choices=GENDER_CHOICES, null=True, blank=True)
 	last_name = models.CharField(max_length =20, null=True, blank=True)
 
 	def __unicode__(self):

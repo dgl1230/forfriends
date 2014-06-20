@@ -52,7 +52,7 @@ def all(request):
 
 #Shows all pictures that the logged in user has 
 def all_pictures(request): 
-	user = request.user
+	pictures = UserPicture.objects.filter(user=request.user)
 	return render_to_response('profiles/pictures.html', locals(), context_instance=RequestContext(request))
 
 
@@ -156,7 +156,7 @@ def edit_profile(request):
 		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=0)
 		formset_p = PictureFormSet(queryset=pictures)
 	else:
-		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=1)
+		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=4)
 		formset_p = PictureFormSet(queryset=pictures)
 
 	if addresses.exists():
@@ -208,6 +208,8 @@ def login_user(request):
 			if user.is_active:
 				login(request, user)
 				return HttpResponseRedirect('/')
+		else:
+			messages.error(request, "Please double check your username and password")
 	except: 
 		messages.error(request, "Please double check your username and password")
 	return render_to_response('home.html', locals(), context_instance=RequestContext(request))
@@ -247,6 +249,7 @@ def register_new_user(request):
 			gender = 'Male'
 		else:
 			gender = 'Female'
+		
 		try:
 			test_year = int(year)
 			test_day = int(day)
@@ -331,6 +334,13 @@ def all_visitors(request):
 	visitors1, created = Visitor.objects.get_or_create(main_user=request.user)
 	visitors = [val for val in visitors1.visitors.all()]
 	return render_to_response('profiles/visitors.html', locals(), context_instance=RequestContext(request))
+
+
+def terms_and_agreement(request): 
+	return render_to_response('terms.html', locals(), context_instance=RequestContext(request))
+
+
+
 
 
 

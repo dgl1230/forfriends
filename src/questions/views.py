@@ -9,7 +9,7 @@ from .forms import QuestionForm, AnswerForm
 
 def all_questions(request):
 	
-	questions_all = Question.objects.exclude(useranswer__user=request.user)
+	questions_all = Question.objects.exclude(useranswer__user=request.user).filter(approved=True)
 	paginator = Paginator(questions_all, 1)
 	importance_levels = ['Mandatory', 'Very Important', 'Somewhat Important', 'Not Important']
 
@@ -60,14 +60,14 @@ def create_question(request):
 			answer.question = question
 			answer.save()
 			messages.success(request, 'Question Created')
-			return HttpResponseRedirect('/')
+			return HttpResponseRedirect('/questions/')
 
 	return render_to_response("questions/create.html", locals(),
 		 context_instance=RequestContext(request))
 
 
 def edit_questions(request):
-	questions_all = Question.objects.filter(useranswer__user=request.user)
+	questions_all = Question.objects.filter(useranswer__user=request.user).filter(approved=True)
 	paginator = Paginator(questions_all, 1)
 	importance_levels = ['Mandatory', 'Very Important', 'Somewhat Important', 'Not Important']
 
