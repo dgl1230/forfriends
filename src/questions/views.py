@@ -9,7 +9,7 @@ from .forms import QuestionForm, AnswerForm
 
 def all_questions(request):
 	
-	questions_all = Question.objects.exclude(useranswer__user=request.user).filter(approved=True)
+	questions_all = Question.objects.exclude(useranswer__user=request.user).filter(approved=True).order_by('?')
 	paginator = Paginator(questions_all, 1)
 	importance_levels = ['Mandatory', 'Very Important', 'Somewhat Important', 'Not Important']
 
@@ -55,7 +55,6 @@ def create_question(request):
 		if a_form.is_valid():
 			question = q_form.save(commit=False)
 			answer = a_form.save(commit=False)
-			question.user = request.user
 			question.save()
 			answer.question = question
 			answer.save()

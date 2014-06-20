@@ -3,7 +3,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Question(models.Model):
-	user = models.ForeignKey(User)
 	question = models.CharField(max_length=120)
 	approved = models.BooleanField(default=False)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
