@@ -23,6 +23,7 @@ from visitors.models import Visitor
 If both users click this button on each other's profile, they can message'''
 def add_friend(request, username):
 	user_match, created = Match.objects.get_or_create(user=request.user, matched__username=username)
+	visited_user = User.objects.get(username=username)
 	visited_match, created = Match.objects.get_or_create(user__username=username, matched=request.user)
 	user_match.approved = True
 	user_match.user = request.user 
@@ -89,7 +90,7 @@ def edit_info(request):
 		if formset_i.is_valid():
 			for form in formset_i:
 				new_form = form.save(commit=False)
-				#new_form.user = request.user
+				new_form.user = request.user
 				new_form.save()
 			messages.success(request, 'Profile details updated.')
 		else:
@@ -112,7 +113,7 @@ def edit_jobs(request):
 		if formset_j.is_valid():
 			for form in formset_j:
 				new_form = form.save(commit=False)
-				#new_form.user = request.user
+				new_form.user = request.user
 				new_form.save()
 			messages.success(request, 'Profile details updated.')
 		else:
