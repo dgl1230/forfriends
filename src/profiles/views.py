@@ -156,7 +156,7 @@ def edit_profile(request):
 		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=0)
 		formset_p = PictureFormSet(queryset=pictures)
 	else:
-		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=4)
+		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=1)
 		formset_p = PictureFormSet(queryset=pictures)
 
 	if addresses.exists():
