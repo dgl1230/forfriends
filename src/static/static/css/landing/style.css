@@ -198,6 +198,7 @@ ul {
 	color: #fc0000;
 	font-size: 13px;
 	margin-bottom: 20px;
+  text-align:center;
 }
 
 
@@ -290,7 +291,7 @@ nav a#pull {
 	font-family: "Open Sans", sans-serif;
 	opacity: 0.9;
 	margin-top: 0%;
-	min-width: 360px;
+	min-width: 280px;
 	width: 100%;
 }
 
@@ -347,7 +348,7 @@ nav a#pull {
 }
 #contactform{
 	text-align:center;
-	min-width: 360px;
+	min-width: 280px;
 	width: 50%;
 	margin: 0 auto;
 	border-radius: 3px;
@@ -395,12 +396,12 @@ nav a#pull {
 .form input.birthday{width:50px;}
 .form input.birthyear{width:90px;}
 .form label { color: #000; font-weight:bold;font-size: 12px;font-family:Arial, Helvetica; }
-.form label.month {width: 335px;}
-/*fieldset{
+.form label.month {width: 100px;}
+fieldset{
   width: 100px;
   margin-top: 10px;
   display:inline;
-} */
+} 
 #birthday{
   text-align:center;
 }
@@ -633,7 +634,8 @@ input[type=submit]:active {
 
 /* Errors */
 .error{
-  text-align:center;
+  text-align:center!important;
+  margin: 0 auto;
 }
 .messages{
   position: absolute;
@@ -648,6 +650,7 @@ input[type=submit]:active {
   z-index: 1;
   margin-top: 60px;
   width: 100%;
+  margin-left: 10px;
   }
 }
 @media only screen and (max-width:430px){
@@ -656,6 +659,18 @@ input[type=submit]:active {
   z-index: 1;
   margin-top: 48px;
   width: 100%;
-  min-width: 360px;
+  min-width: 280px;
+  }
+}
+
+@media only screen and (max-width:663px){
+  fieldset{
+    width:300px;
+  }
+  .birthday{
+    width: 50%!important;
+  }
+  .birthyear{
+    width: 50%!important;
   }
 }

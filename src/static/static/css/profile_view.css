@@ -60,6 +60,15 @@
 .col-sm-4{
 	height: 300px;
 	width: 200px;
+	text-align:center;
+}
+
+.col-sm-4{
+
+}
+
+.col-sm-4 img{
+	margin: 0 auto;
 }
 #buttons_row{
 	margin-top: 5%;
