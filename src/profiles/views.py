@@ -25,7 +25,6 @@ def add_friend(request, username):
 	user_match, created = Match.objects.get_or_create(user=request.user, matched__username=username)
 	visited_user = User.objects.get(username=username)
 	visited_match, created = Match.objects.get_or_create(user=visited_user, matched=request.user)
-	user_match.approved = True
 	user_match.user = request.user 
 	user_match.save()
 	if (user_match.approved == True and visited_match.approved == True):
