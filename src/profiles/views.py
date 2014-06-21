@@ -24,7 +24,7 @@ If both users click this button on each other's profile, they can message'''
 def add_friend(request, username):
 	user_match, created = Match.objects.get_or_create(user=request.user, matched__username=username)
 	visited_user = User.objects.get(username=username)
-	visited_match, created = Match.objects.get_or_create(user__username=username, matched=request.user)
+	visited_match, created = Match.objects.get_or_create(user=visited_user, matched=request.user)
 	user_match.approved = True
 	user_match.user = request.user 
 	user_match.save()
