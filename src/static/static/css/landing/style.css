@@ -290,7 +290,7 @@ nav a#pull {
 	font-family: "Open Sans", sans-serif;
 	opacity: 0.9;
 	margin-top: 0%;
-	min-width: 400px;
+	min-width: 360px;
 	width: 100%;
 }
 
@@ -347,7 +347,7 @@ nav a#pull {
 }
 #contactform{
 	text-align:center;
-	min-width: 310px;
+	min-width: 360px;
 	width: 50%;
 	margin: 0 auto;
 	border-radius: 3px;
@@ -396,6 +396,14 @@ nav a#pull {
 .form input.birthyear{width:90px;}
 .form label { color: #000; font-weight:bold;font-size: 12px;font-family:Arial, Helvetica; }
 .form label.month {width: 335px;}
+/*fieldset{
+  width: 100px;
+  margin-top: 10px;
+  display:inline;
+} */
+#birthday{
+  text-align:center;
+}
 .form input, textarea { background-color: rgba(255, 255, 255, 0.4); border: 1px solid rgba(122, 192, 0, 0.15); padding: 7px; font-family: Keffeesatz, Arial; color: #4b4b4b; font-size: 14px; -webkit-border-radius: 5px; margin-bottom: 15px; margin-top: -10px; }
 .form input:focus, textarea:focus { border: 1px solid #ff5400; background-color: rgba(255, 255, 255, 1); }
 .form .select-style {
@@ -613,4 +621,41 @@ input[type=submit]:active {
   font-size: .9em;
   font-weight: 500;
 
+}
+
+@media only screen and (max-width:650px){
+  #intro { 
+  background-image: url(/static/img/landing/.jpg)!important; 
+  background-color: #d5d5d5;
+  padding:none;
+  }
+}
+
+/* Errors */
+.error{
+  text-align:center;
+}
+.messages{
+  position: absolute;
+  z-index: 1;
+  margin-top: 100px;
+  width: 100%;
+}
+
+@media only screen and (max-width:750px){
+  .messages{
+  position: absolute;
+  z-index: 1;
+  margin-top: 60px;
+  width: 100%;
+  }
+}
+@media only screen and (max-width:430px){
+  .messages{
+  position: absolute;
+  z-index: 1;
+  margin-top: 48px;
+  width: 100%;
+  min-width: 360px;
+  }
 }

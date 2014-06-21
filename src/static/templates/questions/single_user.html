@@ -4,10 +4,10 @@
 {% block content %}
 <div class="row">
 	<div class="col-md-1" id="secondary_navbar">
-        <h1>questions</h1>
+        <h1>Questions</h1>
 	</div>
 	<div class="col-md-1" id="tertiary_navbar">
-     	<a href="#">Back to Profile</a>
+     	<a href="javascript:history.back()">Back to Profile</a>
 	</div>
 </div>
 <div class="container">
@@ -44,9 +44,6 @@
 				{% if questions.has_previous %}
 					<li class="previous"><a href="?page={{ questions.previous_page_number }}">&larr; Previous</a></li>
 				{% endif %}
-				<span class="current">
-					Page {{ questions.number }} of {{ questions.paginator.num_pages }}.
-				</span>
 
 				{% if questions.has_next %}
 					<li class="next"><a href="?page={{ questions.next_page_number }}">Next &rarr;</a></li>

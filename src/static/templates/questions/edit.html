@@ -27,15 +27,16 @@
 		<h3>{{ question }}</h3><p>
 		<form method='POST' action=''> {% csrf_token %}
 			<input type='hidden' value='{{ question.id }}' name='question_id'/>
-		{% for ans in question.answer_set.all %}
-			<input type='radio' required=
-			'required' value='{{ ans }}' {% for abc in ans.useranswer_set.all %} {% if abc and abc.user == request.user %} checked='checked' {% endif %} {% endfor %} name='answer'> {{ ans }} <br/>
-		{% endfor %}
-		Importance: <select required='required' name='importance_level'>
+		How important is this question to you? <select required='required' name='importance_level'>
 			{% for imp in importance_levels %}
 			<option {% for abc in question.useranswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected='selected' {% endif %} {% endfor %} value='{{ imp }}'>{{ imp }}</option>
 			{% endfor %}
 		</select></p> <p>
+
+		{% for ans in question.answer_set.all %}
+			<input type='radio' required=
+			'required' value='{{ ans }}' {% for abc in ans.useranswer_set.all %} {% if abc and abc.user == request.user %} checked='checked' {% endif %} {% endfor %} name='answer'> {{ ans }} <br/>
+		{% endfor %}
 	
 		<div class="interest_buttons">
 		<!-- Submit Button -->
@@ -50,10 +51,6 @@
 		{% if questions.has_previous %}
 			<li class="previous"><a href="?page={{ questions.previous_page_number }}">&larr; Previous</a></li>
 		{% endif %}
-		<span class="current">
-			Page {{ questions.number }} of {{ questions.paginator.num_pages }}.
-		</span>
-
 		{% if questions.has_next %}
 			<li class="next"><a href="?page={{ questions.next_page_number }}">Next &rarr;</a></li>
 		{% endif %}

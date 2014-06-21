@@ -23,11 +23,10 @@
 </div>
 {% endif %}
 <br/>
-<div class='col-lg-6'>	
 	<div class='row'>
 {% for match in matches %}
 	{% if not request.user == match.matched %}
-	<div class='col-lg-8'>
+	<div class='col-sm-4'>
 			{% for pic in match.matched.userpicture_set.all %}
 				{% if forloop.first %}
 					<a href='/members/{{ match.matched.username}}'><img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive'/></a>
@@ -49,7 +48,7 @@
 		</div>
 		</div>
 		{% endif %}
-		{% cycle '' '' '' '</div><div class="row">' %}
+		{% cycle '' '' '' '' %}
 {% endfor %}
 </div>
 </div>
