@@ -74,7 +74,7 @@
           <header id="header"> 
             <div class="opening">
               <h1 id="title">ForFriends</h1>
-              <br><h3>The new place to meet people.</h3>
+              <br><h3>The new place to meet people</h3>
 
               <!-- Logo Image -->
             <div class="row" id="call_to_action"> 
@@ -115,10 +115,9 @@
                     <p class="contact"><label for="password">Create a password</label></p> 
               <input type="password" id="password" name="password" required="" tabindex="1"> 
                     <p class="contact"><label for="repassword">Confirm your password</label></p> 
-              <input type="password" id="repassword" name="repassword" required="" tabindex="1"> 
-            
+              <input type="password" id="repassword" name="repassword" required="" tabindex="1"><br>
+                    <label id="birthday">Birthday</label>
                    <fieldset>
-                     <label>Birthday</label>
                       <br>
                       <label class="month"> 
                       <select class="select-style" name="BirthMonth" tabindex="1">
@@ -137,16 +136,17 @@
                       <option value="12" >December</option>
                       </label>
                      </select>    
-                    <label>Day<input class="birthday" maxlength="2" name="BirthDay" tabindex="1"  required=""></label>
-                    <label>Year <input class="birthyear" maxlength="4" name="BirthYear" tabindex="1" required=""></label>
-                  </fieldset>
+                    <label>Day<input type="text" class="birthday" maxlength="2" name="BirthDay" tabindex="1"  required=""></label>
+                    <label>Year <input type="text" class="birthyear" maxlength="4" name="BirthYear" tabindex="1" required=""></label><br>
+                    </fieldset>
+                  
                 <label>Gender</label>
                 <select class="select-style gender" tabindex="1" name="gender">
                 <option value="select"></option>
                 <option value="m">Male</option>
                 <option value="f">Female</option>
                 </select><br><br><br>
-                <p id="terms">By clicking Sign Me Up, you agree to our <a href="">Terms and Conditions</a> and have read our <a href="">Privacy Policy.</a></p>
+                <p id="terms">By clicking Sign Me Up, you agree to our <a href="/terms_and_agreement/">Terms and Conditions</a> and have read our <a href="/terms_and_agreement/">Privacy Policy.</a></p>
                 <input class="buttom" name="submit" id="registration_button" tabindex="1" value="Sign Me Up" tabindex="1" type="submit">    
                </form> 
             </div>      
@@ -180,7 +180,7 @@
               </ul>
 
               <div id="footer_copy">
-                <p>&copy; Copyright 2014 <span>Forfriends</span> All Right Reserved</p>
+                <p>&copy; Copyright 2014 <span>ForFriends</span> All Right Reserved</p>
               </div>              
             </div>   End Footer Navigation Menu -->
 

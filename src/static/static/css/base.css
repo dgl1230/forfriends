@@ -8,7 +8,12 @@ body{
 }
 .container{
 }
+.row{
+}
 
+.success{
+	text-align:center;
+}
 .btn-default, .btn .btn-default{
 	background-color: #d5d5d5!important;
 	color: #084c8d!important;
@@ -26,7 +31,7 @@ body{
 }
 
 .btn.btn-info.btn-sm:hover{
-	-webkit-transform: scale(1.05);
+	-webkit-transform: scale(1.05);	
   	transform: scale(1.05);
   	color: #084c8d!important;
 }
@@ -67,8 +72,8 @@ input::-moz-focus-inner{
 }
 
 h1{
-	text-transform: capitalize;
 	font-weight: 700;
+	text-transform: none!important;
 }
 
 input{
@@ -93,7 +98,6 @@ input{
 .col-lg-4 a{
 	color: black;
 	font-size: 1.2em;
-	text-transform: capitalize;
 }
 
 .col-lg-4 a:hover{
@@ -112,7 +116,6 @@ form {
 }
 
 #myfriend a{
-	text-transform: capitalize;
 	color: black;
 	font-size: 1.125em;
 }

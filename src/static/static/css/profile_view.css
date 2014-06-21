@@ -17,6 +17,7 @@
 .img-responsive{
 	width: 175px;
 	height: 200px;
+	margin-top:10px;
 }
 
 .tab-pane{
@@ -51,6 +52,14 @@
 .buttons{
 	margin-left: 1%;
 
+}
+
+.matching{
+	line-height: 1;
+}
+.col-sm-4{
+	height: 300px;
+	width: 200px;
 }
 #buttons_row{
 	margin-top: 5%;

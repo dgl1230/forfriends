@@ -12,16 +12,14 @@
      	<span class="glyphicon glyphicon-user" id="tertiary-icon"></span>
      	<a href="#">Sort by Match %</a>
 	</div>
-	</div>
 </div>
 <div class="container" id="find-friends-only">
-  <div class='col-lg-10 col-12'>
-<div class='col-lg-6 '>
+	  <div class='col-lg-10 col-12'>
 	<br>
 	<div class='row'>
 {% for match in matches %}
 	{% if not request.user == match.matched %}
-	<div class='col-lg-4'>
+	<div class='col-sm-4'>
 		{% for pic in match.matched.userpicture_set.all %}
 			
 			{% if forloop.first %}
@@ -44,7 +42,7 @@
 		</div>
 		</div>
 		{% endif %}
-		{% cycle '' '' '' '</div><div class="row">' %}
+		{% cycle '' '' '' '' %}
 {% endfor %}
 </div>
 </div>

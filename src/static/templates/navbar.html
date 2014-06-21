@@ -31,9 +31,11 @@
                 <li><a href='{% url "logout_user" %}'>Logout</a></li>
           </ul>
           {% else %}
-          <div class='navbar'>
-              <div class='navbar-inner'>
-                  <div class='container-fluid'>
+                      <ul class='nav navbar-nav pull-right'>
+                        <li class='profiles'>
+                          <a href="/">Back to ForFriends</a>
+                        </li>
+                      </ul>  
                   </div>
               </div>
           </div>

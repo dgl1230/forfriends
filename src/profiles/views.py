@@ -22,11 +22,10 @@ from visitors.models import Visitor
 '''Implements the 'add friend' button when viewing a user's profile
 If both users click this button on each other's profile, they can message'''
 def add_friend(request, username):
-	user_match, created = Match.objects.get_or_create(user=request.user, 
-								matched__username=username)
-	visited_match, created = Match.objects.get_or_create(user__username=username, 
-											matched=request.user)
+	user_match, created = Match.objects.get_or_create(user=request.user, matched__username=username)
+	visited_match, created = Match.objects.get_or_create(user__username=username, matched=request.user)
 	user_match.approved = True
+	user_match.instance.user = request.user 
 	user_match.save()
 	if (user_match.approved == True and visited_match.approved == True):
 		messages.success(request, "%s also is interested in being your friend - You can now message each other!" %username)
