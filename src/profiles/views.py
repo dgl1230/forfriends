@@ -17,6 +17,7 @@ from .models import Address, Job, Info, UserPicture
 from .forms import AddressForm, InfoForm, JobForm, UserPictureForm
 from interests.models import UserInterestAnswer
 from visitors.models import Visitor
+from directmessages.models import DirectMessage
 
 
 '''Implements the 'add friend' button when viewing a user's profile
@@ -337,6 +338,16 @@ def all_visitors(request):
 
 def terms_and_agreement(request): 
 	return render_to_response('terms.html', locals(), context_instance=RequestContext(request))
+
+
+def delete_account(request):
+	username = request.user.username
+	deleted_user = User.objects.get(username=username)
+	logout(request)
+	deleted_user.delete()
+	messages.success(request, "Your account has been deleted. We'll miss you!")
+	return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+
 
 
 
