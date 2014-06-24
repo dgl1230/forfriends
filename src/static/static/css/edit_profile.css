@@ -93,8 +93,13 @@ p label{
 #mytab li a{
 	color: #084c8d;
 	outline: none;
-	width: 110px;
+	width: 120px;
 	text-align:center;
+	font-size: 12px;
+}
+
+#delete_account{
+	font-size: 8px!important;
 }
 
 p a{

@@ -128,7 +128,6 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 }
 
 a.dropdown-toggle{
-	text-transform: capitalize;
 }
 
 @media only screen and (min-width:1100px){

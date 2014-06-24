@@ -12,7 +12,6 @@ $('#myTab a').click(function (e) {
 <div class="row">
   <div class="col-md-1" id="secondary_navbar">
         <h1>Edit Profile</h1>
-        <h2><a href='{% url "delete_account" %}'>Delete Account</a></h2>
   </div>
 </div>
 
@@ -33,6 +32,7 @@ $('#myTab a').click(function (e) {
     <li><a href="#jobs" data-toggle="tab">Occupation</a></li>
     <li><a href="#locations" data-toggle="tab">Location</a></li>
     <li><a href="#info" data-toggle="tab">Info</a></li>
+    <li><a href="#delete_account" data-toggle="tab">Delete Account</a></li>
   </ul>
   <br>
   <div class="tab-content">
@@ -84,6 +84,12 @@ $('#myTab a').click(function (e) {
             {{ formset_i.as_p }}
         <input class='btn btn-success' type='submit' value='Update' />
         </form>
+      </div>
+      </div>
+    <div class="tab-pane" id="delete_account">
+      <div class='row'>
+        <div class='col-lg-12'>
+           <h2><a href='{% url "delete_account" %}'>Delete Account</a></h2>
       </div>
     </div>
     </div>
