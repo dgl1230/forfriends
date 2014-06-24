@@ -14,7 +14,7 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 	background-color:#D5D5D5;
 	border-bottom: none;
 	border-top:#d5d5e5 5px solid;
-	min-width: 150px!important;
+	min-width: 280px!important;
 }
 
 #go_button:hover{
@@ -140,8 +140,9 @@ a.dropdown-toggle{
 
 #secondary_navbar{
 	background-color: #fff;
-	min-width: 480px;
+	min-width: 280px;
 	padding-top: 5px;
+	margin-left: 80px;
 }
 #secondary_navbar a, #secondary_navbar h1{
 	color: #084c8d;
@@ -191,7 +192,8 @@ a.dropdown-toggle{
 	text-align: center;
 	padding-top: 5px;
 	padding-bottom:5px;
-	min-width: 480px;
+	min-width: 280px;
+	margin-left: 80px;
 }
 
 #tertiary_navbar a{
@@ -214,17 +216,11 @@ a.dropdown-toggle{
 	#navbar-container{
 		margin-left: 0px!important;
 	}
-	#secondary_navbar{
-		margin-left: 62px;
-	}
-	#tertiary_navbar{
-		margin-left: 62px;
-	}
 }
 
 @media (min-width: 1200px){
 	.form-control{
-	width: 400px!important;
+	width: 200px!important;
 	}
 }
 

@@ -1,4 +1,4 @@
-<head><link href="/static/css/friends.css" rel="stylesheet"></head>
+<head><link href="/static/css/profile_view.css" rel="stylesheet"></head>
 
 {% extends "base.html" %}
 
@@ -6,7 +6,7 @@
 {% block content %}
 <div class="row">
 	<div class="col-md-1" id="secondary_navbar">
-        <h1>Users</h1>
+        <h1>Members</h1>
 	</div>
 	<div class="col-md-1" id="tertiary_navbar">
      	<a href="#">Sort by Match %</a>
@@ -15,14 +15,22 @@
 </div>
 <h3>{{ query }}</h3>
 <br/>
-<div class="container">
+<div class="container" id="home-only">
   <div class='col-lg-10 col-12'>
+{% if messages %}
+<div class='row'>
+                <ul class="messages">
+                  {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                  {% endfor %}
+                </ul>
+</div>
+{% endif %}
 
-<ol>
+<div class="row">
 {% for user in results %}
-<div id="myfriend">
 	{% if not request.user == user %}
-	<div class='col-md-4'>
+	<div class='col-sm-4'>
 	<a href='/members/{{ user.username}}'>
 		{% for pic in user.userpicture_set.all %}
 			
@@ -45,10 +53,11 @@
 			</div>
 		<br/>
 		</div>
-		</div>
+		
 		{% endif %}
-		{% cycle '' '' '' '</div><div class="row">' %}
+		{% cycle '' '' '' '' %}
 {% endfor %}
+</div>
 </div>
 </div>
 

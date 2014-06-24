@@ -1,5 +1,5 @@
 .col-12{
-	min-width: 400px;
+	min-width: 100px;
 }
 .nav-tabs {
 	background-color: #333;
@@ -105,10 +105,18 @@
 .buttons{
 	margin-top: 5%;
 }
+
+#home-only{
+	width: 100%;
+	margin-left: 80px;
+}
+#secondary-navbar{
+	margin-left: 80px;
+}
+
+}
 @media(min-width: 1500px){
-.container{
-		margin-left: 12.5%!important;
-	}
+
 }
 
 @media(max-width: 1000px){
@@ -122,4 +130,21 @@
 	font-size: .9em;
 	width: 110px;
 	}
+}
+
+@media(max-width: 480px){
+	#myfriend{
+	width: 100px!important;
+	height: 100px!important;
+	}
+}	
+
+
+@media (max-width: 770px){
+	#secondary_navbar h1{
+		float:left!important;
+		margin-left: 25px;
+		width: 175px;
+	}
+
 }

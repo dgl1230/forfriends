@@ -4,13 +4,15 @@
 
 
 {% block content %}
+
 <div class="row">
 	<div class="col-md-1" id="secondary_navbar">
-        <h1>Users</h1>
+        <h1>Members</h1>
 	</div>
 	<div class="col-md-1" id="tertiary_navbar">
 	</div>
 </div>
+
 <div class="container" id="home-only">
   <div class='col-lg-10 col-12'>
 {% if messages %}
@@ -22,6 +24,7 @@
                 </ul>
 </div>
 {% endif %}
+
 <br/>
 	<div class='row'>
 {% for match in matches %}

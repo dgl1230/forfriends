@@ -13,25 +13,34 @@
      	<a href="#">Sort by Match %</a>
 	</div>
 </div>
-<div class="container" id="find-friends-only">
-	  <div class='col-lg-10 col-12'>
-	<br>
+<div class="container" id="home-only">
+  <div class='col-lg-10 col-12'>
+{% if messages %}
+<div class='row'>
+                <ul class="messages">
+                  {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                  {% endfor %}
+                </ul>
+</div>
+{% endif %}
+
+<br/>
 	<div class='row'>
 {% for match in matches %}
 	{% if not request.user == match.matched %}
 	<div class='col-sm-4'>
-		{% for pic in match.matched.userpicture_set.all %}
+			{% for pic in match.matched.userpicture_set.all %}
+				{% if forloop.first %}
+					<a href='/members/{{ match.matched.username}}'><img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive'/></a>
+				{% endif %}
+			{% endfor %}
+				{% if not match.matched.userpicture_set.all %}
+					<a href='/members/{{ match.matched.username}}'><img src='{{ STATIC_URL }}img/avatar.png' class='img-responsive' /></a>
+				{% endif %}
 			
-			{% if forloop.first %}
-			<a href='/members/{{ match.matched.username}}'><img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' /></a>
-			{% endif %}
-		{% endfor %}
-		{% if not match.matched.userpicture_set.all %}
-			<a href='/members/{{ match.matched.username}}'><img src='{{ STATIC_URL }}img/avatar.png' class='img-responsive' /></a>
-		{% endif %}
-			
-		{{ match.matched.username }}
-		</a> <br/>
+				{{ match.matched.username }}
+			</a> <br/>
 		{% for item in match.matched.address_set.all %} 
 			{% if forloop.first %} {{ item }}
 			{% endif %} 
@@ -44,7 +53,6 @@
 		{% endif %}
 		{% cycle '' '' '' '' %}
 {% endfor %}
-</div>
 </div>
 </div>
 </div>

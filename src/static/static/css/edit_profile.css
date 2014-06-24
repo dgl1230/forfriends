@@ -93,6 +93,8 @@ p label{
 #mytab li a{
 	color: #084c8d;
 	outline: none;
+	width: 110px;
+	text-align:center;
 }
 
 p a{
@@ -101,4 +103,15 @@ p a{
 
 .container{
 	margin-left: 12%!important;
+}
+
+@media (max-width: 570px){
+#edit_profile_container{
+	margin-left: 20%!important;
+}
+
+@media (max-width: 570px){
+	#edit_profile_container{
+		margin-left: 25%!important;
+	}
 }
