@@ -13,7 +13,6 @@ def create_interest(request):
 	form = InterestForm(request.POST or None)
 	if form.is_valid():
 		interest = form.save(commit=False)
-		interest.user = request.user
 		interest.save()
 		messages.success(request, 'Interest Created')
 		return HttpResponseRedirect('/interests/')
@@ -24,7 +23,7 @@ def create_interest(request):
 
 
 def all_interests(request):
-	interests_all = Interest.objects.exclude(userinterestanswer__user=request.user).filter(approved=True)
+	interests_all = Interest.objects.exclude(userinterestanswer__user=request.user).filter(approved=True).order_by('?')
 	paginator = Paginator(interests_all, 1)
 	importance_levels = ['Strongly Like', 'Like', 'Neutral', 'Dislike', 'Strongly Dislike']
 

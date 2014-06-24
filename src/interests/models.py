@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 
 
 class Interest(models.Model):
-	user = models.ForeignKey(User)
 	description = models.CharField(max_length=200)
 	interest = models.CharField(max_length=120)
 	approved = models.BooleanField(default=False)

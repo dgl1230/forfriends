@@ -17,15 +17,15 @@ from .models import Address, Job, Info, UserPicture
 from .forms import AddressForm, InfoForm, JobForm, UserPictureForm
 from interests.models import UserInterestAnswer
 from visitors.models import Visitor
+from directmessages.models import DirectMessage
 
 
 '''Implements the 'add friend' button when viewing a user's profile
 If both users click this button on each other's profile, they can message'''
 def add_friend(request, username):
-	user_match, created = Match.objects.get_or_create(user=request.user, 
-								matched__username=username)
-	visited_match, created = Match.objects.get_or_create(user__username=username, 
-											matched=request.user)
+	user_match, created = Match.objects.get_or_create(user=request.user, matched__username=username)
+	visited_user = User.objects.get(username=username)
+	visited_match, created = Match.objects.get_or_create(user=visited_user, matched=request.user)
 	user_match.approved = True
 	user_match.save()
 	if (user_match.approved == True and visited_match.approved == True):
@@ -90,7 +90,7 @@ def edit_info(request):
 		if formset_i.is_valid():
 			for form in formset_i:
 				new_form = form.save(commit=False)
-				#new_form.user = request.user
+				new_form.user = request.user
 				new_form.save()
 			messages.success(request, 'Profile details updated.')
 		else:
@@ -113,7 +113,7 @@ def edit_jobs(request):
 		if formset_j.is_valid():
 			for form in formset_j:
 				new_form = form.save(commit=False)
-				#new_form.user = request.user
+				new_form.user = request.user
 				new_form.save()
 			messages.success(request, 'Profile details updated.')
 		else:
@@ -156,7 +156,7 @@ def edit_profile(request):
 		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=0)
 		formset_p = PictureFormSet(queryset=pictures)
 	else:
-		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=4)
+		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=1)
 		formset_p = PictureFormSet(queryset=pictures)
 
 	if addresses.exists():
@@ -338,6 +338,16 @@ def all_visitors(request):
 
 def terms_and_agreement(request): 
 	return render_to_response('terms.html', locals(), context_instance=RequestContext(request))
+
+
+def delete_account(request):
+	username = request.user.username
+	deleted_user = User.objects.get(username=username)
+	logout(request)
+	deleted_user.delete()
+	messages.success(request, "Your account has been deleted. We'll miss you!")
+	return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+
 
 
 
