@@ -21,9 +21,11 @@ ul li, li, li a, h5, h3{
   overflow-y: auto;
   z-index: 1000;
   transition: all 0.4s ease 0s;
-
 }
 
+#sidebar_row{
+  margin-left: -15px;
+}
 span.glyphicon{
   padding-bottom: 0px!important;
 }
@@ -272,4 +274,8 @@ span.glyphicon{
   font-size: .9em;
   padding-bottom: .85em;
   padding-top: 1em;
+}
+  .sidebar-nav{
+    margin-top: 0px!important;
+  }
 }
