@@ -185,6 +185,9 @@ a.dropdown-toggle{
 	letter-spacing: 12px;
 }
 
+.nav > li{
+	display:inline-block;
+}
 #tertiary_navbar{
 	background-color: #fff;
 	width: 100%!important;
@@ -205,6 +208,11 @@ a.dropdown-toggle{
 	color: #084c8d;
 }
 
+form.navbar-form.navbar-left{
+	border-top: none!important;
+	border-bottom:none!important;
+
+}
 @media (max-width: 1000px) {
 	#tertiary_navbar{
 		margin-top: -10px;
@@ -232,5 +240,13 @@ a.dropdown-toggle{
 	 	transition: all 500ms ease;
 	 	font-size: 1em;
 	 	margin-left: -90px!important;
+	}
+}
+
+@media (max-width: 770px){
+	.navbar-fixed-top{
+		opacity: 1;
+		margin: 0 auto;
+		width: 100%;
 	}
 }
