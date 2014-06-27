@@ -61,7 +61,7 @@ INSTALLED_APPS = (
     'matches',
     'questions',
     'visitors',
-    #'storages',
+    'storages',
 )
 
 TEMPLATE_DIRS = (
