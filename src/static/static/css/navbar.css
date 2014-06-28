@@ -250,3 +250,9 @@ form.navbar-form.navbar-left{
 		width: 100%;
 	}
 }
+
+@media(min-width: 998px){
+	.pull-right{
+		margin-right:20%;
+	}
+}

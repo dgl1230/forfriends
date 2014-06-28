@@ -114,6 +114,9 @@
 	margin-left: 80px;
 }
 
+#single_user_container{
+	margin-left:80px;
+}
 }
 @media(min-width: 1500px){
 
@@ -147,4 +150,12 @@
 		width: 175px;
 	}
 
+}
+
+#single_user_body{
+	margin-bottom:10%;
+}
+
+.panel-default{
+	min-width:115px;
 }

@@ -29,9 +29,9 @@ html, ul, ul li, li, li a, a, p, .btn{
 #pictures_appear{
 	/* Border Radius */
 
-	-webkit-border-radius: 15px;
-	-moz-border-radius: 15px;
-	border-radius: 15px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
 	/* shadow */
 	-webkit-box-shadow: 1px 2px 2px rbga(0,0,0,0.6);
 	-moz-box-shadow: 1px 2px 2px rbga(0,0,0,0.6);
@@ -106,17 +106,6 @@ p a{
 	color:black;
 }
 
-.container{
-	margin-left: 12%!important;
-}
-
-@media (max-width: 570px){
 #edit_profile_container{
-	margin-left: 20%!important;
-}
-
-@media (max-width: 570px){
-	#edit_profile_container{
-		margin-left: 25%!important;
-	}
+	margin-left:80px;
 }

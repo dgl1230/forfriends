@@ -86,9 +86,12 @@ $('#myTab a').click(function (e) {
         </form>
       </div>
       </div>
+    </div>
     <div class="tab-pane" id="delete_account">
       <div class='row'>
         <div class='col-lg-12'>
+          <form method='POST' action='/edit/delete_account/'>
+          </form>
            <h2><a href='{% url "delete_account" %}'>Delete Account</a></h2>
       </div>
     </div>
