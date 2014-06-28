@@ -35,7 +35,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 SECRET_KEY = os.environ["FORFRIENDS_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
 TEMPLATE_DEBUG = True
@@ -61,7 +61,7 @@ INSTALLED_APPS = (
     'matches',
     'questions',
     'visitors',
-    'storages',
+    #'storages',
 )
 
 TEMPLATE_DIRS = (
@@ -151,7 +151,7 @@ DATABASES['default'] =  dj_database_url.config()
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-# Allow all host headers
+# Allow all host headers, this needs to be more secure soon 
 ALLOWED_HOSTS = ['*']
 
 
