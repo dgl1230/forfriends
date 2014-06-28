@@ -4,16 +4,21 @@
 
 #interests-wrapper{
 	text-align: center;
-	min-width: 480px;
+	min-width: 240px;
+	margin-left:80px!important;
 }
 
+#margin_wrapper{
+	margin-left:80px;
+}
 #question-wrapper{
 	text-align: center;
-	min-width: 480px;
+	margin-left:240px;
+	min-width:80px;
 }
 
 #main_interests{	
-	min-width: 300px;
+	min-width: 240px;
 	text-align: center;
 }
 

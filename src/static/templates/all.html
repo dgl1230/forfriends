@@ -26,6 +26,7 @@
 {% endif %}
 
 <br/>
+	
 	<div class='row'>
 {% for match in matches %}
 	{% if not request.user == match.matched %}
@@ -53,9 +54,13 @@
 		{% endif %}
 		{% cycle '' '' '' '' %}
 {% endfor %}
+
 </div>
-</div>
+<div class="scroll">
+		<a href='/sort/'>Sort</a>
+	</div>
 </div>
 <script src="/static/js/profile_view.js"></script>
 
+</div>
 {% endblock %}

@@ -25,6 +25,7 @@ ul li, li, li a, h5, h3{
 
 #sidebar_row{
   margin-left: -15px;
+  width: 90%;
 }
 span.glyphicon{
   padding-bottom: 0px!important;
