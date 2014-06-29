@@ -6,8 +6,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Friends List</title>
 
-<link rel="stylesheet" type="text/css" href="static/css/friends.css">
-<link rel="stylesheet" type="text/css" href="static/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/friends.css">
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css">
 <link rel="stylesheet" href="static/css/sidebar.css">
 
 </head>
@@ -51,7 +51,7 @@
 
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
   <script type="text/javascript" src="registration.js"></script>
-  <script src="static/js/bootstrap.js" type="text/javascript"></script>
+  <script src="{{ STATIC_URL }}js/bootstrap.js" type="text/javascript"></script>
   {% endblock %}
 </body>
 </html>
