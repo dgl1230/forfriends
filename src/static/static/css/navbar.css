@@ -60,26 +60,17 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 
 .navbar a:hover{
 	text-shadow: 
-  -1px -1px 0 white, 
-   1px -1px 0 white,
-  -1px  1px 0 white,
-   1px  1px 0 white;
+  -1.5px -1.5px 0 white, 
+   1.5px -1.5px 0 white,
+  -1.5px -1.5px 0 white,
+   1.5px  1.5px 0 white;
 
 }
 
 .visitors a{
 	text-decoration: none;
-	-webkit-transition: all 500ms ease;
-  	-moz-transition: all 500ms ease;
-  	-o-transition: all 500ms ease;
-  	transition: all 500ms ease;
 }
 .profiles a{
-	text-decoration: none;
-	-webkit-transition: all 500ms ease;
-  	-moz-transition: all 500ms ease;
-  	-o-transition: all 500ms ease;
-  	transition: all 500ms ease;
 
 }
 .dropdown-menu{
@@ -256,3 +247,14 @@ form.navbar-form.navbar-left{
 		margin-right:20%;
 	}
 }
+
+@media (max-width: 767px){
+	.pull-right{
+		margin-left:0px;
+		width:100%;
+	}
+	#navbar-container{
+	margin-left:0px;
+}
+}
+
