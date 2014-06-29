@@ -5,28 +5,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="ForFriends" content="">
     <link rel="icon" href="http://www.logomaker.com/logo-images/0766a28f4ca4192e.gif">
 
     <title>ForFriends{% block title %}{% endblock %}</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> 
     <!-- Jquery -->
     <script src="/static/js/jquery-1.9.1.min.js" type="text/javascript"></script>
     <script src="/static/js/jquery-ui-1.10.4.custom.min.js"></script>
+    <!-- Jquery Unused
     <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.12.1/TweenMax.min.js"></script>
     <script src="/static/js/scrollmagic/jquery.scrollmagic.min.js"> </script>
     <script src="/static/js/scrollmagic/scrollanimation.js"> </script>
-    <script src="/static/js/scrollmagic/jquery.jscroll.min.js"> </script>
+    <script src="/static/js/scrollmagic/jquery.jscroll.min.js"> </script> -->
     <!-- Custom styles for this template -->
-    <link href="/static/css/jumbotron.css" rel="stylesheet">
     <link href="/static/css/navbar.css" rel="stylesheet">
     <link href="/static/css/base.css" rel="stylesheet">
-    <link href="/static/css/jquery-ui-1.10.4.custom.css" rel="stylesheet">
+   
 
     <!-- Google Font Sans Serif -->
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:600,400,700,800' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:600,400,700' rel='stylesheet'>
     <link href='http://fonts.googleapis.com/css?family=Gentium+Basic:400,700,400italic' rel='stylesheet' type='text/css'>
 
     <!-- Glyphicons -->
@@ -47,11 +47,6 @@
 
     {% include 'navbar.html' %}
     {% include 'sidebar.html' %}
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    {% block jumbotron %}
-    
-    {% endblock %}
- 
 {% block content %} {% endblock %}
         </div>
       <hr>
@@ -74,7 +69,7 @@
   ga('send', 'pageview');
     </script>
 
-    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js">></script>
     <script>
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
