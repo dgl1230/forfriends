@@ -173,7 +173,7 @@ if not DEBUG:
 
     S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
     STATIC_URL = S3_URL + '/static/'
-    MEDIA_URL = S3_URL = '/media/'
+    MEDIA_URL = S3_URL + '/media/'
     ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
     
