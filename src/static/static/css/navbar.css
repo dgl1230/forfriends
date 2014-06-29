@@ -199,6 +199,10 @@ a.dropdown-toggle{
 	color: #084c8d;
 }
 
+.form-control{
+	display:inline;
+	width:80%;
+}
 form.navbar-form.navbar-left{
 	border-top: none!important;
 	border-bottom:none!important;
@@ -220,6 +224,7 @@ form.navbar-form.navbar-left{
 	.form-control{
 	width: 200px!important;
 	}
+
 }
 
 @media (max-width: 480px){
@@ -230,7 +235,7 @@ form.navbar-form.navbar-left{
 	 	-o-transition: all 500ms ease;
 	 	transition: all 500ms ease;
 	 	font-size: 1em;
-	 	margin-left: -90px!important;
+	 	margin-left: 0px!important;
 	}
 }
 
