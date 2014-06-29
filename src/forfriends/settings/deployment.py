@@ -35,7 +35,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 SECRET_KEY = os.environ["FORFRIENDS_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
 TEMPLATE_DEBUG = True
@@ -172,7 +172,8 @@ if not DEBUG:
     AWS_PRELOAD_METADATA = True 
 
     S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
-    STATIC_URL = S3_URL
+    STATIC_URL = S3_URL + '/static/'
+    MEDIA_URL = S3_URL = '/media/'
     ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
     
