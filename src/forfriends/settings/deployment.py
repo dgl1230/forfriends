@@ -37,6 +37,10 @@ SECRET_KEY = os.environ["FORFRIENDS_KEY"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+#Local Environment to switch between using static_url or media_url depending on if we're developing locally
+# Stands for currently developing locally
+CDL = os.environ["CDL"]
+
 
 TEMPLATE_DEBUG = True
 
