@@ -25,11 +25,11 @@
 			<h1>{% if single_user.first_name %} {{ single_user.first_name }} {% else %} {{ single_user }} {% endif %}</h1>
 			{% for pic in single_user.userpicture_set.all %}
 				{% if forloop.first %}
-					<img src='{% if DEBUG == 'True' %}{{ MEDIA_URL }}{% else %}{{ STATIC_URL }}{{ pic }}' class='img-responsive' id="myfriend"/>
+					<img src='{% if CDL == 'True' %}{{ MEDIA_URL }}{% else %}{{ STATIC_URL }}{% endif %}{{ pic }}' class='img-responsive' id="myfriend"/>
 				{% endif %}
 			{% endfor %}
 			{% if not single_user.userpicture_set.all %}
-				<img src='{% if DEBUG == 'True' %}{{ MEDIA_URL }}{% else %}{{ STATIC_URL }}img/avatar.png' class='img-responsive' />
+				<img src='{% if CDL == 'True' %}{{ MEDIA_URL }}{% else %}{{ STATIC_URL }}{% endif %}img/avatar.png' class='img-responsive' />
 			{% endif %}
 		</div>
 
