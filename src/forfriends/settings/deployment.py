@@ -61,7 +61,7 @@ INSTALLED_APPS = (
     'matches',
     'questions',
     'visitors',
-    #'storages',
+    'storages',
 )
 
 TEMPLATE_DIRS = (
@@ -158,7 +158,7 @@ ALLOWED_HOSTS = ['*']
 #STATIC_ROOT = 'staticfiles'
 
 if not DEBUG:
-    INSTALLED_APPS += ('storages',)
+    
     AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
     AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
     AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
