@@ -51,16 +51,19 @@
 		<br/>
 		</div>
 		</div>
+		
+
 		{% endif %}
 		{% cycle '' '' '' '' %}
 {% endfor %}
 
+
 </div>
-<div class="scroll">
-		<a href='{{ STATIC_URL }}templates/profiles/users.html'>Sort</a>
-	</div>
+
 </div>
 <script src="/static/js/profile_view.js"></script>
-
+<script>
+	$('scroll').jscroll();
+</script>
 </div>
 {% endblock %}

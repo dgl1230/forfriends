@@ -26,7 +26,7 @@
 	
 	<br/>
 	<br/>
-			<div class="main_interests">
+			<div class="main_interests" style="margin-left:80px">
 			<div class="interests-title">
 			{% for interest in interests %}
 				<h3>{{ interest.interest|title }}</h3><p>
@@ -38,6 +38,7 @@
 					{% if forloop.first %}
 					<div class="img-container">
 						<img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' />
+						<br>
 					</div>
 					{% endif %}
 
