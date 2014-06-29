@@ -8,26 +8,7 @@ footer p a:hover{
 	color: #333;
 	}
 
-@media all and (min-width: 700px){
-	footer{
-		margin-left:100px;
-	}
+footer{
+	margin-left:80px;
 }
 
-@media all and (min-width: 1000px){
-	footer{
-		margin-left:300px;
-	}
-}
-
-@media all and (min-width: 1400px){
-	footer{
-		margin-left:400px;
-	}
-}
-
-@media all and (min-width: 2200px){
-	footer{
-		margin-left:600px;
-	}
-}

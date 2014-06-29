@@ -179,9 +179,13 @@ a.dropdown-toggle{
 .nav > li{
 	display:inline-block;
 }
+
+.dropdown-toggle{
+	font-weight:700;
+}
 #tertiary_navbar{
 	background-color: #fff;
-	width: 100%!important;
+	width: 100%;
 	text-align: center;
 	padding-top: 5px;
 	padding-bottom:5px;

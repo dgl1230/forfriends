@@ -36,6 +36,10 @@
 	width: 100%;
 }
 
+#bio_panel{
+	height:150px;
+}
+
 .row .col-sm-12{
 	width: 60%;
 }
@@ -143,12 +147,18 @@
 }	
 
 
-@media (max-width: 770px){
-	#secondary_navbar h1{
-		margin-left: 25px;
-		width: 175px;
+@media (max-width: 768px){
+	#secondary_navbar{
+		width:200px;
+	}
+	#tertiary_navbar{
+		width:200px!important;
 	}
 
+@media(min-width: 1200px){
+	.panel-default{ 
+		width:700px;
+	}
 }
 
 #single_user_body{

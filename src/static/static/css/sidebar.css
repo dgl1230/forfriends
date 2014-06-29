@@ -194,11 +194,6 @@ span.glyphicon{
   margin-left: 15%;
 }
 
-@media (max-width: 1000px) {
-  .footer-container{
-    margin-left: 20%;
-  }
-} 
 
 @media (max-width:800px) {
   #leftbar-wrapper .sidebar-nav a{
