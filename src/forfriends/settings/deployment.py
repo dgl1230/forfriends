@@ -37,10 +37,6 @@ SECRET_KEY = os.environ["FORFRIENDS_KEY"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-#Local Environment to switch between using static_url or media_url depending on if we're developing locally
-# Stands for currently developing locally
-CDL = os.environ["CDL"]
-
 
 TEMPLATE_DEBUG = True
 
@@ -65,7 +61,7 @@ INSTALLED_APPS = (
     'matches',
     'questions',
     'visitors',
-    #'storages',
+    'storages',
 )
 
 TEMPLATE_DIRS = (
@@ -167,15 +163,16 @@ if not DEBUG:
     AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
     AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
 
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-    STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-    AWS_PRELOAD_METADATA = True 
+    #DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    #STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
-    #STATIC_URL = 'http://s3.amazonaws.com/%s' % AWS_STORAGE_BUCKET_NAME + '/'
+    DEFAULT_FILE_STORAGE = 'forfriends.s3utils.MediaRootS3BotoStorage'
+    STATICFILES_STORAGE = 'forfriends.s3utils.StaticRootS3BotoStorage'
+
+    AWS_PRELOAD_METADATA = True 
 
     S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
     STATIC_URL = S3_URL
-    #MEDIA_URL = S3_URL 
     ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
     
