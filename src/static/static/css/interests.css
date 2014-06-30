@@ -7,7 +7,10 @@
 	min-width: 240px;
 	margin-left:80px!important;
 }
-
+#big_wrapper{
+	margin-left: -80px;
+	width: 99%;
+}
 #margin_wrapper{
 	margin-left:80px;
 }
@@ -165,9 +168,6 @@ input + input {
 }
 
 @media only screen and (min-width:975px){
-	.contain{
-		margin-left: 10%;
-	}
 	.footer-container{
 		margin-left: 20%;
 	}
@@ -178,9 +178,3 @@ input + input {
 		margin-top:30%;
 	}
 }
-
-/*@media only screen and (min-width:500px){
-	#interests-wrapper, #interests-wrapper{
-		margin-left: 120px!important;
-	}
-} */

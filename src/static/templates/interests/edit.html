@@ -2,7 +2,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="row">
+<div id="big_wrapper">
+<div class="row" id="margin_wrapper">
 	<div class="col-md-1" id="secondary_navbar">
         <h1>Edit Interests</h1>
 	</div>
@@ -12,8 +13,8 @@
      	<a href="/interests/">Interests Home</a>
 	</div>
 </div>
-<div class='row' id="interests-wrapper">
-  <div class='col-lg-10 col-12'>
+<div class='row'>
+  <div class='col-lg-10 col-12' id="interests-wrapper">
 {% if messages %}
 <div class='row'>
                 <ul class="messages">
@@ -81,6 +82,7 @@
 		</div>
 	</div>
 	</div>
+</div>
 </div>
 </div>
 {% endblock %}

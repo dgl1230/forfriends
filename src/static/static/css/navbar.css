@@ -4,9 +4,17 @@
 button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:focus{
 	background-color: #084c8d!important;
 	border-color:#084c8d!important;
-
 }
 
+.dropdown-menu{
+	min-width:100px;
+	width:100px;
+}
+.dropdown-toggle{
+	width:100px;
+	text-align:center;
+	
+}
 .navbar-fixed-top:hover{
 	opacity: 1;
 }
