@@ -30,7 +30,7 @@
 	<div class='col-sm-4'>
 			{% for pic in match.matched.userpicture_set.all %}
 				{% if forloop.first %}
-					<a href='/members/{{ match.matched.username}}'><img src='{{ STATIC_URL }}{{ pic }}' class='img-responsive'/></a>
+					<a href='/members/{{ match.matched.username}}'><img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive'/></a>
 				{% endif %}
 			{% endfor %}
 				{% if not match.matched.userpicture_set.all %}
