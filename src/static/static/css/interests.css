@@ -49,7 +49,12 @@
 .previous{
 	float: left;
 }
-
+.previous a{
+	width:120px;
+}
+.next a{
+	width:120px;
+}
 .next{
 	float: right;
 }
