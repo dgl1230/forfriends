@@ -2,6 +2,6 @@
 
 
 try:
-	from .local import *
+	from .deployment import *
 except Exception: 
 	pass
