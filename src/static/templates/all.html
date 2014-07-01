@@ -1,6 +1,7 @@
-<link rel="stylesheet" href="/static/css/profile_view.css">
-<link rel="stylesheet" href="/static/css/profile_home.css">
 {% extends 'base.html' %}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/profile_view.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}css/profile_home.css">
+
 
 
 {% block content %}
@@ -61,9 +62,11 @@
 </div>
 
 </div>
-<script src="/static/js/profile_view.js"></script>
 <script>
 	$('scroll').jscroll();
 </script>
 </div>
+=======
+<script src="{{ STATIC_URL }}js/profile_view.js"></script>
+
 {% endblock %}

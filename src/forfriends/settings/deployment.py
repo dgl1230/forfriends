@@ -9,6 +9,9 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 import os
 
+
+#from storages.backends.s3boto import S3BotoStorage
+
 EMAIL_USE_TLS = False
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = os.environ["EMAIL_HOST_USER"]
@@ -32,7 +35,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 SECRET_KEY = os.environ["FORFRIENDS_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+
 
 TEMPLATE_DEBUG = True
 
@@ -57,6 +61,7 @@ INSTALLED_APPS = (
     'matches',
     'questions',
     'visitors',
+    'storages',
 )
 
 TEMPLATE_DIRS = (
@@ -146,21 +151,30 @@ DATABASES['default'] =  dj_database_url.config()
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-# Allow all host headers
+# Allow all host headers, this needs to be more secure soon 
 ALLOWED_HOSTS = ['*']
 
 
 #STATIC_ROOT = 'staticfiles'
 
 if not DEBUG:
-    INSTALLED_APPS += ('storages',)
+    
     AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
     AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
     AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
 
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-    STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    #DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    #STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
-    STATIC_URL = 'http://s3.amazonaws.com/%s' % AWS_STORAGE_BUCKET_NAME + '/'
+    DEFAULT_FILE_STORAGE = 'forfriends.s3utils.MediaRootS3BotoStorage'
+    STATICFILES_STORAGE = 'forfriends.s3utils.StaticRootS3BotoStorage'
+
+    AWS_PRELOAD_METADATA = True 
+
+    S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+    STATIC_URL = S3_URL + 'static/'
+    MEDIA_URL = S3_URL + 'media/'
+    ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
+
     
 

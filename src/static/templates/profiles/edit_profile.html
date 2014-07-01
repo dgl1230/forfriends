@@ -1,5 +1,7 @@
-<link href="/static/css/edit_profile.css" rel="stylesheet">
 {% extends 'base.html' %}
+
+<link href="{{ STATIC_URL }}css/edit_profile.css" rel="stylesheet">
+
 
 {% block jquery %}
 $('#myTab a').click(function (e) {
@@ -101,11 +103,7 @@ $('#myTab a').click(function (e) {
 </div>
 </div>
 
-<script>
-$("#pictures_appear").click(function(){
-  $("#more_pictures_appear").toggle()
-});
-</script>
+
 
 
 

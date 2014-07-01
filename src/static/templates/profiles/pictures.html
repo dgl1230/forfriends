@@ -1,10 +1,10 @@
-
-<head>
-<script src="/static/js/jquery-1.9.1.min.js" type="text/javascript"></script>
-<link href="/static/css/owl.carousel.css" rel="stylesheet">
-<link href="/static/css/pictures.css" rel="stylesheet">
-</head>
 {% extends 'base.html' %}
+<head>
+<script src="{{ STATIC_URL }}js/jquery-1.9.1.min.js" type="text/javascript"></script>
+<link href="{{ STATIC_URL }}css/owl.carousel.css" rel="stylesheet">
+<link href="{{ STATIC_URL }}css/pictures.css" rel="stylesheet">
+</head>
+
 {% block content %}
 <div class="row">
   <div class="col-md-1" id="secondary_navbar">
@@ -22,7 +22,7 @@
 <div class="container">
   <div class="row">
       {% for pic in pictures %}
-      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="{{ pic.caption }}"><img src=" {{ MEDIA_URL }}{{ pic }}" class="thumbnail img-responsive"></a></div>
+      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="{{ pic.caption }}"><img src=" {{ STATIC_URL }}{{ pic }}" class="thumbnail img-responsive"></a></div>
       </div>
     {% endfor %}
   </div>

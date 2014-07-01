@@ -13,17 +13,22 @@
     <!-- Bootstrap core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> 
     <!-- Jquery -->
-    <script src="/static/js/jquery-1.9.1.min.js" type="text/javascript"></script>
-    <script src="/static/js/jquery-ui-1.10.4.custom.min.js"></script>
-    <!-- Jquery Unused
+        <script src="{{ STATIC_URL }}js/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/jquery-ui-1.10.4.custom.min.js"></script>
+    <!-- Jquery Unused 
     <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.12.1/TweenMax.min.js"></script>
     <script src="/static/js/scrollmagic/jquery.scrollmagic.min.js"> </script>
     <script src="/static/js/scrollmagic/scrollanimation.js"> </script>
     <script src="/static/js/scrollmagic/jquery.jscroll.min.js"> </script> -->
     <!-- Custom styles for this template -->
-    <link href="/static/css/navbar.css" rel="stylesheet">
-    <link href="/static/css/base.css" rel="stylesheet">
-   
+
+
+    <!-- Custom styles for this template -->
+    <link href="{{ STATIC_URL }}css/navbar.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/base.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/sidebar.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/jquery-ui-1.10.4.custom.css" rel="stylesheet">
+
 
     <!-- Google Font Sans Serif -->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:600,400,700' rel='stylesheet'>
@@ -76,6 +81,6 @@
         $("#wrapper").toggleClass("active");
     });
     </script>
-    <script src="/static/js/profile_view.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/profile_view.js" type="text/javascript"></script>
   </body>
 </html>
