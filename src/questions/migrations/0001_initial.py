@@ -11,8 +11,8 @@ class Migration(SchemaMigration):
         # Adding model 'Question'
         db.create_table(u'questions_question', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
             ('question', self.gf('django.db.models.fields.CharField')(max_length=120)),
+            ('approved', self.gf('django.db.models.fields.BooleanField')(default=False)),
             ('timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
             ('update', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
         ))
@@ -22,7 +22,8 @@ class Migration(SchemaMigration):
         db.create_table(u'questions_answer', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('question', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['questions.Question'])),
-            ('answer', self.gf('django.db.models.fields.CharField')(max_length=120)),
+            ('answer', self.gf('django.db.models.fields.CharField')(max_length=200)),
+            ('pattern_number', self.gf('django.db.models.fields.IntegerField')(max_length=20, null=True, blank=True)),
             ('timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
             ('update', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
         ))
@@ -34,25 +35,11 @@ class Migration(SchemaMigration):
             ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
             ('question', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['questions.Question'])),
             ('answer', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['questions.Answer'], null=True, blank=True)),
-            ('importance_level', self.gf('django.db.models.fields.CharField')(default='Somewhat Important', max_length=120, null=True, blank=True)),
-            ('points', self.gf('django.db.models.fields.IntegerField')(default='20')),
+            ('importance_level', self.gf('django.db.models.fields.CharField')(default='Somewhat Important', max_length=20, null=True, blank=True)),
             ('timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
             ('update', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
         ))
         db.send_create_signal(u'questions', ['UserAnswer'])
-
-        # Adding model 'MatchAnswer'
-        db.create_table(u'questions_matchanswer', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
-            ('question', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['questions.Question'])),
-            ('answer', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['questions.Answer'], null=True, blank=True)),
-            ('importance_level', self.gf('django.db.models.fields.CharField')(default='Somewhat Important', max_length=120, null=True, blank=True)),
-            ('points', self.gf('django.db.models.fields.IntegerField')(default='20')),
-            ('timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('update', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
-        ))
-        db.send_create_signal(u'questions', ['MatchAnswer'])
 
 
     def backwards(self, orm):
@@ -64,9 +51,6 @@ class Migration(SchemaMigration):
 
         # Deleting model 'UserAnswer'
         db.delete_table(u'questions_useranswer')
-
-        # Deleting model 'MatchAnswer'
-        db.delete_table(u'questions_matchanswer')
 
 
     models = {
@@ -108,37 +92,26 @@ class Migration(SchemaMigration):
         },
         u'questions.answer': {
             'Meta': {'object_name': 'Answer'},
-            'answer': ('django.db.models.fields.CharField', [], {'max_length': '120'}),
+            'answer': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'pattern_number': ('django.db.models.fields.IntegerField', [], {'max_length': '20', 'null': 'True', 'blank': 'True'}),
             'question': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['questions.Question']"}),
             'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'update': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'})
         },
-        u'questions.matchanswer': {
-            'Meta': {'object_name': 'MatchAnswer'},
-            'answer': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['questions.Answer']", 'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'importance_level': ('django.db.models.fields.CharField', [], {'default': "'Somewhat Important'", 'max_length': '120', 'null': 'True', 'blank': 'True'}),
-            'points': ('django.db.models.fields.IntegerField', [], {'default': "'20'"}),
-            'question': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['questions.Question']"}),
-            'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'update': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"})
-        },
         u'questions.question': {
             'Meta': {'object_name': 'Question'},
+            'approved': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'question': ('django.db.models.fields.CharField', [], {'max_length': '120'}),
             'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'update': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"})
+            'update': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'})
         },
         u'questions.useranswer': {
             'Meta': {'object_name': 'UserAnswer'},
             'answer': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['questions.Answer']", 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'importance_level': ('django.db.models.fields.CharField', [], {'default': "'Somewhat Important'", 'max_length': '120', 'null': 'True', 'blank': 'True'}),
-            'points': ('django.db.models.fields.IntegerField', [], {'default': "'20'"}),
+            'importance_level': ('django.db.models.fields.CharField', [], {'default': "'Somewhat Important'", 'max_length': '20', 'null': 'True', 'blank': 'True'}),
             'question': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['questions.Question']"}),
             'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'update': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
