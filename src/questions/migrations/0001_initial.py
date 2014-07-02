@@ -12,7 +12,6 @@ class Migration(SchemaMigration):
         db.create_table(u'questions_question', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('question', self.gf('django.db.models.fields.CharField')(max_length=120)),
-            ('approved', self.gf('django.db.models.fields.BooleanField')(default=False)),
             ('timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
             ('update', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
         ))
@@ -101,7 +100,6 @@ class Migration(SchemaMigration):
         },
         u'questions.question': {
             'Meta': {'object_name': 'Question'},
-            'approved': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'question': ('django.db.models.fields.CharField', [], {'max_length': '120'}),
             'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
