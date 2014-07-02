@@ -145,10 +145,10 @@
 
 
 @media (max-width: 768px){
-	#secondary_navbar{
+	#view_container #secondary_navbar{
 		width:200px;
 	}
-	#tertiary_navbar{
+	#view_container #tertiary_navbar{
 		width:200px!important;
 	}
 

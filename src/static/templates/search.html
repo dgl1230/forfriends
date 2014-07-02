@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 
-<link href="{{ STATIC_URL }}css/profile_view.css" rel="stylesheet"
+<link href="{{ STATIC_URL }}css/profile_view.css" rel="stylesheet">
 
 
 {% block content %}
+<div id="view_container">
 <div class="row">
 	<div class="col-md-1" id="secondary_navbar">
         <h1>Matches</h1>
@@ -59,5 +60,5 @@
 </div>
 </div>
 </div>
-
+</div>
 {% endblock %}
