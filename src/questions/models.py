@@ -23,7 +23,7 @@ NUMBER_CHOICES = (
 
 class Answer(models.Model):
 	question = models.ForeignKey(Question)
-	answer = models.CharField(max_length=30)
+	answer = models.CharField(max_length=200)
 	pattern_number = models.IntegerField(choices=NUMBER_CHOICES, null=True, blank=True, max_length=20)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 	update = models.DateTimeField(auto_now_add=False, auto_now=True)
