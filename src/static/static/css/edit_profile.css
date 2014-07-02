@@ -85,12 +85,12 @@ p label{
 	float:right;
 }
 
-#mytab li a:hover{
-	background:#084c8d;
-	color:white;
+#myTab li a:hover{
+	background:#084c8d!important;
+	color:white!important;
 }
 
-#mytab li a{
+#myTab li a{
 	color: #084c8d;
 	outline: none;
 	width: 120px;
