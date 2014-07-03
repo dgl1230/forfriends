@@ -60,7 +60,6 @@
 }
 .col-sm-4{
 	height: 300px;
-	width: 200px;
 	text-align:center;
 }
 
@@ -142,15 +141,6 @@
 	height: 125px!important;
 	}
 }	
-
-
-@media (max-width: 768px){
-	#view_container #secondary_navbar{
-		width:200px;
-	}
-	#view_container #tertiary_navbar{
-		width:200px!important;
-	}
 
 @media(min-width: 1200px){
 	.panel-default{ 
