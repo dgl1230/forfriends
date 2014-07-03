@@ -1,10 +1,7 @@
 .col-12{
 	min-width: 100px;
 }
-.nav-tabs {
-	background-color: #333;
 
-}
 .nav-tabs li a{
 	min-width: 150px;
 	background-color: #f8f8f8;
@@ -142,16 +139,16 @@
 @media(max-width: 480px){
 	#myfriend{
 	width: 100px!important;
-	height: 100px!important;
+	height: 125px!important;
 	}
 }	
 
 
 @media (max-width: 768px){
-	#secondary_navbar{
+	#view_container #secondary_navbar{
 		width:200px;
 	}
-	#tertiary_navbar{
+	#view_container #tertiary_navbar{
 		width:200px!important;
 	}
 

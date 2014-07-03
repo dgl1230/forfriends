@@ -15,12 +15,6 @@ th{
 thead{
 	background-color: #084c8d;
 }
-h3{
-	background-color: #333;
-}
-.col-12 h3{
-	color: white;
-}
 
 h4, tbody td:first-child{
 	text-transform: capitalize;

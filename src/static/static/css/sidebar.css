@@ -61,7 +61,6 @@ span.glyphicon{
 .sidebar-nav {
   position: absolute;
   top: 0;
-  margin-top:50px;
   width: 100%;
   list-style: none;
   padding: 0;
@@ -221,11 +220,12 @@ span.glyphicon{
 
 #leftbar-wrapper .sidebar-nav{
   margin-left: 0%;
-  margin-top:48px;
+  padding-top:50px;
+  height:100%;
 }
 
 #leftbar-wrapper .sidebar-nav li{
-  line-height: 40px;
+  line-height: 20px;
   text-indent: 10px;
 }
 #leftbar-wrapper:hover{
