@@ -103,33 +103,10 @@ footer{
   	-moz-transition: all 250ms ease;
   	-o-transition: all 250ms ease;
   	transition: all 250ms ease; */
-.btn-lg{
-	background-color: #d5d5d5!important;
-	color: #084c8d!important;
-	border: none;
-
 }
 
-.btn-lg:hover{
-	background-color: #084c8d!important;
-	color: white!important;
-	border: none;
-}
-.pager li a{
-	color: #333;
-	font-weight: bold;
-}
-.pagination{
-	width: 50%;
-}
-.pager li a:hover{
-	text-decoration: underline;
-	background-color: #084c8d!important;
-	color: #d5d5d5!important;
-}
-.pager li:hover{
 
-}
+
 
 #more_answers_appear1, #more_answers_appear1, #more_answers_appear2, #more_answers_appear3{
 	display: none;
