@@ -50,11 +50,8 @@ def calc_interest_importance(i1, i2):
 	Returns: 	Compatibility percentage based solely off of interest
 '''
 def interest_points(user1, user2):
-	print "got to beginning of interest_points"
 	logged_in_user_interests = UserInterestAnswer.objects.filter(user=user1)
 	viewed_user_interests = UserInterestAnswer.objects.filter(user=user2)
-	print logged_in_user_interests
-	print viewed_user_interests
 	interests_in_common = 0
 	user1_points = 0
 	user2_points = 0
@@ -71,15 +68,10 @@ def interest_points(user1, user2):
 				user1_points += user_score_tuple[0]
 				user2_points += user_score_tuple[1]
 		if interests_in_common >= 1:
-			print "points_possible is", points_possible
-			print "user1 points are", user1_points
-			print "user2 points are", user2_points
 			percentage = float((points_possible - abs(user1_points - user2_points))) / float(points_possible)
 
 		else:
-			print "calculating zero for interest points"
 			percentage = 0
-	print "interest percentage is", percentage
 	return percentage
 
 #********** Methods used for calculating compatibility based on QUESTIONS **********#
@@ -189,15 +181,12 @@ def match_percentage(user1, user2):
 	question_score = question_points(user1, user2) #question compatibility score
 	interest_score = interest_points(user1, user2) #interest compatibility score
 	if(interest_score == 0 and question_score == 0):
-		print "everything is zero"
 		overall_score = 0
 	elif(interest_score == 0):
-		print "only going to q's"
 		overall_score = question_score
 	elif(question_score == 0):
 		overall_score = interest_score
 	else:
-		print "going to .8 + .2"
 		overall_score = (.8 * question_score) + (.2 * interest_score)
 	return int(round(overall_score * 100))
 	
