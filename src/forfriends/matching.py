@@ -19,27 +19,27 @@ def calc_interest_importance(i1, i2):
     return_tuple = []
     #Calculate points for user1
     if i1 == "Strongly Like":
-        user1_points = 25
+        user1_points = 75
     elif i1 == "Like":
-        user1_points = 15
+        user1_points = 65
     elif i1 == "Neutral":
-        user1_points = 0
+        user1_points = 50
     elif i1 == "Dislike":
-        user1_points = -15
+        user1_points = 35
     elif i1 == "Strongly Dislike":
-        user1_points = -25
+        user1_points = 25
         
     #Calculate points for user2
     if i2 == "Strongly Like":
-        user2_points = 25
+        user2_points = 75
     elif i2 == "Like":
-        user2_points = 15
+        user2_points = 65
     elif i2 == "Neutral":
-        user2_points = 0
+        user2_points = 50
     elif i2 == "Dislike":
-        user2_points = -15
+        user2_points = 35
     elif i2 == "Strongly Dislike":
-        user2_points = -25
+        user2_points = 25
     return_tuple.append(user1_points)
     return_tuple.append(user2_points)
     return return_tuple
@@ -65,7 +65,7 @@ def interest_points(user1, user2):
 		for i2 in viewed_user_interests:
 			if i.interest == i2.interest:
 				interests_in_common += 1
-				points_possible += 100
+				points_possible += 75
 				#possibly need a try-catch here for divide-by-zero
 				user_score_tuple = calc_interest_importance(i.importance_level, i2.importance_level)
 				user1_points += user_score_tuple[0]
@@ -74,7 +74,8 @@ def interest_points(user1, user2):
 			print "points_possible is", points_possible
 			print "user1 points are", user1_points
 			print "user2 points are", user2_points
-			percentage = (points_possible - abs(user1_points - user2_points)) / points_possible
+			percentage = float((points_possible - abs(user1_points - user2_points))) / float(points_possible)
+
 		else:
 			print "calculating zero for interest points"
 			percentage = 0
@@ -198,7 +199,7 @@ def match_percentage(user1, user2):
 	else:
 		print "going to .8 + .2"
 		overall_score = (.8 * question_score) + (.2 * interest_score)
-	return overall_score * 100.00
+	return int(round(overall_score * 100))
 	
 
 	
