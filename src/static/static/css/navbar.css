@@ -12,8 +12,11 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 }
 .dropdown-toggle{
 	width:100px;
-	text-align:center;
-	
+	text-align:center;	
+}
+
+#navbar-container{
+	width:95%!important;
 }
 .navbar-fixed-top:hover{
 	opacity: 1;
@@ -23,18 +26,6 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 	border-bottom: none;
 	border-top:#d5d5e5 5px solid;
 	min-width: 280px!important;
-}
-
-#go_button:hover{
-	background-color: #084c8d!important;
-	color: #d5d5d5!important;
-}
-
-#go_button{
-	background-color: #d5d5d5!important;
-	border: 1px solid #084c8d!important;
-	color: #084c8d!important;
-
 }
 .navbar-brand{
 	letter-spacing: .3em;
@@ -259,9 +250,9 @@ form.navbar-form.navbar-left{
 	}
 }
 
-@media(min-width: 998px){
+@media(min-width: 860px){
 	.pull-right{
-		margin-right:20%;
+		margin-right:5%;
 	}
 }
 

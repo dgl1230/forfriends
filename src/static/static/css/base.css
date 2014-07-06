@@ -13,11 +13,21 @@ body{
 	margin-right: 0px;
 }
 .ui-tooltip-content{
-	margin-left:100px;
+	margin-left:0px;
 	color: #084c8d;
+	background-color: #d5d5d5;
+}
+.ui-tooltip{
+	background-color:#d5d5d5!important;
+	border: 2px #084c8d solid!important;
+}
+
+.messages{
+	margin-left:80px;
 }
 .success{
 	text-align:center;
+	margin-left:80px!important;
 }
 .btn-default, .btn .btn-default{
 	background-color: #d5d5d5!important;
@@ -25,20 +35,24 @@ body{
 	border: none;	
 }
 
-.btn.btn-info.btn-sm{
+.btn.btn-info.btn-sm, .btn-lg, .pager li a, #go_button{
 	background-color: #d5d5d5!important;
 	color: #084c8d!important;
-	border: none;
+	border: #084c8d 2px solid;
 	-webkit-transition: all 500ms ease;
 	-moz-transition: all 500ms ease;
 	-o-transition: all 500ms ease;
 	transition: all 500ms ease;
+	font-weight:700;
 }
 
-.btn.btn-info.btn-sm:hover{
-	-webkit-transform: scale(1.05);	
-  	transform: scale(1.05);
-  	color: #084c8d!important;
+.pagination{
+	width: 50%!important;
+}
+.btn.btn-info.btn-sm:hover, .btn-lg:hover, .pager li a:hover, #go_button{
+  	color: #d5d5d5!important;
+  	background-color:#084c8d!important;
+  	border: #d5d5d5 2px solid;
 }
 .btn.btn-default.btn:hover{
 	-webkit-transform: scale(1.05);
@@ -185,6 +199,8 @@ a:hover{
   	font-size:.9em;
   }
 }
+
+
 
 /* EDIT PROFILE */
 
