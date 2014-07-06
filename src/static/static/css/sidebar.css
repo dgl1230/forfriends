@@ -274,5 +274,6 @@ span.glyphicon{
 }
   .sidebar-nav{
     margin-top: 0px!important;
+    padding-top:5px!important;
   }
 }
