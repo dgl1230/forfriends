@@ -30,7 +30,7 @@ body{
 	border: none;	
 }
 
-.btn.btn-info.btn-sm, .btn-lg, .pager li a{
+.btn.btn-info.btn-sm, .btn-lg, .pager li a, #go_button{
 	background-color: #d5d5d5!important;
 	color: #084c8d!important;
 	border: #084c8d 2px solid;
@@ -44,7 +44,7 @@ body{
 .pagination{
 	width: 50%!important;
 }
-.btn.btn-info.btn-sm:hover, .btn-lg:hover, .pager li a:hover{
+.btn.btn-info.btn-sm:hover, .btn-lg:hover, .pager li a:hover, #go_button{
   	color: #d5d5d5!important;
   	background-color:#084c8d!important;
   	border: #d5d5d5 2px solid;
