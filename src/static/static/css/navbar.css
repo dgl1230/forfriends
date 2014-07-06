@@ -26,6 +26,7 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 	border-bottom: none;
 	border-top:#d5d5e5 5px solid;
 	min-width: 280px!important;
+
 }
 .navbar-brand{
 	letter-spacing: .3em;
@@ -132,6 +133,7 @@ a.dropdown-toggle{
 	min-width: 280px;
 	padding-top: 5px;
 	margin-left: 80px;
+	margin-top:5px;
 }
 #secondary_navbar a, #secondary_navbar h1{
 	color: #084c8d;
