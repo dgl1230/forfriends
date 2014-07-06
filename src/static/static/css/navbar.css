@@ -262,7 +262,7 @@ form.navbar-form.navbar-left{
 	}
 }
 
-@media(min-width: 998px){
+@media(min-width: 860px){
 	.pull-right{
 		margin-right:5%;
 	}
