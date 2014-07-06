@@ -12,8 +12,11 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 }
 .dropdown-toggle{
 	width:100px;
-	text-align:center;
-	
+	text-align:center;	
+}
+
+#navbar-container{
+	width:95%!important;
 }
 .navbar-fixed-top:hover{
 	opacity: 1;
@@ -261,7 +264,7 @@ form.navbar-form.navbar-left{
 
 @media(min-width: 998px){
 	.pull-right{
-		margin-right:20%;
+		margin-right:5%;
 	}
 }
 

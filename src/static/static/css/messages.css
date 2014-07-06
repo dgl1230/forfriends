@@ -28,6 +28,10 @@ td{
 	background-color: #f8f8f8!important;
 }
 
+#message_container{
+	margin-top:100px;
+}
+
 textarea{
 	max-width: 600px;
 	width: 100%;
