@@ -130,28 +130,24 @@ footer{
 }
 
 /* Create */
-form {
+#interests-wrapper form {
 	width: 100%;
 	margin: 0 auto;
 }
 
-label, input{
+#interests-wrapper label, input{
 	display: inline-block;
 }
 
-label {
+#interests-wrapper label {
 	width: 400px;
 }
 
-label + input{
+#interests-wrapper label + input{
 	min-width: 150px;
 	width: 50%;
 	margin: 0 30% 0 4%;
 }
-
-input + input {
-}
-
 @media only screen and (min-width:975px){
 	.footer-container{
 		margin-left: 20%;

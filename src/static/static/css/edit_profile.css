@@ -4,19 +4,6 @@ html, ul, ul li, li, li a, a, p, .btn{
 .tab-content{
 	min-height: 500px;
 }
-.btn-success, .btn .btn-success{
-	background-color: #dbdbdb!important;
-	color: #084c8d !important;
-	border: none!important;
-	
-}
-
-.btn-success:hover, .btn .btn-success:hover {
-	background-color: #dbdbdb !important;
-	color: #084c8d !important;
-	border: none;
-
-}
 
 .success{
 	text-align:center;
@@ -63,7 +50,9 @@ html, ul, ul li, li, li a, a, p, .btn{
 	-box-shadow: 1px 1px 1px rbga(0,0,0,0.4);
 
 }
-
+#home label{
+	width:100px;
+}
 p label{
 	font-size: 1.125em;
 }
@@ -75,8 +64,16 @@ p label{
 	width:350px;
 }
 
+.col-lg-12 #home p{
+	width:350px;
+}
+
 .col-lg-12 p input{
 	float:right;
+	width:200;
+}
+#home p input{
+	float:none!important;
 	width:200;
 }
 
