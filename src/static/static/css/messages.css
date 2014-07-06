@@ -28,8 +28,10 @@ td{
 	background-color: #f8f8f8!important;
 }
 
-#message_container{
+#messages_container{
 	margin-top:100px;
+	margin-left:80px;
+	min-width:200px;
 }
 
 textarea{
