@@ -13,8 +13,13 @@ body{
 	margin-right: 0px;
 }
 .ui-tooltip-content{
-	margin-left:100px;
+	margin-left:0px;
 	color: #084c8d;
+	background-color: #d5d5d5;
+}
+.ui-tooltip{
+	background-color:#d5d5d5!important;
+	border: 2px #084c8d solid!important;
 }
 
 .messages{
