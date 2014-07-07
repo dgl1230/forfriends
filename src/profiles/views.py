@@ -23,17 +23,18 @@ from directmessages.models import DirectMessage
 '''Implements the 'add friend' button when viewing a user's profile
 If both users click this button on each other's profile, they can message'''
 def add_friend(request, username):
-	user_match, created = Match.objects.get_or_create(user=request.user, matched__username=username)
-	visited_user = User.objects.get(username=username)
-	visited_match, created = Match.objects.get_or_create(user=visited_user, matched=request.user)
-	user_match.approved = True
-	user_match.save()
-	if (user_match.approved == True and visited_match.approved == True):
+	try: 
+		match = Match.objects.get(user1=request.user, user2__username=username)
+		match.user1_approved = True
+	except: 
+		match = Match.objects.get(user1__username=username, user2=request.user)
+		match.user2_approved = True
+	if (match.user1_approved == True and match.user2_approved == True):
 		messages.success(request, "%s also is interested in being your friend - You can now message each other!" %username)
 	else:
 		messages.success(request, "%s has received your request. If %s is interested too, they will add you!" %(username, username))
-	#return HttpResponseRedirect('/')
-	single_user = visited_user
+	single_user = User.objects.get(username=username)
+	match.save()
 	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))
 
 
@@ -44,10 +45,15 @@ def all(request):
 		users = User.objects.filter(is_active=True)
 		for u in users:
 			if u != request.user:
-				match, created = Match.objects.get_or_create(user=request.user, matched=u)
+				try: 
+					match = Match.objects.get(user1=request.user, user2=u)
+				except: 
+					match, created = Match.objects.get_or_create(user1=u, user2=request.user)
 				match.percent = match_percentage(request.user, u)
 				match.save()
-		matches = Match.objects.filter(user=request.user).order_by('-percent')
+		matches = Match.objects.filter(
+			Q(user1=request.user) | Q(user2=request.user)
+			).order_by('-percent')
 		return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 	else:
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
@@ -188,16 +194,18 @@ def edit_profile(request):
 
 #sorts the matches of user according to whatver the user specified 
 def find_friends(request):
-	matches = Match.objects.filter(user=request.user)
-	for match in matches: 
-				try: 
-					match.percent = match_percentage(request.user, match.matched)
-				except:
-					match.percent = 0
-				match_num = match.percent 
-				match.percent = match_num
-				match.save()
-	matches = matches.order_by('-percent')
+	users = User.objects.filter(is_active=True)
+	for u in users:
+		if u != request.user:
+			try: 
+				match = Match.objects.get(user1=request.user, user2=u)
+			except: 
+				match, created = Match.objects.get_or_create(user1=u, user2=request.user)
+			match.percent = match_percentage(request.user, u)
+			match.save()
+	matches = Match.objects.filter(
+		Q(user1=request.user) | Q(user2=request.user)
+		).order_by('?')
 	return render_to_response('profiles/find_friends.html', locals(), context_instance=RequestContext(request))
 
 
@@ -297,15 +305,16 @@ def single_user(request, username):
 	except:
 		raise Http404
 	if single_user != request.user:
-		set_match, created = Match.objects.get_or_create(user=request.user, matched=single_user)
-		set_match.percent = match_percentage(request.user, single_user)
-		set_match2, created = Match.objects.get_or_create(user=single_user, matched=request.user)
+		try: 
+			match = Match.objects.get(user1=request.user, user2=single_user)
+		except: 
+			match, created = Match.objects.get_or_create(user1=single_user, user2=request.user)
+		match.percent = match_percentage(request.user, single_user)
+		match.save()
 		visited_list, created = Visitor.objects.get_or_create(main_user=single_user)
 		visited_list.visitors.add(request.user)
 		visited_list.save()
-		
-		set_match.save()
-		match = set_match.percent 
+
 	
 	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))	
 

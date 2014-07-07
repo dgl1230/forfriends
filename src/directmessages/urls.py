@@ -7,7 +7,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('directmessages.views',
     url(r'^compose/$', 'compose', name='compose'),
-    url(r'^/(?P<single_user>\w+)/$', 'su_compose', name='su_compose'),
+    #url(r'^(?P<single_user>\w+)/$', 'su_compose', name='su_compose'),
     url(r'^inbox/$', 'inbox', name='inbox'),
     url(r'^sent/$', 'sent', name='sent'),
     url(r'^view/(?P<dm_id>[\d]+)/$', 'view_direct_message', name='view_direct_message'),

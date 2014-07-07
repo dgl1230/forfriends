@@ -36,13 +36,16 @@
 
 	</div>
 	{% if not request.user == single_user %}
-		<h1>Match {{ match }}%	</h1>
+		<h1>Match {{ match.percent }}%	</h1>
 		<div class="row" id="buttons_row">
 			<div class="buttons">
-				{% if set_match.approved == True and set_match2.approved == True %}
+				{% if match.user1_approved == True and match.user2_approved == True %}
 				<a  class="btn btn-default btn" id="friend_button" title="You are friends!">Request Approved</a>
 				<a class="btn btn-default btn" id="message_button" data-toggle="tooltip" data-placement="top" href='{% url "su_compose" single_user.username %}'>Send Message</a>
-				{% elif set_match.approved == True %}
+				{% elif match.user1_approved == True and match.user1 == request.user %}
+				<a  class="btn btn-default btn" id="friend_button">Request Sent</a>
+				<a class="btn btn-default btn" id="message_button" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!">Send Message</a>
+				{% elif match.user2_approved == True and match.user2 == request.user %}
 				<a  class="btn btn-default btn" id="friend_button">Request Sent</a>
 				<a class="btn btn-default btn" id="message_button" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!">Send Message</a>
 				{% else %}

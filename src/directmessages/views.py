@@ -5,6 +5,7 @@ from django.shortcuts import render_to_response, RequestContext, Http404, get_ob
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from django.db.models import Q
 
 from matches.models import Match
 from .models import DirectMessage
@@ -38,14 +39,14 @@ def compose(request):
 	form = ComposeForm(request.POST or None)
 	
 	message_users = []
-	matches = Match.objects.filter(user=request.user, approved=True)
+	matches = Match.objects.filter(
+			Q(user1=request.user) | Q(user2=request.user)
+			).filter(user1_approved=True, user2_approved=True)
 	for match in matches:
-		try:
-			match2 = Match.objects.get(user=match.matched, matched=request.user)
-			if match2.approved == True:
-				message_users.append(match.matched.username)
-		except:
-			pass
+		if match.user1 != request.user:
+			message_users.append(match.user1)
+		else:
+			message_users.append(match.user2)
 	form.fields['receiver'].queryset = User.objects.filter(username__in=message_users)
 	
 
@@ -68,26 +69,15 @@ friendship, then the logged in user can message the viewed user from their profi
 Otherwise, the html template renders a response saying that they aren't both 
 approved yet. '''
 def su_compose(request, single_user):
-	user_match, created = Match.objects.get_or_create(user=request.user, 
-								matched__username=single_user)
-	visited_match, created = Match.objects.get_or_create(user__username=single_user, 
-											matched=request.user)
+	su = User.objects.get(username=single_user)
 	title = "<h1>Compose</h1>"
 
 	form = FriendForm(request.POST or None)
-	if user_match.approved == True:
-		true1 = True
-	else:
-		true1 = False
-	if visited_match.approved == True:
-		true2 = True
-	else:
-		true2 = False
-
+	
 	if form.is_valid():
 			send_message = form.save(commit=False)
 			send_message.sender = request.user
-			form.receiver = single_user
+			send_message.receiver = su
 			send_message.sent = datetime.datetime.now()
 			send_message.save()
 			messages.success(request, "Message sent!")
