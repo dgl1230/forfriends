@@ -32,7 +32,9 @@ def add_friend(request, username):
 		messages.success(request, "%s also is interested in being your friend - You can now message each other!" %username)
 	else:
 		messages.success(request, "%s has received your request. If %s is interested too, they will add you!" %(username, username))
-	return HttpResponseRedirect('/')
+	#return HttpResponseRedirect('/')
+	single_user = visited_user
+	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))
 
 
 '''The view for the home page of a user. If they're logged in, it shows relevant
@@ -296,11 +298,8 @@ def single_user(request, username):
 		raise Http404
 	if single_user != request.user:
 		set_match, created = Match.objects.get_or_create(user=request.user, matched=single_user)
-		try:
-			set_match.percent = match_percentage(request.user, single_user)
-		except: 
-			print "failed"
-			set_match.percent = 0
+		set_match.percent = match_percentage(request.user, single_user)
+		set_match2, created = Match.objects.get_or_create(user=single_user, matched=request.user)
 		visited_list, created = Visitor.objects.get_or_create(main_user=single_user)
 		visited_list.visitors.add(request.user)
 		visited_list.save()
