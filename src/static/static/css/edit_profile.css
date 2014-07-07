@@ -12,7 +12,13 @@ html, ul, ul li, li, li a, a, p, .btn{
 #more_pictures_appear{
 	display:none;	
 }
-
+.edit_profile_wrapper{
+	margin: 0 auto;
+	width:80%;
+}
+#edit_profile_container{
+	width:90%!important;
+}
 #pictures_appear{
 	/* Border Radius */
 
