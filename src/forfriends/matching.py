@@ -7,220 +7,188 @@ from django.contrib.auth.models import User
 from interests.models import Interest, UserInterestAnswer
 from questions.models import Question, Answer, UserAnswer
 
-'''Compares the first UserInterstAnswer importance level to the second 
-UserInterestAnswer importance level. Yes, this is a ratched way of doing it'''
+
+#********** Methods used for calculating compatibility based on INTERESTS **********#
+'''	Purpose:	Calculates the points for user1 and user2 for a single interest
+				that they share, based on how much they like it.
+	Returns:	A list with 2 attributes, the first being user1_points and the 
+				second being user2_points: [user1_points, user2_points] '''
 def calc_interest_importance(i1, i2):
-	#print i1
-	if i1 == "Strongly Like":
-		if i2 == "Strongly Like":
-			return 100
-		if i2 == "Like":
-			return 75
-		if i2 == "Dislike":
-			return 20
-		if i2 == "Strongly Dislike":
-			return 10
-	elif i1 == "Like":
-		if i2 == "Strongly Like":
-			return 75
-		if i2 == "Like":
-			return 100
-		if i2 == "Dislike":
-			return 20
-		if i2 == "Strongly Dislike":
-			return 10
-	elif i1 == "Dislike":
-		if i2 == "Strongly Like":
-			return 10
-		if i2 == "Like":
-			return 20
-		if i2 == "Dislike":
-			return 100
-		if i2 == "Strongly Dislike":
-			return 75
-	elif i1 == "Strongly Dislike":
-		if i2 == "Strongly Like":
-			return 10
-		if i2 == "Like":
-			return 20
-		if i2 == "Dislike":
-			return 75
-		if i2 == "Strongly Dislike":
-			return 100
-	# i1 is neutral 
-	else:
-		return 0
+    user1_points = 50 #start with bases of 50
+    user2_points = 50
+    return_tuple = []
+    #Calculate points for user1
+    if i1 == "Strongly Like":
+        user1_points = 75
+    elif i1 == "Like":
+        user1_points = 65
+    elif i1 == "Neutral":
+        user1_points = 50
+    elif i1 == "Dislike":
+        user1_points = 35
+    elif i1 == "Strongly Dislike":
+        user1_points = 25
+        
+    #Calculate points for user2
+    if i2 == "Strongly Like":
+        user2_points = 75
+    elif i2 == "Like":
+        user2_points = 65
+    elif i2 == "Neutral":
+        user2_points = 50
+    elif i2 == "Dislike":
+        user2_points = 35
+    elif i2 == "Strongly Dislike":
+        user2_points = 25
+    return_tuple.append(user1_points)
+    return_tuple.append(user2_points)
+    return return_tuple
 
 
-''' Calcualtes the points for the user's importance level in a specific answer
-to a matched person's importance level for an answer. Also a ratched way of doing it'''
-def cal_question_importance(i1, i2):
-	if i1 == "Mandatory":
-		if i2 == "Mandatory":
-			return 100
-		if i2 == "Very Important":
-			return 80
-		if i2 == "Somewhat Important":
-			return 30
-		#importance level is "not important"
-		else:
-			return 10
-	elif i1 == "Very Important":
-		if i2 == "Mandatory":
-			return 90
-		if i2 == "Very Important":
-			return 100
-		if i2 == "Somewhat Important":
-			return 50
-		#importance level is "not important"
-		else:
-			return 20
-	elif i1 == "Somewhat Important":
-		if i2 == "Mandatory":
-			return 60
-		if i2 == "Very Important":
-			return 80
-		if i2 == "Somewhat Important":
-			return 100
-		#importance level is "not important"
-		else:
-			return 20
-	#importance level is "not important"
-	else:
-		if i2 == "Mandatory":
-			return 20
-		if i2 == "Very Important":
-			return 60
-		if i2 == "Somewhat Important":
-			return 90
-		#importance level is "not important"
-		else:
-			return 100
-
-
-
-'''Calculates the points for matching users based solely off of interests
+'''Purpose:		Calculates the percentage compatibility between 2 users based solely
+				on their interests. Uses calc_interest_importance
+	Returns: 	Compatibility percentage based solely off of interest
 '''
 def interest_points(user1, user2):
-	logged_in_user_interests =  UserInterestAnswer.objects.filter(user=user1)
-	viewed_user_interests =  UserInterestAnswer.objects.filter(user=user2)
-	total_interests = 0
+	logged_in_user_interests = UserInterestAnswer.objects.filter(user=user1)
+	viewed_user_interests = UserInterestAnswer.objects.filter(user=user2)
 	interests_in_common = 0
-	points_awarded = 0
+	user1_points = 0
+	user2_points = 0
 	points_possible = 0
+	user_score_tuple = []
+	percentage = 0
 	for i in logged_in_user_interests:
-		total_interests += 1
 		for i2 in viewed_user_interests:
-			#total_interests_user2 +=1
 			if i.interest == i2.interest:
-				interests_in_common +=1
-				points_possible += 100
-				#print i.importance_level
-				try:
-					points_awarded += calc_interest_importance(i.importance_level, i2.importance_level)
-				except: 
-					points_awarded = 0
-	if interests_in_common >= 1:
-		percentage = (float(points_awarded)/float(interests_in_common)) / 100
-	else: 
-		percentage = 0
-	'''print "Out %s total interests and %s interests in common, %s points were awarded of %s points with a score of %s" %(
-		total_interests, interests_in_common, points_awarded, points_possible, percentage)
-	'''
-	return total_interests, percentage
+				interests_in_common += 1
+				points_possible += 75
+				#possibly need a try-catch here for divide-by-zero
+				user_score_tuple = calc_interest_importance(i.importance_level, i2.importance_level)
+				user1_points += user_score_tuple[0]
+				user2_points += user_score_tuple[1]
+		if interests_in_common >= 1:
+			percentage = float((points_possible - abs(user1_points - user2_points))) / float(points_possible)
 
-''' Calculates the points for matching users based solely off their answers
-to questions '''
+		else:
+			percentage = 0
+	return percentage
+
+#********** Methods used for calculating compatibility based on QUESTIONS **********#
+""" 
+	Answer Types:
+		1. Extreme Positive, 2. Positive, 3. Neutral, 4. Negative, 5. Extreme Negative
+	Question Types:
+		1: 1, 2, 3, 4, 5
+		2: 1, 2, 4, 5
+		3: 1, 3, 5
+		4: 1, 5
+	Interest Types:
+		1. Very Interested
+		2. Somewhat Interested
+		3. Not Interested
+"""
+
+'''	Purpose:	Calculates the multiplier for user1 and user2 for a single question
+				that they both answered, based on how important it is to them.
+	Returns:	A list with 2 attributes, the first being user1_multiplier and the 
+				second being user2_multiplier: [user1_multiplier, user2_multiplier] '''
+def find_importance(user1_importance, user2_importance):
+	temp_list = []
+	#Calculate user1's importance points
+	if user1_importance == "Very Important":
+		temp_list.append(2.0)
+	elif user1_importance == "Somewhat Important":
+		temp_list.append(1.5)
+	else:
+		temp_list.append(1.0)
+	#Calculate user2's importance points
+	if user2_importance == "Very Important":
+		temp_list.append(2.0)
+	elif user2_importance == "Somewhat Important":
+		temp_list.append(1.5)
+	else:
+		temp_list.append(1.0)
+	return temp_list
+	
+'''	Purpose:	Awards points to user1 and user2 based on their answers to the question
+				and the multiplier of importance.
+	Returns:	A list with 2 attributes, the first being user1_points and the 
+				second being user2_points: [user1_points, user2_points] '''
+def answer_points(user1_answer, user2_answer, importance_multiplier_list):
+	temp_list = []
+	user1_interest_multiplier = importance_multiplier_list[0]
+	user2_interest_multiplier = importance_multiplier_list[1]
+	user1_score, user2_score = 0, 0
+	#Find score for user1
+	if user1_answer == 1:
+		user1_score = 25 * user1_interest_multiplier
+	elif user1_answer == 2:
+		user1_score = 15 * user1_interest_multiplier
+	elif user1_answer == 3:
+		user1_score = 0 * user1_interest_multiplier
+	elif user1_answer == 4:
+		user1_score = -15 * user1_interest_multiplier
+	else:
+		user1_score = -25 * user1_interest_multiplier
+	
+	#Find score for user2
+	if user2_answer == 1:
+		user2_score = 25 * user2_interest_multiplier
+	elif user2_answer == 2:
+		user2_score = 15 * user2_interest_multiplier
+	elif user2_answer == 3:
+		user2_score = 0 * user2_interest_multiplier
+	elif user2_answer == 4:
+		user2_score = -15 * user2_interest_multiplier
+	else:
+		user2_score = -25 * user2_interest_multiplier
+	temp_list.append(user1_score)
+	temp_list.append(user2_score)
+	return temp_list
+
+'''	Purpose:	Awards points to user1 and user2 based on their answers to the question
+				and the multiplier of importance.
+	Returns:	A list with 2 attributes, the first being user1_points and the 
+				second being user2_points: [user1_points, user2_points] '''
 def question_points(user1, user2):
 	user1_answers = UserAnswer.objects.filter(user=user1)
 	user2_answers = UserAnswer.objects.filter(user=user2)
-	total_questions = 0
-	questions_in_common = 0
-	points_awarded = 0
 	points_possible = 0
-
+	user1_points = 0
+	user2_points = 0
+	questions_in_common = 0
+	percentage = 0
 	for ans in user1_answers:
-		total_questions += 1 
-		for act_ans in user2_answers:
-			if ans.question == act_ans.question:
+		for ans2 in user2_answers:
+			if ans.question == ans2.question:
 				questions_in_common += 1
 				points_possible += 100
-				if ans.answer.answer == act_ans.answer.answer:
-					points_awarded += cal_question_importance(ans.importance_level, 
-															act_ans.importance_level)
-	if questions_in_common >= 1:
-		percentage = (float(points_awarded)/float(questions_in_common)) / 100
-	else: 
+				user_list = []
+				importance_list = []
+				importance_list = find_importance(ans.importance_level, ans2.importance_level) #Need importance1 and importance2
+				user_list = answer_points(ans.answer.pattern_number, ans2.answer.pattern_number, importance_list)
+				user1_points += user_list[0]
+				user2_points += user_list[1]
+	if points_possible >= 100:
+		percentage = (points_possible - abs(user1_points - user2_points)) / points_possible
+	else:
 		percentage = 0
-	'''print "Out of %s total questions and %s questions in common, %s points were awarded of %s points with a score of %s" %(
-		total_questions, questions_in_common, points_awarded, points_possible, percentage)
-	'''
-	return total_questions, percentage
-
+	return percentage
+	
 def match_percentage(user1, user2):
-	#interest part of overall matching
-	#print "NEW MATCH"
-	a_interests, a_i_percent = interest_points(user1, user2)
-	#print "a_i_percent worked, a_i_percent is: " + str(a_i_percent)
-	b_interests, b_i_percent = interest_points(user2, user1)
-	#print "b_i_percent worked, b_i_percent is: " + str(b_i_percent)
-	#find out largest number of liked interests between the two users. As in
-	# which user liked the most interests
-	if a_interests >= b_interests:
-		larger_interests = a_interests
-		smaller_interests = b_interests
+	overall_score = 0.0
+	question_score = question_points(user1, user2) #question compatibility score
+	interest_score = interest_points(user1, user2) #interest compatibility score
+	if(interest_score == 0 and question_score == 0):
+		overall_score = 0
+	elif(interest_score == 0):
+		overall_score = question_score
+	elif(question_score == 0):
+		overall_score = interest_score
 	else:
-		larger_interests = b_interests
-		smaller_interests = a_interests
-	#calculate ratio of smaller interests to larger
-	try:
-		interests_ratio = float(smaller_interests) / larger_interests
-	except:
-		interests_ratio = 0
-	#print "interests_ratio is: " + str(interests_ratio)
+		overall_score = (.8 * question_score) + (.2 * interest_score)
+	return int(round(overall_score * 100))
+	
 
-	#questions part of overall matching
-	a_questions, a_q_percent = question_points(user1, user2)
-	#print "a_q_percent worked, a_q_percent is: " + str(a_q_percent)
-	b_questions, b_q_percent = question_points(user2, user1)
-	#print "b_q_percent worked, b_q_percent is: " + str(b_q_percent)
-	#find out largest number of questions answered between two users. As in 
-	#which user answered the most overall questions. 
-	if a_questions >= b_questions:
-		larger_questions = a_questions
-		smaller_questions = b_questions
-	else:
-		larger_questions = b_questions
-		smaller_questions = a_questions
-	#calculate ratio of less questions answered to more questions
-	try:
-		questions_ratio = float(smaller_questions) / larger_questions
-	except:
-		questions_ratio = 0
-	#print "questions_ratio is: " + str(questions_ratio)
-
-	#if user1 & user2 have both answered questions and liked interests
-	if a_interests >=1 and b_interests >= 1 and a_questions >=1 and b_questions >= 1:
-		interest_percent = .8 * ((a_i_percent + b_i_percent) / 2) + (.2 * interests_ratio)
-		question_percent = .8 * ((a_q_percent + b_q_percent) / 2) + (.2 * questions_ratio)
-		percent = (interest_percent + question_percent) / 2
-		overall_percent = int(percent * 100)
-		#print "match based on interests and questions worked, it is: " + str(overall_percent)
-		return overall_percent
-	# if user1 & user2 have not both answered questions, but they have
-	# both liked interests
-	if a_interests >=1 and b_interests >= 1 and (a_questions == 0  or b_questions == 0):
-		percent = .8 * ((a_i_percent + b_i_percent) / 2) + (.2 * interests_ratio)
-		interest_percent = int(percent * 100)
-		#print "match based on just interests worked, it is: " + str(interest_percent)
-		return interest_percent
-	# if user1 & user2 have not both liked interests, but have both answered
-	# questions
-	if (a_interests == 0 or b_interests == 0) and a_questions >= 1 and b_questions >= 1:
-		percent = .8 * ((a_q_percent + b_q_percent) / 2) + (.2 * questions_ratio)
-		question_percent = int(percent * 100)
-		#print "match based on just questions worked, it is: " + str(question_percent)
-		return question_percent
-	#else user1 & user2 have both not liked interests and questions
-	else:
-		return 0
+	

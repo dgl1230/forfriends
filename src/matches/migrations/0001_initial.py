@@ -11,10 +11,9 @@ class Migration(SchemaMigration):
         # Adding model 'Match'
         db.create_table(u'matches_match', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(related_name='match', to=orm['auth.User'])),
-            ('matched', self.gf('django.db.models.fields.related.ForeignKey')(related_name='match2', to=orm['auth.User'])),
-            ('percent', self.gf('django.db.models.fields.DecimalField')(default='0.00', max_digits=10, decimal_places=4)),
-            ('good_match', self.gf('django.db.models.fields.BooleanField')(default=False)),
+            ('user1', self.gf('django.db.models.fields.related.ForeignKey')(related_name='user1', to=orm['auth.User'])),
+            ('user2', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='user2', null=True, to=orm['auth.User'])),
+            ('percent', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
             ('timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
             ('updated', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
         ))
@@ -65,13 +64,12 @@ class Migration(SchemaMigration):
         },
         u'matches.match': {
             'Meta': {'object_name': 'Match'},
-            'good_match': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'matched': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'match2'", 'to': u"orm['auth.User']"}),
-            'percent': ('django.db.models.fields.DecimalField', [], {'default': "'0.00'", 'max_digits': '10', 'decimal_places': '4'}),
+            'percent': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
             'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'updated': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'match'", 'to': u"orm['auth.User']"})
+            'user1': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'user1'", 'to': u"orm['auth.User']"}),
+            'user2': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'user2'", 'null': 'True', 'to': u"orm['auth.User']"})
         }
     }
 

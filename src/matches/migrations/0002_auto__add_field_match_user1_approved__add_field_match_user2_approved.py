@@ -8,23 +8,23 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Deleting field 'UserAnswer.points'
-        db.delete_column(u'questions_useranswer', 'points')
+        # Adding field 'Match.user1_approved'
+        db.add_column(u'matches_match', 'user1_approved',
+                      self.gf('django.db.models.fields.BooleanField')(default=False),
+                      keep_default=False)
 
-        # Deleting field 'MatchAnswer.points'
-        db.delete_column(u'questions_matchanswer', 'points')
+        # Adding field 'Match.user2_approved'
+        db.add_column(u'matches_match', 'user2_approved',
+                      self.gf('django.db.models.fields.BooleanField')(default=False),
+                      keep_default=False)
 
 
     def backwards(self, orm):
-        # Adding field 'UserAnswer.points'
-        db.add_column(u'questions_useranswer', 'points',
-                      self.gf('django.db.models.fields.IntegerField')(default='20'),
-                      keep_default=False)
+        # Deleting field 'Match.user1_approved'
+        db.delete_column(u'matches_match', 'user1_approved')
 
-        # Adding field 'MatchAnswer.points'
-        db.add_column(u'questions_matchanswer', 'points',
-                      self.gf('django.db.models.fields.IntegerField')(default='20'),
-                      keep_default=False)
+        # Deleting field 'Match.user2_approved'
+        db.delete_column(u'matches_match', 'user2_approved')
 
 
     models = {
@@ -64,42 +64,17 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'questions.answer': {
-            'Meta': {'object_name': 'Answer'},
-            'answer': ('django.db.models.fields.CharField', [], {'max_length': '120'}),
+        u'matches.match': {
+            'Meta': {'object_name': 'Match'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'question': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['questions.Question']"}),
+            'percent': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
             'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'update': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'})
-        },
-        u'questions.matchanswer': {
-            'Meta': {'object_name': 'MatchAnswer'},
-            'answer': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['questions.Answer']", 'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'importance_level': ('django.db.models.fields.CharField', [], {'default': "'Somewhat Important'", 'max_length': '120', 'null': 'True', 'blank': 'True'}),
-            'question': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['questions.Question']"}),
-            'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'update': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"})
-        },
-        u'questions.question': {
-            'Meta': {'object_name': 'Question'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'question': ('django.db.models.fields.CharField', [], {'max_length': '120'}),
-            'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'update': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"})
-        },
-        u'questions.useranswer': {
-            'Meta': {'object_name': 'UserAnswer'},
-            'answer': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['questions.Answer']", 'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'importance_level': ('django.db.models.fields.CharField', [], {'default': "'Somewhat Important'", 'max_length': '120', 'null': 'True', 'blank': 'True'}),
-            'question': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['questions.Question']"}),
-            'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'update': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"})
+            'updated': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
+            'user1': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'user1'", 'to': u"orm['auth.User']"}),
+            'user1_approved': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'user2': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'user2'", 'null': 'True', 'to': u"orm['auth.User']"}),
+            'user2_approved': ('django.db.models.fields.BooleanField', [], {'default': 'False'})
         }
     }
 
-    complete_apps = ['questions']
+    complete_apps = ['matches']
