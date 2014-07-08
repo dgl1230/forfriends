@@ -14,23 +14,20 @@
 <div class="container" id="home-only">
   <div class='col-lg-10 col-12'>
 <br/>
-<br/>
-<div class='col-lg-6 '>
-	<div class='row'>
+<div class='row'>
+<div class='col-sm-4 '>
+	
 {% for visitor in visitors %}
 	{% if not request.user == visitor %}
-	<div class='col-sm-4'>
 	<a href='/members/{{ visitor.username}}'>
 		{% for pic in visitor.userpicture_set.all %}
 			
 			{% if forloop.first %}
-				<img src='{{ MEDIA_URL }}{{ pic }}' class='img' />
+				<img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' />
 			{% endif %}
 		{% endfor %}
 		{% if not visitor.userpicture_set.all %}
-			<div class="mask">
-				<img src='{{ STATIC_URL }}img/avatar.png' class='img' />
-			</div>
+				<img src='{{ STATIC_URL }}img/avatar.png' class='img-responsive' />
 		{% endif %}
 			
 		{{ visitor.username }}
