@@ -33,7 +33,6 @@ td{
 	margin-left:80px;
 	min-width:200px;
 }
-
 textarea{
 	max-width: 600px;
 	width: 100%;
@@ -50,5 +49,6 @@ textarea{
 #message_container{
 	margin-left:80px;
 	min-width:200px;
+	width:100%;
 }
 
