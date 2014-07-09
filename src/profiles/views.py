@@ -131,6 +131,27 @@ def edit_jobs(request):
 	else:
 		raise Http404
 
+def settings_pictures(request):
+	if request.method == 'POST':
+		user = request.user
+		pitures = UserPicture.objects.filter(user)
+		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=0)
+		formset_p = PictureFormSet(request.POST or None, request.FILES, queryset=pictures)
+
+		if formset_p.is_valid():
+			for form in formset_p:
+				new_form = form.save(commit=False)
+				new_form.user = user
+				new_form.save()
+			messages.success(request, 'Profile details updated.')
+		else:
+			messages.error(request, 'Profile details did not update.')
+		#return render_to_response('profiles/edit_address.html', locals(), context_instance=RequestContext(request))
+		return HttpResponseRedirect('/edit/')
+	else:
+		raise Http404
+
+
 def edit_pictures(request):
 	if request.method == 'POST':
 
@@ -149,8 +170,7 @@ def edit_pictures(request):
 			messages.error(request, 'Profile details did not update.')
 		#return render_to_response('profiles/edit_address.html', locals(), context_instance=RequestContext(request))
 		return HttpResponseRedirect('/edit/')
-	else:
-		raise Http404
+	return render_to_response('profiles/edit_pictures.html', locals(), context_instance=RequestContext(request))
 
 
 def edit_profile(request):
