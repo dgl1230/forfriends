@@ -40,7 +40,7 @@
 		<div class="row" id="buttons_row">
 			<div class="buttons">
 				{% if match.user1_approved == True and match.user2_approved == True %}
-				<a  class="btn btn-default btn" id="friend_button" title="You are friends!">Friend</a>
+				<a  class="btn btn-default btn" id="friend_button" title="You are friends!">Friends</a>
 				<a class="btn btn-default btn" id="message_button" data-toggle="tooltip" data-placement="top" href='{% url "su_compose" single_user.username %}'>Send Message</a>
 				{% elif match.user1_approved == True and match.user1 == request.user %}
 				<a  class="btn btn-default btn" id="friend_button">Request Sent</a>

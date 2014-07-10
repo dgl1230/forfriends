@@ -46,6 +46,19 @@ body{
 	font-weight:700;
 }
 
+.pager{
+	margin-top:30px;
+}
+
+.btn-lg{
+	width:180px;
+}
+
+tr, td{
+	color: #084c8d;
+}
+
+
 .btn-success{
 	width:200px;
 	margin-top:10px;

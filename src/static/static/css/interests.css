@@ -42,13 +42,15 @@
 .contain{
 	margin-top: 5%;
 }
-.img-container .img-responsive{
-	margin: auto;
+#interests-wrapper .img-responsive{
+	margin: 0 auto;
 	border: .1em #d5d5d5 solid;
 	width: 200px;
 	height: 150px;
 }
-
+#interests-wrapper{
+	margin-top: -20px;
+}
 .previous{
 	float: left;
 }
@@ -116,7 +118,7 @@ footer{
 }
 
 .question_answers{
-	width: 100px;
+	width: 200px;
 	margin: 0 auto;
 }
 .question_answers input{

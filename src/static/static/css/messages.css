@@ -8,12 +8,17 @@
 
 .row{
 }
-
+tr th{
+	width:50%;
+}
 th{
 	color: white;
 }
 thead{
 	background-color: #084c8d;
+}
+.btn-sm{
+	width:120px;
 }
 
 h4, tbody td:first-child{
