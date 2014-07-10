@@ -8,18 +8,23 @@
 
 .row{
 }
-
+tr th{
+	width:50%;
+}
 th{
 	color: white;
 }
 thead{
 	background-color: #084c8d;
 }
+.btn-sm{
+	width:120px;
+}
 
 h4, tbody td:first-child{
 	text-transform: capitalize;
 }
-label{
+.message_container label{
 	width: 65px!important;
 	margin: 0 5% 0 4%;
 }
@@ -28,10 +33,11 @@ td{
 	background-color: #f8f8f8!important;
 }
 
-#message_container{
+#messages_container{
 	margin-top:100px;
+	margin-left:80px;
+	min-width:200px;
 }
-
 textarea{
 	max-width: 600px;
 	width: 100%;
@@ -48,5 +54,6 @@ textarea{
 #message_container{
 	margin-left:80px;
 	min-width:200px;
+	width:100%;
 }
 

@@ -26,6 +26,7 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 	border-bottom: none;
 	border-top:#d5d5e5 5px solid;
 	min-width: 280px!important;
+
 }
 .navbar-brand{
 	letter-spacing: .3em;
@@ -59,10 +60,8 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 
 .navbar a:hover{
 	text-shadow: 
-  -1.5px -1.5px 0 white, 
-   1.5px -1.5px 0 white,
-  -1.5px -1.5px 0 white,
-   1.5px  1.5px 0 white;
+
+   color: white!important;
 
 }
 
@@ -77,6 +76,8 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 	border-bottom: .5px solid;
 	border-right: .5px solid;
 	box-shadow: 0px 0px 0px 0px;
+	width:100px;
+	margin-left:50px;
 
 }
 
@@ -132,6 +133,7 @@ a.dropdown-toggle{
 	min-width: 280px;
 	padding-top: 5px;
 	margin-left: 80px;
+	margin-top:5px;
 }
 #secondary_navbar a, #secondary_navbar h1{
 	color: #084c8d;
@@ -181,6 +183,7 @@ a.dropdown-toggle{
 
 .dropdown-toggle{
 	font-weight:700;
+	width:200px;
 }
 #tertiary_navbar{
 	background-color: #fff;

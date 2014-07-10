@@ -5,21 +5,20 @@
 
 
 {% block content %}
+<div id="view_container">
 <div class="row">
 	<div class="col-md-1" id="secondary_navbar">
-        <h1> View History</h1>
-	</div>
+        <h1>Visitors</h1>
+	</div>	
 </div>
-<div class="container">
+<div class="container" id="home-only">
   <div class='col-lg-10 col-12'>
 <br/>
-<br/>
-<div class='col-lg-6 '>
-	<div class='row'>
+<div class='row'>
+<div class='col-sm-4 '>
+	
 {% for visitor in visitors %}
-	<div id="myfriend">
 	{% if not request.user == visitor %}
-	<div class='col-lg-4'>
 	<a href='/members/{{ visitor.username}}'>
 		{% for pic in visitor.userpicture_set.all %}
 			
@@ -28,9 +27,7 @@
 			{% endif %}
 		{% endfor %}
 		{% if not visitor.userpicture_set.all %}
-			<div class="mask">
 				<img src='{{ STATIC_URL }}img/avatar.png' class='img-responsive' />
-			</div>
 		{% endif %}
 			
 		{{ visitor.username }}
@@ -46,6 +43,7 @@
 		{% endif %}
 		{% cycle '' '' '' '</div><div class="row">' %}
 {% endfor %}
+</div>
 </div>
 </div>
 </div>
