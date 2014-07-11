@@ -10,7 +10,9 @@ from django.contrib.auth.models import User
 from django.forms.models import modelformset_factory
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
+from django.core.mail import send_mail
 
+from forfriends.settings.deployment import EMAIL_HOST_USER
 from forfriends.matching import match_percentage
 from matches.models import Match
 from .models import Address, Job, Info, UserPicture
@@ -236,6 +238,7 @@ def login_user(request):
 		user = authenticate(username=username, password=password)
 		if user is not None:
 			if user.is_active:
+
 				login(request, user)
 				return HttpResponseRedirect('/')
 		else:

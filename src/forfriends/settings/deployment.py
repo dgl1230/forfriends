@@ -12,7 +12,7 @@ import os
 
 #from storages.backends.s3boto import S3BotoStorage
 
-EMAIL_USE_TLS = False
+EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = os.environ["EMAIL_HOST_USER"]
 #DEFAULT_FROM_EMAIL = os.environ["EMAIL_HOST_USER"]

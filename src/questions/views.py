@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+import random 
+
+
 from django.contrib import messages
 from django.shortcuts import render_to_response, RequestContext, Http404, HttpResponseRedirect
 from django.contrib.auth.models import User
@@ -9,8 +12,9 @@ from .forms import QuestionForm, AnswerForm
 
 def all_questions(request):
 	
-	questions_all = Question.objects.exclude(useranswer__user=request.user).order_by('?')
-	paginator = Paginator(questions_all, 1)
+	questions_all = Question.objects.exclude(useranswer__user=request.user)
+
+	paginator = Paginator(questions_all1, 1)
 	importance_levels = ['Very Important', 'Somewhat Important', 'Not Important']
 
 	page = request.GET.get('page')
