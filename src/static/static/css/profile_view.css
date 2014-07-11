@@ -1,7 +1,17 @@
 .col-12{
 	min-width: 100px;
 }
+#user_name{
+	font-size:2em;
+	margin-bottom:0px!important;
+	color:#084c8d;
+}
 
+#user_address{
+	font-size:1em;
+	margin-bottom:0px;
+	margin-top:0px;
+}
 .nav-tabs li a{
 	min-width: 150px;
 	background-color: #f8f8f8;

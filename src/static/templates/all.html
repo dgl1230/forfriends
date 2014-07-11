@@ -41,12 +41,13 @@
 					<a href='/members/{{ match.user1.username}}'><img src='{{ STATIC_URL }}img/avatar.png' class='img-responsive' /></a>
 				{% endif %}
 			
-				{{ match.user1.username }}
-			</a> <br/>
-		{% for item in match.user1.address_set.all %} 
+				<p id="user_name">{{ match.user1.username }}</p>
+			</a>
+		<p id="user_address">{% for item in match.user1.address_set.all %} 
 			{% if forloop.first %} {{ item }}
 			{% endif %} 
 		{% endfor %}
+	</p>
 		<div class="matching">
 		<p id="match">Match: {{ match.percent }}%	</p>
 		<br/>

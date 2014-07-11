@@ -131,9 +131,9 @@ a.dropdown-toggle{
 #secondary_navbar{
 	background-color: #fff;
 	min-width: 280px;
-	padding-top: 5px;
 	margin-left: 80px;
 	margin-top:5px;
+	padding-top:15px;
 }
 #secondary_navbar a, #secondary_navbar h1{
 	color: #084c8d;
