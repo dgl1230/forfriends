@@ -23,11 +23,17 @@ body{
 }
 
 .messages{
-	margin-left:80px;
+	margin-left:20px;
+	position:absolute;
+	min-width:200px;
+	max-width:300px;
+	top:10%;
+	left:20%;
 }
 .success{
 	text-align:center;
-	margin-left:80px!important;
+	margin-left:20px!important;
+	position:absolute;
 }
 .btn-default, .btn .btn-default{
 	background-color: #d5d5d5!important;
@@ -190,7 +196,10 @@ a:hover{
 		margin-left: 150px;
 	}
 }
-
+@media (min-width: 985px){
+	.messages{
+		width:400px;
+	}
 @media (min-width: 1150px){
 	.container{
 		margin-left: 150px;
@@ -198,6 +207,9 @@ a:hover{
 }
 
 @media (max-width: 480px){
+	.messages{
+		margin-left:40px;
+	}
 }
 
 *:focus{
@@ -217,8 +229,4 @@ a:hover{
   	font-size:.9em;
   }
 }
-
-
-
-/* EDIT PROFILE */
 

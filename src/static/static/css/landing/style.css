@@ -1,33 +1,3 @@
-
-/*Template Name: Crossway - Startup Landing Page Template
-Theme URL: http://themeforest.net/user/DSA79/
-Description: Crossway - Startup Landing Page Template
-Author: DSA79
-Author URL: http://themeforest.net/user/DSA79
-Version: 1.1.0
-Website: www.dsathemes.com
-Tags: responsive, html5 template, one page, landing, startup, business, company, corporate, creative
-*/
-
-
-
-/* ------------------------------------------ */
-/*             TABLE OF CONTENTS
-/* ------------------------------------------ */
-
-/*   01 - General & Basic Styles   */
-/*   02 - Intro      			   */
-/*   03 - About        			   */
-/*   04 - Features                 */
-/*   05 - FAQs		               */
-/*   06 - Clients                  */
-/*   07 - Call to Action           */
-/*   08 - Footer         		   */
-/*   09 - Scroll to Top	   		   */
-/*   10 - Contact Form Response    */
-
-
-
 /* ==========================================================================
    01. GENERAL & BASIC STYLES
    ========================================================================== */
@@ -45,6 +15,7 @@ Tags: responsive, html5 template, one page, landing, startup, business, company,
 
 #title{
 	letter-spacing: .4em;
+  padding-top:15px;
 }
 /*------------------------------------------*/
 /*	 Preload Animation 
