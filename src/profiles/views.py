@@ -12,7 +12,7 @@ from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail
 
-from forfriends.settings.deployment import EMAIL_HOST_USER
+from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG
 from forfriends.matching import match_percentage
 from matches.models import Match
 from .models import Address, Job, Info, UserPicture
@@ -238,7 +238,8 @@ def login_user(request):
 	if user is not None:
 		if user.is_active:
 			login(request, user)
-			send_mail('test subject', 'Here is the message.', EMAIL_HOST_USER, ['dgearylopez@gmail.com'])
+			if not DEBUG:
+				send_mail('test subject', 'Here is the message.', EMAIL_HOST_USER, ['dgearylopez@gmail.com'])
 			return HttpResponseRedirect('/')
 	else:
 		messages.error(request, "Please double check your username and password")
