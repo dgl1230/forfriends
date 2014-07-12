@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 from django.forms.models import modelformset_factory
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
 
 from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG
 from forfriends.matching import match_percentage
@@ -232,20 +232,18 @@ def find_friends(request):
 
 
 def login_user(request):
-	username = request.POST['username']
-	password = request.POST['password']
-	user = authenticate(username=username, password=password)
-	if user is not None:
-		if user.is_active:
-			login(request, user)
-			if not DEBUG:
-				send_mail('test subject', 'Here is the message.', EMAIL_HOST_USER, ['dgearylopez@gmail.com'])
-			return HttpResponseRedirect('/')
-	else:
+	try:
+		username = request.POST['username']
+		password = request.POST['password']
+		user = authenticate(username=username, password=password)
+		if user is not None:
+			if user.is_active:
+				login(request, user)
+				return HttpResponseRedirect('/')
+		else:
+			messages.error(request, "Please double check your username and password")
+	except: 
 		messages.error(request, "Please double check your username and password")
-	'''except: 
-		messages.error(request, "Please double check your username and password")
-	'''
 	return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
 def logout_user(request):
@@ -307,6 +305,16 @@ def register_new_user(request):
 						new_info.save()
 						new_user.save()
 						new_user = authenticate(username=username, password=password)
+						if not DEBUG:
+							title = 'Thanks for registering with Frenvu!'
+							line1 = 'Hi %s, \nThanks for making an account with Frenvu! My name is Denis, ' % (username,)
+							line2 = "and I'm one of the Co-Founders of Frenvu. We're trying to make Frenvu a great"
+							line3 = "place for fostering new friendships, but we're still an early company, so if "
+							line4 = "you have any questions or concerns about the site, please feel free to reach "
+							line5 = "out to me. I'd love to hear feedback from you or help you with any problem you're having! "
+							line6 = "We hope you enjoy the site!\nSincerely,\nDenis and the rest of the team at Frenvu"
+							html_message = line1 + line2 + line3 + line4 + line5 + line6
+							send_mail(title, 'Here is the message.', EMAIL_HOST_USER, [email])
 						login(request, new_user)
 						return HttpResponseRedirect('/')
 					else:
