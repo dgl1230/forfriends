@@ -15,6 +15,7 @@ import os
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = os.environ["EMAIL_HOST_USER"]
+EMAIL_PORT = 587
 #DEFAULT_FROM_EMAIL = os.environ["EMAIL_HOST_USER"]
 #SERVER_EMAIL = os.environ["EMAIL_HOST_USER"]
 EMAIL_HOST_PASSWORD = os.environ["EMAIL_HOST_PASSWORD"]
@@ -35,7 +36,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 SECRET_KEY = os.environ["FORFRIENDS_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
 TEMPLATE_DEBUG = True
@@ -61,7 +62,7 @@ INSTALLED_APPS = (
     'matches',
     'questions',
     'visitors',
-    'storages',
+    #'storages',
 )
 
 TEMPLATE_DIRS = (

@@ -232,19 +232,19 @@ def find_friends(request):
 
 
 def login_user(request):
-	try:
-		username = request.POST['username']
-		password = request.POST['password']
-		user = authenticate(username=username, password=password)
-		if user is not None:
-			if user.is_active:
-
-				login(request, user)
-				return HttpResponseRedirect('/')
-		else:
-			messages.error(request, "Please double check your username and password")
-	except: 
+	username = request.POST['username']
+	password = request.POST['password']
+	user = authenticate(username=username, password=password)
+	if user is not None:
+		if user.is_active:
+			login(request, user)
+			send_mail('test subject', 'Here is the message.', EMAIL_HOST_USER, ['dgearylopez@gmail.com'])
+			return HttpResponseRedirect('/')
+	else:
 		messages.error(request, "Please double check your username and password")
+	'''except: 
+		messages.error(request, "Please double check your username and password")
+	'''
 	return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
 def logout_user(request):

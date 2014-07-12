@@ -14,7 +14,7 @@ def all_questions(request):
 	
 	questions_all = Question.objects.exclude(useranswer__user=request.user)
 
-	paginator = Paginator(questions_all1, 1)
+	paginator = Paginator(questions_all, 1)
 	importance_levels = ['Very Important', 'Somewhat Important', 'Not Important']
 
 	page = request.GET.get('page')

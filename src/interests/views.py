@@ -23,8 +23,7 @@ def create_interest(request):
 
 
 def all_interests(request):
-	interests_all = Interest.objects.exclude(userinterestanswer__user=request.user).filter(approved=True).order_by('?')
-	paginator = Paginator(interests_all, 1)
+	interests_all = Interest.objects.exclude(userinterestanswer__user=request.user).filter(approved=True)
 	importance_levels = ['Strongly Like', 'Like', 'Neutral', 'Dislike', 'Strongly Dislike']
 
 	page = request.GET.get('page')
