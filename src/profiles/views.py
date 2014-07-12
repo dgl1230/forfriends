@@ -313,8 +313,8 @@ def register_new_user(request):
 							line4 = "you have any questions or concerns about the site, please feel free to reach "
 							line5 = "out to me. I'd love to hear feedback from you or help you with any problem you're having! "
 							line6 = "We hope you enjoy the site!\nSincerely,\nDenis and the rest of the team at Frenvu"
-							html_message = line1 + line2 + line3 + line4 + line5 + line6
-							send_mail(title, 'Here is the message.', EMAIL_HOST_USER, [email])
+							message = line1 + line2 + line3 + line4 + line5 + line6
+							send_mail(title, message , EMAIL_HOST_USER, [email])
 						login(request, new_user)
 						return HttpResponseRedirect('/')
 					else:
