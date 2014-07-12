@@ -319,8 +319,8 @@ def register_new_user(request):
 							html_line6 = "We hope you enjoy the site!\n<br>Sincerely,\n<br>Denis and the rest of the team at Frenvu"
 							message = line1 + line2 + line3 + line4 + line5 + line6
 							html_message = html_line1 + line2 + line3 + line4 + line5 + html_line6
-							msg = EmailMultiAlternatives(subject, message, EMAIL_HOST_USER, [email])
-							msg.attach_alternative(html_message, "text/html")
+							msg = EmailMultiAlternatives(subject, html_message, EMAIL_HOST_USER, [email])
+							msg.content_subtype = "html"
 							msg.send()
 						login(request, new_user)
 						return HttpResponseRedirect('/')
