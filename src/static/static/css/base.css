@@ -6,7 +6,8 @@ body{
 .entire-wrapper{
 	width: 100%;
 }
-.container{
+p{
+	font-family: "Droid serif", serif;
 }
 .row{
 	margin-left: 0px;
@@ -106,12 +107,17 @@ h1{
 }
 
 input{
-	border-radius: 8px !important;
+}
+
+.form-control{
+	color:black;
+}
+input{
+	font-family: "Droid Serif", serif;
 }
 
 /* symbol on sidebar */
 .pull-right{
-	border-radius: 8px !important;
 }
 .glyphicon{
 	font-size:1em;

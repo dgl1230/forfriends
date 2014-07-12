@@ -1,4 +1,4 @@
-html, ul, ul li, li, li a, a, p, .btn{
+html, ul, ul li, li, li a, .btn{
 	font-family: 'Open Sans', sans-serif;
 }
 .tab-content{
@@ -8,6 +8,10 @@ html, ul, ul li, li, li a, a, p, .btn{
 .success{
 	text-align:center;
 	color: #084c8d;
+}
+
+.panel-default{
+	min-width:130px;
 }
 #more_pictures_appear{
 	display:none;	
@@ -111,4 +115,9 @@ p a{
 
 #edit_profile_container{
 	margin-left:80px;
+}
+
+#id_form-0-image label{
+	font-size: 2em;
+
 }

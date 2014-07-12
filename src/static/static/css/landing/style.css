@@ -332,7 +332,6 @@ nav a#pull {
   margin: -20px 0px 21px;
   line-height: 40px;
   font-size: 15px;
-  font-weight: bold;
   color: #555;
   text-align: center;
   text-shadow: 0 1px white;
@@ -432,7 +431,6 @@ fieldset{
   margin: -20px -20px 21px;
   line-height: 40px;
   font-size: 15px;
-  font-weight: bold;
   color: #555;
   text-align: center;
   text-shadow: 0 1px white;
@@ -505,7 +503,7 @@ fieldset{
 }
 
 input {
-  font-family: 'Lucida Grande', Tahoma, Verdana, sans-serif;
+  font-family: 'Droid serif',serif , Tahoma, Verdana, sans-serif;
   font-size: 14px;
 }
 
@@ -558,7 +556,7 @@ input[type=submit] {
 #registration_button{
   background-color: #084c8d!important;
   border: 2px solid #dadada;
-  border-radius: 7px;
+  border-radius:0px;
 }
 #registration_button:focus, #registration_button:hover{
   outline: none;
