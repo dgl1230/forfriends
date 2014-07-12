@@ -12,17 +12,16 @@
 	</div>	
 </div>
 <div class="container" id="home-only">
-  <div class='col-lg-10 col-12'>
+  <div class='col-lg-10 col-12' id="center-div">
 <br/>
-<div class='row'>
-<div class='col-sm-4 '>
-	
+<div class='row'>	
 {% for visitor in visitors %}
 	{% if not request.user == visitor %}
-	<a href='/members/{{ visitor.username}}'>
+	<div class='col-sm-4 '>
 		{% for pic in visitor.userpicture_set.all %}
 			
 			{% if forloop.first %}
+				<a href='/members/{{ visitor.username}}'>
 				<img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' />
 			{% endif %}
 		{% endfor %}
@@ -37,8 +36,6 @@
 			{% endif %} 
 		{% endfor %}
 		</p>
-
-		</div>
 		</div>
 		{% endif %}
 		{% cycle '' '' '' '</div><div class="row">' %}
