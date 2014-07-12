@@ -306,15 +306,22 @@ def register_new_user(request):
 						new_user.save()
 						new_user = authenticate(username=username, password=password)
 						if not DEBUG:
-							title = 'Thanks for registering with Frenvu!'
+							subject = 'Thanks for registering with Frenvu!'
 							line1 = 'Hi %s, \nThanks for making an account with Frenvu! My name is Denis, ' % (username,)
+							html_line1 = 'Hi %s, \n<br>Thanks for making an account with Frenvu! My name is Denis, ' % (username,)
+
 							line2 = "and I'm one of the Co-Founders of Frenvu. We're trying to make Frenvu a great"
 							line3 = "place for fostering new friendships, but we're still an early company, so if "
 							line4 = "you have any questions or concerns about the site, please feel free to reach "
 							line5 = "out to me. I'd love to hear feedback from you or help you with any problem you're having! "
+
 							line6 = "We hope you enjoy the site!\nSincerely,\nDenis and the rest of the team at Frenvu"
+							html_line6 = "We hope you enjoy the site!\n<br>Sincerely,\n<br>Denis and the rest of the team at Frenvu"
 							message = line1 + line2 + line3 + line4 + line5 + line6
-							send_mail(title, message , EMAIL_HOST_USER, [email])
+							html_message = html_line1 + line2 + line3 + line4 + line5 + html_line6
+							msg = EmailMultiAlternatives(subject, message, EMAIL_HOST_USER, [email])
+							msg.attach_alternative(html_message, "text/html")
+							msg.send()
 						login(request, new_user)
 						return HttpResponseRedirect('/')
 					else:
