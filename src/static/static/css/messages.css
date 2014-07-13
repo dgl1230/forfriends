@@ -6,6 +6,14 @@
 	float: left;
 }
 
+.compose-container{
+	margin-left:80px;
+}
+
+.button_container{
+	margin: 0 auto;
+}
+
 .row{
 }
 tr th{
@@ -57,3 +65,8 @@ textarea{
 	width:100%;
 }
 
+@media (max-width: 402px){
+	.button_container{
+		width:120px;
+	}
+}
