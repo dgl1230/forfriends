@@ -24,7 +24,7 @@ $('#myTab a').click(function (e) {
 <div class="row">
 <div class="col-md-1" id="tertiary_navbar">
     {% for message in messages %}
-    <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+    <p  id="interests_messages"{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
     {% endfor %}
 </div>
 </div>
@@ -90,8 +90,9 @@ $('#myTab a').click(function (e) {
         <div class='col-lg-12'>
           <form method='POST' action='/edit/delete_account/'>
           </form>
-           <h2><a href='{% url "delete_account" %}'>Delete Account</a></h2>
-      </div>
+          <h3 class="delete_info"> If you choose to delete your account, all your information will be deleted and you will not be able to recover it. </h3>
+           <a href='{% url "delete_account" %}'><div class="btn-lg">Delete Account</div></a>      
+         </div>
     </div>
     </div>
   </div>

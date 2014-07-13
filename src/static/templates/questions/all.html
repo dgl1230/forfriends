@@ -15,12 +15,12 @@
 </div>
 
 {% if messages %}
-<div class='row'>
-                <div class="col-md-1" id="tertiary_navbar">
-                  {% for message in messages %}
-                    <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
-                  {% endfor %}
-                </div>
+<div class="row">
+<div class="col-md-1" id="tertiary_navbar">
+    {% for message in messages %}
+    <p  id="interests_messages"{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+    {% endfor %}
+</div>
 </div>
 {% endif %}
 

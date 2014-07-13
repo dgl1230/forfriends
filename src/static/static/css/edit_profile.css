@@ -86,7 +86,14 @@ p label{
 	float:none!important;
 	width:200;
 }
+.delete_info{
+	font-size:14px;
+}
 
+#delete_account .btn-lg:hover{
+	color:white;
+
+}
 .col-lg-12 p select{
 	width:200;
 	float:right;
@@ -103,6 +110,7 @@ p label{
 	width: 120px;
 	text-align:center;
 	font-size: 12px;
+	border: 1px solid #084c8d;
 }
 
 #delete_account{

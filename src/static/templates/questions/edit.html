@@ -16,12 +16,12 @@
 	</div>
 </div>
 {% if messages %}
-<div class='row'>
-                <ul class="messages">
-                  {% for message in messages %}
-                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                  {% endfor %}
-                </ul>
+<div class="row">
+<div class="col-md-1" id="tertiary_navbar">
+    {% for message in messages %}
+    <p  id="interests_messages"{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+    {% endfor %}
+</div>
 </div>
 {% endif %}
 <div class='row' id="question-wrapper">
@@ -35,12 +35,12 @@
 			<option {% for abc in question.useranswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected='selected' {% endif %} {% endfor %} value='{{ imp }}'>{{ imp }}</option>
 			{% endfor %}
 		</select></p> <p>
-
+		<div class="question_answers">
 		{% for ans in question.answer_set.all %}
 			<input type='radio' required=
 			'required' value='{{ ans }}' {% for abc in ans.useranswer_set.all %} {% if abc and abc.user == request.user %} checked='checked' {% endif %} {% endfor %} name='answer'> {{ ans }} <br/>
 		{% endfor %}
-	
+		</div>
 		<div class="interest_buttons">
 		<!-- Submit Button -->
 		<input type='submit' class='btn-lg' value='Save'>
