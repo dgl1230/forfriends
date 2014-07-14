@@ -133,40 +133,25 @@ def edit_jobs(request):
 	else:
 		raise Http404
 
-def settings_pictures(request):
-	if request.method == 'POST':
-		user = request.user
-		pitures = UserPicture.objects.filter(user)
-		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=0)
-		formset_p = PictureFormSet(request.POST or None, request.FILES, queryset=pictures)
-
-		if formset_p.is_valid():
-			for form in formset_p:
-				new_form = form.save(commit=False)
-				new_form.user = user
-				new_form.save()
-			messages.success(request, 'Profile details updated.')
-		else:
-			messages.error(request, 'Profile details did not update.')
-		#return render_to_response('profiles/edit_address.html', locals(), context_instance=RequestContext(request))
-		return HttpResponseRedirect('/edit/')
-	else:
-		raise Http404
-
 
 def edit_pictures(request):
 	if request.method == 'POST':
 
 		user = request.user
 		pictures = UserPicture.objects.filter(user=user)
-		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=0)
+		if pictures.exists():
+			PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=0)
+		else: 
+			PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=1)
 		formset_p = PictureFormSet(request.POST or None, request.FILES, queryset=pictures)
 
 		if formset_p.is_valid():
 			for form in formset_p:
 				new_form = form.save(commit=False)
-				new_form.user = user
-				new_form.save()
+				image = new_form.image
+				if image:
+					new_form.user = user
+					new_form.save()
 			messages.success(request, 'Profile details updated.')
 		else:
 			messages.error(request, 'Profile details did not update.')
@@ -178,16 +163,22 @@ def edit_pictures(request):
 def edit_profile(request):
 	user = request.user
 	pictures = UserPicture.objects.filter(user=user)
+	num_of_pictures = UserPicture.objects.filter(user=user).count()
 	addresses = Address.objects.filter(user=user)
 	jobs = Job.objects.filter(user=user)
 	info = Info.objects.filter(user=user)
 
-	if pictures.exists():
-		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=0)
-		formset_p = PictureFormSet(queryset=pictures)
-	else:
+	if num_of_pictures == 4:
 		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=1)
-		formset_p = PictureFormSet(queryset=pictures)
+	elif num_of_pictures == 3:
+		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=2)
+	elif num_of_pictures == 2:
+		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=3)
+	elif num_of_pictures == 1:
+		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=4)
+	else:
+		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=0)
+	formset_p = PictureFormSet(queryset=pictures)
 
 	if addresses.exists():
 		AddressFormSet = modelformset_factory(Address, form=AddressForm, extra=0)
