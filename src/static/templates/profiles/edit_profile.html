@@ -49,6 +49,16 @@ $('#myTab a').click(function (e) {
   		{{ formset_p.as_p }}
   		</div>
   	</div>
+      <div class='row' id="pictures_2">
+        <div class='col-lg-12'>
+      {{ formset_p.management_form }}
+      {{ formset_p.as_p }}
+      </div>
+    </div>
+    <div class='btn btn-success' id="pictures_show">
+      Upload More Photos
+    </div>
+
   	<input class='btn btn-success' type='submit' value='Update' />
   	</form>
     </div>
@@ -78,8 +88,10 @@ $('#myTab a').click(function (e) {
       <div class='row'>
         <div class='col-lg-12'>
           <form method='POST' action='/edit/info/'> {% csrf_token %}
+            <div id="info_forms">
             {{ formset_i.management_form }}
             {{ formset_i.as_p }}
+            </div>
         <input class='btn btn-success' type='submit' value='Update' />
         </form>
       </div>
@@ -100,8 +112,12 @@ $('#myTab a').click(function (e) {
 </div>
 </div>
 </div>
+<script>
+  $( "#pictures_show").click(function() {
+    $("#pictures_2").toggle("slow");
+  });
 
-
+</script>
 
 
 

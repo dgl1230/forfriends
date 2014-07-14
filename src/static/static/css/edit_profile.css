@@ -10,6 +10,10 @@ html, ul, ul li, li, li a, .btn{
 	color: #084c8d;
 }
 
+#pictures_2{
+	display:none;
+}
+
 .panel-default{
 	min-width:130px;
 }

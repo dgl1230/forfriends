@@ -40,7 +40,9 @@ h4, tbody td:first-child{
 td{
 	background-color: #f8f8f8!important;
 }
-
+.messages_view{
+	margin-left:80px;
+}
 #messages_container{
 	margin-top:100px;
 	margin-left:80px;
