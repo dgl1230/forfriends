@@ -176,6 +176,8 @@ def edit_profile(request):
 		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=3)
 	elif num_of_pictures == 1:
 		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=4)
+	elif num_of_pictures == 0:
+		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=5)
 	else:
 		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=0)
 	formset_p = PictureFormSet(queryset=pictures)

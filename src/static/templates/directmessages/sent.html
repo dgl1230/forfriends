@@ -4,6 +4,18 @@
 
 
 {% block content %}
+<br>
+<br>
+  <div class='col-lg-10 col-12' id="interests-wrapper">
+{% if messages %}
+<div class='row'>
+                <ul class="messages">
+                  {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                  {% endfor %}
+                </ul>
+</div>
+{% endif %}
 <div class="row">
 	<div class="col-md-1" id="secondary_navbar">
         <h1>Sent Messages</h1>
