@@ -12,7 +12,7 @@ from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail, EmailMultiAlternatives
 
-from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG
+from forfriends.settings.production import EMAIL_HOST_USER, DEBUG
 from forfriends.matching import match_percentage
 from matches.models import Match
 from .models import Address, Job, Info, UserPicture
