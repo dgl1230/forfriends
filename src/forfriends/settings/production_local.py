@@ -2,11 +2,12 @@
 import os
 
 
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = os.environ["EMAIL_HOST_USER"]
-EMAIL_PORT = 587
-EMAIL_HOST_PASSWORD = os.environ["EMAIL_HOST_PASSWORD"]
+EMAIL_USE_TLS = False
+EMAIL_HOST = 'localhost'
+EMAIL_HOST_USER = ''
+EMAIL_PORT = 1025
+EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_USER = "testing@testing.com"
 
 
 
@@ -17,52 +18,31 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 SECRET_KEY = os.environ["FORFRIENDS_KEY"]
 
 
-DEBUG = False
+DEBUG = True
 
 
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
-
-if DEBUG == True:
-    INSTALLED_APPS = (
-        'django.contrib.admin',
-        'django.contrib.auth',
-        'django.contrib.contenttypes',
-        'django.contrib.sessions',
-        'django.contrib.messages',
-        'django.contrib.staticfiles',
-        'django.contrib.sites',
-        'registration',
-        'south',
-        'profiles',
-        'interests',
-        'directmessages',
-        'matches',
-        'questions',
-        'visitors',
-    )
-else: 
-    INSTALLED_APPS = (
-        'django.contrib.admin',
-        'django.contrib.auth',
-        'django.contrib.contenttypes',
-        'django.contrib.sessions',
-        'django.contrib.messages',
-        'django.contrib.staticfiles',
-        'django.contrib.sites',
-        'registration',
-        'south',
-        'profiles',
-        'interests',
-        'directmessages',
-        'matches',
-        'questions',
-        'visitors',
-        'storages',
-    )
+ 
+INSTALLED_APPS = (
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'registration',
+    'south',
+    'profiles',
+    'interests',
+    'directmessages',
+    'matches',
+    'questions',
+    'visitors',
+)
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'static/templates'),
@@ -147,21 +127,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ALLOWED_HOSTS = ['*']
 
 
-if not DEBUG:
-    
-    AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-    AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-    AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
 
-    DEFAULT_FILE_STORAGE = 'forfriends.s3utils.MediaRootS3BotoStorage'
-    STATICFILES_STORAGE = 'forfriends.s3utils.StaticRootS3BotoStorage'
-
-    AWS_PRELOAD_METADATA = True 
-
-    S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
-    STATIC_URL = S3_URL + 'static/'
-    MEDIA_URL = S3_URL + 'media/'
-    ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
     
 

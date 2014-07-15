@@ -1,45 +1,29 @@
-"""
-Django settings for forfriends project.
 
-For more information on this file, see
-https://docs.djangoproject.com/en/1.6/topics/settings/
-
-For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.6/ref/settings/
-"""
 import os
 
-EMAIL_USE_TLS = False
+
+EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = os.environ["EMAIL_HOST_USER"]
-#DEFAULT_FROM_EMAIL = os.environ["EMAIL_HOST_USER"]
-#SERVER_EMAIL = os.environ["EMAIL_HOST_USER"]
+EMAIL_PORT = 587
 EMAIL_HOST_PASSWORD = os.environ["EMAIL_HOST_PASSWORD"]
 
 
 
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ["FORFRIENDS_KEY"]
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
+DEBUG = False
+
 
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
-# Application definition
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -57,7 +41,7 @@ INSTALLED_APPS = (
     'matches',
     'questions',
     'visitors',
-    'storages'
+    'storages',
 )
 
 TEMPLATE_DIRS = (
@@ -79,9 +63,6 @@ ROOT_URLCONF = 'forfriends.urls'
 WSGI_APPLICATION = 'forfriends.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.6/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -92,9 +73,6 @@ DATABASES = {
         'PORT': '',
     }
 }
-
-# Internationalization
-# https://docs.djangoproject.com/en/1.6/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
@@ -107,8 +85,6 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 MEDIA_ROOT = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), 'static', 'media')
 
@@ -147,11 +123,23 @@ DATABASES['default'] =  dj_database_url.config()
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-# Allow all host headers
+# Allow all host headers, this needs to be more secure soon 
 ALLOWED_HOSTS = ['*']
 
+    
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
 
-#STATIC_ROOT = 'staticfiles'
+DEFAULT_FILE_STORAGE = 'forfriends.s3utils.MediaRootS3BotoStorage'
+STATICFILES_STORAGE = 'forfriends.s3utils.StaticRootS3BotoStorage'
 
+AWS_PRELOAD_METADATA = True 
 
+S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+STATIC_URL = S3_URL + 'static/'
+MEDIA_URL = S3_URL + 'media/'
+ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
+
+    
 
