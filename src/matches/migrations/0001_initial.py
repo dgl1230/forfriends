@@ -14,6 +14,8 @@ class Migration(SchemaMigration):
             ('user1', self.gf('django.db.models.fields.related.ForeignKey')(related_name='user1', to=orm['auth.User'])),
             ('user2', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='user2', null=True, to=orm['auth.User'])),
             ('percent', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('user1_approved', self.gf('django.db.models.fields.BooleanField')(default=False)),
+            ('user2_approved', self.gf('django.db.models.fields.BooleanField')(default=False)),
             ('timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
             ('updated', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
         ))
@@ -69,7 +71,9 @@ class Migration(SchemaMigration):
             'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'updated': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
             'user1': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'user1'", 'to': u"orm['auth.User']"}),
-            'user2': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'user2'", 'null': 'True', 'to': u"orm['auth.User']"})
+            'user1_approved': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'user2': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'user2'", 'null': 'True', 'to': u"orm['auth.User']"}),
+            'user2_approved': ('django.db.models.fields.BooleanField', [], {'default': 'False'})
         }
     }
 

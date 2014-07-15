@@ -54,7 +54,7 @@
 				<p>How much do you like this? <select class="importance_level" required='required' name='importance_level'></p>
 			</div>
 				{% for imp in importance_levels %}
-				<option {% for abc in interest.interestanswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected='selected' {% endif %} {% endfor %} value='{{ imp }}'>{{ imp }}</option>
+				<option {% for abc in interest.userinterestanswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected='selected' {% endif %} {% endfor %} value='{{ imp }}'>{{ imp }}</option>
 				{% endfor %}
 			</select></p>
 			<div class="interest_buttons">

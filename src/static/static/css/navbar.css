@@ -226,11 +226,13 @@ form.navbar-form.navbar-left{
 	}
 }
 
-@media (min-width: 1200px){
-	.form-control{
-	width: 200px!important;
+@media (min-width: 1300px){
+	.form-group{
+		width:600px!important;
 	}
-
+	.form-control{
+		width:540px!important;
+	}
 }
 
 @media (max-width: 480px){

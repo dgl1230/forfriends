@@ -10,7 +10,9 @@ from django.contrib.auth.models import User
 from django.forms.models import modelformset_factory
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
+from django.core.mail import send_mail, EmailMultiAlternatives
 
+from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG
 from forfriends.matching import match_percentage
 from matches.models import Match
 from .models import Address, Job, Info, UserPicture
@@ -131,41 +133,52 @@ def edit_jobs(request):
 	else:
 		raise Http404
 
+
 def edit_pictures(request):
 	if request.method == 'POST':
 
 		user = request.user
 		pictures = UserPicture.objects.filter(user=user)
-		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=0)
+		if pictures.exists():
+			PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=0)
+		else: 
+			PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=1)
 		formset_p = PictureFormSet(request.POST or None, request.FILES, queryset=pictures)
 
 		if formset_p.is_valid():
 			for form in formset_p:
 				new_form = form.save(commit=False)
-				new_form.user = user
-				new_form.save()
+				image = new_form.image
+				if image:
+					new_form.user = user
+					new_form.save()
 			messages.success(request, 'Profile details updated.')
 		else:
 			messages.error(request, 'Profile details did not update.')
 		#return render_to_response('profiles/edit_address.html', locals(), context_instance=RequestContext(request))
 		return HttpResponseRedirect('/edit/')
-	else:
-		raise Http404
+	return render_to_response('profiles/edit_pictures.html', locals(), context_instance=RequestContext(request))
 
 
 def edit_profile(request):
 	user = request.user
 	pictures = UserPicture.objects.filter(user=user)
+	num_of_pictures = UserPicture.objects.filter(user=user).count()
 	addresses = Address.objects.filter(user=user)
 	jobs = Job.objects.filter(user=user)
 	info = Info.objects.filter(user=user)
 
-	if pictures.exists():
-		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=0)
-		formset_p = PictureFormSet(queryset=pictures)
-	else:
+	if num_of_pictures == 4:
 		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=1)
-		formset_p = PictureFormSet(queryset=pictures)
+	elif num_of_pictures == 3:
+		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=2)
+	elif num_of_pictures == 2:
+		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=3)
+	elif num_of_pictures == 1:
+		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=4)
+	else:
+		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=0)
+	formset_p = PictureFormSet(queryset=pictures)
 
 	if addresses.exists():
 		AddressFormSet = modelformset_factory(Address, form=AddressForm, extra=0)
@@ -283,6 +296,23 @@ def register_new_user(request):
 						new_info.save()
 						new_user.save()
 						new_user = authenticate(username=username, password=password)
+						if not DEBUG:
+							subject = 'Thanks for registering with Frenvu!'
+							line1 = 'Hi %s, \nThanks for making an account with Frenvu! My name is Denis, ' % (username,)
+							html_line1 = 'Hi %s, \n<br>Thanks for making an account with Frenvu! My name is Denis, ' % (username,)
+
+							line2 = "and I'm one of the Co-Founders of Frenvu. We're trying to make Frenvu a great"
+							line3 = "place for fostering new friendships, but we're still an early company, so if "
+							line4 = "you have any questions or concerns about the site, please feel free to reach "
+							line5 = "out to me. I'd love to hear feedback from you or help you with any problem you're having! "
+
+							line6 = "We hope you enjoy the site!\nSincerely,\nDenis and the rest of the team at Frenvu"
+							html_line6 = "We hope you enjoy the site!\n<br>Sincerely,\n<br>Denis and the rest of the team at Frenvu"
+							message = line1 + line2 + line3 + line4 + line5 + line6
+							html_message = html_line1 + line2 + line3 + line4 + line5 + html_line6
+							msg = EmailMultiAlternatives(subject, html_message, EMAIL_HOST_USER, [email])
+							msg.content_subtype = "html"
+							msg.send()
 						login(request, new_user)
 						return HttpResponseRedirect('/')
 					else:

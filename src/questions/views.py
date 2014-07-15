@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+import random 
+
+
 from django.contrib import messages
 from django.shortcuts import render_to_response, RequestContext, Http404, HttpResponseRedirect
 from django.contrib.auth.models import User
@@ -9,7 +12,8 @@ from .forms import QuestionForm, AnswerForm
 
 def all_questions(request):
 	
-	questions_all = Question.objects.exclude(useranswer__user=request.user).order_by('?')
+	questions_all = Question.objects.exclude(useranswer__user=request.user)
+
 	paginator = Paginator(questions_all, 1)
 	importance_levels = ['Very Important', 'Somewhat Important', 'Not Important']
 
@@ -102,24 +106,3 @@ def edit_questions(request):
 		messages.success(request, 'Changes Saved')
 		return HttpResponseRedirect('')
 	return render_to_response('questions/edit.html', locals(), context_instance=RequestContext(request))
-
-
-#displays the questions for a particular user
-def single_user_questions(request, username):
-	questions_all = Question.objects.filter(useranswer__user__username=username)
-	answers = UserAnswer.objects.filter(user__username=username)
-	paginator = Paginator(questions_all, 1)
-	importance_level = ['Mandatatory', 'Very Important', 'Somewhat Important', 'Not Important']
-
-	page = request.GET.get('page')
-	try:
-		questions = paginator.page(page)
-	except PageNotAnInteger:
-		#If page is not an integer, deliver first page.
-		questions = paginator.page(1)
-	except EmptyPage:
-		#If page is out of range, deliver last page of results
-		questions = paginator.page(paginator.num_pages)
-
-	return render_to_response('questions/single_user.html', locals(), context_instance=RequestContext(request))
-

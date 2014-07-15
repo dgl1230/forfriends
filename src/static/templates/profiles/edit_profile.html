@@ -12,7 +12,7 @@ $('#myTab a').click(function (e) {
 
 {% block content %}
 <div class="row">
-  <div class="col-md-1" id="secondary_navbar">
+  <div class="edit_profile_navbar" id="secondary_navbar">
         <h1>Edit Profile</h1>
   </div>
 </div>
@@ -45,28 +45,25 @@ $('#myTab a').click(function (e) {
     	<form method='POST' action='/edit/pictures/' enctype="multipart/form-data"> {% csrf_token %}
     	<div class='row'>
     		<div class='col-lg-12'>
-      {{ formset_p.management_form }}
-  		{{ formset_p.as_p }}
+    {{ formset_p.management_form }}
+     {% for form in formset_p %}
+      <div id="form_container">{{ form }}
+        <br><br>
+      </div>
+      {% endfor %}
   		</div>
   	</div>
-      <div class='row' id="pictures_2">
-        <div class='col-lg-12'>
-      {{ formset_p.management_form }}
-      {{ formset_p.as_p }}
-      </div>
-    </div>
-    <div class='btn btn-success' id="pictures_show">
-      Upload More Photos
-    </div>
+    <br>
 
   	<input class='btn btn-success' type='submit' value='Update' />
   	</form>
+    <input class='btn btn-success'  type="submit" id="pictures_show" value="Add Images"/>
     </div>
     <div class="tab-pane" id="jobs">
     	<div class='row'>
     		<div class='col-lg-12'>
     			<form method='POST' action='/edit/jobs'> {% csrf_token %}
-          {{ formset_a.management_form }}
+          {{ formset_j.management_form }}
   			  {{ formset_j.as_p }}
   			<input class='btn btn-success' type='submit' value='Update' />
   			</form>
@@ -113,12 +110,51 @@ $('#myTab a').click(function (e) {
 </div>
 </div>
 <script>
-  $( "#pictures_show").click(function() {
-    $("#pictures_2").toggle("slow");
-  });
-
+  var picture_form = document.getElementById('id_form-0-id');
+    if (picture_form.value === "") {
+      $("#form_container:nth-of-type(0)").show();
+    } else {
+      $("#form_container:nth-of-type(0)").show();
+    };
+  var picture_form2 = document.getElementById('id_form-1-id');
+    if (picture_form2.value === "") {
+      $("#form_container:nth-of-type(2)").hide();
+    } else {
+      $("#form_container:nth-of-type(2)").show();
+    };
+  var picture_form3 = document.getElementById('id_form-2-id');
+    if (picture_form3.value === "") {
+      $("#form_container:nth-of-type(3)").hide();
+    } else {
+      $("#form_container:nth-of-type(3)").show();
+    };
+  var picture_form4 = document.getElementById('id_form-3-id');
+    if (picture_form4.value === "") {
+      $("#form_container:nth-of-type(4)").hide();
+    } else {
+      $("#form_container:nth-of-type(4)").show();
+    };
+  var picture_form5 = document.getElementById('id_form-4-id');
+    if (picture_form5.value === "") {
+      $("#form_container:nth-of-type(5)").hide();
+    } else {
+      $("#form_container:nth-of-type(5)").show();
+    };
+  var picture_form5 = document.getElementById('id_form-4-id');
+    if (picture_form5.value > 0){
+    $("#pictures_show").hide();
+  };
 </script>
+<script>
+$("#pictures_show").click(function(){
+  $("#form_container:nth-of-type(2)").show("slow");
+  $("#form_container:nth-of-type(3)").show("slow");
+  $("#form_container:nth-of-type(4)").show("slow");
+  $("#form_container:nth-of-type(5)").show("slow");
+});
 
-
-
+if (picture_form5.value > 0){
+  $("#pictures_show").hide();
+}
+</script>
 {% endblock %}
