@@ -8,7 +8,6 @@
         <h1>Message View</h1>
 	</div>
 </div>
-<br>
 <div class='row'>
                 <div class="col-md-1" id="tertiary_navbar">
                   {% for message in messages %}
@@ -16,15 +15,25 @@
                   {% endfor %}
                 </div>
 </div>
-
+<div id="view_container">
 <div class="messages_view">
-	Sender: {{ message.sender }}
-	<br>
-	Message: {{ message.body }}
-	<br>
-	<br>
-	<a class='btn btn-info btn-sm' href="{% url 'reply' message.id %}">Reply</a>
+	<div class="body_section">
+	<table class='table table-striped' id="view_table">
+	<table>
+		<thead>
+		<th>From</th> <th> Message </th>
+		</thead>
+		<tbody>
+			<td>{{ message.sender }}</td>
+			<td>{{ message.body }}</td>
+		</body>
+		</table>
+		</div>
+		<br>
+		<div class="button_container">
+		<a class='btn btn-info btn-sm' href="{% url 'reply' message.id %}">Reply</a>
 	</div>
 	</div>
+</div>
 </div>
 {% endblock %}

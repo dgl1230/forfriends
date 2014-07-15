@@ -134,11 +134,16 @@ a.dropdown-toggle{
 	margin-left: 80px;
 	margin-top:5px;
 	padding-top:15px;
+	padding-bottom:5px;
 }
 #secondary_navbar a, #secondary_navbar h1{
 	color: #084c8d;
 }
 
+.button_container{
+	text-align:center;
+	margin-top: 10px;
+}
 #tertiary_navbar a{
 	color: #084c8d!important;
 }
