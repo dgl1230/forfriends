@@ -131,9 +131,9 @@ a.dropdown-toggle{
 #secondary_navbar{
 	background-color: #fff;
 	min-width: 280px;
-	padding-top: 5px;
 	margin-left: 80px;
 	margin-top:5px;
+	padding-top:15px;
 }
 #secondary_navbar a, #secondary_navbar h1{
 	color: #084c8d;
@@ -226,11 +226,13 @@ form.navbar-form.navbar-left{
 	}
 }
 
-@media (min-width: 1200px){
-	.form-control{
-	width: 200px!important;
+@media (min-width: 1300px){
+	.form-group{
+		width:600px!important;
 	}
-
+	.form-control{
+		width:540px!important;
+	}
 }
 
 @media (max-width: 480px){

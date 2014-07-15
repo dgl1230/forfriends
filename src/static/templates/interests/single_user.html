@@ -44,7 +44,6 @@
 
 				{% endfor %}
 
-
 			<form method='POST' action=''> {% csrf_token %}
 				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<div class="interest_ranking">
@@ -63,7 +62,6 @@
 			</form>
 		{% endfor %}
 			</div>
-	
 				<div class="pagination">
 						<span class="step-links">
 							<ul class="pager">

@@ -1,4 +1,4 @@
-html, ul, ul li, li, li a, a, p, .btn{
+html, ul, ul li, li, li a, .btn{
 	font-family: 'Open Sans', sans-serif;
 }
 .tab-content{
@@ -8,6 +8,15 @@ html, ul, ul li, li, li a, a, p, .btn{
 .success{
 	text-align:center;
 	color: #084c8d;
+}
+
+#pictures_2{
+	display:none;
+}
+
+
+.panel-default{
+	min-width:130px;
 }
 #more_pictures_appear{
 	display:none;	
@@ -69,7 +78,9 @@ p label{
 .col-lg-12 p{
 	width:350px;
 }
-
+.edit_profile_navbar{
+	margin-left:0px!important;
+}
 .col-lg-12 #home p{
 	width:350px;
 }
@@ -82,10 +93,22 @@ p label{
 	float:none!important;
 	width:200;
 }
+.delete_info{
+	font-size:14px;
+}
 
+#delete_account .btn-lg:hover{
+	color:white;
+
+}
 .col-lg-12 p select{
 	width:200;
 	float:right;
+}
+#myTab{
+	width:80%;
+	text-align:center;
+	margin:20px auto 20px;
 }
 
 #myTab li a:hover{
@@ -99,6 +122,7 @@ p label{
 	width: 120px;
 	text-align:center;
 	font-size: 12px;
+	border: 1px solid #084c8d;
 }
 
 #delete_account{
@@ -111,4 +135,9 @@ p a{
 
 #edit_profile_container{
 	margin-left:80px;
+}
+
+#id_form-0-image label{
+	font-size: 2em;
+
 }
