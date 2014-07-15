@@ -2,6 +2,6 @@
 
 
 try:
-	from .production import *
+	from .deployment import *
 except Exception: 
 	pass
