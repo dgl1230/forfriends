@@ -14,8 +14,12 @@ html, ul, ul li, li, li a, .btn{
 #pictures_2{
 	display:none;
 }
-
-
+#id_form-0-gender{
+	width:50%;
+}
+#edit_profile_messages{
+	margin-left: -160px;
+}
 .panel-default{
 	min-width:130px;
 }

@@ -5,6 +5,7 @@
 <link href="{{ STATIC_URL }}css/pictures.css" rel="stylesheet">
 </head>
 
+
 {% block content %}
 <div class="row">
   <div class="col-md-1" id="secondary_navbar">
@@ -14,20 +15,18 @@
      <a href="javascript:history.back()">Back to Profile</a>
   </div>
 </div>
-<div class="row">
-    <!--<div class="owl-carousel" id="picture_string1">
-      {% for pic in user.userpicture_set.all %}
-        <div class="item"><img src=' {{ MEDIA_URL }}{{ pic }}'></div>
-        -->
-<div class="container">
+<div class="pictures_container">
   <div class="row">
-      {% for pic in pictures %}
-      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="{{ pic.caption }}"><img src=" {{ MEDIA_URL }}{{ pic }}" class="thumbnail" id="pictures_image"></a></div>
-      </div>
-    {% endfor %}
+{% for pic in pictures %}
+    <div class='col-sm-4'>
+      <a href="#" title="{{ pic.caption }}"><img src=" {{ MEDIA_URL }}{{ pic }}" id="thumbnail" class="img-responsive" ></a>
+    </div>
+{% endfor %}
   </div>
 </div>
-<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+</div>
+
+  <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog">
   <div class="modal-content">
   <div class="modal-header">
@@ -40,113 +39,14 @@
   <div class="modal-footer">
     <button class="btn btn-default" data-dismiss="modal">Close</button>
   </div>
-   </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-
-        <!--<img src='{{ MEDIA_URL }}{{ pic }}' alt="Owl Image"></div>
-        <div class="carousel-caption">
-          <h1>Slide 1<h1>
-        </div>
-      <div class="item"><img src='{{ MEDIA_URL }}{{ pic }}' alt="Owl Image"></div>
-      <div class="item"><img src='{{ MEDIA_URL }}{{ pic }}'></div>
-      <div class="item"><img src='{{ MEDIA_URL }}{{ pic }}'></div>
-      <div class="item"><img src='{{ MEDIA_URL }}{{ pic }}'></div>
-      {% endfor %}
-      <div class="owl-pagination"></div>
-    </div>
-</div>
-<br>
-<div class="row">
-    <div class="owl-carousel" id="picture_string2">
-      {% for pic in user.userpicture_set.all %}
-      <div class="item">
-        <img src='{{ MEDIA_URL }}{{ pic }}' alt="Owl Image"></div>
-        <div class="carousel-caption">
-          <h1>Slide 1<h1>
-        </div>
-      <div class="item"><img src='{{ MEDIA_URL }}{{ pic }}' alt="Owl Image"></div>
-      <div class="item"><img src='{{ MEDIA_URL }}{{ pic }}'></div>
-      <div class="item"><img src='{{ MEDIA_URL }}{{ pic }}'></div>
-      <div class="item"><img src='{{ MEDIA_URL }}{{ pic }}'></div>
-      {% endfor %}
-      <div class="owl-pagination"></div>
-    </div>
-</div>
-<br>
-<div class="row">
-    <div class="owl-carousel" id="picture_string3">
-      {% for pic in user.userpicture_set.all %}
-      <div class="item">
-        <img src='{{ MEDIA_URL }}{{ pic }}' alt="Owl Image"></div>
-        <div class="carousel-caption">
-          <h1>Slide 1<h1>
-        </div>
-      <div class="item"><img src='{{ MEDIA_URL }}{{ pic }}' alt="Owl Image"></div>
-      <div class="item"><img src='{{ MEDIA_URL }}{{ pic }}'></div>
-      <div class="item"><img src='{{ MEDIA_URL }}{{ pic }}'></div>
-      <div class="item"><img src='{{ MEDIA_URL }}{{ pic }}'></div>
-      {% endfor %}
-      <div class="owl-pagination"></div>
-    </div>
 </div>
 </div>
 </div>
-<script src="/static/js/owl.carousel.js"></script>
-<script>
-  $(document).ready(function(){
-    $("#picture_string1").owlCarousel({
 
-      autoPlay: 3000,
-
-      items : 3,
-      itemsDesktop : [1199, 3],
-      itemsDesktopSmall : [979,3],
-      pagination: true,
-      stopOnHover: true
-    });
-
-  });
-</script>
-<script>
-  $(document).ready(function(){
-    $("#picture_string3").owlCarousel({
-
-      autoPlay: 9000,
-
-      items : 3,
-      itemsDesktop : [1199, 3],
-      itemsDesktopSmall : [979,3],
-      stopOnHover: true
-    });
-
-  });
-</script>
-<script>
-  $(document).ready(function(){
-    $("#picture_string2").owlCarousel({
-
-      autoPlay: 6000,
-
-      items : 3,
-      itemsDesktop : [1199, 3],
-      itemsDesktopSmall : [979,3],
-      stopOnHover: true
-    });
-
-  });
-</script> -->
 
 <script>
-$('.thumbnail').click(function(){
+
+  $('.col-sm-4:nth-of-type(0)').click(function(){
     $('.modal-body').empty();
     var title = $(this).parent('a').attr("title");
     $('.modal-title').html(title);
@@ -155,3 +55,19 @@ $('.thumbnail').click(function(){
 });
 </script>
 {% endblock %}
+  <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+  <div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3 class="modal-title">Heading</h3>
+  </div>
+  <div class="modal-body">
+    
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-default" data-dismiss="modal">Close</button>
+  </div>
+</div>
+</div>
+</div>

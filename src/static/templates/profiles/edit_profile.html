@@ -24,7 +24,7 @@ $('#myTab a').click(function (e) {
 <div class="row">
 <div class="col-md-1" id="tertiary_navbar">
     {% for message in messages %}
-    <p  id="interests_messages"{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+    <p  id="edit_profile_messages"{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
     {% endfor %}
 </div>
 </div>
