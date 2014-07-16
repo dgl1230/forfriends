@@ -2,6 +2,6 @@
 
 
 try:
-	from .deployment import *
+	from .deployment_testing import *
 except Exception: 
 	pass
