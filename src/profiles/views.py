@@ -14,6 +14,7 @@ from django.core.mail import send_mail, EmailMultiAlternatives
 
 from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG
 from forfriends.matching import match_percentage
+from forfriends.distance import calc_distance
 from matches.models import Match
 from .models import Address, Job, Info, UserPicture
 from .forms import AddressForm, InfoForm, JobForm, UserPictureForm
@@ -63,6 +64,10 @@ def all(request):
 				except: 
 					match, created = Match.objects.get_or_create(user1=u, user2=request.user)
 				match.percent = match_percentage(request.user, u)
+				try:
+					match.distance = round(calc_distance(request.user, u))
+				except:
+					match.distance = 10000000
 				match.save()
 		matches = Match.objects.filter(
 			Q(user1=request.user) | Q(user2=request.user)
@@ -353,6 +358,10 @@ def single_user(request, username):
 		except: 
 			match, created = Match.objects.get_or_create(user1=single_user, user2=request.user)
 		match.percent = match_percentage(request.user, single_user)
+		try:
+			match.distance = round(calc_distance(request.user, user))
+		except:
+			match.distance = 10000000
 		match.save()
 		visited_list, created = Visitor.objects.get_or_create(main_user=single_user)
 		visited_list.visitors.add(request.user)

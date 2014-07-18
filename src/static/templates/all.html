@@ -50,6 +50,9 @@
 	</p>
 		<div class="matching">
 		<p id="match">Match: {{ match.percent }}%	</p>
+		{% ifnotequal match.distance 10000000 %}
+		<p id="match">{{ match.distance }} miles away</p>
+		{% endifnotequal %}
 		<br/>
 		</div>
 		</div>
@@ -73,6 +76,9 @@
 	</p>
 		<div class="matching">
 		<p id="match">Match: {{ match.percent }}%	</p>
+		{% ifnotequal match.distance 10000000 %}
+		<p id="match">{{ match.distance }} miles away</p>
+		{% endifnotequal %}
 		<br/>
 		</div>
 		</div>
