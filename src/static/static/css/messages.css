@@ -31,7 +31,7 @@ thead{
 }
 
 h4, tbody td:first-child{
-	text-transform: capitalize;
+	
 }
 .message_container label{
 	width: 65px!important;

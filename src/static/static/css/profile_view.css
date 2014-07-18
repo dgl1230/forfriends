@@ -166,3 +166,45 @@
 .panel-default{
 	min-width:115px;
 }
+
+/* User Tutorial Modal */
+.modal-title{
+	text-align:center;
+	font-size:32px;
+	color: white;
+	background-color: #084c8d;
+}
+
+.modal-header{
+	background-color:#084c8d;
+}
+
+.close{
+	color:white;
+}
+
+.modal-body{
+	text-align:center;
+}
+
+.modal-body p{
+	font-size: 18px;
+}
+
+.modal-body a{
+	color: #084c8d;
+}
+
+.modal-content .btn{
+	width:50%;
+	margin: 0 auto;
+	font-size:18px;	
+	background-color: #084c8d!important;
+	color: white!important;
+	border: 2px solid #d5d5d5;
+	border-radius:7px;
+}
+
+.modal-footer{
+	text-align:center;
+}

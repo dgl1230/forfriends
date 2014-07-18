@@ -7,6 +7,9 @@ body{
 	width: 100%;
 }
 
+#new_user_modal{
+	display:none;
+}
 #view_container{
 	width:90%;
 }
@@ -69,15 +72,12 @@ tr, td{
 .pagination{
 	width: 50%!important;
 }
-.btn.btn-info.btn-sm:hover, .btn-lg:hover, .pager li a:hover, #go_button, .btn-success:hover{
+.btn-info.btn-sm:hover, .btn-lg:hover, .pager li a:hover, #go_button, .btn-success:hover{
   	color: #d5d5d5!important;
   	background-color:#084c8d!important;
   	border: #d5d5d5 2px solid;
 }
 .btn.btn-default.btn:hover{
-	-webkit-transform: scale(1.05);
-  	transform: scale(1.05);
-  	color: #084c8d!important;
 }
 .col-lg-10.col-12{
 	width: 100%;
@@ -143,8 +143,6 @@ input{
 	font-size: 1.2em;
 }
 
-.col-lg-4 a:hover{
-}
 
 /* Registration and General Form Improvement */
 
@@ -227,4 +225,5 @@ a:hover{
   	font-size:.9em;
   }
 }
+
 
