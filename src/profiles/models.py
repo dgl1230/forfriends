@@ -65,13 +65,14 @@ class UserPicture(models.Model):
 	def __unicode__(self):
 		return str(self.image)
 
-	'''def save(self, *args, **kwargs):
+	def save(self, *args, **kwargs):
 		if self.is_profile_pic:
 			try:
 				temp = UserPicture.objects.filter(user=self.user).get(is_profile_pic=True)
-				if self != temp:
-					temp.is_profile_pic = False
-					temp.save()
-			except UserPicture.DoesNotExist:
+				for pic in temp:
+					if self != pic:
+						pic.is_profile_pic = False
+						pic.save()
+			except:
 				pass
-			super(UserPicture, self).save(*args, **kwargs)'''
+		super(UserPicture, self).save(*args, **kwargs)
