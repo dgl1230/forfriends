@@ -192,7 +192,7 @@ def question_points(user1, user2):
 			user_list = []
 			importance_list = []
 			importance_list = find_importance(user1_importance_list[i], user2_importance_list[user2_index])
-			user_list = answer_point(user1_answer_list[i], user2_answer_list[user2_index], importance_list)
+			user_list = answer_points(user1_answer_list[i], user2_answer_list[user2_index], importance_list)
 			user1_points += user_list[0]
 			user2_points += user_list[1]
 	if points_possible >= 100:
