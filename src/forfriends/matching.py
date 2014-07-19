@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from decimal import *
 
 from django.contrib.auth.models import User
@@ -57,21 +56,31 @@ def interest_points(user1, user2):
 	user2_points = 0
 	points_possible = 0
 	user_score_tuple = []
+	user1_interest_list = []
+	user2_interest_list = []
+	user1_importance_list = []
+	user2_importance_list = []
+	user2_temp_index = 0
 	percentage = 0
 	for i in logged_in_user_interests:
-		for i2 in viewed_user_interests:
-			if i.interest == i2.interest:
-				interests_in_common += 1
-				points_possible += 75
-				#possibly need a try-catch here for divide-by-zero
-				user_score_tuple = calc_interest_importance(i.importance_level, i2.importance_level)
-				user1_points += user_score_tuple[0]
-				user2_points += user_score_tuple[1]
-		if interests_in_common >= 1:
-			percentage = float((points_possible - abs(user1_points - user2_points))) / float(points_possible)
-
-		else:
-			percentage = 0
+		user1_interest_list.append(i.interest) #list of user1's interests
+		user1_importance_list.append(i.importance_level) 
+	for i in viewed_user_interests:
+		user2_interest_list.append(i.interest) #list of user2's interests
+		user2_importance_list.append(i.importance_level)
+	for i in range(len(user1_interest_list)):
+		#user1 and user2 interests are shared
+		if (user1_interest_list[i] in user2_interest_list):
+			user2_temp_index = user2_interest_list.index(user1_interest_list[i])
+			interests_in_common += 1
+			points_possible += 75
+			user_score_tuple = calc_interest_importance(user1_importance_list[i], user2_importance_list[user2_temp_index])
+			user1_points += user_score_tuple[0]
+			user2_points += user_score_tuple[1]
+	if interests_in_common >= 1:
+		percentage = float((points_possible - abs(user1_points - user2_points))) / float(points_possible)
+	else:
+		percentage = 0
 	return percentage
 
 #********** Methods used for calculating compatibility based on QUESTIONS **********#
@@ -110,7 +119,7 @@ def find_importance(user1_importance, user2_importance):
 	else:
 		temp_list.append(1.0)
 	return temp_list
-	
+
 '''	Purpose:	Awards points to user1 and user2 based on their answers to the question
 				and the multiplier of importance.
 	Returns:	A list with 2 attributes, the first being user1_points and the 
@@ -131,7 +140,7 @@ def answer_points(user1_answer, user2_answer, importance_multiplier_list):
 		user1_score = -15 * user1_interest_multiplier
 	else:
 		user1_score = -25 * user1_interest_multiplier
-	
+
 	#Find score for user2
 	if user2_answer == 1:
 		user2_score = 25 * user2_interest_multiplier
@@ -159,23 +168,39 @@ def question_points(user1, user2):
 	user2_points = 0
 	questions_in_common = 0
 	percentage = 0
+	user2_index = 0
+	user1_question_list = []
+	user1_importance_list = []
+	user1_answer_list = []
+	user2_question_list = []
+	user2_importance_list = []
+	user1_answer_list = []
 	for ans in user1_answers:
-		for ans2 in user2_answers:
-			if ans.question == ans2.question:
-				questions_in_common += 1
-				points_possible += 100
-				user_list = []
-				importance_list = []
-				importance_list = find_importance(ans.importance_level, ans2.importance_level) #Need importance1 and importance2
-				user_list = answer_points(ans.answer.pattern_number, ans2.answer.pattern_number, importance_list)
-				user1_points += user_list[0]
-				user2_points += user_list[1]
+		user1_question_list.append(ans.question)
+		user1_importance_list.append(ans.importance_level)
+		user1_answer_list.append(ans.answer.pattern_number)
+	for ans in user2_answers:
+		user2_question_list.append(ans.question)
+		user2_importance_list.append(ans.importance_level)
+		user1_answer_list.append(ans.answer.pattern_number)
+	for i in range(len(user1_question_list)):
+		if user1_question_list[i] in user2_question_list:
+			#index for user2's question, answer, importance, and pattern
+			user2_index = user2_question_list.index(user1_question_list[i])
+			questions_in_common += 1
+			points_possible += 100
+			user_list = []
+			importance_list = []
+			importance_list = find_importance(user1_importance_list[i], user2_importance_list[user2_index])
+			user_list = answer_point(user1_answer_list[i], user2_answer_list[user2_index], importance_list)
+			user1_points += user_list[0]
+			user2_points += user_list[1]
 	if points_possible >= 100:
 		percentage = (points_possible - abs(user1_points - user2_points)) / points_possible
 	else:
 		percentage = 0
 	return percentage
-	
+
 def match_percentage(user1, user2):
 	overall_score = 0.0
 	question_score = question_points(user1, user2) #question compatibility score
@@ -189,6 +214,3 @@ def match_percentage(user1, user2):
 	else:
 		overall_score = (.8 * question_score) + (.2 * interest_score)
 	return int(round(overall_score * 100))
-	
-
-	
