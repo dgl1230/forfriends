@@ -174,7 +174,7 @@ def question_points(user1, user2):
 	user1_answer_list = []
 	user2_question_list = []
 	user2_importance_list = []
-	user1_answer_list = []
+	user2_answer_list = []
 	for ans in user1_answers:
 		user1_question_list.append(ans.question)
 		user1_importance_list.append(ans.importance_level)
