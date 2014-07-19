@@ -84,6 +84,10 @@
 #buttons_row{
 	margin-top: 5%;
 }
+#buttons_row .btn:hover{
+	-webkit-transform: scale(1.05);
+	transform: scale(1.05);
+}
 
 .col-lg-6{
 	margin-top: 0%;
