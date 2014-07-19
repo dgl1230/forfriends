@@ -182,7 +182,7 @@ def question_points(user1, user2):
 	for ans in user2_answers:
 		user2_question_list.append(ans.question)
 		user2_importance_list.append(ans.importance_level)
-		user1_answer_list.append(ans.answer.pattern_number)
+		user2_answer_list.append(ans.answer.pattern_number)
 	for i in range(len(user1_question_list)):
 		if user1_question_list[i] in user2_question_list:
 			#index for user2's question, answer, importance, and pattern
