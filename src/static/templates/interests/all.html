@@ -48,7 +48,8 @@
 			<form method='POST' action=''> {% csrf_token %}
 				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<div class="interest_ranking">
-				<p>How much do you like this? <select class="importance_level" required='required' name='importance_level'></p>
+				<p>How much do you like this? <br>
+					<select class="importance_level" required='required' name='importance_level'></p>
 			</div>
 				{% for imp in importance_levels %}
 				<option {% for abc in interest.interestanswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected='selected' {% endif %} {% endfor %} value='{{ imp }}'>{{ imp }}</option>

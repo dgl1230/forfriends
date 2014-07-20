@@ -43,15 +43,15 @@
 			
 				<p id="user_name">{{ match.user1.username }}</p>
 			</a>
+		<div class="matching">
+		<p id="match">Match: {{ match.percent }}%	</p>
+	
 		<p id="user_address">{% for item in match.user1.address_set.all %} 
 			{% if forloop.first %} {{ item }}
 			{% endif %} 
 		{% endfor %}
-	</p>
-		<div class="matching">
-		<p id="match">Match: {{ match.percent }}%	</p>
 		{% ifnotequal match.distance 10000000 %}
-		<p id="match">{{ match.distance }} miles away</p>
+		({{ match.distance }} miles away)</p>
 		{% endifnotequal %}
 		<br/>
 		</div>
@@ -69,19 +69,21 @@
 			
 				<p id="user_name">{{ match.user2.username }}</p>
 			</a>
+
+		<div class="matching">
+		<p id="match">Match: {{ match.percent }}%	</p>
+	
 		<p id="user_address">{% for item in match.user2.address_set.all %} 
 			{% if forloop.first %} {{ item }}
 			{% endif %} 
 		{% endfor %}
-	</p>
-		<div class="matching">
-		<p id="match">Match: {{ match.percent }}%	</p>
 		{% ifnotequal match.distance 10000000 %}
-		<p id="match">{{ match.distance }} miles away</p>
+		 ({{ match.distance }} miles away)</p>
 		{% endifnotequal %}
 		<br/>
 		</div>
-		</div>
+	</div>
+		
 	
 
 		
@@ -94,6 +96,26 @@
 </div>
 </div>
 </div>
+
+<div class="modal fade" id="new_user_modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Welcome to Frenvu!</h4>
+      </div>
+      <div class="modal-body">
+        <p>Find your first match by answering some <a href='{% url "questions" %}'>questions!</a></p>
+        <p>Or expand your profile by adding your <a href='{% url "interests" %}'>interests</a>.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Okay</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
 <script>
 	$('scroll').jscroll();
 </script>

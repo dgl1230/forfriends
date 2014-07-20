@@ -18,7 +18,7 @@
 <div class="row">
 <div class="col-md-1" id="tertiary_navbar">
     {% for message in messages %}
-    <p  id="interests_messages"{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+    <p id="questions_messages"{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
     {% endfor %}
 </div>
 </div>
@@ -33,11 +33,17 @@
 	{% for question in questions %}
 		<h3>{{ question }}</h3><p>
 		<form method='POST' action=''> {% csrf_token %}
-		How important is this question to you? <select required='required' class='importance_level' name='importance_level'>
+		How important is this question to you? 
+		<select required='required' class='importance_level' name='importance_level'>
 			{% for imp in importance_levels %}
 			<option {% for abc in question.useranswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected='selected' {% endif %} {% endfor %} value='{{ imp }}'>{{ imp }}</option>
 			{% endfor %}
-		</select>
+		</select><br>
+				<div class="btn-group">
+					<button type="button" id="question_unimportant" class="btn btn-default">Not Important</button>
+					<button type="button" id="question_important" class="btn btn-default">Somewhat Important</button>
+					<button type="button" id="question_very_important" class="btn btn-default">Very Important</button>
+				</div><br>
 			<input type='hidden' value='{{ question.id }}' name='question_id'/>
 			<br>
 		<br>

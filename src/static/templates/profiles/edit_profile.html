@@ -24,7 +24,7 @@ $('#myTab a').click(function (e) {
 <div class="row">
 <div class="col-md-1" id="tertiary_navbar">
     {% for message in messages %}
-    <p  id="interests_messages"{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+    <p  id="edit_profile_messages"{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
     {% endfor %}
 </div>
 </div>
@@ -156,5 +156,13 @@ $("#pictures_show").click(function(){
 if (picture_form5.value > 0){
   $("#pictures_show").hide();
 }
+</script>
+
+<script>
+  $('input#id_form-0-is_profile_pic, #id_form-1-is_profile_pic, #id_form-2-is_profile_pic, #id_form-3-is_profile_pic, #id_form-4-is_profile_pic').on('change', function()  {
+    $('#id_form-0-is_profile_pic, #id_form-1-is_profile_pic, #id_form-2-is_profile_pic, #id_form-3-is_profile_pic, #id_form-4-is_profile_pic').not(this).prop('checked',false);
+  });
+
+
 </script>
 {% endblock %}

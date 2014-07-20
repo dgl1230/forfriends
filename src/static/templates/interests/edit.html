@@ -51,7 +51,21 @@
 			<form method='POST' action=''> {% csrf_token %}
 				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<div class="interest_ranking">
-				<p>How much do you like this? <select class="importance_level" required='required' name='importance_level'></p>
+				<p>How much do you like this? <br>
+				
+			
+				<span class="star-rating">
+				  <input type="radio" name="rating" value="Strongly Dislike" id="strongly_dislike" class="star"><i></i>
+				  <input type="radio" name="rating" value="Dislike" id="dislike" class="star"><i></i>
+				  <input type="radio" name="rating" value="Neutral" id="neutral" class="star"><i></i>
+				  <input type="radio" name="rating" value="Like" id="like" class="star"><i></i>
+				  <input type="radio" name="rating" value="Strongly Like" id="strongly_like" class="star"><i></i>
+				</span>
+				<br>
+				<strong class="choice">Choose a rating</strong>
+
+
+					<select class="importance_level" required='required' name='importance_level'></p>
 			</div>
 				{% for imp in importance_levels %}
 				<option {% for abc in interest.userinterestanswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected='selected' {% endif %} {% endfor %} value='{{ imp }}'>{{ imp }}</option>
@@ -87,4 +101,11 @@
 </div>
 </div>
 </div>
+<script>
+$(':radio').change(
+  function(){
+    $('.choice').text( this.value);
+  } 
+)
+</script>
 {% endblock %}
