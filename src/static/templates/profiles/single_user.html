@@ -25,7 +25,7 @@
 		<div class='col col-sm-12'>
 			<h1>{% if single_user.first_name %} {{ single_user.first_name }} {% else %} {{ single_user }} {% endif %}</h1>
 			{% for pic in single_user.userpicture_set.all %}
-				{% if forloop.first %}
+				{% if pic.is_profile_pic %}
 					<img src='{{ MEDIA_URL }}{{ pic }}' class='img' id="myfriend"/>
 				{% endif %}
 			{% endfor %}
@@ -82,11 +82,14 @@
 	</div>
 
 	<div class='panel panel-default'>
-		<div class='panel-heading'><p>Address</p></div>
+		<div class='panel-heading'><p>Location</p></div>
 		<div class="panel-body">
 		{% for item in single_user.address_set.all %}
 				{{ item.city|title }}, {{ item.state|upper }}
 		{% endfor %}
+		{% ifnotequal match.distance 10000000 %}
+		<p> {{ match.distance }} miles away</p>
+		{% endifnotequal %}
 	</div>
 	</div>
 	</div>

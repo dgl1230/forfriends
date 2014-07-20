@@ -34,7 +34,12 @@
 			{% for imp in importance_levels %}
 			<option {% for abc in question.useranswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected='selected' {% endif %} {% endfor %} value='{{ imp }}'>{{ imp }}</option>
 			{% endfor %}
-		</select></p> <p>
+		</select></p><br>
+			<div class="btn-group">
+					<button type="button" id="question_unimportant" class="btn btn-default">Not Important</button>
+					<button type="button" id="question_important" class="btn btn-default">Somewhat Important</button>
+					<button type="button" id="question_very_important" class="btn btn-default">Very Important</button>
+				</div><p><br>
 		<div class="question_answers">
 		{% for ans in question.answer_set.all %}
 			<input type='radio' required=

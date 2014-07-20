@@ -157,4 +157,12 @@ if (picture_form5.value > 0){
   $("#pictures_show").hide();
 }
 </script>
+
+<script>
+  $('input#id_form-0-is_profile_pic, #id_form-1-is_profile_pic, #id_form-2-is_profile_pic, #id_form-3-is_profile_pic, #id_form-4-is_profile_pic').on('change', function()  {
+    $('#id_form-0-is_profile_pic, #id_form-1-is_profile_pic, #id_form-2-is_profile_pic, #id_form-3-is_profile_pic, #id_form-4-is_profile_pic').not(this).prop('checked',false);
+  });
+
+
+</script>
 {% endblock %}

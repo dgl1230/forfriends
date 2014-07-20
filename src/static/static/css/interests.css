@@ -114,9 +114,18 @@ footer{
   	-moz-transition: all 250ms ease;
   	-o-transition: all 250ms ease;
   	transition: all 250ms ease; */
+
+.btn-group .btn{
+	background-color: white;
+	color:#084c8d;
+	
 }
 
+.btn-group .btn:hover, .btn-group .btn:active, .btn-group .btn:focus{
+	background-color: #084c8d;
+	color:white;
 
+}
 
 
 #more_answers_appear1, #more_answers_appear1, #more_answers_appear2, #more_answers_appear3{

@@ -33,11 +33,7 @@ p{
 	background-color:#d5d5d5!important;
 	border: 2px #084c8d solid!important;
 }
-.btn-default, .btn .btn-default{
-	background-color: #d5d5d5!important;
-	color: #084c8d!important;
-	border: none;	
-}
+
 
 .btn.btn-info.btn-sm, .btn-lg, .pager li a, #go_button, .btn-success{
 	background-color: #d5d5d5!important;
@@ -77,8 +73,7 @@ tr, td{
   	background-color:#084c8d!important;
   	border: #d5d5d5 2px solid;
 }
-.btn.btn-default.btn:hover{
-}
+
 .col-lg-10.col-12{
 	width: 100%;
 }
@@ -149,6 +144,14 @@ input{
 form {
 	width: 80%;
 	margin: 0 auto;
+}
+
+#distance{
+	margin-top:0px;
+}
+
+.matching p{
+	margin: 0px 0px 5px 0px;
 }
 
 /* all.html */

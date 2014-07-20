@@ -5,6 +5,6 @@ $(document).ready(function() {
 		$('#new_user_modal').modal('show');
 	}
 	else {
-		$('#new_user_modal').modal('show');
+		$('#new_user_modal').modal('hide');
 	}
 });

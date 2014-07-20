@@ -12,6 +12,7 @@ class Match(models.Model):
 	user1 = models.ForeignKey(User, related_name="user1")
 	user2= models.ForeignKey(User, related_name="user2", null=True, blank=True)
 	percent = models.IntegerField(null=True, blank=True)
+	distance = models.IntegerField(null=True, blank=True)
 
 	user1_approved = models.BooleanField(default=False)
 	user2_approved = models.BooleanField(default=False)

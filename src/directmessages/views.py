@@ -108,8 +108,12 @@ def reply(request, dm_id):
 		parent.replied = True
 		parent.save()
 		messages.success(request, "Reply sent!")
-		path = reverse('view_direct_message', args=dm_id)
-		return HttpResponseRedirect(path)
+		#path = reverse('view_direct_message', args=dm_id)
+		#return HttpResponseRedirect(path)
+		messages_in_inbox = DirectMessage.objects.filter(sender=request.user)
+		return render_to_response('directmessages/sent.html', locals(), 
+									context_instance=RequestContext(request))
+		
 
 	return render_to_response('directmessages/compose.html', locals(), 
 									context_instance=RequestContext(request))

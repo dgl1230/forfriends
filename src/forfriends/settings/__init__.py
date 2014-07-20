@@ -1,7 +1,6 @@
 
 
 
-try:
-	from .deployment import *
-except Exception: 
-	pass
+
+from .deployment_local import *
+

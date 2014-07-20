@@ -43,13 +43,16 @@
 			
 				<p id="user_name">{{ match.user1.username }}</p>
 			</a>
+		<div class="matching">
+		<p id="match">Match: {{ match.percent }}%	</p>
+	
 		<p id="user_address">{% for item in match.user1.address_set.all %} 
 			{% if forloop.first %} {{ item }}
 			{% endif %} 
 		{% endfor %}
-	</p>
-		<div class="matching">
-		<p id="match">Match: {{ match.percent }}%	</p>
+		{% ifnotequal match.distance 10000000 %}
+		({{ match.distance }} miles away)</p>
+		{% endifnotequal %}
 		<br/>
 		</div>
 		</div>
@@ -66,16 +69,21 @@
 			
 				<p id="user_name">{{ match.user2.username }}</p>
 			</a>
+
+		<div class="matching">
+		<p id="match">Match: {{ match.percent }}%	</p>
+	
 		<p id="user_address">{% for item in match.user2.address_set.all %} 
 			{% if forloop.first %} {{ item }}
 			{% endif %} 
 		{% endfor %}
-	</p>
-		<div class="matching">
-		<p id="match">Match: {{ match.percent }}%	</p>
+		{% ifnotequal match.distance 10000000 %}
+		 ({{ match.distance }} miles away)</p>
+		{% endifnotequal %}
 		<br/>
 		</div>
-		</div>
+	</div>
+		
 	
 
 		
