@@ -25,7 +25,7 @@ def create_interest(request):
 def all_interests(request):
 	interests_all = Interest.objects.exclude(userinterestanswer__user=request.user).filter(approved=True).order_by('?')
 	paginator = Paginator(interests_all, 1)
-	importance_levels = ['Strongly Like', 'Like', 'Neutral', 'Dislike', 'Strongly Dislike']
+	importance_levels = ['Strongly Dislike', 'Dislike', 'Neutral', 'Like', 'Strongly Like']
 
 	page = request.GET.get('page')
 	try:
@@ -64,7 +64,7 @@ def edit_interests(request):
 
 	interests_all = Interest.objects.filter(userinterestanswer__user=request.user)
 	paginator = Paginator(interests_all, 1)
-	importance_levels = ['Strongly Like', 'Like', 'Neutral', 'Dislike', 'Strongly Dislike']
+	importance_levels = ['Strongly DisLike', 'DisLike', 'Neutral', 'Like', 'Strongly Like']
 
 	page = request.GET.get('page')
 	try:
@@ -105,7 +105,7 @@ def single_user_interests(request, username):
 	single_user = User.objects.get(username=username)
 	interests_all = Interest.objects.filter(userinterestanswer__user=single_user)
 	paginator = Paginator(interests_all, 1)
-	importance_levels = ['Strongly Like', 'Like', 'Neutral', 'Dislike', 'Strongly Dislike']
+	importance_levels = ['Strongly Dislike', 'Dislike', 'Neutral', 'Like', 'Strongly Like']
 
 	page = request.GET.get('page')
 	try:

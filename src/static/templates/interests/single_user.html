@@ -44,22 +44,23 @@
 
 				{% endfor %}
 
-			<form method='POST' action=''> {% csrf_token %}
+		<form method='POST' action=''> {% csrf_token %}
 				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<div class="interest_ranking">
-				{% for imp in importance_levels %}
-					{% for abc in interest.userinterestanswer_set.all %} 
-						{% if abc.importance_level == imp and abc.user == single_user %} 
-							{% if abc.importance_level == 'Neutral' %} 
-								{{ single_user.username }} is Neutral towards {{ interest.interest|title }} 
-								{% else %} {{ single_user.username }} {{ imp }}s {{ interest.interest|title }}
-							{% endif %} 
-						{% endif %}
+				<p>How much do you like this? <br>
+				
+			
+				<span class="star-rating">
+					{% for imp in importance_levels %}
+					<input type="radio" name="rating" value='{{ imp }}' id='{{ imp }}' class="star" {% for abc in interest.userinterestanswer_set.all %} {% if abc.importance_level == imp and abc.user == single_user %} checked="checked" {% else %} disabled="disabled" {% endif %} {% endfor %}><i></i>
 					{% endfor %}
-				{% endfor %}
-			</div>
-			</p>
-			</form>
+				</span>
+				<br>
+				<strong class="choice">Choose a rating</strong>
+
+
+		<br/>
+			
 		{% endfor %}
 			</div>
 				<div class="pagination">
@@ -85,4 +86,13 @@
 </div>
 </div>
 </div>
+<script>
+$(':radio').change(
+  function(){
+    $('.choice').text( this.value);
+    this.name = "importance_level";
+
+  } 
+)
+</script>
 {% endblock %}

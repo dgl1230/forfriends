@@ -55,26 +55,19 @@
 				
 			
 				<span class="star-rating">
-				  <input type="radio" name="rating" value="Strongly Dislike" id="strongly_dislike" class="star"><i></i>
-				  <input type="radio" name="rating" value="Dislike" id="dislike" class="star"><i></i>
-				  <input type="radio" name="rating" value="Neutral" id="neutral" class="star"><i></i>
-				  <input type="radio" name="rating" value="Like" id="like" class="star"><i></i>
-				  <input type="radio" name="rating" value="Strongly Like" id="strongly_like" class="star"><i></i>
+					{% for imp in importance_levels %}
+					<input type="radio" name="rating" value='{{ imp }}' id='{{ imp }}' class="star" {% for abc in interest.userinterestanswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} checked="checked" {% endif %} {% endfor %}><i></i>
+					{% endfor %}
 				</span>
 				<br>
 				<strong class="choice">Choose a rating</strong>
 
 
-					<select class="importance_level" required='required' name='importance_level'></p>
-			</div>
-				{% for imp in importance_levels %}
-				<option {% for abc in interest.userinterestanswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected='selected' {% endif %} {% endfor %} value='{{ imp }}'>{{ imp }}</option>
-				{% endfor %}
-			</select></p>
-			<div class="interest_buttons">
+		<br/>
 				<!-- Submit Button -->
 			<input type='submit' class='btn-lg' value='Save'>
 			</div>
+
 			</form>
 		{% endfor %}
 			</div>
@@ -105,6 +98,8 @@
 $(':radio').change(
   function(){
     $('.choice').text( this.value);
+    this.name = "importance_level";
+
   } 
 )
 </script>

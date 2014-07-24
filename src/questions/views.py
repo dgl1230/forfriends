@@ -29,6 +29,7 @@ def all_questions(request):
 
 	if request.method == 'POST':
 		question_id = request.POST['question_id']
+		print  "question importance is:" + question_id
 
 		#user answer
 		importance_level = request.POST['importance_level']
@@ -49,24 +50,6 @@ def all_questions(request):
 
 		messages.success(request, 'Answer Saved')
 	return render_to_response('questions/all.html', locals(), context_instance=RequestContext(request))
-
-
-
-def create_question(request):
-	q_form = QuestionForm(request.POST or None)
-	a_form = AnswerForm(request.POST or None)
-	if q_form.is_valid():
-		if a_form.is_valid():
-			question = q_form.save(commit=False)
-			answer = a_form.save(commit=False)
-			question.save()
-			answer.question = question
-			answer.save()
-			messages.success(request, 'Question Created')
-			return HttpResponseRedirect('/questions/')
-
-	return render_to_response("questions/create.html", locals(),
-		 context_instance=RequestContext(request))
 
 
 def edit_questions(request):

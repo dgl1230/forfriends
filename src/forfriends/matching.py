@@ -51,33 +51,28 @@ def calc_interest_importance(i1, i2):
 def interest_points(user1, user2):
 	logged_in_user_interests = UserInterestAnswer.objects.filter(user=user1)
 	viewed_user_interests = UserInterestAnswer.objects.filter(user=user2)
-	interests_in_common = 0
 	user1_points = 0
 	user2_points = 0
 	points_possible = 0
 	user_score_tuple = []
-	user1_interest_list = []
-	user2_interest_list = []
-	user1_importance_list = []
-	user2_importance_list = []
-	user2_temp_index = 0
 	percentage = 0
+	user1_list = []
+	user2_dict = {}
 	for i in logged_in_user_interests:
-		user1_interest_list.append(i.interest) #list of user1's interests
-		user1_importance_list.append(i.importance_level) 
+		user1_list.append([i.interest, i.importance_level])
 	for i in viewed_user_interests:
-		user2_interest_list.append(i.interest) #list of user2's interests
-		user2_importance_list.append(i.importance_level)
-	for i in range(len(user1_interest_list)):
-		#user1 and user2 interests are shared
-		if (user1_interest_list[i] in user2_interest_list):
-			user2_temp_index = user2_interest_list.index(user1_interest_list[i])
-			interests_in_common += 1
-			points_possible += 75
-			user_score_tuple = calc_interest_importance(user1_importance_list[i], user2_importance_list[user2_temp_index])
-			user1_points += user_score_tuple[0]
-			user2_points += user_score_tuple[1]
-	if interests_in_common >= 1:
+		user2_dict[i.interest] = i.importance_level
+	for i in range(len(user1_list)):
+		user1_interest = user1_list[i][0]
+		user1_importance = user1_list[i][1]
+		#check to see if both share the same interest: if so, user2_importance = importance level of user2, else "false"
+		user2_importance = user2_dict.pop(user1_interest, "false")
+		if user2_importance != "false": #key was found, interests were shared, calculate difference in importance
+		    points_possible += 75
+		    user_score_tuple = calc_interest_importance(user1_importance, user2_importance)
+		    user1_points += user_score_tuple[0]
+		    user2_points += user_score_tuple[1]
+	if points_possible >= 75:
 		percentage = float((points_possible - abs(user1_points - user2_points))) / float(points_possible)
 	else:
 		percentage = 0
@@ -166,33 +161,24 @@ def question_points(user1, user2):
 	points_possible = 0
 	user1_points = 0
 	user2_points = 0
-	questions_in_common = 0
 	percentage = 0
-	user2_index = 0
-	user1_question_list = []
-	user1_importance_list = []
-	user1_answer_list = []
-	user2_question_list = []
-	user2_importance_list = []
-	user2_answer_list = []
+	user1_list = []
+	user2_dict = {}
 	for ans in user1_answers:
-		user1_question_list.append(ans.question)
-		user1_importance_list.append(ans.importance_level)
-		user1_answer_list.append(ans.answer.pattern_number)
+		user1_list.append([ans.question, ans.importance_level, ans.answer.pattern_number])
 	for ans in user2_answers:
-		user2_question_list.append(ans.question)
-		user2_importance_list.append(ans.importance_level)
-		user2_answer_list.append(ans.answer.pattern_number)
-	for i in range(len(user1_question_list)):
-		if user1_question_list[i] in user2_question_list:
-			#index for user2's question, answer, importance, and pattern
-			user2_index = user2_question_list.index(user1_question_list[i])
-			questions_in_common += 1
+		user2_dict[ans.question] = [ans.importance_level, ans.answer.pattern_number]
+	for i in range(len(user1_list)):
+		user1_question = user1_list[i][0]
+		user1_importance = user1_list[i][1]
+		user1_answer = user1_list[i][2]
+		user2_tuple = user2_dict.pop(user1_question, "false")
+		if user2_tuple != "false":
 			points_possible += 100
 			user_list = []
 			importance_list = []
-			importance_list = find_importance(user1_importance_list[i], user2_importance_list[user2_index])
-			user_list = answer_points(user1_answer_list[i], user2_answer_list[user2_index], importance_list)
+			importance_list = find_importance(user1_importance, user2_tuple[0])
+			user_list = answer_points(user1_answer, user2_tuple[1], importance_list)
 			user1_points += user_list[0]
 			user2_points += user_list[1]
 	if points_possible >= 100:

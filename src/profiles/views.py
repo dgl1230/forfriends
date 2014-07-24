@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 import operator 
 import datetime
-from datetime import date
+#from datetime import date
+#from datetime import *
+import datetime
 
 from django.shortcuts import render
 from django.contrib import messages
@@ -57,6 +59,7 @@ matches for them, otherwise it shows the home page for non-logged in viewers '''
 def all(request):
 	if request.user.is_authenticated(): 
 		users = User.objects.filter(is_active=True)
+		time1 = datetime.datetime.now()
 		for u in users:
 			if u != request.user:
 				try: 
@@ -72,6 +75,8 @@ def all(request):
 		matches = Match.objects.filter(
 			Q(user1=request.user) | Q(user2=request.user)
 			).order_by('-percent')
+		time2 = datetime.datetime.now()
+		time_difference = time2 - time1
 		return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 	else:
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
@@ -96,9 +101,9 @@ def edit_address(request):
 				new_form = form.save(commit=False)
 				new_form.user = request.user
 				new_form.save()
-			messages.success(request, 'Profile details updated.')
+			messages.success(request, 'Profile details did not update.')
 		else:
-			messages.error(request, 'Profile details did not update.')
+			messages.error(request, 'Please fill out all fields.')
 		#return render_to_response('profiles/edit_address.html', locals(), context_instance=RequestContext(request))
 		return HttpResponseRedirect('/edit/')
 	else:
@@ -386,7 +391,28 @@ def search(request):
 		Q(username__icontains=q)
 		)
 	results = users_queryset
-	return render_to_response('search.html', locals(), context_instance=RequestContext(request))	
+	return render_to_response('search.html', locals(), context_instance=RequestContext(request))
+
+
+def sort_by_match(request):
+	matches = Match.objects.filter(
+			Q(user1=request.user) | Q(user2=request.user)
+			).order_by('-percent')
+	return render_to_response('profiles/find_friends.html', locals(), context_instance=RequestContext(request))	
+
+
+def sort_by_location(request):
+	user_address = Address.objects.get(user=request.user)
+	if user_address.city == False or user_address.state == False:
+		messages.error(request, "You need to enter your location to use this feature")
+		matches = Match.objects.filter(
+			Q(user1=request.user) | Q(user2=request.user)
+			).order_by('?')
+		return render_to_response('profiles/find_friends.html', locals(), context_instance=RequestContext(request))
+	matches = Match.objects.filter(
+			Q(user1=request.user) | Q(user2=request.user)
+			).order_by('-distance')		
+	return render_to_response('profiles/find_friends.html', locals(), context_instance=RequestContext(request))
 
 
 #Show all the visitors that have viewed the logged in user's profile page

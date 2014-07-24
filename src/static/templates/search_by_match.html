@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
+
 <link rel="stylesheet" href="{{ STATIC_URL }}css/profile_view.css">
-<link rel="stylesheet" href="{{ STATIC_URL }}css/profile_home.css">
 
 
 
@@ -8,12 +8,14 @@
 <div id="view_container">
 <div class="row">
 	<div class="col-md-1" id="secondary_navbar">
-        <h1>Members</h1>
+	    <h1>Matches</h1>
 	</div>
 	<div class="col-md-1" id="tertiary_navbar">
+     	<a href="#">Sort by Location</a>
+     	<span class="glyphicon glyphicon-user" id="tertiary-icon"></span>
+     	<a href="#">Sort by Match %</a>
 	</div>
 </div>
-
 <div class="container" id="home-only">
   <div class='col-lg-10 col-12' id="center_div">
 {% if messages %}
@@ -27,8 +29,7 @@
 {% endif %}
 
 <br/>
-	It took {{ time_difference.seconds }} seconds or {{ time_difference.microseconds }} microseconds
-	<div class='row'>
+		<div class='row'>
 {% for match in matches %}
 	{% if not request.user == match.user1 %}
 	<div class='col-sm-4'>

@@ -49,16 +49,22 @@
 				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<div class="interest_ranking">
 				<p>How much do you like this? <br>
-					<select class="importance_level" required='required' name='importance_level'></p>
-			</div>
-				{% for imp in importance_levels %}
-				<option {% for abc in interest.interestanswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected='selected' {% endif %} {% endfor %} value='{{ imp }}'>{{ imp }}</option>
-				{% endfor %}
-			</select></p>
-			<div class="interest_buttons">
+				
+			
+				<span class="star-rating">
+					{% for imp in importance_levels %}
+					<input type="radio" name="rating" value='{{ imp }}' id='{{ imp }}' class="star" {% for abc in interest.userinterestanswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} checked="checked" {% endif %} {% endfor %}><i></i>
+					{% endfor %}
+				</span>
+				<br>
+				<strong class="choice">Choose a rating</strong>
+
+
+		<br/>
 				<!-- Submit Button -->
 			<input type='submit' class='btn-lg' value='Save'>
 			</div>
+
 			</form>
 		{% endfor %}
 			</div>
@@ -86,4 +92,13 @@
 </div>
 </div>
 </div>
+<script>
+$(':radio').change(
+  function(){
+    $('.choice').text( this.value);
+    this.name = "importance_level";
+
+  } 
+)
+</script>
 {% endblock %}
