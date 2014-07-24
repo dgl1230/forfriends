@@ -36,6 +36,7 @@ on {{ item.sent }}<br/>
 <br>
 
 {% endfor %}
+<div class="button_container">
 <div class="left-button">
 	<form action="/messages/inbox/">
 		<input class='btn btn-info btn-sm' type='submit' value="Inbox">
@@ -45,6 +46,7 @@ on {{ item.sent }}<br/>
 	<form action="/messages/compose/">
 		<input class='btn btn-info btn-sm' type='submit' value="New Message">
 	</form>
+</div>
 </div>
 </div>
 </div>

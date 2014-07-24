@@ -39,13 +39,17 @@
 			{% for imp in importance_levels %}
 			<option {% for abc in question.useranswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected='selected' {% endif %} {% endfor %} value='{{ imp }}'>{{ imp }}</option>
 			{% endfor %}
-		</select><br>
-				<div class="btn-group">
-				<button type="button" id="question_unimportant" name="question_unimportant" class="btn btn-default">Not Important</button>
-						<button type="button" id="question_important" name="question_important" class="btn btn-default">Somewhat Important</button>
-						<button type="button" id="question_very_important" name="question_very_important" class="btn btn-default">Very Important</button>
-
-				</div><br>
+		</select>
+			<br>
+				<div class="personality_importance">
+					<input type="radio" name="iCheck">
+					<label>Very Important</label>
+					<input type="radio" name="iCheck">
+					<label>Somewhat Important</label>
+					<input type="radio" name="iCheck">
+					<label>Not Important</label>
+				</div>	
+			<br>
 			<input type='hidden' value='{{ question.id }}' name='question_id'/>
 			<br>
 		<br>
@@ -81,5 +85,20 @@
 </div>
 </div>
 </div>
+<script>
+$(document).ready(function(){
+	$('.personality_importance input').each(function(){
+		var self = $(this),
+			label = self.next(),
+			label_text = label.text();
 
+		label.remove();
+		self.iCheck({
+			checkboxClass: 'icheckbox_line-blue',
+			radioClass: 'iradio_line-blue',
+			insert: '<div class="icheck_line-icon"></div>' + label_text
+		});
+	});
+});
+</script>
 {% endblock %}

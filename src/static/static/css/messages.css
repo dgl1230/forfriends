@@ -11,10 +11,16 @@
 }
 
 .button_container{
-	margin: 0 auto;
+	width:90%;
+	margin-bottom:100px;
 }
 
-.row{
+#compose_button_container{
+	width:70%;
+	margin-left:120px;
+}
+#send_message_button{
+	width:100%;
 }
 tr th{
 	width:50%;

@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 <link href="{{ STATIC_URL }}css/messages.css" rel="stylesheet">
-<div class="message_container">
 
 {% block content %}
 <div class="row">
@@ -9,18 +8,19 @@
         <h1>New Message</h1>
 	</div>
 </div>
-<div class="compose-container">
-<div class="container">
+<div id="message_container">
   <div class='col-lg-10 col-12'>
 
 	<form action='' method='POST'> {% csrf_token %}
 	{{ form.as_p }}
-	<input class='btn btn-lg' type='submit' value="Send Message">
+	<input class='btn btn-lg' type='submit' value="Send Message" id="send_message_button">
 	</form>
+	</div>
 </div>
+
 <br>
 <br>
-<div class="button_container">
+<div class="button_container" id="compose_button_container">
 <div class="left-button">
 	<form action="/messages/inbox/">
 		<input class='btn btn-info btn-sm' type='submit' value="Inbox">
@@ -30,8 +30,6 @@
 	<form action="/messages/sent/">
 		<input class='btn btn-info btn-sm' type='submit' value="Sent">
 	</form>
-</div>
-</div>
 </div>
 </div>
 </div>

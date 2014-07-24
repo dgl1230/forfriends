@@ -86,7 +86,9 @@
 #interest_button{
 	margin-top: 0%;
 }
-
+#questions_messages{
+	margin-left:80px;
+}
 #interests_messages
 /* Footer */
 footer{
@@ -119,6 +121,11 @@ footer{
 	background-color: white;
 	color:#084c8d;
 	
+}
+
+.personality_importance{
+	text-align: center;
+	margin: 0 auto;
 }
 
 .btn-group .btn:hover, .btn-group .btn:active, .btn-group .btn:focus{
