@@ -71,6 +71,12 @@
 				<option {% for abc in interest.userinterestanswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected='selected' {% endif %} {% endfor %} value='{{ imp }}'>{{ imp }}</option>
 				{% endfor %}
 			</select></p>
+			<br>
+				<div class="personality_importance"
+				<input type="radio" name="iCheck">
+				<label>Radio 1</label>
+				</div>
+			<br>
 			<div class="interest_buttons">
 				<!-- Submit Button -->
 			<input type='submit' class='btn-lg' value='Save'>
@@ -107,5 +113,22 @@ $(':radio').change(
     $('.choice').text( this.value);
   } 
 )
+</script>
+
+<script>
+$(document).ready(function(){
+	$('input').each(function(){
+		var self = $(this),
+			label = self.next(),
+			label_text = label.text();
+
+		label.remove();
+		self.iCheck({
+			checkboxClass: 'icheckbox_line-blue',
+			radioClass: 'iradio_line-blue',
+			insert: '<div class="icheck_line-icon"></div>' + label_text
+		});
+	});
+});
 </script>
 {% endblock %}

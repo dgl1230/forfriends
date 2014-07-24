@@ -10,14 +10,15 @@
 	</div>
 </div>
 <div class="compose-container">
-<div class="container">
   <div class='col-lg-10 col-12'>
 
 	<form action='' method='POST'> {% csrf_token %}
 	{{ form.as_p }}
-	<input class='btn btn-lg' type='submit' value="Send Message">
+	<input class='btn btn-lg' type='submit' value="Send Message" id="send_message_button">
 	</form>
+	</div>
 </div>
+
 <br>
 <br>
 <div class="button_container">
@@ -30,8 +31,6 @@
 	<form action="/messages/sent/">
 		<input class='btn btn-info btn-sm' type='submit' value="Sent">
 	</form>
-</div>
-</div>
 </div>
 </div>
 </div>

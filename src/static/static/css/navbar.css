@@ -15,6 +15,10 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 	text-align:center;	
 }
 
+#secondary_navbar h1{
+	margin-bottom:15px;
+}
+
 #navbar-container{
 	width:95%!important;
 }

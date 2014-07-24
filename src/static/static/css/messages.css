@@ -11,10 +11,12 @@
 }
 
 .button_container{
-	margin: 0 auto;
+	width:75%;
+	margin-left:120px;
+	margin-bottom:100px;
 }
-
-.row{
+#send_message_button{
+	width:100%;
 }
 tr th{
 	width:50%;
