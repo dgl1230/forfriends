@@ -86,6 +86,8 @@
 #buttons_row .btn:hover{
 	-webkit-transform: scale(1.05);
 	transform: scale(1.05);
+	background-color:#084c8d;
+	color:white;
 }
 
 .col-lg-6{
@@ -132,10 +134,6 @@
 	margin-left:80px;
 }
 
-@media(min-width: 1500px){
-
-}
-
 @media(max-width: 1000px){
 	#message_button, #interests_button, #friend_button, #pictures_button{
 	width: 130px;	
@@ -153,12 +151,6 @@
 	#myfriend{
 	width: 100px!important;
 	height: 125px!important;
-	}
-}	
-
-@media(min-width: 1200px){
-	.panel-default{ 
-		width:700px;
 	}
 }
 

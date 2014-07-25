@@ -233,6 +233,9 @@ form.navbar-form.navbar-left{
 	#navbar-container{
 		margin-left: 0px!important;
 	}
+	.form-control{
+		width:120px!important;
+	}
 }
 
 @media (min-width: 1300px){

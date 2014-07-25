@@ -48,7 +48,7 @@
 			<form method='POST' action=''> {% csrf_token %}
 				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<div class="interest_ranking">
-				<p>How much do you like this? <br>
+				<strong class="choice">Choose a rating</strong>	 <br>
 				
 			
 				<span class="star-rating">
@@ -57,7 +57,7 @@
 					{% endfor %}
 				</span>
 				<br>
-				<strong class="choice">Choose a rating</strong>
+				
 
 
 		<br/>

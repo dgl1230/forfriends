@@ -11,6 +11,9 @@ html, ul, ul li, li, li a, .btn{
 	margin-top:5px;
 }
 
+#home .btn{
+	margin-left:80px;
+}
 #pictures_2{
 	display:none;
 }
@@ -145,4 +148,16 @@ p a{
 #id_form-0-image label{
 	font-size: 2em;
 
+}
+
+@media (max-width: 1000px){
+	#home .btn{
+	margin-left:0px;
+	}	
+}
+
+@media (max-width: 670px){
+	.edit_profile_container{
+		margin-left:80px;
+	}
 }

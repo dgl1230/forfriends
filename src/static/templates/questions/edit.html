@@ -30,6 +30,7 @@
 		<h3>{{ question }}</h3><p>
 		<form method='POST' action=''> {% csrf_token %}
 			<input type='hidden' value='{{ question.id }}' name='question_id'/>
+			
 		How important is this question to you? <select required='required' name='importance_level'>
 			{% for imp in importance_levels %}
 			<option {% for abc in question.useranswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected='selected' {% endif %} {% endfor %} value='{{ imp }}'>{{ imp }}</option>
@@ -45,12 +46,7 @@
 					<label>Not Important</label>
 				</div>	
 			<br>
-		<div class="question_answers">
-		{% for ans in question.answer_set.all %}
-			<input type='radio' required=
-			'required' value='{{ ans }}' {% for abc in ans.useranswer_set.all %} {% if abc and abc.user == request.user %} checked='checked' {% endif %} {% endfor %} name='answer'> {{ ans }} <br/>
-		{% endfor %}
-		</div>
+		
 		<div class="interest_buttons">
 		<!-- Submit Button -->
 		<input type='submit' class='btn-lg' value='Save'>

@@ -15,16 +15,14 @@
      	<a href="/interests/">Interests Home</a>
 	</div>
 </div>
-<div class="container">
-  <div class='col-lg-10 col-12'>
-<div class="contain">
+<div class='col-lg-10 col-12'>
+	<div class="contain">
 	
-	<form method='POST' action=''>{% csrf_token %}
-	{{ form.as_p }}
-	<input class=btn-lg type='submit' value="Create" />
-	</form>
-</div>
-</div>
+		<form method='POST' action=''>{% csrf_token %}
+		{{ form.as_p }}
+		<input class=btn-lg type='submit' value="Create" />
+		</form>
+	</div>
 </div>
 
 {% endblock %}
