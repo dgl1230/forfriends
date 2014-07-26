@@ -49,6 +49,7 @@ $('#myTab a').click(function (e) {
      {% for form in formset_p %}
       <div id="form_container">{{ form }}
         <br><br>
+        <input class='btn btn-success' type='submit' value='Delete' name='picture_id' />
       </div>
       {% endfor %}
   		</div>

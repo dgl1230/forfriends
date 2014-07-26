@@ -87,6 +87,13 @@ def all_pictures(request):
 	return render_to_response('profiles/pictures.html', locals(), context_instance=RequestContext(request))
 
 
+def delete_picture(request):
+	pic_id = request.GET['picture_id']
+	picture = UserPicture.objects.get(pk=pic_id)
+	picture.delete()
+	HttpResponseRedirect('/')
+
+
 
 def edit_address(request):
 	if request.method == 'POST':
