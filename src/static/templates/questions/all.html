@@ -40,19 +40,19 @@
 			<option {% for abc in question.useranswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected='selected' {% endif %} {% endfor %} value='{{ imp }}'>{{ imp }}</option>
 			{% endfor %}
 		</select>
-			<br>
+			<br><br>
 				<div class="personality_importance">
 					<input type="radio" name="iCheck">
-					<label>Very Important</label>
+					<label>Very</label>
 					<input type="radio" name="iCheck">
-					<label>Somewhat Important</label>
+					<label>Somewhat</label>
 					<input type="radio" name="iCheck">
-					<label>Not Important</label>
+					<label>Not at all</label>
 				</div>	
 			<br>
+		</select>
+				
 			<input type='hidden' value='{{ question.id }}' name='question_id'/>
-			<br>
-		<br>
 
 		<div class="question_answers">
 		{% for ans in question.answer_set.all %}
