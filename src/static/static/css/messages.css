@@ -9,15 +9,17 @@
 .compose-container{
 	margin-left:80px;
 }
-
+#message_container label{
+	width:90%;
+}
 .button_container{
 	width:90%;
 	margin-bottom:100px;
 }
 
 #compose_button_container{
-	width:70%;
-	margin-left:120px;
+	width:90%;
+	margin-left:40px;
 }
 #send_message_button{
 	width:100%;
@@ -60,9 +62,10 @@ table{
 #view_table{
 	min-width:150px;
 }
+
 #views_container{
-	width:100%;
-	margin: 0 auto 80px 80px;
+	width:90%;
+	margin-left:80px;
 }
 .messages_view{
 	margin:0 auto;
@@ -89,7 +92,7 @@ textarea{
 #message_container{
 	margin-left:80px;
 	min-width:200px;
-	width:100%;
+	width:90%;
 }
 
 @media (max-width: 402px){

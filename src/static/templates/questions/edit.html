@@ -46,7 +46,12 @@
 					<label>Not Important</label>
 				</div>	
 			<br>
-		
+		<div class="question_answers">
+		{% for ans in question.answer_set.all %}
+			<input type='radio' required=
+			'required' value='{{ ans }}' {% for abc in ans.useranswer_set.all %} {% if abc and abc.user == request.user %} checked='checked' {% endif %} {% endfor %} name='answer'> {{ ans }} <br/>
+		{% endfor %}
+		</div>
 		<div class="interest_buttons">
 		<!-- Submit Button -->
 		<input type='submit' class='btn-lg' value='Save'>

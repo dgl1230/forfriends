@@ -47,7 +47,8 @@ $('#myTab a').click(function (e) {
     		<div class='col-lg-12'>
     {{ formset_p.management_form }}
      {% for form in formset_p %}
-      <div id="form_container">{{ form }}
+      <div id="form_container">
+        {{ form }}
         <br><br>
       </div>
       {% endfor %}

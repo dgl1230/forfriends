@@ -11,6 +11,19 @@ html, ul, ul li, li, li a, .btn{
 	margin-top:5px;
 }
 
+#form_container label:first-child{
+	width:100%;
+	font-size:18px;
+	color: #084c8d;
+}
+
+#form_container a{
+	color: #084c8d;
+}
+#form_container{
+	margin-bottom:10px;
+}
+
 #home .btn{
 	margin-left:80px;
 }
