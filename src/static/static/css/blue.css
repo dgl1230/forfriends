@@ -3,7 +3,7 @@
 .icheckbox_line-blue,
 .iradio_line-blue {
     position: relative;
-    display: block;
+    display: inline;
     margin: 0;
     padding: 5px 15px 5px 38px;
     font-size: 13px;

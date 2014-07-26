@@ -131,6 +131,7 @@ footer{
 	text-align: center;
 	margin: 0 auto;
 	width:200px;
+	display:inline;
 }
 
 .btn-group .btn:hover, .btn-group .btn:active, .btn-group .btn:focus{
@@ -151,7 +152,8 @@ footer{
 
 .question_answers{
 	width: 200px;
-	margin: 0 auto;
+	margin: 10px auto;
+
 }
 .question_answers input{
 	float: left;
@@ -215,6 +217,15 @@ footer{
 	}
 }
 
+@media only screen and (max-width:730px){
+	#personality_importance{
+		display:block;
+	}
+	.icheckbox_line-blue,
+	.iradio_line-blue {
+		display:block!important;
+	}
+}
 @media only screen and (max-width:500px){
 	#margin_wrapper{
 		margin-left:80px;

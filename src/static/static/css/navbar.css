@@ -140,6 +140,16 @@ a.dropdown-toggle{
 	padding-top:15px;
 	padding-bottom:5px;
 }
+
+#messages_navbar{
+	background-color: #fff;
+	min-width: 280px;
+	margin-top:5px;
+	padding-top:15px;
+	padding-bottom:5px;
+	margin-left:40px;
+	text-align:center;
+}
 #secondary_navbar a, #secondary_navbar h1{
 	color: #084c8d;
 }
@@ -256,6 +266,9 @@ form.navbar-form.navbar-left{
 	 	transition: all 500ms ease;
 	 	font-size: 1em;
 	 	margin-left: 0px!important;
+	}
+	#messages_navbar{
+		margin-left:50px;
 	}
 }
 
