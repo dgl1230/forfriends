@@ -25,6 +25,9 @@
               <li>
                 <a href='{% url "inbox" %}' title="Inbox" class="sidebar-tool" id="messages_sidebar">
                 <span class='glyphicon glyphicon-envelope'></span>Inbox</a>
+                {% if not request.session.num_of_messages == 0 %} 
+                   <span class="badge pull-right"> {{ request.session.num_of_messages }}</span>
+                {% endif %}
               </li>
             
           </ul>

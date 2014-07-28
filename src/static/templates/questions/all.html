@@ -35,22 +35,15 @@
 		<form method='POST' action=''> {% csrf_token %}
 		How important is this question to you? 
 		<br/>
-				<select required='required' class='importance_level' name='importance_level'>
-			{% for imp in importance_levels %}
-			<option {% for abc in question.useranswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected='selected' {% endif %} {% endfor %} value='{{ imp }}'>{{ imp }}</option>
-			{% endfor %}
-		</select>
+				
 			<br><br>
-				<div class="personality_importance">
-					<input type="radio" name="iCheck">
-					<label>Very</label>
-					<input type="radio" name="iCheck">
-					<label>Somewhat</label>
-					<input type="radio" name="iCheck">
-					<label>Not at all</label>
-				</div>	
-			<br>
-		</select>
+			<div class="personality_importance">
+			{% for imp in importance_levels %}
+					<input type="radio" name="iCheck" value='{{ imp }}' id='{{ imp }}' {% for abc in question.useranswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} checked="checked" {% endif %} {% endfor %}>
+					<label>{{ imp }}</label>
+			{% endfor %}
+			</div>
+				
 				
 			<input type='hidden' value='{{ question.id }}' name='question_id'/>
 
