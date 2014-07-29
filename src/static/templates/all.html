@@ -27,7 +27,7 @@
 {% endif %}
 
 <br/>
-	It took {{ time_difference.seconds }} seconds or {{ time_difference.microseconds }} microseconds
+	
 	<div class='row'>
 {% for match in matches %}
 	{% if not request.user == match.user1 %}
@@ -45,17 +45,17 @@
 			</a>
 		<div class="matching">
 		{% if match.percent <= 100 and match.percent >= 90 %}
-		<p> Very Good Match</p>
+		<p style="color:green"> Very Good Match</p>
 		{% elif match.percent <= 89 and match.percent >= 75 %}
-		<p> Good Match</p>
+		<p style="color:blue"> Good Match</p>
 		{% elif match.percent <= 74 and match.percent >= 60 %}
-		<p> Some Issues </p>
+		<p style="color:yellow"> Some Issues </p>
 		{% elif match.percent <= 59 and match.percent >= 40 %}
-		<p> Weak Match  </p>
+		<p style="color:orange"> Weak Match  </p>
 		{% elif match.percent <= 39 and match.percent >= 1 %}
-		<p> Very Weak </p>
+		<p style="color:red"> Very Weak </p>
 		{% else %}
-		<p> They need to fill out their profile more </p>
+		<p style="color:purple"> New User </p>
 		{% endif %}
 	
 		<p id="user_address">{% for item in match.user1.address_set.all %} 

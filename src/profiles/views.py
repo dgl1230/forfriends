@@ -60,7 +60,7 @@ matches for them, otherwise it shows the home page for non-logged in viewers '''
 def all(request):
 	if request.user.is_authenticated(): 
 		#users = User.objects.filter(is_active=True)
-		time1 = datetime.datetime.now()
+		#time1 = datetime.datetime.now()
 		#number_of_users = User.objects.filter(is_active=True).count()
 		#users_to_display = 0
 		#random_user_ids = []
@@ -110,8 +110,8 @@ def all(request):
 		matches = Match.objects.filter(
 			Q(user1=request.user) | Q(user2=request.user)
 			).order_by('-percent')
-		time2 = datetime.datetime.now()
-		time_difference = time2 - time1
+		#time2 = datetime.datetime.now()
+		#time_difference = time2 - time1
 		return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 	else:
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
@@ -272,9 +272,22 @@ def edit_profile(request):
 
 #sorts the matches of user according to whatver the user specified 
 def find_friends(request):
+	users = User.objects.filter(is_active=True)
+	for u in users:
+			if u != request.user:
+				try: 
+					match = Match.objects.get(user1=request.user, user2=u)
+				except: 
+					match, created = Match.objects.get_or_create(user1=u, user2=request.user)
+				match.percent = match_percentage(request.user, u)
+				try:
+					match.distance = round(calc_distance(request.user, u))
+				except:
+					match.distance = 10000000
+				match.save()
 	matches = Match.objects.filter(
 		Q(user1=request.user) | Q(user2=request.user)
-		).order_by('?')
+		)
 	return render_to_response('profiles/find_friends.html', locals(), context_instance=RequestContext(request))
 
 

@@ -33,12 +33,12 @@
 			
 		How important is this question to you? 
 			<br><br>
-				<div class="personality_importance">
+				<select name="importance_level">
 					{% for imp in importance_levels %}
-					<input type="radio" name="iCheck" {% for abc in question.useranswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} checked="checked" {% endif %} {% endfor %} >
-					<label> {{ imp }}</label>
+					<option   {% for abc in question.useranswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected="selected" value="{{ imp }}"{% endif %} {% endfor %}> {{ imp }}</option>
+					
 					{% endfor %}
-				</div>	
+				</select>	
 			<br>
 		<div class="question_answers">
 		{% for ans in question.answer_set.all %}
