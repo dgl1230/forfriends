@@ -174,3 +174,9 @@ p a{
 		margin-left:80px;
 	}
 }
+
+@media (max-width: 645px){
+	.edit_profile_navbar{
+		margin-left:85px!important;
+	}
+}
