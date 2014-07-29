@@ -32,7 +32,7 @@
 			<input type='hidden' value='{{ question.id }}' name='question_id'/>
 			
 		How important is this question to you? 
-			<br>
+			<br><br>
 				<div class="personality_importance">
 					{% for imp in importance_levels %}
 					<input type="radio" name="iCheck" {% for abc in question.useranswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} checked="checked" {% endif %} {% endfor %} >

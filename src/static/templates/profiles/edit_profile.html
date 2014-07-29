@@ -52,7 +52,7 @@ $('#myTab a').click(function (e) {
       <div id="form_container">
         {{ form }}
         <br><br>
-        <input class='btn' id="delete_button" type='submit' value='Delete' name='picture_id' />
+        <input class='btn' id="delete_button" type='submit' value='Delete' />
       </div>
       {% endfor %}
   		</div>
@@ -108,7 +108,7 @@ $('#myTab a').click(function (e) {
           <h3 class="delete_info"> If you choose to delete your account, all your information will be deleted and you will not be able to recover it. </h3>
            <a href='{% url "delete_account" %}'><div class="btn-lg">Delete Account</div></a>      
          </div>
-    </div>
+      </div>
     </div>
   </div>
 </div>
@@ -168,7 +168,13 @@ if (picture_form5.value > 0){
   $('input#id_form-0-is_profile_pic, #id_form-1-is_profile_pic, #id_form-2-is_profile_pic, #id_form-3-is_profile_pic, #id_form-4-is_profile_pic').on('change', function()  {
     $('#id_form-0-is_profile_pic, #id_form-1-is_profile_pic, #id_form-2-is_profile_pic, #id_form-3-is_profile_pic, #id_form-4-is_profile_pic').not(this).prop('checked',false);
   });
-
-
 </script>
+
+<script>
+  $('#delete_button').click(function(){
+    $(this).attr('name', 'picture_id')
+  });
+</script>
+
+
 {% endblock %}

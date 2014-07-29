@@ -201,7 +201,6 @@ span.glyphicon{
 
 .sidebar-nav .pull-right{
   background-color: #084c8d;
-  margin-top:5%;
 }
 
 .sidebar-nav li a{
@@ -231,7 +230,11 @@ span.glyphicon{
 #leftbar-wrapper:hover{
 
 }
-
+#messages_badge{
+  font-size:10px;
+  font-weight:300;
+  padding:5px 5px ;
+}
 #leftbar-wrapper a{
   color: #084C8D;
     text-shadow:

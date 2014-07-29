@@ -32,11 +32,10 @@
 <div class='row' id="question-wrapper">
 	{% for question in questions %}
 		<h3>{{ question }}</h3><p>
+
 		<form method='POST' action=''> {% csrf_token %}
 		How important is this question to you? 
-		<br/>
-				
-			<br><br>
+		<br><br>
 			<div class="personality_importance">
 			{% for imp in importance_levels %}
 					<input type="radio" name="iCheck" value='{{ imp }}' id='{{ imp }}' {% for abc in question.useranswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} checked="checked" {% endif %} {% endfor %}>
@@ -93,5 +92,12 @@ $(document).ready(function(){
 		});
 	});
 });
+</script>
+<script>
+$(document).ready(function(){
+	$("input").click(function(){
+		$('input').attr('name', 'check');
+	);
+};
 </script>
 {% endblock %}

@@ -3,18 +3,33 @@
 <link href="{{ STATIC_URL }}css/messages.css" rel="stylesheet">
 
 {% block content %}
-<div class="row">
-	<div class="col-md-1" id="secondary_navbar">
-        <h1>Contact Us</h1>
+<div class='contact_form_wrapper'>
+		<div class="row">
+		<h3>Frenvu is a work in progress.</h3>
+	        <p>So, feel free to voice any opinion you have about the site. We'll read and reply to every inquiry and recommendation concering the site as we build up the Frenvu community.</p>
+	  </div>
+<div id="form-main">
+  <div id="form-div">
+    <form class="form" id="form1" action='' method='POST'>
+   		{% csrf_token %}
+      
+      <p class="text">
+        <textarea name="text" class="validate[required,length[6,300]] feedback-input" id="comment" placeholder="Comment"></textarea>
+      </p>
+      
+      
+      <div class="submit">
+        <input type="submit" value="Contact Us" id="button-blue"/>
+        <div class="ease"></div>
+      </div>
+    </form>
+  </div>
+
+
 	</div>
 </div>
 <div id="message_container">
   <div class='col-lg-10 col-12'>
-
-	<form action='' method='POST'> {% csrf_token %}
-	Message: <input type="text" name="message"><br>
-	<input class='btn btn-lg' type='submit' value="Contact Us" id="send_message_button">
-	</form>
 	</div>
 
 
@@ -23,4 +38,8 @@
 
 </div>
 </div>
+</div>
+<script>
+
+</script>
 {% endblock %}
