@@ -272,10 +272,13 @@ def edit_profile(request):
 
 #sorts the matches of user according to whatver the user specified 
 def find_friends(request):
-	#number_of_users = User.objects.filter(is_active=True).count()
+	number_of_users = User.objects.filter(is_active=True).count()
+	index_start = randint(1, number_of_users - 5)
+	index_end = index_start + 5
+	print index_start
+	print index_end
 
-
-	users = User.objects.filter(is_active=True)
+	users = User.objects.filter(is_active=True)[index_start:index_end]
 	for u in users:
 			if u != request.user:
 				try: 
