@@ -44,15 +44,24 @@
 				<p id="user_name">{{ match.user1.username }}</p>
 			</a>
 		<div class="matching">
-		<p id="match">Match: {{ match.percent }}%	</p>
+		{% if match.percent <= 100 and match.percent >= 90 %}
+		<p> Very Good Match</p>
+		{% elif match.percent <= 89 and match.percent >= 75 %}
+		<p> Good Match</p>
+		{% elif match.percent <= 74 and match.percent >= 60 %}
+		<p> Some Issues </p>
+		{% elif match.percent <= 59 and match.percent >= 40 %}
+		<p> Weak Match  </p>
+		{% elif match.percent <= 39 and match.percent >= 1 %}
+		<p> Very Weak </p>
+		{% else %}
+		<p> They need to fill out their profile more </p>
+		{% endif %}
 	
 		<p id="user_address">{% for item in match.user1.address_set.all %} 
 			{% if forloop.first %} {{ item }}
 			{% endif %} 
 		{% endfor %}
-		{% ifnotequal match.distance 10000000 %}
-		({{ match.distance }} miles away)</p>
-		{% endifnotequal %}
 		<br/>
 		</div>
 		</div>

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+<link href="{{ STATIC_URL }}css/messages.css" rel="stylesheet">
+
+{% block content %}
+<div class="row">
+	<div class="col-md-1" id="secondary_navbar">
+        <h1>Contact Us</h1>
+	</div>
+</div>
+<div id="message_container">
+  <div class='col-lg-10 col-12'>
+
+	<form action='' method='POST'> {% csrf_token %}
+	Message: <input type="text" name="message"><br>
+	<input class='btn btn-lg' type='submit' value="Contact Us" id="send_message_button">
+	</form>
+	</div>
+
+
+<br>
+<br>
+
+</div>
+</div>
+{% endblock %}

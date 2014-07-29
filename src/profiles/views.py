@@ -4,6 +4,7 @@ import datetime
 #from datetime import date
 #from datetime import *
 import datetime
+from random import randint
 
 from django.shortcuts import render
 from django.contrib import messages
@@ -58,8 +59,41 @@ def add_friend(request, username):
 matches for them, otherwise it shows the home page for non-logged in viewers '''
 def all(request):
 	if request.user.is_authenticated(): 
-		users = User.objects.filter(is_active=True)
+		#users = User.objects.filter(is_active=True)
 		time1 = datetime.datetime.now()
+		#number_of_users = User.objects.filter(is_active=True).count()
+		#users_to_display = 0
+		#random_user_ids = []
+		#current_user_id = request.user.id
+		#matches = []
+		#users = []
+		'''
+		while users_to_display <= 9:
+			random_user_id = randint(1, number_of_users)
+			if random_user_id not in random_user_ids and random_user_id != current_user_id:
+				try :
+					user = User.objects.get(pk=id)
+					users.append(user)
+					random_user_ids.append(random_user_id)
+					users_to_display += 1
+				except:
+					pass
+		'''
+		'''
+		for user in users:	
+			try: 
+				match = Match.objects.get(user1=request.user, user2=user)
+			except: 
+				match, created = Match.objects.get_or_create(user1=user, user2=request.user)
+			match.percent = match_percentage(request.user, user)
+			try:
+				match.distance = round(calc_distance(request.user, user))
+			except:
+				match.distance = 10000000
+			match.save()	
+			matches.append(match)
+		'''
+		'''
 		for u in users:
 			if u != request.user:
 				try: 
@@ -72,6 +106,7 @@ def all(request):
 				except:
 					match.distance = 10000000
 				match.save()
+		'''		
 		matches = Match.objects.filter(
 			Q(user1=request.user) | Q(user2=request.user)
 			).order_by('-percent')
@@ -237,15 +272,6 @@ def edit_profile(request):
 
 #sorts the matches of user according to whatver the user specified 
 def find_friends(request):
-	users = User.objects.filter(is_active=True)
-	for u in users:
-		if u != request.user:
-			try: 
-				match = Match.objects.get(user1=request.user, user2=u)
-			except: 
-				match, created = Match.objects.get_or_create(user1=u, user2=request.user)
-			match.percent = match_percentage(request.user, u)
-			match.save()
 	matches = Match.objects.filter(
 		Q(user1=request.user) | Q(user2=request.user)
 		).order_by('?')
@@ -405,6 +431,14 @@ def sort_by_match(request):
 	matches = Match.objects.filter(
 			Q(user1=request.user) | Q(user2=request.user)
 			).order_by('-percent')
+	for match in matches: 
+		match.percent = match_percentage(match.user1, match.user2)
+		try:
+			match.distance = round(calc_distance(request.user, u))
+		except:
+			match.distance = 10000000
+		match.save()
+
 	return render_to_response('profiles/find_friends.html', locals(), context_instance=RequestContext(request))	
 
 
@@ -416,9 +450,17 @@ def sort_by_location(request):
 			Q(user1=request.user) | Q(user2=request.user)
 			).order_by('?')
 		return render_to_response('profiles/find_friends.html', locals(), context_instance=RequestContext(request))
+
 	matches = Match.objects.filter(
 			Q(user1=request.user) | Q(user2=request.user)
-			).order_by('-distance')		
+			).order_by('-distance')
+	for match in matches: 
+		match.percent = match_percentage(match.user1, match.user2)
+		try:
+			match.distance = round(calc_distance(request.user, u))
+		except:
+			match.distance = 10000000
+		match.save()
 	return render_to_response('profiles/find_friends.html', locals(), context_instance=RequestContext(request))
 
 
@@ -440,6 +482,13 @@ def delete_account(request):
 	deleted_user.delete()
 	messages.success(request, "Your account has been deleted. We'll miss you!")
 	return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+
+
+def contact_us(request):
+	if request.POST:
+		message = request.POST['message']
+		send_mail('Inquuiry', message , EMAIL_HOST_USER, [EMAIL_HOST_USER])
+	return render_to_response ('contact_us.html', locals(), context_instance=RequestContext(request))
 
 
 

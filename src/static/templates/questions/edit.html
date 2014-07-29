@@ -31,19 +31,13 @@
 		<form method='POST' action=''> {% csrf_token %}
 			<input type='hidden' value='{{ question.id }}' name='question_id'/>
 			
-		How important is this question to you? <select required='required' name='importance_level'>
-			{% for imp in importance_levels %}
-			<option {% for abc in question.useranswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected='selected' {% endif %} {% endfor %} value='{{ imp }}'>{{ imp }}</option>
-			{% endfor %}
-		</select></p>
+		How important is this question to you? 
 			<br>
 				<div class="personality_importance">
-					<input type="radio" name="iCheck">
-					<label>Very</label>
-					<input type="radio" name="iCheck">
-					<label>Somewhat</label>
-					<input type="radio" name="iCheck">
-					<label>Not at all</label>
+					{% for imp in importance_levels %}
+					<input type="radio" name="iCheck" {% for abc in question.useranswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} checked="checked" {% endif %} {% endfor %} >
+					<label> {{ imp }}</label>
+					{% endfor %}
 				</div>	
 			<br>
 		<div class="question_answers">
@@ -74,16 +68,12 @@
 </div>
 </div>
 <script>
-$(':button').change(
-  this.name = "importance_level";
-)
-</script>
-<script>
 $(document).ready(function(){
 	$('.personality_importance input').each(function(){
 		var self = $(this),
 			label = self.next(),
 			label_text = label.text();
+
 
 		label.remove();
 		self.iCheck({
