@@ -62,6 +62,9 @@
 			{% if forloop.first %} {{ item }}
 			{% endif %} 
 		{% endfor %}
+		{% ifnotequal match.distance 10000000 %}
+		 ({{ match.distance }} miles away)</p>
+		{% endifnotequal %}
 		<br/>
 		</div>
 		</div>
@@ -80,7 +83,19 @@
 			</a>
 
 		<div class="matching">
-		<p id="match">Match: {{ match.percent }}%	</p>
+		% if match.percent <= 100 and match.percent >= 90 %}
+		<p style="color:green"> Very Good Match</p>
+		{% elif match.percent <= 89 and match.percent >= 75 %}
+		<p style="color:blue"> Good Match</p>
+		{% elif match.percent <= 74 and match.percent >= 60 %}
+		<p style="color:yellow"> Some Issues </p>
+		{% elif match.percent <= 59 and match.percent >= 40 %}
+		<p style="color:orange"> Weak Match  </p>
+		{% elif match.percent <= 39 and match.percent >= 1 %}
+		<p style="color:red"> Very Weak </p>
+		{% else %}
+		<p style="color:purple"> New User </p>
+		{% endif %}
 	
 		<p id="user_address">{% for item in match.user2.address_set.all %} 
 			{% if forloop.first %} {{ item }}
