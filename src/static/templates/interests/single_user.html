@@ -6,12 +6,7 @@
 <div id="big_wrapper">
 <div class="row" id="margin_wrapper">
 	<div class="col-md-1" id="secondary_navbar">
-        <h1>Interests</h1>
-	</div>
-	<div class="col-md-1" id="tertiary_navbar">
-     		<a href="/interests/edit/" class="half-nav1">Edit Interests</a>
-     		<span class="glyphicon glyphicon-thumbs-up" id="tertiary-icon"></span>
-     		<a href="/interests/create/" class="half-nav2">Add Interests</a>
+        <h1> {{ single_user.username }}'s Interests</h1>
 	</div>
 </div>	
 <div class="row" >
@@ -47,7 +42,7 @@
 		<form method='POST' action=''> {% csrf_token %}
 				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<div class="interest_ranking">
-				<p>How much do you like this? <br>
+				<p>How much do they like this? <br>
 				
 			
 				<span class="star-rating">
