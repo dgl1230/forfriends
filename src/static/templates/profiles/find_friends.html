@@ -84,7 +84,19 @@
 			</a>
 
 		<div class="matching">
-		<p id="match">Match: {{ match.percent }}%	</p>
+		{% if match.percent <= 100 and match.percent >= 90 %}
+		<p style="color:green"> {{ match.percent }}%</p>
+		{% elif match.percent <= 89 and match.percent >= 75 %}
+		<p style="color:blue"> {{ match.percent }}%</p>
+		{% elif match.percent <= 74 and match.percent >= 60 %}
+		<p style="color:yellow"> {{ match.percent }}%</p>
+		{% elif match.percent <= 59 and match.percent >= 40 %}
+		<p style="color:orange"> {{ match.percent }}%</p>
+		{% elif match.percent <= 39 and match.percent >= 1 %}
+		<p style="color:red"> {{ match.percent }}%</p>
+		{% else %}
+		<p style="color:purple"> New User </p>
+		{% endif %}
 	
 		<p id="user_address">{% for item in match.user2.address_set.all %} 
 			{% if forloop.first %} {{ item }}
