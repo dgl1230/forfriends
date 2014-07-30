@@ -507,7 +507,8 @@ def contact_us(request):
 		message2 = request.POST['message']
 		message = message1 + message2
 		send_mail('Inquuiry', message , EMAIL_HOST_USER, [EMAIL_HOST_USER])
-		messages.succes(request, "Your inquiry has been sent, and we'll get back to you as soon as we can!")
+		messages.success(request, "Your inquiry has been sent, and we'll get back to you as soon as we can!")
+		return render_to_response ('all.html', locals(), context_instance=RequestContext(request))
 	return render_to_response ('contact_us.html', locals(), context_instance=RequestContext(request))
 
 
