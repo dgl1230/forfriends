@@ -22,9 +22,6 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 #navbar-container{
 	width:95%!important;
 }
-.navbar-fixed-top:hover{
-	opacity: .9;
-}
 .navbar.navbar-inverse.navbar-fixed-top{
 	background-color:#404040;
 	border-bottom: none;
@@ -213,7 +210,7 @@ a.dropdown-toggle{
 
 #tertiary_navbar span{
 	padding-left: 1em;
-	color: #084c8d;
+	color: #1fBAD6;
 }
 
 .form-control{
@@ -231,7 +228,7 @@ form.navbar-form.navbar-left{
 	}
 }
 
-@media (min-width: 760px) and (max-width: 860px) {
+@media (min-width: 800px) and (max-width: 860px) {
 	#navbar-container{
 		margin-left: 0px!important;
 	}
