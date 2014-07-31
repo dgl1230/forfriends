@@ -2,8 +2,8 @@
 	opacity: .9;
 }
 button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:focus{
-	background-color: #084c8d!important;
-	border-color:#084c8d!important;
+	background-color: #404040!important;
+	border-color:#404040!important;
 }
 
 .dropdown-menu{
@@ -100,8 +100,7 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 }
 
 .dropdown-menu{
-	background-color: #d5d5d5;
-	border-top:  1px solid white;
+	background-color: #404040;
 	border-right: none;
 	border-left: none;
 	border-bottom: none;
@@ -152,7 +151,7 @@ a.dropdown-toggle{
 	margin-top: 10px;
 }
 #tertiary_navbar a{
-	color: #084c8d!important;
+	color: #404040!important;
 }
 
 #tertiary_navbar a:hover{
