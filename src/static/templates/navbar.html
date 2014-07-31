@@ -30,8 +30,18 @@
                 <li><a href="/about_us">About Us</a></li>
                 <li><a href="/contact_us">Contact Us</a></li>
                 <li><a href='{% url "logout_user" %}'>Logout</a></li> 
+                </ul>
+              </li>
+              <li class="inbox">
+              <a href='{% url "inbox" %}' title="Inbox" class="sidebar-tool" id="messages_sidebar">
+                  <span class='glyphicon glyphicon-envelope'></span>
+                  {% if not request.session.num_of_messages == 0 %} 
+                     <span class="badge pull-right" id="messages_badge"> {{ request.session.num_of_messages }}</span>
+                  {% endif %}
+                </a>
+              </li>
 
-          </ul>
+          
           {% else %}
                       <ul class='nav navbar-nav pull-right'>
                         <li class='profiles'>

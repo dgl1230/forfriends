@@ -2,7 +2,7 @@
 </head>
 <body>
 
-<div class='row' id="sidebar_row">
+<div id="sidebar_row">
       {% if request.user.is_authenticated %}
         <div class='col-lg-2 col-12'>
           <div id="leftbar-wrapper">
@@ -22,65 +22,13 @@
               <li>
                 <a href='/pictures' title="Pictures" class="sidebar-tool"><span class='glyphicon glyphicon-camera ' id="pictures_sidebar"></span>Pictures</a>
               </li>
-              <li>
-                <a href='{% url "inbox" %}' title="Inbox" class="sidebar-tool" id="messages_sidebar">
-                  <span class='glyphicon glyphicon-envelope'></span>Inbox
-                  {% if not request.session.num_of_messages == 0 %} 
-                     <span class="badge pull-right" id="messages_badge"> {{ request.session.num_of_messages }}</span>
-                  {% endif %}
-                </a>
-              </li>
-            
           </ul>
           </div>
           
 
         </div>
         {% endif %}
-<!--<div class='row'>
-      {% if request.user.is_authenticated %}
-        <div class='col-lg-2 col-12'>
-          <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-            <li><a href='/'>Home</a></li>
-            <li><a href='{% if request.user.is_authenticated %}{% url "profile" request.user.username %} {% endif %}'>Profile</a></li>
-            <div class="interests_all">
-              <li><a href='{% url "interests" %}' >Interests</a></li>
-            </div>
-            <div class="questionss_all">
-              <li><a href='{% url "questions" %}'>Questions</a></li>
-
-            </div>
-            <li><a href='/pictures'>Pictures</a></li>
-            <div class="messages_all">
-             <li><a id="messages" href='{% url "inbox" %}'>
-              {% if not 'messages' in request.get_full_path %}
-              {% if not request.session.num_of_messages == 0 %}
-                <span class='badge pull-right'>
-              {{ request.session.num_of_messages }}
-               </span>
-              {% endif %}
-              {% endif %}
-
-              Messages</a></li>
-              <div class="sub_messages">
-               <li><a href='{% url "compose" %}'>Compose</a></li>
-               <li><a href='{% url "inbox" %}'>
-               {% if not request.session.num_of_messages == 0 %}
-                <span class='badge pull-right'>
-               {{ request.session.num_of_messages }}
-               {% endif %}
-               </span>Inbox</a></li>
-              <li><a href='{% url "sent" %}'>Sent</a>
-              </div>
-            </div>
-             <li><a href='/visitors'>Visitors</a></li>
-          </ul>
-          </div>
-      
-        </div>
-        {% endif %}
-      -->
+      </div>
 
     <script>
       $(".messages_all").mouseover(function(){

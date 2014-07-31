@@ -1,6 +1,6 @@
 body{
 	background-color: #fff;
-	margin-top: 40px;
+	padding-top: 40px;
 }
 
 .entire-wrapper{
@@ -24,6 +24,10 @@ p{
 	margin-left: 0px;
 	margin-right: 0px;
 }
+
+#messages_badge{
+	margin-right:0%;
+}
 .ui-tooltip-content{
 	margin-left:0px;
 	color: #084c8d;
@@ -34,21 +38,21 @@ p{
 	border: 2px #084c8d solid!important;
 }
 
-
+#annoying_row{
+	width:90%;
+}
 .btn.btn-info.btn-sm, .btn-lg, .pager li a, #go_button, .btn-success{
-	background-color: #d5d5d5!important;
-	color: #084c8d!important;
-	border: #084c8d 2px solid;
-	-webkit-transition: all 500ms ease;
-	-moz-transition: all 500ms ease;
-	-o-transition: all 500ms ease;
-	transition: all 500ms ease;
-	font-weight:700;
+	background-color: #1FBAD6!important;
+	color: black!important;
+	border: 1px solid #1FBAD6;
+	border-radius:0px;
+	font-weight: 100;
 }
 
 .pager{
 	margin-top:30px;
 }
+
 
 .btn-lg{
 	width:180px;
@@ -68,10 +72,12 @@ tr, td{
 .pagination{
 	width: 50%!important;
 }
-.btn-info.btn-sm:hover, .btn-lg:hover, .pager li a:hover, #go_button, .btn-success:hover{
-  	color: #d5d5d5!important;
-  	background-color:#084c8d!important;
-  	border: #d5d5d5 2px solid;
+.btn-info.btn-sm:hover, .btn-lg:hover, .pager li a:hover, #go_button:hover, .btn-success:hover{
+
+}
+
+.tab-content input{
+	border-radius:0px;
 }
 
 .col-lg-10.col-12{
@@ -85,9 +91,9 @@ h1, h2, h3, h5, a{
 	font-family: 'Open Sans', sans-serif;
 }
 h1{
-	color: #084c8d!important;
+	color: #404040!important;
 	letter-spacing:.2em;
-    font-weight: 500!important;
+    font-weight: 100!important;
 }
 
 p, form{
@@ -106,7 +112,6 @@ input::-moz-focus-inner{
 }
 
 h1{
-	font-weight: 700;
 	text-transform: none!important;
 }
 
@@ -121,8 +126,7 @@ input{
 }
 
 /* symbol on sidebar */
-.pull-right{
-}
+
 .glyphicon{
 	font-size:1em;
 	padding-right: 1em;
@@ -164,8 +168,6 @@ form {
 	font-size: 1.125em;
 }
 
-#myfriend a:hover{
-}
 
 #myfriend #match{
 	font-size: 1.125em;
@@ -192,18 +194,6 @@ a:hover{
 	}
 }
 
-@media (min-width: 1000px){
-	.container{
-		margin-left: 150px;
-	}
-}
-@media (min-width: 985px){
-@media (min-width: 1150px){
-	.container{
-		margin-left: 150px;
-	}
-}
-
 @media (max-width: 480px){
 	.messages{
 		margin-left:40px;
@@ -213,11 +203,6 @@ a:hover{
 *:focus{
 	outline:0;
 }
-
-@media (max-width: 905px) {
-	.container{
-		margin-left: 120px;
-	}
 
 @media (max-width: 600px) {
   h1{

@@ -1,5 +1,5 @@
 .navbar-fixed-top{
-	opacity: .8;
+	opacity: .9;
 }
 button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:focus{
 	background-color: #084c8d!important;
@@ -23,12 +23,11 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 	width:95%!important;
 }
 .navbar-fixed-top:hover{
-	opacity: 1;
+	opacity: .9;
 }
 .navbar.navbar-inverse.navbar-fixed-top{
-	background-color:#D5D5D5;
+	background-color:#404040;
 	border-bottom: none;
-	border-top:#d5d5e5 5px solid;
 	min-width: 280px!important;
 
 }
@@ -38,23 +37,17 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
  	-moz-transition: all 500ms ease;
  	-o-transition: all 500ms ease;
  	transition: all 500ms ease;
+ 	font-weight:700;
 }
 
 .navbar-brand:hover{
-	text-shadow: 
-   -1px -1px 0 white, 
-   1px -1px 0 white,
-  -1px  1px 0 white,
-   1px  1px 0 white;
+
 }
 
 .navbar a{
-	color: #084C8D!important;
-	text-shadow:
-	-1px -1px 0 white, 
-    1px -1px 0 white,
-   -1px  1px 0 white,
-    1px  1px 0 white;
+	color: white!important;
+	font-weight:600;
+
 	-webkit-transition: all 500ms ease;
   	-moz-transition: all 500ms ease;
   	-o-transition: all 500ms ease;
