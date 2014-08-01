@@ -124,9 +124,10 @@
 
 #single_user_container{
 	margin-left:80px;
+	margin-right:80px;
 	background-color:#404040;
 	border-radius:3%;
-	width:90%;
+	width:80%;
 }
 
 @media(max-width: 1000px){

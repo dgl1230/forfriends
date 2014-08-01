@@ -19,8 +19,9 @@
   <div class="row">
 {% for pic in pictures %}
     <div class='col-sm-4'>
-      <a href="#" title="{{ pic.caption }}"><img src=" {{ MEDIA_URL }}{{ pic }}" id="thumbnail" class="img-responsive" ></a>
-      <p>{{ pic.caption }}</p>
+      <a href="#"><img src=" {{ MEDIA_URL }}{{ pic }}" id="thumbnail" class="img-responsive"></a>
+    <div id="picture_caption">
+    <p>{{ pic.caption }}</p>
     </div>
 {% endfor %}
   </div>
@@ -54,6 +55,16 @@
     $($(this).parents('div').html()).appendTo('.modal-body');
     $('#myModal').modal({show:true});
 });
+</script>
+
+<script> 
+$("#picture_caption").hide();
+('#thumbnail').mouseover(function() {
+    $('#picture_caption').show();
+  });
+    $('#thumbnail').mouseout(function() {
+    $('#picture_caption'.hide();
+  )});
 </script>
 {% endblock %}
   <div id="myModal" class="modal fade" tabindex="-1" role="dialog">

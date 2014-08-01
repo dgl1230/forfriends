@@ -37,10 +37,6 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
  	font-weight:700;
 }
 
-.navbar-brand:hover{
-
-}
-
 .navbar a{
 	color: white!important;
 	font-weight:600;
@@ -53,7 +49,11 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 }
 
 .navbar a:hover{
-	text-shadow: 
+ 	text-shadow:
+   -.1px -.1px 0 white, 
+    .1px -.1px 0 white,
+   -.1px  .1px 0 white,
+    .1px  .1px 0 white;
 
    color: white!important;
 
@@ -88,12 +88,12 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 
 
 .dropdown-menu li:hover{
-	color: black ; 
+	color: black; 
  	text-shadow:
-   -1px -1px 0 white, 
-    1px -1px 0 white,
-   -1px  1px 0 white,
-    1px  1px 0 white;
+   -.1px -.1px 0 white, 
+    .1px -.1px 0 white,
+   -.1px  .1px 0 white,
+    .1px  .1px 0 white;
 }
 
 .dropdown-menu{
@@ -202,7 +202,9 @@ a.dropdown-toggle{
 	min-width: 280px;
 	margin-left: 80px;
 }
-
+.inbox a{
+	width:80px;
+}
 #tertiary_navbar a{
 	color: black;
 	text-align: center;
@@ -216,6 +218,7 @@ a.dropdown-toggle{
 .form-control{
 	display:inline;
 	width:80%;
+	margin-left:-10px;
 }
 form.navbar-form.navbar-left{
 	border-top: none!important;
@@ -228,12 +231,13 @@ form.navbar-form.navbar-left{
 	}
 }
 
-@media (min-width: 800px) and (max-width: 860px) {
+@media (min-width: 750px) and (max-width: 900px) {
 	#navbar-container{
 		margin-left: 0px!important;
 	}
 	.form-control{
-		width:120px!important;
+		width:80px!important;
+		margin-left:-20px;
 	}
 }
 

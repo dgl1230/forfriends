@@ -20,7 +20,9 @@ margin-left: 80px;
 #thumbnail{
 	min-width:175px;
 }
-
+#picture_caption{
+	width:50%;
+}
 .pictures_container{
 	margin-left:160px;
 

@@ -63,7 +63,7 @@
 
 	<div class='col-lg-6' id="single_user_body">
 		<div class='panel panel-default' id="bio_panel">
-		<div class='panel-heading'><p>Bio</p></div>
+		<div class='panel-heading'><p>Bio</p><p id="info_edit">Edit</p></div>
 		<div class="panel-body">
 		{% for item in single_user.info_set.all %}
 			{% if forloop.first %}
@@ -73,7 +73,7 @@
 		</div>
 		</div>
 	<div class='panel panel-default'>
-		<div class='panel-heading'><p>Occupation</p></div>
+		<div class='panel-heading'><p>Occupation</p><p id="info_edit">Edit</p></div>
 		<div class="panel-body">
 		{% for item in single_user.job_set.all %} 
 			{{ item.position|title }} at {{ item.employer|title }}
@@ -82,7 +82,7 @@
 	</div>
 
 	<div class='panel panel-default'>
-		<div class='panel-heading'><p>Location</p></div>
+		<div class='panel-heading'><p>Location</p><p id="info_edit">Edit</p></div>
 		<div class="panel-body">
 		{% for item in single_user.address_set.all %}
 				{{ item.city|title }}, {{ item.state|upper }}
@@ -96,7 +96,15 @@
 </div>
 </div>
 </div>
-
+<script>
+  $('form').on('submit', function(event) {
+    event.defaultPrevented();
+    $.ajax('/members/{{ single_user.username}}', {
+      type:"POST",
+      data: $('form').serialize(),
+    });
+  });
+</script>
 
 
 {% endblock %}

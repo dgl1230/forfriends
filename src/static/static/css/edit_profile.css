@@ -133,17 +133,17 @@ p label{
 }
 
 #myTab li a:hover{
-	background:#084c8d!important;
+	background:#404040!important;
 	color:white!important;
 }
 
 #myTab li a{
-	color: #084c8d;
+	color: #404040;
 	outline: none;
 	width: 120px;
 	text-align:center;
 	font-size: 12px;
-	border: 1px solid #084c8d;
+	border: 1px solid #404040;
 }
 
 #delete_account{
