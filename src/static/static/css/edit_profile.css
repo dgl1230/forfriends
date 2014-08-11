@@ -5,12 +5,6 @@ html, ul, ul li, li, li a, .btn{
 	min-height: 500px;
 }
 
-.success{
-	text-align:center;
-	color: #084c8d;
-	margin-top:5px;
-}
-
 #form_container label:first-child{
 	width:100%;
 	font-size:18px;

@@ -21,20 +21,18 @@ span.glyphicon{
 #leftbar-wrapper{
   width: 5%;
   margin-top: 0%;
-  background-color: #d5d5d5;
+  background-color: #222!important;
   position: fixed;
   height: 100%;
   overflow-y: auto;
   z-index: 1000;
   transition: all 0.4s ease 0s;
-  background: rgba(255,255,255,0.2);
-  color: #fff;
   background: none;
   opacity: 1;
-  margin-top: 15px;
+  margin-top: 10px;
   position: fixed;
   height: 100%;
-  width: 80px;
+  width: 120px;
 }
 
 #page-content-wrapper {
@@ -48,7 +46,7 @@ span.glyphicon{
   list-style: none;
   padding: 0;
   text-align:center;
-  background-color: #fff;
+  background-color: #222;
   padding-bottom:50px;
 }
 
@@ -62,7 +60,7 @@ span.glyphicon{
 }
 
 .sidebar-nav li a {
-  color: #404040!important;
+  color: #111;
   display: block;
   text-decoration: none;
   padding-top: 5px;
@@ -174,6 +172,7 @@ span.glyphicon{
   font-size:1.4em;
   padding-bottom: .85em;
   padding-top: 1em;
+  width:120px;
 }
 
 .sidebar-nav .glyphicon:hover{
@@ -199,7 +198,6 @@ span.glyphicon{
   padding:5px 5px ;
 }
 #leftbar-wrapper a{
-  color: #084C8D;
     text-shadow:
    -1px -1px 0 white, 
     1px -1px 0 white,

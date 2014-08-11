@@ -7,7 +7,7 @@
 
 
 {% block content %}
-<div class="row">
+<div class="row" id="view_container">
   <div class="col-md-1" id="secondary_navbar">
         <h1>Pictures</h1>
   </div>
@@ -19,7 +19,7 @@
   <div class="row">
 {% for pic in pictures %}
     <div class='col-sm-4'>
-      <a href="#"><img src=" {{ MEDIA_URL }}{{ pic }}" id="thumbnail" class="img-responsive"></a>
+      <img src=" {{ MEDIA_URL }}{{ pic }}" id="thumbnail" class="img-responsive" cropwidth="200" cropheight="200" class="cropimage">
     <div id="picture_caption">
     <p>{{ pic.caption }}</p>
     </div>
@@ -28,58 +28,12 @@
 </div>
 </div>
 
-  <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
-  <div class="modal-dialog">
-  <div class="modal-content">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3 class="modal-title">Heading</h3>
-  </div>
-  <div class="modal-body">
-    
-  </div>
-  <div class="modal-footer">
-    <button class="btn btn-default" data-dismiss="modal">Close</button>
-  </div>
-</div>
-</div>
-</div>
-
-
 <script>
-
-  $('.col-sm-4:nth-of-type(0)').click(function(){
-    $('.modal-body').empty();
-    var title = $(this).parent('a').attr("title");
-    $('.modal-title').html(title);
-    $($(this).parents('div').html()).appendTo('.modal-body');
-    $('#myModal').modal({show:true});
-});
-</script>
-
-<script> 
-$("#picture_caption").hide();
-('#thumbnail').mouseover(function() {
-    $('#picture_caption').show();
-  });
-    $('#thumbnail').mouseout(function() {
-    $('#picture_caption'.hide();
-  )});
+    $('#thumbnail').cropbox({
+        width: 200,
+        height: 200
+    }).on('cropbox', function(e, result) {
+        console.log(result);
+    });
 </script>
 {% endblock %}
-  <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
-  <div class="modal-dialog">
-  <div class="modal-content">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3 class="modal-title">Heading</h3>
-  </div>
-  <div class="modal-body">
-    
-  </div>
-  <div class="modal-footer">
-    <button class="btn btn-default" data-dismiss="modal">Close</button>
-  </div>
-</div>
-</div>
-</div>

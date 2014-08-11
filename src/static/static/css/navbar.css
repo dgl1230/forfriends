@@ -6,6 +6,10 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 	border-color:#404040!important;
 }
 
+.navbar-brand{
+	width:120px;
+}
+
 .dropdown-menu{
 	min-width:100px;
 	width:100px;
@@ -20,12 +24,11 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 }
 
 #navbar-container{
-	width:95%!important;
 }
 .navbar.navbar-inverse.navbar-fixed-top{
-	background-color:#404040;
+	background-color:#111;
 	border-bottom: none;
-	min-width: 280px!important;
+	min-width: 200px!important;
 
 }
 .navbar-brand{
@@ -241,12 +244,12 @@ form.navbar-form.navbar-left{
 	}
 }
 
-@media (min-width: 1300px){
+@media (min-width: 1330px){
 	.form-group{
-		width:600px!important;
+		width:540px!important;
 	}
 	.form-control{
-		width:540px!important;
+		width:480px!important;
 	}
 }
 

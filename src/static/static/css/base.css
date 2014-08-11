@@ -43,8 +43,8 @@ p{
 }
 .btn.btn-info.btn-sm, .btn-lg, .pager li a, #go_button, .btn-success{
 	background-color: #1FBAD6!important;
-	color: black!important;
-	border: 1px solid #404040;
+	color: white!important;
+	border: 1px solid #111;
 	border-radius:0px;
 	font-weight: 100;
 }
@@ -141,7 +141,11 @@ input{
 	color: black;
 	font-size: 1.2em;
 }
-
+.success{
+	text-align: center;
+	margin-top:5px;
+	color:#1FBAD6;
+}
 
 /* Registration and General Form Improvement */
 
