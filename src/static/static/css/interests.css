@@ -23,6 +23,13 @@
 	min-width:100px;
 }
 
+#question-wrapper select{
+	background-color:#1FBAD6;
+	color: white;
+	border: 1px solid #111;
+	padding:2px 2px 2px 2px;
+}
+
 #main_interests{	
 	min-width: 240px;
 	text-align: center;
