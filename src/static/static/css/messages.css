@@ -83,14 +83,8 @@ textarea{
 }
 /* Media Queries */
 
-@media (min-width: 1300px){
-	.container{
-		margin-left: 12%!important;
-	}
-}
-
 #message_container{
-	margin-left:80px;
+	margin-left:120px;
 	min-width:200px;
 	width:90%;
 }

@@ -120,7 +120,6 @@ a.dropdown-toggle{
 @media only screen and (min-width:1100px){
 	.navbar-brand{
 		letter-spacing:.4em;
-		margin-left: -20%!important;
 	}
 }
 
@@ -239,8 +238,7 @@ form.navbar-form.navbar-left{
 		margin-left: 0px!important;
 	}
 	.form-control{
-		width:80px!important;
-		margin-left:-20px;
+		width:120px!important;
 	}
 }
 

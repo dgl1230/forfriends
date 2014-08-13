@@ -97,7 +97,7 @@ h1{
 }
 
 p, form{
-	font-family: 'Gentium Basic', serif;
+	font-family: 'Droid Serif', serif;
 	outline:none;
 }
 
@@ -188,13 +188,6 @@ a:hover{
 	}
 	#myfriend #match{
 	font-size: 1em;
-	}
-}
-
-@media (min-width: 1200px){
-	#myfriend{
-		width: 400px;
-		height:auto;
 	}
 }
 

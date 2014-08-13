@@ -21,18 +21,17 @@ span.glyphicon{
 #leftbar-wrapper{
   width: 5%;
   margin-top: 0%;
-  background-color: #222!important;
+  background-color: #111!important;
   position: fixed;
   height: 100%;
   overflow-y: auto;
   z-index: 1000;
   transition: all 0.4s ease 0s;
-  background: none;
-  opacity: 1;
   margin-top: 10px;
   position: fixed;
   height: 100%;
   width: 120px;
+  opacity:.9;
 }
 
 #page-content-wrapper {
@@ -46,8 +45,9 @@ span.glyphicon{
   list-style: none;
   padding: 0;
   text-align:center;
-  background-color: #222;
+  background-color: #111;
   padding-bottom:50px;
+  opacity:.9;
 }
 
 .sub_messages{
@@ -198,11 +198,7 @@ span.glyphicon{
   padding:5px 5px ;
 }
 #leftbar-wrapper a{
-    text-shadow:
-   -1px -1px 0 white, 
-    1px -1px 0 white,
-   -1px  1px 0 white,
-    1px  1px 0 white;
+  color:white;
 }
 
 #leftbar-wrapper a:hover{
@@ -228,6 +224,12 @@ span.glyphicon{
       #leftbar-wrapper{
         margin-top:0%;
       }
+}
+
+@media (max-width: 770px){
+  #leftbar-wrapper{
+    opacity: 1;
+  }
 }
 
 @media (max-width: 600px) {

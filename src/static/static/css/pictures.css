@@ -29,7 +29,6 @@ margin-left: 80px;
 }
 @media (min-width: 800px) {
 	.container{
-		margin-left: 80px!important;
 		min-width:200px;
 	}
 }
