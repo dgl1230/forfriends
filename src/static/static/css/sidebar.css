@@ -32,6 +32,7 @@ span.glyphicon{
   height: 100%;
   width: 120px;
   opacity:.9;
+  overflow:hidden;
 }
 
 #page-content-wrapper {

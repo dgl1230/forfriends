@@ -5,7 +5,9 @@
 .left-button{
 	float: left;
 }
-
+#messages_navbar{
+	margin-left:80px;
+}
 .compose-container{
 	margin-left:80px;
 }
@@ -16,13 +18,17 @@
 	width:90%;
 	margin-bottom:100px;
 }
-
+#compose_message_container{
+	width:50%;
+	margin-left:120px;
+	min-width:200px;
+}
 #compose_button_container{
 	width:90%;
 	margin-left:40px;
 }
 #send_message_button{
-	width:100%;
+	width:50%;
 }
 tr th{
 	width:50%;
