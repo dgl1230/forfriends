@@ -10,7 +10,10 @@ html, ul, ul li, li, li a, .btn{
 	font-size:18px;
 	color: #084c8d;
 }
+.nav-tabs{
+	border-bottom:none;
 
+}
 #form_container a{
 	color: #084c8d;
 }
@@ -94,7 +97,7 @@ p label{
 	width:350px;
 }
 .edit_profile_navbar{
-	margin-left:0px!important;
+
 }
 .col-lg-12 #home p{
 	width:350px;

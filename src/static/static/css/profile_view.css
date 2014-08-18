@@ -123,7 +123,6 @@
 }
 
 #single_user_container{
-	margin-left:140px!important;
 	margin-right:80px;
 	background-color:#404040;
 	border-radius:3%;
@@ -197,4 +196,10 @@
 
 .modal-footer{
 	text-align:center;
+}
+
+@media(min-width: 760px){
+	#single_user_container{
+		margin-left:140px;
+	}
 }

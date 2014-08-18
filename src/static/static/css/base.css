@@ -211,3 +211,101 @@ a:hover{
 }
 
 
+/* Mobile Media Query */
+
+/* Profile */
+@media (max-width: 450px) {
+	#buttons_row{
+		width:100px;
+	}
+	#friend_button{
+		width:100%;
+	}
+	#messages_button{
+		width:100%;
+	}
+	#pictures_button{
+		width:100%;
+	}
+	#interests_button{
+		width:100%;
+	}
+	#single_user_body{
+		width:50%;
+	}
+	#single_user_container{
+		width:80%!important;
+		margin-left:80px;
+	}
+	#annoying_row{
+		width:50%;
+	}
+	#view_container{
+		width:75%;
+	}
+	#big_wrapper{
+		margin-left: -60px!important;
+		width:94%!important;
+	}
+	#leftbar-wrapper{
+		width:80px!important;
+	}
+	#margin_wrapper{
+		margin-left:60px!important;
+	}
+	#leftbar-wrapper span{
+		width:80px;
+	}
+	#sidebar_wrapper{
+		
+	}
+	.dropdown-toggle{
+		text-align:left;
+	}
+	.dropdown{
+		width:80%;
+		float:left;
+	}
+	.nav.navbar-nav.pull-right li{
+		width:80%;
+	}
+	.dropdown-menu{
+		margin-left:0px;
+		padding-left:0px;
+	}
+	.dropdown-menu li a{
+		padding-left:12px!important;
+	}
+	.pictures_container{
+		margin-left:60px!important;
+	}
+	.col-lg-12 p{
+		width:100%!important;
+		text-align: center;
+	}
+	#edit_profile_container .row{
+		margin-left: 0px;
+	}
+	#edit_profile_container{
+		margin-left:70px!important;
+	}
+	#interests-wrapper{
+		margin-left:70px!important;
+	}
+	#message_container{
+		margin-left:80px!important;
+	}
+	.button_container{
+		margin: 0 auto;
+	}
+	#message_row{
+		width:50%;
+	}
+	#compose_message_container{
+		width:60%!important;
+	}
+	#compose_button_container{
+		width:120px!important;
+	}
+}
+
