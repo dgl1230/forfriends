@@ -147,6 +147,7 @@
 	$('scroll').jscroll();
 </script>
 
+
 <script src="{{ STATIC_URL }}js/profile_view.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"/></script>
 <script>
@@ -160,8 +161,11 @@
 	  boxBorder:"1px solid #AAA",
 	  animationOffset: 1.8, //jump 1.8 seconds into the animation for a more active part of the spinning initially (just looks a bit better in my opinion)
 	});
-	$(window).load(function(){
-		preloader.active(true);
+	
+	preloader.active(true);
+
+	$(window).on('load', function(){
+		preloader.active(false);
 	});
 </script>
 
