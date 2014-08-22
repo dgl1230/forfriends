@@ -25,6 +25,22 @@ class Address(models.Model):
 		return self.city
 
 
+class Gamification(models.Model):
+	user = models.ForeignKey(User)
+	circle_reset_started = models.DateTimeField(null=True, blank=True)
+	circle_time_until_reset = models.DateTimeField(null=True, blank=True)
+
+	icebreaker_reset_started = models.DateTimeField(null=True, blank=True)
+	icebreaker_until_reset = models.DateTimeField(null=True, blank=True)
+
+	speed_friend_reset_started = models.DateTimeField(null=True, blank=True)
+	speed_friend_until_reset = models.DateTimeField(null=True, blank=True)
+
+	def __unicode__(self):
+		return self.user.username
+
+
+
 class Info(models.Model):
 	user = models.ForeignKey(User)
 	bio = models.CharField(max_length=420, null=True, blank=True)
