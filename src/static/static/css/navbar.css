@@ -9,6 +9,7 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 .navbar-brand{
 	width:120px;
 	cursor:pointer;
+	z-index:1000;
 }
 
 .navbar-nav > li > a {

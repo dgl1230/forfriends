@@ -1,10 +1,12 @@
-<div id="sidebar_row">
+<div class="ui thin sidebar">
       {% if request.user.is_authenticated %}
-        <div class='col-lg-2 col-12'>
           <div id="leftbar-wrapper">
             <ul class="sidebar-nav">
               <li>
-                <a href='/' title="Home" class="sidebar-tool" id="home_sidebar"><span class='glyphicon glyphicon-home' ></span>Home</a>
+                <a href='/' title="Circles" class="sidebar-tool" id="home_sidebar"><span class='glyphicon glyphicon-refresh' ></span>Circles</a>
+              </li> 
+              <li>
+                <a href="{% if request.user.is_authenticated %}{% url "profile" request.user.username %} {% endif %}" title="My_profile" class="sidebar-tool" id="My_profile_sidebar"><span class='glyphicon glyphicon-home' ></span>My Profile</a>
               </li> 
               <li>
                 <a href='/sort/' title="Find Friends" class="sidebar-tool"><span class='glyphicon glyphicon-user' id="find_friends_sidebar"></span>Discover</a>
@@ -18,6 +20,9 @@
               <li>
                 <a href='/pictures' title="Pictures" class="sidebar-tool"><span class='glyphicon glyphicon-camera ' id="pictures_sidebar"></span>Pictures</a>
               </li>
+              <li>
+                <a href="/visitors/" title="Visitors" class="sidebar-tool"><span class="glyphicon glyphicon-eye-open" id="visitors_sidebar"></span>Visitors</a>
+              </li>  
           </ul>
           </div>
           
@@ -40,12 +45,11 @@
       //  $(".create_interest").hide();
       //});
     </script>
-
     <script>
-    $(document).ready(function(){
-      $(".navbar-brand").click(function(){
-        $("#leftbar-wrapper").slideToggle(200); 
-      });
-    });
+        $(".ui.thin.sidebar").first()
+        .sidebar({overlay: true})
+        .sidebar('attach events', '.navbar-brand');
+
+        $('.navbar-brand')
+          .removeClass('disabled');
     </script>
-      
