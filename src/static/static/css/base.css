@@ -307,5 +307,8 @@ a:hover{
 	#compose_button_container{
 		width:120px!important;
 	}
+	.navbar-brand{
+		margin-left:-15px!important;
+	}	
 }
 
