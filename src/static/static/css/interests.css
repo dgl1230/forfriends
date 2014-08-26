@@ -5,18 +5,9 @@
 #interests-wrapper{
 	text-align: center;
 	min-width: 240px;
-	margin-left:80px;
-}
-#big_wrapper{
-	margin-left: -80px;
-	width: 99%;
-}
-#margin_wrapper{
-	margin-left:80px;
 }
 #question-wrapper{
 	text-align: center;
-	margin-left:240px;
 	min-width:80px;
 }
 #question-wrapper.row{
