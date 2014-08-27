@@ -108,7 +108,12 @@ function fileSelectHandler() {
 
     // check for file size
     if (oFile.size > 250 * 1024) {
-        $('.error').html('You have selected too big file, please select a one smaller image file').show();
+        $('.error').html('You have selected too large of a file, please select a smaller image file').show();
+        return;
+    }
+
+    if (oFile.size < 2500) {
+        $('.error').html('You have selected too small of a file, please select a larger image file').show();
         return;
     }
 
@@ -143,7 +148,8 @@ function fileSelectHandler() {
             setTimeout(function(){
                 // initialize Jcrop
                 $('#preview').Jcrop({
-                    minSize: [32, 32], // min crop size
+                    minSize: [250, 250], // min crop size
+                    maxSize: [250, 250], // max crop size
                     aspectRatio : 1, // keep aspect ratio 1:1
                     bgFade: true, // use fade effect
                     bgOpacity: .3, // fade opacity
