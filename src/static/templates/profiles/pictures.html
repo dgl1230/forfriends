@@ -42,20 +42,29 @@
           </div>
       </form>
   </div>
+  <div id="myDiv"></div>
+  
+    <!-- carousel data -->
+    <div id="carouselData">
+      
+      <!-- image datalist category 1 -->
+      <ul data-cat="Category one" style="display:none">  {% for pic in pictures %}     
+        <ul>
+          <li data-type="media" data-url="{{ MEDIA_URL }}{{ pic }}" data-target="_blank"></li>
+          <li data-thumbnail-path="{{ MEDIA_URL }}{{ pic }}"></li>
+          <li data-thumbnail-text="{{ pic.caption }}" data-thumbnail-text-title-offset="35"
+          data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="7">
+            <p class="largeLabel">{{ pic.title }}</p>
+            <p class="smallLabel">{{ pic.caption}}</p>
+          </li>
+        </ul>
+        {% endfor %}
+      </ul>
+      <!-- end  -->
+      <!-- end  -->
+      
+    </div>  
 
-  <div class="pictures_container">
-    <div class="row">
-  {% for pic in pictures %}
-      <div class='col-sm-4'>
-        <img src=" {{ MEDIA_URL }}{{ pic }}" id="thumbnail" class="img-responsive" cropwidth="200" cropheight="200" class="cropimage">
-      <div id="picture_caption">
-      <p>{{ pic.caption }}</p>
-      </div>
-  {% endfor %}
-    </div>
-  </div>
-  </div>
-</div>
 <script>
 // convert bytes into friendly format
 function bytesToSize(bytes) {
