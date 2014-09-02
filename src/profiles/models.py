@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import User
+from matches.models import Match 
 
 
 
@@ -27,6 +28,7 @@ class Address(models.Model):
 
 class Gamification(models.Model):
 	user = models.ForeignKey(User)
+	circle = models.ManyToManyField(Match)
 	circle_reset_started = models.DateTimeField(null=True, blank=True)
 	circle_time_until_reset = models.DateTimeField(null=True, blank=True)
 
@@ -38,6 +40,8 @@ class Gamification(models.Model):
 
 	def __unicode__(self):
 		return self.user.username
+
+	
 
 
 

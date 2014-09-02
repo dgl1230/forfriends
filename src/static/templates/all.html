@@ -14,6 +14,8 @@
 	</div>
 </div>
 
+<a href='{% url "calculate_circle" %}'>Calculate your circle!</a>
+
 <div class="container" id="home-only">
   <div class='col-lg-10 col-12' id="center_div">
 {% if messages %}
@@ -29,7 +31,7 @@
 <br/>
 	
 	<div class='row'>
-{% for match in matches %}
+{% for match in user_gamification.circle.all %}
 	{% if not request.user == match.user1 %}
 	<div class='col-sm-4'>
 			{% for pic in match.user1.userpicture_set.all %}
