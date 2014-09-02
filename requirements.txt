@@ -9,9 +9,14 @@ django-storages==1.1.8
 django-toolbelt==0.0.1
 geopy==0.99
 gunicorn==18.0
+oauthlib==0.6.3
 psycopg2==2.5.2
 pystache==0.5.4
+python-openid==2.2.5
+python-social-auth==0.1.26
 requests==2.2.0
+requests-oauthlib==0.4.1
+six==1.7.3
 static==1.0.2
 stevedore==0.13
 stripe==1.11.0
