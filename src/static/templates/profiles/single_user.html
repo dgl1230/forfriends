@@ -62,9 +62,9 @@
 	
 
 	<div class='col-lg-6' id="single_user_body">
-		<div class='panel panel-default' id="bio_panel">
-		<div class='panel-heading'><p>Bio</p><p id="info_edit"></p></div>
-		<div class="panel-body">
+		<div class='panel panel-default'>
+		<div class='panel-heading' id="bio_panel"><p>Bio</p><p id="info_edit"></p></div>
+		<div class="panel-body" id="bio_body">
 		{% for item in single_user.info_set.all %}
 			{% if forloop.first %}
 				{{ item.bio }}
@@ -73,8 +73,8 @@
 		</div>
 		</div>
 	<div class='panel panel-default'>
-		<div class='panel-heading'><p>Occupation</p><p id="info_edit"></p></div>
-		<div class="panel-body">
+		<div class='panel-heading' id="occ_panel"><p>Occupation</p><p id="info_edit"></p></div>
+		<div class="panel-body" id="occ_body">
 		{% for item in single_user.job_set.all %} 
 			{{ item.position|title }} at {{ item.employer|title }}
 		{% endfor %}
@@ -82,8 +82,8 @@
 	</div>
 
 	<div class='panel panel-default'>
-		<div class='panel-heading'><p>Location</p><p id="info_edit"></p></div>
-		<div class="panel-body">
+		<div class='panel-heading' id="loc_panel"><p>Location</p><p id="info_edit"></p></div>
+		<div class="panel-body" id="loc_body">
 		{% for item in single_user.address_set.all %}
 				{{ item.city|title }}, {{ item.state|upper }}
 		{% endfor %}
@@ -105,6 +105,21 @@
     });
   });
 </script>
+
+<script>
+$('#bio_panel').click(function() {
+	$('#bio_body').slideToggle("fast");
+});
+
+$('#occ_panel').click(function() {
+	$('#occ_body').slideToggle("fast");
+});
+
+$('#loc_panel').click(function() {
+	$('#loc_body').slideToggle("fast");
+});
+</script>
+
 
 
 {% endblock %}
