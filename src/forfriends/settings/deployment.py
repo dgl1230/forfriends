@@ -42,6 +42,8 @@ INSTALLED_APPS = (
     'questions',
     'visitors',
     'storages',
+    
+    
 )
 
 TEMPLATE_DIRS = (

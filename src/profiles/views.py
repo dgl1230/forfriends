@@ -89,10 +89,6 @@ def all(request):
 			user_gamifcation.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 			user_gamifcation.save()
 			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
-
-			#time2 = datetime.datetime.now()
-			#time_difference = time2 - time1
-			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 	else:
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
@@ -142,33 +138,7 @@ def calculate_circle(request):
 		else: 
 			messages.error(request, "sorry, you need to wait!")
 		return render_to_response('all.html', locals(), context_instance=RequestContext(request))
-	else: 
-		#the user has never calcuated their circle, so we calculate without checking any times
-		print "here again 2"
-		user_gamifcation = Gamification.objects.create(user=request.user)
-		users = User.objects.filter(is_active=True)
-		for user in users:
-			if user != request.user:
-				try: 
-					match = Match.objects.get(user1=request.user, user2=user)
-				except: 
-					match, created = Match.objects.get_or_create(user1=user, user2=request.user)
-				match.percent = match_percentage(request.user, user)
-				try:
-					match.distance = round(calc_distance(request.user, user))
-				except:
-					match.distance = 10000000
-				match.save()
-
-		matches = Match.objects.filter(
-				Q(user1=request.user) | Q(user2=request.user)
-				).order_by('-percent')[:8]
-		for match in matches: 
-			user_gamifcation.circle.add(match) 
-		user_gamifcation.circle_reset_started = datetime.now()
-		user_gamifcation.circle_time_until_reset = datetime.now() + timedelta(hours=24)
-		user_gamifcation.save()
-		return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+	
 
 
 
