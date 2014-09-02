@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'questions',
     'visitors',
     'storages',
+    'social.apps.django_app.default',
     
     
 )
