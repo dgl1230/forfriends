@@ -60,7 +60,7 @@ urlpatterns = patterns('',
     (r'^user/password/reset/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', 
         'django.contrib.auth.views.password_reset_confirm', {'post_reset_redirect' : '/user/password/done/'}),
     (r'^user/password/done/$', 'django.contrib.auth.views.password_reset_complete'),
-    url('test', include('social.apps.django_app.urls', namespace='social')),
-    url('test2', include('django.contrib.auth.urls', namespace='auth')),
+    url('', include('social.apps.django_app.urls', namespace='social')),
+    url('', include('django.contrib.auth.urls', namespace='auth')),
 
 )
