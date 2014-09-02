@@ -2,5 +2,5 @@
 
 
 
-from .deployment_testing import *
+from .deployment import *
 
