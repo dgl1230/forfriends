@@ -1367,24 +1367,7 @@ var FWDR3DCarComplexButton = function(
 			this.menu_do = new FWDR3DCarDisplayObject("div");
 			self.menu_do.setX(-500);
 			this.menu_do.getStyle().width = "100%";
-			
-			this.normalMenu_do = new FWDR3DCarDisplayObject("div");
-			this.normalMenu_do.getStyle().fontFamily = "Arial, Helvetica, sans-serif";
-			this.normalMenu_do.getStyle().padding = "4px";
-			this.normalMenu_do.getStyle().fontSize = "12px";
-			this.normalMenu_do.getStyle().color = "#000000";
-			this.normalMenu_do.setInnerHTML("&#0169; made by FWD");
-			this.normalMenu_do.setBkColor("#FFFFFF");
-			
-			this.selectedMenu_do = new FWDR3DCarDisplayObject("div");
-			this.selectedMenu_do.getStyle().fontFamily = "Arial, Helvetica, sans-serif";
-			this.selectedMenu_do.getStyle().padding = "4px";
-			this.selectedMenu_do.getStyle().fontSize = "12px";
-			this.selectedMenu_do.getStyle().color = "#FFFFFF";
-			this.selectedMenu_do.setInnerHTML("&#0169; made by FWD");
-			this.selectedMenu_do.setBkColor("#000000");
-			this.selectedMenu_do.setAlpha(0);
-			
+		
 			this.over_do = new FWDR3DCarDisplayObject("div");
 			this.over_do.setBkColor("#FF0000");
 			this.over_do.setAlpha(0);

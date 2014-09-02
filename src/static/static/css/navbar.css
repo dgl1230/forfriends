@@ -12,6 +12,14 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 	z-index:1000;
 }
 
+.navbar-form.navbar-left{
+	margin-top:15px;
+}
+.menu_icon{
+	background-image:url(/static/img/menu_icon.png);
+	width:20px;
+	height:20px;
+}
 .navbar-nav > li > a {
 	padding-bottom:25px;
 	padding-top:25px;
@@ -172,6 +180,7 @@ a.dropdown-toggle{
 }
 .navbar-brand{
 	text-align: center;
+	margin-top:5px;
 }
 
 #secondary_navbar .navbar_nav{

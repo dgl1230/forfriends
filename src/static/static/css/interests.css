@@ -44,10 +44,6 @@
 	margin-top: 5%;
 	margin-left:80px;
 }
-#interests_messages{
-	margin-left:-80px;
-	
-}
 #interests-wrapper .img-responsive{
 	margin: 0 auto;
 	border: .1em #d5d5d5 solid;
@@ -84,9 +80,7 @@
 #interest_button{
 	margin-top: 0%;
 }
-#questions_messages{
-	margin-left:80px;
-}
+
 #interests_messages
 /* Footer */
 footer{
@@ -273,6 +267,7 @@ footer{
   padding: 0;
   z-index: 2;
   position: relative;
+  cursor:pointer;
 }
 .star-rating input:hover + i,
 .star-rating input:checked + i {
