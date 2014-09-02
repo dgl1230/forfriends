@@ -60,6 +60,24 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+   'django.core.context_processors.debug',
+   'django.core.context_processors.i18n',
+   'django.core.context_processors.media',
+   'django.core.context_processors.static',
+   'django.core.context_processors.tz',
+   'django.contrib.messages.context_processors.messages',
+   'social.apps.django_app.context_processors.backends',
+   'social.apps.django_app.context_processors.login_redirect',
+)
+
+AUTHENTICATION_BACKENDS = (
+   'social.backends.facebook.FacebookOAuth2',
+   'social.backends.twitter.TwitterOAuth',
+   'django.contrib.auth.backends.ModelBackend',
+)
+
 ROOT_URLCONF = 'forfriends.urls'
 
 WSGI_APPLICATION = 'forfriends.wsgi.application'
@@ -142,6 +160,12 @@ S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
 STATIC_URL = S3_URL + 'static/'
 MEDIA_URL = S3_URL + 'media/'
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
+
+DMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
+
+#Facebook social authentication info 
+SOCIAL_AUTH_FACEBOOK_KEY = '681686558583378'
+SOCIAL_AUTH_FACEBOOK_SECRET = 'cb9fb330dd5708b5e7ca789b5521d86a'
 
     
 
