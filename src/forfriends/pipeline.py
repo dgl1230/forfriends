@@ -1,6 +1,9 @@
 from requests import request, HTTPError
 
 from django.core.files.base import ContentFile
+from django.contrib.auth.models import User
+from .models import Address, Job, Info, UserPicture, Gamification
+
 
 
 def save_profile_picture(strategy, user, response, details, is_new=False,*args,**kwargs):
@@ -14,7 +17,7 @@ def save_profile_picture(strategy, user, response, details, is_new=False,*args,*
         except HTTPError:
             pass
         else:
-            profile = user.get_profile()
+            profile = User.objects.create(user=user)
             profile.profile_photo.save('{0}_social.jpg'.format(user.username),
                                    ContentFile(response.content))
             profile.save()
