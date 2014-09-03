@@ -127,7 +127,7 @@ STATICFILES_FINDERS = (
 )
 
 
-AUTH_PROFILE_MODULE = "userprofile.UserProfile"
+#AUTH_PROFILE_MODULE = "userprofile.UserProfile"
 
 ACCOUNT_ACTIVATION_DAYS = 7
 
