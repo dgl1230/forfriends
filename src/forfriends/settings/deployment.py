@@ -172,5 +172,9 @@ SOCIAL_AUTH_FACEBOOK_SCOPE = [
     'email',
 ]
 
+SOCIAL_AUTH_PIPELINE += (
+'<frenvu>.pipelines.save_profile_picture',
+)
+
     
 
