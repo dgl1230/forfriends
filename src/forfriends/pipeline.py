@@ -2,7 +2,7 @@ from requests import request, HTTPError
 
 from django.core.files.base import ContentFile
 from django.contrib.auth.models import User
-from .models import Address, Job, Info, UserPicture, Gamification
+#from profiles.models import Address, Job, Info, UserPicture, Gamification
 
 
 
