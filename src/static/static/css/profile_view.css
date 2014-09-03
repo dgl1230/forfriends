@@ -8,10 +8,16 @@
 	font-family: "Open-sans", sans;
 }
 
+.thumbnail_carousel{
+	border-radius:50%!important;
+}
+
 #user_address{
 	font-size:1em;
 	margin-top:0px;
 }
+
+
 .nav-tabs li a{
 	min-width: 150px;
 	background-color: #f8f8f8;
@@ -20,12 +26,18 @@
 	color: black;
 	background-color:#f8f8f8;
 }
+.panel-body{
+	display:none;
+}
 
 .img-responsive{
 	width: 175px;
 	height: 200px;
-	margin-top:10px;
-	border-radius:50%;
+	margin-top: 10px;
+	border-radius: 50%;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+
 }
 
 .tab-pane{
@@ -47,11 +59,6 @@
 #single_user_container h1{
 	color:white!important;
 }
-
-#bio_panel{
-	height:150px;
-}
-
 .row .col-sm-12{
 	width: 60%;
 }
@@ -94,6 +101,7 @@
 .panel-heading{
 	background-color: #404040!important;
 	padding: 0px 5px!important;
+	cursor:pointer;
 }
 .panel-heading p{
 	color: white!important;
@@ -199,3 +207,4 @@
 		margin-left:140px;
 	}
 }
+

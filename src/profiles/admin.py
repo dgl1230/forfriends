@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.models import User
 
 
-from .models import Address, Job, Info, UserPicture
+from .models import Address, Job, Info, UserPicture, Gamification
 from interests.models import UserInterestAnswer
 from matches.models import Match
 from questions.models import UserAnswer
@@ -17,6 +17,11 @@ class AddressInline(admin.TabularInline):
 class InfoInline(admin.TabularInline):
 	max_num = 1	
 	model = Info
+
+
+class GameInline(admin.TabularInline):
+	max_num = 1	
+	model = Gamification
 
 
 class JobInline(admin.TabularInline):
@@ -47,7 +52,7 @@ class VisitorInline(admin.TabularInline):
 class UserAdmin(admin.ModelAdmin):
     inlines = [AddressInline, InfoInline, JobInline, 
     		UserPictureInline, UserInterestAnswerInline, UserAnswerInline, 
-    		VisitorInline]
+    		VisitorInline, GameInline]
 
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)

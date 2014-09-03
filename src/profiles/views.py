@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import operator 
 import datetime
-from datetime import date
+from datetime import date, datetime, timedelta
 #from datetime import *
-import datetime
+#import datetime
 from random import randint
 
 from django.shortcuts import render
@@ -19,7 +19,7 @@ from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG
 from forfriends.matching import match_percentage
 from forfriends.distance import calc_distance
 from matches.models import Match
-from .models import Address, Job, Info, UserPicture
+from .models import Address, Job, Info, UserPicture, Gamification
 from .forms import AddressForm, InfoForm, JobForm, UserPictureForm
 from interests.models import UserInterestAnswer
 from visitors.models import Visitor
@@ -59,67 +59,119 @@ def add_friend(request, username):
 matches for them, otherwise it shows the home page for non-logged in viewers '''
 def all(request):
 	if request.user.is_authenticated(): 
-		#users = User.objects.filter(is_active=True)
-		#time1 = datetime.datetime.now()
-		#number_of_users = User.objects.filter(is_active=True).count()
-		#users_to_display = 0
-		#random_user_ids = []
-		#current_user_id = request.user.id
-		#matches = []
-		#users = []
-		'''
-		while users_to_display <= 9:
-			random_user_id = randint(1, number_of_users)
-			if random_user_id not in random_user_ids and random_user_id != current_user_id:
-				try :
-					user = User.objects.get(pk=id)
-					users.append(user)
-					random_user_ids.append(random_user_id)
-					users_to_display += 1
-				except:
-					pass
-		'''
-		'''
-		for user in users:	
-			try: 
-				match = Match.objects.get(user1=request.user, user2=user)
-			except: 
-				match, created = Match.objects.get_or_create(user1=user, user2=request.user)
-			match.percent = match_percentage(request.user, user)
-			try:
-				match.distance = round(calc_distance(request.user, user))
-			except:
-				match.distance = 10000000
-			match.save()	
-			matches.append(match)
-		'''
-		'''
-		for u in users:
-			if u != request.user:
-				try: 
-					match = Match.objects.get(user1=request.user, user2=u)
-				except: 
-					match, created = Match.objects.get_or_create(user1=u, user2=request.user)
-				match.percent = match_percentage(request.user, u)
-				try:
-					match.distance = round(calc_distance(request.user, u))
-				except:
-					match.distance = 10000000
-				match.save()
-		'''		
-		matches = Match.objects.filter(
-			Q(user1=request.user) | Q(user2=request.user)
-			).order_by('-percent')
-		#time2 = datetime.datetime.now()
-		#time_difference = time2 - time1
-		return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+			#time1 = datetime.datetime.now()
+		try: 
+			user_gamification = Gamification.objects.get(user=request.user)
+			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+		except: 
+			#the user has never calcuated their circle
+			user_gamifcation = Gamification.objects.create(user=request.user)
+			users = User.objects.filter(is_active=True)
+			for user in users:
+				if user != request.user:
+					try: 
+						match = Match.objects.get(user1=request.user, user2=user)
+					except: 
+						match, created = Match.objects.get_or_create(user1=user, user2=request.user)
+					match.percent = match_percentage(request.user, user)
+					try:
+						match.distance = round(calc_distance(request.user, user))
+					except:
+						match.distance = 10000000
+					match.save()
+
+			matches = Match.objects.filter(
+					Q(user1=request.user) | Q(user2=request.user)
+					).order_by('-percent')[:8]
+			for match in matches: 
+				user_gamifcation.circle.add(match) 
+			user_gamifcation.circle_reset_started = datetime.now()
+			user_gamifcation.circle_time_until_reset = datetime.now() + timedelta(hours=24)
+			user_gamifcation.save()
+			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+
+			#time2 = datetime.datetime.now()
+			#time_difference = time2 - time1
+			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 	else:
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+
 
 #Shows all pictures that the logged in user has 
 def all_pictures(request): 
 	pictures = UserPicture.objects.filter(user=request.user)
 	return render_to_response('profiles/pictures.html', locals(), context_instance=RequestContext(request))
+
+
+def calculate_circle(request):
+	#checking to see if they have ever calculated their circle 
+	
+	user_gamification = Gamification.objects.get(user=request.user)
+	
+	if user_gamification.circle_reset_started and user_gamification.circle_time_until_reset:
+		circle_reset_started = user_gamification.circle_reset_started
+		circle_time_until_reset = user_gamification.circle_time_until_reset
+		check_circle_time = (circle_time_until_reset - circle_reset_started).seconds / 60.0
+		if check_circle_time >= 24: 
+			users = User.objects.filter(is_active=True)
+			for user in users:
+				if user != request.user:
+					try: 
+						match = Match.objects.get(user1=request.user, user2=user)
+					except: 
+						match, created = Match.objects.get_or_create(user1=user, user2=request.user)
+					match.percent = match_percentage(request.user, user)
+					try:
+						match.distance = round(calc_distance(request.user, user))
+					except:
+						match.distance = 10000000
+					match.save()
+
+			matches = Match.objects.filter(
+					Q(user1=request.user) | Q(user2=request.user)
+					).order_by('-percent')[:8]
+			if request.user.circle: 
+				request.user.circle.clear()
+			for match in matches: 
+				request.user.circle.add(match) 
+			user_gamification.circle_reset_started = datetime.now()
+			user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
+			matches = Match.objects.filter(
+						Q(user1=request.user) | Q(user2=request.user)
+						).order_by('-percent')[:7]
+		else: 
+			messages.error(request, "sorry, you need to wait!")
+		return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+	else: 
+		#the user has never calcuated their circle, so we calculate without checking any times
+		print "here again 2"
+		user_gamifcation = Gamification.objects.create(user=request.user)
+		users = User.objects.filter(is_active=True)
+		for user in users:
+			if user != request.user:
+				try: 
+					match = Match.objects.get(user1=request.user, user2=user)
+				except: 
+					match, created = Match.objects.get_or_create(user1=user, user2=request.user)
+				match.percent = match_percentage(request.user, user)
+				try:
+					match.distance = round(calc_distance(request.user, user))
+				except:
+					match.distance = 10000000
+				match.save()
+
+		matches = Match.objects.filter(
+				Q(user1=request.user) | Q(user2=request.user)
+				).order_by('-percent')[:8]
+		for match in matches: 
+			user_gamifcation.circle.add(match) 
+		user_gamifcation.circle_reset_started = datetime.now()
+		user_gamifcation.circle_time_until_reset = datetime.now() + timedelta(hours=24)
+		user_gamifcation.save()
+		return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+
+
+
 
 
 def delete_picture(request):
@@ -506,7 +558,7 @@ def contact_us(request):
 		message1 = user.username + " has an inquiry:"
 		message2 = request.POST['message']
 		message = message1 + message2
-		send_mail('Inquuiry', message , EMAIL_HOST_USER, [EMAIL_HOST_USER])
+		send_mail('Inquiry', message , EMAIL_HOST_USER, [EMAIL_HOST_USER])
 		messages.success(request, "Your inquiry has been sent, and we'll get back to you as soon as we can!")
 	return render_to_response ('contact_us.html', locals(), context_instance=RequestContext(request))
 

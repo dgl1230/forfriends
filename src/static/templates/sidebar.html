@@ -3,7 +3,7 @@
           <div id="leftbar-wrapper">
             <ul class="sidebar-nav">
               <li>
-                <a href='/' title="Circles" class="sidebar-tool" id="home_sidebar"><span class='glyphicon glyphicon-refresh' ></span>Circles</a>
+                <a href='/' title="Circles" class="sidebar-tool" id="home_sidebar"><span class='glyphicon glyphicon-refresh' ></span>My Circle</a>
               </li> 
               <li>
                 <a href="{% if request.user.is_authenticated %}{% url "profile" request.user.username %} {% endif %}" title="My_profile" class="sidebar-tool" id="My_profile_sidebar"><span class='glyphicon glyphicon-home' ></span>My Profile</a>

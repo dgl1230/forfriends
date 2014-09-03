@@ -108,6 +108,8 @@
 		<br/>
 		</div>
 	</div>
+
+
 		
 	
 
@@ -144,7 +146,29 @@
 <script>
 	$('scroll').jscroll();
 </script>
-</div>
+
+
 <script src="{{ STATIC_URL }}js/profile_view.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"/></script>
+<script>
+
+	var preloader = new GSPreloader({
+	  radius:42, 
+	  dotSize:15, 
+	  dotCount:10, 
+	  colors:["#61AC27","#555","purple","#FF6600"], //have as many or as few colors as you want.
+	  boxOpacity:0.2,
+	  boxBorder:"1px solid #AAA",
+	  animationOffset: 1.8, //jump 1.8 seconds into the animation for a more active part of the spinning initially (just looks a bit better in my opinion)
+	});
+	
+	preloader.active(true);
+
+	$(window).on('load', function(){
+		preloader.active(false);
+	});
+</script>
+
+
 
 {% endblock %}

@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
 <link href="{{ STATIC_URL }}css/edit_profile.css" rel="stylesheet">
+<link href="{{ STATIC_URL }}css/jquery.Jcrop.csscss" rel="stylesheet">
+
 
 
 {% block jquery %}
@@ -115,7 +117,9 @@ $('#myTab a').click(function (e) {
 </div>
 </div>
 </div>
+
 <script>
+
   var picture_form = document.getElementById('id_form-0-id');
     if (picture_form.value === "") {
       $("#form_container:nth-of-type(0)").show();
@@ -175,6 +179,7 @@ if (picture_form5.value > 0){
     $(this).attr('name', 'picture_id')
   });
 </script>
+
 
 
 
