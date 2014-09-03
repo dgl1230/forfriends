@@ -127,10 +127,17 @@
 }
 
 #single_user_container{
-	margin-right:80px;
 	background-color:#404040;
 	border-radius:3%;
 	width:80%;
+}
+
+.navbar-collapse.collapse.in{
+	background-color:black!important;
+}
+
+.navbar-collapse.collapsing{
+	background-color:black!important;
 }
 
 @media(max-width: 1000px){
@@ -148,8 +155,8 @@
 
 @media(max-width: 480px){
 	#myfriend{
-	width: 100px!important;
-	height: 125px!important;
+	width: 175px!important;
+	height: 200px!important;
 	}
 }
 

@@ -10,38 +10,6 @@
        <a href="javascript:history.back()">Back</a>
     </div>
   </div>
-
-  <div class="bbody">
-
-      <!-- upload form -->
-      <form id="upload_form" enctype="multipart/form-data" method="post" action="upload.php" onsubmit="return checkForm()">
-          <!-- hidden crop params -->
-          <input type="hidden" id="x1" name="x1" />
-          <input type="hidden" id="y1" name="y1" />
-          <input type="hidden" id="x2" name="x2" />
-          <input type="hidden" id="y2" name="y2" />
-
-          <h2>Step1: Please select image file</h2>
-          <div><input type="file" name="image_file" id="image_file" onchange="fileSelectHandler()" /></div>
-
-          <div class="error"></div>
-
-          <div class="step2">
-              <h2>Step2: Please select a crop region</h2>
-              <img id="preview" />
-
-              <div class="info">
-                  <label>File size</label> <input type="text" id="filesize" name="filesize" />
-                  <label>Type</label> <input type="text" id="filetype" name="filetype" />
-                  <label>Image dimension</label> <input type="text" id="filedim" name="filedim" />
-                  <label>W</label> <input type="text" id="w" name="w" />
-                  <label>H</label> <input type="text" id="h" name="h" />
-              </div>
-
-              <input type="submit" value="Upload" />
-          </div>
-      </form>
-  </div>
   <div id="myDiv"></div>
   
     <!-- carousel data -->
@@ -65,6 +33,40 @@
       <!-- end  -->
       
     </div>  
+    <div class="upload_picture">
+        <a id="upload_more">Add more pictures</a>
+
+      <div class="bbody">
+
+      <!-- upload form -->
+      <form id="upload_form" enctype="multipart/form-data" method="post" action="upload.php" onsubmit="return checkForm()">
+          <!-- hidden crop params -->
+          <input type="hidden" id="x1" name="x1" />
+          <input type="hidden" id="y1" name="y1" />
+          <input type="hidden" id="x2" name="x2" />
+          <input type="hidden" id="y2" name="y2" />
+
+          <p class="step1">Step1: Please select image file</p>
+          <div><input type="file" name="image_file" id="image_file" onchange="fileSelectHandler()" /></div>
+
+          <div class="error"></div>
+
+          <div class="step2">
+              <p>Step2: Please select a crop region</p>
+              <img id="preview" />
+
+              <div class="info">
+                  <label>File size</label> <input type="text" id="filesize" name="filesize" />
+                  <label>Type</label> <input type="text" id="filetype" name="filetype" />
+                  <label>Image dimension</label> <input type="text" id="filedim" name="filedim" />
+                  <label>W</label> <input type="text" id="w" name="w" />
+                  <label>H</label> <input type="text" id="h" name="h" />
+              </div>
+                <br><br>
+              <input type="submit" value="Upload" />
+          </div>
+      </form>
+  </div>
 
 <script>
 // convert bytes into friendly format
@@ -186,6 +188,15 @@ function fileSelectHandler() {
 }
 
 </script>
+
+<script> 
+    $("#upload_more").click(function() {
+        $(".bbody").toggle(function() {
+
+        });
+    });
+</script>
+
 <!-- Circle Carousel -->
 <script src="{{ STATIC_URL }}js/3dcarousel/FWDPage.js" type="text/javascript"></script>
     <script src="{{ STATIC_URL }}js/3dcarousel/FWDR3DCarModTweenMax.js" type="text/javascript"></script>

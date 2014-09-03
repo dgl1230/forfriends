@@ -231,17 +231,13 @@ a:hover{
 		width:100%;
 	}
 	#single_user_body{
-		width:50%;
+		width:100%;
 	}
 	#single_user_container{
 		width:80%!important;
-		margin-left:80px;
 	}
 	#annoying_row{
 		width:50%;
-	}
-	#view_container{
-		width:75%;
 	}
 	#big_wrapper{
 		margin-left: -60px!important;

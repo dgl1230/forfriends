@@ -15,7 +15,7 @@
 </div>
 </div>
 
-<a href='{% url "calculate_circle" %}'>Calculate your circle!</a>
+<a href='{% url "calculate_circle" %}'>Find a new Circle!</a>
 
 <div id="myDiv"></div>
   
@@ -238,10 +238,10 @@
                     carouselHeight:538,
                     skinPath:"{{ STATIC_URL }}img/skin_modern_silver",
                     //main settings
-                    backgroundColor:"#DDDDDD",
-                    backgroundImagePath:"{{ STATIC_URL }}img/skin_modern_silver/background.jpg",
-                    thumbnailsBackgroundImagePath:"{{ STATIC_URL }}img/skin_modern_silver/thumbnailsBackground.jpg",
-                    scrollbarBackgroundImagePath:"{{ STATIC_URL }}img/skin_modern_silver/scrollbarBackground.jpg",
+                    backgroundColor:"none",
+                    backgroundImagePath:"",
+                    thumbnailsBackgroundImagePath:"",
+                    scrollbarBackgroundImagePath:"",
                     backgroundRepeat:"repeat-x",
                     showDisplay2DAlways:"no",
                     carouselStartPosition:"center",
@@ -280,7 +280,7 @@
                     reflectionDistance:0,
                     reflectionOpacity:.2,
                     //scrollbar settings
-                    showScrollbar:"yes",
+                    showScrollbar:"no",
                     disableScrollbarOnMobile:"yes",
                     enableMouseWheelScroll:"yes",
                     scrollbarHandlerWidth:300,
