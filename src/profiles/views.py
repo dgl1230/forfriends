@@ -336,7 +336,7 @@ def login_user(request):
 
 def logout_user(request):
 	logout(request)
-	return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+	return render_to_response('logout.html', locals(), context_instance=RequestContext(request))
 
 #Calculates a new users age
 def calculate_age(born):
