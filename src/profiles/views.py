@@ -3,7 +3,7 @@ import operator
 import datetime
 from datetime import date, datetime, timedelta
 #from datetime import *
-#import datetime
+
 from random import randint
 
 from django.shortcuts import render
@@ -88,6 +88,8 @@ def all(request):
 			user_gamifcation.circle_reset_started = datetime.now()
 			user_gamifcation.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 			user_gamifcation.save()
+			#makes it so that the circle is displayed right away instead of having to click "generate circle"
+			user_gamification = Gamification.objects.get(user=request.user)
 			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 	else:
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
@@ -361,7 +363,7 @@ def register_new_user(request):
 	month = request.POST['BirthMonth']
 	year = request.POST['BirthYear']
 	datestr = str(year) + '-' + str(month) + '-' + str(day)
-	birthday = datetime.datetime.strptime(datestr, '%Y-%m-%d').date()
+	birthday = datetime.strptime(datestr, '%Y-%m-%d').date()
 	user_age = calculate_age(birthday)
 
 	if gender1 == 'm':
@@ -378,7 +380,7 @@ def register_new_user(request):
 
 	if user_age >= 18:
 		datestr = str(year) + '-' + str(month) + '-' + str(day)
-		birthday = datetime.datetime.strptime(datestr, '%Y-%m-%d').date()
+		birthday = datetime.strptime(datestr, '%Y-%m-%d').date()
 		user_age = calculate_age(birthday)
 
 		if username and password and email:

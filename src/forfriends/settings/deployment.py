@@ -126,8 +126,8 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
-
-AUTH_PROFILE_MODULE = "profiles.Info"
+# may want it to be AUTH_PROFILE_MODULE = "profiles.blah"
+AUTH_PROFILE_MODULE = "profiles.UserProfile"
 
 ACCOUNT_ACTIVATION_DAYS = 7
 
