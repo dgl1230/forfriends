@@ -181,7 +181,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.user.create_user',
     'social.pipeline.social_auth.associate_user',
     'social.pipeline.social_auth.load_extra_data',
-    '<application>.pipeline.save_profile_picture',
+    '<frenvu>.pipeline.save_profile_picture',
 )
 
 
