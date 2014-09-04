@@ -182,8 +182,12 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.associate_user',
     'social.pipeline.social_auth.load_extra_data',
     #'forfriends.pipeline.save_profile_picture',
-    'forfriends.pipeline.user_details',
+    #'forfriends.pipeline.user_details',
 )
+
+#Twitter social authetnication info 
+SOCIAL_AUTH_TWITTER_KEY = '7UpBqDOh5PnPDLwoLxfKUFTPu'
+SOCIAL_AUTH_TWITTER_SECRET = 'AgYgddJxFdAAEU0OYUlmbxy2rNxL41B2uNAiQsDoWZLwqVQpyW'
 
 
     

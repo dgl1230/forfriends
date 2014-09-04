@@ -26,7 +26,7 @@ from profiles.models import Address, Job, Info, UserPicture, Gamification
 '''
 
 # User details pipeline
-def user_details(strategy, details, response, user=None, *args, **kwargs):
+'''def user_details(strategy, details, response, user=None, *args, **kwargs):
     """Update user details using data from provider."""
     if user:
         if kwargs['is_new']:
@@ -42,4 +42,5 @@ def user_details(strategy, details, response, user=None, *args, **kwargs):
             Info.objects.create(
                 **attrs
             )
+'''
     
