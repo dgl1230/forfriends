@@ -41,11 +41,8 @@ html, ul, ul li, li, li a, .btn{
 }
 .edit_profile_wrapper{
 	margin: 0 auto;
-	width:80%;
 }
-#edit_profile_container{
-	width:90%!important;
-}
+
 #pictures_appear{
 	/* Border Radius */
 
@@ -88,6 +85,8 @@ html, ul, ul li, li, li a, .btn{
 }
 p label{
 	font-size: 1.125em;
+	font-family: "Roboto";
+	font-weight: 300;
 }
 #locations p{
 	width: 300px;
@@ -124,7 +123,6 @@ p label{
 	float:right;
 }
 #myTab{
-	width:80%;
 	text-align:center;
 	margin:20px auto 20px;
 }
@@ -169,11 +167,5 @@ p a{
 @media (max-width: 670px){
 	.edit_profile_container{
 		margin-left:80px;
-	}
-}
-
-@media (max-width: 645px){
-	.edit_profile_navbar{
-		margin-left:85px!important;
 	}
 }

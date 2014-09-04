@@ -238,7 +238,7 @@ a.dropdown-toggle{
 
 .form-control{
 	display:inline;
-	width:80%;
+	width:75%;
 	margin-left:-10px;
 }
 form.navbar-form.navbar-left{
@@ -303,5 +303,14 @@ form.navbar-form.navbar-left{
 	}
 	#navbar-container{
 	margin-left:0px;
+	}
+	.form-control{
+		width:75%;
+	}
+	.form-group{
+		width:100%;
+	}
+	#go_button{
+		width:25%;
 	}
 }

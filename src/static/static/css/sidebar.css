@@ -15,10 +15,6 @@ span.glyphicon{
   padding-bottom: 0px!important;
 }
 
-.sidebar-nav a{
-  font-style: italic;
-}
-
 #leftbar-wrapper{
   background-color: #111!important;
   position: fixed;
