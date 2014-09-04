@@ -61,3 +61,7 @@
 	color:#000000 !important;
 	font-weight:100 !important;
 }
+
+#myDiv{
+	margin: 0 auto;
+}
