@@ -26,20 +26,20 @@ from profiles.models import Address, Job, Info, UserPicture, Gamification
 '''
 
 # User details pipeline
-    def user_details(strategy, details, response, user=None, *args, **kwargs):
-        """Update user details using data from provider."""
-        if user:
-            if kwargs['is_new']:
-                attrs = {'user': user}
-               #if facebook
-                if strategy.backend.__class__.__name__ == 'FacebookOAuth2':
-                    fb_data = {
-                        'city': response['location']['name'],
-                        'gender': response['gender'],
-                        'birthday': datetime.fromtimestamp(mktime(strptime(response['birthday'], '%m/%d/%Y')))
-                    }
-                    attrs = dict(attrs.items() + fb_data.items())
-                Info.objects.create(
-                    **attrs
-                )
+def user_details(strategy, details, response, user=None, *args, **kwargs):
+    """Update user details using data from provider."""
+    if user:
+        if kwargs['is_new']:
+            attrs = {'user': user}
+           #if facebook
+            if strategy.backend.__class__.__name__ == 'FacebookOAuth2':
+                fb_data = {
+                    'city': response['location']['name'],
+                    'gender': response['gender'],
+                    'birthday': datetime.fromtimestamp(mktime(strptime(response['birthday'], '%m/%d/%Y')))
+                }
+                attrs = dict(attrs.items() + fb_data.items())
+            Info.objects.create(
+                **attrs
+            )
     
