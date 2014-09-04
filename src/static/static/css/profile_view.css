@@ -8,10 +8,20 @@
 	font-family: "Open-sans", sans;
 }
 
+.thumbnail_carousel{
+	border-radius:50%!important;
+}
+
 #user_address{
 	font-size:1em;
 	margin-top:0px;
 }
+
+.regenerate{
+	font-size:1.5em;
+	color: rgb(31, 186, 214);
+}
+
 .nav-tabs li a{
 	min-width: 150px;
 	background-color: #f8f8f8;
@@ -19,6 +29,9 @@
 .nav-tabs a{
 	color: black;
 	background-color:#f8f8f8;
+}
+.panel-body{
+	display:none;
 }
 
 .img-responsive{
@@ -28,7 +41,7 @@
 	border-radius: 50%;
 	-moz-border-radius: 50%;
 	-webkit-border-radius: 50%;
-	
+
 }
 
 .tab-pane{
@@ -50,11 +63,6 @@
 #single_user_container h1{
 	color:white!important;
 }
-
-#bio_panel{
-	height:150px;
-}
-
 .row .col-sm-12{
 	width: 60%;
 }
@@ -79,11 +87,38 @@
 	margin: 0 auto;
 }
 #buttons_row{
-	margin-top: 5%;
+	text-align: center;
 }
-#buttons_row .btn:hover{
+#buttons_row .btn:hover, #buttons_row .btn:active, #buttons_row .btn:focus {
 	color:#1FBAD6;
 	background-color:white;
+}
+
+.button_top{
+
+}
+#buttons_row #friend_button{
+	background: url(/static/img/profile/bar_friends_dark.jpg);
+	background-size:cover;
+	height:100px;
+}
+
+#buttons_row #interests_button{
+	background: url(/static/img/profile/yoga_dark.png);
+	background-size:cover;
+	height:100px;
+}
+
+#buttons_row #pictures_button{
+	background: url(/static/img/profile/camera_stock_dark.png);
+	background-size:cover;
+	height:100px;
+}
+
+#buttons_row #message_button{
+	background: url(/static/img/profile/iphone_dark.png);
+	background-size:cover;
+	height:100px;
 }
 
 .col-lg-6{
@@ -95,47 +130,66 @@
 	margin-top:10%;
 }
 .panel-heading{
-	background-color: #404040!important;
+	background-color: rgb(31, 186, 214) !important;
 	padding: 0px 5px!important;
+	cursor:pointer;
 }
 .panel-heading p{
 	color: white!important;
 	font-size: 1.5em;
+	display:inline;
 }
+
+.panel-heading .glyphicon.glyphicon-chevron-down{
+	color:white;
+	margin-top: 5px;
+	float:right;
+	font-size:1.5em;
+
+}
+
+
 #message_button a, #interests_button a, #friend_button a, #pictures_button a{
 	font-size: 1.25em;
 }
 #message_button, #interests_button, #friend_button, #pictures_button{
-	width: 180px;	
+	width: 24%;	
 }
 
 .buttons a{
-	color: #404040;
+	color: white;
 	display: inline-block;
+	font-size:1.2em;
 	
+}
+.buttons a p{
+	margin-top:35px;
+	line-height:20px;
 }
 .buttons{
 	margin-top: 5%;
-}
-
-#home-only{
-	width: 100%;
-	margin-left: 80px;
 }
 #secondary-navbar{
 	margin-left: 80px;
 }
 
 #single_user_container{
-	margin-right:80px;
-	background-color:#404040;
+	background-color:black;
 	border-radius:3%;
 	width:80%;
 }
 
+.navbar-collapse.collapse.in{
+	background-color: white!important;
+}
+
+.navbar-collapse.collapsing{
+	background-color: white!important;
+}
+
 @media(max-width: 1000px){
 	#message_button, #interests_button, #friend_button, #pictures_button{
-	width: 130px;	
+	width: 24%;	
 }
 }
 
@@ -148,8 +202,22 @@
 
 @media(max-width: 480px){
 	#myfriend{
-	width: 100px!important;
-	height: 125px!important;
+	width: 175px!important;
+	height: 200px!important;
+	}
+
+	.panel-heading p{
+		font-size:1em;
+	}
+	.panel-heading .glyphicon.glyphicon-chevron-down{
+		margin-top:0px;
+	}
+}
+
+@media(max-width: 400px){
+	#myfriend{
+	width: 160px!important;
+	height:auto;
 	}
 }
 
@@ -208,3 +276,36 @@
 	}
 }
 
+@media(min-width:1400px){
+	#buttons_row #friend_button{
+	background: url(/static/img/profile/bar_friends_dark.jpg);
+	background-size:cover;
+	height:150px;
+}
+
+#buttons_row #interests_button{
+	background: url(/static/img/profile/yoga_dark.png);
+	background-size:cover;
+	height:150px;
+}
+
+#buttons_row #pictures_button{
+	background: url(/static/img/profile/camera_stock_dark.png);
+	background-size:cover;
+	height:150px;
+}
+
+#buttons_row #message_button{
+	background: url(/static/img/profile/iphone_dark.png);
+	background-size:cover;
+	height:150px;
+}
+
+.buttons a{
+	font-size:1.5em;
+}
+
+.buttons a p{ 
+	margin-top:60px;
+}
+}

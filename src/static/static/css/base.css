@@ -11,7 +11,7 @@ body{
 	display:none;
 }
 #view_container{
-	width:90%;
+	width:100%;
 }
 
 #home-only .col-sm-4{
@@ -88,7 +88,7 @@ tr, td{
 	min-width: 280px;
 }
 h1, h2, h3, h5, a{
-	font-family: 'Open Sans', sans-serif;
+	font-family: 'Roboto', sans-serif;
 }
 h1{
 	color: #404040!important;
@@ -231,27 +231,16 @@ a:hover{
 		width:100%;
 	}
 	#single_user_body{
-		width:50%;
+		width:100%;
 	}
 	#single_user_container{
 		width:80%!important;
-		margin-left:80px;
 	}
 	#annoying_row{
 		width:50%;
 	}
-	#view_container{
-		width:75%;
-	}
-	#big_wrapper{
-		margin-left: -60px!important;
-		width:94%!important;
-	}
 	#leftbar-wrapper{
 		width:80px!important;
-	}
-	#margin_wrapper{
-		margin-left:60px!important;
 	}
 	#leftbar-wrapper span{
 		width:80px;
@@ -289,9 +278,6 @@ a:hover{
 	#edit_profile_container{
 		margin-left:70px!important;
 	}
-	#interests-wrapper{
-		margin-left:70px!important;
-	}
 	#message_container{
 		margin-left:80px!important;
 	}
@@ -307,5 +293,8 @@ a:hover{
 	#compose_button_container{
 		width:120px!important;
 	}
+	.navbar-brand{
+		margin-left:-15px!important;
+	}	
 }
 

@@ -1,5 +1,85 @@
-img{
+
+#pictures .bheader {
+    background-color: #DDDDDD;
+    border-radius: 10px 10px 0 0;
+    padding: 10px 0;
+    text-align: center;
 }
+#pictures .bbody {
+    color: #000;
+    overflow: hidden;
+    padding-bottom: 20px;
+    text-align: center;
+    display:none;
+    background: -moz-linear-gradient(#ffffff, #f2f2f2);
+    background: -ms-linear-gradient(#ffffff, #f2f2f2);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #f2f2f2));
+    background: -webkit-linear-gradient(#ffffff, #f2f2f2);
+    background: -o-linear-gradient(#ffffff, #f2f2f2);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f2f2f2');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f2f2f2')";
+    background: linear-gradient(#ffffff, #f2f2f2);
+}
+.bbody h2, .info, .error {
+    margin: 10px 0;
+}
+.step2, .error {
+    display: none;
+}
+#pictures .error {
+    font-size: 18px;
+    color: red;
+}
+.info {
+    font-size: 14px;
+    display:none;
+}
+#pictures label {
+    margin: 0 5px;
+}
+#pictures input {
+    border: 1px solid #CCCCCC;
+    border-radius: 10px;
+    padding: 4px 8px;
+    text-align: center;
+    width: 100px;
+    margin:0 auto;
+}
+.jcrop-holder {
+    display: inline-block;
+}
+#pictures input[type=submit] {
+    background: #e3e3e3;
+    border: 1px solid #bbb;
+    border-radius: 3px;
+    -webkit-box-shadow: inset 0 0 1px 1px #f6f6f6;
+    box-shadow: inset 0 0 1px 1px #f6f6f6;
+    color: #333;
+    font: "Roboto", sans-serif;
+    padding: 8px 0 9px;
+    text-align: center;
+    text-shadow: 0 1px 0 #fff;
+    width: 150px;
+}
+#pictures input[type=submit]:hover {
+    background: #d9d9d9;
+    -webkit-box-shadow: inset 0 0 1px 1px #eaeaea;
+    box-shadow: inset 0 0 1px 1px #eaeaea;
+    color: #222;
+    cursor: pointer;
+}
+#pictures input[type=submit]:active {
+    background: #d0d0d0;
+    -webkit-box-shadow: inset 0 0 1px 1px #e3e3e3;
+    box-shadow: inset 0 0 1px 1px #e3e3e3;
+    color: #000;
+}
+
+#preview{
+    max-width:400px;
+    max-height:350px;
+}
+
 
 #picture_string .item{
 	margin: 3px;
@@ -16,19 +96,18 @@ height: 50%;
 min-width:100px;
 margin-left: 80px;
 }
-
-#thumbnail{
+#upload_more{
+    cursor:pointer;
+}
+#pictures #thumbnail{
 	min-width:175px;
 }
 #picture_caption{
 	width:50%;
 }
-.pictures_container{
-	margin-left:160px;
-
-}
 @media (min-width: 800px) {
 	.container{
 		min-width:200px;
 	}
+}
 }

@@ -8,8 +8,30 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 
 .navbar-brand{
 	width:120px;
+	cursor:pointer;
+	z-index:1000;
 }
+.navbar-inverse .navbar-toggle{
+	background-color:black;
+}
+.navbar-brand:hover{
+	box-shadow: 0 0 1px rgba(0,0,0,0);
+}
+.navbar-form.navbar-left{
+	margin-top:15px;
+}
+#menu_icon{
+	width:50px;
+	height:50px;
+	margin-top:-15px;
+	z-index:1000;
 
+}
+.navbar-nav > li > a {
+	padding-bottom:25px;
+	padding-top:25px;
+	line-height:10px;
+}
 .dropdown-menu{
 	min-width:100px;
 	width:100px;
@@ -26,9 +48,11 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 #navbar-container{
 }
 .navbar.navbar-inverse.navbar-fixed-top{
-	background-color:#111;
+	background-color:white;
 	border-bottom: none;
 	min-width: 200px!important;
+	height:60px;
+	border-bottom:2px solid black;
 
 }
 .navbar-brand{
@@ -41,27 +65,25 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 }
 
 .navbar a{
-	color: white!important;
+	color: black!important;
 	font-weight:600;
 
-	-webkit-transition: all 500ms ease;
-  	-moz-transition: all 500ms ease;
-  	-o-transition: all 500ms ease;
-  	transition: all 500ms ease;
 	
 }
 
 .navbar a:hover{
- 	text-shadow:
-   -.1px -.1px 0 white, 
-    .1px -.1px 0 white,
-   -.1px  .1px 0 white,
-    .1px  .1px 0 white;
-
-   color: white!important;
+   color: black!important;
+  	-webkit-animation: myfirst 5s;
+	animation: myfirst 5s;
 
 }
 
+@keyframes myfirst {
+	0% {border: 1px solid black;}
+	25% {background-left: 1px solid black;}
+	50% {background-top: 1px solid black;}
+	100% {border: 1px solid black;}
+}
 .visitors a{
 	text-decoration: none;
 }
@@ -126,7 +148,6 @@ a.dropdown-toggle{
 #secondary_navbar{
 	background-color: #fff;
 	min-width: 280px;
-	margin-left: 80px;
 	margin-top:5px;
 	padding-top:15px;
 	padding-bottom:5px;
@@ -138,7 +159,6 @@ a.dropdown-toggle{
 	margin-top:5px;
 	padding-top:15px;
 	padding-bottom:5px;
-	margin-left:40px;
 	text-align:center;
 }
 #secondary_navbar a, #secondary_navbar h1{
@@ -166,6 +186,7 @@ a.dropdown-toggle{
 }
 .navbar-brand{
 	text-align: center;
+	margin-top:5px;
 }
 
 #secondary_navbar .navbar_nav{
@@ -196,13 +217,11 @@ a.dropdown-toggle{
 	width:200px;
 }
 #tertiary_navbar{
-	background-color: #fff;
 	width: 100%;
 	text-align: center;
 	padding-top: 5px;
 	padding-bottom:5px;
 	min-width: 280px;
-	margin-left: 80px;
 }
 .inbox a{
 	width:80px;
@@ -244,7 +263,7 @@ form.navbar-form.navbar-left{
 
 @media (min-width: 1330px){
 	.form-group{
-		width:540px!important;
+		width:560px!important;
 	}
 	.form-control{
 		width:480px!important;
@@ -260,9 +279,6 @@ form.navbar-form.navbar-left{
 	 	transition: all 500ms ease;
 	 	font-size: 1em;
 	 	margin-left: 0px!important;
-	}
-	#messages_navbar{
-		margin-left:50px;
 	}
 }
 
@@ -287,6 +303,5 @@ form.navbar-form.navbar-left{
 	}
 	#navbar-container{
 	margin-left:0px;
+	}
 }
-}
-

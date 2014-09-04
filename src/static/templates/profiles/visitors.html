@@ -1,50 +1,132 @@
 {% extends 'base.html' %}
 
-<link rel="stylesheet" href="{{ STATIC_URL }}css/profile_view.css">
-
 
 
 {% block content %}
-<div id="view_container">
-<div class="row">
-	<div class="col-md-1" id="secondary_navbar">
-        <h1>Visitors</h1>
-	</div>	
-</div>
-<div class="container" id="home-only">
-  <div class='col-lg-10 col-12' id="center-div">
-<br/>
-<div class='row'>	
-{% for visitor in visitors %}
-	{% if not request.user == visitor %}
-	<div class='col-sm-4 '>
-		{% for pic in visitor.userpicture_set.all %}
+	
+		<div id="myDiv"></div>
+	
+		<!-- carousel data -->
+		<div id="carouselData">
 			
-			{% if forloop.first %}
-				<a href='/members/{{ visitor.username}}'>
-				<img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' />
-			{% endif %}
-		{% endfor %}
-		{% if not visitor.userpicture_set.all %}
-				<img src='{{ STATIC_URL }}img/avatar.png' class='img-responsive' />
-		{% endif %}
+			<!-- image datalist category 1 -->
+			<ul data-cat="Category one" style="display:none">				
+				<ul>
+					<li data-type="link" data-url="http://www.google.com" data-target="_blank"></li>
+					<li data-thumbnail-path="{{ MEDIA_URL }}{{ pic }}"></li>
+					<li data-thumbnail-text="" data-thumbnail-text-title-offset="35"
+					data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="7">
+						<p class="largeLabel">CUSTOM PRESS THUMBNAIL ACTION</p>
+						<p class="smallLabel">When a thumbnail is pressed the carousel can open a browser window or the lightbox.</p>
+					</li>
+				</ul>
+
+				<ul>
+					<li data-type="media" data-url="load/images/2.jpg"></li>
+					<li data-thumbnail-path="{{ STATIC_URL }}img/thumbnails/2.jpg"></li>
+					<li data-thumbnail-text="" data-thumbnail-text-title-offset="35"
+					data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="7">
+						<p class="largeLabel">RESPONSIVE LAYOUT</p>
+						<p class="smallLabel">The carousel has responsive layout.</p>
+					</li>
+					<li data-info="">
+						<p class="mediaDescriptionHeader">RESPONSIVE LAYOUT.</p>
+						<p class="mediaDescriptionText">The carousel has responsive layout, basically
+						it has an adaptable layout which makes it the perfect candidate for any type of project.</p>
+					</li>
+				</ul>
+				
+				<ul>
+					<li data-type="media" data-url="https://vimeo.com/71639066"></li>
+					<li data-thumbnail-path="{{ STATIC_URL }}img/thumbnails/3.jpg"></li>
+					<li data-thumbnail-text="" data-thumbnail-text-title-offset="35"
+					data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="7">
+						<p class="largeLabel">2D FALLBACK FOR OLDER BROWSERS LIKE IE7/8</p>
+						<p class="smallLabel">On a older browser that does not have 3D support the carousel will
+						display in a 2D format.</p>
+					</li>
+					<li data-info="">
+						<p class="mediaDescriptionHeader">2D FALLBACK FOR OLDER BROWSERS LIKE IE7/8.</p>
+						<p class="mediaDescriptionText">On a older browser that does not have 3D support
+						the carousel will display in a 2D format.</p>
+					</li>
+				</ul>
+				
+				<ul>
+					<li data-type="media" data-url="http://www.youtube.com/watch?v=k-jp6b2lCmk"></li>
+					<li data-thumbnail-path="{{ STATIC_URL }}img/thumbnails/4.jpg"></li>
+					<li data-thumbnail-text="" data-thumbnail-text-title-offset="35"
+					data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="7">
+						<p class="largeLabel">VIMEO AND YOUTUBE SUPPORT</p>
+						<p class="smallLabel">The carousel lightbox can load and play videos from youtube or vimeo easely.</p>
+					</li>
+					<li data-info="">
+						<p class="mediaDescriptionHeader">VIMEO AND YOUTUBE SUPPORT.</p>
+						<p class="mediaDescriptionText">All you have to do is to include the link from YouTube or Vimeo video
+						that you want to display and the lighbox will display and play your video. The size (width and height)
+						of each video can be set easily.</p>
+					</li>
+				</ul>
+
+				<ul>
+					<li data-type="iframe" data-url="http://www.bing.com/"></li>
+					<li data-thumbnail-path="{{ STATIC_URL }}img/thumbnails/6.jpg"></li>
+					<li data-thumbnail-text="" data-thumbnail-text-title-offset="35"
+					data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="7">
+						<p class="largeLabel">IFRAME SUPPORT!</p>
+						<p class="smallLabel">The lightbox can load a HTML page and display it with ease.</p>
+					</li>
+					<li data-info="">
+						<p class="mediaDescriptionHeader">IFRAME SUPPORT!</p>
+						<p class="mediaDescriptionText">The lightbox can load a HTML page and display it with ease.
+						All you have to do is to include the link of the HTML page and the lighbox will display it.
+						The HTML page size (width and height) can be easily set.</p>
+					</li>
+				</ul>
+				
+			</ul>
+			<!-- end  -->
 			
-		<p id="user_name">{{ visitor.username }}</p>
-		</a>
-		<p id="user_address">{% for item in visitor.address_set.all %} 
-			{% if forloop.first %} {{ item }}
-			{% endif %} 
-		{% endfor %}
-		</p>
-		</div>
-		{% endif %}
-		{% cycle '' '' '' '</div><div class="row">' %}
-{% endfor %}
-</div>
-</div>
-</div>
-</div>
-</div>
-<script src="{{ STATIC_URL }}js/profile_view.js"></script>
+			<!-- image datalist category 2 -->
+			<ul data-cat="Category two">
+				<ul>
+					<li data-type="none"></li>
+					<li data-thumbnail-path="/static/img/thumbnails/1.jpg"></li>
+					<li data-thumbnail-text="" data-thumbnail-text-title-offset="35"
+					data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="7">
+						<p class="largeLabel">RESPONSIVE LAYOUT</p>
+						<p class="smallLabel">The carousel has responsive layout.</p>
+					</li>
+				</ul>
+				
+				<ul>
+					<li data-type="link" data-url="http://www.google.com" data-target="_blank"></li>
+					<li data-thumbnail-path="load/thumbnails/2.jpg"></li>
+					<li data-thumbnail-text="" data-thumbnail-text-title-offset="35" data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="7">
+						<p class="largeLabel">CUSTOM PRESS THUMBNAIL ACTION</p>
+						<p class="smallLabel">When a thumbnail is pressed the carousel can open a browser window or the lighbox, also if HTML content is used the lighbox can be disabled this way links or interactive html tags can be used.</p>
+					</li>
+					<li data-info="">
+						<p class="mediaDescriptionHeader">CUSTOM PRESS THUMBNAIL ACTION.</p>
+						<p class="mediaDescriptionText">When a thumbnail is pressed you can choose either to display an original media lightbox which we have coded, or to open a new webpage, the url and target of this webpage can be specified. The lightbox can display images, iframe or videos loaded from YouTube or Vimeo. Also you can set up one or more thumbnails so that a new browser page will be opened when they are pressed. The URL and target for this page can be customized, also if HTML content is used the lighbox can be disabled this way links or interactive html tags can be used.</p>
+					</li>
+				</ul>
+				
+				<ul>
+					<li data-type="media" data-url="https://vimeo.com/71639066"></li>
+					<li data-thumbnail-path="load/thumbnails/3.jpg"></li>
+					<li data-thumbnail-text="" data-thumbnail-text-title-offset="35" data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="7">
+						<p class="largeLabel">2D FALLBACK FOR OLDER BROWSERS LIKE IE7/8</p>
+						<p class="smallLabel">On a older browser that does not have 3D support the carousel will display in a 2D format.</p>
+					</li>
+					<li data-info="">
+						<p class="mediaDescriptionHeader">2D FALLBACK FOR OLDER BROWSERS LIKE IE7/8.</p>
+						<p class="mediaDescriptionText">On a older browser that does not have 3D support the carousel will display in a 2D format..</p>
+					</li>
+				</ul>
+			</ul>
+			<!-- end  -->
+			
+		</div>	
 
 {% endblock %}

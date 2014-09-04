@@ -1,14 +1,12 @@
-<head>
-</head>
-<body>
-
-<div id="sidebar_row">
+<div class="ui thin sidebar">
       {% if request.user.is_authenticated %}
-        <div class='col-lg-2 col-12'>
           <div id="leftbar-wrapper">
             <ul class="sidebar-nav">
               <li>
-                <a href='/' title="Home" class="sidebar-tool" id="home_sidebar"><span class='glyphicon glyphicon-home' ></span>My Circle</a>
+                <a href='/' title="Circles" class="sidebar-tool" id="home_sidebar"><span class='glyphicon glyphicon-refresh' ></span>My Circle</a>
+              </li> 
+              <li>
+                <a href="{% if request.user.is_authenticated %}{% url "profile" request.user.username %} {% endif %}" title="My_profile" class="sidebar-tool" id="My_profile_sidebar"><span class='glyphicon glyphicon-home' ></span>My Profile</a>
               </li> 
               <li>
                 <a href='/sort/' title="Find Friends" class="sidebar-tool"><span class='glyphicon glyphicon-user' id="find_friends_sidebar"></span>Discover</a>
@@ -21,6 +19,9 @@
               </li>
               <li>
                 <a href='/pictures' title="Pictures" class="sidebar-tool"><span class='glyphicon glyphicon-camera ' id="pictures_sidebar"></span>Pictures</a>
+              </li> 
+              <li>
+                <a href="/edit" title="Settings" class="sidebar-tool"><span class="glyphicon glyphicon-cog" id="settings_sidebar"></span>Settings</a>
               </li>
           </ul>
           </div>
@@ -43,11 +44,12 @@
       //$(".interests_all").mouseout(function() {
       //  $(".create_interest").hide();
       //});
-
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("active");
-    });
     </script>
+    <script>
+        $(".ui.thin.sidebar").first()
+        .sidebar({overlay: true})
+        .sidebar('attach events', '.navbar-brand');
 
-</body>
+        $('.navbar-brand')
+          .removeClass('disabled');
+    </script>

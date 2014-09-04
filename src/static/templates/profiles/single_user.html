@@ -40,20 +40,20 @@
 		<div class="row" id="buttons_row">
 			<div class="buttons">
 				{% if match.user1_approved == True and match.user2_approved == True %}
-				<a  class="btn btn-default btn" id="friend_button" title="You are friends!">Friends</a>
-				<a class="btn btn-default btn" id="message_button" data-toggle="tooltip" data-placement="top" href='{% url "su_compose" single_user.username %}'>Send Message</a>
+				<a  class="btn btn-default btn" id="friend_button" title="You are friends!"><p>Friends</p></a>
+				<a class="btn btn-default btn" id="message_button" data-toggle="tooltip" data-placement="top" href='{% url "su_compose" single_user.username %}'><p>Send Message</p></a>
 				{% elif match.user1_approved == True and match.user1 == request.user %}
-				<a  class="btn btn-default btn" id="friend_button">Request Sent</a>
-				<a class="btn btn-default btn" id="message_button" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!">Send Message</a>
+				<a  class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
+				<a class="btn btn-default btn" id="message_button" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message</p></a>
 				{% elif match.user2_approved == True and match.user2 == request.user %}
-				<a  class="btn btn-default btn" id="friend_button">Request Sent</a>
-				<a class="btn btn-default btn" id="message_button" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!">Send Message</a>
+				<a  class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
+				<a class="btn btn-default btn" id="message_button" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message</p></a>
 				{% else %}
-				<a  class="btn btn-default btn" id="friend_button" href='{% url "add_friend" single_user.username %}'>Add Friend</a>
-				<a class="btn btn-default btn" id="message_button" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!">Send Message</a>
+				<a  class="btn btn-default btn" id="friend_button" href='{% url "add_friend" single_user.username %}'><p>Add Friend</p></a>
+				<a class="btn btn-default btn" id="message_button" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message</p></a>
 				{% endif %}
-				<a class="btn btn-default btn" id="interests_button" href="/members/{{ single_user.username}}/interests/">View Interests</a>
-				<a class="btn btn-default btn" id="pictures_button" href="/members/{{ single_user.username}}/pictures/">Browse Pictures</a>
+				<a class="btn btn-default btn" id="interests_button" href="/members/{{ single_user.username}}/interests/"><p>View Interests</p></a>
+				<a class="btn btn-default btn" id="pictures_button" href="/members/{{ single_user.username}}/pictures/"><p>Browse Pictures</p></a>
 			</div>
 
 		</div>
@@ -62,9 +62,9 @@
 	
 
 	<div class='col-lg-6' id="single_user_body">
-		<div class='panel panel-default' id="bio_panel">
-		<div class='panel-heading'><p>Bio</p><p id="info_edit"></p></div>
-		<div class="panel-body">
+		<div class='panel panel-default'>
+		<div class='panel-heading' id="bio_panel"><p>Bio</p><span class="glyphicon glyphicon-chevron-down"></span><p id="info_edit"></p></div>
+		<div class="panel-body" id="bio_body">
 		{% for item in single_user.info_set.all %}
 			{% if forloop.first %}
 				{{ item.bio }}
@@ -73,8 +73,8 @@
 		</div>
 		</div>
 	<div class='panel panel-default'>
-		<div class='panel-heading'><p>Occupation</p><p id="info_edit"></p></div>
-		<div class="panel-body">
+		<div class='panel-heading' id="occ_panel"><p>Occupation</p><span class="glyphicon glyphicon-chevron-down"></span><p id="info_edit"></p></div>
+		<div class="panel-body" id="occ_body">
 		{% for item in single_user.job_set.all %} 
 			{{ item.position|title }} at {{ item.employer|title }}
 		{% endfor %}
@@ -82,8 +82,8 @@
 	</div>
 
 	<div class='panel panel-default'>
-		<div class='panel-heading'><p>Location</p><p id="info_edit"></p></div>
-		<div class="panel-body">
+		<div class='panel-heading' id="loc_panel"><p>Location</p><span class="glyphicon glyphicon-chevron-down"></span><p id="info_edit"></p></div>
+		<div class="panel-body" id="loc_body">
 		{% for item in single_user.address_set.all %}
 				{{ item.city|title }}, {{ item.state|upper }}
 		{% endfor %}
@@ -105,6 +105,21 @@
     });
   });
 </script>
+
+<script>
+$('#bio_panel').click(function() {
+	$('#bio_body').slideToggle("fast");
+});
+
+$('#occ_panel').click(function() {
+	$('#occ_body').slideToggle("fast");
+});
+
+$('#loc_panel').click(function() {
+	$('#loc_body').slideToggle("fast");
+});
+</script>
+
 
 
 {% endblock %}
