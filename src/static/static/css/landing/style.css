@@ -15,7 +15,7 @@
 
 #title{
 	letter-spacing: .4em;
-  padding-top:15px;
+  padding-top:150px;
 }
 /*------------------------------------------*/
 /*	 Preload Animation 
@@ -56,7 +56,6 @@
 }
 
 #intro { 
-	background-image: url(/static/img/compressed_people.jpg); 
 	padding:none;
 }
 
@@ -89,7 +88,7 @@ h1, h2, h3, h4, h5, h6 {
 /*------------------------------------------*/
 
 a {
-	text-decoration: underline;
+	text-decoration: none;
 	-webkit-transition: all 250ms ease-in-out;
 	-moz-transition: all 250ms ease-in-out;
 	-o-transition: all 250ms ease-in-out;
@@ -100,8 +99,7 @@ a {
 }
 
 a:hover {
-	color: #444;
-	text-decoration: underline;
+	text-decoration: none;
 
 }
 
@@ -136,7 +134,7 @@ ul {
 .titlebar p {
 	color: #666;
 	font-size: 18px;
-	font-family: 'Open sans', sans-serif;
+	font-family: 'Roboto', sans-serif;
 	font-weight: 300;
 }
 
@@ -192,7 +190,7 @@ ul {
 #call-to-action p {
 	color: #fff;
 	font-size: 20px;
-	font-family: 'Open sans', sans-serif;
+	font-family: 'Roboto', sans-serif;
 	font-weight: 300;
 	padding: 0 10%;
 }
@@ -218,11 +216,10 @@ ul {
 .footer-nav li a {
 	color: #999;
 	font-size: 15px;
-	font-family: 'Open sans', sans-serif;
+	font-family: 'Roboto', sans-serif;
 }
 
 .footer-nav li a:hover {
-	color: #428bca;
 }
 
  
@@ -259,7 +256,7 @@ nav a#pull {
 
 .opening{
 	background-color:   #ffffff;
-	font-family: "Open Sans", sans-serif;
+	font-family: "Roboto", sans-serif;
 	opacity: 0.9;
 	margin-top: 0%;
 	min-width: 280px;
@@ -268,15 +265,16 @@ nav a#pull {
 
 .opening h1{
 	font-size: 6em;
-	font-family: "Open Sans", sans-serif;
-	color: #084C8D;
+	font-family: "Roboto", sans-serif;
+	color: white;
 	letter-spacing: .25em;
 	text-align: center;
 }
 .opening a, h3{
-	font-family: "Open Sans", sans-serif;
-	color: #084c8d;
+	font-family: "Roboto", sans-serif;
+	color: #1FBAD6;
 	text-align: center;
+  margin-bottom:100px;
 }
 .opening #login{
 	text-align: center;
@@ -284,7 +282,7 @@ nav a#pull {
 
 .opening a:hover{
 	opacity: 1;
-	font-weight: bold;
+
 }
 
 @media (max-width: 630px) {
@@ -316,6 +314,7 @@ nav a#pull {
 /* Registration and Login */
 #register{
 	width: 100%;
+  display:none;
 }
 #contactform{
 	text-align:center;
@@ -409,17 +408,20 @@ fieldset{
 	text-align: center;
 	margin: 0 auto;
 	width: 100%;
-	padding-bottom: 50px;
 }
 .login {
   text-align: center;
   margin: 0 auto;
   padding: 20px 20px 20px;
-  width: 310px;
+  width: 240px;
   background: white;
   border-radius: 3px;
-  -webkit-box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+  position:fixed;
+  top:0em;
+  right:0em;
+  border-bottom: 1px solid black;
+  border-left:1px solid black;
+  border-right: 1px solid black;
 }
 .login:before {
   content: '';
@@ -431,18 +433,16 @@ fieldset{
   margin: -20px -20px 21px;
   line-height: 40px;
   font-size: 15px;
-  color: #555;
+  color: black;
   text-align: center;
   text-shadow: 0 1px white;
   background: #f3f3f3;
-  border-bottom: 1px solid #cfcfcf;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
   border-radius: 3px 3px 0 0;
-  background-image: -webkit-linear-gradient(top, whiteffd, #eef2f5);
-  background-image: -moz-linear-gradient(top, whiteffd, #eef2f5);
-  background-image: -o-linear-gradient(top, whiteffd, #eef2f5);
-  background-image: linear-gradient(to bottom, whiteffd, #eef2f5);
   -webkit-box-shadow: 0 1px whitesmoke;
   box-shadow: 0 1px whitesmoke;
+  letter-spacing: .15em
 }
 .login p {
   margin: 20px 0 0;
@@ -452,11 +452,11 @@ fieldset{
   margin-top: 0;
 }
 .login input[type=text], .login input[type=password] {
-  width: 278px;
+  width: 200px;
 }
 .login p.remember_me {
   float: left;
-  line-height: 31px;
+  line-height: 14px;
 }
 .login p.remember_me label {
   font-size: 12px;
@@ -469,10 +469,16 @@ fieldset{
   margin-right: 4px;
   vertical-align: middle;
 }
-.login p.submit {
-  text-align: right;
+.parallax{
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  background-image: url(/static/img/landing/huge_city.jpg);
 }
 
+.parallax_inner{
+
+}
 .login-help {
   margin: 20px 0;
   font-size: 11px;
@@ -481,15 +487,14 @@ fieldset{
   text-shadow: 0 1px #2a85a1;
 }
 .login-help p{
-	color: #084c8d;
+	color: #1FBAD6;
 }
 .login-help a {
   text-decoration: none;
-  color: #084c8d;
+  color: #1FBAD6;
 }
 .login-help a:hover {
   text-decoration: underline;
-  color: #084c8d;
 }
 
 :-moz-placeholder {
@@ -515,7 +520,7 @@ input[type=text], input[type=password] {
   color: #404040;
   background: white;
   border: 1px solid;
-  border-color: #c4c4c4 #d1d1d1 #d4d4d4;
+  border-color: black;
   border-radius: 2px;
   outline: 5px solid #eff4f7;
   -moz-outline-radius: 3px;
@@ -523,8 +528,8 @@ input[type=text], input[type=password] {
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 input[type=text]:focus, input[type=password]:focus {
-  border-color: #7dc9e2;
-  outline-color: #dceefc;
+  border-color: black;
+  outline-color: white;
   outline-offset: 0;
 }
 
@@ -535,23 +540,20 @@ input[type=submit] {
   padding: 0 18px;
   height: 29px;
   font-size: 12px;
-  font-weight: bold;
-  color: #527881;
-  text-shadow: 0 1px #e3f1f1;
-  background: #cde5ef;
+  font-weight: 300;
+  color: white;
+  background: black;
   border: 1px solid;
-  border-color: #b4ccce #b3c0c8 #9eb9c2;
-  border-radius: 16px;
+  border-color: 2px solid white;
+  border-radius: 0px;
   outline: 0;
+  background-color:black;
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
-  background-image: -webkit-linear-gradient(top, #edf5f8, #cde5ef);
-  background-image: -moz-linear-gradient(top, #edf5f8, #cde5ef);
-  background-image: -o-linear-gradient(top, #edf5f8, #cde5ef);
-  background-image: linear-gradient(to bottom, #edf5f8, #cde5ef);
   -webkit-box-shadow: inset 0 1px white, 0 1px 2px rgba(0, 0, 0, 0.15);
   box-shadow: inset 0 1px white, 0 1px 2px rgba(0, 0, 0, 0.15);
+  letter-spacing: .15em;
 }
 #registration_button{
   background-color: #084c8d!important;
@@ -560,7 +562,6 @@ input[type=submit] {
 }
 #registration_button:focus, #registration_button:hover{
   outline: none;
-  border-color: #9ecaed;
   box-shadow: 0 0 10px #9ecaed;
 
 }
@@ -576,7 +577,7 @@ input[type=submit]:active {
 }
 
 #terms{
-  color: #084c8d!important;
+  color: black!important;
   font-size: .9em;
   width: 60%;
   margin: 0 auto;
@@ -585,12 +586,6 @@ input[type=submit]:active {
 }
 #terms a{
   font-size: .9em;
-}
-
-#terms a:hover{
-  font-size: .9em;
-  font-weight: 500;
-
 }
 
 @media only screen and (max-width:650px){
