@@ -36,7 +36,7 @@ def user_details(strategy, details, response, user=None, *args, **kwargs):
                 fb_data = {
                     
                     'gender': response['gender'],
-                    'birthday': datetime.fromtimestamp(mktime(strptime(response['birthday'], '%m/%d/%Y')))
+                    
                 }
                 attrs = dict(attrs.items() + fb_data.items())
             Info.objects.create(
