@@ -11,7 +11,9 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 	cursor:pointer;
 	z-index:1000;
 }
-
+.navbar-inverse .navbar-toggle{
+	background-color:black;
+}
 .navbar-brand:hover{
 	box-shadow: 0 0 1px rgba(0,0,0,0);
 }
@@ -261,7 +263,7 @@ form.navbar-form.navbar-left{
 
 @media (min-width: 1330px){
 	.form-group{
-		width:540px!important;
+		width:560px!important;
 	}
 	.form-control{
 		width:480px!important;

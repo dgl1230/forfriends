@@ -239,15 +239,8 @@ a:hover{
 	#annoying_row{
 		width:50%;
 	}
-	#big_wrapper{
-		margin-left: -60px!important;
-		width:94%!important;
-	}
 	#leftbar-wrapper{
 		width:80px!important;
-	}
-	#margin_wrapper{
-		margin-left:60px!important;
 	}
 	#leftbar-wrapper span{
 		width:80px;
@@ -283,9 +276,6 @@ a:hover{
 		margin-left: 0px;
 	}
 	#edit_profile_container{
-		margin-left:70px!important;
-	}
-	#interests-wrapper{
 		margin-left:70px!important;
 	}
 	#message_container{

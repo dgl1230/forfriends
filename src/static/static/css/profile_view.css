@@ -180,11 +180,11 @@
 }
 
 .navbar-collapse.collapse.in{
-	background-color:black!important;
+	background-color: white!important;
 }
 
 .navbar-collapse.collapsing{
-	background-color:black!important;
+	background-color: white!important;
 }
 
 @media(max-width: 1000px){
@@ -204,6 +204,20 @@
 	#myfriend{
 	width: 175px!important;
 	height: 200px!important;
+	}
+
+	.panel-heading p{
+		font-size:1em;
+	}
+	.panel-heading .glyphicon.glyphicon-chevron-down{
+		margin-top:0px;
+	}
+}
+
+@media(max-width: 400px){
+	#myfriend{
+	width: 160px!important;
+	height:auto;
 	}
 }
 

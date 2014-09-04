@@ -218,14 +218,6 @@ footer{
 		display:block!important;
 	}
 }
-@media only screen and (max-width:500px){
-	#margin_wrapper{
-		margin-left:80px;
-	}
-	#question-wrapper{
-		margin-left:160px;
-	}
-}
 
 
 
