@@ -29,7 +29,6 @@ span.glyphicon{
   position: fixed;
   height: 100%;
   width: 120px;
-  opacity:.9;
   overflow:hidden;
   margin-top:60px;
 }

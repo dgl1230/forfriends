@@ -12,13 +12,18 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 	z-index:1000;
 }
 
+.navbar-brand:hover{
+	box-shadow: 0 0 1px rgba(0,0,0,0);
+}
 .navbar-form.navbar-left{
 	margin-top:15px;
 }
-.menu_icon{
-	background-image:url(/static/img/menu_icon.png);
-	width:20px;
-	height:20px;
+#menu_icon{
+	width:50px;
+	height:50px;
+	margin-top:-15px;
+	z-index:1000;
+
 }
 .navbar-nav > li > a {
 	padding-bottom:25px;
@@ -41,10 +46,11 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 #navbar-container{
 }
 .navbar.navbar-inverse.navbar-fixed-top{
-	background-color:#111;
+	background-color:white;
 	border-bottom: none;
 	min-width: 200px!important;
 	height:60px;
+	border-bottom:2px solid black;
 
 }
 .navbar-brand{
@@ -57,27 +63,25 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 }
 
 .navbar a{
-	color: white!important;
+	color: black!important;
 	font-weight:600;
 
-	-webkit-transition: all 500ms ease;
-  	-moz-transition: all 500ms ease;
-  	-o-transition: all 500ms ease;
-  	transition: all 500ms ease;
 	
 }
 
 .navbar a:hover{
- 	text-shadow:
-   -.1px -.1px 0 white, 
-    .1px -.1px 0 white,
-   -.1px  .1px 0 white,
-    .1px  .1px 0 white;
-
-   color: white!important;
+   color: black!important;
+  	-webkit-animation: myfirst 5s;
+	animation: myfirst 5s;
 
 }
 
+@keyframes myfirst {
+	0% {border: 1px solid black;}
+	25% {background-left: 1px solid black;}
+	50% {background-top: 1px solid black;}
+	100% {border: 1px solid black;}
+}
 .visitors a{
 	text-decoration: none;
 }

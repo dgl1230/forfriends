@@ -14,13 +14,17 @@
 	padding-top:0px;
 }
 
+.contact_form_wrapper{
+	width:400px;
+	margin: 0 auto;
+
+}
 #form-div {
-	background-color:rgba(72,72,72,0.4);
+	background-color: black;
 	padding-left:35px;
 	padding-right:35px;
 	padding-top:35px;
 	padding-bottom:50px;
-	width: 450px;
 
   margin: 30px auto;
   -moz-border-radius: 7px;
