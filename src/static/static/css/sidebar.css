@@ -42,7 +42,7 @@ span.glyphicon{
   text-align:center;
   background-color: #111;
   padding-bottom:50px;
-  opacity:.9;
+  opacity: 1;
 }
 
 .sub_messages{
@@ -80,7 +80,7 @@ span.glyphicon{
 
 .sidebar-nav li a {
   font-size: 1em;
-  opacity: .8;
+  opacity: 1;
 }
 
 .sidebar-nav li a:focus {

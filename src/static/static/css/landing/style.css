@@ -328,7 +328,7 @@ nav a#pull {
   margin-bottom: 50px;
 }
 #contactform h1{
-  margin: -20px 0px 21px;
+  margin: -20px 0px 5px;
   line-height: 40px;
   font-size: 15px;
   color: #555;
@@ -413,7 +413,7 @@ fieldset{
   text-align: center;
   margin: 0 auto;
   padding: 20px 20px 20px;
-  width: 240px;
+  width: 500px;
   background: white;
   border-radius: 3px;
   position:fixed;
@@ -445,14 +445,16 @@ fieldset{
   letter-spacing: .15em
 }
 .login p {
-  margin: 20px 0 0;
+  margin: 5px 0 0;
+  display:inline-block;
 
 }
 .login p:first-child {
   margin-top: 0;
 }
 .login input[type=text], .login input[type=password] {
-  width: 200px;
+  width: 180px;
+  display:inline-block;
 }
 .login p.remember_me {
   float: left;
@@ -461,7 +463,6 @@ fieldset{
 .login p.remember_me label {
   font-size: 12px;
   color: #777;
-  cursor: pointer;
 }
 .login p.remember_me input {
   position: relative;
@@ -480,7 +481,6 @@ fieldset{
 
 }
 .login-help {
-  margin: 20px 0;
   font-size: 11px;
   color: white;
   text-align: center;
@@ -513,7 +513,6 @@ input {
 }
 
 input[type=text], input[type=password] {
-  margin: 5px;
   padding: 0 10px;
   width: 200px;
   height: 34px;
@@ -522,15 +521,16 @@ input[type=text], input[type=password] {
   border: 1px solid;
   border-color: black;
   border-radius: 2px;
-  outline: 5px solid #eff4f7;
-  -moz-outline-radius: 3px;
-  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  
+  
 }
 input[type=text]:focus, input[type=password]:focus {
   border-color: black;
   outline-color: white;
   outline-offset: 0;
+  -moz-outline-radius: 3px;
+  -webkit-box-shadow: inset 0 1px 3px #1FBAD6;
+  box-shadow: inset 0 1px 3px #1FBAD6;
 }
 
 .contact{
@@ -538,7 +538,7 @@ input[type=text]:focus, input[type=password]:focus {
 }
 input[type=submit] {
   padding: 0 18px;
-  height: 29px;
+  height: 34px;
   font-size: 12px;
   font-weight: 300;
   color: white;
@@ -554,6 +554,7 @@ input[type=submit] {
   -webkit-box-shadow: inset 0 1px white, 0 1px 2px rgba(0, 0, 0, 0.15);
   box-shadow: inset 0 1px white, 0 1px 2px rgba(0, 0, 0, 0.15);
   letter-spacing: .15em;
+  display:inline-block;
 }
 #registration_button{
   background-color: #084c8d!important;
@@ -566,7 +567,6 @@ input[type=submit] {
 
 }
 input[type=submit]:active {
-  background: #084c8d;
   border-color: #9eb9c2 #b3c0c8 #b4ccce;
   -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
   box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
