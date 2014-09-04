@@ -126,8 +126,8 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
-
-AUTH_PROFILE_MODULE = "userprofile.UserProfile"
+# may want it to be AUTH_PROFILE_MODULE = "profiles.blah"
+AUTH_PROFILE_MODULE = "profiles.Info"
 
 ACCOUNT_ACTIVATION_DAYS = 7
 
@@ -171,6 +171,28 @@ SOCIAL_AUTH_FACEBOOK_SECRET = 'cb9fb330dd5708b5e7ca789b5521d86a'
 SOCIAL_AUTH_FACEBOOK_SCOPE = [
     'email',
 ]
+
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    #'forfriends.pipeline.save_profile_picture',
+    #'forfriends.pipeline.user_details',
+)
+
+#Twitter social authetnication info 
+SOCIAL_AUTH_TWITTER_KEY = '7UpBqDOh5PnPDLwoLxfKUFTPu'
+SOCIAL_AUTH_TWITTER_SECRET = 'AgYgddJxFdAAEU0OYUlmbxy2rNxL41B2uNAiQsDoWZLwqVQpyW'
+
+#Google social authentication info 
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '535327556807-gr7vntrlasis9nml7hpg2urlnd5t5ddh.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'nuqxqJ8VGecENX9HWxuK6Gzv'
+
 
     
 
