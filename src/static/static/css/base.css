@@ -129,7 +129,7 @@ input{
 
 .glyphicon{
 	font-size:1em;
-	padding-right: 1em;
+	padding-right: 1.2em;
 }
 
 .body_section{
@@ -195,6 +195,8 @@ a:hover{
 	.messages{
 		margin-left:40px;
 	}
+	.btn.btn-success{
+	width: 100%;}
 }
 
 *:focus{
@@ -203,10 +205,10 @@ a:hover{
 
 @media (max-width: 600px) {
   h1{
-  font-size: 1.2em;
+  font-size: 2em;
 }
   a{
-  	font-size:.9em;
+  	font-size:1em;
   }
 }
 
@@ -245,9 +247,7 @@ a:hover{
 	#leftbar-wrapper span{
 		width:80px;
 	}
-	#sidebar_wrapper{
-		
-	}
+
 	.dropdown-toggle{
 		text-align:left;
 	}

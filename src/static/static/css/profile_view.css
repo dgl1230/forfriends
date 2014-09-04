@@ -61,7 +61,7 @@
 }
 
 #single_user_container h1{
-	color:white!important;
+	color: black!important;
 }
 .row .col-sm-12{
 	width: 60%;
@@ -174,9 +174,10 @@
 }
 
 #single_user_container{
-	background-color:black;
-	border-radius:3%;
+	background-color: white;
+	border-radius:1%;
 	width:80%;
+	border:2px solid black;
 }
 
 .navbar-collapse.collapse.in{
@@ -217,9 +218,33 @@
 @media(max-width: 400px){
 	#myfriend{
 	width: 160px!important;
-	height:auto;
+	height:auto!important;
 	}
 }
+
+@media(max-width: 300px){
+	#myfriend{
+	width: 120px!important;
+	height:auto!important;
+	}
+}
+
+@media(max-width: 380px){
+	#buttons_row{
+		width:100%;
+
+	}
+} 
+
+@media(max-width: 670px){
+	#message_button, #interests_button, #friend_button, #pictures_button{
+		width: 200px;
+	}
+	#myfriend{
+		width:100%;
+	}
+} 
+
 
 #single_user_body{
 	margin-bottom:10%;
