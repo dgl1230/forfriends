@@ -62,5 +62,7 @@ urlpatterns = patterns('',
     (r'^user/password/done/$', 'django.contrib.auth.views.password_reset_complete'),
     url('', include('social.apps.django_app.urls', namespace='social')),
     url('', include('django.contrib.auth.urls', namespace='auth')),
+    url(r'^new_picture/$', 'profiles.views.new_picture', name='new_picture'),
+    
 
 )

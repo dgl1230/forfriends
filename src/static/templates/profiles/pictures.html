@@ -39,7 +39,7 @@
       <div class="bbody">
 
       <!-- upload form -->
-      <form id="upload_form" enctype="multipart/form-data" method="post" action="upload.php" onsubmit="return checkForm()">
+      <form id="upload_form" enctype="multipart/form-data" method="post" action='{% url "new_picture" %}' onsubmit="return checkForm()"> {% csrf_token %}
           <!-- hidden crop params -->
           <input type="hidden" id="x1" name="x1" />
           <input type="hidden" id="y1" name="y1" />
@@ -61,6 +61,7 @@
                   <label>Image dimension</label> <input type="text" id="filedim" name="filedim" />
                   <label>W</label> <input type="text" id="w" name="w" />
                   <label>H</label> <input type="text" id="h" name="h" />
+
               </div>
                 <br><br>
               <input type="submit" value="Upload" />
@@ -196,6 +197,8 @@ function fileSelectHandler() {
         });
     });
 </script>
+
+
 
 <!-- Circle Carousel -->
 <script src="{{ STATIC_URL }}js/3dcarousel/FWDPage.js" type="text/javascript"></script>
