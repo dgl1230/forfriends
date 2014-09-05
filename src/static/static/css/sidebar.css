@@ -14,9 +14,11 @@ ul li, li, li a, h5, h3{
 span.glyphicon{
   padding-bottom: 0px!important;
 }
-
+#settings_tool{
+  margin-bottom:100px;
+}
 #leftbar-wrapper{
-  background-color: #111!important;
+  background-color: white!important;
   position: fixed;
   height: 100%;
   overflow-y: auto;
@@ -25,8 +27,9 @@ span.glyphicon{
   position: fixed;
   height: 100%;
   width: 120px;
-  overflow:hidden;
+  overflow: auto!important;
   margin-top:60px;
+  margin-bottom:100px!important;
 }
 
 #page-content-wrapper {
@@ -40,7 +43,7 @@ span.glyphicon{
   list-style: none;
   padding: 0;
   text-align:center;
-  background-color: #111;
+  background-color: white;
   padding-bottom:50px;
   opacity: 1;
 }
@@ -55,7 +58,7 @@ span.glyphicon{
 }
 
 .sidebar-nav li a {
-  color: #111;
+  color: black!important;
   display: block;
   text-decoration: none;
   padding-top: 5px;
@@ -231,7 +234,9 @@ span.glyphicon{
   font-size: .9em;
   padding-bottom: .85em;
   padding-top: 1em;
+  width:100px;
 }
+
   .sidebar-nav{
     margin-top: 0px!important;
     padding-top:5px!important;

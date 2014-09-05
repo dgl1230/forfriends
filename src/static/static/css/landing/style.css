@@ -15,7 +15,7 @@
 
 #title{
 	letter-spacing: .4em;
-  padding-top:150px;
+  padding-top:50px;
 }
 /*------------------------------------------*/
 /*	 Preload Animation 
@@ -413,15 +413,14 @@ fieldset{
   text-align: center;
   margin: 0 auto;
   padding: 20px 20px 20px;
-  width: 500px;
+  width: 50%;
   background: white;
   border-radius: 3px;
-  position:fixed;
-  top:0em;
-  right:0em;
+  opacity: .8;
   border-bottom: 1px solid black;
   border-left:1px solid black;
   border-right: 1px solid black;
+  margin-bottom: 30px;
 }
 .login:before {
   content: '';
@@ -453,8 +452,8 @@ fieldset{
   margin-top: 0;
 }
 .login input[type=text], .login input[type=password] {
-  width: 180px;
-  display:inline-block;
+  width:100%;
+  display: block;
 }
 .login p.remember_me {
   float: left;
@@ -474,7 +473,7 @@ fieldset{
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
-  background-image: url(/static/img/landing/huge_city.jpg);
+  background-image: url(/static/img/landing/huge_city_darker.png);
 }
 
 .parallax_inner{
@@ -588,14 +587,6 @@ input[type=submit]:active {
   font-size: .9em;
 }
 
-@media only screen and (max-width:650px){
-  #intro { 
-  background-image: url(/static/img/landing/.jpg)!important; 
-  background-color: #d5d5d5;
-  padding:none;
-  }
-}
-
 /* Errors */
 .error{
   text-align:center!important;
@@ -636,5 +627,14 @@ input[type=submit]:active {
   }
   .birthyear{
     width: 50%!important;
+  }
+}
+
+@media only screen and (max-width:620px){
+  .opening a, h3{
+    margin-bottom:10px!important;
+  }
+  .login{
+    width:70%;
   }
 }

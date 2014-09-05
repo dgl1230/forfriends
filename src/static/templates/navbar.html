@@ -7,9 +7,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand"  data-variation=".left"><img id="menu_icon" src="/static/img/menu_icon.png"></img></a>
-        </div>
-        <div  class="navbar-collapse collapse">
+          <a class="navbar-brand"  data-variation=".left"><img id="menu_icon" src="{{ STATIC_URL }}img/menu_icon.png"></img></a>
           {% if request.user.is_authenticated %}
           <form class="navbar-form navbar-left" role="search" action='{% url "search" %}'>
             <div class="form-group">
@@ -17,6 +15,8 @@
               <button type="submit" class="btn btn-default" id="go_button">Search</button>
             </div>
           </form>
+        </div>
+        <div  class="navbar-collapse collapse">
           <ul class='nav navbar-nav pull-right'>
             
               <li class="inbox">

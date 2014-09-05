@@ -44,13 +44,13 @@
 				<a class="btn btn-default btn" id="message_button" data-toggle="tooltip" data-placement="top" href='{% url "su_compose" single_user.username %}'><p>Send Message</p></a>
 				{% elif match.user1_approved == True and match.user1 == request.user %}
 				<a  class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
-				<a class="btn btn-default btn" id="message_button" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message</p></a>
+				<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message</p></a>
 				{% elif match.user2_approved == True and match.user2 == request.user %}
 				<a  class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
-				<a class="btn btn-default btn" id="message_button" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message</p></a>
+				<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message</p></a>
 				{% else %}
 				<a  class="btn btn-default btn" id="friend_button" href='{% url "add_friend" single_user.username %}'><p>Add Friend</p></a>
-				<a class="btn btn-default btn" id="message_button" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message</p></a>
+				<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message</p></a>
 				{% endif %}
 				<a class="btn btn-default btn" id="interests_button" href="/members/{{ single_user.username}}/interests/"><p>View Interests</p></a>
 				<a class="btn btn-default btn" id="pictures_button" href="/members/{{ single_user.username}}/pictures/"><p>Browse Pictures</p></a>

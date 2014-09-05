@@ -86,3 +86,10 @@
 	background-color: #1FBAD6;
 	color:white;
 }
+
+@media only screen and (max-width:620px){
+	#email_login, #google_login, #fb_login, #twitter_login{
+	width:80%!important;
+}
+
+}

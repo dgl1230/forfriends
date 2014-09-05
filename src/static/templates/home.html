@@ -78,11 +78,11 @@
               <div class="col-xs-6" id="login">
                 
                   <div class="login">
-                    <h1>Login to Frenvu</h1>
+                    <h1>Login</h1>
                   <form method="post" action='{% url "login_user" %}'>{% csrf_token %}
                   <p><input type="text" name="username" value="" placeholder="Email or username"></p>
-                  <p><input type="password" name="password" value="" placeholder="Password"></p>
-                  <p class="submit"><input type="submit" name="commit" value="Login"></p>
+                  <p><input type="password" name="password" value="" placeholder="Password"></p><br>
+                  <p class="submit"><input type="submit" name="commit" value="Login"></p><br>
                   <p class="remember_me">
                     <label>
                       <input type="checkbox" name="remember_me" id="remember_me">
@@ -113,7 +113,6 @@
     </div>
 
               <div class="col-xs-6" id="register">
-                <h2>Sign up here.</h2>
           <div class="form" >
             <form id="contactform" method='POST' action='{% url "register_user" %}'>{% csrf_token %}
               <h1>Sign up here.</h1>

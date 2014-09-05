@@ -42,11 +42,19 @@ p{
 	width:90%;
 }
 .btn.btn-info.btn-sm, .btn-lg, .pager li a, #go_button, .btn-success{
-	background-color: #1FBAD6!important;
-	color: white!important;
+	background-color: white!important;
+	color: black!important;
 	border: 1px solid #111;
 	border-radius:0px;
 	font-weight: 100;
+	-webkit-transition-duration: .5s;
+	-transition-duration: .5s;
+	-moz-transition-duration: .5s;
+}
+
+.btn-info.btn-sm:hover, .btn-lg:hover, .pager li a:hover, #go_button:hover, .btn-success:hover{
+	background-color:#1FBAD6!important;
+	color:white!important;
 }
 
 .pager{
@@ -72,9 +80,7 @@ tr, td{
 .pagination{
 	width: 50%!important;
 }
-.btn-info.btn-sm:hover, .btn-lg:hover, .pager li a:hover, #go_button:hover, .btn-success:hover{
 
-}
 
 .tab-content input{
 	border-radius:0px;
@@ -245,7 +251,7 @@ a:hover{
 		width:80px!important;
 	}
 	#leftbar-wrapper span{
-		width:80px;
+		width:60px;
 	}
 
 	.dropdown-toggle{
