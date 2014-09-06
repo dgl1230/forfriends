@@ -62,6 +62,8 @@ def all(request):
 			#time1 = datetime.datetime.now()
 		try: 
 			user_gamification = Gamification.objects.get(user=request.user)
+			date1 = user_gamifcation.circle_reset_started
+			date2 = user_gamifcation.circle_time_until_reset
 			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 		except: 
 			#the user has never calcuated their circle
@@ -139,7 +141,8 @@ def calculate_circle(request):
 						).order_by('-percent')[:7]
 		else: 
 			messages.error(request, "sorry, you need to wait!")
-		return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+	return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+
 	
 
 
@@ -590,6 +593,11 @@ def new_picture(request):
 								"form": form,
 							},
 								RequestContext(request))
+
+
+def ice_breaker(request): 
+	user1 = request.user
+	ranom_interest = user1.UserInterestAnswer
 
 
 
