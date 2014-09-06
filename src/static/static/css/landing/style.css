@@ -1,6 +1,8 @@
 /* ==========================================================================
    01. GENERAL & BASIC STYLES
    ========================================================================== */
+@keyframes fadeIn { from { opacity:0; } to { opacity:1;} }
+
 .container{
 	width: 100%;
 	padding-left: 0px;
@@ -270,6 +272,17 @@ nav a#pull {
 	letter-spacing: .25em;
 	text-align: center;
 }
+
+.subheading{
+  color:black!important;
+  opacity:0;
+  animation:fadeIn ease-in 1;
+  animation-fill-mode:forwards;
+  animation-duration:.5s;
+  animation-delay: 2s;
+  -webkit-animation-delay: 2s;
+  -moz-animation-delay: 2s;
+}
 .opening a, h3{
 	font-family: "Roboto", sans-serif;
 	color: #1FBAD6;
@@ -414,6 +427,7 @@ fieldset{
   margin: 0 auto;
   padding: 20px 20px 20px;
   width: 50%;
+  max-width: 350px;
   background: white;
   border-radius: 3px;
   opacity: .8;

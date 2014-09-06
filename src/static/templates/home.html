@@ -71,14 +71,14 @@
             <div class="opening">
               <div class="parallax">
               <h1 id="title">Frenvu</h1>
-              <br><h3>The new place to meet people</h3>
+              <br><h3 class="subheading">The new place to meet people</h3>
 
               <!-- Logo Image -->
             <div class="row" id="call_to_action"> 
               <div class="col-xs-6" id="login">
                 
                   <div class="login">
-                    <h1>Login</h1>
+                    <h1>Login to Frenvu</h1>
                   <form method="post" action='{% url "login_user" %}'>{% csrf_token %}
                   <p><input type="text" name="username" value="" placeholder="Email or username"></p>
                   <p><input type="password" name="password" value="" placeholder="Password"></p><br>
