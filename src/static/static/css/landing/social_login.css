@@ -1,0 +1,95 @@
+.sign_up_div{
+	width:100%;
+	text-align: center;
+}
+
+.sign_up_div h2{
+	color:black;
+	margin:0 auto;
+}
+
+.social_logins{
+	margin: 0 auto;
+	width:100%;
+	text-align: center;
+	padding-bottom:10px;
+	padding-top:10px;
+}
+
+.social_logins a{
+	display:inline-block;
+}
+
+#google_icon{
+	background-image: url(/static/img/social_icons/Google-plus-icon.png);
+	width:75px;
+	height:71px;
+	background-size:cover;
+	float:left;
+}
+
+#google_login{
+	width:150px;
+	height:75px;
+	border: 2px solid grey;
+	border-radius: 4px;
+}
+
+#fb_icon{
+	background-image: url(/static/img/social_icons/facebook_icon.png);
+	width:75px;
+	height:75px;
+	background-size:cover;
+	float:left;
+}
+
+#fb_login{
+	width:150px;
+	height:75px;
+	border: 2px solid grey;
+	border-radius: 4px;
+}
+
+#twitter_icon{
+	background-image: url(/static/img/social_icons/twittericon.jpeg);
+	width:75px;
+	height:70px;
+	background-size:cover;
+	float:left;
+
+}
+
+#twitter_login{
+	width:150px;
+	height:75px;
+	border: 2px solid grey;
+	border-radius: 4px;
+}
+
+#email_icon{
+	background-image: url(/static/img/social_icons/frenvu_icon_small_white.jpg);
+	width:75px;
+	height:71px;
+	background-size:cover;
+	float:left;
+
+}
+
+#email_login{
+	width:150px;
+	height:75px;
+	border: 2px solid grey;
+	border-radius: 4px;
+}
+
+#email_login:hover, #google_login:hover, #fb_login:hover, #twitter_login:hover{
+	background-color: #1FBAD6;
+	color:white;
+}
+
+@media only screen and (max-width:620px){
+	#email_login, #google_login, #fb_login, #twitter_login{
+	width:80%!important;
+}
+
+}

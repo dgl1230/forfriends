@@ -87,9 +87,7 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 .visitors a{
 	text-decoration: none;
 }
-.profiles a{
 
-}
 .dropdown-menu{
 	border-left: .5px solid;
 	border-bottom: .5px solid;
@@ -151,6 +149,10 @@ a.dropdown-toggle{
 	margin-top:5px;
 	padding-top:15px;
 	padding-bottom:5px;
+}
+
+.inbox a:hover{
+	color:  #1fBAD6!important;
 }
 
 #messages_navbar{
@@ -223,8 +225,15 @@ a.dropdown-toggle{
 	padding-bottom:5px;
 	min-width: 280px;
 }
+.inbox{
+	width:60px;
+}
 .inbox a{
-	width:80px;
+	width:60px;
+}
+
+.logout a:hover{
+	color: #1fBAD6!important;
 }
 #tertiary_navbar a{
 	color: black;
@@ -238,8 +247,9 @@ a.dropdown-toggle{
 
 .form-control{
 	display:inline;
-	width:75%;
+	width: 40%;
 	margin-left:-10px;
+	
 }
 form.navbar-form.navbar-left{
 	border-top: none!important;
@@ -305,12 +315,16 @@ form.navbar-form.navbar-left{
 	margin-left:0px;
 	}
 	.form-control{
-		width:75%;
+		width:40%;
 	}
 	.form-group{
-		width:100%;
+		width:70%;
+		display:none!important;
 	}
 	#go_button{
-		width:25%;
+		width:15%;
+	}
+	.navbar-form.navbar-left{
+		margin-top:0px!important;
 	}
 }

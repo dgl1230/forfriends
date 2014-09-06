@@ -5,6 +5,10 @@
     padding: 10px 0;
     text-align: center;
 }
+
+#pictures input{
+    cursor:pointer;
+}
 #pictures .bbody {
     color: #000;
     overflow: hidden;

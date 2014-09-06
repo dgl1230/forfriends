@@ -14,6 +14,14 @@ html, ul, ul li, li, li a, .btn{
 	border-bottom:none;
 
 }
+
+.nav-tabs > li{
+	float:none;
+}
+#gender_form{
+	width:50%;
+	text-align: center;
+}
 #form_container a{
 	color: #084c8d;
 }
@@ -29,9 +37,6 @@ html, ul, ul li, li, li a, .btn{
 }
 #id_form-0-gender{
 	width:50%;
-}
-#edit_profile_messages{
-	margin-left: -160px;
 }
 .panel-default{
 	min-width:130px;
@@ -124,21 +129,22 @@ p label{
 }
 #myTab{
 	text-align:center;
-	margin:20px auto 20px;
+	margin:0px auto 20px;
 }
 
 #myTab li a:hover{
-	background:#404040!important;
-	color:white!important;
+	background: black!important;
+	color: #1FBAD6!important;
 }
 
 #myTab li a{
-	color: #404040;
+	color: white;
 	outline: none;
 	width: 120px;
 	text-align:center;
 	font-size: 12px;
 	border: 1px solid #404040;
+	background-color: black;
 }
 
 #delete_account{
@@ -155,9 +161,14 @@ p a{
 
 #id_form-0-image label{
 	font-size: 2em;
-
 }
 
+.tab-content{
+	padding-top:20px;
+}
+.tab-content .btn-lg{
+	text-align: center;
+}
 @media (max-width: 1000px){
 	#home .btn{
 	margin-left:0px;
@@ -167,5 +178,15 @@ p a{
 @media (max-width: 670px){
 	.edit_profile_container{
 		margin-left:80px;
+	}
+}
+
+@media (max-width: 350px){
+	.tab-content input{
+		width:100%;
+	}
+	.tab-content .btn-lg{
+		text-align: center;
+		width:100%;
 	}
 }

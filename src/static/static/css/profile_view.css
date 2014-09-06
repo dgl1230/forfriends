@@ -56,6 +56,9 @@
 	width: 40%;
 }
 
+#buttons_row #message_button_not_friends{
+	cursor: not-allowed;
+}
 #picture_row{
 	width: 100%;
 }
@@ -115,7 +118,7 @@
 	height:100px;
 }
 
-#buttons_row #message_button{
+#buttons_row #message_button, #buttons_row #message_button_not_friends{
 	background: url(/static/img/profile/iphone_dark.png);
 	background-size:cover;
 	height:100px;
@@ -149,10 +152,10 @@
 }
 
 
-#message_button a, #interests_button a, #friend_button a, #pictures_button a{
+#message_button a, #interests_button a, #friend_button a, #pictures_button a, #buttons_row #message_button a{
 	font-size: 1.25em;
 }
-#message_button, #interests_button, #friend_button, #pictures_button{
+#message_button, #interests_button, #friend_button, #pictures_button, #buttons_row #message_button{
 	width: 24%;	
 }
 
@@ -189,13 +192,13 @@
 }
 
 @media(max-width: 1000px){
-	#message_button, #interests_button, #friend_button, #pictures_button{
+	#message_button, #interests_button, #friend_button, #pictures_button, #buttons_row #message_button{
 	width: 24%;	
 }
 }
 
 @media(max-width: 770px){
-	#message_button, #interests_button, #friend_button, #pictures_button{
+	#message_button, #interests_button, #friend_button, #pictures_button, #buttons_row #message_button{
 	font-size: .9em;
 	width: 110px;
 	}
@@ -237,7 +240,7 @@
 } 
 
 @media(max-width: 670px){
-	#message_button, #interests_button, #friend_button, #pictures_button{
+	#message_button, #interests_button, #friend_button, #pictures_button, #buttons_row #message_button{
 		width: 200px;
 	}
 	#myfriend{
@@ -320,7 +323,7 @@
 	height:150px;
 }
 
-#buttons_row #message_button{
+#buttons_row #message_button, #buttons_row #message_button_not_friends{
 	background: url(/static/img/profile/iphone_dark.png);
 	background-size:cover;
 	height:150px;
