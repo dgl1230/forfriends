@@ -173,7 +173,6 @@ SOCIAL_AUTH_FACEBOOK_SCOPE = [
     'first_name',
     'last_name',
     'gender',
-    'age_range',
 
 ]
 
