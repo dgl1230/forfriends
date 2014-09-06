@@ -190,8 +190,8 @@ SOCIAL_AUTH_TWITTER_KEY = '7UpBqDOh5PnPDLwoLxfKUFTPu'
 SOCIAL_AUTH_TWITTER_SECRET = 'AgYgddJxFdAAEU0OYUlmbxy2rNxL41B2uNAiQsDoWZLwqVQpyW'
 
 #Google social authentication info 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '535327556807-gr7vntrlasis9nml7hpg2urlnd5t5ddh.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'nuqxqJ8VGecENX9HWxuK6Gzv'
+SOCIAL_AUTH_GOOGLE_PLUS_KEY = = '535327556807-gr7vntrlasis9nml7hpg2urlnd5t5ddh.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_PLUS_SECRET = 'nuqxqJ8VGecENX9HWxuK6Gzv'
 
 
     
