@@ -62,8 +62,7 @@ def all(request):
 			#time1 = datetime.datetime.now()
 		try: 
 			user_gamification = Gamification.objects.get(user=request.user)
-			date1 = user_gamifcation.circle_reset_started
-			date2 = user_gamifcation.circle_time_until_reset
+			users = user_gamifcation.circle
 			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 		except: 
 			#the user has never calcuated their circle
