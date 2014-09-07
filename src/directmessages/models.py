@@ -12,7 +12,7 @@ class DirectMessageManager(models.Manager):
 
 
 class DirectMessage(models.Model):
-	subject = models.CharField(max_length=150)
+	subject = models.CharField(max_length=150, null=True, blank=True)
 	body = models.CharField(max_length=3000)
 	sender = models.ForeignKey(User, related_name='sent_direct_messages', null=True, blank=True)
 	receiver = models.ForeignKey(User, related_name='recieved_direct_messages', null=True, blank=True)

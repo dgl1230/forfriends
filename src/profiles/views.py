@@ -11,17 +11,17 @@ from django.contrib import messages
 from django.shortcuts import render_to_response, RequestContext, Http404, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.forms.models import modelformset_factory
-from django.db.models import Q
+from django.db.models import Q, Max
 from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail, EmailMultiAlternatives
 
-from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG
+from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG, MEDIA_URL
 from forfriends.matching import match_percentage
 from forfriends.distance import calc_distance
 from matches.models import Match
 from .models import Address, Job, Info, UserPicture, Gamification
-from .forms import AddressForm, InfoForm, JobForm, UserPictureForm
-from interests.models import UserInterestAnswer
+from .forms import AddressForm, InfoForm, JobForm, UserPictureForm, JcropForm
+from interests.models import UserInterestAnswer, Interest
 from visitors.models import Visitor
 from directmessages.models import DirectMessage
 
@@ -82,7 +82,7 @@ def all(request):
 
 			matches = Match.objects.filter(
 					Q(user1=request.user) | Q(user2=request.user)
-					).order_by('-percent')[:8]
+					).order_by('-percent')[:7]
 			for match in matches: 
 				user_gamifcation.circle.add(match) 
 			user_gamifcation.circle_reset_started = datetime.now()
@@ -127,7 +127,7 @@ def calculate_circle(request):
 
 			matches = Match.objects.filter(
 					Q(user1=request.user) | Q(user2=request.user)
-					).order_by('-percent')[:8]
+					).order_by('-percent')[:7]
 			if request.user.circle: 
 				request.user.circle.clear()
 			for match in matches: 
@@ -139,7 +139,8 @@ def calculate_circle(request):
 						).order_by('-percent')[:7]
 		else: 
 			messages.error(request, "sorry, you need to wait!")
-		return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+	return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+
 	
 
 
@@ -384,39 +385,42 @@ def register_new_user(request):
 		user_age = calculate_age(birthday)
 
 		if username and password and email:
-			if password == confirm_password:
-				new_user,created = User.objects.get_or_create(username=username, email=email)
-				if created:
-					new_user.set_password(password)
-					new_info = Info(user=new_user)
-					new_info.gender = gender
-					new_info.birthday = birthday
-					new_info.save()
-					new_user.save()
-					new_user = authenticate(username=username, password=password)
-					if not DEBUG:
-						subject = 'Thanks for registering with Frenvu!'
-						line1 = 'Hi %s, \nThanks for making an account with Frenvu! My name is Denis, ' % (username,)
-						html_line1 = 'Hi %s, \n<br>Thanks for making an account with Frenvu! My name is Denis, ' % (username,)
+			if username != password: 
+				if password == confirm_password:
+					new_user,created = User.objects.get_or_create(username=username, email=email)
+					if created:
+						new_user.set_password(password)
+						new_info = Info(user=new_user)
+						new_info.gender = gender
+						new_info.birthday = birthday
+						new_info.save()
+						new_user.save()
+						new_user = authenticate(username=username, password=password)
+						if not DEBUG:
+							subject = 'Thanks for registering with Frenvu!'
+							line1 = 'Hi %s, \nThanks for making an account with Frenvu! My name is Denis, ' % (username,)
+							html_line1 = 'Hi %s, \n<br>Thanks for making an account with Frenvu! My name is Denis, ' % (username,)
 
-						line2 = "and I'm one of the Co-Founders of Frenvu. We're trying to make Frenvu a great"
-						line3 = "place for fostering new friendships, but we're still an early company, so if "
-						line4 = "you have any questions or concerns about the site, please feel free to reach "
-						line5 = "out to me. I'd love to hear feedback from you or help you with any problem you're having! "
+							line2 = "and I'm one of the Co-Founders of Frenvu. We're trying to make Frenvu a great"
+							line3 = "place for fostering new friendships, but we're still an early company, so if "
+							line4 = "you have any questions or concerns about the site, please feel free to reach "
+							line5 = "out to me. I'd love to hear feedback from you or help you with any problem you're having! "
 
-						line6 = "We hope you enjoy the site!\nSincerely,\nDenis and the rest of the team at Frenvu"
-						html_line6 = "We hope you enjoy the site!\n<br>Sincerely,\n<br>Denis and the rest of the team at Frenvu"
-						message = line1 + line2 + line3 + line4 + line5 + line6
-						html_message = html_line1 + line2 + line3 + line4 + line5 + html_line6
-						msg = EmailMultiAlternatives(subject, html_message, EMAIL_HOST_USER, [email])
-						msg.content_subtype = "html"
-						msg.send()
-					login(request, new_user)
-					return HttpResponseRedirect('/')
+							line6 = "We hope you enjoy the site!\nSincerely,\nDenis and the rest of the team at Frenvu"
+							html_line6 = "We hope you enjoy the site!\n<br>Sincerely,\n<br>Denis and the rest of the team at Frenvu"
+							message = line1 + line2 + line3 + line4 + line5 + line6
+							html_message = html_line1 + line2 + line3 + line4 + line5 + html_line6
+							msg = EmailMultiAlternatives(subject, html_message, EMAIL_HOST_USER, [email])
+							msg.content_subtype = "html"
+							msg.send()
+						login(request, new_user)
+						return HttpResponseRedirect('/')
+					else:
+						messages.error(request, "Sorry but this username is already taken")
 				else:
-					messages.error(request, "Sorry but this username is already taken")
-			else:
-				messages.error(request, "Please make sure both password match")
+					messages.error(request, "Please make sure both password match")
+			else: 
+				messages.error(request, "Pleasure make sure your username and password aren't the same!")
 	else:
 		messages.error(request, "We're sorry but you must be at least 18 to signup!")
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
@@ -533,6 +537,130 @@ def contact_us(request):
 		send_mail('Inquiry', message , EMAIL_HOST_USER, [EMAIL_HOST_USER])
 		messages.success(request, "Your inquiry has been sent, and we'll get back to you as soon as we can!")
 	return render_to_response ('contact_us.html', locals(), context_instance=RequestContext(request))
+
+
+def new_picture(request):
+	# get the profile (i.e. the model containing the image to edit);
+	# In this example, the model in question is the user profile model,
+	# so we can use Django's get_profile() method.
+	new_image = UserPicture.objects.create(user=request.user)
+	print len(request.FILES)
+	#profile = request.user
+	#image_upload_to = MEDIA_URL
+  
+	# define a fixed aspect ratio for the user image
+	aspect = 105.0 / 75.0
+	# the final size of the user image
+  	final_size = (105, 75)
+
+  
+	if request.method == "POST" and len(request.FILES) == 0:
+		print "needs to be here"
+		# user submitted form with crop coordinates
+		form = JcropForm(request.POST)
+		if form.is_valid():
+			# apply cropping
+			form.crop()
+			form.resize(final_size)
+			form.save()
+			# redirect to profile display page
+			return HttpResponseRedirect("/")
+    
+	elif request.method == "POST" and len(request.FILES):
+		print "not cropping"
+		# user uploaded a new image; save it and make sure it is not too large
+		# for our layout
+		img_fn = JcropForm.prepare_uploaded_img(request.FILES, new_image, (370, 500))
+		if img_fn:
+			# store new image in the member instance
+			new_image.image = img_fn # 'avatar' is an ImageField
+			new_image.save()
+			# redisplay the form with the new image; this is the same as for
+			# GET requests -> fall through to GET
+      
+	elif request.method != "GET":
+		# only POST and GET, please
+		return HttpResponse(status=400)
+  
+	# for GET requests, just display the form with current image
+	form = JcropForm(initial        = { "imagefile": new_image.image },
+					jcrop_options  = { 
+										"aspectRatio":aspect,
+										"setSelect": "[100, 100, 50, 50]",
+									}
+					)
+	return render_to_response("pictures.html",
+							{
+								"form": form,
+							},
+								RequestContext(request))
+
+
+def ice_breaker(request): 
+	user1 = request.user
+	user1_interests = Interest.objects.filter(userinterestanswer__user=user1).filter(
+		Q(userinterestanswer__importance_level='Strongly like') |
+		Q(userinterestanswer__importance_level="Like"))
+	print "number of users: ", number_of_users
+	max_interest = user1_interests.latest('id').id
+	print "max_interest: ", max_interest
+	max_user = User.objects.latest('id')
+	print "max user: ", max_user
+	random_int = randint(1, max_interest)
+	print "random_int is: ", random_int
+	i = 1
+	while i < 30: 
+		try:  
+			random_interest = user1_interests.get(pk=1)
+			print "the random interesti is", random_interest
+			i =+ 1
+			print i 
+		except: 
+			i += 1
+			print i
+	print "1"
+	
+	'''i = 0
+	while i < 1: 
+		try: 
+			print "2"
+			random_interest = user1_interests.get(pk=randint(1, max_interest)).pk
+			random_user = User.objects.get(pk=randint(1, max_user)).pk
+			same_interest = Interest.objects.filter(userinterestanswer_user=random_user).get(userinterestanswer_interest=random_interest)
+			assert (same_interest.importance_level == "Strongly like" or 
+					same_interest.importance_level == "Like")
+			i += 1
+		except:
+			pass
+	'''
+	try: 
+		print "3"
+		match = Match.objects.get(user1=request.user, user2=random_user)
+		user1 = request.user
+		user2 = random_user
+	except:
+		print "4"
+		match = Match.objects.get(user1=random_user, user2=request.user)
+		user1 = random_user
+		user2 = request.user
+	match.user1_approved = True
+	match.user2.approved = True
+
+	subject = "You two have an interest in common!"
+	body_for_user1 = "You and %s both like %s! What exactly is it about %s that you like so much? Let %s know your thoughts! " %(user2.username, random_interest, random_interest, user2.username)
+	body_for_user2 = "You and %s both like %s! What exactly is it about %s that you like so much? Let %s know your thoughts! " %(user1.username, random_interest, random_interest, user1.username)
+	user1_message = DirectMessage.objects.create(subject=subject, body=body_for_user1, receiver=user1, sender=user2)
+	user2_message = DirectMessage.objects.create(subject=subject, body=body_for_user2, receiver=user2, sender=user1)
+	user1_message.sent = datetime.datetime.now()
+	user2_message.sent = datetime.datetime.now()
+	user1_message.save()
+	user2_message.save()
+	print "5"
+	user_gamification = Gamification.objects.get(user=request.user)
+	messages.success(request, "Please check your inbox, we've found a user that you have an interest in common with!")
+	return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+
+
 
 
 
