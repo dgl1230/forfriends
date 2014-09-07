@@ -574,6 +574,11 @@ def new_picture(request):
 		if img_fn:
 			# store new image in the member instance
 			new_image.image = img_fn # 'avatar' is an ImageField
+			try: 
+				caption = request.POST['caption']
+				new_image.caption = caption
+			except: 
+				pass
 			new_image.save()
 			# redisplay the form with the new image; this is the same as for
 			# GET requests -> fall through to GET
@@ -601,7 +606,6 @@ def ice_breaker(request):
 	user1_interests = UserInterestAnswer.objects.filter(user=user1)
 	max_interest = user1_interests.latest('id').id
 	max_user = User.objects.latest('id').id
-	print "starting first loop"
 	while True: 
 		try:
 			random_interest = user1_interests.get(pk=randint(1, max_interest))
@@ -609,7 +613,6 @@ def ice_breaker(request):
 			break
 		except: 
 			pass
-	print "starting second loop"
 	while True: 
 		try: 
 			random_user = User.objects.get(pk=randint(1, max_user))
@@ -618,7 +621,6 @@ def ice_breaker(request):
 			break
 		except:
 			pass
-	print "finished second loop"
 	try: 
 		match = Match.objects.get(user1=request.user, user2=random_user)
 		user1 = request.user
