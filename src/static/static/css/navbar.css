@@ -6,6 +6,11 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 	border-color:#404040!important;
 }
 
+#tertiary_navbar a:hover{
+	color: #1fBAD6!important;
+
+}
+
 .navbar-brand{
 	width:120px;
 	cursor:pointer;

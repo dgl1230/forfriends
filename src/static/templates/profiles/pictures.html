@@ -49,7 +49,7 @@
           <input type="hidden" id="x2" name="x2" />
           <input type="hidden" id="y2" name="y2" />
 
-          <p class="step1">Please select image file</p>
+          <p class="step1">Please select an image file</p>
           <div><input type="file" name="image_file" id="image_file" onchange="fileSelectHandler()" /></div>
 
           <div class="error"></div>
@@ -131,7 +131,7 @@ function fileSelectHandler() {
     }
 
     // check for file size
-    if (oFile.size > 1000 * 1024) {
+    if (oFile.size > 10000 * 1024) {
         $('.error').html('You have selected too large of a file, please select a smaller image file').show();
         return;
     }

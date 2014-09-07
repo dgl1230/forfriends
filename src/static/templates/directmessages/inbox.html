@@ -7,10 +7,14 @@
 {% block content %}
 
 <div id="view_container">
-<br>
 <div class="row">
-	<div class="col-md-1">
+	<div class="col-md-1" id="secondary_navbar">
         <h1 align="center">Inbox</h1>
+	</div>
+	<div class="col-md-1" id="tertiary_navbar">
+     		<a href="/messages/compose/" class="half-nav1">New Message</a>
+     		<span class="glyphicon glyphicon-thumbs-up" id="tertiary-icon"></span>
+     		<a href="/messages/sent/" class="half-nav2">Sent Messages</a>
 	</div>
 </div>
 <div class='row'>
@@ -20,24 +24,25 @@
                   {% endfor %}
                 </div>
 </div>
+<br>
 <div class="container">
   <div class='col-lg-10 col-12'>
 	<div class="body_section">
 	<table class='table table-striped'>
 		<thead>
-		<th>From</th> <th>Subject</th>
+		<th>From</th> <th>Message</th>
 		</thead>
 		<tbody>
 			{% for item in messages_in_inbox %}
 			<tr >
-				<td>
-					{{ item.sender }}
+				<td><a href="/members/{{ item.sender }}/">
+					{{ item.sender }}</a>
 				</td>
 				<td>
 					{% if item.read %}
 						<span style='color: grey;' class='glyphicon glyphicon-ok'></span>
 					{% endif %}
-					<a {% if item.read %} style='color: grey;' {% endif %} href= '{{ item.get_absolute_url }}'>{{ item.subject|truncatewords:"10" }}</a>
+					<a {% if item.read %} style='color: grey;' {% endif %} href= '{{ item.get_absolute_url }}'>{{ item.body|truncatewords:"10" }}</a>
 					{% if item.sent %} 
 						<small>{{ item.sent }}</small> 
 					{% endif %}
@@ -48,18 +53,6 @@
 		</body>
 
 	</table>
-	<div class="button_container">
-		<div class="left-button">
-			<form action="/messages/compose/">
-				<input class='btn btn-info btn-sm' type='submit' value="New Message">
-			</form>
-		</div>
-		<div class="right-button">
-			<form action="/messages/sent/">
-				<input class='btn btn-info btn-sm' type='submit' value="Sent">
-		</form>
-		</div>
-	</div>
 </div>
 </div>
 </div>
