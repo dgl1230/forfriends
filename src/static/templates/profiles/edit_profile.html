@@ -35,8 +35,7 @@ $('#myTab a').click(function (e) {
 <div d="edit_profile_container">
   <div class="edit_profile_wrapper">
   <ul class="nav nav-tabs" id="myTab">
-    <li class="active"><a href="#home" data-toggle="tab">Pictures</a></li>
-    <li><a href="#jobs" data-toggle="tab">Occupation</a></li>
+    <li class="active"><a href="#home" data-toggle="tab">Occupation</a></li>
     <li><a href="#locations" data-toggle="tab">Location</a></li>
     <li><a href="#info" data-toggle="tab">Info</a></li>
     <li><a href="#delete_account" data-toggle="tab">Delete Account</a></li>
@@ -45,29 +44,9 @@ $('#myTab a').click(function (e) {
 
 
   <div class="tab-content">
+
+
     <div class="tab-pane active" id="home">
-    	<form method='POST' action='/edit/pictures/' enctype="multipart/form-data"> {% csrf_token %}
-    	<div class='row'>
-    		<div class='col-lg-12'>
-    {{ formset_p.management_form }}
-     {% for form in formset_p %}
-      <div id="form_container">
-        {{ form }}
-        <br><br>
-        
-      </div>
-      {% endfor %}
-  		</div>
-  	</div>
-    <br>
-
-  	<input class='btn btn-success' type='submit' value='Update' />
-  	</form>
-        <input class='btn btn-success'  type="submit" id="pictures_show" value=" Add More Pictures"/>
-    </div>
-
-
-    <div class="tab-pane" id="jobs">
     	<div class='row'>
     		<div class='col-lg-12'>
     			<form method='POST' action='/edit/jobs'> {% csrf_token %}
@@ -104,6 +83,7 @@ $('#myTab a').click(function (e) {
         <form method="POST" action="/edit/info/">
           {% csrf_token %}
           <div id="info_forms">
+            <p><label for "#username_form">Username:</label><input  id="username_form" type="text"></p>
             <p><label for "#first_name_form">First Name:</label><input  id="first_name_form" type="text"></p>
             <p><label for "#last_name_form">Last Name:</label><input  id="last_name_form" type="text"></p>
             <p>
@@ -114,6 +94,7 @@ $('#myTab a').click(function (e) {
               </select>
             </p>
             <p><label for "#bio_form">Bio:</label><textarea id="bio_form" rows="5" cols="20"></textarea></p>
+            <input class='btn btn-success' type='submit' value='Update' />
 
           </div>
         </form>
@@ -127,7 +108,7 @@ $('#myTab a').click(function (e) {
           <form method='POST' action='/edit/delete_account/'>
           </form>
           <h3 class="delete_info"> If you choose to delete your account, all your information will be deleted and you will not be able to recover it. </h3>
-           <a href='{% url "delete_account" %}'><div class="btn-lg">Delete Account</div></a>      
+           <a href='{% url "delete_account" %}'><div class="btn-lg" id="delete_button">Delete Account</div></a>      
          </div>
       </div>
     </div>

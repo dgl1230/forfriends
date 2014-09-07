@@ -11,21 +11,26 @@
 #message_container label{
 	width:90%;
 }
+
+.well{
+	border:1px solid black;
+	background-color:#f9f9f9;
+
+}
 .button_container{
-	width:90%;
+	width:100%;
 	margin-bottom:100px;
 }
 #compose_message_container{
 	width:50%;
-	margin-left:120px;
+	margin:0px auto;
 	min-width:200px;
 }
 #compose_button_container{
-	width:90%;
-	margin-left:40px;
+	width:100%;
 }
 #send_message_button{
-	width:50%;
+	min-width: 150px;
 }
 tr th{
 	width:50%;
@@ -34,7 +39,7 @@ th{
 	color: white;
 }
 thead{
-	background-color: #404040;
+	background-color: black;
 }
 .btn-sm{
 	width:120px;
@@ -79,10 +84,19 @@ table{
 	margin-left:80px;
 	min-width:200px;
 }
+
+#compose_message_container label{
+	min-width:50px;
+}
 textarea{
 	max-width: 600px;
 	width: 100%;
 	height: auto;
+	border:.5px solid black;
+}
+
+input{
+	border:.5px solid black;
 }
 /* Media Queries */
 
@@ -95,5 +109,14 @@ textarea{
 @media (max-width: 402px){
 	.button_container{
 		width:120px;
+	}
+}
+
+@media (max-width: 550px){
+	textarea{
+		width: 200px!important;
+	}
+	#compose_message_container label{
+		width:70px;
 	}
 }

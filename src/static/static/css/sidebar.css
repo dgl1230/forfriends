@@ -22,7 +22,7 @@ span.glyphicon{
   position: fixed;
   height: 100%;
   overflow-y: auto;
-  z-index: -100;
+  z-index: 100;
   transition: all 0.4s ease 0s;
   position: fixed;
   height: 100%;
@@ -235,6 +235,10 @@ span.glyphicon{
   padding-bottom: .85em;
   padding-top: 1em;
   width:100px;
+}
+
+#settings_tool{
+  margin-bottom:400px!important;
 }
 
   .sidebar-nav{

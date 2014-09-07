@@ -1,0 +1,25 @@
+#features{
+	text-align: center;
+}
+
+.hidden2{
+	opacity:0;
+}
+.visible2{
+	opacity:1;
+}
+
+.post{
+	text-align: center;
+	width:100%;
+	min-height:300px;
+}
+
+.post h2{
+	width:50%;
+	margin:0px auto;
+	color:black!important;
+}
+.post h1{
+	color:black;
+}

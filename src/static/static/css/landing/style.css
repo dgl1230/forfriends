@@ -16,8 +16,10 @@
 }
 
 #title{
-	letter-spacing: .4em;
+	letter-spacing: .25em;
   padding-top:50px;
+  text-align: center;
+
 }
 /*------------------------------------------*/
 /*	 Preload Animation 
@@ -50,27 +52,6 @@
 /*	 Parallax Settings
 /*------------------------------------------*/
 
-.intro-parallax {
-	background-attachment: fixed !important;
-	background-position: center center;
-	background-repeat: no-repeat;
-	background-color: #fefefe;
-}
-
-#intro { 
-	padding:none;
-}
-
-.parallax {
-	background-attachment: fixed !important;
-	background-position: center center;
-	background-repeat: no-repeat;
-	background-size: cover;
-}
-
-#features { 
-	background-image: url(/static/img/landing/parallax_bg/features_bkg.jpg);  
-}
 
 #call-to-action { 
 	background-color: #6682b5;
@@ -266,11 +247,26 @@ nav a#pull {
 }
 
 .opening h1{
-	font-size: 6em;
+	font-size: 7em;
 	font-family: "Roboto", sans-serif;
-	color: white;
+	color: black;
 	letter-spacing: .25em;
 	text-align: center;
+}
+
+select{
+  color:black;
+  width:60%;
+}
+
+#state, #country{
+  display:block;
+  margin:0 auto;
+  padding-bottom:0px!important;
+  padding-top:0px!important;
+  margin-bottom:0px!important;
+  margin-top:0px!important;
+
 }
 
 .subheading{
@@ -279,15 +275,19 @@ nav a#pull {
   animation:fadeIn ease-in 1;
   animation-fill-mode:forwards;
   animation-duration:.5s;
-  animation-delay: 2s;
+  -webkit-animation:fadeIn ease-in 1;
+  -webkit-animation-fill-mode:forwards;
+  -webkit-animation-duration:.5s;
   -webkit-animation-delay: 2s;
   -moz-animation-delay: 2s;
+  line-height: 1.1em;
+
 }
 .opening a, h3{
 	font-family: "Roboto", sans-serif;
 	color: #1FBAD6;
 	text-align: center;
-  margin-bottom:100px;
+  margin-bottom:10px;
 }
 .opening #login{
 	text-align: center;
@@ -328,6 +328,8 @@ nav a#pull {
 #register{
 	width: 100%;
   display:none;
+  padding-left:0px!important;
+  padding-right:0px!important;
 }
 #contactform{
 	text-align:center;
@@ -339,6 +341,9 @@ nav a#pull {
   box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
   padding-top: 10px;
   margin-bottom: 50px;
+  background-color:white;
+  opacity:1!important;
+
 }
 #contactform h1{
   margin: -20px 0px 5px;
@@ -401,7 +406,7 @@ fieldset{
    -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
   background-position: center right;
   background-repeat: no-repeat;
-  border: 0px solid #FFF;
+  border: 0.5px solid black;
   color: #555;
   font-size: inherit;
   margin: 0;
@@ -424,7 +429,7 @@ fieldset{
 }
 .login {
   text-align: center;
-  margin: 0 auto;
+  margin: 30px auto;
   padding: 20px 20px 20px;
   width: 50%;
   max-width: 350px;
@@ -435,6 +440,10 @@ fieldset{
   border-left:1px solid black;
   border-right: 1px solid black;
   margin-bottom: 30px;
+}
+
+.login:focus, .login:hover{
+  opacity:.9;
 }
 .login:before {
   content: '';
@@ -487,11 +496,15 @@ fieldset{
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
-  background-image: url(/static/img/landing/huge_city_darker.png);
+  background-image: url(/static/img/landing/huge_city_light.jpg);
+  min-height:300px;
 }
-
-.parallax_inner{
-
+.parallax2{
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  background-image: url(/static/img/landing/friends_beach_bright.jpg);
+  min-height:300px;
 }
 .login-help {
   font-size: 11px;
@@ -570,8 +583,8 @@ input[type=submit] {
   display:inline-block;
 }
 #registration_button{
-  background-color: #084c8d!important;
-  border: 2px solid #dadada;
+  background-color: black!important;
+  border: 1px solid;
   border-radius:0px;
 }
 #registration_button:focus, #registration_button:hover{

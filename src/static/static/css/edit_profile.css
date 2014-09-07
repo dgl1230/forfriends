@@ -14,7 +14,10 @@ html, ul, ul li, li, li a, .btn{
 	border-bottom:none;
 
 }
-
+#delete_button:hover{
+	background-color:red!important;
+	color:black!important;
+}
 .nav-tabs > li{
 	float:none;
 }
@@ -183,10 +186,28 @@ p a{
 
 @media (max-width: 350px){
 	.tab-content input{
-		width:100%;
+		width: 100%!important;
 	}
 	.tab-content .btn-lg{
 		text-align: center;
+		width: 100%;
+	}
+	.tab-content label{
+		min-width: 50px!important;
 		width:100%;
+	}
+	.col-lg-12 p input{
+		clear:both;
+	}
+	.tab-content textarea{
+		width:100%!important;
+	}
+}
+
+@media (min-width: 663px){
+	.tab-content{
+		width:400px;
+		margin:0 auto;
+
 	}
 }

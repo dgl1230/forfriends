@@ -311,6 +311,9 @@ form.navbar-form.navbar-left{
 		margin-left:0px;
 		width:100%;
 	}
+	.navbar-collapse.collapse.in{
+		border-bottom:1px solid black;
+	}
 	#navbar-container{
 	margin-left:0px;
 	}

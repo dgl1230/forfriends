@@ -1,14 +1,17 @@
 .sign_up_div{
 	width:100%;
 	text-align: center;
+	border-top: 2px solid black;
+	border-bottom: 2px solid black;
 }
 
 .sign_up_div h2{
 	color:black;
 	margin:0 auto;
+	padding:10px 0px 10px 0px;
 }
 
-.social_logins{
+#social_logins{
 	margin: 0 auto;
 	width:100%;
 	text-align: center;
@@ -16,7 +19,7 @@
 	padding-top:10px;
 }
 
-.social_logins a{
+#social_logins a{
 	display:inline-block;
 }
 
@@ -31,7 +34,7 @@
 #google_login{
 	width:150px;
 	height:75px;
-	border: 2px solid grey;
+	border: 2px solid black;
 	border-radius: 4px;
 }
 
@@ -46,7 +49,7 @@
 #fb_login{
 	width:150px;
 	height:75px;
-	border: 2px solid grey;
+	border: 2px solid black;
 	border-radius: 4px;
 }
 
@@ -62,7 +65,7 @@
 #twitter_login{
 	width:150px;
 	height:75px;
-	border: 2px solid grey;
+	border: 2px solid black;
 	border-radius: 4px;
 }
 
@@ -78,7 +81,7 @@
 #email_login{
 	width:150px;
 	height:75px;
-	border: 2px solid grey;
+	border: 2px solid black;
 	border-radius: 4px;
 }
 
