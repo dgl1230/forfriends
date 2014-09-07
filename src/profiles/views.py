@@ -598,48 +598,32 @@ def new_picture(request):
 
 def ice_breaker(request): 
 	user1 = request.user
-	user1_interests = Interest.objects.filter(userinterestanswer__user=user1).filter(
-		Q(userinterestanswer__importance_level='Strongly like') |
-		Q(userinterestanswer__importance_level="Like"))
-	print "number of users: ", number_of_users
+	user1_interests = UserInterestAnswer.objects.filter(user=user1)
 	max_interest = user1_interests.latest('id').id
-	print "max_interest: ", max_interest
-	max_user = User.objects.latest('id')
-	print "max user: ", max_user
-	random_int = randint(1, max_interest)
-	print "random_int is: ", random_int
-	i = 1
-	while i < 30: 
-		try:  
-			random_interest = user1_interests.get(pk=1)
-			print "the random interesti is", random_interest
-			i =+ 1
-			print i 
+	max_user = User.objects.latest('id').id
+	print "starting first loop"
+	while True: 
+		try:
+			random_interest = user1_interests.get(pk=randint(1, max_interest))
+			assert (random_interest.importance_level == "Strongly Like" or random_interest.importance_level == "Like")
+			break
 		except: 
-			i += 1
-			print i
-	print "1"
-	
-	'''i = 0
-	while i < 1: 
+			pass
+	print "starting second loop"
+	while True: 
 		try: 
-			print "2"
-			random_interest = user1_interests.get(pk=randint(1, max_interest)).pk
-			random_user = User.objects.get(pk=randint(1, max_user)).pk
-			same_interest = Interest.objects.filter(userinterestanswer_user=random_user).get(userinterestanswer_interest=random_interest)
-			assert (same_interest.importance_level == "Strongly like" or 
-					same_interest.importance_level == "Like")
-			i += 1
+			random_user = User.objects.get(pk=randint(1, max_user))
+			same_interest = UserInterestAnswer.objects.filter(user=random_user).get(interest=random_interest.interest)
+			assert (same_interest.importance_level == "Strongly Like" or same_interest.importance_level == "Like") 
+			break
 		except:
 			pass
-	'''
+	print "finished second loop"
 	try: 
-		print "3"
 		match = Match.objects.get(user1=request.user, user2=random_user)
 		user1 = request.user
 		user2 = random_user
 	except:
-		print "4"
 		match = Match.objects.get(user1=random_user, user2=request.user)
 		user1 = random_user
 		user2 = request.user
@@ -651,11 +635,10 @@ def ice_breaker(request):
 	body_for_user2 = "You and %s both like %s! What exactly is it about %s that you like so much? Let %s know your thoughts! " %(user1.username, random_interest, random_interest, user1.username)
 	user1_message = DirectMessage.objects.create(subject=subject, body=body_for_user1, receiver=user1, sender=user2)
 	user2_message = DirectMessage.objects.create(subject=subject, body=body_for_user2, receiver=user2, sender=user1)
-	user1_message.sent = datetime.datetime.now()
-	user2_message.sent = datetime.datetime.now()
+	user1_message.sent = datetime.now()
+	user2_message.sent = datetime.now()
 	user1_message.save()
 	user2_message.save()
-	print "5"
 	user_gamification = Gamification.objects.get(user=request.user)
 	messages.success(request, "Please check your inbox, we've found a user that you have an interest in common with!")
 	return render_to_response('all.html', locals(), context_instance=RequestContext(request))

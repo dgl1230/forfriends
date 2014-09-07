@@ -29,7 +29,7 @@ class Address(models.Model):
 class Gamification(models.Model):
 	user = models.ForeignKey(User, related_name="logged_in_user")
 	circle = models.ManyToManyField(Match)
-	friends_list = models.ManyToManyField(User, related_name="friends_list")
+	friends_list = models.ManyToManyField(User, related_name="friends_list", null=True, blank=True)
 	circle_reset_started = models.DateTimeField(null=True, blank=True)
 	circle_time_until_reset = models.DateTimeField(null=True, blank=True)
 
