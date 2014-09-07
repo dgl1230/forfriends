@@ -63,6 +63,7 @@ urlpatterns = patterns('',
     url('', include('social.apps.django_app.urls', namespace='social')),
     url('', include('django.contrib.auth.urls', namespace='auth')),
     url(r'^new_picture/$', 'profiles.views.new_picture', name='new_picture'),
-    
+    url(r'^ice_breaker/$', 'profiles.views.ice_breaker', name='ice_breaker'),
+
 
 )
