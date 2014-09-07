@@ -52,7 +52,7 @@ p{
 	-moz-transition-duration: .5s;
 }
 
-.btn-info.btn-sm:hover, .btn-lg:hover, .pager li a:hover, #go_button:hover, .btn-success:hover{
+.btn-info.btn-sm:hover, .btn-sm:hover, .btn-lg:hover, .pager li a:hover, #go_button:hover, .btn-success:hover{
 	background-color:#1FBAD6!important;
 	color:white!important;
 }

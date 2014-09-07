@@ -8,6 +8,11 @@
 	<div class="col-md-1" id="secondary_navbar">
         <h1>Message View</h1>
 	</div>
+	<div class="col-md-1" id="tertiary_navbar">
+     		<a href="/messages/inbox/" class="half-nav1">Inbox</a>
+     		<span class="glyphicon glyphicon-thumbs-up" id="tertiary-icon"></span>
+     		<a href="/messages/sent/" class="half-nav2">Sent</a>
+	</div>
 </div>
 <div class='row'>
                 <div class="col-md-1" id="tertiary_navbar">
@@ -16,8 +21,7 @@
                   {% endfor %}
                 </div>
 </div>
-<div id="views_container">
-<div class="messages_view">
+	<div class="container">
 	<div class="body_section">
 	<table class='table table-striped' id="view_table">
 	<table>
@@ -25,7 +29,10 @@
 		<th>From</th> <th> Message </th>
 		</thead>
 		<tbody>
-			<td>{{ message.sender }}</td>
+			<td><a href="/members/{{ message.sender }}/">
+					{{ message.sender }}
+				</a>
+				</td>
 			<td>{{ message.body }}</td>
 		</body>
 		</table>

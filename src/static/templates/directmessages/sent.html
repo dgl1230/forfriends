@@ -21,13 +21,17 @@
 	<div class="col-md-1" id="messages_navbar">
         <h1>Sent Messages</h1>
 	</div>
+	<div class="col-md-1" id="tertiary_navbar">
+     		<a href="/messages/inbox/" class="half-nav1">Inbox</a>
+     		<span class="glyphicon glyphicon-thumbs-up" id="tertiary-icon"></span>
+     		<a href="/messages/compose/" class="half-nav2">New Message</a>
+	</div>
 </div>
 <div class="container">
   <div class='col-lg-10 col-12'>
 {% for item in messages_in_inbox %}
 
-<h4>From: {{ item.sender }}</h4>
-<h4>To: {{ item.receiver }}</h4>
+<h4>To:<a href="/members/{{ item.receiver }}/"> {{ item.receiver }}</a></h4>
 on {{ item.sent }}<br/>
 
 <div class="well">
@@ -37,18 +41,6 @@ on {{ item.sent }}<br/>
 <br>
 
 {% endfor %}
-<div class="button_container">
-<div class="left-button">
-	<form action="/messages/inbox/">
-		<input class='btn btn-info btn-sm' type='submit' value="Inbox">
-	</form>
-</div>
-<div class="right-button">
-	<form action="/messages/compose/">
-		<input class='btn btn-info btn-sm' type='submit' value="New Message">
-	</form>
-</div>
-</div>
 </div>
 </div>
 </div>

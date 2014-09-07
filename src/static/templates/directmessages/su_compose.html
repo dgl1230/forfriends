@@ -5,14 +5,14 @@
 
 {% block content %}
 <div id="view_container">
-	<div class="container">
 	  <div class='col-lg-10 col-12'>
-	<h1>Coasd</h1>
-	<div class name="container">
-		<form action='' method='POST'> {% csrf_token %}
-		{{ form.as_p }}
-		<input class='btn btn-default' type='submit' value="Send Message">
-		</form>
+		<h1>Compose</h1>
+		<div class name="container">
+			<form action='' method='POST'> {% csrf_token %}
+			{{ form.as_p }}
+			<input class='btn btn-default' type='submit' value="Send Message">
+			</form>
+		</div>
 	</div>
 </div>
 
