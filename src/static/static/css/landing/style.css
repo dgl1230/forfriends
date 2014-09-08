@@ -496,14 +496,14 @@ fieldset{
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
-  background-image: url(/static/img/landing/huge_city_light.jpg);
+  background-image: url(/static/img/landing/huge_city_light_compressed.jpg);
   min-height:300px;
 }
 .parallax2{
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
-  background-image: url(/static/img/landing/friends_beach_bright.jpg);
+  background-image: url(/static/img/landing/friends_beach_bright__compressed.jpg);
   min-height:300px;
 }
 .login-help {
@@ -635,7 +635,7 @@ input[type=submit]:active {
   margin-left: 10px;
   }
 }
-@media only screen and (max-width:430px){
+@media only screen and (max-width:450px){
   .messages{
   position: absolute;
   z-index: 1;
@@ -643,6 +643,20 @@ input[type=submit]:active {
   width: 100%;
   min-width: 280px;
   }
+  .parallax2{
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  background-image: url(/static/img/landing/friends_beach_mobile_compressed.jpg);
+  min-height:300px;
+  }
+  .parallax{
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  background-image: url(/static/img/landing/huge_city_mobile_compressed.jpg);
+  min-height:300px;
+}
 }
 
 @media only screen and (max-width:663px){

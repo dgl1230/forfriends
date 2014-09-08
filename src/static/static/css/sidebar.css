@@ -15,7 +15,7 @@ span.glyphicon{
   padding-bottom: 0px!important;
 }
 #settings_tool{
-  margin-bottom:100px;
+  margin-bottom:50px;
 }
 #leftbar-wrapper{
   background-color: white!important;
@@ -27,7 +27,7 @@ span.glyphicon{
   position: fixed;
   height: 100%;
   width: 120px;
-  overflow: auto!important;
+  overflow-x: hidden!important;
   margin-top:60px;
   margin-bottom:100px!important;
 }
@@ -246,7 +246,7 @@ span.glyphicon{
 }
 
 #settings_tool{
-  margin-bottom:400px!important;
+  margin-bottom:50px!important;
 }
 
   .sidebar-nav{
