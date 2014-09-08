@@ -503,7 +503,7 @@ fieldset{
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
-  background-image: url(/static/img/landing/friends_beach_bright__compressed.jpg);
+  background-image: url(/static/img/landing/friends_beach_bright.jpg);
   min-height:300px;
 }
 .login-help {
