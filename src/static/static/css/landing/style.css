@@ -8,6 +8,7 @@
 	padding-left: 0px;
 	padding-right: 0px;
 	overflow:hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 #header{
@@ -500,9 +501,22 @@ fieldset{
   min-height:300px;
 }
 .parallax2{
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
+  background-image: url(/static/img/landing/tennis.jpg);
+  min-height:300px;
+}
+.parallax3{
+  background-image: url(/static/img/landing/wine_drinks.jpg);
+  min-height:300px;
+}
+.parallax4{
+  background-image: url(/static/img/landing/bird.jpg);
+  min-height:300px;
+}
+.parallax5{
+  background-image: url(/static/img/landing/crowd.jpg);
+  min-height:300px;
+}
+.parallax6{
   background-image: url(/static/img/landing/friends_beach_bright.jpg);
   min-height:300px;
 }
