@@ -19,7 +19,7 @@ class AddressForm(forms.ModelForm):
 class InfoForm(forms.ModelForm):
 	class Meta:
 		model = Info
-		fields = ('bio', 'first_name', 'gender', 'last_name',)
+		fields = ('bio', 'gender',)
 
 
 class JobForm(forms.ModelForm):

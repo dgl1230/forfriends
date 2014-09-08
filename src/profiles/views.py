@@ -179,13 +179,11 @@ def edit_address(request):
 
 def edit_info(request):
 	if request.method == 'POST':
+		info = Info.objects.get(user=request.user)
+		#InfoFormSet = modelformset_factory(Info, form=InfoForm, extra=0)
+		#formset_i = InfoFormSet(request.POST or None, queryset=info)
 
-		user = request.user
-		info = Info.objects.filter(user=user)
-		InfoFormSet = modelformset_factory(Info, form=InfoForm, extra=0)
-		formset_i = InfoFormSet(request.POST or None, queryset=info)
-
-		if formset_i.is_valid():
+		'''if formset_i.is_valid():
 			for form in formset_i:
 				new_form = form.save(commit=False)
 				new_form.user = request.user
@@ -193,6 +191,21 @@ def edit_info(request):
 			messages.success(request, 'Profile details updated.')
 		else:
 			messages.error(request, 'Profile details did not update.')
+		'''
+		username = request.POST.get('username_form')
+		first_name = request.POST.get('first_name_form')
+		last_name = request.POST.get('last_name_form')
+		bio = request.POST.get('bio_form')
+		gender = request.POST.get('gender_form')
+		request.user.username = username
+		request.user.first_name = first_name
+		request.user.last_name = last_name
+		request.user.save()
+		info.bio = bio
+		info.gender = gender
+		info.save()
+
+		
 		#return render_to_response('profiles/edit_address.html', locals(), context_instance=RequestContext(request))
 		return HttpResponseRedirect('/edit/')
 	else:
@@ -284,12 +297,7 @@ def edit_profile(request):
 		JobFormSet = modelformset_factory(Job, form=JobForm, extra=1)
 		formset_j = JobFormSet(queryset=jobs)
 
-	if info.exists():
-		InfoFormSet = modelformset_factory(Info, form=InfoForm, extra=0)
-		formset_i = InfoFormSet(request.POST or None, queryset=info)
-	else:
-		InfoFormSet = modelformset_factory(Info, form=InfoForm, extra=1)
-		formset_i = InfoFormSet(request.POST or None, queryset=info)
+	
 
 	
 	return render_to_response('profiles/edit_profile.html', locals(), context_instance=RequestContext(request))
@@ -300,8 +308,6 @@ def find_friends(request):
 	number_of_users = User.objects.filter(is_active=True).count()
 	index_start = randint(1, number_of_users - 5)
 	index_end = index_start + 5
-	print index_start
-	print index_end
 
 	users = User.objects.filter(is_active=True)[index_start:index_end]
 	for u in users:
