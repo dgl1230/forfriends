@@ -74,17 +74,17 @@ $('#myTab a').click(function (e) {
         <form method="POST" action="/edit/info/">
           {% csrf_token %}
           <div id="info_forms">
-            <p><label for "#username_form">Username:</label><input  id="username_form" type="text"></p>
-            <p><label for "#first_name_form">First Name:</label><input  id="first_name_form" type="text"></p>
-            <p><label for "#last_name_form">Last Name:</label><input  id="last_name_form" type="text"></p>
+            <p><label for "#username_form">Username: {% if user.username %} {{ user.username }} {% endif %}</label><input  id="username_form" name="username_form" type="text"></p>
+            <p><label for "#first_name_form">First Name: {% if user.first_name%} {{ user.first_name }} {% endif %}</label><input  id="first_name_form" name="first_name_form" type="text"></p>
+            <p><label for "#last_name_form">Last Name: {% if user.last_name %} {{ user.last_name }} {% endif %}</label><input  id="last_name_form" name="last_name_form" type="text"></p>
             <p>
               <label for "#gender_form">Gender:</label>
-              <select id="gender_form"> 
+              <select id="gender_form" name="gender_form"> 
                 <option> Male </option>
                 <option> Female </option>
               </select>
             </p>
-            <p><label for "#bio_form">Bio:</label><textarea id="bio_form" rows="5" cols="20"></textarea></p>
+            <p><label for "#bio_form">Bio: {% if info.bio %} {{ info.bio }} {% endif %}</label><textarea id="bio_form" name="bio_form" rows="5" cols="20"></textarea></p>
             <input class='btn btn-success' type='submit' value='Update' />
 
           </div>
