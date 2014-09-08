@@ -223,9 +223,6 @@ a:hover{
 
 /* Profile */
 @media (max-width: 450px) {
-	#buttons_row{
-		width:100px;
-	}
 	#friend_button{
 		width:100%;
 	}

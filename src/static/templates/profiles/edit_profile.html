@@ -71,15 +71,6 @@ $('#myTab a').click(function (e) {
     <div class="tab-pane" id="info">
       <div class='row'>
         <div class='col-lg-12'>
-          <form method='POST' action='/edit/info/'> {% csrf_token %}
-            <div id="info_forms">
-            {{ formset_i.management_form }}
-            {{ formset_i.as_p }}
-            </div>
-
-
-        <input class='btn btn-success' type='submit' value='Update' />
-        </form>
         <form method="POST" action="/edit/info/">
           {% csrf_token %}
           <div id="info_forms">
@@ -87,7 +78,7 @@ $('#myTab a').click(function (e) {
             <p><label for "#first_name_form">First Name:</label><input  id="first_name_form" type="text"></p>
             <p><label for "#last_name_form">Last Name:</label><input  id="last_name_form" type="text"></p>
             <p>
-              <label for "#gender_form">Gender</label>
+              <label for "#gender_form">Gender:</label>
               <select id="gender_form"> 
                 <option> Male </option>
                 <option> Female </option>
@@ -107,8 +98,12 @@ $('#myTab a').click(function (e) {
         <div class='col-lg-12'>
           <form method='POST' action='/edit/delete_account/'>
           </form>
-          <h3 class="delete_info"> If you choose to delete your account, all your information will be deleted and you will not be able to recover it. </h3>
-           <a href='{% url "delete_account" %}'><div class="btn-lg" id="delete_button">Delete Account</div></a>      
+          <h3 class="delete_info"> If you choose to deactivate your account, all your information will be temporarily deleted. </h3>
+
+          <h3 class="delete_info">After 30 days, your account will be deleted and you will be unable to recover your information. </h3>
+
+          <h3 class="delete_info"> To reactivate your account, just log in again. </h3>
+           <a href='{% url "delete_account" %}'><div class="btn-lg" id="delete_button">Deactivate</div></a>      
          </div>
       </div>
     </div>
@@ -117,71 +112,5 @@ $('#myTab a').click(function (e) {
 </div>
 </div>
 </div>
-
-<script>
-
-  var picture_form = document.getElementById('id_form-0-id');
-    if (picture_form.value === "") {
-      $("#form_container:nth-of-type(0)").show();
-    } else {
-      $("#form_container:nth-of-type(0)").show();
-    };
-  var picture_form2 = document.getElementById('id_form-1-id');
-    if (picture_form2.value === "") {
-      $("#form_container:nth-of-type(2)").hide();
-    } else {
-      $("#form_container:nth-of-type(2)").show();
-    };
-  var picture_form3 = document.getElementById('id_form-2-id');
-    if (picture_form3.value === "") {
-      $("#form_container:nth-of-type(3)").hide();
-    } else {
-      $("#form_container:nth-of-type(3)").show();
-    };
-  var picture_form4 = document.getElementById('id_form-3-id');
-    if (picture_form4.value === "") {
-      $("#form_container:nth-of-type(4)").hide();
-    } else {
-      $("#form_container:nth-of-type(4)").show();
-    };
-  var picture_form5 = document.getElementById('id_form-4-id');
-    if (picture_form5.value === "") {
-      $("#form_container:nth-of-type(5)").hide();
-    } else {
-      $("#form_container:nth-of-type(5)").show();
-    };
-  var picture_form5 = document.getElementById('id_form-4-id');
-    if (picture_form5.value > 0){
-    $("#pictures_show").hide();
-  };
-</script>
-<script>
-$("#pictures_show").click(function(){
-  $("#form_container:nth-of-type(2)").show("slow");
-  $("#form_container:nth-of-type(3)").show("slow");
-  $("#form_container:nth-of-type(4)").show("slow");
-  $("#form_container:nth-of-type(5)").show("slow");
-});
-
-if (picture_form5.value > 0){
-  $("#pictures_show").hide();
-}
-</script>
-
-<script>
-  $('input#id_form-0-is_profile_pic, #id_form-1-is_profile_pic, #id_form-2-is_profile_pic, #id_form-3-is_profile_pic, #id_form-4-is_profile_pic').on('change', function()  {
-    $('#id_form-0-is_profile_pic, #id_form-1-is_profile_pic, #id_form-2-is_profile_pic, #id_form-3-is_profile_pic, #id_form-4-is_profile_pic').not(this).prop('checked',false);
-  });
-</script>
-
-<script>
-  $('#delete_button').click(function(){
-    $(this).attr('name', 'picture_id')
-  });
-</script>
-
-
-
-
 
 {% endblock %}

@@ -14,6 +14,14 @@ html, ul, ul li, li, li a, .btn{
 	border-bottom:none;
 
 }
+
+.tab-content .col-lg-12{
+	text-align: center;
+}
+
+.tab-content #delete_button{
+	margin: 0 auto;
+}
 #delete_button:hover{
 	background-color:red!important;
 	color:black!important;
@@ -30,10 +38,6 @@ html, ul, ul li, li, li a, .btn{
 }
 #form_container{
 	margin-bottom:10px;
-}
-
-#home .btn{
-	margin-left:80px;
 }
 #pictures_2{
 	display:none;
@@ -133,6 +137,10 @@ p label{
 #myTab{
 	text-align:center;
 	margin:0px auto 20px;
+}
+
+.tab-content .btn-success{
+	width:50%!important;
 }
 
 #myTab li a:hover{

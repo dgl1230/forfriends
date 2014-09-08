@@ -79,6 +79,9 @@
     max-height:350px;
 }
 
+.caption textarea{
+    width:220px;
+}
 
 #picture_string .item{
 	margin: 3px;

@@ -31,19 +31,9 @@
 	</div>
 <div class='row' id="question-wrapper">
 	{% for question in questions %}
-		<h3>{{ question }}</h3><p>
+		<h3>{{ question }}</h3>
 
 		<form method='POST' action=''> {% csrf_token %}
-		How important is this question to you? 
-		<br><br>
-			<select name="importance_level">
-					{% for imp in importance_levels %}
-					<option   {% for abc in question.useranswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected="selected" value="{{ imp }}"{% endif %} {% endfor %}> {{ imp }}</option>
-					
-					{% endfor %}
-				</select>	
-				
-				
 			<input type='hidden' value='{{ question.id }}' name='question_id'/>
 
 		<div class="question_answers">
@@ -52,7 +42,15 @@
 			'required' value='{{ ans }}' {% for abc in ans.useranswer_set.all %} {% if abc and abc.user == request.user %} checked='checked' {% endif %} {% endfor %} name='answer'> {{ ans }} <br/>
 		{% endfor %}
 		</div>
-		</p> <p>
+		How important is this question to you?
+		<br><br>
+		<select name="importance_level">
+					{% for imp in importance_levels %}
+					<option   {% for abc in question.useranswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected="selected" value="{{ imp }}"{% endif %} {% endfor %}> {{ imp }}</option>
+					
+					{% endfor %}
+				</select>
+		<br><br>
 		<div class="interest_buttons">
 		<!-- Submit Button -->
 		<input type='submit' class='btn-lg' value='Save'>

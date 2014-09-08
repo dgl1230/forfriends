@@ -96,6 +96,14 @@ span.glyphicon{
   font-size: 18px;
 }
 
+.mobile_fix{
+  color:white!important;
+  background-color:white!important;
+  -webkit-user-select: none; /* Chrome/Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+  cursor:default;
+}
 
 .content-header {
   height: 65px;

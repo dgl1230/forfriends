@@ -96,15 +96,18 @@ label[for=id_body]{
 #compose_message_container label{
 	min-width:50px;
 }
-textarea{
+#compose_message_container textarea{
 	max-width: 600px;
 	width: 100%;
 	height: auto;
 	border: 1px solid black;
 }
-
+textarea{
+	border:1px solid black;
+}
 input{
 	border: 1px solid black;
+	padding: 1px 5px 1px 5px;
 }
 /* Media Queries */
 

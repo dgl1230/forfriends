@@ -64,14 +64,13 @@
 }
 #picture_row{
 	width: 100%;
+	text-align: center;
 }
 
 #single_user_container h1{
 	color: black!important;
 }
-.row .col-sm-12{
-	width: 60%;
-}
+
 .buttons{
 	margin-left: 1%;
 
@@ -137,7 +136,7 @@
 }
 .panel-heading{
 	background-color: rgb(31, 186, 214) !important;
-	padding: 0px 5px!important;
+	padding: 10px 5px!important;
 	cursor:pointer;
 }
 .panel-heading p{
@@ -196,14 +195,13 @@
 
 @media(max-width: 1000px){
 	#message_button, #interests_button, #friend_button, #pictures_button, #message_button_not_friends{
-	width: 24%;	
+	width: 23.5%;	
 }
 }
 
 @media(max-width: 770px){
 	#message_button, #interests_button, #friend_button, #pictures_button, #message_button_not_friends{
 	font-size: .9em;
-	width: 110px;
 	}
 }
 
@@ -214,7 +212,7 @@
 	}
 
 	.panel-heading p{
-		font-size:1em;
+		font-size:1.25em;
 	}
 	.panel-heading .glyphicon.glyphicon-chevron-down{
 		margin-top:0px;
@@ -246,10 +244,14 @@
 
 @media(max-width: 670px){
 	#message_button, #interests_button, #friend_button, #pictures_button, #buttons_row #message_button_not_friends{
-		width: 200px;
+		width: 49%;	
 	}
 	#myfriend{
 		width:100%;
+	}
+	#single_user_body{
+		padding-left:0px!important;
+		padding-right:0px!important;
 	}
 } 
 
@@ -348,4 +350,19 @@
 		padding-right:0px!important;
 		padding-left:0px!important;
 	}
+	.row .col-sm-12{
+		text-align: center;
+	}
 }
+
+@media(max-width: 560px){
+	#message_button, #interests_button, #friend_button, #pictures_button, #buttons_row #message_button_not_friends{
+		width:100%;
+		font-size:1.25em;
+	}
+	#message_button a, #interests_button a, #friend_button a, #pictures_button a, #buttons_row #message_button_not_friends a{
+	font-size: 2em;
+	}
+}
+
+

@@ -71,15 +71,15 @@
 	background-repeat: no-repeat;
 }
 
-textarea {
+.contact_form_wrapper textarea {
     width: 350px;
     height: 150px;
     line-height: 150%;
     resize:vertical;
 }
 
-input:hover, textarea:hover,
-input:focus, textarea:focus {
+.contact_form_wrapper input:hover, textarea:hover,
+.contact_form_wrapper input:focus, textarea:focus {
 	background-color:white;
 }
 
