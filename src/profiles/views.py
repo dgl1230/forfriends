@@ -15,7 +15,7 @@ from django.db.models import Q, Max
 from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail, EmailMultiAlternatives
 
-from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG, MEDIA_URL
+#from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG, MEDIA_URL
 from forfriends.matching import match_percentage
 from forfriends.distance import calc_distance
 from matches.models import Match
