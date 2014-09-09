@@ -361,6 +361,11 @@ def calculate_age(born):
 
 #Creates a new user and assigns the appropriate fields to the user
 def register_new_user(request):
+	name = request.POST['name']
+	full_name = name.split()
+	first_name = full_name[0]
+	last_name = full_name[1:]
+
 	username = request.POST['username']
 	password = request.POST['password']
 	confirm_password = request.POST['repassword']
@@ -399,6 +404,8 @@ def register_new_user(request):
 					new_user,created = User.objects.get_or_create(username=username, email=email)
 					if created:
 						new_user.set_password(password)
+						new_user.first_name = first_name
+						new_user.last_name = last_name
 						new_info = Info(user=new_user)
 						new_address = Address(user=new_user)
 						new_address.country = country
