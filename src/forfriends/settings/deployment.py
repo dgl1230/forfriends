@@ -74,9 +74,12 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 AUTHENTICATION_BACKENDS = (
-   'social.backends.facebook.FacebookOAuth2',
-   'social.backends.twitter.TwitterOAuth',
-   'django.contrib.auth.backends.ModelBackend',
+    'social.backends.facebook.FacebookAppOAuth2',
+    'social.backends.facebook.FacebookOAuth2',
+    'social.backends.twitter.TwitterOAuth',
+    'social.backends.google.GoogleOAuth2',
+    'social.backends.google.GooglePlusAuth',
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 ROOT_URLCONF = 'forfriends.urls'
@@ -177,6 +180,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.social_uid',
     'social.pipeline.social_auth.auth_allowed',
     'social.pipeline.social_auth.social_user',
+    'forfriends.pipeline.associate_user_by_email',
     'social.pipeline.user.get_username',
     'social.pipeline.user.create_user',
     'social.pipeline.social_auth.associate_user',
@@ -188,6 +192,14 @@ SOCIAL_AUTH_PIPELINE = (
 #Twitter social authetnication info 
 SOCIAL_AUTH_TWITTER_KEY = '7UpBqDOh5PnPDLwoLxfKUFTPu'
 SOCIAL_AUTH_TWITTER_SECRET = 'AgYgddJxFdAAEU0OYUlmbxy2rNxL41B2uNAiQsDoWZLwqVQpyW'
+
+#Google soical authentication info 
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "535327556807-i0uiqqfvleeiah9930rm04brvtjir54o.apps.googleusercontent.com"
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "EG9xWIv2kqalrYBGukZl-eIm"
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [ 
+    'email',
+]
 
 
 

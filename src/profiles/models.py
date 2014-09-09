@@ -53,7 +53,7 @@ class Info(models.Model):
 	gender = models.CharField(max_length=20, choices=GENDER_CHOICES, null=True, blank=True)
 
 	def __unicode__(self):
-		return self.last_name
+		return self.user.username
 
 
 class Job(models.Model):
