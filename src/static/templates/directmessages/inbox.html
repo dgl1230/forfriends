@@ -36,6 +36,12 @@
 			{% for item in messages_in_inbox %}
 			<tr >
 				<td><a href="/members/{{ item.sender }}/">
+						{% for pic in item.sender.userpicture_set.all %}
+	                		{% if forloop.first %}
+	                		<img src='{{ MEDIA_URL }}{{ pic }}' alt="Owl Image"></div>
+	                		{% endif %}
+	                	{% endfor %}
+
 					{{ item.sender }}</a>
 				</td>
 				<td>
