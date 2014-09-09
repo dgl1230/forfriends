@@ -42,13 +42,7 @@ class JcropWidget(forms.Widget):
 	class Media:
 		# form media, i.e. CSS and JavaScript needed for Jcrop.
 		# You'll have to adopt these to your project's paths.
-		css = {
-			'all': (settings.MEDIA_URL + "css/jquery.Jcrop.css",)
-			}
-		js = (
-			settings.MEDIA_URL + "js/lib/jquery.Jcrop.min.js",
-			)
-  
+		
 		# fixed Jcrop options; to pass options to Jcrop, use the jcrop_options
 		# argument passed to the JcropForm constructor. See example above.
 	jcrop_options = {
