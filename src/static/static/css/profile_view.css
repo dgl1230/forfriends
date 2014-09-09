@@ -69,6 +69,7 @@
 
 #single_user_container h1{
 	color: black!important;
+	text-align: center;
 }
 
 .buttons{
@@ -303,12 +304,6 @@
 
 .modal-footer{
 	text-align:center;
-}
-
-@media(min-width: 760px){
-	#single_user_container{
-		margin-left:140px;
-	}
 }
 
 @media(min-width:1400px){

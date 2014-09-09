@@ -110,7 +110,6 @@
       <h2>Sign up for free. </h2>
       <div id="social_logins">
          <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}" id="fb_login"><span id="fb_icon"></span><p>Sign Up with Facebook</p></a>
-         <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}" id="twitter_login"><span id="twitter_icon"></span><p>Sign Up with Twitter</p></a>
          <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}" id="google_login"><span id="google_icon"></span><p>Sign Up with Google +</p></a>
          <a href="#register" id="email_login2"><span id="email_icon"></span><p>Sign Up with <br> Email</p></a>
          <div id="signinButton">
@@ -127,22 +126,44 @@
           </header> <!-- End Header --> 
           <div id="features">
               <div class="post">
-                <div class="parallax2"><h1> What it is? </h1><br><h2> Frenvu has revolutionized the process of making real world friends, online. </h2>
-              </div></div>
-              <div class="post"><div class="parallax2"><h2> All you need to do is tell Frenvu what you're interested in </h2>
-              </div></div>
-              <div class="post"><div class="parallax2"><h2> Answer some questions about yourself </h2></div>
+                <div class="parallax2">
+                  <div class="postwords">
+                    <h1> What it is? </h1><br><h2> Frenvu has revolutionized the process of making real world friends, online. </h2>
+                  </div>
+                </div>
               </div>
-              <div class="post"><div class="parallax2"><h2> And let the matching algorith do it's magic.</h2>
-              </div></div>
-          </div>
-            <div class="post" id="sign_up_now"><div class="parallax2">
-              <h2>Moving to a new city and don't know anyone? A couple clicks and you will.</h2>
+              <div class="post">
+                <div class="parallax3">
+                  <div class="postwords">
+                    <h2> All you need to do is tell Frenvu what you're interested in </h2>
+                  </div>
+                </div>
+              </div>
+              <div class="post">
+                <div class="parallax4">
+                  <div class="postwords">
+                    <h2> Answer some questions about yourself </h2>
+                  </div>
+                </div>
+              </div>
+              <div class="post">
+                <div class="parallax5">
+                  <div class="postwords">
+                    <h2> And let the matching algorithm do its magic.</h2>
+                  </div>
+                </div>
+              </div>
+            <div class="post" id="sign_up_now">
+              <div class="parallax6">
+                <div class="postwords">
+                  <h2>Moving to a new city and don't know anyone? A couple clicks and you will.</h2>
+                </div>
+              </div>
             </div>
+          </div>
             <div class="sign_up_div">
               <div id="social_logins">
                  <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}" id="fb_login"><span id="fb_icon"></span><p>Sign Up with Facebook</p></a>
-                 <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}" id="twitter_login"><span id="twitter_icon"></span><p>Sign Up with Twitter</p></a>
                  <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}" id="google_login"><span id="google_icon"></span><p>Sign Up with Google +</p></a>
                  <a href="#register" id="email_login"><span id="email_icon"></span><p>Sign Up with <br> Email</p></a>
               </div></div>
@@ -214,8 +235,8 @@
   
     <!-- EXTERNAL SCRIPTS
     ============================================= -->
-    <script src="{{ STATIC_URL }}js/landing/bootstrap.min.js" type="text/javascript"></script>  
-     
+    <script src="{{ STATIC_URL }}js/landing/bootstrap.min.js" type="text/javascript"></script> 
+    <script src="{{ STATIC_URL }}js/landing/jquery.jquery.parallax-1.1.3.js" type="text/javascript"></script> 
     <script src="{{ STATIC_URL }}js/landing/jquery.viewportchecker.js" type="text/javascript"></script>
     <script type= "text/javascript" src = "{{ STATIC_URL }}js/landing/countries.js"></script>
     <script>
@@ -240,9 +261,9 @@
 
 </script>
 <script>
-    jQuery('.post').addClass("hidden2").viewportChecker({
-      classToAdd:'visible animated fadeInUp',
-      offset: 0
+    jQuery('.postwords').addClass("hidden2").viewportChecker({
+      classToAdd:'visible animated fadeIn',
+      offset: 300
     });
 </script>
   </body>
