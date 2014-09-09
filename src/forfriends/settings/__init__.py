@@ -2,5 +2,5 @@
 
 
 
-from .development_local import *
+from .local import *
 
