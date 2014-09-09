@@ -383,7 +383,7 @@ select{
 .form input.birthday{width:50px;}
 .form input.birthyear{width:90px;}
 .form label { color: #000; font-weight:bold;font-size: 12px;font-family:Arial, Helvetica; }
-.form label.month {width: 100px;}
+.form label.month {width: 60%; min-width:150px;padding-bottom: 10px;}
 fieldset{
   width: 100px;
   margin-top: 10px;
@@ -492,57 +492,60 @@ fieldset{
   margin-right: 4px;
   vertical-align: middle;
 }
-.parallax{
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
-  background-image: url(/static/img/landing/huge_city_light_compressed.jpg);
-  min-height:300px;
-}
-.parallax2{
-  background-image: url(/static/img/landing/people_car_compressed_dark.jpg);
-  min-height:500px;
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
-  -webkit-background-size:cover!important;
-  z-index:100;
-}
-.parallax3{
-  background-image: url(/static/img/landing/bike_compressed_dark.jpg);
-  min-height:500px;
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
-  -webkit-background-size:cover!important;
-  z-index:100;
-}
-.parallax4{
-  background-image: url(/static/img/landing/classroom_dark.jpg);
-  min-height:500px;
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
-  -webkit-background-size:cover!important;
-  z-index:100;
-}
-.parallax5{
-  background-image: url(/static/img/landing/lovers_compressed.jpg);
-  min-height:500px;
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
-  -webkit-background-size:cover!important;
-  z-index:100;
-}
-.parallax6{
-  background-image: url(/static/img/landing/type_away_compressed_dark.jpg);
-  min-height:500px;
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
-  -webkit-background-size:cover!important;
-  z-index:100;
+
+@media (min-width:500px){
+  .parallax{
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    background-image: url(/static/img/landing/huge_city_light_compressed.jpg);
+    min-height:300px;
+  }
+  .parallax2{
+    background-image: url(/static/img/landing/people_car_compressed_dark.jpg);
+    min-height:500px;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    -webkit-background-size:cover!important;
+    z-index:100;
+  }
+  .parallax3{
+    background-image: url(/static/img/landing/bike_compressed_dark.jpg);
+    min-height:500px;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    -webkit-background-size:cover!important;
+    z-index:100;
+  }
+  .parallax4{
+    background-image: url(/static/img/landing/classroom_dark.jpg);
+    min-height:500px;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    -webkit-background-size:cover!important;
+    z-index:100;
+  }
+  .parallax5{
+    background-image: url(/static/img/landing/lovers_compressed.jpg);
+    min-height:500px;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    -webkit-background-size:cover!important;
+    z-index:100;
+  }
+  .parallax6{
+    background-image: url(/static/img/landing/type_away_compressed_dark.jpg);
+    min-height:500px;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    -webkit-background-size:cover!important;
+    z-index:100;
+  }
 }
 .login-help {
   font-size: 11px;
@@ -704,10 +707,8 @@ input[type=submit]:active {
   }
 }
 
-@media only screen and (max-width:767px){
+@media (max-width:500px){
   .parallax{
-  background-attachment: fixed;
-  background-position: center;
   background-size: cover;
   background-image: url(/static/img/landing/huge_city_mobile.jpg);
   min-height:500px;
@@ -715,8 +716,6 @@ input[type=submit]:active {
 .parallax2{
   background-image: url(/static/img/landing/people_car_mobile.jpg);
   min-height:500px;
-  background-attachment: fixed;
-  background-position: center;
   background-size: cover;
   -webkit-background-size:cover!important;
   z-index:100;
@@ -724,8 +723,6 @@ input[type=submit]:active {
 .parallax3{
   background-image: url(/static/img/landing/bike_mobile.jpg);
   min-height:500px;
-  background-attachment: fixed;
-  background-position: center;
   background-size: cover;
   -webkit-background-size:cover!important;
   z-index:100;
@@ -733,8 +730,6 @@ input[type=submit]:active {
 .parallax4{
   background-image: url(/static/img/landing/classroom_mobile.jpg);
   min-height:500px;
-  background-attachment: fixed;
-  background-position: center;
   background-size: cover;
   -webkit-background-size:cover!important;
   z-index:100;
@@ -742,17 +737,13 @@ input[type=submit]:active {
 .parallax5{
   background-image: url(/static/img/landing/lovers_mobile.jpg);
   min-height:500px;
-  background-attachment: fixed;
-  background-position: center;
   background-size: cover;
   -webkit-background-size:cover!important;
   z-index:100;
 }
 .parallax6{
   background-image: url(/static/img/landing/typing_mobile.jpg);
-  min-height:500px;
-  background-attachment: fixed;
-  background-position: center;
+  min-height:500px; 
   background-size: cover;
   -webkit-background-size:cover!important;
   z-index:100;
