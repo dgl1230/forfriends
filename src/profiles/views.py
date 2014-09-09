@@ -369,6 +369,9 @@ def register_new_user(request):
 	day = request.POST['BirthDay']
 	month = request.POST['BirthMonth']
 	year = request.POST['BirthYear']
+	country = request.POST['country']
+	state = request.POST['state']
+	city = request.POST['city']
 	datestr = str(year) + '-' + str(month) + '-' + str(day)
 	birthday = datetime.strptime(datestr, '%Y-%m-%d').date()
 	user_age = calculate_age(birthday)
@@ -397,9 +400,14 @@ def register_new_user(request):
 					if created:
 						new_user.set_password(password)
 						new_info = Info(user=new_user)
+						new_address = Address(user=new_user)
+						new_address.country = country
+						new_address.state = state
+						new_address.city = city
 						new_info.gender = gender
 						new_info.birthday = birthday
 						new_info.save()
+						new_address.save()
 						new_user.save()
 						new_user = authenticate(username=username, password=password)
 						if not DEBUG:
