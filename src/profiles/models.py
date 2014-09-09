@@ -13,9 +13,10 @@ GENDER_CHOICES = (
 
 class Address(models.Model):
 	user = models.ForeignKey(User)
+	country = models.CharField(max_length=200, null=True, blank=True)
 	city = models.CharField(max_length=200)
 	state = models.CharField(max_length=200)
-	zipcode = models.IntegerField(max_length=5)
+	zipcode = models.IntegerField(max_length=5, null=True, blank=True)
 	
 	updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)

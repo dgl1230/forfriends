@@ -45,10 +45,10 @@ class JcropWidget(forms.Widget):
 		
 		# fixed Jcrop options; to pass options to Jcrop, use the jcrop_options
 		# argument passed to the JcropForm constructor. See example above.
-	jcrop_options = {
-				"onSelect": "storeCoords", 
-				"onChange": "storeCoords",
-				}
+		jcrop_options = {
+					"onSelect": "storeCoords", 
+					"onChange": "storeCoords",
+					}
 
 	# HTML template for the widget. 
 	#
