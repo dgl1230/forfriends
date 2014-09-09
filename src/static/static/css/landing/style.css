@@ -712,6 +712,7 @@ input[type=submit]:active {
   background-size: cover;
   background-image: url(/static/img/landing/huge_city_mobile.jpg);
   min-height:500px;
+  background-position: center;
 }
 .parallax2{
   background-image: url(/static/img/landing/people_car_mobile.jpg);
@@ -719,6 +720,7 @@ input[type=submit]:active {
   background-size: cover;
   -webkit-background-size:cover!important;
   z-index:100;
+  background-position: center;
 }
 .parallax3{
   background-image: url(/static/img/landing/bike_mobile.jpg);
@@ -726,6 +728,7 @@ input[type=submit]:active {
   background-size: cover;
   -webkit-background-size:cover!important;
   z-index:100;
+  background-position: center;
 }
 .parallax4{
   background-image: url(/static/img/landing/classroom_mobile.jpg);
@@ -733,6 +736,7 @@ input[type=submit]:active {
   background-size: cover;
   -webkit-background-size:cover!important;
   z-index:100;
+  background-position: center;
 }
 .parallax5{
   background-image: url(/static/img/landing/lovers_mobile.jpg);
@@ -740,6 +744,7 @@ input[type=submit]:active {
   background-size: cover;
   -webkit-background-size:cover!important;
   z-index:100;
+  background-position: center;
 }
 .parallax6{
   background-image: url(/static/img/landing/typing_mobile.jpg);
@@ -747,5 +752,6 @@ input[type=submit]:active {
   background-size: cover;
   -webkit-background-size:cover!important;
   z-index:100;
+  background-position: center;
 }
 }
