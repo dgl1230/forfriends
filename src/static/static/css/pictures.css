@@ -6,6 +6,13 @@
     text-align: center;
 }
 
+#upload_more{
+    padding-top:10px;
+    padding-bottom:10px;
+}
+#delete_picture{
+    z-index:100;
+}
 #pictures .bbody {
     color: #000;
     overflow: hidden;

@@ -148,6 +148,10 @@ p label{
 	color: #1FBAD6!important;
 }
 
+#bio_label{
+	width:100%;
+}
+
 #myTab li a{
 	color: white;
 	outline: none;
@@ -209,6 +213,9 @@ p a{
 	}
 	.tab-content textarea{
 		width:100%!important;
+	}
+	#gender_form{
+		width:100%;
 	}
 }
 

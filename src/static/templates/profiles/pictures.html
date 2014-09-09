@@ -21,9 +21,9 @@
           <li data-type="media" data-url="{{ MEDIA_URL }}{{ pic }}" data-target="_blank"></li>
           <li data-thumbnail-path="{{ MEDIA_URL }}{{ pic }}"></li>
           <li data-thumbnail-text="{{ pic.caption }}" data-thumbnail-text-title-offset="35"
-          data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="7">
+          data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="0">
 
-            <p class="smallLabel">{{ pic.caption}}</p>
+            <p class="smallLabel" id="delete_picture"><a href="/"> Delete Picture</a></p>
             
           </li>
           <li data-info="">
@@ -35,7 +35,8 @@
       <!-- end  -->
       <!-- end  -->
       
-    </div>  
+    </div>
+    <br>  
     <div class="upload_picture">
         <a id="upload_more">Add more pictures</a>
 
@@ -67,8 +68,6 @@
 
               </div>
                 <br><br>
-              <input type="submit" value="Upload" />
-
           </div>
             <br>
             <div class="caption">

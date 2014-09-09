@@ -13,7 +13,9 @@
 #question-wrapper.row{
 	min-width:100px;
 }
-
+#interests_search{
+	padding-left:40px;
+}
 #question-wrapper select{
 	background-color: white;
 	color: black;

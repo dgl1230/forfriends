@@ -13,15 +13,18 @@
 	text-align: center;
 	width:100%;
 	min-height:300px;
+	vertical-align: middle;
 }
 
 .post h2{
 	width:50%;
 	margin:0px auto;
-	color:black!important;
+	color: white!important;
+	vertical-align: middle;
+	padding-top:200px;
 }
 .post h1{
-	color:black;
+	color: white;
 }
 
 @media only screen and (max-width:450px){

@@ -8,7 +8,6 @@
 	padding-left: 0px;
 	padding-right: 0px;
 	overflow:hidden;
-  -webkit-backface-visibility: hidden;
 }
 
 #header{
@@ -501,24 +500,49 @@ fieldset{
   min-height:300px;
 }
 .parallax2{
-  background-image: url(/static/img/landing/tennis.jpg);
-  min-height:300px;
+  background-image: url(/static/img/landing/people_car_compressed_dark.jpg);
+  min-height:500px;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  -webkit-background-size:cover!important;
+  z-index:100;
 }
 .parallax3{
-  background-image: url(/static/img/landing/wine_drinks.jpg);
-  min-height:300px;
+  background-image: url(/static/img/landing/bike_compressed_dark.jpg);
+  min-height:500px;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  -webkit-background-size:cover!important;
+  z-index:100;
 }
 .parallax4{
-  background-image: url(/static/img/landing/bird.jpg);
-  min-height:300px;
+  background-image: url(/static/img/landing/classroom_dark.jpg);
+  min-height:500px;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  -webkit-background-size:cover!important;
+  z-index:100;
 }
 .parallax5{
-  background-image: url(/static/img/landing/crowd.jpg);
-  min-height:300px;
+  background-image: url(/static/img/landing/lovers_compressed.jpg);
+  min-height:500px;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  -webkit-background-size:cover!important;
+  z-index:100;
 }
 .parallax6{
-  background-image: url(/static/img/landing/friends_beach_bright.jpg);
-  min-height:300px;
+  background-image: url(/static/img/landing/type_away_compressed_dark.jpg);
+  min-height:500px;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  -webkit-background-size:cover!important;
+  z-index:100;
 }
 .login-help {
   font-size: 11px;
@@ -661,7 +685,7 @@ input[type=submit]:active {
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
-  background-image: url(/static/img/landing/friends_beach_mobile_compressed.jpg);
+  background-image: url(/static/img/landing/people_car_compressed_dark.jpg);
   min-height:300px;
   }
   .parallax{
