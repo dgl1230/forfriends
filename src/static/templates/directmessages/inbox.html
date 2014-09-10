@@ -37,8 +37,8 @@
 			<tr >
 				<td><a href="/members/{{ item.sender }}/">
 						{% for pic in item.sender.userpicture_set.all %}
-	                		{% if pic.is_profile_pic %}
-	                		<img src='{{ MEDIA_URL }}{{ pic }}' alt="Owl Image"></div>
+	                		{% if forloop.first %}
+	                		<img src='{{ MEDIA_URL }}{{ pic }}' alt="Owl Image" id="message_image"></div>
 	                		{% endif %}
 	                	{% endfor %}
 
