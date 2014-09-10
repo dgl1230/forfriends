@@ -4,6 +4,7 @@
 <div id="pictures">
   <div class="row" id="view_container">
     <div class="col-md-1" id="secondary_navbar">
+
           <h1>Pictures</h1>
     </div>
     <div class="col-md-1" id="tertiary_navbar">
@@ -11,7 +12,6 @@
     </div>
   </div>
   <div id="myDiv"></div>
-
         <!-- carousel data -->
         <div id="carouselData">
           
@@ -36,6 +36,23 @@
           <!-- end  -->
         </div>
     <br>
+            <p class="smallLabel" id="delete_picture"><a href="/"> Delete Picture</a></p>
+            
+          </li>
+          <li data-info="">
+            <p class="mediaDescriptionHeader">{{ pic.caption }}</p>
+          </li>
+        </ul>
+        {% endfor %}
+      </ul>
+      <!-- end  -->
+      <!-- end  -->
+
+      
+    </div>
+    <br>  
+    <div class="upload_picture">
+        <a id="upload_more">Add more pictures</a>
 
       <div class="bbody">
 
@@ -205,7 +222,6 @@ function fileSelectHandler() {
         });
     });
 </script>
-
 <!-- Circle Carousel -->
     <script src="{{ STATIC_URL }}js/3dcarousel/FWDPage.js" type="text/javascript"></script>
     <script src="{{ STATIC_URL }}js/3dcarousel/FWDR3DCarModTweenMax.js" type="text/javascript"></script>
