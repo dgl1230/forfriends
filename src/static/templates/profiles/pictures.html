@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
 <div id="pictures">
   <div class="row" id="view_container">
     <div class="col-md-1" id="secondary_navbar">
@@ -8,121 +9,109 @@
           <h1>Pictures</h1>
     </div>
     <div class="col-md-1" id="tertiary_navbar">
-       <a href="javascript:history.back()">Back</a>
+       <a href="#add_more_pictures" id="upload_more">Add Pictures</a>
     </div>
   </div>
   <div id="myDiv"></div>
-  
-    <!-- carousel data -->
-    <div id="carouselData">
-      
-      <!-- image datalist category 1 -->
-      <ul data-cat="Category one" style="display:none">  {% for pic in pictures %}     
-        <ul>
-          <li data-type="media" data-url="{{ MEDIA_URL }}{{ pic }}" data-target="_blank"></li>
-          <li data-thumbnail-path="{{ MEDIA_URL }}{{ pic }}"></li>
-          <li data-thumbnail-text="{{ pic.caption }}" data-thumbnail-text-title-offset="35"
-          data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="0">
+        <!-- carousel data -->
+        <div id="carouselData">
+          
+          <!-- image datalist category 1 -->
+          <ul data-cat="Category one" style="display:none">  {% for pic in pictures %}     
+            <ul>
+              <li data-type="media" data-url="{{ MEDIA_URL }}{{ pic }}" data-target="_blank"></li>
+              <li data-thumbnail-path="{{ MEDIA_URL }}{{ pic }}"></li>
+              <li data-thumbnail-text="{{ pic.caption }}" data-thumbnail-text-title-offset="35"
+              data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="0">
 
-            <p class="smallLabel" id="delete_picture"><a href="/"> Delete Picture</a></p>
-            
-          </li>
-          <li data-info="">
-            <p class="mediaDescriptionHeader">{{ pic.caption }}</p>
-          </li>
-        </ul>
-        {% endfor %}
-      </ul>
-      <!-- end  -->
-      <!-- end  -->
-
+                <p class="smallLabel" id="delete_picture"><a href="/"> Delete Picture</a></p>
+                
+              </li>
+              <li data-info="">
+                <p class="mediaDescriptionHeader">{{ pic.caption }}</p>
+              </li>
+            </ul>
+            {% endfor %}
+          </ul>
+          <!-- end  -->
+          <!-- end  -->
+        </div>
+    <br>
       
     </div>
-    <br>  
-    <div class="upload_picture">
-        <a id="upload_more">Add more pictures</a>
+    <br> 
 
-      <div class="bbody">
+      <div class="bbody" id="add_more_pictures">
 
       <!-- upload form -->
       <form id="upload_form" enctype="multipart/form-data" method="post" action='{% url "new_picture" %}' onsubmit="return checkForm()"> {% csrf_token %}
           <!-- hidden crop params -->
-          <input type="hidden" id="x1" name="x1" />
-          <input type="hidden" id="y1" name="y1" />
-          <input type="hidden" id="x2" name="x2" />
-          <input type="hidden" id="y2" name="y2" />
+        <p class="step1">Please select an image file</p>
 
-          <p class="step1">Please select an image file</p>
-          <div><input type="file" name="image_file" id="image_file" onchange="fileSelectHandler()" /></div>
+            <div>
+                <input id="image_file" name="image_file" onchange=
+                "fileSelectHandler()" type="file">
+            </div>
+            <br>
 
-          <div class="error"></div>
+            <div class="error"></div>
 
-          <div class="step2">
-              <p>Please select a crop region</p>
-              <img id="preview" />
-              <img id="small_preview" name="small_preview" />
-              <div class="info">
-                  <label>File size</label> <input type="text" id="filesize" name="filesize" />
-                  <label>Type</label> <input type="text" id="filetype" name="filetype" />
-                  <label>Image dimension</label> <input type="text" id="filedim" name="filedim" />
-                  <label>W</label> <input type="text" id="w" name="w" />
-                  <label>H</label> <input type="text" id="h" name="h" />
-
-
-
-              </div>
-                <br><br>
-          </div>
+            <div class="step2">
+                <p>Please select a crop region</p>
+                <img id="preview" />
+                <br>
+                <img id="small_preview" name="small_preview" />
+                <br>
+            </div>
             <br>
             <div class="caption">
-                <label>Caption:</label>
-                <textarea id="caption" rows="3" cols="20" name="caption"></textarea>
-          </div>
+                <label>Caption:</label> 
+                <textarea cols="20" id="caption" name="caption" rows="3">
+                </textarea>
+            </div>
             <br>
-          <input class="btn" id="upload_button" type="submit" value="Upload" />
-      </div>
-  </form>
-</div>
-
+            <input class="btn" id="upload_button" type="submit" value="Upload">
+        </form>
+    </div>
 <script>
+// convert bytes into friendly format
 function bytesToSize(bytes) {
-    var sizes = ['Bytes', 'KB', 'MB'];
-    if (bytes === 0) return 'n/a';
-    var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
-    return (bytes / Math.pow(1024, i)).toFixed(1) + ' ' + sizes[i];
-}
-// Smaller thumbnail preview
+        var sizes = ['Bytes', 'KB', 'MB'];
+        if (bytes === 0) return 'n/a';
+        var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+        return (bytes / Math.pow(1024, i)).toFixed(1) + ' ' + sizes[i];
+    }
+    // check for selected crop region
+
+
+
 function showPreview(coords) {
-    var rx = 100 / coords.w;
-    var ry = 100 / coords.h;
-    $('#small_preview').css({
-        width: Math.round(rx * 500) + 'px',
-        height: Math.round(ry * 370) + 'px',
-        marginLeft: '-' + Math.round(rx * coords.x) + 'px',
-        marginTop: '-' + Math.round(ry * coords.y) + 'px'
-    }).show;
-}
-// check for selected crop region
-function checkForm() {
-    if (parseInt($('#w').val())) return true;
-    $('.error').html('Please select a crop region and then press Upload').show();
-    return false;
-}
-// update info by cropping (onChange and onSelect events handler)
+        var rx = 100 / coords.w;
+        var ry = 100 / coords.h;
+        $('#small_preview').css({
+            width: Math.round(rx * 500) + 'px',
+            height: Math.round(ry * 370) + 'px',
+            marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+            marginTop: '-' + Math.round(ry * coords.y) + 'px'
+        }).show();
+    }
+    // update info by cropping (onChange and onSelect events handler)
+
 function updateInfo(e) {
-    $('#x1').val(e.x);
-    $('#y1').val(e.y);
-    $('#x2').val(e.x2);
-    $('#y2').val(e.y2);
-    $('#w').val(e.w);
-    $('#h').val(e.h);
-}
-// clear info by cropping (onRelease event handler)
+        $('#x1').val(e.x);
+        $('#y1').val(e.y);
+        $('#x2').val(e.x2);
+        $('#y2').val(e.y2);
+        $('#w').val(e.w);
+        $('#h').val(e.h);
+    }
+    // clear info by cropping (onRelease event handler)
+
 function clearInfo() {
-    $('.info #w').val('');
-    $('.info #h').val('');
-}
-// Create variables (in this scope) to hold the Jcrop API and image size
+        $('.info #w').val('');
+        $('.info #h').val('');
+    }
+    // Create variables (in this scope) to hold the Jcrop API and image size
 var jcrop_api, boundx, boundy;
 
 function fileSelectHandler() {
@@ -179,6 +168,9 @@ function fileSelectHandler() {
                     minSize: [200, 250], // min crop size
                     maxSize: [400, 500], // max crop size
                     aspectRatio: 1, // keep aspect ratio 1:1
+                    bgFade: true, // use fade effect
+                    bgOpacity: .3, // fade opacity
+                    
                 }, function() {
                     // use the Jcrop API to get the real image size
                     var bounds = this.getBounds();
@@ -194,23 +186,8 @@ function fileSelectHandler() {
     oReader.readAsDataURL(oFile);
 }
 </script>
-
-<script> 
-    $("#upload_more").click(function() {
-        $(".bbody").toggle(function() {
-
-        });
-    });
-</script>
-
-<script>
-
-</script>
-
-
-
 <!-- Circle Carousel -->
-<script src="{{ STATIC_URL }}js/3dcarousel/FWDPage.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/3dcarousel/FWDPage.js" type="text/javascript"></script>
     <script src="{{ STATIC_URL }}js/3dcarousel/FWDR3DCarModTweenMax.js" type="text/javascript"></script>
      <script src="{{ STATIC_URL }}js/3dcarousel/FWDR3DCarUtils.js" type="text/javascript"></script>
      <script src="{{ STATIC_URL }}js/3dcarousel/FWDRoyal3DCarousel_uncompressed.js" type="text/javascript"></script>
@@ -349,4 +326,12 @@ function fileSelectHandler() {
                 }); 
             })
     </script>
+
+<script> 
+    $("#upload_more").click(function() {
+        $(".bbody").toggle(function() {
+
+        });
+    });
+</script>
 {% endblock %}

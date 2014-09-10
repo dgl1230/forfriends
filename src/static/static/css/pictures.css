@@ -17,6 +17,10 @@
     color:white!important;
 }
 
+input#image_file{
+    margin:0 auto;
+}
+
 #upload_more{
     padding-top:10px;
     padding-bottom:10px;
@@ -24,7 +28,7 @@
 #delete_picture{
     z-index:100;
 }
-#pictures .bbody {
+.bbody {
     color: #000;
     overflow: hidden;
     padding-bottom: 20px;
@@ -92,8 +96,12 @@
 }
 
 #preview{
-    max-width:400px;
-    max-height:350px;
+    max-width:700px;
+    max-height:750px;
+}
+
+#small_preview{
+    border:1px solid black;
 }
 
 .caption textarea{
