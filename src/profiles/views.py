@@ -660,6 +660,9 @@ def contact_us(request):
 
 
 def new_picture(request):
+	image = request.POST['new_image']
+
+def new_picture(request):
 	# get the profile (i.e. the model containing the image to edit);
 	# In this example, the model in question is the user profile model,
 	# so we can use Django's get_profile() method.
