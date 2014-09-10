@@ -62,103 +62,134 @@ def all(request):
 			#time1 = datetime.datetime.now()
 		try: 
 			user_gamification = Gamification.objects.get(user=request.user)
+			cicle = user_gamification.circle
+			if circle <= 6:
+				print "hai"
 			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 		except: 
 			#the user has never calcuated their circle
-			user_gamifcation = Gamification.objects.create(user=request.user)
-			users = User.objects.filter(is_active=True)
-			for user in users:
-				if user != request.user:
-					try: 
-						match = Match.objects.get(user1=request.user, user2=user)
-					except: 
-						match, created = Match.objects.get_or_create(user1=user, user2=request.user)
-					match.percent = match_percentage(request.user, user)
-					try:
-						match.distance = round(calc_distance(request.user, user))
-					except:
-						match.distance = 10000000
-					match.save()
-
-			matches = Match.objects.filter(
-					Q(user1=request.user) | Q(user2=request.user)
-					).order_by('-percent')[:7]
-			for match in matches: 
-				user_gamifcation.circle.add(match) 
-			user_gamifcation.circle_reset_started = datetime.now()
-			user_gamifcation.circle_time_until_reset = datetime.now() + timedelta(hours=24)
-			user_gamifcation.save()
+			user_gamification = Gamification.objects.create(user=request.user)
+			user_gamification.save()
+			generate_circle(request.user)
 			#makes it so that the circle is displayed right away instead of having to click "generate circle"
 			user_gamification = Gamification.objects.get(user=request.user)
 			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 	else:
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
-'''
-def new_matching_circle(request):
-	if request.user.is_authenticated(): 
-		try: 
-			user_gamification = Gamification.objects.get(user=request.user)
-			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
-		except: 
-			#the user has never calcuated their circle
-			users = User.objects.filter(is_active=True)
-			num_10m = 0
-			num_20m = 0
-			num_30m = 0
-			num_40m = 0
-			num_50m = 0
 
-			list_10m = []
-			list_20m = []
-			list_30m = []
-			list_40m = []
-			list_50m = []
-			for user in users: 
-				if user != request.user:
-					try: 
-						match = Match.objects.get(user1=request.user, user2=user)
-					except: 
-						match, created = Match.objects.get_or_create(user1=user, user2=request.user)
-					try:
-						match.distance = round(calc_distance(request.user, user))
-						if match.distance <= 10:
-							match.is_10_miles = True
-							list_10m.append(match)
-							num_10m += 1
-						elif match.distance <=20:
-							match.is_20_miles = True
-							list_20m.append(match)
-							num_20m += 1
-						elif match.distance <=30:
-							match.is_30_miles = True
-							list_30m.append(match)
-							num_30m += 1
-						elif match.distance <=40:
-							match.is_40_miles = True
-							list_40m.append(match)
-							num_40m += 1
-						elif match.distance <=50: 
-							match.is_50_miles = True
-							list_50m.append(match)
-							num_50m += 1
-						match.save()
-					except:
-						match.distance = 10000000
-			if num_10m >= 50:
-				for match in list_10m: 
-					match.percent = match_percentage(match.user1, match.user2)
+def generate_circle(logged_in_user):
+	if logged_in_user.is_authenticated(): 
+		users = User.objects.filter(is_active=True)
+		num_10m = 0
+		num_20m = 0
+		num_30m = 0
+		num_40m = 0
+		num_50m = 0
+
+		list_10m = []
+		list_20m = []
+		list_30m = []
+		list_40m = []
+		list_50m = []
+		for user in users: 
+			if user != logged_in_user:
+				try: 
+					match = Match.objects.get(user1=logged_in_user, user2=user)
+				except: 
+					match, created = Match.objects.get_or_create(user1=user, user2=logged_in_user)
+				try:
+					match.distance = round(calc_distance(logged_in_user, user))
+					if match.distance <= 10:
+						match.is_10_miles = True
+						list_10m.append(match)
+						num_10m += 1
+					elif match.distance <=20:
+						match.is_20_miles = True
+						list_20m.append(match)
+						num_20m += 1
+					elif match.distance <=30:
+						match.is_30_miles = True
+						list_30m.append(match)
+						num_30m += 1
+					elif match.distance <=40:
+						match.is_40_miles = True
+						list_40m.append(match)
+						num_40m += 1
+					elif match.distance <=50: 
+						match.is_50_miles = True
+						list_50m.append(match)
+						num_50m += 1
 					match.save()
-				matches = Match.objects.filter(
-					Q(user1=request.user) | Q(user2=request.user)
-					).filter(is_10_miles=True).order_by('-percent')
-			elif num_20m
-'''
+				except:
+					match.distance = 10000000
+		if num_10m >= 50:
+			for match in list_10m: 
+				match.percent = match_percentage(match.user1, match.user2)
+				match.save()
+			matches = Match.objects.filter(
+				Q(user1=logged_in_user) | Q(user2=logged_in_user)
+				).filter(is_10_miles=True).order_by('-percent')[:7]
+		elif num_20m + num_10m >= 20:
+			listm= list_20m + list_10m
+			for match in listm: 
+				match.percent = match_percentage(match.user1, match.user2)
+				match.save()
+			matches = Match.objects.filter(
+				Q(user1=logged_in_user) | Q(user2=logged_in_user)
+				).filter(
+				Q(is_10_miles=True) | Q(is_20_miles=True)
+				).order_by('-percent')[:7]
+		elif num_30m + num_20m + num_10m >= 20:
+			listm = list_30m + list_20m + list_10m
+			for match in listm: 
+				match.percent = match_percentage(match.user1, match.user2)
+				match.save()
+			matches = Match.objects.filter(
+				Q(user1=logged_in_user) | Q(user2=logged_in_user)
+				).filter(
+				Q(is_10_miles=True) | Q(is_20_miles=True) |Q(is_30_miles=True)
+				).order_by('-percent')[:7]
+		elif num_40m + num_30m + num_20m + num_10m >= 20:
+			listm = list_40m + list_30m + list_20m + list_10m
+			for match in listm: 
+				match.percent = match_percentage(match.user1, match.user2)
+				match.save()
+			matches = Match.objects.filter(
+				Q(user1=logged_in_user) | Q(user2=logged_in_user)
+				).filter(
+				Q(is_10_miles=True) | Q(is_20_miles=True) | Q(is_30_miles=True) |Q(is_40_miles=True)
+				).order_by('-percent')[:7]
+		elif num_50m + num_40m + num_30m + num_20m + num_10m >= 20:
+			listm = list_50m + list_40m + list_30m + list_20m + list_10m
+			for match in listm: 
+				match.percent = match_percentage(match.user1, match.user2)
+				match.save()
+			matches = Match.objects.filter(
+				Q(user1=logged_in_user) | Q(user2=logged_in_user)
+				).filter(
+				Q(is_10_miles=True) | Q(is_20_miles=True) | Q(is_30_miles=True) | Q(is_40_miles=True) | Q(is_50_miles=True)
+				).order_by('-percent')[:7]
+		else: 
+			matches = Match.objects.filter(
+				Q(user1=logged_in_user) | Q(user2=logged_in_user)
+				)
+			for match in matches: 
+				match.percent = match_percentage(match.user1, match.user2)
+			matches = Match.objects.filter(
+				Q(user1=logged_in_user) | Q(user2=logged_in_user)
+				).order_by('-percent')[:7]
+		user_gamification = Gamification.objects.get(user=logged_in_user)
+		for match in matches: 
+			user_gamification.circle.add(match) 
+		user_gamification.circle_reset_started = datetime.now()
+		user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
+		user_gamification.save()
 
 
-'''
+
 def random_user_page(request):
-	max_user = User.objects.latest('id').id
+	max_user = User.objects.filter(is_active=True).latest('id').id
 	while True: 
 		try: 
 			random_user = User.objects.get(pk=randint(1, max_user))
@@ -173,11 +204,6 @@ def random_user_page(request):
 	user2 = match.user2
 	match.percent = match_percentage(user1, user2)
 	match.save()
-'''
-
-
-
-
 
 
 
@@ -195,48 +221,16 @@ def all_pictures(request):
 
 
 def calculate_circle(request):
-	#checking to see if they have ever calculated their circle 
-	
 	user_gamification = Gamification.objects.get(user=request.user)
-	
 	if user_gamification.circle_reset_started and user_gamification.circle_time_until_reset:
 		circle_reset_started = user_gamification.circle_reset_started
 		circle_time_until_reset = user_gamification.circle_time_until_reset
 		check_circle_time = (circle_time_until_reset - circle_reset_started).seconds / 60.0
 		if check_circle_time >= 24: 
-			users = User.objects.filter(is_active=True)
-			for user in users:
-				if user != request.user:
-					try: 
-						match = Match.objects.get(user1=request.user, user2=user)
-					except: 
-						match, created = Match.objects.get_or_create(user1=user, user2=request.user)
-					match.percent = match_percentage(request.user, user)
-					try:
-						match.distance = round(calc_distance(request.user, user))
-					except:
-						match.distance = 10000000
-					match.save()
-
-			matches = Match.objects.filter(
-					Q(user1=request.user) | Q(user2=request.user)
-					).order_by('-percent')[:7]
-			if request.user.circle: 
-				request.user.circle.clear()
-			for match in matches: 
-				request.user.circle.add(match) 
-			user_gamification.circle_reset_started = datetime.now()
-			user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
-			matches = Match.objects.filter(
-						Q(user1=request.user) | Q(user2=request.user)
-						).order_by('-percent')[:7]
+			generate_circle(request.user)
 		else: 
 			messages.error(request, "sorry, you need to wait!")
 	return render_to_response('all.html', locals(), context_instance=RequestContext(request))
-
-	
-
-
 
 
 
@@ -427,9 +421,17 @@ def login_user(request):
 		password = request.POST['password']
 		user = authenticate(username=username, password=password)
 		if user is not None:
-			if user.is_active:
-				login(request, user)
-				return HttpResponseRedirect('/')
+			if user.is_active == False:
+				user.is_active = True
+				if not DEBUG: 
+					subject = 'A user is reactivating their account.'
+					message = '%s wants to reactivate their account.' % (username,)
+					msg = EmailMultiAlternatives(subject, message, EMAIL_HOST_USER, [email])
+					msg.content_subtype = "html"
+					msg.send()
+				messages.succes(request, "We missed you!")
+			login(request, user)
+			return HttpResponseRedirect('/')
 		else:
 			messages.error(request, "Please double check your username and password")
 	except: 
@@ -457,13 +459,15 @@ def register_new_user(request):
 	name = request.POST['name']
 	full_name = name.split()
 	first_name = full_name[0]
-	if len(full_name) >= 3:
+	if len(full_name) == 2:
+		last_name = full_name[1]
+	elif len(full_name) >= 3:
 		not_first_name = full_name[2:len(full_name)]
 		last_name = full_name[1]
 		for name in not_first_name:
 			last_name = last_name + " " + name
-	else:
-		last_name = full_name[1]
+	else: 
+		first_name = full_name
 
 	username = request.POST['username']
 	password = request.POST['password']
@@ -504,7 +508,8 @@ def register_new_user(request):
 					if created:
 						new_user.set_password(password)
 						new_user.first_name = first_name
-						new_user.last_name = last_name
+						if len(full_name) >= 2:
+							new_user.last_name = last_name
 						new_info = Info(user=new_user)
 						new_address = Address(user=new_user)
 						new_address.country = country
@@ -554,21 +559,23 @@ def single_user(request, username):
 			single_user = user
 	except:
 		raise Http404
-	if single_user != request.user:
-		try: 
-			match = Match.objects.get(user1=request.user, user2=single_user)
-		except: 
-			match, created = Match.objects.get_or_create(user1=single_user, user2=request.user)
-		match.percent = match_percentage(request.user, single_user)
-		try:
-			match.distance = round(calc_distance(request.user, user))
-		except:
-			match.distance = 10000000
-		match.save()
-		visited_list, created = Visitor.objects.get_or_create(main_user=single_user)
-		visited_list.visitors.add(request.user)
-		visited_list.save()
-
+	try: 
+		if single_user != request.user:
+			try: 
+				match = Match.objects.get(user1=request.user, user2=single_user)
+			except: 
+				match, created = Match.objects.get_or_create(user1=single_user, user2=request.user)
+			match.percent = match_percentage(request.user, single_user)
+			try:
+				match.distance = round(calc_distance(request.user, user))
+			except:
+				match.distance = 10000000
+			match.save()
+			visited_list, created = Visitor.objects.get_or_create(main_user=single_user)
+			visited_list.visitors.add(request.user)
+			visited_list.save()
+	except: 
+		raise Http404
 	
 	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))	
 
@@ -641,10 +648,18 @@ def terms_and_agreement(request):
 
 def delete_account(request):
 	username = request.user.username
-	deleted_user = User.objects.get(username=username)
+	deactivated_user = User.objects.get(username=username)
+	deactivated_user.is_active = False
 	logout(request)
-	deleted_user.delete()
-	messages.success(request, "Your account has been deleted. We'll miss you!")
+	messages.success(request, "Your account has been deactivated. Your account will be deleleted in 30 days.")
+	messages.success(request, "We're sorry to see you go, but if you change your mind before then, just log back in to reactivate it!")
+	if not DEBUG: 
+		subject = 'A user is deactivating their account.'
+		message = '%s wants to delete their account.' % (username,)
+		msg = EmailMultiAlternatives(subject, message, EMAIL_HOST_USER, [email])
+		msg.content_subtype = "html"
+		msg.send()
+
 	return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
 
