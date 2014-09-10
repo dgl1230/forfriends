@@ -7,7 +7,7 @@ from django.utils.safestring import mark_safe
 from django.utils.datastructures import MultiValueDictKeyError
 from PIL import Image
 
-#from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG, MEDIA_ROOT
+from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG, MEDIA_ROOT
 
 
 class AddressForm(forms.ModelForm):

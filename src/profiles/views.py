@@ -15,7 +15,7 @@ from django.db.models import Q, Max
 from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail, EmailMultiAlternatives
 
-#from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG, MEDIA_URL
+from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG, MEDIA_URL
 from forfriends.matching import match_percentage
 from forfriends.distance import calc_distance
 from matches.models import Match
@@ -94,10 +94,103 @@ def all(request):
 	else:
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
+'''
+def new_matching_circle(request):
+	if request.user.is_authenticated(): 
+		try: 
+			user_gamification = Gamification.objects.get(user=request.user)
+			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+		except: 
+			#the user has never calcuated their circle
+			users = User.objects.filter(is_active=True)
+			num_10m = 0
+			num_20m = 0
+			num_30m = 0
+			num_40m = 0
+			num_50m = 0
+
+			list_10m = []
+			list_20m = []
+			list_30m = []
+			list_40m = []
+			list_50m = []
+			for user in users: 
+				if user != request.user:
+					try: 
+						match = Match.objects.get(user1=request.user, user2=user)
+					except: 
+						match, created = Match.objects.get_or_create(user1=user, user2=request.user)
+					try:
+						match.distance = round(calc_distance(request.user, user))
+						if match.distance <= 10:
+							match.is_10_miles = True
+							list_10m.append(match)
+							num_10m += 1
+						elif match.distance <=20:
+							match.is_20_miles = True
+							list_20m.append(match)
+							num_20m += 1
+						elif match.distance <=30:
+							match.is_30_miles = True
+							list_30m.append(match)
+							num_30m += 1
+						elif match.distance <=40:
+							match.is_40_miles = True
+							list_40m.append(match)
+							num_40m += 1
+						elif match.distance <=50: 
+							match.is_50_miles = True
+							list_50m.append(match)
+							num_50m += 1
+						match.save()
+					except:
+						match.distance = 10000000
+			if num_10m >= 50:
+				for match in list_10m: 
+					match.percent = match_percentage(match.user1, match.user2)
+					match.save()
+				matches = Match.objects.filter(
+					Q(user1=request.user) | Q(user2=request.user)
+					).filter(is_10_miles=True).order_by('-percent')
+			elif num_20m
+'''
+
+
+'''
+def random_user_page(request):
+	max_user = User.objects.latest('id').id
+	while True: 
+		try: 
+			random_user = User.objects.get(pk=randint(1, max_user))
+			break
+		except:
+			pass
+	try: 
+		match = Match.objects.get(user1=request.user, user2=random_user)
+	except: 
+		match, created = Match.objects.get_or_create(user1=random_user, user2=request.user)
+	user1 = match.user1
+	user2 = match.user2
+	match.percent = match_percentage(user1, user2)
+	match.save()
+'''
+
+
+
+
+
+
+
+
 
 #Shows all pictures that the logged in user has 
 def all_pictures(request): 
-	pictures = UserPicture.objects.filter(user=request.user)
+	username = request.user.username
+	user = User.objects.get(username=username)
+	try: 
+		pictures = UserPicture.objects.filter(user=user)
+	except: 
+		pass
 	return render_to_response('profiles/pictures.html', locals(), context_instance=RequestContext(request))
 
 
@@ -364,7 +457,13 @@ def register_new_user(request):
 	name = request.POST['name']
 	full_name = name.split()
 	first_name = full_name[0]
-	last_name = full_name[1:]
+	if len(full_name) >= 3:
+		not_first_name = full_name[2:len(full_name)]
+		last_name = full_name[1]
+		for name in not_first_name:
+			last_name = last_name + " " + name
+	else:
+		last_name = full_name[1]
 
 	username = request.POST['username']
 	password = request.POST['password']
