@@ -9,6 +9,9 @@
 #question-wrapper{
 	text-align: center;
 	min-width:80px;
+	width:500px;
+	margin:0 auto;
+}
 }
 #question-wrapper.row{
 	min-width:100px;

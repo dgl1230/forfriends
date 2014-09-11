@@ -15,6 +15,16 @@ html, ul, ul li, li, li a, .btn{
 
 }
 
+#info-forms input{
+	color:black;
+}
+::-moz-placeholder {
+	color:black;
+}
+
+::-webkit-input-placeholder{
+	color:black;
+}
 .tab-content .col-lg-12{
 	text-align: center;
 }

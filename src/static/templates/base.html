@@ -21,9 +21,10 @@
     <title>Frenvu{% block title %}{% endblock %}</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> 
+    
     <!-- Jquery -->
     <script src="{{ STATIC_URL }}js/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> 
     <script src="{{ STATIC_URL }}js/jquery-ui-1.10.4.custom.min.js"></script>
     <script src="{{ STATIC_URL }}js/ratingbar.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
@@ -64,7 +65,7 @@
     <link href='glyphicons-halflings-regular.ttf' rel='stylesheet'>
     <link href='//cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.16.1/fonts/icons.ttf'>
     <link href='//cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.16.1/fonts/basic.icons.ttf'>
-    
+
   <body>
     {% include 'navbar.html' %}
     {% include 'sidebar.html' %}
@@ -90,7 +91,7 @@
   ga('create', 'UA-52353405-2', 'auto');
   ga('send', 'pageview');
 </script>
-
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.11/jquery.mousewheel.min.js"></script>
         <!--Carousel-->
     <!--Jcrop -->
@@ -99,7 +100,7 @@
 
     <script>
     $("#menu-toggle").click(function(e) {
-        e.defaultPrevented();
+        e.PreventDefault();
         $("#wrapper").toggleClass("active");
     });
     </script>

@@ -103,6 +103,8 @@ button.blue-pill.deactivated:hover {
 
 /******* EXAMPLE B *******/
 
+#example-b{
+}
 #importance_wrapper{
     text-align: center!important;
     width:100%;
@@ -111,30 +113,65 @@ button.blue-pill.deactivated:hover {
     height: 25px;
 }
 
+.br-current-rating{
+    float:right!important;
+    width:100%;
+}
 .rating-b .br-widget a {
     display: block;
-    width: 70px;
-    height: 16px;
+    width: 160px;
+    height: 32px;
     float: left;
-    background-color: #e3e3e3;
+    background-color: white;
     margin: 1px;
+    border:1px solid black;
 }
 
 .rating-b .br-widget a.br-active,
 .rating-b .br-widget a.br-selected {
     background-color: #1FBAD6;
+    border:1px solid black;
 }
 
 .rating-b .br-widget .br-current-rating {
-    line-height: 1.1;
-    float: left;
+    line-height: 2.2;
     padding: 0 20px 0 20px;
-    color: #646464;
+    color: black;
 }
 
 .rating-b .br-readonly a.br-active,
 .rating-b .br-readonly a.br-selected {
     background-color: #cbcbcb;
+}
+
+@media (max-width: 550px) {
+    .rating-b .br-widget a {
+    display: block;
+    width: 100px;
+    height: 32px;
+    background-color: white;
+    margin: 1px;
+    border:1px solid black;
+    margin:0 auto;
+    }
+    #question-wrapper{
+        width:300px!important;
+    }
+}
+
+@media (max-width: 350px) {
+    #question-wrapper{
+        width:250px!important;
+    }
+    .rating-b .br-widget a {
+    display: block;
+    width: 82px;
+    height: 32px;
+    background-color: white;
+    margin: 1px;
+    border:1px solid black;
+    margin:0 auto;
+    }
 }
 
 /******* EXAMPLE C *******/

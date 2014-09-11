@@ -18,6 +18,7 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 }
 .navbar-inverse .navbar-toggle{
 	background-color:black;
+	margin-top:12px;
 }
 .navbar-brand:hover{
 	box-shadow: 0 0 1px rgba(0,0,0,0);
