@@ -59,12 +59,16 @@ def add_friend(request, username):
 matches for them, otherwise it shows the home page for non-logged in viewers '''
 def all(request):
 	if request.user.is_authenticated(): 
+		try:
 			#time1 = datetime.datetime.now()
-		try: 
 			user_gamification = Gamification.objects.get(user=request.user)
-			cicle = user_gamification.circle
+			circle = user_gamification.circle.all()
+			circle_num = 0
+			for match in circle: 
+				circle_num += 1
 			if circle <= 6:
-				print "hai"
+				generate_circle(request.user)
+				user_gamification = Gamification.objects.get(user=request.user)
 			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 		except: 
 			#the user has never calcuated their circle
@@ -81,12 +85,15 @@ def all(request):
 def generate_circle(logged_in_user):
 	if logged_in_user.is_authenticated(): 
 		users = User.objects.filter(is_active=True)
+		#for keeping track of how many users are a certain number of miles away - seems better than running
+		# count on the database
 		num_10m = 0
 		num_20m = 0
 		num_30m = 0
 		num_40m = 0
 		num_50m = 0
-
+		# for iterating through users within a certain distance, since we're calculating it right now. 
+		# Seems more efficient than another db query 
 		list_10m = []
 		list_20m = []
 		list_30m = []
@@ -123,7 +130,9 @@ def generate_circle(logged_in_user):
 					match.save()
 				except:
 					match.distance = 10000000
-		if num_10m >= 50:
+		# Need to double check, but this should be set up so that only one query, not multiple ones
+		# are being performed
+		if num_10m >= 20:
 			for match in list_10m: 
 				match.percent = match_percentage(match.user1, match.user2)
 				match.save()
@@ -674,8 +683,23 @@ def contact_us(request):
 	return render_to_response ('contact_us.html', locals(), context_instance=RequestContext(request))
 
 
-def new_picture(request):
-	image = request.POST['new_image']
+def new_picture1(request):
+	if request.POST:
+		upload_file = request.FILES["small_preview"]
+		print upload_file
+		fn = '/' + upload_file.name
+		pfn = MEDIA_ROOT + fn
+		destination = open(pfn, 'wb+')
+		for chunk in upload_file.chunks():
+			destination.write(chunk)
+		destination.close()
+		new_image = UserPicture.objects.create(user=request.user)
+		new_image.image = fn
+		new_image.save()
+	else:
+		print "fuck"
+	return render_to_response('profiles/pictures.html', locals(), context_instance=RequestContext(request))
+
 
 def new_picture(request):
 	# get the profile (i.e. the model containing the image to edit);
