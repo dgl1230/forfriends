@@ -60,7 +60,9 @@
                 <p>Please select a crop region</p>
                 <img id="preview" />
                 <br>
-                <img id="small_preview" name="small_preview" />
+                <div style="width:100px; height:100px; overflow:hidden;margin-left:5px">
+                    <img id="small_preview" name="small_preview" />
+                </div>
                 <br>
             </div>
             <br>
@@ -168,8 +170,6 @@ function fileSelectHandler() {
                     minSize: [200, 250], // min crop size
                     maxSize: [400, 500], // max crop size
                     aspectRatio: 1, // keep aspect ratio 1:1
-                    bgFade: true, // use fade effect
-                    bgOpacity: .3, // fade opacity
                     
                 }, function() {
                     // use the Jcrop API to get the real image size
