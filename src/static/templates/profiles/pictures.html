@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
 <div id="pictures">
   <div class="row" id="view_container">
     <div class="col-md-1" id="secondary_navbar">
@@ -24,7 +23,7 @@
               <li data-thumbnail-text="{{ pic.caption }}" data-thumbnail-text-title-offset="35"
               data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="0">
 
-                <p class="smallLabel" id="delete_picture"><a href="/"> Delete Picture</a></p>
+                <p class="smallLabel" id="delete_picture"><a href="/"><span style="color:white"class="glyphicon glyphicon-trash"></a></p>
                 
               </li>
               <li data-info="">
@@ -60,7 +59,9 @@
                 <p>Please select a crop region</p>
                 <img id="preview" />
                 <br>
-                <img id="small_preview" name="small_preview" />
+                <div style="width:100px; height:100px; overflow:hidden;margin-left:5px">
+                    <img id="small_preview" name="small_preview" />
+                </div>
                 <br>
             </div>
             <br>
@@ -72,7 +73,25 @@
             <br>
             <input class="btn" id="upload_button" type="submit" value="Upload">
         </form>
-    </div>
+
+<div>
+    <div class="example">
+            <div class="example__left" style="padding-top:120px">
+                <div id="userpic" class="userpic">
+                    <div class="js-preview userpic__preview"></div>
+                    <div class="btn btn-success js-fileapi-wrapper">
+                        <div class="js-browse">
+                            <span class="btn-txt">Choose</span>
+                            <input type="file" name="filedata"/>
+                        </div>
+                        <div class="js-upload" style="display: none;">
+                            <div class="progress progress-success"><div class="js-progress bar"></div></div>
+                            <span class="btn-txt">Uploading</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 <script>
 // convert bytes into friendly format
 function bytesToSize(bytes) {
@@ -168,8 +187,6 @@ function fileSelectHandler() {
                     minSize: [200, 250], // min crop size
                     maxSize: [400, 500], // max crop size
                     aspectRatio: 1, // keep aspect ratio 1:1
-                    bgFade: true, // use fade effect
-                    bgOpacity: .3, // fade opacity
                     
                 }, function() {
                     // use the Jcrop API to get the real image size
@@ -186,6 +203,7 @@ function fileSelectHandler() {
     oReader.readAsDataURL(oFile);
 }
 </script>
+
 <!-- Circle Carousel -->
     <script src="{{ STATIC_URL }}js/3dcarousel/FWDPage.js" type="text/javascript"></script>
     <script src="{{ STATIC_URL }}js/3dcarousel/FWDR3DCarModTweenMax.js" type="text/javascript"></script>

@@ -16,10 +16,39 @@
 	height:50px;
 }
 
+#delete_message{
+	width:50px;
+	height:50px;
+}
+
+#delete_sent{
+	float:right;
+}
+
+#inbox_trash{
+	margin-left:15px;
+}
+#inbox_body{
+	overflow:hidden;
+	width:400px;
+}
+
+#sent_text{
+	width:100%;
+	min-height:120px;
+	cursor:default;
+	background-color:white;
+	padding: 5px 5px 5px 5px;
+}
+#message_body_holder{
+	margin-right:15px!important;
+	width:100%;
+}
 .well{
 	border:1px solid black;
 	background-color:#f9f9f9;
-
+	padding:0px 0px 0px 0px;
+	min-height:80px;
 }
 .button_container{
 	width:100%;
@@ -128,7 +157,7 @@ input{
 }
 
 @media (max-width: 550px){
-	textarea{
+	#compose_message_container textarea{
 		width: 200px!important;
 	}
 	#compose_message_container label{

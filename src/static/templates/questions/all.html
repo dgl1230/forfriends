@@ -1,6 +1,4 @@
 {% extends 'base.html' %}
-<head><link href="{{ STATIC_URL }}css/interests.css" rel="stylesheet"></head>
-
 {% block content %}
 <div id="big_wrapper">
 <div class="row" id="margin_wrapper">
@@ -43,13 +41,33 @@
 		{% endfor %}
 		</div>
 		<br>
-		<div class="interest_buttons">
+		<div class="importance_wrapper">
+		<div class="input select rating-b">
+		            <label for="example-b">How important is this question to you?</label>
+		            <br><br>
+
+		            <select id="example-b" name="importance_level">
+		            	{% for imp in importance_levels %}
+		                <option {% for abc in question.useranswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected="selected" value="{{ imp }}"{% endif %} {% endfor %}> {{ imp }}</option>
+		               {% endfor %}
+		            </select>
+		        </div>
+		    </div>
+		<br><br><br>
+
 		<!-- Submit Button -->
 		<input type='submit' class='btn-lg' value='Save'>
-		</div>
+		
 	</form>
+		<div class="interest_buttons">
+						<div class="buttons">
+			            <button class="blue-pill deactivated rating-enable">enable</button>
+			            <button class="blue-pill rating-disable">disable</button>
+			        	</div>
 	{% endfor %}
 
+	<br><br>
+		</div>	
 <div class="pagination">
 	<span class="step-links">
 		<ul class="pager">
@@ -67,27 +85,20 @@
 </div>
 </div>
 </div>
-<script>
-$(document).ready(function(){
-	$('.personality_importance input').each(function(){
-		var self = $(this),
-			label = self.next(),
-			label_text = label.text();
+</div>
 
-		label.remove();
-		self.iCheck({
-			checkboxClass: 'icheckbox_line-blue',
-			radioClass: 'iradio_line-blue',
-			insert: '<div class="icheck_line-icon"></div>' + label_text
-		});
-	});
-});
-</script>
 <script>
-$(document).ready(function(){
-	$("input").click(function(){
-		$('input').attr('name', 'check');
-	);
-};
-</script>
+        $(function () {
+            $('.rating-enable').click(function () {
+                
+                $('#example-b').barrating('show', {
+                    readonly:false,
+
+                });
+
+                $('.rating-disable').removeClass('deactivated');
+            });
+            $('.rating-enable').trigger('click');
+        });
+    </script>
 {% endblock %}

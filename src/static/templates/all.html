@@ -150,6 +150,9 @@
 	<div class="col-md-1" id="secondary_navbar">
         <h1>My Circle</h1>
 	</div>
+    <div class="col-md-1" id="tertiary_navbar">
+        <a class="regenerate" href='{% url "calculate_circle" %}'>Find a new Circle!</a>
+    </div>
     {% for message in messages %}
     <p id="interests_messages"{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
     {% endfor %}
@@ -215,8 +218,6 @@
 
       
     </div>
-<a class="regenerate" href='{% url "calculate_circle" %}'>Find a new Circle!</a>
-
 
 <div class="container" id="home-only">
   <div class='col-lg-10 col-12' id="center_div">

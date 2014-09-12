@@ -27,10 +27,9 @@
      		<a href="/messages/compose/" class="half-nav2">New Message</a>
 	</div>
 </div>
+{% for item in messages_in_inbox %}
 <div class="container">
   <div class='col-lg-10 col-12'>
-{% for item in messages_in_inbox %}
-
 <h4>To:<a href="/members/{{ item.receiver }}/"> 
   {% for pic in item.receiver.userpicture_set.all %}
     {% if forloop.first %}
@@ -38,17 +37,19 @@
     {% endif %}
   {% endfor %}
   {{ item.receiver }}</a></h4>
+  <a id="delete_sent"><span class="glyphicon glyphicon-trash"></a>
 on {{ item.sent }}<br/>
 
 <div class="well">
-	{{ item.body }}
+	<textarea id="sent_text" disabled="disabled">{{ item.body }}</textarea>
 </div>
+</div>
+
+
 <br>
 <br>
 
 {% endfor %}
 </div>
 </div>
-</div>
-
 {% endblock %}
