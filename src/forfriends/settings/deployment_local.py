@@ -1,5 +1,7 @@
 
+
 import os
+
 
 
 EMAIL_USE_TLS = False
@@ -144,6 +146,9 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Allow all host headers, this needs to be more secure soon 
 ALLOWED_HOSTS = ['*']
+
+
+
 
 
 

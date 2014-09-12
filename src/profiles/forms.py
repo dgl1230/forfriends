@@ -39,16 +39,11 @@ class UserPictureForm(forms.ModelForm):
 UPLOAD_IMG_ID="image_file"
 
 class JcropWidget(forms.Widget):
-	class Media:
-		# form media, i.e. CSS and JavaScript needed for Jcrop.
-		# You'll have to adopt these to your project's paths.
-		
-		# fixed Jcrop options; to pass options to Jcrop, use the jcrop_options
-		# argument passed to the JcropForm constructor. See example above.
-		jcrop_options = {
-					"onSelect": "storeCoords", 
-					"onChange": "storeCoords",
-					}
+
+	jcrop_options = {
+				"onSelect": "storeCoords", 
+				"onChange": "storeCoords",
+	}
 
 	# HTML template for the widget. 
 	#

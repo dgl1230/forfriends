@@ -9,6 +9,8 @@ from questions.models import UserAnswer
 from visitors.models import Visitor
 
 
+
+
 class AddressInline(admin.TabularInline):
 	max_num = 1	
 	model = Address
@@ -37,6 +39,7 @@ class UserAnswerInline(admin.TabularInline):
 class UserInterestAnswerInline(admin.TabularInline):
 	extra = 0
 	model = UserInterestAnswer
+
 
 
 class UserPictureInline(admin.TabularInline):

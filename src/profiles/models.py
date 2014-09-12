@@ -6,6 +6,8 @@ from matches.models import Match
 
 
 
+
+
 GENDER_CHOICES = (
 	('Male', 'Male'),
 	('Female', 'Female')
@@ -52,6 +54,8 @@ class Info(models.Model):
 	bio = models.CharField(max_length=420, null=True, blank=True)
 	birthday = models.DateField(null=True, blank=True)
 	gender = models.CharField(max_length=20, choices=GENDER_CHOICES, null=True, blank=True)
+	is_new_user = models.BooleanField(default=True)
+	signed_up_with_fb_or_goog = models.BooleanField(default=True)
 
 	def __unicode__(self):
 		return self.user.username
@@ -75,8 +79,10 @@ class UserPicture(models.Model):
 	user = models.ForeignKey(User)
 	caption = models.CharField(max_length=100, null=True, blank=True)
 	image = models.ImageField(upload_to='profiles/')
+	#image = ImageCropField(null=True, blank=True, upload_to='profiles/')
 	is_profile_pic = models.BooleanField(default=False)
 	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
+	cropped_image = models.ImageField(blank=True, null=True, upload_to='profiles/')
 
 	
 	active = models.BooleanField(default=True)
@@ -96,3 +102,20 @@ class UserPicture(models.Model):
 			except:
 				pass
 		super(UserPicture, self).save(*args, **kwargs)
+
+
+'''
+def check_if_new_user(sender, request, user, **kwargs):
+	info = Info.models.get(user=user)
+	if info.is_new_user == True:
+		if handle_new_user(user)
+'''
+
+
+
+
+
+
+
+
+

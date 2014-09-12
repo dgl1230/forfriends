@@ -11,6 +11,7 @@ class Interest(models.Model):
 	approved = models.BooleanField(default=False)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 	update = models.DateTimeField(auto_now_add=False, auto_now=True)
+	for_new_users = models.BooleanField(default=False)
 
 	def __unicode__(self):
 		return self.interest

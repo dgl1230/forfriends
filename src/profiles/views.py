@@ -24,6 +24,7 @@ from .forms import AddressForm, InfoForm, JobForm, UserPictureForm, JcropForm
 from interests.models import UserInterestAnswer, Interest
 from visitors.models import Visitor
 from directmessages.models import DirectMessage
+from questions.models import Question, UserAnswer
 
 
 '''Implements the 'add friend' button when viewing a user's profile
@@ -195,24 +196,44 @@ def generate_circle(logged_in_user):
 		user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 		user_gamification.save()
 
+'''
+def handle_new_user(logged_in_user):
+	info = Info.models.get(user=logged_in_user)
+	interests = UserInterestAnswer.get(user=logged_in_user)
+	questions = UserAnswer.get(user=logged_in_user)
+	try: 
+		address = Address.models.get(user=logged_in_user)
+		info.signed_up_with_fb_or_goog = False
+	except: 
+		#redirect user first to fill in more info 
+	if interests.count() < 10:
+		#direct user to interests
+	else: 
+		#user needs to answer come questions
+'''
 
 
 def random_user_page(request):
 	max_user = User.objects.filter(is_active=True).latest('id').id
 	while True: 
 		try: 
-			random_user = User.objects.get(pk=randint(1, max_user))
+			single_user = User.objects.get(pk=randint(1, max_user))
 			break
 		except:
 			pass
 	try: 
-		match = Match.objects.get(user1=request.user, user2=random_user)
+		match = Match.objects.get(user1=request.user, user2=single_user)
 	except: 
-		match, created = Match.objects.get_or_create(user1=random_user, user2=request.user)
+		match, created = Match.objects.get_or_create(user1=single_user, user2=request.user)
 	user1 = match.user1
 	user2 = match.user2
 	match.percent = match_percentage(user1, user2)
+	try:
+		match.distance = round(calc_distance(request.user, user))
+	except:
+		match.distance = 10000000
 	match.save()
+	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))	
 
 
 
@@ -713,7 +734,22 @@ def new_picture(request):
 	# define a fixed aspect ratio for the user image
 	aspect = 105.0 / 75.0
 	# the final size of the user image
-  	final_size = (105, 75)
+  	final_size = (105, 75) 
+  	x1 = request.POST.get("x1")
+  	print "x1 is: ", x1
+  	y1 = request.POST.get("y1")
+  	x2 = request.POST.get("x2")
+  	y2 = request.POST.get("y2")
+  	w = request.POST.get("w")
+  	h = request.POST.get("h")
+  	form = JcropForm(request.POST)
+	if form.is_valid():
+		# apply cropping
+		form.crop()
+		form.resize(final_size)
+		form.save()
+		# redirect to profile display page
+		return HttpResponseRedirect("/")
 
   
 	if request.method == "POST" and len(request.FILES) == 0:
@@ -806,7 +842,6 @@ def ice_breaker(request):
 	user_gamification = Gamification.objects.get(user=request.user)
 	messages.success(request, "Please check your inbox, we've found a user that you have an interest in common with!")
 	return render_to_response('all.html', locals(), context_instance=RequestContext(request))
-
 
 
 
