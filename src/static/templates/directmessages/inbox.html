@@ -18,19 +18,19 @@
 	</div>
 </div>
 <div class='row'>
-                <div class="col-md-1" id="tertiary_navbar">
-                  {% for message in messages %}
-                    <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
-                  {% endfor %}
-                </div>
+    <div class="col-md-1" id="tertiary_navbar">
+      {% for message in messages %}
+        <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+      {% endfor %}
+    </div>
 </div>
 <br>
-<div class="container">
+<div class="container" id="message_body_holder">
   <div class='col-lg-10 col-12'>
 	<div class="body_section">
 	<table class='table table-striped'>
 		<thead>
-		<th>From</th> <th>Message</th>
+		<th>From</th> <th>Message</th> <th><span id="inbox_trash" class="glyphicon glyphicon-trash"></span></th>
 		</thead>
 		<tbody>
 			{% for item in messages_in_inbox %}
@@ -44,14 +44,18 @@
 
 					{{ item.sender }}</a>
 				</td>
-				<td>
+				<td id="inbox_body">
 					{% if item.read %}
 						<span style='color: grey;' class='glyphicon glyphicon-ok'></span>
 					{% endif %}
-					<a {% if item.read %} style='color: grey;' {% endif %} href= '{{ item.get_absolute_url }}'>{{ item.body|truncatewords:"10" }}</a>
-					{% if item.sent %} 
+					<a {% if item.read %} style='color: grey;' {% endif %} href= '{{ item.get_absolute_url }}'>{{ item.body|truncatechars:"30" }}</a>
+					{% if item.sent %}
+				</td>
+				
 						<small>{{ item.sent }}</small> 
 					{% endif %}
+				<td>
+					<input id="delete_message" type="checkbox"></input> 
 				</td>
 
 			</tr>
