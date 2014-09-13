@@ -85,105 +85,135 @@ def all(request):
 
 def generate_circle(logged_in_user):
 	if logged_in_user.is_authenticated(): 
-	
-	
-
-		
-		for user in users: 
-			if user != logged_in_user:
-				try: 
-					match = Match.objects.get(user1=logged_in_user, user2=user)
-				except: 
-					match, created = Match.objects.get_or_create(user1=user, user2=logged_in_user)
-				try:
-					match.distance = round(calc_distance(logged_in_user, user))
-					if match.distance <= 10:
-						match.is_10_miles = True
-						list_10m.append(match)
-						num_10m += 1
-					elif match.distance <=20:
-						match.is_20_miles = True
-						list_20m.append(match)
-						num_20m += 1
-					elif match.distance <=30:
-						match.is_30_miles = True
-						list_30m.append(match)
-						num_30m += 1
-					elif match.distance <=40:
-						match.is_40_miles = True
-						list_40m.append(match)
-						num_40m += 1
-					elif match.distance <=50: 
-						match.is_50_miles = True
-						list_50m.append(match)
-						num_50m += 1
-					match.save()
-				except:
-					match.distance = 10000000
-		# Need to double check, but this should be set up so that only one query, not multiple ones
-		# are being performed
-		if num_10m >= 20:
-			for match in list_10m: 
-				match.percent = match_percentage(match.user1, match.user2)
-				match.save()
-			matches = Match.objects.filter(
-				Q(user1=logged_in_user) | Q(user2=logged_in_user)
-				).filter(is_10_miles=True).order_by('-percent')[:7]
-		elif num_20m + num_10m >= 20:
-			listm= list_20m + list_10m
-			for match in listm: 
-				match.percent = match_percentage(match.user1, match.user2)
-				match.save()
-			matches = Match.objects.filter(
-				Q(user1=logged_in_user) | Q(user2=logged_in_user)
-				).filter(
-				Q(is_10_miles=True) | Q(is_20_miles=True)
-				).order_by('-percent')[:7]
-		elif num_30m + num_20m + num_10m >= 20:
-			listm = list_30m + list_20m + list_10m
-			for match in listm: 
-				match.percent = match_percentage(match.user1, match.user2)
-				match.save()
-			matches = Match.objects.filter(
-				Q(user1=logged_in_user) | Q(user2=logged_in_user)
-				).filter(
-				Q(is_10_miles=True) | Q(is_20_miles=True) |Q(is_30_miles=True)
-				).order_by('-percent')[:7]
-		elif num_40m + num_30m + num_20m + num_10m >= 20:
-			listm = list_40m + list_30m + list_20m + list_10m
-			for match in listm: 
-				match.percent = match_percentage(match.user1, match.user2)
-				match.save()
-			matches = Match.objects.filter(
-				Q(user1=logged_in_user) | Q(user2=logged_in_user)
-				).filter(
-				Q(is_10_miles=True) | Q(is_20_miles=True) | Q(is_30_miles=True) |Q(is_40_miles=True)
+			try: 
+				assert (circle_distance(logged_in_user) == 1)
+				return
+			except: 
+				#either a new user or someone who hasn't used the site much
+				num_10m = 0
+				num_20m = 0
+				num_30m = 1
+				num_40m = 0
+				num_50m = 0 
+				users = User.objects.filter(is_active=True)
+				for user in users: 
+					if num_10m >= 10 or num_20m >= 10:
+						break 
+					if user != logged_in_user:
+						try: 
+							match = Match.objects.get(user1=logged_in_user, user2=user)
+						except: 
+							match, created = Match.objects.get_or_create(user1=user, user2=logged_in_user)
+						try:
+							match.distance = round(calc_distance(logged_in_user, user))
+							if match.distance <= 10:
+								num_10m += 1
+								num_20m += 1
+								num_30m += 1
+								num_40m += 1
+								num_50m += 1
+								match.is_10_miles = True
+								match.is_20_miles = True 
+								match.is_30_miles = True
+								match.is_40_miles = True
+								match.is_50_miles = True
+							elif match.distance <=20:
+								num_20m += 1
+								num_30m += 1
+								num_40m += 1
+								num_50m += 1
+								match.is_20_miles = True
+								match.is_30_miles = True
+								match.is_40_miles = True
+								match.is_50_miles = True
+							elif match.distance <=30:
+								num_30m += 1
+								num_40m += 1
+								num_50m += 1
+								match.is_30_miles = True
+								match.is_40_miles = True
+								match.is_50_miles = True
+							elif match.distance <=40:
+								num_40m += 1
+								num_50m += 1
+								match.is_40_miles = True
+								match.is_50_miles = True
+							elif match.distance <=50: 
+								num_50m += 1
+								match.is_50_miles = True
+							match.save()
+						except:
+							match.distance = 10000000
+				if circle_distance(logged_in_user) == 1:
+					return 
+				else: 
+					matches = Match.objects.filter(
+						Q(user1=logged_in_user) | Q(user2=logged_in_user)
 					).order_by('-percent')[:7]
-		elif num_50m + num_40m + num_30m + num_20m + num_10m >= 20:
-			listm = list_50m + list_40m + list_30m + list_20m + list_10m
-			for match in listm: 
-				match.percent = match_percentage(match.user1, match.user2)
-				match.save()
-			matches = Match.objects.filter(
-				Q(user1=logged_in_user) | Q(user2=logged_in_user)
-				).filter(
-				Q(is_10_miles=True) | Q(is_20_miles=True) | Q(is_30_miles=True) | Q(is_40_miles=True) | Q(is_50_miles=True)
-				).order_by('-percent')[:7]
-		else: 
-			matches = Match.objects.filter(
-				Q(user1=logged_in_user) | Q(user2=logged_in_user)
-				)
-			for match in matches: 
-				match.percent = match_percentage(match.user1, match.user2)
-			matches = Match.objects.filter(
-				Q(user1=logged_in_user) | Q(user2=logged_in_user)
-				).order_by('-percent')[:7]
+					user_gamification = Gamification.objects.get(user=logged_in_user)
+					for match in matches: 
+						user_gamification.circle.add(match) 
+					user_gamification.circle_reset_started = datetime.now()
+					user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
+					user_gamification.save()
+
+
+def circle_distance(logged_in_user):
+	matches_basic = Match.objects.filter(
+			Q(user1=logged_in_user) | Q(user2=logged_in_user)
+			)
+	matches_10m = matches_basic.filter(is_10_miles=True)
+	if matches_10m.count() >= 10: 
+		matches = matches_10m.order_by('-percent')[:7]
 		user_gamification = Gamification.objects.get(user=logged_in_user)
 		for match in matches: 
 			user_gamification.circle.add(match) 
 		user_gamification.circle_reset_started = datetime.now()
 		user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 		user_gamification.save()
+		return 1
+	matches_20m = matches_basic.filter(is_20_miles=True)
+	if matches_20m.count() >= 10:
+		matches = matches_20m.order_by('-percent')[:7]
+		user_gamification = Gamification.objects.get(user=logged_in_user)
+		for match in matches: 
+			user_gamification.circle.add(match) 
+		user_gamification.circle_reset_started = datetime.now()
+		user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
+		user_gamification.save()
+		return 1
+	matches_30m = matches_basic.filter(is_30_miles=True)
+	if matches_30m.count() >= 10:
+		matches = matches_30m.order_by('-percent')[:7]
+		user_gamification = Gamification.objects.get(user=logged_in_user)
+		for match in matches: 
+			user_gamification.circle.add(match) 
+		user_gamification.circle_reset_started = datetime.now()
+		user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
+		user_gamification.save()
+		return 1
+	matches_40m = matches_basic.filter(is_40_miles=True)
+	if matches_40m.count() >= 10:
+		matches = matches_40m.order_by('-percent')[:7]
+		user_gamification = Gamification.objects.get(user=logged_in_user)
+		for match in matches: 
+			user_gamification.circle.add(match) 
+		user_gamification.circle_reset_started = datetime.now()
+		user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
+		user_gamification.save()
+		return 1
+	matches_50m = matches_basic.filter(is_50_miles=True)
+	if matches_50m.count() >= 10:
+		matches = match_50m.order_by('-percent')[:7]
+		user_gamification = Gamification.objects.get(user=logged_in_user)
+		for match in matches: 
+			user_gamification.circle.add(match) 
+		user_gamification.circle_reset_started = datetime.now()
+		user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
+		user_gamification.save()
+		return 1
+	else:
+		return 0 
 
 
 
