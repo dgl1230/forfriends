@@ -123,7 +123,9 @@ function updateInfo(e) {
         $('#y2').val(e.y2);
         $('#w').val(e.w);
         $('#h').val(e.h);
+
     }
+
     // clear info by cropping (onRelease event handler)
 
 function clearInfo() {
@@ -181,13 +183,13 @@ function fileSelectHandler() {
             }
             setTimeout(function() {
                 // initialize Jcrop
-                $('#preview').Jcrop({
+                var cropped = $('#preview').Jcrop({
                     onChange: updateInfo,
                     onSelect: updateInfo,
                     minSize: [200, 250], // min crop size
                     maxSize: [800, 1000], // max crop size
                     aspectRatio: 1, // keep aspect ratio 1:1
-                    
+
                 }, function() {
                     // use the Jcrop API to get the real image size
                     var bounds = this.getBounds();
@@ -201,6 +203,7 @@ function fileSelectHandler() {
     };
     // read selected file as DataURL
     oReader.readAsDataURL(oFile);
+
 }
 </script>
 
