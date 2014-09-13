@@ -182,10 +182,10 @@ function fileSelectHandler() {
             setTimeout(function() {
                 // initialize Jcrop
                 $('#preview').Jcrop({
-                    onChange: showPreview,
-                    onSelect: showPreview,
+                    onChange: updateInfo,
+                    onSelect: updateInfo,
                     minSize: [200, 250], // min crop size
-                    maxSize: [400, 500], // max crop size
+                    maxSize: [800, 1000], // max crop size
                     aspectRatio: 1, // keep aspect ratio 1:1
                     
                 }, function() {
