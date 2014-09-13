@@ -684,7 +684,7 @@ def sort_by_match(request):
 		except:
 			match.distance = 10000000
 		match.save()
-	matches1 = Match.objects.filter(
+	matches = Match.objects.filter(
 			Q(user1=request.user) | Q(user2=request.user)
 			).order_by('-percent')
 
