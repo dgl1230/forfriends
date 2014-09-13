@@ -299,8 +299,8 @@ def calculate_circle(request):
 
 
 
-def delete_picture(request):
-	pic_id = request.GET['picture_id']
+def delete_picture(request, pic_id):
+	#pic_id = request.GET['picture_id']
 	picture = UserPicture.objects.get(pk=pic_id)
 	picture.delete()
 	HttpResponseRedirect('/')

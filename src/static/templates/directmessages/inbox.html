@@ -30,7 +30,7 @@
 	<div class="body_section">
 	<table class='table table-striped'>
 		<thead>
-		<th>From</th> <th>Message</th> <th><span id="inbox_trash" class="glyphicon glyphicon-trash"></span></th>
+		<th>From</th> <th>Message</th> <th><a href='{% url "delete_messages" %}' ><span id="inbox_trash" class="glyphicon glyphicon-trash"></a></span></th>
 		</thead>
 		<tbody>
 			{% for item in messages_in_inbox %}
