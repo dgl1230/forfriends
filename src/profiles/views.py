@@ -684,11 +684,14 @@ def sort_by_match(request):
 		except:
 			match.distance = 10000000
 		match.save()
+	return HttpResponseRedirect("/")
+	'''
 	matches = Match.objects.filter(
 			Q(user1=request.user) | Q(user2=request.user)
 			).order_by('-percent')
 
 	return render_to_response('profiles/find_friends.html', locals(), context_instance=RequestContext(request))	
+	'''
 
 
 def sort_by_location(request):
