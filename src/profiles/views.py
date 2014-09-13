@@ -107,6 +107,7 @@ def generate_circle(logged_in_user):
 						try:
 							match.distance = round(calc_distance(logged_in_user, user))
 							if match.distance <= 10:
+								match.percent = match_percentage(match.user1, match.user2)
 								num_10m += 1
 								num_20m += 1
 								num_30m += 1
@@ -673,16 +674,19 @@ def search(request):
 
 
 def sort_by_match(request):
-	matches = Match.objects.filter(
+	matches1 = Match.objects.filter(
 			Q(user1=request.user) | Q(user2=request.user)
-			).order_by('-percent')
-	for match in matches: 
+			)
+	for match in matches1: 
 		match.percent = match_percentage(match.user1, match.user2)
 		try:
 			match.distance = round(calc_distance(request.user, u))
 		except:
 			match.distance = 10000000
 		match.save()
+	matches1 = Match.objects.filter(
+			Q(user1=request.user) | Q(user2=request.user)
+			).order_by('-percent')
 
 	return render_to_response('profiles/find_friends.html', locals(), context_instance=RequestContext(request))	
 
