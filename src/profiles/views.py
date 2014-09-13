@@ -234,7 +234,7 @@ def handle_new_user(logged_in_user):
 		#user needs to answer come questions
 '''
 
-def create_circle(user):
+#def create_circle(user):
 
 
 
