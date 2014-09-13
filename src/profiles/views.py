@@ -115,12 +115,12 @@ def generate_circle(logged_in_user):
 			user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 			user_gamification.save()
 			return
-		elif :
-			matches = Match.objects.filter(
+		matches = Match.objects.filter(
 				Q(user1=logged_in_user) | Q(user2=logged_in_user)
-				).filter(is_10_miles=True).filter(is_20_miles=True).count() >= 10:
-
-		'''	 
+				).filter(is_10_miles=True).filter(is_20_miles=True)
+		elif  match.count() >= 10:
+		'''
+		
 		for user in users: 
 			if user != logged_in_user:
 				try: 
@@ -233,6 +233,9 @@ def handle_new_user(logged_in_user):
 	else: 
 		#user needs to answer come questions
 '''
+
+def create_circle(user):
+
 
 
 def random_user_page(request):
