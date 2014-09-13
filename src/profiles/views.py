@@ -100,6 +100,26 @@ def generate_circle(logged_in_user):
 		list_30m = []
 		list_40m = []
 		list_50m = []
+		'''
+		matches = Match.objects.filter(
+				Q(user1=logged_in_user) | Q(user2=logged_in_user)
+				).filter(is_10_miles=True)
+		if matches.count() >= 10: 
+			matches = Match.objects.filter(
+				Q(user1=logged_in_user) | Q(user2=logged_in_user)
+				).order_by('-percent')[:7]
+			user_gamification = Gamification.objects.get(user=logged_in_user)
+			for match in matches: 
+				user_gamification.circle.add(match) 
+			user_gamification.circle_reset_started = datetime.now()
+			user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
+			user_gamification.save()
+			return
+		elif:
+			matches = Match.objects.filter(
+				Q(user1=logged_in_user) | Q(user2=logged_in_user)
+				).filter(is_10_miles=True).filter(is_20_miles=True)
+		'''	 
 		for user in users: 
 			if user != logged_in_user:
 				try: 
@@ -196,6 +216,7 @@ def generate_circle(logged_in_user):
 		user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 		user_gamification.save()
 
+
 '''
 def handle_new_user(logged_in_user):
 	info = Info.models.get(user=logged_in_user)
@@ -230,6 +251,10 @@ def random_user_page(request):
 	match.percent = match_percentage(user1, user2)
 	try:
 		match.distance = round(calc_distance(request.user, user))
+		if match.distance =< 10:
+			match.is_10_miles = True
+		elif (match.distance <= 20) and (match.distance >= 11):
+			match.is_20_miles = True 
 	except:
 		match.distance = 10000000
 	match.save()
