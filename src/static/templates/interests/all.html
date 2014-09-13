@@ -32,7 +32,7 @@
 {% endif %}
 	<br/>
 	<br/>
-	<div class='row' id="interests-wrapper">
+	<div class='row' id="interests-wrapper"  ontouchstart="touchStart(event,'swipeBox');" ontouchend="touchEnd(event);" ontouchmove="touchMove(event);" ontouchcancel="touchCancel(event);">
 			<div class="main_interests">
 			<div class="interests-title">
 			{% for interest in interests %}
@@ -105,5 +105,16 @@ $(':radio').change(
 
   } 
 )
+</script>
+
+<script>
+
+function processingRoutine() {
+	var swipedElement = document.getElementById("interests-wrapper");
+	if ( swipeDirection == 'left' ) {
+		// REPLACE WITH YOUR ROUTINES
+		window.location.href = '?page={{ interests.next_page_number }}';
+	}
+}
 </script>
 {% endblock %}
