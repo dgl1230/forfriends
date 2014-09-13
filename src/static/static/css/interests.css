@@ -12,7 +12,6 @@
 	width:500px;
 	margin:0 auto;
 }
-}
 #question-wrapper.row{
 	min-width:100px;
 }
@@ -146,7 +145,6 @@ footer{
 #answers_remove1, #answers_remove2, #answers_remove3{
 	display: none;
 }
-
 .question_answers{
 	width: 200px;
 	margin: 10px auto;
