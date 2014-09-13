@@ -6,7 +6,15 @@ body{
 .entire-wrapper{
 	width: 100%;
 }
+textarea:focus, input:focus{
+	outline:0;
+	outline:none;
+}
 
+textarea:active, input:active{
+	outline:0;
+	outline:none;
+}
 #new_user_modal{
 	display:none;
 }
