@@ -85,41 +85,9 @@ def all(request):
 
 def generate_circle(logged_in_user):
 	if logged_in_user.is_authenticated(): 
-		users = User.objects.filter(is_active=True)
-		#for keeping track of how many users are a certain number of miles away - seems better than running
-		# count on the database
-		num_10m = 0
-		num_20m = 0
-		num_30m = 0
-		num_40m = 0
-		num_50m = 0
-		# for iterating through users within a certain distance, since we're calculating it right now. 
-		# Seems more efficient than another db query 
-		list_10m = []
-		list_20m = []
-		list_30m = []
-		list_40m = []
-		list_50m = []
-		'''
-		matches = Match.objects.filter(
-				Q(user1=logged_in_user) | Q(user2=logged_in_user)
-				).filter(is_10_miles=True)
-		if matches.count() >= 10: 
-			matches = Match.objects.filter(
-				Q(user1=logged_in_user) | Q(user2=logged_in_user)
-				).order_by('-percent')[:7]
-			user_gamification = Gamification.objects.get(user=logged_in_user)
-			for match in matches: 
-				user_gamification.circle.add(match) 
-			user_gamification.circle_reset_started = datetime.now()
-			user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
-			user_gamification.save()
-			return
-		matches = Match.objects.filter(
-				Q(user1=logged_in_user) | Q(user2=logged_in_user)
-				).filter(is_10_miles=True).filter(is_20_miles=True)
-		elif  match.count() >= 10:
-		'''
+	
+	
+
 		
 		for user in users: 
 			if user != logged_in_user:
@@ -190,7 +158,7 @@ def generate_circle(logged_in_user):
 				Q(user1=logged_in_user) | Q(user2=logged_in_user)
 				).filter(
 				Q(is_10_miles=True) | Q(is_20_miles=True) | Q(is_30_miles=True) |Q(is_40_miles=True)
-				).order_by('-percent')[:7]
+					).order_by('-percent')[:7]
 		elif num_50m + num_40m + num_30m + num_20m + num_10m >= 20:
 			listm = list_50m + list_40m + list_30m + list_20m + list_10m
 			for match in listm: 
@@ -216,6 +184,7 @@ def generate_circle(logged_in_user):
 		user_gamification.circle_reset_started = datetime.now()
 		user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 		user_gamification.save()
+
 
 
 '''
@@ -257,14 +226,24 @@ def random_user_page(request):
 		match.distance = round(calc_distance(request.user, user))
 		if match.distance <= 10:
 			match.is_10_miles = True
-		elif (match.distance <= 20) and (match.distance >= 11):
 			match.is_20_miles = True 
-		elif (match.distance <= 30) and (match.distance >= 21):
 			match.is_30_miles = True
-		elif (match.distance <= 40) and (match.distance >= 31):
 			match.is_40_miles = True
-		elif (match.distance <= 50) and (match.distance >= 41):
+			match.is_50_miles = True
+		elif match.distance <= 20:
+			match.is_20_miles = True 
+			match.is_30_miles = True
 			match.is_40_miles = True
+			match.is_50_miles = True
+		elif match.distance <= 30:
+			match.is_30_miles = True
+			match.is_40_miles = True
+			match.is_50_miles = True
+		elif match.distance <= 40:
+			match.is_40_miles = True
+			match.is_50_miles = True
+		elif match.distance <= 50:
+			match.is_50_miles = True
 	except:
 		match.distance = 10000000
 	match.save()

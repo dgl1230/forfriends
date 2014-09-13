@@ -17,13 +17,13 @@ class Match(models.Model):
 	is_same_state = models.BooleanField(default=False)
 	#is true if match is between 0 and 10 miles
 	is_10_miles = models.BooleanField(default=False)
-	#is true if match is between 11 and 20 miles
+	#is true if match is between 0 and 20 miles
 	is_20_miles = models.BooleanField(default=False)
-	#is true if match is between 21 and 30 miles
+	#is true if match is between 0 and 30 miles
 	is_30_miles = models.BooleanField(default=False)
-	#is true if match is between 31 and 40 miles
+	#is true if match is between 0 and 40 miles
 	is_40_miles = models.BooleanField(default=False)
-	#is true if match is between 41 and 50 miles
+	#is true if match is between 0 and 50 miles
 	is_50_miles = models.BooleanField(default=False)
 
 
