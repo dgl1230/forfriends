@@ -782,10 +782,17 @@ def new_picture(request):
   	x1 = request.POST.get("x1")
   	print "x1 is: ", x1
   	y1 = request.POST.get("y1")
+  	print "y1 is: ", y1
   	x2 = request.POST.get("x2")
+  	print "x2 is: ", x2
   	y2 = request.POST.get("y2")
+  	print "y2 is: ", y2
   	w = request.POST.get("w")
+  	print "w is: ", w
   	h = request.POST.get("h")
+  	print "h is: ", h
+  	cropped = request.POST.get("cropped")
+  	print "cropped is: ", cropped
   	form = JcropForm(request.POST)
 	if form.is_valid():
 		# apply cropping
