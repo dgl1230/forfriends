@@ -674,18 +674,17 @@ def search(request):
 
 
 def sort_by_match(request):
-	'''
+
 	matches1 = Match.objects.filter(
 			Q(user1=request.user) | Q(user2=request.user)
 			)
 	for match in matches1: 
-		match.percent = match_percentage(match.user1, match.user2)
+		#match.percent = match_percentage(match.user1, match.user2)
 		try:
 			match.distance = round(calc_distance(request.user, u))
 		except:
 			match.distance = 10000000
 		match.save()
-	'''
 	matches = Match.objects.filter(
 			Q(user1=request.user) | Q(user2=request.user)
 			).order_by('-percent')
@@ -785,7 +784,9 @@ def new_picture(request):
 	# define a fixed aspect ratio for the user image
 	aspect = 105.0 / 75.0
 	# the final size of the user image
+  	
   	final_size = (105, 75) 
+  	'''
   	x1 = request.POST.get("x1")
   	print "x1 is: ", x1
   	y1 = request.POST.get("y1")
@@ -808,6 +809,7 @@ def new_picture(request):
 		form.save()
 		# redirect to profile display page
 		return HttpResponseRedirect("/")
+	'''
 
   
 	if request.method == "POST" and len(request.FILES) == 0:
