@@ -89,3 +89,44 @@ def edit_questions(request):
 		messages.success(request, 'Changes Saved')
 		return HttpResponseRedirect('')
 	return render_to_response('questions/edit.html', locals(), context_instance=RequestContext(request))
+
+
+def new_user_questions(request):
+	
+	questions_all = Question.objects.filter(for_new_users=True)
+
+	paginator = Paginator(questions_all, 1)
+	importance_levels = ['Very Important', 'Somewhat Important', 'Not Important']
+
+	page = request.GET.get('page')
+	try:
+		questions = paginator.page(page)
+	except PageNotAnInteger:
+		#If page is not an integer, deliver first page.
+		questions = paginator.page(1)
+	except EmptyPage:
+		#If page is out of range, deliver last page of results
+		questions = paginator.page(paginator.num_pages)
+
+	if request.method == 'POST':
+		question_id = request.POST['question_id']
+
+		#user answer
+		importance_level = request.POST['importance_level']
+		answer_form =  request.POST['answer']
+		#answer_form = request.POST.get('answer', False)
+
+	
+
+		user = User.objects.get(username=request.user)
+		question = Question.objects.get(id=question_id)
+
+		#user answer save
+		answer = Answer.objects.get(question=question, answer=answer_form)
+		answered, created = UserAnswer.objects.get_or_create(user=user, question=question)
+		answered.answer = answer
+		answered.importance_level = importance_level
+		answered.save()
+
+		messages.success(request, 'Answer Saved')
+	return render_to_response('questions/new_user.html', locals(), context_instance=RequestContext(request))
