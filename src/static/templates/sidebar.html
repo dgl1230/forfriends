@@ -3,25 +3,25 @@
           <div id="leftbar-wrapper">
             <ul class="sidebar-nav">
               <li>
-                <a href='/' title="Circles" class="sidebar-tool" id="home_sidebar"><span class='glyphicon glyphicon-refresh' ></span>My Circle</a>
+                <a href='/'  class="sidebar-tool" id="home_sidebar"><span class='glyphicon glyphicon-refresh' ></span>My Circle</a>
               </li> 
               <li>
-                <a href="{% if request.user.is_authenticated %}{% url "profile" request.user.username %} {% endif %}" title="My_profile" class="sidebar-tool" id="My_profile_sidebar"><span class='glyphicon glyphicon-home' ></span>My Profile</a>
+                <a href="{% if request.user.is_authenticated %}{% url "profile" request.user.username %} {% endif %}"  class="sidebar-tool" id="My_profile_sidebar"><span class='glyphicon glyphicon-home' ></span>My Profile</a>
               </li> 
               <li>
-                <a href='/sort/' title="Find Friends" class="sidebar-tool"><span class='glyphicon glyphicon-user' id="find_friends_sidebar"></span>Discover</a>
+                <a href='/sort/'  class="sidebar-tool"><span class='glyphicon glyphicon-user' id="find_friends_sidebar"></span>Discover</a>
               </li>
               <li>
-                <a href='{% url "interests" %}' title="Interests" class="sidebar-tool"><span class='glyphicon glyphicon-thumbs-up' id="interests_sidebar"></span>Interests</a>
+                <a href='{% url "interests" %}'  class="sidebar-tool"><span class='glyphicon glyphicon-thumbs-up' id="interests_sidebar"></span>Interests</a>
               </li>
               <li>
-                <a href='{% url "questions" %}' title="Questions" class="sidebar-tool"><span class='glyphicon glyphicon-question-sign' id="questions_sidebar"></span>Personality</a>
+                <a href='{% url "questions" %}'  class="sidebar-tool"><span class='glyphicon glyphicon-question-sign' id="questions_sidebar"></span>Personality</a>
               </li>
               <li>
-                <a href='/pictures' title="Pictures" class="sidebar-tool"><span class='glyphicon glyphicon-camera ' id="pictures_sidebar"></span>Pictures</a>
+                <a href='/pictures'  class="sidebar-tool"><span class='glyphicon glyphicon-camera ' id="pictures_sidebar"></span>Pictures</a>
               </li> 
               <li>
-                <a href="/edit" title="Settings" class="sidebar-tool" id="settings_tool"><span class="glyphicon glyphicon-cog" id="settings_sidebar"></span>Settings</a>
+                <a href="/edit" class="sidebar-tool" id="settings_tool"><span class="glyphicon glyphicon-cog" id="settings_sidebar"></span>Settings</a>
               </li>
               <li class="mobile_fix">
                 <p> Congratulations, you've found the secret message! This doesn't mean anything. </p>

@@ -265,6 +265,10 @@
 	min-width:115px;
 }
 
+.panel-body{
+	color:black;
+}
+
 /* User Tutorial Modal */
 .modal-title{
 	text-align:center;
@@ -348,6 +352,7 @@
 	.row .col-sm-12{
 		text-align: center;
 	}
+
 }
 
 @media(max-width: 560px){
@@ -357,6 +362,10 @@
 	}
 	#message_button a, #interests_button a, #friend_button a, #pictures_button a, #buttons_row #message_button_not_friends a{
 	font-size: 2em;
+	}
+
+	.panel-heading p{
+		font-size:1.25em;
 	}
 }
 
