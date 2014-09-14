@@ -224,7 +224,7 @@ class JcropForm(forms.Form):
 
 
 		# copy image data to final file
-		fn = "/profiles/" + upload_file.name
+		fn = "profiles/" + upload_file.name
 		pfn = MEDIA_URL + fn
 
 		destination = open(pfn, 'wb+')
