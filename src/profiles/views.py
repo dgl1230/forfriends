@@ -887,7 +887,7 @@ def new_picture(request):
 	# In this example, the model in question is the user profile model,
 	# so we can use Django's get_profile() method.
 	new_image = UserPicture.objects.create(user=request.user)
-	print len(request.FILES)
+	#print len(request.FILES)
 	#profile = request.user
 	#image_upload_to = MEDIA_URL
   
