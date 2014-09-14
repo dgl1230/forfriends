@@ -14,6 +14,8 @@ from django.forms.models import modelformset_factory
 from django.db.models import Q, Max
 from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail, EmailMultiAlternatives
+from django.core.urlresolvers import reverse
+
 
 from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG, MEDIA_URL
 from forfriends.matching import match_percentage
@@ -60,6 +62,11 @@ def add_friend(request, username):
 matches for them, otherwise it shows the home page for non-logged in viewers '''
 def all(request):
 	if request.user.is_authenticated(): 
+		try: 
+			info = Info.objects.get(user=request.user)
+			assert(info.is_new_user == False)
+		except: 
+			return HttpResponseRedirect(reverse('handle_new_user'))
 		try:
 			#time1 = datetime.datetime.now()
 			user_gamification = Gamification.objects.get(user=request.user)
@@ -107,6 +114,7 @@ def generate_circle(logged_in_user):
 						try:
 							match.distance = round(calc_distance(logged_in_user, user))
 							if match.distance <= 10:
+								match.percent = match_percentage(match.user1, match.user2)
 								num_10m += 1
 								num_20m += 1
 								num_30m += 1
@@ -217,21 +225,115 @@ def circle_distance(logged_in_user):
 
 
 
-'''
-def handle_new_user(logged_in_user):
-	info = Info.models.get(user=logged_in_user)
-	interests = UserInterestAnswer.get(user=logged_in_user)
-	questions = UserAnswer.get(user=logged_in_user)
-	try: 
-		address = Address.models.get(user=logged_in_user)
-		info.signed_up_with_fb_or_goog = False
+
+def handle_new_user(request):
+	try:
+		info = Info.models.get(user=request.user)
+		user_interests = UserInterestAnswer.objects.filter(user=request.user)
+		user_questions = UserAnswer.objects.filter(user=request.user)
 	except: 
-		#redirect user first to fill in more info 
-	if interests.count() < 10:
-		#direct user to interests
+		user_interests = 0
+		user_questions = 0
+	try: 
+		#if we get an error, then this means they signed up with google or facebook
+		# so we need to get more info from them first 
+		address = Address.objects.get(user=request.user)
+		assert(info.signed_up_with_fb_or_goog == False)
+	except: 
+		return HttpResponseRedirect(reverse('new_user_info'))
+	if user_interests.count() < 10:
+		return HttpResponseRedirect(reverse('new_user_interests'))
+	if user_questions.count() < 10: 
+		return HttpResponseRedirect(reverse('new_user_questions'))
 	else: 
-		#user needs to answer come questions
-'''
+		info = Info.objects.get(user=request.user)
+		info.is_new_user = False
+		info.save()
+		return HttpResponseRedirect(reverse('home'))
+
+
+def new_user_info(request):
+	if request.POST:
+		name = request.POST['name']
+		full_name = name.split()
+		first_name = full_name[0]
+		if len(full_name) == 2:
+			last_name = full_name[1]
+		elif len(full_name) >= 3:
+			not_first_name = full_name[2:len(full_name)]
+			last_name = full_name[1]
+			for name in not_first_name:
+				last_name = last_name + " " + name
+		else: 
+			first_name = full_name
+		username = request.POST['username']
+		gender1 = request.POST['gender']
+		day = request.POST['BirthDay']
+		month = request.POST['BirthMonth']
+		year = request.POST['BirthYear']
+		country = request.POST['country']
+		state = request.POST['state']
+		city = request.POST['city']
+		datestr = str(year) + '-' + str(month) + '-' + str(day)
+		birthday = datetime.strptime(datestr, '%Y-%m-%d').date()
+		user_age = calculate_age(birthday)
+
+		if gender1 == 'm':
+			gender = 'Male'
+		else:
+			gender = 'Female'
+			
+		try:
+			test_year = int(year)
+			test_day = int(day)
+		except:
+			messages.error(request, "Please enter a number for your birthday year and day")
+			return render_to_response('profiles/new_user.html', locals(), context_instance=RequestContext(request))
+
+		if user_age >= 18:
+			datestr = str(year) + '-' + str(month) + '-' + str(day)
+			birthday = datetime.strptime(datestr, '%Y-%m-%d').date()
+			user_age = calculate_age(birthday)
+			if created:
+				new_user.set_password(password)
+				new_user.first_name = first_name
+				if len(full_name) >= 2:
+					new_user.last_name = last_name
+				new_info = Info(user=request.user)
+				new_address = Address(user=request.user)
+				new_address.country = country
+				new_address.state = state
+				new_address.city = city
+				new_info.gender = gender
+				new_info.birthday = birthday
+				new_info.signed_up_with_fb_or_goog = False
+				new_info.save()
+				new_address.save()
+				new_user.save()
+				if not DEBUG:
+					subject = 'Thanks for registering with Frenvu!'
+					line1 = 'Hi %s, \nThanks for making an account with Frenvu! My name is Denis, ' % (username,)
+					html_line1 = 'Hi %s, \n<br>Thanks for making an account with Frenvu! My name is Denis, ' % (username,)
+
+					line2 = "and I'm one of the Co-Founders of Frenvu. We're trying to make Frenvu a great"
+					line3 = "place for fostering new friendships, but we're still an early company, so if "
+					line4 = "you have any questions or concerns about the site, please feel free to reach "
+					line5 = "out to me. I'd love to hear feedback from you or help you with any problem you're having! "
+
+					line6 = "We hope you enjoy the site!\nSincerely,\nDenis and the rest of the team at Frenvu"
+					html_line6 = "We hope you enjoy the site!\n<br>Sincerely,\n<br>Denis and the rest of the team at Frenvu"
+					message = line1 + line2 + line3 + line4 + line5 + line6
+					html_message = html_line1 + line2 + line3 + line4 + line5 + html_line6
+					msg = EmailMultiAlternatives(subject, html_message, EMAIL_HOST_USER, [email])
+					msg.content_subtype = "html"
+					msg.send()
+				return HttpResponseRedirect(reverse('handle_new_user'))
+		else:
+			messages.error(request, "We're sorry but you must be at least 18 to signup!")
+			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+		return render_to_response('profiles/new_user.html', locals(), context_instance=RequestContext(request))
+
+
 
 #def create_circle(user):
 
@@ -312,7 +414,9 @@ def delete_picture(request, pic_id):
 	#pic_id = request.GET['picture_id']
 	picture = UserPicture.objects.get(pk=pic_id)
 	picture.delete()
-	HttpResponseRedirect('/')
+	#HttpResponseRedirect('/')
+	return HttpResponseRedirect(reverse('view_pictures'))
+
 
 
 
@@ -673,18 +777,23 @@ def search(request):
 
 
 def sort_by_match(request):
-	matches = Match.objects.filter(
+
+	matches1 = Match.objects.filter(
 			Q(user1=request.user) | Q(user2=request.user)
-			).order_by('-percent')
-	for match in matches: 
-		match.percent = match_percentage(match.user1, match.user2)
+			)
+	for match in matches1: 
+		#match.percent = match_percentage(match.user1, match.user2)
 		try:
 			match.distance = round(calc_distance(request.user, u))
 		except:
 			match.distance = 10000000
 		match.save()
-
-	return render_to_response('profiles/find_friends.html', locals(), context_instance=RequestContext(request))	
+	matches = Match.objects.filter(
+			Q(user1=request.user) | Q(user2=request.user)
+			).order_by('-percent')
+	user_gamification = Gamification.objects.get(user=request.user)
+	return render_to_response('all.html', locals(), context_instance=RequestContext(request))	
+	
 
 
 def sort_by_location(request):
@@ -718,6 +827,13 @@ def all_visitors(request):
 
 def terms_and_agreement(request): 
 	return render_to_response('terms.html', locals(), context_instance=RequestContext(request))
+
+
+def delete_picture(request, pic_id):
+	user = request.user
+	pic = UserPicture.objects.filter(user=user).get(id=pic_id)
+	pic.delete()
+	return HttpResponseRedirect(reverse('pictures'))
 
 
 def delete_account(request):
@@ -778,7 +894,9 @@ def new_picture(request):
 	# define a fixed aspect ratio for the user image
 	aspect = 105.0 / 75.0
 	# the final size of the user image
+  	
   	final_size = (105, 75) 
+  	'''
   	x1 = request.POST.get("x1")
   	print "x1 is: ", x1
   	y1 = request.POST.get("y1")
@@ -801,6 +919,7 @@ def new_picture(request):
 		form.save()
 		# redirect to profile display page
 		return HttpResponseRedirect("/")
+	'''
 
   
 	if request.method == "POST" and len(request.FILES) == 0:
@@ -843,11 +962,8 @@ def new_picture(request):
 										"setSelect": "[100, 100, 50, 50]",
 									}
 					)
-	return render_to_response("pictures.html",
-							{
-								"form": form,
-							},
-								RequestContext(request))
+	return HttpResponseRedirect(reverse('pictures'))
+
 
 
 def ice_breaker(request): 
