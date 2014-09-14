@@ -674,6 +674,7 @@ def search(request):
 
 
 def sort_by_match(request):
+	'''
 	matches1 = Match.objects.filter(
 			Q(user1=request.user) | Q(user2=request.user)
 			)
@@ -684,12 +685,10 @@ def sort_by_match(request):
 		except:
 			match.distance = 10000000
 		match.save()
-	#return HttpResponseRedirect("/")
 	'''
 	matches = Match.objects.filter(
 			Q(user1=request.user) | Q(user2=request.user)
 			).order_by('-percent')
-	'''
 	user_gamification = Gamification.objects.get(user=request.user)
 	return render_to_response('all.html', locals(), context_instance=RequestContext(request))	
 	
