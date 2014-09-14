@@ -726,6 +726,15 @@ def terms_and_agreement(request):
 	return render_to_response('terms.html', locals(), context_instance=RequestContext(request))
 
 
+def delete_picture(request, pic_id):
+	user = request.user
+	pic = UserPicture.objects.filter(user=user).get(id=pic_id)
+	pic.delete()
+	pictures = UserPicture.objects.filter(user__username=user.username)
+	return render_to_response('profiles/single_user_pictures.html', locals(), context_instance=RequestContext(request))
+
+
+
 def delete_account(request):
 	username = request.user.username
 	deactivated_user = User.objects.get(username=username)
