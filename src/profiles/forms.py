@@ -7,8 +7,8 @@ from django.utils.safestring import mark_safe
 from django.utils.datastructures import MultiValueDictKeyError
 from PIL import Image
 
-from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG, MEDIA_ROOT
-from forfriends.settings.deployment_local import MEDIA_URL
+from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG, MEDIA_ROOT, MEDIA_URL as DEPLOYMENT_MEDIA_URL
+from forfriends.settings.deployment_local import MEDIA_URL as LOCAL_MEDIA_URL
 
 
 class AddressForm(forms.ModelForm):
@@ -224,9 +224,12 @@ class JcropForm(forms.Form):
 
 
 		# copy image data to final file
-		fn = upload_file.name
-		pfn = MEDIA_ROOT + fn
-		print MEDIA_URL
+		if not DEBUG: 
+			fn = "profiles/" + upload_file.name
+			pfn = DEPLYOMENT_MEDIA_URL + fn
+		else: 
+			fn = upload_file.name
+			pfn = LOCAL_MEDIA_URL + fn
 		destination = open(pfn, 'wb+')
 		for chunk in upload_file.chunks():
 			destination.write(chunk)
