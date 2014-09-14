@@ -529,7 +529,7 @@ fieldset{
     z-index:100;
   }
   .parallax5{
-    background-image: url(/static/img/landing/lovers_compressed.jpg);
+    background-image: url(/static/img/landing/concert_co.jpg);
     min-height:500px;
     background-attachment: fixed;
     background-position: center;
@@ -739,7 +739,7 @@ input[type=submit]:active {
   background-position: center;
 }
 .parallax5{
-  background-image: url(/static/img/landing/lovers_mobile.jpg);
+  background-image: url(/static/img/landing/concert_mobile.jpg);
   min-height:500px;
   background-size: cover;
   -webkit-background-size:cover!important;

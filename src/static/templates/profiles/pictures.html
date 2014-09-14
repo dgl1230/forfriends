@@ -57,7 +57,7 @@
 
             <div class="step2">
                 <p>Please select a crop region</p>
-                <img id="preview" />
+                <img id="preview" name="preview" style="height:286px;width:auto" />
                 <br>
                 <div style="width:100px; height:100px; overflow:hidden;margin-left:5px">
                     <img id="small_preview" name="small_preview" />
@@ -73,25 +73,6 @@
             <br>
             <input class="btn" id="upload_button" type="submit" value="Upload">
         </form>
-
-<div>
-    <div class="example">
-            <div class="example__left" style="padding-top:120px">
-                <div id="userpic" class="userpic">
-                    <div class="js-preview userpic__preview"></div>
-                    <div class="btn btn-success js-fileapi-wrapper">
-                        <div class="js-browse">
-                            <span class="btn-txt">Choose</span>
-                            <input type="file" name="filedata"/>
-                        </div>
-                        <div class="js-upload" style="display: none;">
-                            <div class="progress progress-success"><div class="js-progress bar"></div></div>
-                            <span class="btn-txt">Uploading</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 <script>
 // convert bytes into friendly format
 function bytesToSize(bytes) {
@@ -117,16 +98,14 @@ function showPreview(coords) {
     // update info by cropping (onChange and onSelect events handler)
 
 function updateInfo(e) {
-        $('#x1').val(e.x);
-        $('#y1').val(e.y);
-        $('#x2').val(e.x2);
-        $('#y2').val(e.y2);
-        $('#w').val(e.w);
-        $('#h').val(e.h);
+        x1 = $('#x1').val(e.x);
+        y1 = $('#y1').val(e.y);
+        x2 = $('#x2').val(e.x2);
+        y2 = $('#y2').val(e.y2);
+        w = $('#w').val(e.w);
+        h = $('#h').val(e.h);
 
     }
-
-    // clear info by cropping (onRelease event handler)
 
 function clearInfo() {
         $('.info #w').val('');
@@ -183,7 +162,7 @@ function fileSelectHandler() {
             }
             setTimeout(function() {
                 // initialize Jcrop
-                var cropped = $('#preview').Jcrop({
+                $('#preview').Jcrop({
                     onChange: updateInfo,
                     onSelect: updateInfo,
                     minSize: [200, 250], // min crop size
