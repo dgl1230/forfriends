@@ -867,19 +867,14 @@ def contact_us(request):
 
 def new_picture(request):
 	if request.method == 'POST':
-		print 1
 		pic_form = UserPictureForm(request.POST, request.FILES)
-		print request.FILES
-		print 2
 		if pic_form.is_valid():
-			print 3
 			form = pic_form.save(commit=False)
-			image = form.cleaned_data["preview"]
+			image = pic_form.cleaned_data["image"]
 			if image:
-				print 4
-				form.user = user
+				form.user = request.user
+				form.image = image
 				form.save()
-	print pic_form.errors
 	return HttpResponseRedirect(reverse('pictures'))
 
 

@@ -48,16 +48,17 @@
         <p class="step1">Please select an image file</p>
 
             <div>
-                <input id="image_file" name="image_file" onchange=
+                <input id="image_file" name="image" onchange=
                 "fileSelectHandler()" type="file">
             </div>
             <br>
+
 
             <div class="error"></div>
 
             <div class="step2">
                 <p>Please select a crop region</p>
-                <img id="preview" name="preview" style="height:286px;width:auto" />
+                <img type="file" id="preview" name="preview" style="height:286px;width:auto" />
                 <br>
                 <div style="width:100px; height:100px; overflow:hidden;margin-left:5px">
                     <img id="small_preview" name="small_preview" />
