@@ -331,7 +331,8 @@ def new_user_info(request):
 		else:
 			messages.error(request, "We're sorry but you must be at least 18 to signup!")
 			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
-	return render_to_response('profiles/new_user.html', locals(), context_instance=RequestContext(request))
+	else:
+		return render_to_response('profiles/new_user.html', locals(), context_instance=RequestContext(request))
 
 
 
