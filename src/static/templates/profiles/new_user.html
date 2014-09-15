@@ -1,0 +1,62 @@
+<div class="col-xs-6" id="register">
+      <div class="parallax">
+      <div class="form" >
+        <form id="contactform" method='POST' action='{% url "register_user" %}'>{% csrf_token %}
+          <h1>Sign up here.</h1>
+          <p class="contact"><label for="name">Name</label></p> 
+          <input id="name" name="name" placeholder="First and last name" required="" tabindex="1" type="text"> 
+          <p class="contact"><label for="email">Email</label></p> 
+          <input id="email" name="email" tabindex="1" required="" type="text"> 
+          <p class="contact"><label for="username">Create a username</label></p> 
+          <input id="username" name="username" placeholder=" username" required="" tabindex="1" type="text" maxlength="20"> 
+          <p class="contact"><label for="password">Create a password</label></p> 
+          <input type="password" id="password" name="password" required="" tabindex="1"> 
+          <p class="contact"><label for="repassword">Confirm your password</label></p> 
+          <input type="password" id="repassword" name="repassword" required="" tabindex="1"><br>
+                <label id="birthday">Birthday</label><br>
+               <fieldset>
+                  <br>
+                  
+                  <label class="month"> Month
+                  <select class="select-style" name="BirthMonth" tabindex="1">
+                  <option value="">Month</option>
+                  <option  value="01">January</option>
+                  <option value="02">February</option>
+                  <option value="03" >March</option>
+                  <option value="04">April</option>
+                  <option value="05">May</option>
+                  <option value="06">June</option>
+                  <option value="07">July</option>
+                  <option value="08">August</option>
+                  <option value="09">September</option>
+                  <option value="10">October</option>
+                  <option value="11">November</option>
+                  <option value="12" >December</option>
+                  </label>
+                 </select>
+                 </fieldset>    
+                <label>Day <input type="text" class="birthday" maxlength="2" name="BirthDay" tabindex="1"  required=""></label>
+                <label>Year <input type="text" class="birthyear" maxlength="4" name="BirthYear" tabindex="1" required=""></label><br>
+                
+              
+            <label>Gender</label>
+            <select class="select-style gender" tabindex="1" name="gender">
+            <option value="select"></option>
+            <option value="m">Male</option>
+            <option value="f">Female</option>
+            </select><br>
+            Select Country (with states):   <select id="country" name ="country"></select>
+            Select State: <select name ="state" id ="state"></select>
+            <script language="javascript">
+            populateCountries("country", "state");
+             </script>
+            <p class="contact"><label for="username" name="city">City: </label></p> 
+          <input id="username" name="city" required="" tabindex="1" type="text">
+            <p id="terms">By clicking Sign Me Up, you agree to our <a href="/terms_and_agreement/">Terms and Conditions</a> and have read our <a href="/terms_and_agreement/">Privacy Policy.</a></p>
+            <input class="buttom" name="submit" id="registration_button" tabindex="1" value="Sign Me Up" tabindex="1" type="submit">    
+           </form>     
+        </div>      
+        </div>
+          </div>
+              </div>
+</div>
