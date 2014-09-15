@@ -28,6 +28,9 @@ input#image_file{
 #delete_picture{
     z-index:100;
 }
+.100px_margin{
+    margin-bottom:100px!important;
+}
 .bbody {
     color: #000;
     overflow: hidden;
