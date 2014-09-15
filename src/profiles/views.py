@@ -864,25 +864,25 @@ def contact_us(request):
 	return render_to_response ('contact_us.html', locals(), context_instance=RequestContext(request))
 
 
-def new_picture1(request):
-	if request.POST:
-		upload_file = request.FILES["small_preview"]
-		print upload_file
-		fn = '/' + upload_file.name
-		pfn = MEDIA_ROOT + fn
-		destination = open(pfn, 'wb+')
-		for chunk in upload_file.chunks():
-			destination.write(chunk)
-		destination.close()
-		new_image = UserPicture.objects.create(user=request.user)
-		new_image.image = fn
-		new_image.save()
-	else:
-		print "fuck"
-	return render_to_response('profiles/pictures.html', locals(), context_instance=RequestContext(request))
-
-
 def new_picture(request):
+	if request.method == 'POST':
+		print 1
+		pic_form = UserPictureForm(request.POST, request.FILES)
+		print request.FILES
+		print 2
+		if pic_form.is_valid():
+			print 3
+			form = pic_form.save(commit=False)
+			image = form.cleaned_data["preview"]
+			if image:
+				print 4
+				form.user = user
+				form.save()
+	print pic_form.errors
+	return HttpResponseRedirect(reverse('pictures'))
+
+
+def new_picture1(request):
 	# get the profile (i.e. the model containing the image to edit);
 	# In this example, the model in question is the user profile model,
 	# so we can use Django's get_profile() method.
