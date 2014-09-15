@@ -30,7 +30,7 @@
 	<div class="body_section">
 	<table class='table table-striped'>
 		<thead>
-		<th>From</th> <th>Message</th> <th><a href='{% url "delete_messages" %}' ><span id="inbox_trash" class="glyphicon glyphicon-trash"></a></span></th>
+		<th>From</th> <th>Message</th> <th><a href='/' ><span id="inbox_trash" class="glyphicon glyphicon-trash"></a></span></th>
 		</thead>
 		<tbody>
 			{% for item in messages_in_inbox %}
@@ -38,7 +38,7 @@
 				<td><a href="/members/{{ item.sender }}/">
 						{% for pic in item.sender.userpicture_set.all %}
 	                		{% if forloop.first %}
-	                		<img src='{{ MEDIA_URL }}{{ pic }}' alt="Owl Image" id="message_image"></div>
+	                		<img src='{{ MEDIA_URL }}{{ pic }}' alt="Owl Image" id="message_image" name="{{ pic.id }}"></div>
 	                		{% endif %}
 	                	{% endfor %}
 

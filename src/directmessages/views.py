@@ -28,7 +28,7 @@ def view_direct_message(request, dm_id):
 	return render_to_response('directmessages/views.html', locals(), 
 										context_instance=RequestContext(request))
 
-def delete_message(request, dm_id):
+def delete_messages(request, dm_id):
 	message = DirectMessage.objects.get(id=dm_id)
 	message.delete()
 	messages_in_inbox = DirectMessage.objects.filter(receiver=request.user)

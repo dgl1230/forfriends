@@ -22,7 +22,7 @@ from forfriends.matching import match_percentage
 from forfriends.distance import calc_distance
 from matches.models import Match
 from .models import Address, Job, Info, UserPicture, Gamification
-from .forms import AddressForm, InfoForm, JobForm, UserPictureForm, JcropForm
+from .forms import AddressForm, InfoForm, JobForm, UserPictureForm
 from interests.models import UserInterestAnswer, Interest
 from visitors.models import Visitor
 from directmessages.models import DirectMessage
@@ -875,89 +875,6 @@ def new_picture(request):
 				form.user = request.user
 				form.image = image
 				form.save()
-	return HttpResponseRedirect(reverse('pictures'))
-
-
-def new_picture1(request):
-	# get the profile (i.e. the model containing the image to edit);
-	# In this example, the model in question is the user profile model,
-	# so we can use Django's get_profile() method.
-	new_image = UserPicture.objects.create(user=request.user)
-	#print len(request.FILES)
-	#profile = request.user
-	#image_upload_to = MEDIA_URL
-  
-	# define a fixed aspect ratio for the user image
-	aspect = 105.0 / 75.0
-	# the final size of the user image
-  	
-  	final_size = (105, 75) 
-  	'''
-  	x1 = request.POST.get("x1")
-  	print "x1 is: ", x1
-  	y1 = request.POST.get("y1")
-  	print "y1 is: ", y1
-  	x2 = request.POST.get("x2")
-  	print "x2 is: ", x2
-  	y2 = request.POST.get("y2")
-  	print "y2 is: ", y2
-  	w = request.POST.get("w")
-  	print "w is: ", w
-  	h = request.POST.get("h")
-  	print "h is: ", h
-  	cropped = request.POST.get("cropped")
-  	print "cropped is: ", cropped
-  	form = JcropForm(request.POST)
-	if form.is_valid():
-		# apply cropping
-		form.crop()
-		form.resize(final_size)
-		form.save()
-		# redirect to profile display page
-		return HttpResponseRedirect("/")
-	'''
-
-  
-	if request.method == "POST" and len(request.FILES) == 0:
-		print "needs to be here"
-		# user submitted form with crop coordinates
-		form = JcropForm(request.POST)
-		if form.is_valid():
-			# apply cropping
-			form.crop()
-			form.resize(final_size)
-			form.save()
-			# redirect to profile display page
-			return HttpResponseRedirect("/")
-    
-	elif request.method == "POST" and len(request.FILES):
-		print "not cropping"
-		# user uploaded a new image; save it and make sure it is not too large
-		# for our layout
-		img_fn = JcropForm.prepare_uploaded_img(request.FILES, new_image, (370, 500))
-		if img_fn:
-			# store new image in the member instance
-			new_image.image = img_fn # 'avatar' is an ImageField
-			try: 
-				caption = request.POST['caption']
-				new_image.caption = caption
-			except: 
-				pass
-			new_image.save()
-			# redisplay the form with the new image; this is the same as for
-			# GET requests -> fall through to GET
-      
-	elif request.method != "GET":
-		# only POST and GET, please
-		return HttpResponse(status=400)
-  
-	# for GET requests, just display the form with current image
-	form = JcropForm(initial        = { "imagefile": new_image.image },
-					jcrop_options  = { 
-										"aspectRatio":aspect,
-										"setSelect": "[100, 100, 50, 50]",
-									}
-					)
 	return HttpResponseRedirect(reverse('pictures'))
 
 

@@ -123,11 +123,11 @@
 		var swipedElement = document.getElementById("main_interests");
 		if ( swipeDirection == 'left' ) {
 			// REPLACE WITH YOUR ROUTINES
-			window.location.href = '?page={{ interests.next_page_number }}';
+			window.location.href = {% if interests.has_previous %} '?page={{ interests.previous_page_number }}' {% else %} '?page=' {% endif %};
 		}
 		if ( swipeDirection == 'right' ) {
 			// REPLACE WITH YOUR ROUTINES
-			window.location.href = "?page={{ interests.previous_page_number }}";
+			window.location.href = {% if interests.has_next %} "?page={{ interests.next_page_number }}" {% else %} '?page='  {% endif %};
 		}
 	}
 

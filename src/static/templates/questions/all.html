@@ -122,11 +122,11 @@
 		var swipedElement = document.getElementById("question_answers");
 		if ( swipeDirection == 'left' ) {
 			// REPLACE WITH YOUR ROUTINES
-			window.location.href = "?page={{ questions.next_page_number }}";
+			window.location.href = {% if questions.has_previous %} "?page={{ questions.previous_page_number }}" {% else %} "?page=" {% endif %;
 		}
 		if ( swipeDirection == 'right' ) {
 			// REPLACE WITH YOUR ROUTINES
-			window.location.href = "?page={{ questions.previous_page_number }}";
+			window.location.href = {% if questions.has_next %} "?page={{ questions.next_page_number }}" {% else %} "?page=" {% endif %};
 		}
 	}
 
@@ -233,4 +233,5 @@
             $('.rating-enable').trigger('click');
         });
     </script>
+ {% endif %}
 {% endblock %}
