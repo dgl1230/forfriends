@@ -100,8 +100,8 @@ a{
 	padding:20px 30px 20px 30px;
 	
 	box-sizing: border-box;
-	width: 340px;
-	margin: 0 2% 50px;
+	width: 400px;
+	margin: 0 0% 50px;
 	
 	/*stacking fieldsets above each other*/
 	position: absolute;
@@ -199,4 +199,28 @@ a{
 #progressbar li.active:before,  #progressbar li.active:after{
 	background: #1FBAD6;
 	color: white;
+}
+
+@media (min-width:500px){
+	#msform fieldset {
+	background: white;
+	border: 0 none;
+	border-radius: 3px;
+	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+	padding:20px 10px 20px 10px;
+	
+	box-sizing: border-box;
+	width: 300px;
+	margin: 0 0% 50px;
+	
+	/*stacking fieldsets above each other*/
+	position: absolute;
+	}
+
+	#msform {
+	width: 300px;
+	margin: 50px auto;
+	text-align: center;
+	position: relative;
+	}
 }
