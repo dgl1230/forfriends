@@ -12,6 +12,12 @@
 	width:500px;
 	margin:0 auto;
 }
+
+.new_user_guide{
+	max-width: 450px;
+	font-size:1.2em;
+	margin:0 auto;
+}
 #question-wrapper.row{
 	min-width:100px;
 }
