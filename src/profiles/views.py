@@ -90,6 +90,7 @@ def all(request):
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
 
+
 def generate_circle(logged_in_user):
 	if logged_in_user.is_authenticated(): 
 			try: 
@@ -228,26 +229,39 @@ def circle_distance(logged_in_user):
 
 def handle_new_user(request):
 	try:
-		info = Info.models.get(user=request.user)
+		print 1
+		info = Info.objects.get(user=request.user)
 		user_interests = UserInterestAnswer.objects.filter(user=request.user)
 		user_questions = UserAnswer.objects.filter(user=request.user)
+		print 2
 	except: 
+		print 3
 		user_interests = 0
 		user_questions = 0
+		print 4
 	try: 
 		#if we get an error, then this means they signed up with google or facebook
 		# so we need to get more info from them first 
+		print 4
 		address = Address.objects.get(user=request.user)
+		info = Info.objects.get(user=request.user)
+		print 4.5
 		assert(info.signed_up_with_fb_or_goog == False)
+		print 5
 	except: 
+		print 6
 		return HttpResponseRedirect(reverse('new_user_info'))
 	if user_interests.count() < 10:
+		print 7
 		return HttpResponseRedirect(reverse('new_user_interests'))
 	if user_questions.count() < 10: 
+		print 8 
 		return HttpResponseRedirect(reverse('new_user_questions'))
 	else: 
+		print 9
 		info = Info.objects.get(user=request.user)
 		info.is_new_user = False
+		print 10
 		info.save()
 		return HttpResponseRedirect(reverse('home'))
 
@@ -294,40 +308,45 @@ def new_user_info(request):
 			datestr = str(year) + '-' + str(month) + '-' + str(day)
 			birthday = datetime.strptime(datestr, '%Y-%m-%d').date()
 			user_age = calculate_age(birthday)
-			if created:
-				new_user.set_password(password)
-				new_user.first_name = first_name
-				if len(full_name) >= 2:
-					new_user.last_name = last_name
-				new_info = Info(user=request.user)
-				new_address = Address(user=request.user)
-				new_address.country = country
-				new_address.state = state
-				new_address.city = city
-				new_info.gender = gender
-				new_info.birthday = birthday
-				new_info.signed_up_with_fb_or_goog = False
-				new_info.save()
-				new_address.save()
-				new_user.save()
-				if not DEBUG:
-					subject = 'Thanks for registering with Frenvu!'
-					line1 = 'Hi %s, \nThanks for making an account with Frenvu! My name is Denis, ' % (username,)
-					html_line1 = 'Hi %s, \n<br>Thanks for making an account with Frenvu! My name is Denis, ' % (username,)
 
-					line2 = "and I'm one of the Co-Founders of Frenvu. We're trying to make Frenvu a great"
-					line3 = "place for fostering new friendships, but we're still an early company, so if "
-					line4 = "you have any questions or concerns about the site, please feel free to reach "
-					line5 = "out to me. I'd love to hear feedback from you or help you with any problem you're having! "
+			request.user.first_name = first_name
+			if len(full_name) >= 2:
+				request.user.last_name = last_name
+			try: 
+				new_info = Info.objects.get(user=request.user)
+			except: 
+				new_info = Info.objects.create(user=request.user)
+			try:
+				new_address = Address.objects.get(user=request.user)
+			except: 
+				new_address = Address.objects.create(user=request.user)
+			new_address.country = country
+			new_address.state = state
+			new_address.city = city
+			new_info.gender = gender
+			new_info.birthday = birthday
+			new_info.signed_up_with_fb_or_goog = False
+			new_info.save()
+			new_address.save()
+			request.user.save()
+			if not DEBUG:
+				subject = 'Thanks for registering with Frenvu!'
+				line1 = 'Hi %s, \nThanks for making an account with Frenvu! My name is Denis, ' % (username,)
+				html_line1 = 'Hi %s, \n<br>Thanks for making an account with Frenvu! My name is Denis, ' % (username,)
 
-					line6 = "We hope you enjoy the site!\nSincerely,\nDenis and the rest of the team at Frenvu"
-					html_line6 = "We hope you enjoy the site!\n<br>Sincerely,\n<br>Denis and the rest of the team at Frenvu"
-					message = line1 + line2 + line3 + line4 + line5 + line6
-					html_message = html_line1 + line2 + line3 + line4 + line5 + html_line6
-					msg = EmailMultiAlternatives(subject, html_message, EMAIL_HOST_USER, [email])
-					msg.content_subtype = "html"
-					msg.send()
-				return HttpResponseRedirect(reverse('handle_new_user'))
+				line2 = "and I'm one of the Co-Founders of Frenvu. We're trying to make Frenvu a great"
+				line3 = "place for fostering new friendships, but we're still an early company, so if "
+				line4 = "you have any questions or concerns about the site, please feel free to reach "
+				line5 = "out to me. I'd love to hear feedback from you or help you with any problem you're having! "
+
+				line6 = "We hope you enjoy the site!\nSincerely,\nDenis and the rest of the team at Frenvu"
+				html_line6 = "We hope you enjoy the site!\n<br>Sincerely,\n<br>Denis and the rest of the team at Frenvu"
+				message = line1 + line2 + line3 + line4 + line5 + line6
+				html_message = html_line1 + line2 + line3 + line4 + line5 + html_line6
+				msg = EmailMultiAlternatives(subject, html_message, EMAIL_HOST_USER, [email])
+				msg.content_subtype = "html"
+				msg.send()
+			return HttpResponseRedirect(reverse('handle_new_user'))
 		else:
 			messages.error(request, "We're sorry but you must be at least 18 to signup!")
 			return render_to_response('home.html', locals(), context_instance=RequestContext(request))

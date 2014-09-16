@@ -190,10 +190,6 @@ SOCIAL_AUTH_PIPELINE = (
     #'forfriends.pipeline.user_details',
 )
 
-#Twitter social authetnication info 
-SOCIAL_AUTH_TWITTER_KEY = '7UpBqDOh5PnPDLwoLxfKUFTPu'
-SOCIAL_AUTH_TWITTER_SECRET = 'AgYgddJxFdAAEU0OYUlmbxy2rNxL41B2uNAiQsDoWZLwqVQpyW'
-
 #Google soical authentication info 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "535327556807-i0uiqqfvleeiah9930rm04brvtjir54o.apps.googleusercontent.com"
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "EG9xWIv2kqalrYBGukZl-eIm"
