@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-
+{% if questions.has_next %}
 <script type="text/javascript">
 	// TOUCH-EVENTS SINGLE-FINGER SWIPE-SENSING JAVASCRIPT
 	// Courtesy of PADILICIOUS.COM and MACOSXAUTOMATION.COM
@@ -124,13 +124,10 @@
 			// REPLACE WITH YOUR ROUTINES
 			window.location.href = "?page={{ questions.next_page_number }}";
 		}
-		if ( swipeDirection == 'right' ) {
-			// REPLACE WITH YOUR ROUTINES
-			window.location.href = "?page={{ questions.previous_page_number }}";
-		}
 	}
 
 </script>
+{% endif %}
 
 <div id="big_wrapper">
 <div class="row" id="margin_wrapper">
@@ -138,9 +135,8 @@
         <h1>Personality</h1>
 	</div>
 	<div class="col-md-1" id="tertiary_navbar">
-		<span class="glyphicon glyphicon-question-sign" id="tertiary-icon"></span>
-     	<span class="glyphicon glyphicon-question-sign" id="tertiary-icon"></span>
-	</div>
+		<p>After answering these last few questions, your profile will be complete!</p>
+	</div> 
 </div>
 
 {% if messages %}
