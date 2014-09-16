@@ -18,8 +18,17 @@
   {% include 'navbar_new_user.html' %}
 <div class="wrapper">
   <h1 class="heading">We just need a little more information to complete your account. </h1>
+  {% if messages %}
+            <div class='row'>
+              <ul class="messages">
+                {% for message in messages %}
+                  <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                  {% endfor %}
+             </ul>
+            </div>
+          {% endif %}
   <!-- multistep form -->
-  <form id="msform" method='POST' action='{% url "register_user" %}'>{% csrf_token %}
+  <form id="msform" method='POST' action='{% url "new_user_info" %}'>{% csrf_token %}
     <!-- progressbar -->
     <ul id="progressbar">
       <li class="active">Basic Info</li>
@@ -49,8 +58,8 @@
         <option value="12" >December</option>           
       </select>
       <br>
-      <input type="text" class="birthday" maxlength="2" name="BirthDay" tabindex="1"  placeholder="Day"required="">
-      <input type="text" class="birthyear" maxlength="4" name="BirthYear" tabindex="1" placeholder="Year" required="">
+      <input type="text" class="birthday" maxlength="2" name="BirthDay" tabindex="1"  placeholder="Day">
+      <input type="text" class="birthyear" maxlength="4" name="BirthYear" tabindex="1" placeholder="Year">
       <br>
       <input type="button" name="next" class="next action-button" value="Next" />
     </fieldset>
@@ -78,7 +87,7 @@
       <br>
       <p id="terms">By clicking Sign Me Up, you agree to our <a href="/terms_and_agreement/">Terms and Conditions</a> and have read our <a href="/terms_and_agreement/">Privacy Policy.</a></p>
       <input type="button" name="previous" class="previous action-button" value="Previous" />
-      <input class="submit action-button" name="submit" value="Sign Me Up" tabindex="1" type="submit">
+      <input class="submit action-button" name="submit" value="Sign Me Up" tabindex="1" type="submit" />
     </fieldset>
   </form>
 </div>

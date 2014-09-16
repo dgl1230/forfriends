@@ -97,10 +97,10 @@ a{
 	border: 0 none;
 	border-radius: 3px;
 	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
-	padding: 20px 30px;
+	padding:20px 30px 20px 30px;
 	
 	box-sizing: border-box;
-	width: 80%;
+	width: 340px;
 	margin: 0 2% 50px;
 	
 	/*stacking fieldsets above each other*/
@@ -133,6 +133,7 @@ a{
 	cursor: pointer;
 	padding: 10px 5px;
 	margin: 10px 5px;
+	z-index:1000;
 }
 #msform .action-button:hover, #msform .action-button:focus {
 	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
