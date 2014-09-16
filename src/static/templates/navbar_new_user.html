@@ -1,0 +1,14 @@
+    <div class="navbar">
+      <a class="navbar-brand"  data-variation=".left">Frenvu</a>
+          {% if request.user.is_authenticated %}
+          <form class="navbar-left" role="search" action='{% url "search" %}'>
+            <div class="form-group">
+            </div>
+          </form>
+          <ul class='navbar-right'>
+            <li class="logout">
+              <a href='{% url "logout_user" %}'>Logout</a>
+            </li> 
+          </ul>
+          {% endif %}
+  </div>

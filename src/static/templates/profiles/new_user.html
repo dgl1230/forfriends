@@ -1,5 +1,8 @@
 <head>
   <link href="{{ STATIC_URL }}css/new_user.css" rel="stylesheet">
+
+  <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700,400italic' rel='stylesheet' type='text/css'>
+
   <meta charset="utf-8">
   <title>Frenvu{% block title %}{% endblock %}</title>
   <!-- Mobile Specific Metas -->
@@ -8,111 +11,77 @@
   <!-- jQuery easing plugin -->
   <script src="http://thecodeplayer.com/uploads/js/jquery.easing.min.js" type="text/javascript"></script> 
   <script type= "text/javascript" src = "{{ STATIC_URL }}js/landing/countries.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-<div class="col-xs-6" id="register">
-      <div class="parallax">
-      <div class="form" >
-        <form id="contactform" method='POST' action='{% url "register_user" %}'>{% csrf_token %}
-          <h1>Sign up here.</h1>
-          <p class="contact"><label for="username">Create a username</label></p> 
-                
-                <br>
-             
-                    
-                <label>Day </label>
-                <label>Year <input type="text" class="birthyear" maxlength="4" name="BirthYear" tabindex="1" required=""></label><br>
-                
-              
-            
-            Select Country (with states):   <select id="country" name ="country"></select><br><br>
-                Select State: <select name ="state" id ="state"></select>
-                <script language="javascript">
-                populateCountries("country", "state");
-                 </script>
-                <p class="contact"><label for="username" name="city">City: </label></p> 
-              <input id="username" name="city" required="" tabindex="1" type="text">
-            <br>
-            <p id="terms">By clicking Sign Me Up, you agree to our <a href="/terms_and_agreement/">Terms and Conditions</a> and have read our <a href="/terms_and_agreement/">Privacy Policy.</a></p>
-            <input class="buttom" name="submit" id="registration_button" tabindex="1" value="Sign Me Up" tabindex="1" type="submit">    
-           </form>     
-        </div>      
-        </div>
-          </div>
-              </div>
+  {% include 'navbar_new_user.html' %}
+<div class="wrapper">
+  <h1 class="heading">We just need a little more information to complete your account. </h1>
+  <!-- multistep form -->
+  <form id="msform" method='POST' action='{% url "register_user" %}'>{% csrf_token %}
+    <!-- progressbar -->
+    <ul id="progressbar">
+      <li class="active">Basic Info</li>
+      <li>Personal Info</li>
+      <li>Almost Done!</li>
+    </ul>
+    <!-- fieldsets -->
+    <fieldset>
+      <h2 class="fs-title">Create your account</h2>
+      <h3 class="fs-subtitle">This is step 1</h3>
+      <input id="name" name="name" placeholder="First and Last Name" required="" tabindex="1" type="text">
+      <input id="Username" name="username" placeholder="Username" required="" tabindex="1" type="text" maxlength="20"> 
+      <label>Date of Birth </label> <br>
+      <select class="select-style" name="BirthMonth" tabindex="1">
+        <option value="">Month</option>
+        <option  value="01">January</option>
+        <option value="02">February</option>
+        <option value="03" >March</option>
+        <option value="04">April</option>
+        <option value="05">May</option>
+        <option value="06">June</option>
+        <option value="07">July</option>
+        <option value="08">August</option>
+        <option value="09">September</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12" >December</option>           
+      </select>
+      <br>
+      <input type="text" class="birthday" maxlength="2" name="BirthDay" tabindex="1"  placeholder="Day"required="">
+      <input type="text" class="birthyear" maxlength="4" name="BirthYear" tabindex="1" placeholder="Year" required="">
+      <br>
+      <input type="button" name="next" class="next action-button" value="Next" />
+    </fieldset>
+    <fieldset>
+      <h2 class="fs-title">Personal Info</h2>
+      <h3 class="fs-subtitle">More helpul information so you can be better matched</h3>
+      <select class="select-style gender" tabindex="1" name="gender">
+        <option value="select" placeholder="gender"></option>
+        <option value="m" selected>Male</option>
+        <option value="f">Female</option>
+      </select><br>
+        Country:<select id="country" name ="country"></select>
+        State: <select name ="state" id ="state"></select>
+            <script language="javascript">
+              populateCountries("country", "state");
+            </script> 
+            <input id="username" name="city" required="" tabindex="1" type="text" placeholder="City">
+      <input type="button" name="previous" class="previous action-button" value="Previous" />      
+      <input type="button" name="next" class="next action-button" value="Next" />
+    </fieldset>
+    <fieldset>
+      <h2 class="fs-title">Almost Done...</h2>
+      <h3 class="fs-subtitle"></h3>
+      <p>Start adding some interests and answering some questions so we can find out a little more about you </p>
+      <br>
+      <p id="terms">By clicking Sign Me Up, you agree to our <a href="/terms_and_agreement/">Terms and Conditions</a> and have read our <a href="/terms_and_agreement/">Privacy Policy.</a></p>
+      <input type="button" name="previous" class="previous action-button" value="Previous" />
+      <input class="submit action-button" name="submit" value="Sign Me Up" tabindex="1" type="submit">
+    </fieldset>
+  </form>
 </div>
-
-<!--==========================================================-->
-<!--==========================================================-->
-
-<!-- multistep form -->
-<form id="msform">
-  <!-- progressbar -->
-  <ul id="progressbar">
-    <li class="active">Basic Information</li>
-    <li>Personal Info</li>
-    <li>Almost Done!</li>
-  </ul>
-  <!-- fieldsets -->
-  <fieldset>
-    <h2 class="fs-title">Create your account</h2>
-    <h3 class="fs-subtitle">This is step 1</h3>
-    <input id="name" name="name" placeholder="First and Last Name" required="" tabindex="1" type="text">
-    <input id="Username" name="username" placeholder=" username" required="" tabindex="1" type="text" maxlength="20"> 
-    <select class="select-style" name="BirthMonth" tabindex="1">
-      <option value="">Month</option>
-      <option  value="01">January</option>
-      <option value="02">February</option>
-      <option value="03" >March</option>
-      <option value="04">April</option>
-      <option value="05">May</option>
-      <option value="06">June</option>
-      <option value="07">July</option>
-      <option value="08">August</option>
-      <option value="09">September</option>
-      <option value="10">October</option>
-      <option value="11">November</option>
-      <option value="12" >December</option>           
-    </select>
-    <input type="text" class="birthday" maxlength="2" name="BirthDay" tabindex="1"  required="">
-    <input type="text" class="birthyear" maxlength="4" name="BirthYear" tabindex="1" required="">
-    <br>
-    <input type="button" name="next" class="next action-button" value="Next" />
-  </fieldset>
-  <fieldset>
-    <h2 class="fs-title">Personal Info</h2>
-    <h3 class="fs-subtitle">More helpul information so you can be better matched</h3>
-    <select class="select-style gender" tabindex="1" name="gender">
-      <option value="select"></option>
-      <option value="m">Male</option>
-      <option value="f">Female</option>
-    </select><br>
-    Select Country (with states):   <select id="country" name ="country"></select>
-                Select State: <select name ="state" id ="state"></select>
-                <script language="javascript">
-                populateCountries("country", "state");
-                 </script>
-                <p class="contact"><label for="username" name="city">City: </label></p> 
-              <input id="username" name="city" required="" tabindex="1" type="text">
-    <input type="button" name="previous" class="previous action-button" value="Previous" />      
-    <input type="button" name="next" class="next action-button" value="Next" />
-  </fieldset>
-  <fieldset>
-    <h2 class="fs-title">Almost Done...</h2>
-    <h3 class="fs-subtitle"></h3>
-    <p>Start adding some interests and answering some questions so we can find out a little more about you </p>
-    <p id="terms">By clicking Sign Me Up, you agree to our <a href="/terms_and_agreement/">Terms and Conditions</a> and have read our <a href="/terms_and_agreement/">Privacy Policy.</a></p>
-    <input type="button" name="previous" class="previous action-button" value="Previous" />
-    <input type="submit" name="submit" class="submit action-button" value="Submit" />
-  </fieldset>
-</form>
-
-
-
-
-<!--==========================================================-->
-<!--==========================================================-->
 
 <script src="{{ STATIC_URL }}js/new_user.js" type="text/javascript"></script>
 </body>

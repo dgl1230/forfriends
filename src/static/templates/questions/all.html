@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-
+{% if questions.has_next %}
 <script type="text/javascript">
 	// TOUCH-EVENTS SINGLE-FINGER SWIPE-SENSING JAVASCRIPT
 	// Courtesy of PADILICIOUS.COM and MACOSXAUTOMATION.COM
@@ -122,15 +122,12 @@
 		var swipedElement = document.getElementById("question_answers");
 		if ( swipeDirection == 'left' ) {
 			// REPLACE WITH YOUR ROUTINES
-			window.location.href = {% if questions.has_previous %} "?page={{ questions.previous_page_number }}" {% else %} "?page=" {% endif %;
-		}
-		if ( swipeDirection == 'right' ) {
-			// REPLACE WITH YOUR ROUTINES
-			window.location.href = {% if questions.has_next %} "?page={{ questions.next_page_number }}" {% else %} "?page=" {% endif %};
+			window.location.href = "?page={{ questions.next_page_number }}";
 		}
 	}
 
 </script>
+{% endif %}
 
 <div id="big_wrapper">
 <div class="row" id="margin_wrapper">
@@ -233,5 +230,4 @@
             $('.rating-enable').trigger('click');
         });
     </script>
- {% endif %}
 {% endblock %}

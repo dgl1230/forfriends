@@ -123,11 +123,11 @@
 		
 		function processingRoutine() {
 			var swipedElement = document.getElementById("main_interests");
-			}
 			if ( swipeDirection == 'left' ) {
 				// REPLACE WITH YOUR ROUTINES
 				window.location.href = "?page={{ interests.next_page_number }}";
-			}
+			}	
+		}
 	</script>
 {% endif %}
 
@@ -161,7 +161,7 @@
 	<br/>
 	<br/>
 	<div class='row' id="interests-wrapper">
-			<div class="main_interests" id="main_interests  ontouchstart="touchStart(event,'main_interests');" ontouchend="touchEnd(event);" ontouchmove="touchMove(event);" ontouchcancel="touchCancel(event);"">
+			<div class="main_interests" id="main_interests"  ontouchstart="touchStart(event,'main_interests');" ontouchend="touchEnd(event);" ontouchmove="touchMove(event);" ontouchcancel="touchCancel(event);">
 			<div class="interests-title">
 			{% for interest in interests %}
 				<h3>{{ interest.interest|title }}</h3><p>

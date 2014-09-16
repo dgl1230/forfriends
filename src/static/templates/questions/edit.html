@@ -5,6 +5,7 @@
 
 {% block content %}
 
+{% if questions.has_next %}
 <script type="text/javascript">
 	var triggerElementID = null; // this variable is used to identity the triggering element
 	var fingerCount = 0;
@@ -122,14 +123,10 @@
 			// REPLACE WITH YOUR ROUTINES
 			window.location.href = '?page={{ questions.next_page_number }}';
 		}
-		if ( swipeDirection == 'right' ) {
-			// REPLACE WITH YOUR ROUTINES
-			window.location.href = '?page={{ questions.previous_page_number }}';
-		}
 	}
 
 </script>
-
+{% endif %}
 <div id="big_wrapper">
 <div class="row" id="margin_wrapper">
 	<div class="col-md-1" id="secondary_navbar">

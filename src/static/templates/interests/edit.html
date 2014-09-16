@@ -5,6 +5,7 @@
 
 {% block content %}
 
+{% if interests.has_next %}
 <script type="text/javascript">
 	var triggerElementID = null; // this variable is used to identity the triggering element
 	var fingerCount = 0;
@@ -122,13 +123,9 @@
 			// REPLACE WITH YOUR ROUTINES
 			window.location.href = '?page={{ interests.next_page_number }}';
 		}
-		if ( swipeDirection == 'right' ) {
-			// REPLACE WITH YOUR ROUTINES
-			window.location.href = '?page={{ interests.previous_page_number }}';
-		}
 	}
-
 </script>
+{% endif %}
 <div id="view_container">
 	<div class="col-md-1" id="secondary_navbar">
         <h1>Edit Interests</h1>
