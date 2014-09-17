@@ -135,9 +135,17 @@
 
 <div class="row" >
   <div class='col-lg-10 col-12' id="interests-wrapper">
-{% if messages %}
+<div id="view_container">
 <div class="row">
-<div class="col-md-1" id="tertiary_navbar">
+	<div class="col-md-1" id="secondary_navbar">
+	    <h1>Matches</h1>
+	</div>
+	<div class="col-md-1" id="tertiary_navbar">
+     	<a class="regenerate" href='{% url "ice_breaker" %}'>Tired of Browsing? Do an icebreaker</a>
+    </div>
+    <br>
+	<div class="col-md-1">
+	{% if messages %}
     {% for message in messages %}
     <p id="interests_messages"{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
     {% endfor %}
@@ -151,6 +159,11 @@
 			<div class="interests-title">
 			{% for user in users %}
 				<h3>{{ user.username|title }}</h3><p>
+				{% for pic in user.userpicture_set.all %}
+				{% if pic.is_profile_pic or user.userpicture_set.all.count == 1 %}
+					<img src='{{ MEDIA_URL }}{{ pic }}' class='img' id="myfriend"/>
+				{% endif %}
+				{% endfor %}
 			</div>	
 			{% endfor %}
 			<h1>{{ match.percent }}% Match</h1>

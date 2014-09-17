@@ -9,7 +9,7 @@
                 <a href="{% if request.user.is_authenticated %}{% url "profile" request.user.username %} {% endif %}"  class="sidebar-tool" id="My_profile_sidebar"><span class='glyphicon glyphicon-home' ></span>My Profile</a>
               </li> 
               <li>
-                <a href='/sort/'  class="sidebar-tool"><span class='glyphicon glyphicon-user' id="find_friends_sidebar"></span>Discover</a>
+                <a href='/discover/'  class="sidebar-tool"><span class='glyphicon glyphicon-user' id="find_friends_sidebar"></span>Discover</a>
               </li>
               <li>
                 <a href='{% url "interests" %}'  class="sidebar-tool"><span class='glyphicon glyphicon-thumbs-up' id="interests_sidebar"></span>Interests</a>
