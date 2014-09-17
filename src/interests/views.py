@@ -31,6 +31,7 @@ def all_interests(request):
 	importance_levels = ['Strongly Dislike', 'Dislike', 'Neutral', 'Like', 'Strongly Like']
 
 	page = request.GET.get('page')
+	print page
 	try:
 		interests = paginator.page(page)
 	except PageNotAnInteger:
@@ -38,7 +39,7 @@ def all_interests(request):
 		interests = paginator.page(1)
 	except EmptyPage:
 		#If page is out of range, deliver last page of results
-		interets = paginator.page(paginator.num_pages)
+		interests = paginator.page(paginator.num_pages)
 
 	if request.method == 'POST':
 		interest_id = request.POST['interest_id']
@@ -137,7 +138,7 @@ def new_user_interests(request):
 		interests = paginator.page(1)
 	except EmptyPage:
 		#If page is out of range, deliver last page of results
-		interets = paginator.page(paginator.num_pages)
+		interests = paginator.page(paginator.num_pages)
 
 	if request.method == 'POST':
 		interest_id = request.POST['interest_id']

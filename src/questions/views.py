@@ -129,4 +129,8 @@ def new_user_questions(request):
 		answered.save()
 
 		messages.success(request, 'Answer Saved')
+		user_questions = UserAnswer.objects.filter(user=request.user)
+		if user_questions.count() == 10: 
+			return HttpResponseRedirect(reverse('handle_new_user'))
+
 	return render_to_response('questions/new_user.html', locals(), context_instance=RequestContext(request))

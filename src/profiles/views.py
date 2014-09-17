@@ -15,6 +15,8 @@ from django.db.models import Q, Max
 from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.core.urlresolvers import reverse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 
 from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG, MEDIA_URL
@@ -359,7 +361,74 @@ def new_user_info(request):
 
 
 
-def random_user_page(request):
+def discover(request):
+	
+	users_all  = User.objects.filter(is_active=True).order_by('?')
+	paginator = Paginator(users_all, 1)
+	page = request.GET.get('page')
+	try:
+		if page != False:
+			print 1
+			users = paginator.page(page)
+			user = users.object_list[0]
+			print user
+			if user == request.user: 
+				print 2
+				users = paginator.page(page + 1)
+			try: 
+				print 3
+				match = Match.objects.get(user1=request.user, user2=user)
+			except: 
+				print 4
+				match, created = Match.objects.get_or_create(user1=user, user2=request.user)
+			try:
+				print 5
+				match.distance = round(calc_distance(logged_in_user, user))
+				print match.distance
+				if match.distance <= 10:
+					match.percent = match_percentage(match.user1, match.user2)
+					match.is_10_miles = True
+					match.is_20_miles = True 
+					match.is_30_miles = True
+					match.is_40_miles = True
+					match.is_50_miles = True
+				elif match.distance <=20:
+					match.is_20_miles = True
+					match.is_30_miles = True
+					match.is_40_miles = True
+					match.is_50_miles = True
+				elif match.distance <=30:
+					match.is_30_miles = True
+					match.is_40_miles = True
+					match.is_50_miles = True
+				elif match.distance <=40:
+					match.is_40_miles = True
+					match.is_50_miles = True
+				elif match.distance <=50: 
+					match.is_50_miles = True
+			except:
+				match.distance = 10000000
+			match.percent = match_percentage(match.user1, match.user2)
+			match.save()
+			print "match.user1 is: ", match.user1
+			print "match.user2 is: ", match.user2
+			print "match.distance is: ", match.distance
+			print "match.percent is: ", match.percent
+
+
+
+	except PageNotAnInteger:
+		#If page is not an integer, deliver first page.
+		users = paginator.page(1)
+
+	except EmptyPage:
+		#If page is out of range, deliver last page of results
+		interests = paginator.page(paginator.num_pages)
+
+
+	return render_to_response('profiles/discover.html', locals(), context_instance=RequestContext(request))
+
+	'''
 	max_user = User.objects.filter(is_active=True).latest('id').id
 	while True: 
 		try: 
@@ -399,9 +468,8 @@ def random_user_page(request):
 	except:
 		match.distance = 10000000
 	match.save()
-	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))	
-
-
+	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))
+	'''
 
 
 
