@@ -5,6 +5,11 @@ html, ul, ul li, li, li a, .btn{
 	min-height: 500px;
 }
 
+.tab-content input{
+	padding: 5px 5px 5px 5px;
+
+}
+
 #form_container label:first-child{
 	width:100%;
 	font-size:18px;
@@ -19,7 +24,7 @@ html, ul, ul li, li, li a, .btn{
 	color:black;
 }
 ::-moz-placeholder {
-	color:black;
+	color:black;	
 }
 
 ::-webkit-input-placeholder{
@@ -150,10 +155,10 @@ p label{
 }
 
 .tab-content .btn-success{
-	width:50%!important;
+	width:180px!important;
 }
 
-#myTab li a:hover{
+#myTab li a:hover, #myTab li a:active{
 	background: black!important;
 	color: #1FBAD6!important;
 }

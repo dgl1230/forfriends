@@ -10,7 +10,11 @@ textarea:focus, input:focus{
 	outline:0;
 	outline:none;
 }
-
+select:focus, input:focus, textarea:focus{
+	box-shadow: inset 0 0px 1px 1px #1FBAD6;
+	-moz-box-shadow: inset 0 0px 1px 1px #1FBAD6;
+	-webkit-box-shadow: inset 0 0px 1px 1px #1FBAD6;
+}
 textarea:active, input:active{
 	outline:0;
 	outline:none;
@@ -49,7 +53,7 @@ p{
 #annoying_row{
 	width:90%;
 }
-#pictures input[type=submit], .btn.btn-info.btn-sm, .btn-lg, .pager li a, #go_button, .btn-success{
+#pictures input[type=submit], .btn.btn-info.btn-sm, .pager li a, #go_button{
 	background-color: white!important;
 	color: black!important;
 	border: 1px solid #111;
@@ -60,7 +64,24 @@ p{
 	-moz-transition-duration: .5s;
 }
 
-#pictures input[type=submit]:hover, .btn-info.btn-sm:hover, .btn-sm:hover, .btn-lg:hover, .pager li a:hover, #go_button:hover, .btn-success:hover{
+.btn-lg, .btn-success{
+	width: 100px;
+	background: #1FBAD6!important;
+	font-weight: bold;
+	color: white;
+	border: 0 none;
+	border-radius: 1px;
+	cursor: pointer;
+	padding: 10px 5px;
+	margin: 10px 5px;
+	z-index:1000;
+}
+
+.btn-lg:hover, .btn-lg:focus, .btn-success:hover, .btn-success:focus{
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
+}
+
+#pictures input[type=submit]:hover, .btn-info.btn-sm:hover, .btn-sm:hover, .pager li a:hover, #go_button:hover, .btn-success:hover{
 	background-color:#1FBAD6!important;
 	color:white!important;
 }
@@ -149,6 +170,8 @@ input{
 .body_section{
 	border-radius: 0%;
 	color:white;
+	max-width:1200px;
+	margin:0 auto;
 }
 
 .col-lg-4 a{
