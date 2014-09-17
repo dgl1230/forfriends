@@ -9,13 +9,16 @@
                 <a href="{% if request.user.is_authenticated %}{% url "profile" request.user.username %} {% endif %}"  class="sidebar-tool" id="My_profile_sidebar"><span class='glyphicon glyphicon-home' ></span>My Profile</a>
               </li> 
               <li>
-                <a href='/discover/'  class="sidebar-tool"><span class='glyphicon glyphicon-user' id="find_friends_sidebar"></span>Discover</a>
+                <a href='/discover/'  class="sidebar-tool"><span class='glyphicon glyphicon-plus' id="find_friends_sidebar"></span>Discover</a>
               </li>
               <li>
                 <a href='{% url "interests" %}'  class="sidebar-tool"><span class='glyphicon glyphicon-thumbs-up' id="interests_sidebar"></span>Interests</a>
               </li>
               <li>
                 <a href='{% url "questions" %}'  class="sidebar-tool"><span class='glyphicon glyphicon-question-sign' id="questions_sidebar"></span>Personality</a>
+              </li>
+              <li>
+                <a href="/friends" class="sidebar-tool" id="friends_tool"><span class='glyphicon glyphicon-user' id="friends_sidebar"></span>Friends</a>
               </li>
               <li>
                 <a href='/pictures'  class="sidebar-tool"><span class='glyphicon glyphicon-camera ' id="pictures_sidebar"></span>Pictures</a>

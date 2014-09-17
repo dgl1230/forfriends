@@ -153,34 +153,103 @@
 </div>
 {% endif %}
 	<br/>
-	<br/>
 	<div class='row' id="interests-wrapper">
 			<div class="main_interests" id="main_interests"  ontouchstart="touchStart(event,'main_interests');" ontouchend="touchEnd(event);" ontouchmove="touchMove(event);" ontouchcancel="touchCancel(event);">
 			<div class="interests-title">
 			
+
+			<div id="new_user_body">
+				{% if users.has_previous %}
+					<div class="previous_user"><a href="?page={{ users.previous_page_number }}"><span class='glyphicon glyphicon-arrow-left'></span></a></div>
+				{% endif %}
+				{% if users.has_next %}
+					<div class="next_user"><a href="?page={{ users.next_page_number }}"><span class='glyphicon glyphicon-arrow-right'></span></a>
+					</div>
+				{% endif %}	
+			
+			
+
 				<h3>{{ user.username|title }}</h3><p>
 				{% for pic in user.userpicture_set.all %}
-				{% if pic.is_profile_pic or user.userpicture_set.all.count == 1 %}
-					<img src='{{ MEDIA_URL }}{{ pic }}' class='img' id="myfriend"/>
-				{% endif %}
+					{% if pic.is_profile_pic or user.userpicture_set.all.count == 1 %}
+						<img src='{{ MEDIA_URL }}{{ pic }}' class='img' id="myfriend"/>
+					{% endif %}
 				{% endfor %}
-			</div>	
-			
-			<h1>{{ match.percent }}% Match</h1>
-			<h1>{{ match.distance }} miles away</h1>
+				{% if not user.userpicture_set.all %}
+				<img src='{{ STATIC_URL }}img/avatar.png' class='img' id="myfriend"/>
+				{% endif %}
 				
-				<div class="pagination">
-						<span class="step-links">
-							<ul class="pager">
-								<div class="directions">
-									{% if users.has_previous %}
-									<li class="previous"><a href="?page={{ users.previous_page_number }}">&larr; Previous</a></li>
-									{% endif %}
-									{% if users.has_next %}
-									<li class="next"><a href="?page={{ users.next_page_number }}">Next &rarr;</a></li>
-								</div>
-									{% endif %}			
+			</div>	
+
 		</div>
+			
+
+			<h1>{{ match.percent }}% Match</h1>
+			<div class="row" id="buttons_row">
+			<div class="buttons">
+				{% if match.user1_approved == True and match.user2_approved == True %}
+				<a  class="btn btn-default btn" id="friend_button" title="You are friends!"><p>Friends</p></a>
+				<a class="btn btn-default btn" id="message_button" data-toggle="tooltip" data-placement="top" href='{% url "su_compose" single_user.username %}'><p>Send Message</p></a>
+				{% elif match.user1_approved == True and match.user1 == request.user %}
+				<a  class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
+				<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message</p></a>
+				{% elif match.user2_approved == True and match.user2 == request.user %}
+				<a  class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
+				<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message</p></a>
+				{% else %}
+				<a  class="btn btn-default btn" id="friend_button" href='{% url "add_friend" user.username %}'><p>Add Friend</p></a>
+				<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message</p></a>
+				{% endif %}
+				<a class="btn btn-default btn" id="interests_button" href="/members/{{ single_user.username}}/interests/"><p>View Interests</p></a>
+				<a class="btn btn-default btn" id="pictures_button" href="/members/{{ single_user.username}}/pictures/"><p>Browse Pictures</p></a>
+			</div>
+
+		</div>
+			<div class='col-lg-6' id="single_user_body">
+		<div class='panel panel-default'>
+		<div class='panel-heading' id="bio_panel"><p>Bio</p><span class="glyphicon glyphicon-chevron-down"></span><p id="info_edit"></p></div>
+		<div class="panel-body" id="bio_body">
+		{% for item in single_user.info_set.all %}
+			{% if forloop.first %}
+				{{ item.bio }}
+			{% endif %}
+		{% endfor %}
+		</div>
+		</div>
+	<div class='panel panel-default'>
+		<div class='panel-heading' id="occ_panel"><p>Occupation</p><span class="glyphicon glyphicon-chevron-down"></span><p id="info_edit"></p></div>
+		<div class="panel-body" id="occ_body">
+		{% for item in single_user.job_set.all %} 
+			{{ item.position|title }} at {{ item.employer|title }}
+		{% endfor %}
+	</div>
+	</div>
+
+	<div class='panel panel-default'>
+		<div class='panel-heading' id="loc_panel"><p>Location</p><span class="glyphicon glyphicon-chevron-down"></span><p id="info_edit"></p></div>
+		<div class="panel-body" id="loc_body">
+		{% for item in single_user.address_set.all %}
+				{{ item.city|title }}, {{ item.state|upper }}
+		{% endfor %}
+		{% ifnotequal match.distance 10000000 %}
+		<p> {{ match.distance }} miles away</p>
+		{% endifnotequal %}
+	</div>
+	</div>
+	</div>
+				
+		<div class="pagination">
+				<span class="step-links">
+					<ul class="pager">
+						<div class="directions">
+							{% if users.has_previous %}
+							<li class="previous"><a href="?page={{ users.previous_page_number }}">&larr; Previous</a></li>
+							{% endif %}
+							{% if users.has_next %}
+							<li class="next"><a href="?page={{ users.next_page_number }}">Next &rarr;</a></li>
+						</div>
+							{% endif %}			
+</div>
 				</ul>
 			</span>
 		</div>
@@ -193,13 +262,27 @@
 </div>
 </div>
 <script>
-$(':radio').change(
-  function(){
-    $('.choice').text( this.value);
-    this.name = "importance_level";
+  $('form').on('submit', function(event) {
+    event.defaultPrevented();
+    $.ajax('/members/{{ single_user.username}}', {
+      type:"POST",
+      data: $('form').serialize(),
+    });
+  });
+</script>
 
-  } 
-)
+<script>
+$('#bio_panel').click(function() {
+	$('#bio_body').slideToggle("fast");
+});
+
+$('#occ_panel').click(function() {
+	$('#occ_body').slideToggle("fast");
+});
+
+$('#loc_panel').click(function() {
+	$('#loc_body').slideToggle("fast");
+});
 </script>
 
 {% endblock %}

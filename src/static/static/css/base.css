@@ -162,7 +162,7 @@ input{
 
 /* symbol on sidebar */
 
-.glyphicon{
+.sidebar-nav .glyphicon{
 	font-size:1em;
 	padding-right: 1.2em;
 }
@@ -203,6 +203,7 @@ form {
 	width: 50%;
 	height:auto;
 	max-width: 350px;
+	max-height:450px;
 }
 
 #myfriend a{

@@ -19,7 +19,37 @@
 	font-size:1em;
 	margin-top:0px;
 }
+.previous_user{
+	float:left;
+	margin-top:25%;
+}
 
+.previous_user a{
+	color:black!important;
+	font-size:4em;
+}
+
+.previous_user a:hover{
+	color:#1FBAD6!important;
+}
+.next_user{
+	float:right;
+	margin-top:25%;
+}
+
+.next_user a{
+	color:black!important;
+	font-size:4em;
+}
+
+.next_user a:hover{
+	color:#1FBAD6!important;
+}
+
+#new_user_body{
+	width:80%;
+	margin: 0 auto;
+}
 .regenerate{
 	font-size:1.5em;
 	color: rgb(31, 186, 214);
@@ -207,10 +237,6 @@
 }
 
 @media(max-width: 480px){
-	#myfriend{
-	width: 175px!important;
-	height: 200px!important;
-	}
 
 	.panel-heading p{
 		font-size:1.25em;
@@ -373,6 +399,9 @@
 
 	.panel-heading p{
 		font-size:1.25em;
+	}
+	#new_user_body{
+		width:100%;
 	}
 }
 
