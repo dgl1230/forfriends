@@ -106,13 +106,13 @@
 </div>
 </div>
 <script>
-  $('form').on('submit', function(event) {
-    event.defaultPrevented();
-    $.ajax('/members/{{ single_user.username}}', {
-      type:"POST",
-      data: $('form').serialize(),
-    });
-  });
+$('form').on('submit', function(event) {
+event.defaultPrevented();
+$.ajax('/members/{{ single_user.username}}', {
+  type:"POST",
+  data: $('form').serialize(),
+});
+});
 </script>
 
 <script>

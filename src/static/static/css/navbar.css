@@ -181,6 +181,13 @@ a.dropdown-toggle{
 	color: #404040!important;
 }
 
+.navbar-collapse.collapse.in{
+	border-top:white;
+}
+.navbar-collapse.collapsing{
+	border-top:white;
+}
+
 #tertiary_navbar a:hover{
 	text-shadow: 
   -.1px -.1px 0 white, 
@@ -295,6 +302,17 @@ form.navbar-form.navbar-left{
 	 	transition: all 500ms ease;
 	 	font-size: 1em;
 	 	margin-left: 0px!important;
+	}
+
+	.navbar.navbar-inverse.navbar-fixed-top{
+		height:40px;
+	}
+	#menu_icon{
+		height:40px;
+		width:40px;
+	}
+	.navbar-inverse .navbar-toggle{
+		margin-top: 7px;
 	}
 }
 

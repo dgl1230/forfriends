@@ -19,7 +19,19 @@
 	font-size:1em;
 	margin-top:0px;
 }
+.previous_user{
+	float:left;
+	margin-top:-50%;
+}
+.next_user{
+	float:right;
+	margin-top:-50%;
+}
 
+#new_user_body{
+	width:80%;
+	margin: 0 auto;
+}
 .regenerate{
 	font-size:1.5em;
 	color: rgb(31, 186, 214);
@@ -207,10 +219,6 @@
 }
 
 @media(max-width: 480px){
-	#myfriend{
-	width: 175px!important;
-	height: 200px!important;
-	}
 
 	.panel-heading p{
 		font-size:1.25em;
@@ -373,6 +381,9 @@
 
 	.panel-heading p{
 		font-size:1.25em;
+	}
+	#new_user_body{
+		width:100%;
 	}
 }
 
