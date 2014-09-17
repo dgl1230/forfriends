@@ -21,11 +21,29 @@
 }
 .previous_user{
 	float:left;
-	margin-top:-50%;
+	margin-top:25%;
+}
+
+.previous_user a{
+	color:black!important;
+	font-size:4em;
+}
+
+.previous_user a:hover{
+	color:#1FBAD6!important;
 }
 .next_user{
 	float:right;
-	margin-top:-50%;
+	margin-top:25%;
+}
+
+.next_user a{
+	color:black!important;
+	font-size:4em;
+}
+
+.next_user a:hover{
+	color:#1FBAD6!important;
 }
 
 #new_user_body{
