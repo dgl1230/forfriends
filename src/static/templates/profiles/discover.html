@@ -157,7 +157,7 @@
 	<div class='row' id="interests-wrapper">
 			<div class="main_interests" id="main_interests"  ontouchstart="touchStart(event,'main_interests');" ontouchend="touchEnd(event);" ontouchmove="touchMove(event);" ontouchcancel="touchCancel(event);">
 			<div class="interests-title">
-			{% for user in users %}
+			
 				<h3>{{ user.username|title }}</h3><p>
 				{% for pic in user.userpicture_set.all %}
 				{% if pic.is_profile_pic or user.userpicture_set.all.count == 1 %}
@@ -165,7 +165,7 @@
 				{% endif %}
 				{% endfor %}
 			</div>	
-			{% endfor %}
+			
 			<h1>{{ match.percent }}% Match</h1>
 			<h1>{{ match.distance }} miles away</h1>
 				

@@ -8,6 +8,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Interest, UserInterestAnswer, InterestPicture
 from .forms import InterestForm
 from django.core.urlresolvers import reverse
+from django.core.cache import cache
+
 
 
 
@@ -26,7 +28,13 @@ def create_interest(request):
 
 
 def all_interests(request):
-	interests_all = Interest.objects.exclude(userinterestanswer__user=request.user).filter(approved=True).order_by('?')
+	if not request.session.get('random_interests'):
+		request.session['random_interests']="random_interests"
+	interests_all = cache.get('random_interests')
+	if not interests_all:
+		interests_all = list(Interest.objects.exclude(userinterestanswer__user=request.user).filter(approved=True).order_by('?'))
+		cache.set('random_interests', interests_all, 100)
+	#interests_all = Interest.objects.exclude(userinterestanswer__user=request.user).filter(approved=True).order_by('?')
 	paginator = Paginator(interests_all, 1)
 	importance_levels = ['Strongly Dislike', 'Dislike', 'Neutral', 'Like', 'Strongly Like']
 

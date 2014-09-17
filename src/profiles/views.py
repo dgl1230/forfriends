@@ -16,6 +16,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.cache import cache
+
 
 
 
@@ -357,13 +359,13 @@ def new_user_info(request):
 
 
 
-#def create_circle(user):
-
-
-
 def discover(request):
-	
-	users_all  = User.objects.filter(is_active=True).order_by('?')
+	if not request.session.get('random_exp'):
+		request.session['random_exp']=1
+	users_all = cache.get('random_exp_%d' % request.session['random_exp'])
+	if not users_all:
+		users_all = list(User.objects.filter(is_active=True).order_by('?'))
+		cache.set('random_exp_%d' % request.session['random_exp'], users_all, 100)
 	paginator = Paginator(users_all, 1)
 	page = request.GET.get('page')
 	try:
@@ -371,7 +373,7 @@ def discover(request):
 			print 1
 			users = paginator.page(page)
 			user = users.object_list[0]
-			print user
+			print "users.object_list[0] is: ", user
 			if user == request.user: 
 				print 2
 				users = paginator.page(page + 1)
@@ -428,48 +430,6 @@ def discover(request):
 
 	return render_to_response('profiles/discover.html', locals(), context_instance=RequestContext(request))
 
-	'''
-	max_user = User.objects.filter(is_active=True).latest('id').id
-	while True: 
-		try: 
-			single_user = User.objects.get(pk=randint(1, max_user))
-			break
-		except:
-			pass
-	try: 
-		match = Match.objects.get(user1=request.user, user2=single_user)
-	except: 
-		match, created = Match.objects.get_or_create(user1=single_user, user2=request.user)
-	user1 = match.user1
-	user2 = match.user2
-	match.percent = match_percentage(user1, user2)
-	try:
-		match.distance = round(calc_distance(request.user, user))
-		if match.distance <= 10:
-			match.is_10_miles = True
-			match.is_20_miles = True 
-			match.is_30_miles = True
-			match.is_40_miles = True
-			match.is_50_miles = True
-		elif match.distance <= 20:
-			match.is_20_miles = True 
-			match.is_30_miles = True
-			match.is_40_miles = True
-			match.is_50_miles = True
-		elif match.distance <= 30:
-			match.is_30_miles = True
-			match.is_40_miles = True
-			match.is_50_miles = True
-		elif match.distance <= 40:
-			match.is_40_miles = True
-			match.is_50_miles = True
-		elif match.distance <= 50:
-			match.is_50_miles = True
-	except:
-		match.distance = 10000000
-	match.save()
-	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))
-	'''
 
 
 
