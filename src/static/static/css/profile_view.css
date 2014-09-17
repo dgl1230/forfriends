@@ -273,20 +273,26 @@
 .modal-title{
 	text-align:center;
 	font-size:32px;
-	color: white;
-	background-color: #404040;
+	color: black;
+	background-color: white;
 }
 
 .modal-header{
-	background-color:#404040;
+	background-color:white;
 }
 
+.modal-content{
+	border:1px solid black;
+}
 .close{
 	color:white;
 }
 
 .modal-body{
 	text-align:center;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	box-shadow: 0 1px 5px #1FBAD6;
 }
 
 .modal-body p{
@@ -295,6 +301,7 @@
 
 .modal-body a{
 	color: #1FBAD6;
+
 }
 
 .modal-content .btn{
