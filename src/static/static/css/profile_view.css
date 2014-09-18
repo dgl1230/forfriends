@@ -243,7 +243,6 @@
 	background-color: white;
 	border-radius:1%;
 	width:80%;
-	border:2px solid black;
 }
 
 .navbar-collapse.collapse.in{
@@ -414,6 +413,17 @@
 .buttons a p{ 
 	margin-top:60px;
 }
+}
+@media(max-width: 1400px){
+	#message_button_not_friends p{
+		margin-top:25px!important;
+	}
+}
+
+@media(min-width: 1400px){
+	#message_button_not_friends p{
+		margin-top:50px!important;
+	}
 }
 
 @media(min-width: 450px){

@@ -130,7 +130,6 @@
 
 
 
-<div class="row" >
   <div class='col-lg-10 col-12' id="interests-wrapper">
 <div id="view_container">
 <div class="row">
@@ -141,7 +140,7 @@
      	<a class="regenerate" href='{% url "ice_breaker" %}'>Tired of Browsing? Do an icebreaker</a>
     </div>
     <br>
-	<div class="col-md-1">
+    <div class="container" id="single_user_container">
 	{% if messages %}
     {% for message in messages %}
     <p id="interests_messages"{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
@@ -191,13 +190,13 @@
 				<a class="btn btn-default btn" id="message_button" data-toggle="tooltip" data-placement="top" href='{% url "su_compose" user.username %}'><p>Send Message</p></a>
 				{% elif match.user1_approved == True and match.user1 == request.user %}
 				<a  class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
-				<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message</p></a>
+				<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Message <br> (Must be Friends)</p></a>
 				{% elif match.user2_approved == True and match.user2 == request.user %}
 				<a  class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
-				<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message</p></a>
+				<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Message <br> (Must be Friends)</p></a>
 				{% else %}
 				<a  class="btn btn-default btn" id="friend_button" href='{% url "add_friend" user.username %}'><p>Add Friend</p></a>
-				<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message</p></a>
+				<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Message <br> (Must be Friends)</p></a>
 				{% endif %}
 				<a class="btn btn-default btn" id="interests_button" href="/members/{{ user.username}}/interests/"><p>View Interests</p></a>
 				<a class="btn btn-default btn" id="pictures_button" href="/members/{{ user.username}}/pictures/"><p>Browse Pictures</p></a>
@@ -243,6 +242,7 @@
 		</div>
 	</div>
 	</div>
+</div>
 </div>
 </div>
 </div>
