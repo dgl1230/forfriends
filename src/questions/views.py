@@ -47,8 +47,21 @@ def all_questions(request):
 		answered.answer = answer
 		#answered.importance_level = importance_level
 		answered.save()
+		questions_all = Question.objects.filter.exclude(useranswer__user=request.user)
 
-		messages.success(request, 'Answer Saved')
+		paginator = Paginator(questions_all, 1)
+		#importance_levels = ['Very Important', 'Somewhat Important', 'Not Important']
+
+		page = request.GET.get('page')
+		try:
+			questions = paginator.page(page)
+		except PageNotAnInteger:
+			#If page is not an integer, deliver first page.
+			questions = paginator.page(1)
+		except EmptyPage:
+			#If page is out of range, deliver last page of results
+			questions = paginator.page(paginator.num_pages)
+
 	return render_to_response('questions/all.html', locals(), context_instance=RequestContext(request))
 
 
@@ -86,7 +99,6 @@ def edit_questions(request):
 		answered.importance_level = importance_level
 		answered.save()
 
-		messages.success(request, 'Changes Saved')
 		return HttpResponseRedirect('')
 	return render_to_response('questions/edit.html', locals(), context_instance=RequestContext(request))
 

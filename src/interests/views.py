@@ -86,7 +86,6 @@ def all_interests(request):
 			interests = paginator.page(paginator.num_pages)
 
 
-		messages.success(request, 'Answer Saved')
 	return render_to_response('interests/all.html', locals(), context_instance=RequestContext(request))
 
 
@@ -125,7 +124,6 @@ def edit_interests(request):
 		answered.importance_level = importance_level
 		answered.save()
 
-		messages.success(request, 'Changes Saved')
 		return HttpResponseRedirect('')
 	return render_to_response('interests/edit.html', locals(), context_instance=RequestContext(request))
 

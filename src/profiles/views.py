@@ -64,6 +64,37 @@ def add_friend(request, username):
 	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))
 
 
+def add_friend_discovery(request, username, page):
+	try: 
+		match = Match.objects.get(user1=request.user, user2__username=username)
+		match.user1_approved = True
+	except: 
+		match = Match.objects.get(user1__username=username, user2=request.user)
+		match.user2_approved = True
+	if (match.user1_approved == True and match.user2_approved == True):
+		user1 = match.user1
+		user2 = match.user2
+		match.are_friends = True
+		subject = "You have a new friend!"
+		body_for_user1 = "Congrats! You and %s both requested to be each other's friends, so now you can message each other!" %(user2.username)
+		body_for_user2 = "Congrats! You and %s both requested to be each other's friends, so now you can message each other!" %(user1.username)
+		user1_message = DirectMessage.objects.create(subject=subject, body=body_for_user1, receiver=user1)
+		user2_message = DirectMessage.objects.create(subject=subject, body=body_for_user2, receiver=user2)
+		user1_message.sent = datetime.datetime.now()
+		user2_message.sent = datetime.datetime.now()
+		match.save()
+		user1_message.save()
+		user2_message.save()
+		messages.success(request, "%s also is interested in being your friend - You can now message each other!" %username)
+	else:
+		messages.success(request, "%s has received your request. If %s is interested too, they will add you!" %(username, username))
+	single_user = User.objects.get(username=username)
+	match.save()
+	if not DEBUG:
+		return HttpResponseRedirect('www.frenvu.com/discover/?page=%s' % page)
+	else: 
+		return HttpResponseRedirect('http://127.0.0.1:8000/discover/?page=%s' % page)
+
 '''The view for the home page of a user. If they're logged in, it shows relevant
 matches for them, otherwise it shows the home page for non-logged in viewers '''
 def all(request):
@@ -235,39 +266,27 @@ def circle_distance(logged_in_user):
 
 def handle_new_user(request):
 	try:
-		print 1
 		info = Info.objects.get(user=request.user)
 		user_interests = UserInterestAnswer.objects.filter(user=request.user)
 		user_questions = UserAnswer.objects.filter(user=request.user)
-		print 2
 	except: 
-		print 3
 		user_interests = 0
 		user_questions = 0
-		print 4
 	try: 
 		#if we get an error, then this means they signed up with google or facebook
 		# so we need to get more info from them first 
-		print 4
 		address = Address.objects.get(user=request.user)
 		info = Info.objects.get(user=request.user)
-		print 4.5
 		assert(info.signed_up_with_fb_or_goog == False)
-		print 5
 	except: 
-		print 6
 		return HttpResponseRedirect(reverse('new_user_info'))
 	if user_interests.count() < 10:
-		print 7
 		return HttpResponseRedirect(reverse('new_user_interests'))
 	if user_questions.count() < 10: 
-		print 8 
 		return HttpResponseRedirect(reverse('new_user_questions'))
 	else: 
-		print 9
 		info = Info.objects.get(user=request.user)
 		info.is_new_user = False
-		print 10
 		info.save()
 		return HttpResponseRedirect(reverse('home'))
 
@@ -373,11 +392,13 @@ def discover(request):
 		users_all = list(User.objects.filter(is_active=True).order_by('?'))
 		cache.set('random_exp_%d' % request.session['random_exp'], users_all, 500)
 	paginator = Paginator(users_all, 1)
+	
 	page = request.GET.get('page')
 	try:
 		if page != False:
 			users = paginator.page(page)
 			user = users.object_list[0]
+			print user
 			try: 
 				assert (user != request.user)
 			except: 
