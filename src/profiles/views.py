@@ -45,6 +45,7 @@ def add_friend(request, username):
 	if (match.user1_approved == True and match.user2_approved == True):
 		user1 = match.user1
 		user2 = match.user2
+		match.are_friends = True
 		subject = "You have a new friend!"
 		body_for_user1 = "Congrats! You and %s both requested to be each other's friends, so now you can message each other!" %(user2.username)
 		body_for_user2 = "Congrats! You and %s both requested to be each other's friends, so now you can message each other!" %(user1.username)
@@ -52,6 +53,7 @@ def add_friend(request, username):
 		user2_message = DirectMessage.objects.create(subject=subject, body=body_for_user2, receiver=user2)
 		user1_message.sent = datetime.datetime.now()
 		user2_message.sent = datetime.datetime.now()
+		match.save()
 		user1_message.save()
 		user2_message.save()
 		messages.success(request, "%s also is interested in being your friend - You can now message each other!" %username)
@@ -432,6 +434,13 @@ def discover(request):
 
 
 	return render_to_response('profiles/discover.html', locals(), context_instance=RequestContext(request))
+
+
+def friends(request):
+	matches = Match.objects.filter(
+		Q(user1=request.user) | Q(user2=request.user)
+		).filter(are_friends=True)
+	return render_to_response('profiles/friends.html', locals(), context_instance=RequestContext(request))
 
 
 

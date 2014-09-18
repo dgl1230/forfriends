@@ -69,6 +69,8 @@ urlpatterns = patterns('',
     url(r'^handle/$', 'profiles.views.handle_new_user', name='handle_new_user'),
     url(r'^new_user_info/$', 'profiles.views.new_user_info', name='new_user_info'),
     url(r'^discover/$', 'profiles.views.discover', name='discover'),
+    url(r'^friends/$', 'profiles.views.friends', name='friends'),
+
 
 
 

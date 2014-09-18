@@ -31,6 +31,7 @@ class Match(models.Model):
 
 	user1_approved = models.BooleanField(default=False)
 	user2_approved = models.BooleanField(default=False)
+	are_friends = models.BooleanField(default=False)
 	
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 	updated = models.DateTimeField(auto_now_add=False, auto_now=True)
