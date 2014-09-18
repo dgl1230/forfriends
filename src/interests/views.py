@@ -170,7 +170,7 @@ def new_user_interests(request):
 		#user answer
 		importance_level = request.POST['importance_level']
 
-		user = User.objects.get(id=request.user.id)
+		#user = User.objects.get(id=request.user.id)
 		interest = Interest.objects.get(id=interest_id)
 		try:
 			interest_pic = InterestPicture.objects.get(interest=interest).filter(id=1)
@@ -179,7 +179,7 @@ def new_user_interests(request):
 
 		#user answer save
 
-		answered, created = UserInterestAnswer.objects.get_or_create(user=user, interest=interest)
+		answered, created = UserInterestAnswer.objects.get_or_create(user=request.user, interest=interest)
 		answered.importance_level = importance_level
 		answered.save()
 
