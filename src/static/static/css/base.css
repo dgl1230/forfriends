@@ -193,17 +193,23 @@ form {
 #distance{
 	margin-top:0px;
 }
-
+#myDiv{
+	margin:0 auto;
+}
 .matching p{
 	margin: 0px 0px 5px 0px;
 }
 
 /* all.html */
+#myfriend_container{
+	width:80%;
+	margin:0 auto;
+	display:inline-block;
+}
 #myfriend{
-	width: 50%;
-	height:auto;
-	max-width: 350px;
-	max-height:450px;
+	width: auto;
+	height:450px;
+	max-width:450px;
 }
 
 #myfriend a{
@@ -235,13 +241,23 @@ a:hover{
 		margin-left:40px;
 	}
 	.btn.btn-success{
-	width: 100%;}
+	width: 100%;
+	}
+	#interests-wrapper h2{
+		font-size:1.25em;
+	}
 }
 
 *:focus{
 	outline:0;
 }
-
+@media (max-width: 760px) {
+	#myfriend{
+		height:300px;
+	}
+	.previous_user, .previous_user_hidden, .next_user, .next_user_hidden{
+	}
+}
 @media (max-width: 600px) {
   h1{
   font-size: 2em;

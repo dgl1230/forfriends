@@ -256,6 +256,7 @@ a.dropdown-toggle{
 #tertiary_navbar span{
 	padding-left: 1em;
 	color: #1fBAD6;
+	padding-right: 1em;
 }
 
 .form-control{

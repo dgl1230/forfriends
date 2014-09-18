@@ -21,7 +21,7 @@
 }
 .previous_user{
 	float:left;
-	margin-top:25%;
+	display:inline-block;
 }
 
 .previous_user a{
@@ -29,12 +29,30 @@
 	font-size:4em;
 }
 
+.previous_user_hidden{
+	visibility: hidden;
+	float:left;
+	display:inline-block;
+}
+
+.previous_user_hidden span{
+	font-size:4em;
+}
 .previous_user a:hover{
 	color:#1FBAD6!important;
 }
 .next_user{
 	float:right;
-	margin-top:25%;
+	display:inline-block;
+}
+.next_user_hidden{
+	visibility: hidden;
+	float:right;
+	display:inline-block;
+}
+
+.next_user_hidden span{
+	font-size:4em;
 }
 
 .next_user a{
@@ -42,8 +60,19 @@
 	font-size:4em;
 }
 
+.regenerate{
+	font-size:1.25em;
+}
 .next_user a:hover{
 	color:#1FBAD6!important;
+}
+
+.next_user span{
+	padding-right:20px;
+}
+
+.previous_user span{
+	padding-left:20px;
 }
 
 #new_user_body{
@@ -181,6 +210,7 @@
 	margin-top: 5px;
 	float:right;
 	font-size:1.5em;
+	padding-right:10px;
 
 }
 
@@ -248,15 +278,18 @@
 
 @media(max-width: 400px){
 	#myfriend{
-	width: 160px!important;
-	height:auto!important;
+	width: auto!important;
+	height:150px!important;
 	}
-}
+	.previous_user{
+		padding-top:10px;
+	}
+	.next_user{
+		padding-top:10px;
+	}
 
-@media(max-width: 300px){
-	#myfriend{
-	width: 120px!important;
-	height:auto!important;
+	#single_user_container h1{
+		font-size: 1.25em;
 	}
 }
 
@@ -264,9 +297,7 @@
 	#buttons_row{
 		width:100%;
 	}
-	#single_user_container h1{
-		font-size: 1.25em;
-	}
+	
 } 
 
 @media(max-width: 670px){
@@ -343,6 +374,10 @@
 	text-align:center;
 }
 
+.discover-title{
+	font-size: 36px;
+}
+
 @media(min-width:1400px){
 	#buttons_row #friend_button{
 	background: url(/static/img/profile/bar_friends_dark.jpg);
@@ -366,6 +401,10 @@
 	background: url(/static/img/profile/iphone_dark.png);
 	background-size:cover;
 	height:150px;
+}
+
+#message_button, #interests_button, #friend_button, #pictures_button, #message_button_not_friends {
+	width:22%;
 }
 
 .buttons a{
@@ -403,6 +442,28 @@
 	#new_user_body{
 		width:100%;
 	}
+	.next_user a{
+		font-size:2em;
+	}
+	.previous_user a{
+		font-size: 2em;
+
+	}
+	.discover-title{
+	font-size: 1.25em;
+	}
+
+	.regenerate{
+		font-size:1em;
+	}
+	.next_user span{
+		padding-top:10px;
+
+	}
+	.previous_user span{
+		padding-top:10px;
+	}
+
 }
 
 
