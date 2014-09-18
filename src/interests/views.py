@@ -55,7 +55,7 @@ def all_interests(request):
 		#user answer
 		importance_level = request.POST['importance_level']
 
-		user = User.objects.get(username=request.user)
+		user = User.objects.get(id=request.user.id)
 		interest = Interest.objects.get(id=interest_id)
 		try:
 			interest_pic = InterestPicture.objects.get(interest=interest).filter(id=1)
@@ -111,7 +111,7 @@ def edit_interests(request):
 		#user answer
 		importance_level = request.POST['importance_level']
 
-		user = User.objects.get(username=request.user)
+		user = User.objects.get(id=request.user.id)
 		interest = Interest.objects.get(id=interest_id)
 		try:
 			interest_pic = InterestPicture.objects.get(interest=interest).filter(id=1)
@@ -170,7 +170,7 @@ def new_user_interests(request):
 		#user answer
 		importance_level = request.POST['importance_level']
 
-		user = request.user
+		user = User.objects.get(id=request.user.id)
 		interest = Interest.objects.get(id=interest_id)
 		try:
 			interest_pic = InterestPicture.objects.get(interest=interest).filter(id=1)

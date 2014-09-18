@@ -38,7 +38,7 @@ def all_questions(request):
 
 	
 
-		user = User.objects.get(username=request.user)
+		user = User.objects.get(id=request.user.id)
 		question = Question.objects.get(id=question_id)
 
 		#user answer save
@@ -89,7 +89,7 @@ def edit_questions(request):
 		#answer_form = request.POST.get('answer', False)
 
 
-		user = User.objects.get(username=request.user)
+		user = User.objects.get(id=request.user.id)
 		question = Question.objects.get(id=question_id)
 
 		#user answer save
@@ -130,7 +130,7 @@ def new_user_questions(request):
 
 	
 
-		user = User.objects.get(username=request.user)
+		user = User.objects.get(id=request.user.id)
 		question = Question.objects.get(id=question_id)
 
 		#user answer save
