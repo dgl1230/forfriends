@@ -13,38 +13,38 @@ from questions.models import Question, Answer, UserAnswer
 	Returns:	A list with 2 attributes, the first being user1_points and the 
 				second being user2_points: [user1_points, user2_points] '''
 def calc_interest_importance(i1, i2):
-	user1_points = 50 #start with bases of 50
-	user2_points = 50
-	return_tuple = []
-	#Calculate points for user1
-	if i1 == "Strongly Like":
-		user1_points = 75
-	elif i1 == "Like":
-		user1_points = 65
-	elif i1 == "Neutral":
-		user1_points = 50
-	elif i1 == "Dislike":
-		user1_points = 35
-	elif i1 == "Strongly Dislike":
-		user1_points = 25
-	    
-	#Calculate points for user2
-	if i2 == "Strongly Like":
-		user2_points = 75
-	elif i2 == "Like":
-		user2_points = 65
-	elif i2 == "Neutral":
-		user2_points = 50
-	elif i2 == "Dislike":
-		user2_points = 35
-	elif i2 == "Strongly Dislike":
-		user2_points = 25
-	return_tuple.append(user1_points)
-	return_tuple.append(user2_points)
-	return return_tuple
+    user1_points = 50 #start with bases of 50
+    user2_points = 50
+    return_tuple = []
+    #Calculate points for user1
+    if i1 == "Strongly Like":
+        user1_points = 75
+    elif i1 == "Like":
+        user1_points = 65
+    elif i1 == "Neutral":
+        user1_points = 50
+    elif i1 == "Dislike":
+        user1_points = 35
+    elif i1 == "Strongly Dislike":
+        user1_points = 25
+        
+    #Calculate points for user2
+    if i2 == "Strongly Like":
+        user2_points = 75
+    elif i2 == "Like":
+        user2_points = 65
+    elif i2 == "Neutral":
+        user2_points = 50
+    elif i2 == "Dislike":
+        user2_points = 35
+    elif i2 == "Strongly Dislike":
+        user2_points = 25
+    return_tuple.append(user1_points)
+    return_tuple.append(user2_points)
+    return return_tuple
 
 
-''' Purpose:	Calculates the percentage compatibility between 2 users based solely
+'''Purpose:		Calculates the percentage compatibility between 2 users based solely
 				on their interests. Uses calc_interest_importance
 	Returns: 	Compatibility percentage based solely off of interest
 '''
@@ -68,10 +68,10 @@ def interest_points(user1, user2):
 		#check to see if both share the same interest: if so, user2_importance = importance level of user2, else "false"
 		user2_importance = user2_dict.pop(user1_interest, "false")
 		if user2_importance != "false": #key was found, interests were shared, calculate difference in importance
-			points_possible += 75
-			user_score_tuple = calc_interest_importance(user1_importance, user2_importance)
-			user1_points += user_score_tuple[0]
-			user2_points += user_score_tuple[1]
+		    points_possible += 75
+		    user_score_tuple = calc_interest_importance(user1_importance, user2_importance)
+		    user1_points += user_score_tuple[0]
+		    user2_points += user_score_tuple[1]
 	if points_possible >= 75:
 		percentage = float((points_possible - abs(user1_points - user2_points))) / float(points_possible)
 	else:
@@ -93,36 +93,60 @@ def interest_points(user1, user2):
 		3. Not Interested
 """
 
+'''	Purpose:	Calculates the multiplier for user1 and user2 for a single question
+				that they both answered, based on how important it is to them.
+	Returns:	A list with 2 attributes, the first being user1_multiplier and the 
+				second being user2_multiplier: [user1_multiplier, user2_multiplier] '''
+def find_importance(user1_importance, user2_importance):
+	temp_list = []
+	#Calculate user1's importance points
+	if user1_importance == "Very Important":
+		temp_list.append(2.0)
+	elif user1_importance == "Somewhat Important":
+		temp_list.append(1.5)
+	else:
+		temp_list.append(1.0)
+	#Calculate user2's importance points
+	if user2_importance == "Very Important":
+		temp_list.append(2.0)
+	elif user2_importance == "Somewhat Important":
+		temp_list.append(1.5)
+	else:
+		temp_list.append(1.0)
+	return temp_list
+
 '''	Purpose:	Awards points to user1 and user2 based on their answers to the question
 				and the multiplier of importance.
 	Returns:	A list with 2 attributes, the first being user1_points and the 
 				second being user2_points: [user1_points, user2_points] '''
-def answer_points(user1_answer, user2_answer):
+def answer_points(user1_answer, user2_answer, importance_multiplier_list):
 	temp_list = []
+	user1_interest_multiplier = importance_multiplier_list[0]
+	user2_interest_multiplier = importance_multiplier_list[1]
 	user1_score, user2_score = 0, 0
 	#Find score for user1
 	if user1_answer == 1:
-		user1_score = 25 
+		user1_score = 25 * user1_interest_multiplier
 	elif user1_answer == 2:
-		user1_score = 15  
+		user1_score = 15 * user1_interest_multiplier
 	elif user1_answer == 3:
-		user1_score = 0  
+		user1_score = 0 * user1_interest_multiplier
 	elif user1_answer == 4:
-		user1_score = -15  
+		user1_score = -15 * user1_interest_multiplier
 	else:
-		user1_score = -25  
+		user1_score = -25 * user1_interest_multiplier
 
 	#Find score for user2
 	if user2_answer == 1:
-		user2_score = 25 
+		user2_score = 25 * user2_interest_multiplier
 	elif user2_answer == 2:
-		user2_score = 15 
+		user2_score = 15 * user2_interest_multiplier
 	elif user2_answer == 3:
-		user2_score = 0 
+		user2_score = 0 * user2_interest_multiplier
 	elif user2_answer == 4:
-		user2_score = -15 
+		user2_score = -15 * user2_interest_multiplier
 	else:
-		user2_score = -25 
+		user2_score = -25 * user2_interest_multiplier
 	temp_list.append(user1_score)
 	temp_list.append(user2_score)
 	return temp_list
@@ -152,7 +176,9 @@ def question_points(user1, user2):
 		if user2_tuple != "false":
 			points_possible += 100
 			user_list = []
-			user_list = answer_points(user1_answer, user2_tuple[1])
+			importance_list = []
+			importance_list = find_importance(user1_importance, user2_tuple[0])
+			user_list = answer_points(user1_answer, user2_tuple[1], importance_list)
 			user1_points += user_list[0]
 			user2_points += user_list[1]
 	if points_possible >= 100:

@@ -168,18 +168,7 @@
 		{% endfor %}
 		</div>
 		<br>
-		<div class="importance_wrapper">
-		<div class="input select rating-b">
-		            <label for="example-b">How important is this question to you?</label>
-		            <br><br>
-
-		            <select id="example-b" name="importance_level">
-		            	{% for imp in importance_levels %}
-		                <option {% for abc in question.useranswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} selected="selected" value="{{ imp }}"{% endif %} {% endfor %}> {{ imp }}</option>
-		               {% endfor %}
-		            </select>
-		        </div>
-		    </div>
+	
 		<br><br><br>
 
 		<!-- Submit Button -->

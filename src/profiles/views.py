@@ -370,7 +370,6 @@ def discover(request):
 		request.session['random_exp']=1
 	users_all = cache.get('random_exp_%d' % request.session['random_exp'])
 	if not users_all:
-		print "cachign reset"
 		users_all = list(User.objects.filter(is_active=True).order_by('?'))
 		cache.set('random_exp_%d' % request.session['random_exp'], users_all, 500)
 	paginator = Paginator(users_all, 1)
@@ -382,7 +381,6 @@ def discover(request):
 			try: 
 				assert (user != request.user)
 			except: 
-				print 2
 				page_int = int(page)
 				new_page = page_int + 1
 				new_page_u = unicode(new_page)
@@ -395,7 +393,6 @@ def discover(request):
 				match, created = Match.objects.get_or_create(user1=user, user2=request.user)
 			try:
 				match.distance = round(calc_distance(logged_in_user, user))
-				print match.distance
 				if match.distance <= 10:
 					match.percent = match_percentage(match.user1, match.user2)
 					match.is_10_miles = True
@@ -493,7 +490,7 @@ def edit_address(request):
 				new_form = form.save(commit=False)
 				new_form.user = request.user
 				new_form.save()
-			messages.success(request, 'Profile details did not update.')
+			messages.success(request, 'Your location has been updated.')
 		else:
 			messages.error(request, 'Please fill out all fields.')
 		#return render_to_response('profiles/edit_address.html', locals(), context_instance=RequestContext(request))
