@@ -53,7 +53,7 @@ p{
 #annoying_row{
 	width:90%;
 }
-#pictures input[type=submit], .btn.btn-info.btn-sm, .pager li a, #go_button{
+#pictures input[type=submit], .btn.btn-info.btn-sm, .pager li a{
 	background-color: white!important;
 	color: black!important;
 	border: 1px solid #111;
@@ -62,6 +62,17 @@ p{
 	-webkit-transition-duration: .5s;
 	-transition-duration: .5s;
 	-moz-transition-duration: .5s;
+}
+
+#go_button{
+	width: 80px;
+	background: #1FBAD6!important;
+	font-weight: 300;
+	color: white;
+	border: 0 none;
+	border-radius: 1px;
+	cursor: pointer;
+	z-index:1000;
 }
 
 .btn-lg, .btn-success{
@@ -81,11 +92,14 @@ p{
 	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
 }
 
-#pictures input[type=submit]:hover, .btn-info.btn-sm:hover, .btn-sm:hover, .pager li a:hover, #go_button:hover, .btn-success:hover{
+#pictures input[type=submit]:hover, .btn-info.btn-sm:hover, .btn-sm:hover, .pager li a:hover, .btn-success:hover{
 	background-color:#1FBAD6!important;
 	color:white!important;
 }
+#go_button:hover, #go_button:focus{
+ 	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
 
+}
 .pager{
 	margin-top:30px;
 }
