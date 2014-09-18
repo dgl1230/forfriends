@@ -284,7 +284,11 @@ def new_user_info(request):
 				last_name = last_name + " " + name
 		else: 
 			first_name = full_name
-		username = request.POST['username']
+		username1 = request.POST['username']
+		username = ''.join(username1.split())
+		if len(username) >= 30:
+			messages.error(request, "We're sorry but your username can't be longer than 30 characters")
+			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 		gender1 = request.POST['gender']
 		day = request.POST['BirthDay']
 		month = request.POST['BirthMonth']
@@ -364,27 +368,30 @@ def discover(request):
 		request.session['random_exp']=1
 	users_all = cache.get('random_exp_%d' % request.session['random_exp'])
 	if not users_all:
+		print "cachign reset"
 		users_all = list(User.objects.filter(is_active=True).order_by('?'))
-		cache.set('random_exp_%d' % request.session['random_exp'], users_all, 100)
+		cache.set('random_exp_%d' % request.session['random_exp'], users_all, 500)
 	paginator = Paginator(users_all, 1)
 	page = request.GET.get('page')
 	try:
 		if page != False:
-			print 1
 			users = paginator.page(page)
 			user = users.object_list[0]
-			print "users.object_list[0] is: ", user
-			if user == request.user: 
-				print 2
-				users = paginator.page(page + 1)
 			try: 
-				print 3
+				assert (user != request.user)
+			except: 
+				print 2
+				page_int = int(page)
+				new_page = page_int + 1
+				new_page_u = unicode(new_page)
+				users = paginator.page(new_page_u)
+				user = users.object_list[0]
+
+			try: 
 				match = Match.objects.get(user1=request.user, user2=user)
 			except: 
-				print 4
 				match, created = Match.objects.get_or_create(user1=user, user2=request.user)
 			try:
-				print 5
 				match.distance = round(calc_distance(logged_in_user, user))
 				print match.distance
 				if match.distance <= 10:
@@ -412,11 +419,6 @@ def discover(request):
 				match.distance = 10000000
 			match.percent = match_percentage(match.user1, match.user2)
 			match.save()
-			print "match.user1 is: ", match.user1
-			print "match.user2 is: ", match.user2
-			print "match.distance is: ", match.distance
-			print "match.percent is: ", match.percent
-
 
 
 	except PageNotAnInteger:
@@ -426,6 +428,7 @@ def discover(request):
 	except EmptyPage:
 		#If page is out of range, deliver last page of results
 		interests = paginator.page(paginator.num_pages)
+
 
 
 	return render_to_response('profiles/discover.html', locals(), context_instance=RequestContext(request))
@@ -695,7 +698,13 @@ def register_new_user(request):
 	else: 
 		first_name = full_name
 
-	username = request.POST['username']
+	username1 = request.POST['username']
+	username = ''.join(username1.split())
+	if len(username) >= 30:
+		messages.error(request, "We're sorry but your username can't be longer than 30 characters")
+		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+
+
 	password = request.POST['password']
 	confirm_password = request.POST['repassword']
 	email = request.POST['email']

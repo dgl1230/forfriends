@@ -29,11 +29,11 @@ def create_interest(request):
 
 def all_interests(request):
 	if not request.session.get('random_interests'):
-		request.session['random_interests']="random_interests"
-	interests_all = cache.get('random_interests')
+		request.session['random_interests']= request.user.id
+	interests_all = cache.get('random_interests_%d' % request.session['random_interests'])
 	if not interests_all:
 		interests_all = list(Interest.objects.exclude(userinterestanswer__user=request.user).filter(approved=True).order_by('?'))
-		cache.set('random_interests', interests_all, 100)
+		cache.set('random_interests_%d' % request.session['random_interests'], interests_all, 100)
 	#interests_all = Interest.objects.exclude(userinterestanswer__user=request.user).filter(approved=True).order_by('?')
 	paginator = Paginator(interests_all, 1)
 	importance_levels = ['Strongly Dislike', 'Dislike', 'Neutral', 'Like', 'Strongly Like']
@@ -67,6 +67,24 @@ def all_interests(request):
 		answered, created = UserInterestAnswer.objects.get_or_create(user=user, interest=interest)
 		answered.importance_level = importance_level
 		answered.save()
+		if not request.session.get('random_interests'):
+			request.session['random_interests']= request.user.id
+		interests_all = list(Interest.objects.exclude(userinterestanswer__user=request.user).filter(approved=True).order_by('?'))
+		cache.set('random_interests_%d' % request.session['random_interests'], interests_all, 100)
+		paginator = Paginator(interests_all, 1)
+		importance_levels = ['Strongly Dislike', 'Dislike', 'Neutral', 'Like', 'Strongly Like']
+
+		page = request.GET.get('page')
+	
+		try:
+			interests = paginator.page(page)
+		except PageNotAnInteger:
+		#If page is not an integer, deliver first page.
+			interests = paginator.page(1)
+		except EmptyPage:
+		#If page is out of range, deliver last page of results
+			interests = paginator.page(paginator.num_pages)
+
 
 		messages.success(request, 'Answer Saved')
 	return render_to_response('interests/all.html', locals(), context_instance=RequestContext(request))
