@@ -234,4 +234,37 @@ $(':radio').change(
 )
 </script>
 
+{% if interests.has_previous %}
+<script>
+
+$(document).keydown(function(e) {
+    switch(e.which) {
+        case 37: // left
+        
+        window.location = "?page={{ interests.previous_page_number }}";
+        break;
+
+        default: return; // exit this handler for other keys
+    }
+    e.preventDefault(); // prevent the default action (scroll / move caret)
+});
+</script>
+
+{% endif %}
+{% if interests.has_next %}
+
+<script>
+	$(document).keydown(function(e) {
+    switch(e.which) {
+        case 39: // right
+        window.location = "?page={{ interests.next_page_number }}";
+        break;
+
+        default: return; // exit this handler for other keys
+    }
+    e.preventDefault(); // prevent the default action (scroll / move caret)
+});
+</script>
+
+{% endif %}
 {% endblock %}
