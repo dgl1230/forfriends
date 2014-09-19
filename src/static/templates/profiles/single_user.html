@@ -47,7 +47,7 @@
 	{% if not request.user == single_user %}
 		<h3>Match {{ match.percent }}%	</h3>
 		<h3 id="location">{% for item in user.address_set.all %}
-				{{ item.city|title }}, {{ item.state|upper }}
+				{{ item.city|title }}, {% if item.state|length == 2 %} {{ item.state|upper }} {% else %} {{ item.state|capfirst }} {% endif %}
 				{% endfor %}
 				{% ifnotequal match.distance 10000000 %}
 				{{ match.distance }} miles away

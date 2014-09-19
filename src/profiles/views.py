@@ -1036,6 +1036,7 @@ def ice_breaker(request):
 	while True: 
 		try: 
 			random_user = User.objects.get(pk=randint(1, max_user))
+			assert (user1 != random_user)
 			same_interest = UserInterestAnswer.objects.filter(user=random_user).get(interest=random_interest.interest)
 			assert (same_interest.importance_level == "Strongly Like" or same_interest.importance_level == "Like") 
 			break
