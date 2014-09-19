@@ -40,7 +40,7 @@ def add_friend(request, username):
 		match = Match.objects.get(user1=request.user, user2__username=username)
 		match.user1_approved = True
 	except: 
-		match = Match.objects.get(user1__username=username, user2=request.user)
+		match, created = Match.objects.get_or_create(user1__username=username, user2=request.user)
 		match.user2_approved = True
 	if (match.user1_approved == True and match.user2_approved == True):
 		user1 = match.user1
@@ -69,7 +69,7 @@ def add_friend_discovery(request, username, page):
 		match = Match.objects.get(user1=request.user, user2__username=username)
 		match.user1_approved = True
 	except: 
-		match = Match.objects.get(user1__username=username, user2=request.user)
+		match, created = Match.objects.get_or_create(user1__username=username, user2=request.user)
 		match.user2_approved = True
 	if (match.user1_approved == True and match.user2_approved == True):
 		user1 = match.user1
@@ -985,7 +985,7 @@ def ice_breaker(request):
 		user1 = request.user
 		user2 = random_user
 	except:
-		match = Match.objects.get(user1=random_user, user2=request.user)
+		match, created = Match.objects.get_or_create(user1=random_user, user2=request.user)
 		user1 = random_user
 		user2 = request.user
 	match.user1_approved = True
