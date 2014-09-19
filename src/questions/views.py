@@ -6,6 +6,8 @@ from django.contrib import messages
 from django.shortcuts import render_to_response, RequestContext, Http404, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.urlresolvers import reverse
+
 
 from .models import Question, Answer, UserAnswer
 from .forms import QuestionForm, AnswerForm
@@ -140,7 +142,6 @@ def new_user_questions(request):
 		#answered.importance_level = importance_level
 		answered.save()
 
-		messages.success(request, 'Answer Saved')
 		user_questions = UserAnswer.objects.filter(user=request.user)
 		if user_questions.count() == 10: 
 			return HttpResponseRedirect(reverse('handle_new_user'))
