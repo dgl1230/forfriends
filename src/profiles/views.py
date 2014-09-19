@@ -355,6 +355,7 @@ def new_user_info(request):
 			new_info.signed_up_with_fb_or_goog = False
 			new_info.save()
 			new_address.save()
+			user = authenticate(username=request.user.username, password=request.user.password)
 			request.user.save()
 			if not DEBUG:
 				subject = 'Thanks for registering with Frenvu!'
