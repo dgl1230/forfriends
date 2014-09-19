@@ -94,7 +94,7 @@
 		<div class='panel-heading' id="loc_panel"><p>Location</p><span class="glyphicon glyphicon-chevron-down"></span><p id="info_edit"></p></div>
 		<div class="panel-body" id="loc_body">
 		{% for item in single_user.address_set.all %}
-				{{ item.city|title }}, {{ item.state|upper }}
+				{{ item.city|title }}, {% if item.state|length == 2%} {{ item.state|upper }} {% else %} {{ item.state|capfirst }}
 		{% endfor %}
 		{% ifnotequal match.distance 10000000 %}
 			{% if not request.user == single_user %}

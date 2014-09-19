@@ -11,6 +11,9 @@ class ComposeForm(forms.ModelForm):
 		widgets = {
 			'body': forms.Textarea(attrs={'cols': 80, 'rows': 20}),
 		}
+		labels = {
+        	'receiver': 'To',
+		}
 
 class FriendForm(forms.ModelForm):
 	class Meta:
