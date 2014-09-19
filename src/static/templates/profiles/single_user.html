@@ -97,7 +97,9 @@
 				{{ item.city|title }}, {{ item.state|upper }}
 		{% endfor %}
 		{% ifnotequal match.distance 10000000 %}
-		<p> {{ match.distance }} miles away</p>
+			{% if not request.user == single_user %}
+				<p> {{ match.distance }} miles away</p>
+			{% endif %}
 		{% endifnotequal %}
 	</div>
 	</div>

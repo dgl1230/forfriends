@@ -49,7 +49,8 @@ def all_questions(request):
 		answered.answer = answer
 		#answered.importance_level = importance_level
 		answered.save()
-		questions_all = Question.objects.filter.exclude(useranswer__user=request.user)
+		questions_all = Question.objects.exclude(useranswer__user=request.user)
+		questions_left = questions_all.count()
 
 		paginator = Paginator(questions_all, 1)
 		#importance_levels = ['Very Important', 'Somewhat Important', 'Not Important']

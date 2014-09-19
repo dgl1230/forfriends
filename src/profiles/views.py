@@ -456,6 +456,7 @@ def friends(request):
 	matches = Match.objects.filter(
 		Q(user1=request.user) | Q(user2=request.user)
 		).filter(are_friends=True)
+	number_of_friends = matches.count()
 	return render_to_response('profiles/friends.html', locals(), context_instance=RequestContext(request))
 
 
