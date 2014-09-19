@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 
+
+
 {% if interests.has_next %}
 	<script type="text/javascript">
 		// TOUCH-EVENTS SINGLE-FINGER SWIPE-SENSING JAVASCRIPT
@@ -184,11 +186,6 @@
 					{% endfor %}
 				</span>
 				<br>
-				
-
-
-		<br/>
-				<!-- Submit Button -->
 			<input type='submit' class='btn-lg' value='Save'>
 			</div>
 
@@ -226,5 +223,6 @@ $(':radio').change(
   } 
 )
 </script>
-
+<script src="{{ STATIC_URL }}js/interests_cookie.js" type="text/javascript"></script>
+<script src="{{ STATIC_URL }}js/new_user_interests.js" type="text/javascript"></script>
 {% endblock %}
