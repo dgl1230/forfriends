@@ -193,9 +193,9 @@ def new_user_interests(request):
 			interests = paginator.page(1)
 		except EmptyPage:
 		#If page is out of range, deliver last page of results
-		interests = paginator.page(paginator.num_pages)
+			interests = paginator.page(paginator.num_pages)
 
-		messages.success(request, 'Answer Saved')
+
 		user_interests = UserInterestAnswer.objects.filter(user=request.user)
 		if user_interests.count() == 10: 
 			return HttpResponseRedirect(reverse('handle_new_user'))
