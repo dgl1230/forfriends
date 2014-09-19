@@ -45,7 +45,14 @@
 
 	</div>
 	{% if not request.user == single_user %}
-		<h1>Match {{ match.percent }}%	</h1>
+		<h3>Match {{ match.percent }}%	</h3>
+		<h3 id="location">{% for item in user.address_set.all %}
+				{{ item.city|title }}, {{ item.state|upper }}
+				{% endfor %}
+				{% ifnotequal match.distance 10000000 %}
+				{{ match.distance }} miles away
+				{% endifnotequal %}
+		</h3>
 		<div class="row" id="buttons_row">
 			<div class="buttons">
 				{% if match.user1_approved == True and match.user2_approved == True %}
@@ -87,18 +94,6 @@
 		{% for item in single_user.job_set.all %} 
 			{{ item.position|title }} at {{ item.employer|title }}
 		{% endfor %}
-	</div>
-	</div>
-
-	<div class='panel panel-default'>
-		<div class='panel-heading' id="loc_panel"><p>Location</p><span class="glyphicon glyphicon-chevron-down"></span><p id="info_edit"></p></div>
-		<div class="panel-body" id="loc_body">
-		{% for item in single_user.address_set.all %}
-				{{ item.city|title }}, {{ item.state|upper }}
-		{% endfor %}
-		{% ifnotequal match.distance 10000000 %}
-		<p> {{ match.distance }} miles away</p>
-		{% endifnotequal %}
 	</div>
 	</div>
 	</div>

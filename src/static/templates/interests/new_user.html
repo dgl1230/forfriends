@@ -1,7 +1,4 @@
 {% extends 'base.html' %}
-<head><link href="{{ STATIC_URL }}css/interests.css" rel="stylesheet"></head>
-
-
 {% block content %}
 
 {% if interests.has_next %}
@@ -198,30 +195,9 @@
 			</form>
 		{% endfor %}
 			</div>
-	
-				<div class="pagination">
-						<span class="step-links">
-							<ul class="pager">
-								<div class="directions">
-									{% if interests.has_previous %}
-									<li class="previous"><a href="?page={{ interests.previous_page_number }}">&larr; Previous</a></li>
-									{% endif %}
-									{% if interests.has_next %}
-									<li class="next"><a href="?page={{ interests.next_page_number }}">Next &rarr;</a></li>
-								</div>
-									{% endif %}			
-		</div>
-				</ul>
-			</span>
 		</div>
 		</div>
 		</div>
-	</div>
-	</div>
-</div>
-</div>
-</div>
-</div>
 
 <div class="modal fade" id="new_user_modal">
   <div class="modal-dialog">

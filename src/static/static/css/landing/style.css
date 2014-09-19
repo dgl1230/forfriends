@@ -338,12 +338,12 @@ select{
 	text-align:center;
 	min-width: 280px;
 	width: 50%;
-	margin: 0 auto;
+	margin: 0 auto 0;
 	border-radius: 3px;
   -webkit-box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
   padding-top: 10px;
-  margin-bottom: 50px;
+  padding-bottom:50px;
   background-color:white;
   opacity:1!important;
 
@@ -562,6 +562,7 @@ fieldset{
 .login-help a {
   text-decoration: none;
   color: #1FBAD6;
+  line-height: 25px;
 }
 .login-help a:hover {
   text-decoration: underline;
@@ -606,6 +607,10 @@ input[type=text]:focus, input[type=password]:focus {
 .contact{
   padding-bottom: 10px;
 }
+
+.form{
+  padding-bottom:20px;
+}
 input[type=submit] {
   padding: 0 18px;
   height: 34px;
@@ -630,6 +635,7 @@ input[type=submit] {
   background-color: black!important;
   border: 1px solid;
   border-radius:0px;
+  margin-top:10px;
 }
 #registration_button:focus, #registration_button:hover{
   outline: none;

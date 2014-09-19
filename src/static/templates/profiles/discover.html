@@ -128,9 +128,7 @@
 	</script>
 {% endif %}
 
-
-
-  <div class='col-lg-10 col-12' id="interests-wrapper">
+<div class='col-lg-10 col-12' id="interests-wrapper">
 <div id="view_container">
 <div class="row">
 	<div class="col-md-1" id="secondary_navbar">
@@ -152,7 +150,7 @@
 			<div class="main_interests" id="main_interests">
 			<div class="discover-title">
 			
-			<h3>{{ user.username|title }}</h3>
+			<h2>{{ user.username|title }}</h2>
 
 			<div id="new_user_body">
 					
@@ -168,7 +166,6 @@
 				{% endif %}
 				
 			</div>	
-
 		</div>
 			
 			{% if users.has_previous %}
@@ -182,8 +179,15 @@
 				{% else %}
 					<div class="next_user_hidden"><span class='glyphicon glyphicon-arrow-right'></span></div>
 				{% endif %}
-			<h2>{{ match.percent }}% Match</h2>
-			<div class="row" id="buttons_row">
+			<h3>{{ match.percent }}% Match</h3>
+			<h3 id="location">{% for item in user.address_set.all %}
+				{{ item.city|title }}, {{ item.state|upper }}
+				{% endfor %}
+				{% ifnotequal match.distance 10000000 %}
+				{{ match.distance }} miles away
+				{% endifnotequal %}
+			</h3>
+					<div class="row" id="buttons_row">
 			<div class="buttons">
 				{% if match.user1_approved == True and match.user2_approved == True %}
 				<a  class="btn btn-default btn" id="friend_button" title="You are friends!"><p>Friends</p></a>
@@ -222,31 +226,12 @@
 		{% endfor %}
 	</div>
 	</div>
+		</div>
+		</div>
+		</div>
+	</div>
+	</div>
 
-	<div class='panel panel-default'>
-		<div class='panel-heading' id="loc_panel"><p>Location</p><span class="glyphicon glyphicon-chevron-down"></span><p id="info_edit"></p></div>
-		<div class="panel-body" id="loc_body">
-		{% for item in user.address_set.all %}
-				{{ item.city|title }}, {{ item.state|upper }}
-		{% endfor %}
-		{% ifnotequal match.distance 10000000 %}
-		<p> {{ match.distance }} miles away</p>
-		{% endifnotequal %}
-	</div>
-	</div>
-	</div>
-				</ul>
-			</span>
-		</div>
-		</div>
-		</div>
-	</div>
-	</div>
-</div>
-</div>
-</div>
-</div>
-</div>
 <script>
   $('form').on('submit', function(event) {
     event.defaultPrevented();

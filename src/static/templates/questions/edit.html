@@ -156,25 +156,19 @@
 			<br>
 		<div class="question_answers" id="question_answers" ontouchstart="touchStart(event,'main_interests');" ontouchend="touchEnd(event);" ontouchmove="touchMove(event);" ontouchcancel="touchCancel(event);">
 		{% for ans in question.answer_set.all %}
+		<label>
 			<input type='radio' required=
-			'required' value='{{ ans }}' {% for abc in ans.useranswer_set.all %} {% if abc and abc.user == request.user %} checked='checked' {% endif %} {% endfor %} name='answer'> {{ ans }} <br/>
+			'required' value='{{ ans }}' {% for abc in ans.useranswer_set.all %} {% if abc and abc.user == request.user %} checked='checked' {% endif %} {% endfor %} name='answer'> {{ ans }} 
+		</label>
+		<br/>
 		{% endfor %}
 		</div>
 		<br>
 		
 
 		<input type='submit' class='btn-lg' value='Save'>
-		</div>
 	</form>
-	<div class="interest_buttons">
-						<div class="buttons">
-			            <button class="blue-pill deactivated rating-enable">enable</button>
-			            <button class="blue-pill rating-disable">disable</button>
-			        	</div>
 	{% endfor %}
-
-	<br><br>
-		</div>	
 
 <div class="pagination">
 	<span class="step-links">
@@ -191,25 +185,6 @@
 </div>
 </div>
 </div>
-<script>
-$(document).ready(function(){
-	$('.personality_importance input').each(function(){
-		var self = $(this),
-			label = self.next(),
-			label_text = label.text();
-
-
-		label.remove();
-		self.iCheck({
-			checkboxClass: 'icheckbox_line-blue',
-			radioClass: 'iradio_line-blue',
-			insert: '<div class="icheck_line-icon"></div>' + label_text
-		});
-	});
-});
-</script>
-
-
 <script>
         $(function () {
             $('.rating-enable').click(function () {
@@ -258,4 +233,27 @@ $(document).keydown(function(e) {
 </script>
 
 {% endif %}
+
+<script type="text/javascript">
+    function customRadio(radioName){
+        var radioButton = $('input[name="'+ radioName +'"]');
+        $(radioButton).each(function(){
+            $(this).wrap( "<span class='custom-radio'></span>" );
+            if($(this).is(':checked')){
+                $(this).parent().addClass("selected");
+            }
+        });
+        $(radioButton).click(function(){
+            if($(this).is(':checked')){
+                $(this).parent().addClass("selected");
+            }
+            $(radioButton).not(this).each(function(){
+                $(this).parent().removeClass("selected");
+            });
+        });
+    }
+    $(document).ready(function (){
+        customRadio("answer");
+    })
+</script>
 {% endblock %}

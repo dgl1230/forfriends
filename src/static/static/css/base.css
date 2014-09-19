@@ -25,7 +25,12 @@ textarea:active, input:active{
 #view_container{
 	width:100%;
 }
-
+.largeLabel{
+	color:white;
+}
+.smallLabel2{
+	color:white;
+}
 #home-only .col-sm-4{
 	min-width:175px;
 }
@@ -64,7 +69,7 @@ p{
 	-moz-transition-duration: .5s;
 }
 
-#go_button{
+#go_button, #upload_button{
 	width: 80px;
 	background: #1FBAD6!important;
 	font-weight: 300;
@@ -96,7 +101,7 @@ p{
 	background-color:#1FBAD6!important;
 	color:white!important;
 }
-#go_button:hover, #go_button:focus{
+#go_button:hover, #go_button:focus, #upload_button:hover, #upload_button:focus{
  	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
 
 }
@@ -222,7 +227,7 @@ form {
 }
 #myfriend{
 	width: auto;
-	height:450px;
+	height:300px;
 	max-width:450px;
 }
 

@@ -6,12 +6,6 @@
     text-align: center;
 }
 
-#upload_button{
-    background-color:white!important;
-    color:black!important;
-    border-radius:0px;
-}
-
 #upload_button:hover{
     background-color: #1FBAD6!important;
     color:white!important;
@@ -21,6 +15,9 @@ input#image_file{
     margin:0 auto;
 }
 
+.caption label{
+    display:block;
+}
 #upload_more{
     padding-top:10px;
     padding-bottom:10px;

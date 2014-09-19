@@ -21,6 +21,8 @@
 	height:50px;
 }
 
+
+
 #delete_sent{
 	float:right;
 }
@@ -192,3 +194,8 @@ input{
 	}
 }
 
+@media(min-width:450px){
+	.body_section{
+		width:80%;
+	}
+}

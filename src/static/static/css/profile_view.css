@@ -5,9 +5,12 @@
 	font-size:2em;
 	margin-bottom:0px!important;
 	color:#404040;
-	font-family: "Open-sans", sans;
+	font-family: "Roboto", sans;
 }
 
+#location{
+	margin-bottom:0px!important;
+}
 .thumbnail_carousel{
 	border-radius:50%!important;
 }

@@ -12,7 +12,12 @@
 	width:500px;
 	margin:0 auto;
 }
-
+#question-wrapper label{
+	min-width:150px;
+}
+#question-wrapper h3{
+	font-size:1.25em;
+}
 .new_user_guide{
 	max-width: 450px;
 	font-size:1.2em;

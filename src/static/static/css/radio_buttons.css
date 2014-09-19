@@ -1,0 +1,45 @@
+.custom-radio{
+		width: 16px;
+		height: 16px;
+		display: inline-block;
+		position: relative;
+		z-index: 1;
+		top: 3px;
+		float:left;
+		background: url(/static/img/radio_buttons/radio.png) no-repeat;
+	}
+	.custom-radio:hover{            
+		background: url(/static/img/radio_buttons/radio-hover.png) no-repeat;
+	}
+	.custom-radio.selected{
+		background: url(/static/img/radio_buttons/radio-selected.png) no-repeat;
+	}
+	.custom-radio input[type="radio"]{
+		margin: 1px -7px;
+		position: absolute;
+		z-index: 2;            
+		cursor: pointer;
+		outline: none;
+		opacity: 0;
+		/* CSS hacks for older browsers */
+		_noFocusLine: expression(this.hideFocus=true); 
+		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+		filter: alpha(opacity=0);
+		-khtml-opacity: 0;
+		-moz-opacity: 0;
+	}
+    #question_answers input[type="submit"]{
+        float: left;
+        background: #f2f2f2;
+        border: 1px solid #CCCCCC;
+        border-radius: 4px;
+        margin-top: 20px;
+        padding: 4px 10px;
+        cursor: pointer;
+        outline: none;
+    }
+	#question_answers input[type="submit"]:hover{
+        color: #fff;
+        border-color: #1b7aa9;
+        background-color: #239fdb;
+    }
