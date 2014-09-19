@@ -27,9 +27,12 @@ textarea:active, input:active{
 }
 .largeLabel{
 	color:white;
+	text-align: center;
+	border-color: black;
 }
 .smallLabel2{
 	color:white;
+	text-align: center;
 }
 #home-only .col-sm-4{
 	min-width:175px;

@@ -16,6 +16,11 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 	cursor:pointer;
 	z-index:1000;
 }
+
+.navbar-header{
+	clear:both;
+	float: none!important
+}
 .navbar-inverse .navbar-toggle{
 	background-color:black;
 	margin-top:12px;
@@ -35,7 +40,7 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 }
 .navbar-nav > li > a {
 	padding-bottom:25px;
-	padding-top:25px;
+	padding-top: 25px;
 	line-height:10px;
 }
 .dropdown-menu{
@@ -334,7 +339,18 @@ form.navbar-form.navbar-left{
 @media (max-width: 767px){
 	.pull-right{
 		margin-left:0px;
-		width:100%;
+		width:50%;
+		display:inline;
+	}
+	.navbar-form.navbar-left{
+		width:45%;
+		display:inline;
+	}
+
+	.navbar-nav > li > a {
+	padding-bottom:25px;
+	padding-top: 10px;
+	line-height:10px;
 	}
 	.navbar-collapse.collapse.in{
 		border-bottom:1px solid black;

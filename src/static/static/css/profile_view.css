@@ -98,7 +98,9 @@
 .panel-body{
 	display:none;
 }
-
+#single_user_container h3{
+	text-align: center;
+}
 .img-responsive{
 	width: 175px;
 	height: 200px;
