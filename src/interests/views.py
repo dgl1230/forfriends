@@ -55,7 +55,7 @@ def all_interests(request):
 		#user answer
 		importance_level = request.POST['importance_level']
 
-		user = User.objects.get(username=request.user)
+		user = User.objects.get(id=request.user.id)
 		interest = Interest.objects.get(id=interest_id)
 		try:
 			interest_pic = InterestPicture.objects.get(interest=interest).filter(id=1)
@@ -86,7 +86,6 @@ def all_interests(request):
 			interests = paginator.page(paginator.num_pages)
 
 
-		messages.success(request, 'Answer Saved')
 	return render_to_response('interests/all.html', locals(), context_instance=RequestContext(request))
 
 
@@ -112,7 +111,7 @@ def edit_interests(request):
 		#user answer
 		importance_level = request.POST['importance_level']
 
-		user = User.objects.get(username=request.user)
+		user = User.objects.get(id=request.user.id)
 		interest = Interest.objects.get(id=interest_id)
 		try:
 			interest_pic = InterestPicture.objects.get(interest=interest).filter(id=1)
@@ -125,7 +124,6 @@ def edit_interests(request):
 		answered.importance_level = importance_level
 		answered.save()
 
-		messages.success(request, 'Changes Saved')
 		return HttpResponseRedirect('')
 	return render_to_response('interests/edit.html', locals(), context_instance=RequestContext(request))
 
@@ -170,9 +168,8 @@ def new_user_interests(request):
 		interest_id = request.POST['interest_id']
 
 		#user answer
-		importance_level = request.POST['importance_level']
 
-		user = User.objects.get(username=request.user)
+		#user = User.objects.get(id=request.user.id)
 		interest = Interest.objects.get(id=interest_id)
 		try:
 			interest_pic = InterestPicture.objects.get(interest=interest).filter(id=1)
@@ -181,11 +178,24 @@ def new_user_interests(request):
 
 		#user answer save
 
-		answered, created = UserInterestAnswer.objects.get_or_create(user=user, interest=interest)
-		answered.importance_level = importance_level
+		answered, created = UserInterestAnswer.objects.get_or_create(user=request.user, interest=interest)
 		answered.save()
 
-		messages.success(request, 'Answer Saved')
+		interests_all = Interest.objects.filter(for_new_users=True).exclude(userinterestanswer__user=request.user)
+		paginator = Paginator(interests_all, 1)
+		importance_levels = ['Strongly Dislike', 'Dislike', 'Neutral', 'Like', 'Strongly Like']
+
+		page = request.GET.get('page')
+		try:
+			interests = paginator.page(page)
+		except PageNotAnInteger:
+			#If page is not an integer, deliver first page.
+			interests = paginator.page(1)
+		except EmptyPage:
+		#If page is out of range, deliver last page of results
+			interests = paginator.page(paginator.num_pages)
+
+
 		user_interests = UserInterestAnswer.objects.filter(user=request.user)
 		if user_interests.count() == 10: 
 			return HttpResponseRedirect(reverse('handle_new_user'))

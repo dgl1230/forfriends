@@ -6,6 +6,8 @@ from django.contrib import messages
 from django.shortcuts import render_to_response, RequestContext, Http404, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.urlresolvers import reverse
+
 
 from .models import Question, Answer, UserAnswer
 from .forms import QuestionForm, AnswerForm
@@ -38,7 +40,7 @@ def all_questions(request):
 
 	
 
-		user = User.objects.get(username=request.user)
+		user = User.objects.get(id=request.user.id)
 		question = Question.objects.get(id=question_id)
 
 		#user answer save
@@ -47,8 +49,22 @@ def all_questions(request):
 		answered.answer = answer
 		#answered.importance_level = importance_level
 		answered.save()
+		questions_all = Question.objects.exclude(useranswer__user=request.user)
+		questions_left = questions_all.count()
 
-		messages.success(request, 'Answer Saved')
+		paginator = Paginator(questions_all, 1)
+		#importance_levels = ['Very Important', 'Somewhat Important', 'Not Important']
+
+		page = request.GET.get('page')
+		try:
+			questions = paginator.page(page)
+		except PageNotAnInteger:
+			#If page is not an integer, deliver first page.
+			questions = paginator.page(1)
+		except EmptyPage:
+			#If page is out of range, deliver last page of results
+			questions = paginator.page(paginator.num_pages)
+
 	return render_to_response('questions/all.html', locals(), context_instance=RequestContext(request))
 
 
@@ -76,7 +92,7 @@ def edit_questions(request):
 		#answer_form = request.POST.get('answer', False)
 
 
-		user = User.objects.get(username=request.user)
+		user = User.objects.get(id=request.user.id)
 		question = Question.objects.get(id=question_id)
 
 		#user answer save
@@ -86,7 +102,6 @@ def edit_questions(request):
 		answered.importance_level = importance_level
 		answered.save()
 
-		messages.success(request, 'Changes Saved')
 		return HttpResponseRedirect('')
 	return render_to_response('questions/edit.html', locals(), context_instance=RequestContext(request))
 
@@ -118,7 +133,7 @@ def new_user_questions(request):
 
 	
 
-		user = User.objects.get(username=request.user)
+		user = User.objects.get(id=request.user.id)
 		question = Question.objects.get(id=question_id)
 
 		#user answer save
@@ -128,7 +143,6 @@ def new_user_questions(request):
 		#answered.importance_level = importance_level
 		answered.save()
 
-		messages.success(request, 'Answer Saved')
 		user_questions = UserAnswer.objects.filter(user=request.user)
 		if user_questions.count() == 10: 
 			return HttpResponseRedirect(reverse('handle_new_user'))

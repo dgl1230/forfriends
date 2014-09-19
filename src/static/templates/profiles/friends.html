@@ -13,6 +13,9 @@
 <div class="container" id="home-only">
   <div class='col-lg-10 col-12' id="center_div">
 <div class='row'>
+{% if numbers_of_friends == 0%}
+
+{% endif %}
 {% for match in matches %}
 	{% ifnotequal request.user match.user1 %}
 	<div class='col-sm-4'>
