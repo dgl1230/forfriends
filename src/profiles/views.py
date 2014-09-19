@@ -114,7 +114,6 @@ def all(request):
 			if circle <= 6:
 				generate_circle(request.user)
 				user_gamification = Gamification.objects.get(user=request.user)
-			elif 
 			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 		except: 
 			#the user has never calcuated their circle
