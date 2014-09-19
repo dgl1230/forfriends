@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 
+
+
 {% if questions.has_next %}
 <script type="text/javascript">
 	// TOUCH-EVENTS SINGLE-FINGER SWIPE-SENSING JAVASCRIPT
@@ -245,4 +247,8 @@ $(document).ready(function (){
         customRadio("answer");
     })
 </script>
+
+<script src="{{ STATIC_URL }}js/personality_cookie.js" type="text/javascript"></script>
+<script src="{{ STATIC_URL }}js/new_user_personality.js" type="text/javascript"></script>
+
 {% endblock %}

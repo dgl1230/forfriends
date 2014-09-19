@@ -17,16 +17,15 @@
                 </ul>
 </div>
 {% endif %}
-<div class="row">
-	<div class="col-md-1" id="messages_navbar">
-        <h1>Sent Messages</h1>
+
+	<div class="col-md-1" id="secondary_navbar">
+        <h1>Sent</h1>
 	</div>
-	<div class="long_nav" id="tertiary_navbar">
-     		<a href="/messages/inbox/" class="half-nav1">Inbox</a>
+	<div id="tertiary_navbar" class="col-md-1">
+     		<a href="/messages/inbox/">Inbox</a>
      		<span class='glyphicon glyphicon-envelope' id="tertiary-icon"></span>
-     		<a href="/messages/compose/" class="half-nav2">New Message</a>
+     		<a href="/messages/compose/">New Message</a>
 	</div>
-</div>
 {% for item in messages_in_inbox %}
 <div class="container">
   <div class='col-lg-10 col-12'>

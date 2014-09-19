@@ -221,21 +221,7 @@
       
     </div>
 
-<div class="container" id="home-only">
-  <div class='col-lg-10 col-12' id="center_div">
-{% if messages %}
-<div class='row'>
-                <ul class="messages">
-                  {% for message in messages %}
-                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                  {% endfor %}
-                </ul>
-</div>
-</div>
-{% endif %}
-
 <br/>
-</div>
 </div>
 </div>
 
@@ -244,11 +230,10 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title">Welcome to Frenvu!</h4>
+        <h4 class="modal-title">This is your Circle!</h4>
       </div>
       <div class="modal-body">
-        <p>Find your first match by answering some <a href='{% url "questions" %}'>questions!</a></p>
-        <p>Or expand your profile by adding your <a href='{% url "interests" %}'>interests</a>.</p>
+        <p>Frenvu has matched you to some other users who have some similarities with you. You can reset your circle every 24 hours, but check out <a href="/discover/?page=1">Discover</a> if you want to meet more people now.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Okay</button>
@@ -257,6 +242,8 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 </div>
+<script src="{{ STATIC_URL }}js/cookie.js" type="text/javascript"></script>
+<script src="{{ STATIC_URL }}js/new_user_tutorial.js" type="text/javascript"></script>
 <script src="{{ STATIC_URL }}js/profile_view.js"></script>
 
 {% endblock %}
