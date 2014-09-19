@@ -298,13 +298,11 @@ def new_user_info(request):
 		first_name = full_name[0]
 		if len(full_name) == 2:
 			last_name = full_name[1]
-		elif len(full_name) >= 3:
+		if len(full_name) >= 3:
 			not_first_name = full_name[2:len(full_name)]
 			last_name = full_name[1]
 			for name in not_first_name:
 				last_name = last_name + " " + name
-		else: 
-			first_name = full_name
 		username1 = request.POST['username']
 		username = ''.join(username1.split())
 		if len(username) >= 30:
@@ -717,14 +715,12 @@ def register_new_user(request):
 	first_name = full_name[0]
 	if len(full_name) == 2:
 		last_name = full_name[1]
-	elif len(full_name) >= 3:
+	if len(full_name) >= 3:
 		not_first_name = full_name[2:len(full_name)]
 		last_name = full_name[1]
 		for name in not_first_name:
 			last_name = last_name + " " + name
-	else: 
-		first_name = full_name
-
+	
 	username1 = request.POST['username']
 	username = ''.join(username1.split())
 	if len(username) >= 30:
