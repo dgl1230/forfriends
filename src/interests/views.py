@@ -19,12 +19,10 @@ def create_interest(request):
 	if form.is_valid():
 		interest = form.save(commit=False)
 		interest.save()
-		messages.success(request, 'Interest Created')
-		return HttpResponseRedirect('/interests/')
+		messages.success(request, 'Your interest has been created. Once we look it over, other users will be able to like it!')
 
 
-	return render_to_response("interests/create.html", locals(),
-		 context_instance=RequestContext(request))
+	return render_to_response("interests/create.html", locals(), context_instance=RequestContext(request))
 
 
 def all_interests(request):

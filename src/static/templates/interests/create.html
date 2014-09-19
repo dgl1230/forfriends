@@ -4,8 +4,14 @@
 
 
 {% block content %}
+
 <div id="view_container">
 	<div class="col-md-1" id="secondary_navbar">
+		<div class="col-md-1" id="tertiary_navbar">
+    {% for message in messages %}
+    <p id="interests_messages"{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+    {% endfor %}
+</div>
         <h1>Create an Interest</h1>
 	</div>
 	<div class="col-md-1" id="tertiary_navbar">
