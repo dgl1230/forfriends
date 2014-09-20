@@ -1,6 +1,8 @@
 import datetime
 
 from requests import request, HTTPError
+from social.pipeline.user import get_username as social_get_username
+
 
 from django.core.files.base import ContentFile
 from django.contrib.auth.models import User
@@ -51,6 +53,12 @@ def associate_user_by_email(**kwargs):
     except:
         pass
     return kwargs
+
+
+def get_username(strategy, details, user=None, *args, **kwargs):
+    username_old = social_get_username(strategy, details, user=user, *args, **kwargs)
+    username_new = username_old.translate(None, " ?.!/;:")
+    return username_new
 
 
 

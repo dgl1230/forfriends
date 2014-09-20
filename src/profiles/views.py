@@ -100,29 +100,47 @@ matches for them, otherwise it shows the home page for non-logged in viewers '''
 def all(request):
 	if request.user.is_authenticated(): 
 		try: 
+			print 1
 			info = Info.objects.get(user=request.user)
 			assert(info.is_new_user == False)
+			print 2
 		except: 
+			print 3
 			return HttpResponseRedirect(reverse('handle_new_user'))
+	
 		try:
-			#time1 = datetime.datetime.now()
+			print 4
 			user_gamification = Gamification.objects.get(user=request.user)
+			print 4.5
 			circle = user_gamification.circle.all()
+			since_last_reset = user_gamification.circle_reset_started
+			until_next_reset = user_gamification.circle_time_until_reset
+			hours_until_reset = int((until_next_reset - since_last_reset).total_seconds() / 60 / 60)
+			can_they_reset = hours_until_reset >= 24
+			print 5
 			circle_num = 0
 			for match in circle: 
 				circle_num += 1
 			if circle <= 6:
 				generate_circle(request.user)
 				user_gamification = Gamification.objects.get(user=request.user)
+				print 6
+			elif can_they_reset:
+				generate_circle(request.user)
+				user_gamification = Gamification.objects.get(user=request.user)
+				print 7
 			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 		except: 
 			#the user has never calcuated their circle
+			print 8
 			user_gamification = Gamification.objects.create(user=request.user)
 			user_gamification.save()
 			generate_circle(request.user)
+			print 9
 			#makes it so that the circle is displayed right away instead of having to click "generate circle"
 			user_gamification = Gamification.objects.get(user=request.user)
 			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+			
 	else:
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
@@ -304,7 +322,7 @@ def new_user_info(request):
 			for name in not_first_name:
 				last_name = last_name + " " + name
 		username1 = request.POST['username']
-		username = ''.join(username1.split())
+		username = username1.translate(None, " ?.!/;:")
 		if len(username) >= 30:
 			messages.error(request, "We're sorry but your username can't be longer than 30 characters")
 			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
@@ -822,7 +840,8 @@ def register_new_user(request):
 def register_new_user(request):
 	
 	username1 = request.POST['username']
-	username = ''.join(username1.split())
+	username = username1.translate(None, " ?.!/;:")
+
 	if len(username) >= 30:
 		messages.error(request, "We're sorry but your username can't be longer than 30 characters")
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
