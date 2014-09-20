@@ -92,9 +92,13 @@ thead{
 	margin: 0 5% 0 4%;
 }
 #view_container a{
-	color: black;
+	color: white;
+}
+table a{
+	color:black!important;
 }
 
+#view_
 th a:hover{
 	color: #1FBAD6!important;
 }

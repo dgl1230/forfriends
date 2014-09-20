@@ -26,9 +26,13 @@ textarea:active, input:active{
 	width:100%;
 }
 .largeLabel{
-	color:white;
+	color: white;
 	text-align: center;
-	border-color: black;
+	opacity:1;
+	font-size:1.25em;
+	
+	
+	
 }
 .smallLabel2{
 	color:white;
