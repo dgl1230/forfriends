@@ -28,13 +28,13 @@
 <div class="container" id="message_body_holder">
   <div class='col-lg-10 col-12' id="message_body_container">
 	<div class="body_section">
-	<table class='table table-striped'>
+	<table class='table table-striped' id="items_table">
 		<thead>
-		<th>From</th> <th>Message</th> <th><a href='/' ><span id="inbox_trash" class="glyphicon glyphicon-trash"></a></span></th>
+		<th>From</th> <th>Message</th> <th> <a><span id="inbox_trash" class="glyphicon glyphicon-trash"></a></span></th>
 		</thead>
 		<tbody>
 			{% for item in messages_in_inbox %}
-			<tr >
+			<tr id="message_row">
 				<td><a href="/members/{{ item.sender }}/">
 						{% for pic in item.sender.userpicture_set.all %}
 	                		{% if forloop.first %}
@@ -70,7 +70,45 @@
 <br>
 </div>
 
+<script type="text/javascript">
+$(function ()
+{
+    if ($( '#items_table' ).length > 0)
+    {
+        var table = $( '#items_table' );
 
+        table
+            .find( 'tbody input[type=checkbox]' )
+            .click(function()
+            {
+                // Get the ID of the item to delete
+                var item_id = $(this).val();
+
+                // Post it to the server
+                $("#inbox_trash").click(function(){
+	                $.post
+	                (
+	                    '{% url "delete_messages"  %}',
+	                    function(data)
+	                    {
+	                        // Assuming the page will return true
+	                        if( data )
+	                        {
+	                            // Remove the table row
+	                            
+	                            $(this)
+	                                .closest('tr')
+	                                .slideUp()
+	                                .remove()
+	                            .end();
+	                        }
+	                    }
+	                );
+               });
+            });
+    }
+});
+</script>
 
 
 {% endblock %}
