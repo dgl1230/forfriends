@@ -55,10 +55,19 @@ def associate_user_by_email(**kwargs):
     return kwargs
 
 
-def get_username(strategy, details, user=None, *args, **kwargs):
+'''def get_username(strategy, details, user=None, *args, **kwargs):
     result = social_get_username(strategy, details, user=user, *args, **kwargs)
     username = result['username']
     result['username'] = username.translate(None, " ?.!/;:")
+    return result
+'''
+
+
+def get_username(strategy, details, user=None, *args, **kwargs):
+    result = social_get_username(strategy, details, user=user, *args, **kwargs)
+    result['username'] = '-'.join([
+        result['username'], strategy.backend.name, str(randrange(0, 1000))
+    ])
     return result
 
 
