@@ -57,7 +57,7 @@ def associate_user_by_email(**kwargs):
 
 def get_username(strategy, details, user=None, *args, **kwargs):
     result = social_get_username(strategy, details, user=user, *args, **kwargs)
-    result['username'] = result['username']translate(None, " ?.!/;:")
+    result['username'] = result['username'].translate(None, " ?.!/;:")
     return result
 
 
