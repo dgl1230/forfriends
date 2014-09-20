@@ -95,48 +95,36 @@ def add_friend_discovery(request, username, page):
 	else: 
 		return HttpResponseRedirect('http://127.0.0.1:8000/discover/?page=%s' % page)
 
+
 '''The view for the home page of a user. If they're logged in, it shows relevant
 matches for them, otherwise it shows the home page for non-logged in viewers '''
 def all(request):
-	if request.user.is_authenticated(): 
+	if request.user.is_authenticated():
 		try: 
-			print 1
 			info = Info.objects.get(user=request.user)
 			assert(info.is_new_user == False)
-			print 2
 		except: 
-			print 3
 			return HttpResponseRedirect(reverse('handle_new_user'))
 	
 		try:
-			print 4
 			user_gamification = Gamification.objects.get(user=request.user)
-			print 4.5
 			circle = user_gamification.circle.all()
 			since_last_reset = user_gamification.circle_reset_started
 			until_next_reset = user_gamification.circle_time_until_reset
 			hours_until_reset = int((until_next_reset - since_last_reset).total_seconds() / 60 / 60)
 			can_they_reset = hours_until_reset >= 24
-			print 5
 			circle_num = 0
 			for match in circle: 
 				circle_num += 1
 			if circle <= 6:
 				generate_circle(request.user)
 				user_gamification = Gamification.objects.get(user=request.user)
-				print 6
-			elif can_they_reset:
-				generate_circle(request.user)
-				user_gamification = Gamification.objects.get(user=request.user)
-				print 7
 			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 		except: 
 			#the user has never calcuated their circle
-			print 8
 			user_gamification = Gamification.objects.create(user=request.user)
 			user_gamification.save()
 			generate_circle(request.user)
-			print 9
 			#makes it so that the circle is displayed right away instead of having to click "generate circle"
 			user_gamification = Gamification.objects.get(user=request.user)
 			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
@@ -691,10 +679,16 @@ def find_friends(request):
 
 
 def login_user(request):
+
 	try:
 		username = request.POST['username']
 		password = request.POST['password']
-		user = authenticate(username=username, password=password)
+		try: 
+			user = authenticate(username=username, password=password)
+		except: 
+			user = User.objects.get(email=username)
+			user = authenticate(username=user.username, password=password)
+
 		if user is not None:
 			if user.is_active == False:
 				user.is_active = True

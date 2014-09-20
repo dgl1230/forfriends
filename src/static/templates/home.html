@@ -55,7 +55,7 @@
                   <div class="login">
                     <h1>Login to Frenvu</h1>
                   <form method="post" action='{% url "login_user" %}'>{% csrf_token %}
-                  <p><input type="text" name="username" maxlength="20" value="" placeholder="Email or username"></p>
+                  <p><input type="text" name="username" maxlength="40" value="" placeholder="Email or username"></p>
                   <p><input type="password" name="password" value="" placeholder="Password"></p><br>
                   <p class="submit"><input type="submit" name="commit" value="Login"></p><br>
                   <p class="remember_me">
