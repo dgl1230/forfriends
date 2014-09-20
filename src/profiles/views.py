@@ -321,7 +321,7 @@ def new_user_info(request):
 			last_name = full_name[1]
 			for name in not_first_name:
 				last_name = last_name + " " + name
-		username1 = request.POST['username']
+		username1 = str(request.POST['username'])
 		username = username1.translate(None, " ?.!/;:")
 		if len(username) >= 30:
 			messages.error(request, "We're sorry but your username can't be longer than 30 characters")
@@ -839,7 +839,7 @@ def register_new_user(request):
 #Creates a new user and assigns the appropriate fields to the user
 def register_new_user(request):
 	
-	username1 = request.POST['username']
+	username1 = str(request.POST['username'])
 	username = username1.translate(None, " ?.!/;:")
 
 	if len(username) >= 30:
