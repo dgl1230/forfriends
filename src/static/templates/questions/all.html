@@ -119,7 +119,7 @@
 	}
 	
 	function processingRoutine() {
-		var swipedElement = document.getElementById("question_answers");
+		var swipedElement = document.getElementById("next");
 		if ( swipeDirection == 'left' ) {
 			// REPLACE WITH YOUR ROUTINES
 			window.location.href = "?page={{ questions.next_page_number }}";
@@ -166,7 +166,7 @@
 		<form method='POST' action=''> {% csrf_token %}
 			<input type='hidden' value='{{ question.id }}' name='question_id'/>
 
-		<div class="question_answers" id="question_answers" ontouchstart="touchStart(event,'main_interests');" ontouchend="touchEnd(event);" ontouchmove="touchMove(event);" ontouchcancel="touchCancel(event);">
+		<div class="question_answers" id="question_answers" >
 		{% for ans in question.answer_set.all %}
 			<label>
 			<input type='radio' required=
@@ -191,7 +191,7 @@
 				{% endif %}
 
 				{% if questions.has_next %}
-					<li class="next"><a href="?page={{ questions.next_page_number }}">Next &rarr;</a></li>
+					<li class="next" id="next" ontouchstart="touchStart(event,'main_interests');" ontouchend="touchEnd(event);" ontouchmove="touchMove(event);" ontouchcancel="touchCancel(event);"><a href="?page={{ questions.next_page_number }}">Next &rarr;</a></li>
 				{% endif %}
 			</div>
 		</ul>
