@@ -15,8 +15,21 @@ input#image_file{
     margin:0 auto;
 }
 
+#no_pictures a, #no_pictures a:active, #no_pictures a:focus{
+    color:#1FBAD6;
+}
+
+
+
 .caption label{
     display:block;
+}
+
+#no_pictures{
+    width:300px;
+    margin:50px auto;
+    text-align: center;
+
 }
 #upload_more{
     padding-top:10px;
