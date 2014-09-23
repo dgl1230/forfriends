@@ -177,7 +177,17 @@
 				{% else %}
 					<div class="next_user_hidden"><span class='glyphicon glyphicon-arrow-right'></span></div>
 				{% endif %}
-			<h3>{{ match.percent }}% Match</h3>
+					{% if match.percent >= 90 %}
+					<h3>Very Good Match</h3>
+					{% elif match.percent >= 80 %}
+					<h3>Good Match</h3>
+					{% elif match.percent >= 70 %}
+					<h3>Average Match</h3>
+					{% elif match.percent >= 45 %}
+					<h3>Weak Match</h3>
+					{% else}
+					<h3>Very Weak Match</h3>
+					{% endif %}
 			{% if users.has_previous %}
 					<div class="previous_user_hidden"><a href="?page={{ users.previous_page_number }}"><span class='glyphicon glyphicon-arrow-left'></span></a></div>
 				{% else %}

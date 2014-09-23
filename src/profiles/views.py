@@ -555,6 +555,8 @@ def discover(request):
 	return render_to_response('profiles/discover.html', locals(), context_instance=RequestContext(request))
 
 
+
+
 def friends(request):
 	matches = Match.objects.filter(
 		Q(user1=request.user) | Q(user2=request.user)
