@@ -30,5 +30,4 @@ def calc_distance(user1, user2):
 	address1, (latitude1, longitude1) = geolocator.geocode(user1_city + " " + user1_state)
 	address2, (latitude2, longitude2) = geolocator.geocode(user2_city + " " + user2_state)
 	miles = haversine(longitude1, latitude1, longitude2, latitude2)
-	print miles
 	return miles	

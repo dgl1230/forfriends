@@ -500,7 +500,6 @@ def discover(request):
 		if page != False:
 			users = paginator.page(page)
 			user = users.object_list[0]
-			print user
 			try: 
 				assert (user != request.user)
 			except: 

@@ -13,6 +13,7 @@ from .forms import ComposeForm, FriendForm, ReplyForm
 from visitors.models import Visitor
 
 
+
 ''' Gets a message using the dm_id in the url for the logged in user. The 
 user is not allowed to view a message sent from themselves (to prevent errors).
 If the user has not seen it already, it's read and read_at fields are changed.'''
@@ -28,7 +29,7 @@ def view_direct_message(request, dm_id):
 	return render_to_response('directmessages/views.html', locals(), 
 										context_instance=RequestContext(request))
 
-def delete_messages(request, dm_id):
+'''def delete_messages(request, dm_id):
 	message = DirectMessage.objects.get(id=dm_id)
 	message.delete()
 	messages_in_inbox = DirectMessage.objects.filter(receiver=request.user)
@@ -36,6 +37,12 @@ def delete_messages(request, dm_id):
 	request.session['num_of_messages'] = direct_messages
 	return render_to_response('directmessages/inbox.html', locals(), 
 									context_instance=RequestContext(request))
+'''
+
+def delete_messages(request):
+	messages_to_delete = request.POST.getlist('delete_messages')
+	DirectMessage.objects.filter(id__in=messages_to_delete).delete()
+	return HttpResponseRedirect(reverse('inbox'))
 
 
 
