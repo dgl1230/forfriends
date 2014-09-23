@@ -40,7 +40,7 @@
 	                		{% endif %}
 	                	{% endfor %}
 
-					{{ item.sender }}</a>
+					{{ item.sender|truncatechars:"15" }}</a>
 				</td>
 				<td id="inbox_body">
 					{% if item.read %}
@@ -114,6 +114,10 @@ $("#inbox_delete").click(function() {
         $(this).closest('.message_row').remove();
     });
 });
+</script>
+
+<script>
+
 </script>
 
 {% endblock %}

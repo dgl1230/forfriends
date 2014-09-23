@@ -26,8 +26,8 @@
 }
 
 #inbox_trash{
-	margin-left:15px;
 	outline:none;
+	cursor:pointer;
 }
 #inbox_body{
 	overflow:hidden;
@@ -42,7 +42,6 @@
 	padding: 5px 5px 5px 5px;
 }
 #message_body_holder{
-	margin-right:15px!important;
 	width:100%;
 }
 .well{
@@ -165,6 +164,12 @@ input{
 		width:120px;
 	}
 }
+@media (max-width: 280px){
+	.inbox{
+		margin-left: -20px;
+	}
+}
+
 
 @media (max-width: 550px){
 	#compose_message_container textarea{
