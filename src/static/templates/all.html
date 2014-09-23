@@ -219,6 +219,48 @@
 
         
         {% endif %}
+        {% if not request.user == match.user2 %}     
+        <ul>
+            {% for pic in match.user2.userpicture_set.all %}
+                {% if forloop.first %}
+          <li data-type="link" data-url='/members/{{ match.user2.username}}'  data-target="_self"></li>
+          <li class="thumbnail_carousel" data-thumbnail-path="{{ MEDIA_URL }}{{ pic }}"></li>
+          <li data-thumbnail-text="{{ match.user2.username }}" data-thumbnail-text-title-offset="35"
+          data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="7">
+            <p class="largeLabel">{{ match.user2.username }}</p>
+            <p class="smallLabel2">
+                {% for item in match.user2.address_set.all %} 
+                    {% if forloop.first %} {{ item }}
+                    {% endif %} 
+                {% endfor %}
+                    {% ifnotequal match.distance 10000000 %}
+                     ({{ match.distance }} miles away)
+            </p>
+                    {% endifnotequal %}
+            {% endif %}
+            {% endfor %}
+            {% if not match.user2.userpicture_set.all %}
+            <li data-type="link" data-url='/members/{{ match.user1.username}}' data-target="_self"></li>
+            <li class="thumbnail_carousel" data-thumbnail-path='{{ STATIC_URL }}img/avatar.png'></li>
+            <li data-thumbnail-text="{{ match.user2.username }}" data-thumbnail-text-title-offset="35" data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="7">
+                <p class="largeLabel">{{ match.user2.username }}</p>
+                <p class="smallLabel2">
+                    {% for item in match.user2.address_set.all %} 
+                    {% if forloop.first %} {{ item }}
+                    {% endif %} 
+                    {% endfor %}
+                    {% ifnotequal match.distance 10000000 %}
+                     ({{ match.distance }} miles away)</p>
+                     {% endifnotequal %}
+                    {% endif %}
+            
+            
+            <p class="mediaDescriptionHeader">{{ pic.caption }}</p>
+          </li>
+        </ul>
+
+        
+        {% endif %}
         {% endfor %}
       </ul>
       <!-- end  -->
