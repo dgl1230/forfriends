@@ -45,7 +45,17 @@
 
 	</div>
 	{% if not request.user == single_user %}
-		<h3>Match {{ match.percent }}%	</h3>
+		{% if match.percent >= 90 %}
+		<h3>Very Good Match</h3>
+		{% elif match.percent >= 80 %}
+		<h3>Good Match</h3>
+		{% elif match.percent >= 70 %}
+		<h3>Average Match</h3>
+		{% elif match.percent >= 45 %}
+		<h3>Weak Match</h3>
+		{% else}
+		<h3>Very Weak Match</h3>
+		{% endif %}
 		<h3 id="location">{% for item in user.address_set.all %}
 				{{ item.city|title }}, {% if item.state|length == 2 %} {{ item.state|upper }} {% else %} {{ item.state|capfirst }} {% endif %}
 				{% endfor %}
