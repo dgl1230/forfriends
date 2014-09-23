@@ -1,6 +1,26 @@
 .right-button{
 	float: right;
 }
+#tertiary_navbar a:focus, #tertiary_navbar a:active {
+	color:#1FBAD6!important;
+	
+}
+
+#delete_message_hidden{
+	width: 20px!important;
+	position:relative;
+	color:black;
+	background:transparent;
+	top:30px;
+	z-index: 3000;
+}
+#inbox_trash{
+	position:relative;
+	top: 0px;
+	z-index:2000;
+	outline:none;
+	cursor:pointer;
+}
 
 .left-button{
 	float: left;
@@ -25,10 +45,6 @@
 	float:right;
 }
 
-#inbox_trash{
-	margin-left:15px;
-	outline:none;
-}
 #inbox_body{
 	overflow:hidden;
 	width:400px;
@@ -42,7 +58,6 @@
 	padding: 5px 5px 5px 5px;
 }
 #message_body_holder{
-	margin-right:15px!important;
 	width:100%;
 }
 .well{
@@ -165,6 +180,12 @@ input{
 		width:120px;
 	}
 }
+@media (max-width: 280px){
+	.inbox{
+		margin-left: -20px;
+	}
+}
+
 
 @media (max-width: 550px){
 	#compose_message_container textarea{

@@ -30,7 +30,7 @@
 			{% csrf_token %}
 	<table class='table table-striped' id="items_table">
 		<thead>
-		<th>From</th> <th>Message</th> <th> <a id="inbox_delete"><span id="inbox_trash" class="glyphicon glyphicon-trash" style="color:white"></a></span></th>
+		<th>From</th> <th>Message</th> <th> <input id="delete_message_hidden" type='submit' value=''/><span id="inbox_trash" class="glyphicon glyphicon-trash" style="color:white"></span></th>
 		</thead>
 
 		<tbody>
@@ -43,7 +43,7 @@
 	                		{% endif %}
 	                	{% endfor %}
 
-					{{ item.sender }}</a>
+					{{ item.sender|truncatechars:"15" }}</a>
 				</td>
 				<td id="inbox_body">
 					{% if item.read %}
@@ -64,7 +64,6 @@
 		</body>
 
 	</table>
-<input class='btn btn-success' type='submit' value='Update' />
 </form>
 </div>
 </div>
@@ -73,52 +72,5 @@
 <br>
 </div>
 
-<script type="text/javascript">
-$(function ()
-{
-    if ($( '#items_table' ).length > 0)
-    {
-        var table = $( '#items_table' );
-
-        table
-            .find( 'tbody input[type=checkbox]' )
-            .click(function()
-            {
-                // Get the ID of the item to delete
-                var item_id = $(this).val();
-
-                // Post it to the server
-                $("#inbox_trash").click(function(){
-	                $.post
-	                (
-	                    '',
-	                    function(data)
-	                    {
-	                        // Assuming the page will return true
-	                        if( data )
-	                        {
-	                            // Remove the table row
-	                            
-	                            $(this)
-	                                .closest('tr')
-	                                .slideUp()
-	                                .remove()
-	                            .end();
-	                        }
-	                    }
-	                );
-               });
-            });
-    }
-});
-</script>
-
-<script>
-$("#inbox_delete").click(function() {
-    var boxes = $("input[type='checkbox']:checked").each(function() {
-        $(this).closest('.message_row').remove();
-    });
-});
-</script>
 
 {% endblock %}
