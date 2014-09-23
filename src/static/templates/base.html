@@ -73,7 +73,14 @@
     <link href='//cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.16.1/fonts/icons.ttf'>
     <link href='//cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.16.1/fonts/basic.icons.ttf'>
 
-    
+    <script>
+    var boxes = $('input[name={{ item.id }}]:checked');
+    $("#inbox_delete").click(function() {
+        $(boxes).each(function() {
+            (this).remove();
+        })
+    });
+    </script>
   <body>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"/></script>
     {% include 'navbar.html' %}
