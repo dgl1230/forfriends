@@ -26,10 +26,13 @@
 <div class="container" id="message_body_holder">
   <div class='col-lg-10 col-12' id="message_body_container">
 	<div class="body_section">
+		<form method='POST' action='{% url "delete_messages" %}'>
+			{% csrf_token %}
 	<table class='table table-striped' id="items_table">
 		<thead>
 		<th>From</th> <th>Message</th> <th> <a id="inbox_delete"><span id="inbox_trash" class="glyphicon glyphicon-trash" style="color:white"></a></span></th>
 		</thead>
+
 		<tbody>
 			{% for item in messages_in_inbox %}
 			<tr id="message_row" name="{{ item.id }}" class="message_row">
@@ -53,7 +56,7 @@
 						<small>{{ item.sent }}</small> 
 					{% endif %}
 				<td>
-					<input type="checkbox" name="delete_message" id="{{ item.id }}"></input> 
+					<input type="checkbox" name="delete_messages" value="{{ item.id }}"></input> 
 				</td>
 
 			</tr>
@@ -61,6 +64,8 @@
 		</body>
 
 	</table>
+<input class='btn btn-success' type='submit' value='Update' />
+</form>
 </div>
 </div>
 </div>
