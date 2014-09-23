@@ -2,8 +2,6 @@
 
 <link href="{{ STATIC_URL }}css/messages.css" rel="stylesheet">
 
-
-
 {% block content %}
 
 <div id="view_container">
@@ -30,15 +28,15 @@
 	<div class="body_section">
 	<table class='table table-striped' id="items_table">
 		<thead>
-		<th>From</th> <th>Message</th> <th> <a><span id="inbox_trash" class="glyphicon glyphicon-trash"></a></span></th>
+		<th>From</th> <th>Message</th> <th> <a id="inbox_delete"><span id="inbox_trash" class="glyphicon glyphicon-trash" style="color:white"></a></span></th>
 		</thead>
 		<tbody>
 			{% for item in messages_in_inbox %}
-			<tr id="message_row">
+			<tr id="message_row" name="{{ item.id }}" class="message_row">
 				<td><a href="/members/{{ item.sender }}/">
 						{% for pic in item.sender.userpicture_set.all %}
 	                		{% if forloop.first %}
-	                		<img src='{{ MEDIA_URL }}{{ pic }}' alt="Owl Image" id="message_image" name="{{ pic.id }}"></div>
+	                		<img src='{{ MEDIA_URL }}{{ pic }}' alt="Owl Image" id="delete_message" name="{{ pic.id }}"></div>
 	                		{% endif %}
 	                	{% endfor %}
 
@@ -55,7 +53,7 @@
 						<small>{{ item.sent }}</small> 
 					{% endif %}
 				<td>
-					<input id="delete_message" type="checkbox" name="{{ item.id }}"></input> 
+					<input type="checkbox" name="delete_message" id="{{ item.id }}"></input> 
 				</td>
 
 			</tr>
@@ -110,5 +108,12 @@ $(function ()
 });
 </script>
 
+<script>
+$("#inbox_delete").click(function() {
+    var boxes = $("input[type='checkbox']:checked").each(function() {
+        $(this).closest('.message_row').remove();
+    });
+});
+</script>
 
 {% endblock %}
