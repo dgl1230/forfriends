@@ -122,8 +122,8 @@ def all(request):
 			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 		except: 
 			#the user has never calcuated their circle
-			user_gamification = Gamification.objects.create(user=request.user)
-			user_gamification.save()
+			#user_gamification = Gamification.objects.create(user=request.user)
+			#user_gamification.save()
 			generate_circle(request.user)
 			#makes it so that the circle is displayed right away instead of having to click "generate circle"
 			user_gamification = Gamification.objects.get(user=request.user)
@@ -286,7 +286,7 @@ def handle_new_user(request):
 		assert(info.signed_up_with_fb_or_goog == False)
 	except: 
 		return HttpResponseRedirect(reverse('new_user_info'))
-	if user_interests.count() < 10:
+	if user_interests.count() < 5:
 		return HttpResponseRedirect(reverse('new_user_interests'))
 	if user_questions.count() < 10: 
 		return HttpResponseRedirect(reverse('new_user_questions'))
@@ -294,6 +294,8 @@ def handle_new_user(request):
 		info = Info.objects.get(user=request.user)
 		info.is_new_user = False
 		info.save()
+		user_gamification = Gamification.objects.create(user=request.user)
+		user_gamification.save()
 		return HttpResponseRedirect(reverse('home'))
 
 
@@ -314,6 +316,100 @@ def new_user_info(request):
 		if len(username) >= 30:
 			messages.error(request, "We're sorry but your username can't be longer than 30 characters")
 			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+		gender1 = request.POST['gender']
+		day = request.POST['BirthDay']
+		month = request.POST['BirthMonth']
+		year = request.POST['BirthYear']
+		country = request.POST['country']
+		state = request.POST['state']
+		city = request.POST['city']
+		datestr = str(year) + '-' + str(month) + '-' + str(day)
+		birthday = datetime.strptime(datestr, '%Y-%m-%d').date()
+		user_age = calculate_age(birthday)
+
+		if gender1 == 'm':
+			gender = 'Male'
+		else:
+			gender = 'Female'
+			
+		try:
+			test_year = int(year)
+			test_day = int(day)
+		except:
+			messages.error(request, "Please enter a number for your birthday year and day")
+			return render_to_response('profiles/new_user.html', locals(), context_instance=RequestContext(request))
+
+		if user_age >= 18:
+			datestr = str(year) + '-' + str(month) + '-' + str(day)
+			birthday = datetime.strptime(datestr, '%Y-%m-%d').date()
+			user_age = calculate_age(birthday)
+
+			request.user.first_name = first_name
+			if len(full_name) >= 2:
+				request.user.last_name = last_name
+			try: 
+				new_info = Info.objects.get(user=request.user)
+			except: 
+				new_info = Info.objects.create(user=request.user)
+			try:
+				new_address = Address.objects.get(user=request.user)
+			except: 
+				new_address = Address.objects.create(user=request.user)
+			new_address.country = country
+			new_address.state = state
+			new_address.city = city
+			new_info.gender = gender
+			new_info.birthday = birthday
+			new_info.signed_up_with_fb_or_goog = False
+			new_info.save()
+			new_address.save()
+			user = authenticate(username=request.user.username, password=request.user.password)
+			request.user.save()
+			if not DEBUG:
+				subject = 'Thanks for registering with Frenvu!'
+				line1 = 'Hi %s, \nThanks for making an account with Frenvu! My name is Denis, ' % (username,)
+				html_line1 = 'Hi %s, \n<br>Thanks for making an account with Frenvu! My name is Denis, ' % (username,)
+
+				line2 = "and I'm one of the Co-Founders of Frenvu. We're trying to make Frenvu a great"
+				line3 = "place for fostering new friendships, but we're still an early company, so if "
+				line4 = "you have any questions or concerns about the site, please feel free to reach "
+				line5 = "out to me. I'd love to hear feedback from you or help you with any problem you're having! "
+
+				line6 = "We hope you enjoy the site!\nSincerely,\nDenis and the rest of the team at Frenvu"
+				html_line6 = "We hope you enjoy the site!\n<br>Sincerely,\n<br>Denis and the rest of the team at Frenvu"
+				message = line1 + line2 + line3 + line4 + line5 + line6
+				html_message = html_line1 + line2 + line3 + line4 + line5 + html_line6
+				msg = EmailMultiAlternatives(subject, html_message, EMAIL_HOST_USER, [email])
+				msg.content_subtype = "html"
+				msg.send()
+			return HttpResponseRedirect(reverse('handle_new_user'))
+		else:
+			messages.error(request, "We're sorry but you must be at least 18 to signup!")
+			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+	else:
+		return render_to_response('profiles/new_user.html', locals(), context_instance=RequestContext(request))
+
+
+
+def new_user_registration2(request):
+	if request.POST:
+		name = request.POST['name']
+		full_name = name.split()
+		first_name = full_name[0]
+		if len(full_name) == 2:
+			last_name = full_name[1]
+		if len(full_name) >= 3:
+			not_first_name = full_name[2:len(full_name)]
+			last_name = full_name[1]
+			for name in not_first_name:
+				last_name = last_name + " " + name
+		email = request.POST['email']
+		try: 
+			User.objects.get(email=email)
+			messages.error(request, "We're sorry but an account has already been created with this email address")
+			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+		except: 
+			pass
 		gender1 = request.POST['gender']
 		day = request.POST['BirthDay']
 		month = request.POST['BirthMonth']
@@ -557,7 +653,7 @@ def edit_info(request):
 
 		
 		#return render_to_response('profiles/edit_address.html', locals(), context_instance=RequestContext(request))
-		return HttpResponseRedirect('/edit/')
+		return HttpResponseRedirect(reverse('create'))
 	else:
 		raise Http404
 
@@ -832,54 +928,55 @@ def register_new_user(request):
 
 #Creates a new user and assigns the appropriate fields to the user
 def register_new_user(request):
-	
-	username1 = str(request.POST['username'])
-	username = username1.translate(None, " ?.!/;:")
 
-	if len(username) >= 30:
-		messages.error(request, "We're sorry but your username can't be longer than 30 characters")
-		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+	try: 
+		username1 = str(request.POST['username'])
+		username = username1.translate(None, " ?.!/;:")
+
+		if len(username) >= 30:
+			messages.error(request, "We're sorry but your username can't be longer than 30 characters")
+			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
 
-	password = request.POST['password']
-	confirm_password = request.POST['repassword']
+		password = request.POST['password']
+		confirm_password = request.POST['repassword']
 
-	if username and password:
-		if username != password: 
-			if password == confirm_password:
-				new_user,created = User.objects.get_or_create(username=username, password=password)
-				if created:
-					new_user.set_password(password)
-					
-					new_user.save()
-					new_user = authenticate(username=username, password=password)
-					if not DEBUG:
-						subject = 'Thanks for registering with Frenvu!'
-						line1 = 'Hi %s, \nThanks for making an account with Frenvu! My name is Denis, ' % (username,)
-						html_line1 = 'Hi %s, \n<br>Thanks for making an account with Frenvu! My name is Denis, ' % (username,)
+		if username and password:
+			if username != password: 
+				if password == confirm_password:
+					new_user,created = User.objects.get_or_create(username=username, password=password)
+					if created:
+						new_user.set_password(password)
+						
+						new_user.save()
+						new_user = authenticate(username=username, password=password)
+						if not DEBUG:
+							subject = 'Thanks for registering with Frenvu!'
+							line1 = 'Hi %s, \nThanks for making an account with Frenvu! My name is Denis, ' % (username,)
+							html_line1 = 'Hi %s, \n<br>Thanks for making an account with Frenvu! My name is Denis, ' % (username,)
 
-						line2 = "and I'm one of the Co-Founders of Frenvu. We're trying to make Frenvu a great"
-						line3 = "place for fostering new friendships, but we're still an early company, so if "
-						line4 = "you have any questions or concerns about the site, please feel free to reach "
-						line5 = "out to me. I'd love to hear feedback from you or help you with any problem you're having! "
+							line2 = "and I'm one of the Co-Founders of Frenvu. We're trying to make Frenvu a great"
+							line3 = "place for fostering new friendships, but we're still an early company, so if "
+							line4 = "you have any questions or concerns about the site, please feel free to reach "
+							line5 = "out to me. I'd love to hear feedback from you or help you with any problem you're having! "
 
-						line6 = "We hope you enjoy the site!\nSincerely,\nDenis and the rest of the team at Frenvu"
-						html_line6 = "We hope you enjoy the site!\n<br>Sincerely,\n<br>Denis and the rest of the team at Frenvu"
-						message = line1 + line2 + line3 + line4 + line5 + line6
-						html_message = html_line1 + line2 + line3 + line4 + line5 + html_line6
-						msg = EmailMultiAlternatives(subject, html_message, EMAIL_HOST_USER, [email])
-						msg.content_subtype = "html"
-						msg.send()
-					login(request, new_user)
-					return HttpResponseRedirect('/')
+							line6 = "We hope you enjoy the site!\nSincerely,\nDenis and the rest of the team at Frenvu"
+							html_line6 = "We hope you enjoy the site!\n<br>Sincerely,\n<br>Denis and the rest of the team at Frenvu"
+							message = line1 + line2 + line3 + line4 + line5 + line6
+							html_message = html_line1 + line2 + line3 + line4 + line5 + html_line6
+							msg = EmailMultiAlternatives(subject, html_message, EMAIL_HOST_USER, [email])
+							msg.content_subtype = "html"
+							msg.send()
+						login(request, new_user)
+						return HttpResponseRedirect('/')
+					else:
+						messages.error(request, "Sorry but this username is already taken")
 				else:
-					messages.error(request, "Sorry but this username is already taken")
-			else:
-				messages.error(request, "Please make sure both passwords match")
-		else: 
-			messages.error(request, "Pleasure make sure your username and password aren't the same!")
-	else: 
-			messages.error(request, "Pleasure make sure to fill ou all fields")
+					messages.error(request, "Please make sure both passwords match")
+			else: 
+				messages.error(request, "Pleasure make sure your username and password aren't the same!")
+	except: 
+		messages.error(request, "Pleasure make sure to fill out all fields")
 
 	return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 

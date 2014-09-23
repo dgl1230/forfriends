@@ -19,7 +19,8 @@ def create_interest(request):
 	if form.is_valid():
 		interest = form.save(commit=False)
 		interest.save()
-		messages.success(request, 'Your interest has been created. Once we look it over, other users will be able to like it!')
+		messages.success(request, 'Thanks for contributing to Frenvu! Once we look over your interest, other users will be able to like it!')
+		return HttpResponseRedirect(reverse('create'))
 
 
 	return render_to_response("interests/create.html", locals(), context_instance=RequestContext(request))
@@ -148,7 +149,13 @@ def single_user_interests(request, username):
 
 
 def new_user_interests(request):
-	interests_all = Interest.objects.filter(for_new_users=True)
+	#interests_all = Interest.objects.filter(for_new_users=True)
+	if not request.session.get('random_interests'):
+		request.session['random_interests']= request.user.id
+	interests_all = cache.get('random_interests_%d' % request.session['random_interests'])
+	if not interests_all:
+		interests_all = list(Interest.objects.exclude(userinterestanswer__user=request.user).filter(approved=True).order_by('?'))
+		cache.set('random_interests_%d' % request.session['random_interests'], interests_all, 400)
 	paginator = Paginator(interests_all, 1)
 	importance_levels = ['Strongly Dislike', 'Dislike', 'Neutral', 'Like', 'Strongly Like']
 
@@ -195,7 +202,7 @@ def new_user_interests(request):
 
 
 		user_interests = UserInterestAnswer.objects.filter(user=request.user)
-		if user_interests.count() == 10: 
+		if user_interests.count() == 5: 
 			return HttpResponseRedirect(reverse('handle_new_user'))
 
 	return render_to_response('interests/new_user.html', locals(), context_instance=RequestContext(request))

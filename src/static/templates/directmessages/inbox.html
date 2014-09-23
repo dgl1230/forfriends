@@ -55,7 +55,7 @@
 						<small>{{ item.sent }}</small> 
 					{% endif %}
 				<td>
-					<input id="delete_message" type="checkbox"></input> 
+					<input id="delete_message" type="checkbox" name="{{ item.id }}"></input> 
 				</td>
 
 			</tr>
@@ -88,7 +88,7 @@ $(function ()
                 $("#inbox_trash").click(function(){
 	                $.post
 	                (
-	                    '{% url "delete_messages"  %}',
+	                    '',
 	                    function(data)
 	                    {
 	                        // Assuming the page will return true
