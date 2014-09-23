@@ -5,27 +5,25 @@
 
 {% block content %}
 <div id="view_container">
-<br>
 
-  <div class='col-lg-10 col-12'>
-{% if messages %}
-<div class='row'>
-                <ul class="messages">
-                  {% for message in messages %}
-                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                  {% endfor %}
-                </ul>
-</div>
-{% endif %}
-
+<div class="row">
 	<div class="col-md-1" id="secondary_navbar">
         <h1>Sent</h1>
 	</div>
 	<div id="tertiary_navbar" class="col-md-1">
-     		<a href="/messages/inbox/">Inbox</a>
+     		<a href="/messages/inbox/">&nbsp;&nbsp;&nbsp;&nbsp; Inbox &nbsp;&nbsp;&nbsp;&nbsp;</a>
      		<span class='glyphicon glyphicon-envelope' id="tertiary-icon"></span>
      		<a href="/messages/compose/">New Message</a>
 	</div>
+  {% if messages %}
+<div class='row'>
+    <ul class="messages">
+      {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+</div>
+{% endif %}
 {% for item in messages_in_inbox %}
 <div class="container">
   <div class='col-lg-10 col-12'>
