@@ -132,7 +132,6 @@ def all(request):
 def generate_circle(logged_in_user):
 	if logged_in_user.is_authenticated(): 
 		try: 
-			print 1
 			assert (circle_distance(logged_in_user) == 1)
 			return
 		except: 
@@ -143,7 +142,6 @@ def generate_circle(logged_in_user):
 			num_40m = 0
 			num_50m = 0 
 			users = User.objects.filter(is_active=True).order_by('?')
-			print 2
 			for user in users: 
 				if num_10m >= 10 or num_20m >= 10:
 					break 
@@ -193,34 +191,27 @@ def generate_circle(logged_in_user):
 						match.save()
 					except:
 						match.distance = 10000000
-			print 3
 			if circle_distance(logged_in_user) == 1:
-				print 4
 				return 
 			else: 
-				print 5
 				matches = Match.objects.filter(
 					Q(user1=logged_in_user) | Q(user2=logged_in_user)
 				).order_by('-percent')[:8]
 				user_gamification = Gamification.objects.get(user=logged_in_user)
-				print 6
 				user_gamification.circle.clear()
 				for match in matches: 
 					user_gamification.circle.add(match) 
-				print 7
 				user_gamification.circle_reset_started = datetime.now()
 				user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 				user_gamification.save()
 
 
 def circle_distance(logged_in_user):
-	print "a"
 	matches_basic = Match.objects.filter(
 			Q(user1=logged_in_user) | Q(user2=logged_in_user)
 			)
 	matches_10m = matches_basic.filter(is_10_miles=True)
 	if matches_10m.count() >= 10: 
-		print "b"
 		matches = matches_10m.order_by('-percent')[:8]
 		user_gamification = Gamification.objects.get(user=logged_in_user)
 		user_gamification.circle.clear()
@@ -232,7 +223,6 @@ def circle_distance(logged_in_user):
 		return 1
 	matches_20m = matches_basic.filter(is_20_miles=True)
 	if matches_20m.count() >= 10:
-		print "c"
 		matches = matches_20m.order_by('-percent')[:8]
 		user_gamification = Gamification.objects.get(user=logged_in_user)
 		user_gamification.circle.clear()
@@ -244,7 +234,6 @@ def circle_distance(logged_in_user):
 		return 1
 	matches_30m = matches_basic.filter(is_30_miles=True)
 	if matches_30m.count() >= 10:
-		print "d"
 		matches = matches_30m.order_by('-percent')[:8]
 		user_gamification = Gamification.objects.get(user=logged_in_user)
 		user_gamification.circle.clear()
@@ -256,7 +245,6 @@ def circle_distance(logged_in_user):
 		return 1
 	matches_40m = matches_basic.filter(is_40_miles=True)
 	if matches_40m.count() >= 10:
-		print "e"
 		matches = matches_40m.order_by('-percent')[:8]
 		user_gamification = Gamification.objects.get(user=logged_in_user)
 		user_gamification.circle.clear()
@@ -268,7 +256,6 @@ def circle_distance(logged_in_user):
 		return 1
 	matches_50m = matches_basic.filter(is_50_miles=True)
 	if matches_50m.count() >= 10:
-		print "f"
 		matches = match_50m.order_by('-percent')[:8]
 		user_gamification = Gamification.objects.get(user=logged_in_user)
 		user_gamification.circle.clear()
@@ -279,7 +266,6 @@ def circle_distance(logged_in_user):
 		user_gamification.save()
 		return 1
 	else:
-		print "g"
 		return 0 
 
 
