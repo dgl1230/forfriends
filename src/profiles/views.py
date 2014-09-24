@@ -116,6 +116,14 @@ def all(request):
 				can_they_reset = True
 			else: 
 				can_they_reset = False
+
+			since_last_icebreaker = user_gamification.icebreaker_reset_started
+			until_next_icebreaker = user_gamification.icebreaker_until_reset
+			icebreaker_hours_until_reset = int((until_next_icebreaker - since_last_icebreaker).total_seconds() / 60 / 60)
+			if icebreaker_until_reset <= 0:
+				can_reset_icebreaker = True
+			else:
+				can_reset_icebreaker = False
 			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 		except: 
 			#the user has never calcuated their circle
@@ -860,58 +868,59 @@ def calculate_age(born):
 #Creates a new user and assigns the appropriate fields to the user
 def register_new_user(request):
 
+	try:
+		username1 = str(request.POST['username'])
+		username2 = username1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>")
+		username = username2.translate(None, '"')
+		if len(username) == 0:
+			messages.error(request, "Please use only letters and numbers in your username")
+			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
-	username1 = str(request.POST['username'])
-	username2 = username1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>")
-	username = username2.translate(None, '"')
-	if len(username) == 0:
-		messages.success(request, "Please use only letters and numbers in your username")
-		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
+		password = request.POST['password']
+		confirm_password = request.POST['repassword']
 
-	password = request.POST['password']
-	confirm_password = request.POST['repassword']
+		if username and password:
+			if username != password: 
+				if password == confirm_password:
+					try:
+						new_user,created = User.objects.get_or_create(username=username, password=password)
+					except:	
+						messages.error(request, "Sorry but this username is already taken")
+						return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+					if created:
+						new_user.set_password(password)
+						
+						new_user.save()
+						new_user = authenticate(username=username, password=password)
+						'''
+						if not DEBUG:
+							subject = 'Thanks for registering with Frenvu!'
+							line1 = 'Hi %s, \nThanks for making an account with Frenvu! My name is Denis, ' % (username,)
+							html_line1 = 'Hi %s, \n<br>Thanks for making an account with Frenvu! My name is Denis, ' % (username,)
 
-	if username and password:
-		if username != password: 
-			if password == confirm_password:
-				new_user,created = User.objects.get_or_create(username=username, password=password)
-				if created:
-					new_user.set_password(password)
-					
-					new_user.save()
-					new_user = authenticate(username=username, password=password)
-					'''
-					if not DEBUG:
-						subject = 'Thanks for registering with Frenvu!'
-						line1 = 'Hi %s, \nThanks for making an account with Frenvu! My name is Denis, ' % (username,)
-						html_line1 = 'Hi %s, \n<br>Thanks for making an account with Frenvu! My name is Denis, ' % (username,)
+							line2 = "and I'm one of the Co-Founders of Frenvu. We're trying to make Frenvu a great"
+							line3 = "place for fostering new friendships, but we're still an early company, so if "
+							line4 = "you have any questions or concerns about the site, please feel free to reach "
+							line5 = "out to me. I'd love to hear feedback from you or help you with any problem you're having! "
 
-						line2 = "and I'm one of the Co-Founders of Frenvu. We're trying to make Frenvu a great"
-						line3 = "place for fostering new friendships, but we're still an early company, so if "
-						line4 = "you have any questions or concerns about the site, please feel free to reach "
-						line5 = "out to me. I'd love to hear feedback from you or help you with any problem you're having! "
-
-						line6 = "We hope you enjoy the site!\nSincerely,\nDenis and the rest of the team at Frenvu"
-						html_line6 = "We hope you enjoy the site!\n<br>Sincerely,\n<br>Denis and the rest of the team at Frenvu"
-						message = line1 + line2 + line3 + line4 + line5 + line6
-						html_message = html_line1 + line2 + line3 + line4 + line5 + html_line6
-						msg = EmailMultiAlternatives(subject, html_message, EMAIL_HOST_USER, [email])
-						msg.content_subtype = "html"
-						msg.send()
-					'''
-					login(request, new_user)
-					return HttpResponseRedirect(reverse('new_user_registration2'))
-
+							line6 = "We hope you enjoy the site!\nSincerely,\nDenis and the rest of the team at Frenvu"
+							html_line6 = "We hope you enjoy the site!\n<br>Sincerely,\n<br>Denis and the rest of the team at Frenvu"
+							message = line1 + line2 + line3 + line4 + line5 + line6
+							html_message = html_line1 + line2 + line3 + line4 + line5 + html_line6
+							msg = EmailMultiAlternatives(subject, html_message, EMAIL_HOST_USER, [email])
+							msg.content_subtype = "html"
+							msg.send()
+						'''
+						login(request, new_user)
+						return HttpResponseRedirect(reverse('new_user_registration2'))
 				else:
-					messages.error(request, "Sorry but this username is already taken")
-			else:
-				messages.error(request, "Please make sure both passwords match")
-		else: 
-			messages.error(request, "Pleasure make sure your username and password aren't the same!")
-	
-
-	return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+					messages.error(request, "Please make sure both passwords match")
+			else: 
+				messages.error(request, "Pleasure make sure your username and password aren't the same!")
+		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+	except:		
+		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
 
 
@@ -1066,6 +1075,8 @@ def ice_breaker(request):
 	user1_message.save()
 	user2_message.save()
 	user_gamification = Gamification.objects.get(user=request.user)
+	user_gamification.icebreaker_reset_started = datetime.now()
+	user_gamification.icebreaker_until_reset = datetime.now() + timedelta(hours=2)
 	messages.success(request, "Please check your inbox, we've found a user that you have an interest in common with!")
 	return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 
