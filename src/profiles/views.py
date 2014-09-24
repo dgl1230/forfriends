@@ -886,7 +886,7 @@ def register_new_user(request):
 							msg = EmailMultiAlternatives(subject, html_message, EMAIL_HOST_USER, [email])
 							msg.content_subtype = "html"
 							msg.send()
-						login(request, new_user)
+							login(request, new_user)
 							return render_to_response('new_user_registration2.html', locals(), context_instance=RequestContext(request))
 
 					else:

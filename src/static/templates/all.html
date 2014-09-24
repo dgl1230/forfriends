@@ -146,13 +146,8 @@
         <h1>My Crowd</h1>
 	</div>
     <div class="col-md-1" id="tertiary_navbar">
-<<<<<<< HEAD
         {% if can_they_reset == True %}
         <a class="regenerate" href='{% url "calculate_circle" %}'>Find a new Crowd!</a>
-=======
-        {% if can_they_reset %}
-        <a id="regenerate" href='{% url "calculate_circle" %}'>Find a new Crowd!</a>
->>>>>>> b2e668489ba36dc57688571033d48d50c349a6c1
         {% else %}
         <p> {{ hours_until_reset }} hours until you can find a new crowd! </p>
         {% endif %}
