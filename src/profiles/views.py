@@ -112,8 +112,10 @@ def all(request):
 			since_last_reset = user_gamification.circle_reset_started
 			until_next_reset = user_gamification.circle_time_until_reset
 			hours_until_reset = int((until_next_reset - since_last_reset).total_seconds() / 60 / 60)
-			if hours_until_reset == 0 or hours_until_reset >= 24: 
+			if hours_until_reset <= 1: 
 				can_they_reset = True
+			else: 
+				can_they_reset = False
 			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 		except: 
 			#the user has never calcuated their circle
@@ -141,7 +143,7 @@ def generate_circle(logged_in_user):
 			num_30m = 1
 			num_40m = 0
 			num_50m = 0 
-			users = User.objects.filter(info__is_new_user=False).filter(is_active=True).order_by('?')
+			users = User.objects.filter(is_active=True).order_by('?')
 			for user in users: 
 				if num_10m >= 10 or num_20m >= 10:
 					break 
@@ -196,7 +198,7 @@ def generate_circle(logged_in_user):
 			else: 
 				matches = Match.objects.filter(
 					Q(user1=logged_in_user) | Q(user2=logged_in_user)
-				).order_by('-percent')[:8]
+				).order_by('-percent')[:6]
 				user_gamification = Gamification.objects.get(user=logged_in_user)
 				user_gamification.circle.clear()
 				for match in matches: 
@@ -212,7 +214,7 @@ def circle_distance(logged_in_user):
 			)
 	matches_10m = matches_basic.filter(is_10_miles=True)
 	if matches_10m.count() >= 10: 
-		matches = matches_10m.order_by('-percent')[:8]
+		matches = matches_10m.order_by('-percent')[:6]
 		user_gamification = Gamification.objects.get(user=logged_in_user)
 		user_gamification.circle.clear()
 		for match in matches: 
@@ -223,7 +225,7 @@ def circle_distance(logged_in_user):
 		return 1
 	matches_20m = matches_basic.filter(is_20_miles=True)
 	if matches_20m.count() >= 10:
-		matches = matches_20m.order_by('-percent')[:8]
+		matches = matches_20m.order_by('-percent')[:6]
 		user_gamification = Gamification.objects.get(user=logged_in_user)
 		user_gamification.circle.clear()
 		for match in matches: 
@@ -234,7 +236,7 @@ def circle_distance(logged_in_user):
 		return 1
 	matches_30m = matches_basic.filter(is_30_miles=True)
 	if matches_30m.count() >= 10:
-		matches = matches_30m.order_by('-percent')[:8]
+		matches = matches_30m.order_by('-percent')[:6]
 		user_gamification = Gamification.objects.get(user=logged_in_user)
 		user_gamification.circle.clear()
 		for match in matches: 
@@ -245,7 +247,7 @@ def circle_distance(logged_in_user):
 		return 1
 	matches_40m = matches_basic.filter(is_40_miles=True)
 	if matches_40m.count() >= 10:
-		matches = matches_40m.order_by('-percent')[:8]
+		matches = matches_40m.order_by('-percent')[:6]
 		user_gamification = Gamification.objects.get(user=logged_in_user)
 		user_gamification.circle.clear()
 		for match in matches: 
@@ -256,7 +258,7 @@ def circle_distance(logged_in_user):
 		return 1
 	matches_50m = matches_basic.filter(is_50_miles=True)
 	if matches_50m.count() >= 10:
-		matches = match_50m.order_by('-percent')[:8]
+		matches = match_50m.order_by('-percent')[:6]
 		user_gamification = Gamification.objects.get(user=logged_in_user)
 		user_gamification.circle.clear()
 		for match in matches: 
@@ -508,7 +510,7 @@ def discover(request):
 		request.session['random_exp']=1
 	users_all = cache.get('random_exp_%d' % request.session['random_exp'])
 	if not users_all:
-		users_all = list(User.objects.filter(info__is_new_user=False).filter(is_active=True).order_by('?'))
+		users_all = list(User.objects.filter(is_active=True).order_by('?'))
 		cache.set('random_exp_%d' % request.session['random_exp'], users_all, 500)
 	paginator = Paginator(users_all, 1)
 	

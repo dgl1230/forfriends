@@ -80,7 +80,7 @@ $('#myTab a').click(function (e) {
                 <option> Female </option>
               </select>
             </p>
-            <p><label for "#bio_form" id='bio_label'>Bio: {% if info.bio %} {{ info.bio }} {% endif %}</label><textarea id="bio_form" name="bio_form" rows="5" cols="20"></textarea></p>
+            <p><label for "#bio_form" id='bio_label'>Bio: </label><input  id="bio_form" name="bio_form" type="text" value="{% if info.bio %} {{ info.bio }} {% endif %}" required></p>
             <input class='btn btn-success' type='submit' value='Update' />
 
           </div>
