@@ -1019,7 +1019,7 @@ def new_picture(request):
 def ice_breaker(request): 
 	user1 = request.user
 	user1_interests = UserInterestAnswer.objects.filter(user=user1).filter(
-		Q(importance_level=LIKE) | Q(importance_level=STRONGLY_LIKE))
+		Q(importance_level="Like") | Q(importance_level="Strongly Like"))
 	if user1_interests.count() == 0:
 		messages.error(request, "We're sorry, but you need to like a few interests first!")
 		return HttpResponseRedirect(reverse('home'))
