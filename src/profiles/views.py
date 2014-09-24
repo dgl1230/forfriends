@@ -1018,10 +1018,14 @@ def new_picture(request):
 
 def ice_breaker(request): 
 	user1 = request.user
-	user1_interests = UserInterestAnswer.objects.filter(user=user1)
+	user1_interests = UserInterestAnswer.objects.filter(user=user1).filter(
+		Q(importance_level=LIKE) | Q(importance_level=STRONGLY_LIKE))
+	if user1_interests.count() == 0:
+		messages.error(request, "We're sorry, but you need to like a few interests first!")
+		return HttpResponseRedirect(reverse('home'))
 	max_interest = user1_interests.latest('id').id
 	max_user = User.objects.latest('id').id
-	
+
 	while True: 
 		try:
 			random_interest = user1_interests.get(pk=randint(1, max_interest))
