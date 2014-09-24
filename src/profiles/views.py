@@ -396,14 +396,31 @@ def new_user_registration2(request):
 	if request.POST:
 		name = request.POST['name']
 		full_name = name.split()
-		first_name = full_name[0]
+		first_name1 = str(full_name[0])
+		first_name2 = first_name1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>1234567890")
+		first_name = first_name2.translate(None, '"')
+		if len(first_name) == 0:
+			messages.error(request, "Please use only letters first name")
+			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 		if len(full_name) == 2:
-			last_name = full_name[1]
+			last_name1 = str(full_name[1])
+			last_name2 = last_name1.translate(None, "?.!/;:@#$%^&()`,[]{}~_=+*|<>1234567890")
+			last_name = last_name2.translate(None, '"')
+			if len(last_name) == 0:
+				messages.error(request, "Please use only letters in your last name")
+				return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 		if len(full_name) >= 3:
 			not_first_name = full_name[2:len(full_name)]
-			last_name = full_name[1]
+			last_name0 = full_name[1]
 			for name in not_first_name:
-				last_name = last_name + " " + name
+				last_name0 = last_name + " " + name
+			last_name1 = str(last_name0)
+			last_name2 = last_name1.translate(None, "?.!/;:@#$%^&()`,[]{}~_=+*|<>1234567890")
+			last_name = last_name2.translate(None, '"')
+			if len(last_name) == 0:
+				messages.error(request, "Please use only letters in your last name")
+				return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+
 		email = request.POST['email']
 		try: 
 			User.objects.get(email=email)
@@ -628,21 +645,29 @@ def edit_address(request):
 def edit_info(request):
 	if request.method == 'POST':
 		info = Info.objects.get(user=request.user)
-		#InfoFormSet = modelformset_factory(Info, form=InfoForm, extra=0)
-		#formset_i = InfoFormSet(request.POST or None, queryset=info)
 
-		'''if formset_i.is_valid():
-			for form in formset_i:
-				new_form = form.save(commit=False)
-				new_form.user = request.user
-				new_form.save()
-			messages.success(request, 'Profile details updated.')
-		else:
-			messages.error(request, 'Profile details did not update.')
-		'''
-		username = request.POST.get('username_form')
-		first_name = request.POST.get('first_name_form')
-		last_name = request.POST.get('last_name_form')
+		username1 = str(request.POST['username_form'])
+		username2 = username1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>")
+		username = username2.translate(None, '"')
+		if len(username) == 0:
+			messages.success(request, "Please use only letters and numbers in your username")
+			return HttpResponseRedirect(reverse('edit_profile'))
+
+		first_name1 = str(request.POST['first_name_form'])
+		first_name2 = first_name1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>1234567890")
+		first_name = first_name2.translate(None, '"')
+		if len(first_name) == 0:
+			messages.error(request, "Please use only letters first name")
+			return HttpResponseRedirect('/edit/')
+
+		last_name1 = str(request.POST['last_name_form'])
+		last_name2 = last_name1.translate(None, "?.!/;:@#$%^&()`,[]{}~_=+*|<>1234567890")
+		last_name = last_name2.translate(None, '"')
+		if len(last_name) == 0:
+			messages.error(request, "Please use only letters in your last name")
+			return HttpResponseRedirect('/edit/')
+
+
 		bio = request.POST.get('bio_form')
 		gender = request.POST.get('gender_form')
 		request.user.username = username
@@ -653,9 +678,8 @@ def edit_info(request):
 		info.gender = gender
 		info.save()
 
-		
-		#return render_to_response('profiles/edit_address.html', locals(), context_instance=RequestContext(request))
-		return HttpResponseRedirect(reverse('create'))
+		messages.success(request, "Profile details updated")
+		return HttpResponseRedirect(reverse('edit_profile'))
 	else:
 		raise Http404
 
@@ -781,11 +805,7 @@ def login_user(request):
 	try:
 		username = request.POST['username']
 		password = request.POST['password']
-		try: 
-			user = authenticate(username=username, password=password)
-		except: 
-			user = User.objects.get(email=username)
-			user = authenticate(username=user.username, password=password)
+		user = authenticate(username=username, password=password)
 
 		if user is not None:
 			if user.is_active == False:
@@ -822,121 +842,16 @@ def calculate_age(born):
 		return today.year - born.year
 
 
-'''
-#Creates a new user and assigns the appropriate fields to the user
-def register_new_user(request):
-	name = request.POST['name']
-	full_name = name.split()
-	first_name = full_name[0]
-	if len(full_name) == 2:
-		last_name = full_name[1]
-	if len(full_name) >= 3:
-		not_first_name = full_name[2:len(full_name)]
-		last_name = full_name[1]
-		for name in not_first_name:
-			last_name = last_name + " " + name
-	
-	username1 = request.POST['username']
-	username = ''.join(username1.split())
-	if len(username) >= 30:
-		messages.error(request, "We're sorry but your username can't be longer than 30 characters")
-		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
-
-
-	password = request.POST['password']
-	confirm_password = request.POST['repassword']
-	email = request.POST['email']
-	gender1 = request.POST['gender']
-	day = request.POST['BirthDay']
-	month = request.POST['BirthMonth']
-	year = request.POST['BirthYear']
-	country = request.POST['country']
-	state = request.POST['state']
-	city = request.POST['city']
-	datestr = str(year) + '-' + str(month) + '-' + str(day)
-	birthday = datetime.strptime(datestr, '%Y-%m-%d').date()
-	user_age = calculate_age(birthday)
-
-	if gender1 == 'm':
-		gender = 'Male'
-	else:
-		gender = 'Female'
-		
-	try:
-		test_year = int(year)
-		test_day = int(day)
-	except:
-		messages.error(request, "Please enter a number for your birthday year and day")
-		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
-
-	if user_age >= 18:
-		datestr = str(year) + '-' + str(month) + '-' + str(day)
-		birthday = datetime.strptime(datestr, '%Y-%m-%d').date()
-		user_age = calculate_age(birthday)
-
-		if username and password and email:
-			if username != password: 
-				if password == confirm_password:
-					new_user,created = User.objects.get_or_create(username=username, email=email)
-					if created:
-						new_user.set_password(password)
-						new_user.first_name = first_name
-						if len(full_name) >= 2:
-							new_user.last_name = last_name
-						new_info = Info(user=new_user)
-						new_address = Address(user=new_user)
-						new_address.country = country
-						new_address.state = state
-						new_address.city = city
-						new_info.gender = gender
-						new_info.birthday = birthday
-						new_info.save()
-						new_address.save()
-						new_user.save()
-						new_user = authenticate(username=username, password=password)
-						if not DEBUG:
-							subject = 'Thanks for registering with Frenvu!'
-							line1 = 'Hi %s, \nThanks for making an account with Frenvu! My name is Denis, ' % (username,)
-							html_line1 = 'Hi %s, \n<br>Thanks for making an account with Frenvu! My name is Denis, ' % (username,)
-
-							line2 = "and I'm one of the Co-Founders of Frenvu. We're trying to make Frenvu a great"
-							line3 = "place for fostering new friendships, but we're still an early company, so if "
-							line4 = "you have any questions or concerns about the site, please feel free to reach "
-							line5 = "out to me. I'd love to hear feedback from you or help you with any problem you're having! "
-
-							line6 = "We hope you enjoy the site!\nSincerely,\nDenis and the rest of the team at Frenvu"
-							html_line6 = "We hope you enjoy the site!\n<br>Sincerely,\n<br>Denis and the rest of the team at Frenvu"
-							message = line1 + line2 + line3 + line4 + line5 + line6
-							html_message = html_line1 + line2 + line3 + line4 + line5 + html_line6
-							msg = EmailMultiAlternatives(subject, html_message, EMAIL_HOST_USER, [email])
-							msg.content_subtype = "html"
-							msg.send()
-						login(request, new_user)
-						return HttpResponseRedirect('/')
-					else:
-						messages.error(request, "Sorry but this username is already taken")
-				else:
-					messages.error(request, "Please make sure both password match")
-			else: 
-				messages.error(request, "Pleasure make sure your username and password aren't the same!")
-	else:
-		messages.error(request, "We're sorry but you must be at least 18 to signup!")
-		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
-	return render_to_response('home.html', locals(), context_instance=RequestContext(request))
-
-'''
-
-
 
 #Creates a new user and assigns the appropriate fields to the user
 def register_new_user(request):
 
 	try: 
 		username1 = str(request.POST['username'])
-		username = username1.translate(None, " ?.!/;:")
-
-		if len(username) >= 30:
-			messages.error(request, "We're sorry but your username can't be longer than 30 characters")
+		username2 = username1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>")
+		username = username2.translate(None, '"')
+		if len(username) == 0:
+			messages.success(request, "Please use only letters and numbers in your username")
 			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
 
