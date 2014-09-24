@@ -218,7 +218,7 @@
 				<a  class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
 				<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Message <br> (Must be Friends)</p></a>
 				{% else %}
-				<a  class="btn btn-default btn" id="friend_button" href='{% url "add_friend" user.username %}'><p>Add Friend</p></a>
+				<a  class="btn btn-default btn" id="friend_button" href='{% url "add_friend_discovery" user.username page %}'><p>Add Friend</p></a>
 				<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Message <br> (Must be Friends)</p></a>
 				{% endif %}
 				<a class="btn btn-default btn" id="interests_button" href="/members/{{ user.username}}/interests/"><p>View Interests</p></a>
