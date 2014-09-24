@@ -70,7 +70,7 @@ $('#myTab a').click(function (e) {
         <form method="POST" action="/edit/info/">
           {% csrf_token %}
           <div id="info_forms">
-            <p><label for "#username_form">Username: </label><input id="username_form" name="username_form" type="text" value="{% if user.username %} {{ user.username }} {% endif %}" required></p>
+            <p><label for "#username_form">Username: </label><input id="username_form" name="username_form" type="text" value="{% if user.username %} {{ user.username }} {% endif %}" maxlength="20" required ></p>
             <p><label for "#first_name_form">First Name:</label><input  id="first_name_form" name="first_name_form" type="text" value="{% if user.first_name%} {{ user.first_name }} {% endif %}" required></p>
             <p><label for "#last_name_form">Last Name: </label><input  id="last_name_form" name="last_name_form" type="text" value="{% if user.last_name %} {{ user.last_name }} {% endif %}" required></p>
             <p>
@@ -80,7 +80,7 @@ $('#myTab a').click(function (e) {
                 <option> Female </option>
               </select>
             </p>
-            <p><label for "#bio_form" id='bio_label'>Bio: {% if info.bio %} {{ info.bio }} {% endif %}</label><textarea id="bio_form" name="bio_form" rows="5" cols="20"></textarea></p>
+            <p><label for "#bio_form" id='bio_label'>Bio: {% if info.bio %} {{ info.bio }} {% endif %}</label><textarea id="bio_form" name="bio_form" rows="10" cols="25"></textarea></p>
             <input class='btn btn-success' type='submit' value='Update' />
 
           </div>
@@ -109,4 +109,18 @@ $('#myTab a').click(function (e) {
 </div>
 </div>
 
+<script>
+$('#username_form').alphanum();
+</script>
+
+<script>
+$('#first_name_form').alpha();
+</script>
+
+<script>
+$('#last_name_form').alphanum({
+  allow : " -'",
+  disallow:'0123456789'
+});
+</script>
 {% endblock %}

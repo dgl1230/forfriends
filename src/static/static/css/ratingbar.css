@@ -154,15 +154,9 @@ button.blue-pill.deactivated:hover {
     border:1px solid black;
     margin:0 auto;
     }
-    #question-wrapper{
-        width:300px!important;
-    }
 }
 
 @media (max-width: 350px) {
-    #question-wrapper{
-        width:250px!important;
-    }
     .rating-b .br-widget a {
     display: block;
     width: 82px;

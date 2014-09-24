@@ -31,7 +31,7 @@
 	</div>
 <div class='row' id="question-wrapper">
 	{% for question in questions %}
-		<h3>{{ question }}</h3>
+		<h3>{{ question }}</h3><p>
 
 		<form method='POST' action=''> {% csrf_token %}
 			<input type='hidden' value='{{ question.id }}' name='question_id'/>
@@ -66,7 +66,7 @@
         <h4 class="modal-title">Questions</h4>
       </div>
       <div class="modal-body">
-        <p>After answering these last few questions, your profile will be completed! (No one else will be able to see your answers.)</p>
+        <p>After answering these last few questions, your profile will be completed! No one else will be able to see your answers, and you'll be able to change them later.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Okay</button>
@@ -98,28 +98,6 @@ $(document).ready(function (){
 })
 </script>
 
-<script type="text/javascript">
-    function customRadio(radioName){
-        var radioButton = $('input[name="'+ radioName +'"]');
-        $(radioButton).each(function(){
-            $(this).wrap( "<span class='custom-radio'></span>" );
-            if($(this).is(':checked')){
-                $(this).parent().addClass("selected");
-            }
-        });
-        $(radioButton).click(function(){
-            if($(this).is(':checked')){
-                $(this).parent().addClass("selected");
-            }
-            $(radioButton).not(this).each(function(){
-                $(this).parent().removeClass("selected");
-            });
-        });
-    }
-    $(document).ready(function (){
-        customRadio("answer");
-    })
-</script>
 
 <script src="{{ STATIC_URL }}js/personality_cookie.js" type="text/javascript"></script>
 <script src="{{ STATIC_URL }}js/new_user_personality.js" type="text/javascript"></script>

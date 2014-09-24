@@ -26,7 +26,7 @@ input#image_file{
 }
 
 #no_pictures{
-    width:300px;
+    width:50%;
     margin:50px auto;
     text-align: center;
 

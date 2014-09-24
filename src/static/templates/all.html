@@ -147,7 +147,7 @@
 	</div>
     <div class="col-md-1" id="tertiary_navbar">
         {% if can_they_reset %}
-        <a class="regenerate" href='{% url "calculate_circle" %}'>Find a new Crowd!</a>
+        <a id="regenerate" href='{% url "calculate_circle" %}'>Find a new Crowd!</a>
         {% else %}
         <p> {{ hours_until_reset }} hours until you can find a new crowd! </p>
         {% endif %}
@@ -157,7 +157,6 @@
     <p id="interests_messages"{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
     {% endfor %}
 	<div class="col-md-1" id="tertiary_navbar">
-    
 	</div>
 </div>
 </div>
@@ -180,6 +179,7 @@
           <li class="thumbnail_carousel" data-thumbnail-path="{{ MEDIA_URL }}{{ pic }}"></li>
           <li data-thumbnail-text="{{ match.user1.username }}" data-thumbnail-text-title-offset="35"
           data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="7">
+            <p class="smallLabel2"></p>
             <p class="largeLabel">{{ match.user1.username }}</p>
             <p class="smallLabel2">
                 {% for item in match.user1.address_set.all %} 
@@ -196,6 +196,7 @@
             <li data-type="link" data-url='/members/{{ match.user1.username}}' data-target="_self"></li>
             <li class="thumbnail_carousel" data-thumbnail-path='{{ STATIC_URL }}img/avatar.png'></li>
             <li data-thumbnail-text="{{ match.user1.username }}" data-thumbnail-text-title-offset="35" data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="7">
+                <p class="smallLabel2"></p>
                 <p class="largeLabel">{{ match.user1.username }}</p>
                 <p class="smallLabel2">
                     {% for item in match.user1.address_set.all %} 
@@ -222,7 +223,8 @@
           <li class="thumbnail_carousel" data-thumbnail-path="{{ MEDIA_URL }}{{ pic }}"></li>
           <li data-thumbnail-text="{{ match.user2.username }}" data-thumbnail-text-title-offset="35"
           data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="7">
-            <p class="largeLabel">{{ match.user2.username }}</p>
+            <p class="smallLabel2"></p>
+            <p class="largeLabel">{{ match.user1.username }}</p>
             <p class="smallLabel2">
                 {% for item in match.user2.address_set.all %} 
                     {% if forloop.first %} {{ item }}
@@ -238,7 +240,8 @@
             <li data-type="link" data-url='/members/{{ match.user1.username}}' data-target="_self"></li>
             <li class="thumbnail_carousel" data-thumbnail-path='{{ STATIC_URL }}img/avatar.png'></li>
             <li data-thumbnail-text="{{ match.user2.username }}" data-thumbnail-text-title-offset="35" data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="7">
-                <p class="largeLabel">{{ match.user2.username }}</p>
+                <p class="smallLabel2"></p>
+                <p class="largeLabel">{{ match.user1.username }}</p>
                 <p class="smallLabel2">
                     {% for item in match.user2.address_set.all %} 
                     {% if forloop.first %} {{ item }}

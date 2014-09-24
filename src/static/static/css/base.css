@@ -26,7 +26,7 @@ textarea:active, input:active{
 	width:100%;
 }
 .largeLabel{
-	color: black;
+	color: white;
 	text-align: center;
 	opacity:1;
 	font-size:1.25em;
@@ -107,12 +107,30 @@ p{
 }
 #go_button:hover, #go_button:focus, #upload_button:hover, #upload_button:focus{
  	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
+}
 
+#message_button{
+	width: 80px;
+	background: #1FBAD6!important;
+	font-weight: 300;
+	color: white;
+	border: 0 none;
+	border-radius: 1px;
+	cursor: pointer;
+	z-index:1000;
+	padding:5px 5px 5px 5px;
+	margin:2px 2px 2px 2px;
+}
+#message_button:hover{
+box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
 }
 .pager{
 	margin-top:30px;
 }
 
+.location_div_left{
+	margin-left:100px;
+}
 
 .btn-lg{
 	width:180px;
@@ -144,6 +162,9 @@ tr, td{
 .col-md-1{
 	width: 100%;
 	min-width: 280px;
+}
+h3{
+	line-height:1.5em;
 }
 h1, h2, h3, h5, a{
 	font-family: 'Roboto', sans-serif;
@@ -243,6 +264,20 @@ form {
 
 #myfriend #match{
 	font-size: 1.125em;
+}
+
+#regenerate{
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
+	background: white;
+	font-weight: 300;
+	color: #1fbad6!important;
+	border: 0 none;
+	border-radius: 1px;
+	cursor: pointer;
+	padding: 5px 5px;
+	margin: 5px 5px;
+	z-index:1000;
+	font-size:1.25em;
 }
 
 a:hover{
@@ -367,3 +402,22 @@ a:hover{
 	}	
 }
 
+
+@media (max-width: 1200px) {
+	#question-wrapper label{
+		font-size:18px;
+	}
+	#question-wrapper h3{
+		font-size:24px;
+	}
+
+	#secondary_navbar h1{
+		font-size:40px;
+	}
+}
+
+@media (max-width: 586px) {
+	.location_div_left{
+		margin-left:50px;
+	}
+}

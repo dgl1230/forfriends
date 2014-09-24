@@ -10,6 +10,11 @@
 
 #location{
 	margin-bottom:0px!important;
+	min-width:150px!important;
+}
+
+.location_div{
+	height:70px;
 }
 .thumbnail_carousel{
 	border-radius:50%!important;
@@ -63,9 +68,6 @@
 	font-size:4em;
 }
 
-.regenerate{
-	font-size:1.25em;
-}
 .next_user a:hover{
 	color:#1FBAD6!important;
 }
@@ -82,10 +84,6 @@
 	width:80%;
 	margin: 0 auto;
 }
-.regenerate{
-	font-size:1.5em;
-	color: rgb(31, 186, 214);
-}
 
 .nav-tabs li a{
 	min-width: 150px;
@@ -100,6 +98,7 @@
 }
 #single_user_container h3{
 	text-align: center;
+	margin: 0 auto;
 }
 .img-responsive{
 	width: 175px;
@@ -332,13 +331,14 @@
 /* User Tutorial Modal */
 .modal-title{
 	text-align:center;
-	font-size:32px;
+	font-size: 24px;
 	color: black;
 	background-color: white;
 }
 
 .modal-header{
 	background-color:white;
+	border-radius:5px;
 }
 
 .modal-content{
@@ -465,10 +465,6 @@
 	}
 	.discover-title{
 	font-size: 1.25em;
-	}
-
-	.regenerate{
-		font-size:1em;
 	}
 	.next_user span{
 		padding-top:10px;
