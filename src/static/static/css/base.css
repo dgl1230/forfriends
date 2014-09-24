@@ -403,9 +403,10 @@ a:hover{
 }
 
 
-@media (max-width: 1200px) {
+@media (min-width: 1200px) {
 	#question-wrapper label{
 		font-size:18px;
+		font-weight: 500;
 	}
 	#question-wrapper h3{
 		font-size:24px;
@@ -413,6 +414,9 @@ a:hover{
 
 	#secondary_navbar h1{
 		font-size:40px;
+	}
+	.question_answers{
+		width:600px
 	}
 }
 
