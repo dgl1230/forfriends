@@ -375,6 +375,7 @@ def new_user_info(request):
 			new_address.save()
 			user = authenticate(username=request.user.username, password=request.user.password)
 			request.user.save()
+			'''
 			if not DEBUG:
 				subject = 'Thanks for registering with Frenvu!'
 				line1 = 'Hi %s, \nThanks for making an account with Frenvu! My name is Denis, ' % (username,)
@@ -392,6 +393,7 @@ def new_user_info(request):
 				msg = EmailMultiAlternatives(subject, html_message, EMAIL_HOST_USER, [email])
 				msg.content_subtype = "html"
 				msg.send()
+			'''
 			return HttpResponseRedirect(reverse('handle_new_user'))
 		else:
 			messages.error(request, "We're sorry but you must be at least 18 to signup!")
