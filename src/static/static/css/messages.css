@@ -3,7 +3,23 @@
 }
 #tertiary_navbar a:focus, #tertiary_navbar a:active {
 	color:#1FBAD6!important;
-	
+}
+
+#trash_button{
+	background-color:black;
+	border:none;
+	outline:none;
+}
+
+#trash_button:focus{
+	outline: 0!important;
+}
+#trash_button:active{
+	outline: 0;
+}
+
+#message_modal_content{
+	color:black;
 }
 
 #delete_message_hidden{
@@ -13,11 +29,12 @@
 	background:transparent;
 	top:30px;
 	z-index: 3000;
+	
 }
 #inbox_trash{
 	position:relative;
 	top: 0px;
-	z-index:2000;
+	z-index:100;
 	outline:none;
 	cursor:pointer;
 }

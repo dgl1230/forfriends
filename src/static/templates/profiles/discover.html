@@ -185,13 +185,16 @@
 					<h3>Average Match</h3>
 					{% elif match.percent >= 45 %}
 					<h3>Weak Match</h3>
-					{% else}
+					{% else %}
 					<h3>Very Weak Match</h3>
 					{% endif %}
+
 			{% if users.has_previous %}
 					<div class="previous_user_hidden"><a href="?page={{ users.previous_page_number }}"><span class='glyphicon glyphicon-arrow-left'></span></a></div>
+					<div class="location_div">
 				{% else %}
 					<div class="previous_user_hidden"><span class='glyphicon glyphicon-arrow-left'></span></div>
+					<div class="location_div_left">
 				{% endif %}
 				{% if users.has_next %}
 					<div class="next_user_hidden" id="next_user" ontouchstart="touchStart(event,'main_interests');" ontouchend="touchEnd(event);" ontouchmove="touchMove(event);" ontouchcancel="touchCancel(event);"><a href="?page={{ users.next_page_number }}"><span class='glyphicon glyphicon-arrow-right'></span></a>
@@ -199,6 +202,7 @@
 				{% else %}
 					<div class="next_user_hidden"><span class='glyphicon glyphicon-arrow-right'></span></div>
 				{% endif %}
+			
 			<h3 id="location">{% for item in user.address_set.all %}
 				{{ item.city|title }}, {% if item.state|length == 2 %} {{ item.state|upper }} {% else %} {{ item.state|capfirst }} {% endif %}
 				{% endfor %}
@@ -206,6 +210,8 @@
 				{{ match.distance|floatformat:"0" }} miles away
 				{% endifnotequal %}
 			</h3>
+		</div>
+
 					<div class="row" id="buttons_row">
 			<div class="buttons">
 				{% if match.user1_approved == True and match.user2_approved == True %}

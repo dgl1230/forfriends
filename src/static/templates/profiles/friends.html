@@ -16,6 +16,8 @@
 {% if numbers_of_friends == 0%}
 
 
+	<h3 id="no_pictures">It doesn't look like you've made any friends on Frenvu yet. Check out Discover <a href="/discover/?page=1" id="upload_more_pictures"> to start finding some!</a></h3>
+
 {% endif %}
 {% for match in matches %}
 	{% ifnotequal request.user match.user1 %}

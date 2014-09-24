@@ -278,7 +278,7 @@ select{
   animation:fadeIn ease-in 1;
   animation-fill-mode:forwards;
   animation-duration:.5s;
-  -webkit-animation:fadeIn ease-in .5;
+  -webkit-animation:fadeIn ease-in 1;
   -webkit-animation-fill-mode:forwards;
   -webkit-animation-duration:.5s;
   -webkit-animation-delay: .5s;

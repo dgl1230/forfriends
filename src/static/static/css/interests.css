@@ -9,7 +9,6 @@
 #question-wrapper{
 	text-align: center;
 	min-width:80px;
-	width:500px;
 	margin:0 auto;
 }
 #question-wrapper label{
@@ -139,13 +138,6 @@ footer{
 	width:120px;
 }
 
-.personality_importance{
-	text-align: center;
-	margin: 0 auto;
-	width:200px;
-	display:inline;
-}
-
 .btn-group .btn:hover, .btn-group .btn:active, .btn-group .btn:focus{
 	background-color: #084c8d;
 	color:white;
@@ -153,6 +145,7 @@ footer{
 }
 #question-wrapper{
 	min-width:250px!important;
+	padding:5px 5px 5px 5px;
 }
 
 #more_answers_appear1, #more_answers_appear1, #more_answers_appear2, #more_answers_appear3{
@@ -162,8 +155,16 @@ footer{
 	display: none;
 }
 .question_answers{
-	width: 200px;
-	margin: 10px auto;
+	margin: 20px auto;
+	width:60%;
+}
+
+.question_answers label{
+	padding:5px 5px 5px 5px;
+	float:left;
+	margin:0 auto;
+	display:block;
+	width:100%;
 
 }
 .question_answers input{

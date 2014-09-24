@@ -18,7 +18,7 @@
 <div class='row'>
     <div class="col-md-1" id="tertiary_navbar">
       {% for message in messages %}
-        <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+        <p {% if message.tags %} class="{{ message.tags }}"{% endif %} >{{ message }}</p>
       {% endfor %}
     </div>
 </div>
@@ -26,11 +26,15 @@
 <div class="container" id="message_body_holder">
   <div class='col-lg-10 col-12' id="message_body_container">
 	<div class="body_section">
-		<form method='POST' action='{% url "delete_messages" %}'>
-			{% csrf_token %}
 	<table class='table table-striped' id="items_table">
 		<thead>
-		<th>From</th> <th>Message</th> <th> <input id="delete_message_hidden" type='submit' value=''/><span id="inbox_trash" class="glyphicon glyphicon-trash" style="color:white"></span></th>
+		<th>From</th> 
+		<th>Message</th> 
+		<th> <button id="trash_button" data-toggle="modal" data-target="#new_user_modal"><span id="inbox_trash" class="glyphicon glyphicon-trash" style="color:white"></span>
+		</button>
+		<form method='POST' action='{% url "delete_messages" %}'>
+			{% csrf_token %}
+		</th>
 		</thead>
 
 		<tbody>
@@ -42,18 +46,17 @@
 	                		<img src='{{ MEDIA_URL }}{{ pic }}' alt="Owl Image" id="delete_message" name="{{ pic.id }}"></div>
 	                		{% endif %}
 	                	{% endfor %}
-
 					{{ item.sender|truncatechars:"15" }}</a>
 				</td>
 				<td id="inbox_body">
 					{% if item.read %}
 						<span style='color: grey;' class='glyphicon glyphicon-ok'></span>
 					{% endif %}
-					<a {% if item.read %} style='color: grey;' {% endif %} href= '{{ item.get_absolute_url }}'>{{ item.body|truncatechars:"30" }}</a>
+					<a {% if item.read %} style='color: grey;' {% endif %} href= '{{ item.get_absolute_url }}'>{{ item.body|truncatechars:"25" }}</a>
 					{% if item.sent %}
 				</td>
 				
-						<small>{{ item.sent }}</small> 
+					<small>{{ item.sent }}</small> 
 					{% endif %}
 				<td>
 					<input type="checkbox" name="delete_messages" value="{{ item.id }}"></input> 
@@ -64,6 +67,23 @@
 		</body>
 
 	</table>
+	<div class="modal fade" id="new_user_modal">
+  <div class="modal-dialog">
+    <div class="modal-content" id="message_modal_content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Are you sure?</h4>
+      </div>
+      <div class="modal-body">
+        <p>Once you delete these messages, they're gone forever.</p>
+      </div>
+      <div class="modal-footer">
+      	<input id="message_button" type='submit' value='Yes'/>
+        <button type="button" id="message_button" data-dismiss="modal">No</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 </form>
 </div>
 </div>
@@ -72,5 +92,8 @@
 <br>
 </div>
 
+<script>
+
+</script>
 
 {% endblock %}

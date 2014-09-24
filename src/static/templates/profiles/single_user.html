@@ -53,7 +53,7 @@
 		<h3>Average Match</h3>
 		{% elif match.percent >= 45 %}
 		<h3>Weak Match</h3>
-		{% else}
+		{% else %}
 		<h3>Very Weak Match</h3>
 		{% endif %}
 		<h3 id="location">{% for item in user.address_set.all %}
