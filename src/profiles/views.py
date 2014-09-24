@@ -141,7 +141,7 @@ def generate_circle(logged_in_user):
 			num_30m = 1
 			num_40m = 0
 			num_50m = 0 
-			users = User.objects.filter(is_active=True).order_by('?')
+			users = User.objects.filter(info__is_new_user=False).filter(is_active=True).order_by('?')
 			for user in users: 
 				if num_10m >= 10 or num_20m >= 10:
 					break 
@@ -508,7 +508,7 @@ def discover(request):
 		request.session['random_exp']=1
 	users_all = cache.get('random_exp_%d' % request.session['random_exp'])
 	if not users_all:
-		users_all = list(User.objects.filter(is_active=True).order_by('?'))
+		users_all = list(User.objects.filter(info__is_new_user=False).filter(is_active=True).order_by('?'))
 		cache.set('random_exp_%d' % request.session['random_exp'], users_all, 500)
 	paginator = Paginator(users_all, 1)
 	
@@ -946,54 +946,6 @@ def search(request):
 	return render_to_response('search.html', locals(), context_instance=RequestContext(request))
 
 
-def sort_by_match(request):
-
-	matches1 = Match.objects.filter(
-			Q(user1=request.user) | Q(user2=request.user)
-			)
-	for match in matches1: 
-		#match.percent = match_percentage(match.user1, match.user2)
-		try:
-			match.distance = round(calc_distance(request.user, u))
-		except:
-			match.distance = 10000000
-		match.save()
-	matches = Match.objects.filter(
-			Q(user1=request.user) | Q(user2=request.user)
-			).order_by('-percent')
-	user_gamification = Gamification.objects.get(user=request.user)
-	return render_to_response('all.html', locals(), context_instance=RequestContext(request))	
-	
-
-
-def sort_by_location(request):
-	user_address = Address.objects.get(user=request.user)
-	if user_address.city == False or user_address.state == False:
-		messages.error(request, "You need to enter your location to use this feature")
-		matches = Match.objects.filter(
-			Q(user1=request.user) | Q(user2=request.user)
-			).order_by('?')
-		return render_to_response('profiles/find_friends.html', locals(), context_instance=RequestContext(request))
-
-	matches = Match.objects.filter(
-			Q(user1=request.user) | Q(user2=request.user)
-			).order_by('-distance')
-	for match in matches: 
-		match.percent = match_percentage(match.user1, match.user2)
-		try:
-			match.distance = round(calc_distance(request.user, u))
-		except:
-			match.distance = 10000000
-		match.save()
-	return render_to_response('profiles/find_friends.html', locals(), context_instance=RequestContext(request))
-
-
-#Show all the visitors that have viewed the logged in user's profile page
-def all_visitors(request): 
-	visitors1, created = Visitor.objects.get_or_create(main_user=request.user)
-	visitors = [val for val in visitors1.visitors.all()]
-	return render_to_response('profiles/visitors.html', locals(), context_instance=RequestContext(request))
-
 
 def terms_and_agreement(request): 
 	return render_to_response('terms.html', locals(), context_instance=RequestContext(request))
@@ -1064,6 +1016,8 @@ def ice_breaker(request):
 		try: 
 			random_user = User.objects.get(pk=randint(1, max_user))
 			assert (user1 != random_user)
+			random_info = Info.objects.get(user=random_user)
+			assert (random_info.is_new_user=False)
 			same_interest = UserInterestAnswer.objects.filter(user=random_user).get(interest=random_interest.interest)
 			assert (same_interest.importance_level == "Strongly Like" or same_interest.importance_level == "Like") 
 			break

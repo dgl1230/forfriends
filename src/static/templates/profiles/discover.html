@@ -200,7 +200,7 @@
 					<div class="next_user_hidden"><span class='glyphicon glyphicon-arrow-right'></span></div>
 				{% endif %}
 			<h3 id="location">{% for item in user.address_set.all %}
-				{{ item.city|title }}, {{ item.state|upper }}
+				{{ item.city|title }}, {% if item.state|length == 2 %} {{ item.state|upper }} {% else %} {{ item.state|capfirst }} {% endif %}
 				{% endfor %}
 				{% ifnotequal match.distance 10000000 %}
 				{{ match.distance }} miles away
