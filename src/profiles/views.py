@@ -877,6 +877,7 @@ def register_new_user(request):
 					
 					new_user.save()
 					new_user = authenticate(username=username, password=password)
+					'''
 					if not DEBUG:
 						subject = 'Thanks for registering with Frenvu!'
 						line1 = 'Hi %s, \nThanks for making an account with Frenvu! My name is Denis, ' % (username,)
@@ -894,6 +895,7 @@ def register_new_user(request):
 						msg = EmailMultiAlternatives(subject, html_message, EMAIL_HOST_USER, [email])
 						msg.content_subtype = "html"
 						msg.send()
+					'''
 					login(request, new_user)
 					return HttpResponseRedirect(reverse('new_user_registration2'))
 
