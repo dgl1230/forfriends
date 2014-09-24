@@ -91,7 +91,7 @@ def add_friend_discovery(request, username, page):
 	single_user = User.objects.get(username=username)
 	match.save()
 	if not DEBUG:
-		return HttpResponseRedirect('www.frenvu.com/discover/?page=%s' % page)
+		return HttpResponseRedirect('http://www.frenvu.com/discover/?page=%s' % page)
 	else: 
 		return HttpResponseRedirect('http://127.0.0.1:8000/discover/?page=%s' % page)
 
