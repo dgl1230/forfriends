@@ -1021,6 +1021,7 @@ def ice_breaker(request):
 	user1_interests = UserInterestAnswer.objects.filter(user=user1)
 	max_interest = user1_interests.latest('id').id
 	max_user = User.objects.latest('id').id
+	
 	while True: 
 		try:
 			random_interest = user1_interests.get(pk=randint(1, max_interest))
@@ -1028,11 +1029,12 @@ def ice_breaker(request):
 			break
 		except: 
 			pass
+
 	while True: 
 		try: 
 			random_user = User.objects.get(pk=randint(1, max_user))
 			assert (user1 != random_user)
-			random_info = Info.objects.get(user=random_user)
+			#random_info = Info.objects.get(user=random_user)
 			#assert (random_info.is_new_user == False)
 			same_interest = UserInterestAnswer.objects.filter(user=random_user).get(interest=random_interest.interest)
 			assert (same_interest.importance_level == "Strongly Like" or same_interest.importance_level == "Like") 
