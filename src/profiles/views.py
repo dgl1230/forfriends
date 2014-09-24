@@ -887,7 +887,8 @@ def register_new_user(request):
 							msg.content_subtype = "html"
 							msg.send()
 						login(request, new_user)
-						return HttpResponseRedirect('/')
+							return render_to_response('new_user_registration2.html', locals(), context_instance=RequestContext(request))
+
 					else:
 						messages.error(request, "Sorry but this username is already taken")
 				else:
