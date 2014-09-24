@@ -1,0 +1,106 @@
+#register.col-xs-6{
+	width:50%!important;
+	float:right;
+	border-bottom:2px solid black;
+}
+
+.modal-header{	
+	border-bottom:2px solid black!important;
+}
+
+.modal-body{
+	padding:0px!important;
+}
+
+.modal-body input{
+	width:200px!important;
+}
+
+#contactform{
+	text-align:center;
+	margin: 10px auto 0;
+	border-radius: 3px;
+	padding-top: 10px;
+	background-color:white;
+	opacity:1!important;
+
+}
+
+#registration_button{
+  background-color: black!important;
+  border-radius:2px;
+  margin-top:8px;
+  padding:0px 0px 0px 0px!important;
+  border: 1px solid;
+}
+#registration_button:focus, #registration_button:hover{
+  outline: none;
+  box-shadow: 0 0 10px #9ecaed;
+
+}
+
+.modal-body .sign_up_div{
+	width:50%!important;
+	float:left!important;
+	border-top:none!important;
+	border-bottom: 2px solid black!important;
+	color: #1FBAD6;
+}
+#contactform input{
+	margin-bottom:11px;
+}
+.modal-body #fb_login{
+	margin-bottom:10px;
+	margin-top:15px;
+}
+.modal-body #google_login{
+	margin-top:15px;
+	margin-bottom:10px;
+}
+
+.modal-body #google_icon, .modal-body #fb_icon{
+	width:80px;
+	height:80px;
+}
+
+.modal-body #google_login, .modal-body #fb_login{
+	height:85px;
+}
+
+#social_logins p{
+	margin: 10px 0px 10px!important;
+}
+
+.modal-footer{
+	border-bottom: none;
+	border-radius:5px;
+
+}
+
+.modal-content{
+	padding-bottom:25px;
+	border-bottom:none;
+}
+
+@media (max-width:777px){
+	.modal-body .sign_up_div{
+		width:100%!important;
+		border-top:none!important;
+		border-bottom: 2px solid black!important;
+	}
+	#register.col-xs-6{
+	width:80%!important;
+	border-bottom:2px solid black;
+	padding:0px 10px 0px 10px;
+	margin:0 auto;
+	clear:both!important;
+	float:none!important;
+	border-bottom:none!important;
+	}
+	#contactform input{
+	margin-bottom:11px;
+	display:block;
+	width:100%!important;
+}
+
+}

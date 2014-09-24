@@ -17,6 +17,7 @@
     <link href="{{ STATIC_URL }}css/landing/social_login.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/landing/features.css" rel="stylesheet"> 
     <link href="{{ STATIC_URL }}css/landing/animate.css" rel="stylesheet"> 
+     <link href="{{ STATIC_URL }}css/landing/modals.css" rel="stylesheet"> 
 
     <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
 
@@ -26,6 +27,7 @@
     <link rel="shortcut icon" href="http://www.logomaker.com/logo-images/0766a28f4ca4192e.gif"/>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
   </head>
      {% if messages %}
             <div class='row'>
@@ -76,17 +78,18 @@
 </div>
 </div>
     <div class="sign_up_div">
-      <h2>Sign up for free. </h2>
       <div id="social_logins">
-         <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}" id="fb_login"><span id="fb_icon"></span><p>Sign Up with Facebook</p></a>
-         <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}" id="google_login"><span id="google_icon"></span><p>Sign Up with Google +</p></a>
-         <a href="#register" id="email_login2"><span id="email_icon"></span><p>Sign Up with <br> Email</p></a>
+         <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}" id="fb_login"><span id="fb_icon"></span><p>Login with Facebook</p></a>
+         <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}" id="google_login"><span id="google_icon"></span><p>Login with Google +</p></a>
+         <br>
+         <hr>
+         <a href="#signup" data-toggle="modal" data-target="#new_user_modal" id="email_login2"><span id="email_icon"></span><p>Sign up for free</p></a>
          <div id="signinButton">
 
     
 </div>
       </div>
-    </div>
+    </div>  
                 </ul>
               </div>   <!-- End Footer Social Icons --> 
               
@@ -129,33 +132,91 @@
               </div>
             </div>
           </div>
-            <div class="sign_up_div">
-              <div id="social_logins">
-                 <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}" id="fb_login"><span id="fb_icon"></span><p>Sign Up with Facebook</p></a>
-                 <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}" id="google_login"><span id="google_icon"></span><p>Sign Up with Google +</p></a>
-                 <a href="#register" id="email_login"><span id="email_icon"></span><p>Sign Up with <br> Email</p></a>
-              </div></div>
-        <div class="col-xs-6" id="register">
-          <div class="parallax">
-          <div class="form" >
-            <form id="contactform" method='POST' action='{% url "register_user" %}'>{% csrf_token %}
-              <h1>Sign up here.</h1>
-              
-              <p class="contact"><label for="username">Username</label></p> 
-              <input id="username" name="username" tabindex="1" required="" type="text"> 
-               
-              <p class="contact"><label for="password">Create a password</label></p> 
-              <input type="password" id="password" name="password" required="" tabindex="1"> 
-              <p class="contact"><label for="repassword">Confirm your password</label></p> 
-              <input type="password" id="repassword" name="repassword" required="" tabindex="1"><br>
-                    
-                <input class="buttom" name="submit" id="registration_button" tabindex="1" value="Sign Me Up"  type="submit">    
-               </form>     
-            </div>      
+  <div class="modal fade" id="new_user_modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal" type=
+                "button"><span>&times;</span><span class=
+                "sr-only">Close</span></button>
+
+                <h3 class="modal-title">Sign up here.</h3>
             </div>
+
+            <div class="modal-body">
+              <div class="sign_up_div">
+                <div id="social_logins">
+                  <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}" id="fb_login"><span id="fb_icon"></span><p>Sign Up with Facebook</p></a>
+                   <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}" id="google_login"><span id="google_icon"></span><p>Sign Up with Google +</p></a>
+                </div>
               </div>
-                  </div>
+                <div class="col-xs-6" id="register">
+                    <div class="form">
+                        <form action='{% url "register_user" %}' id=
+                        "contactform" method='post' name="contactform">
+                          <h4>Sign up with your email </h4>
+                            {% csrf_token %} <input id="username" name=
+                            "username" placeholder="Username" required=""
+                            tabindex="1" type="text"> <input id="password"
+                            name="password" placeholder="Password"
+                            required="" tabindex="1" type="password">
+                            <input id="repassword" name="repassword"
+                            placeholder="Confirm Password" required=""
+                            tabindex="1" type="password"><br>
+                            <input class="buttom" id="registration_button"
+                            name="submit" tabindex="1" type="submit" value=
+                            "Sign Me Up">
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
     </div>
+</div>
+
+<div class="modal fade" id="login_modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal" type=
+                "button"><span>&times;</span><span class=
+                "sr-only">Close</span></button>
+
+                <h3 class="modal-title">Sign up here.</h3>
+            </div>
+
+            <div class="modal-body">
+              <div class="sign_up_div">
+                <div id="social_logins">
+                  <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}" id="fb_login"><span id="fb_icon"></span><p>Sign Up with Facebook</p></a>
+                   <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}" id="google_login"><span id="google_icon"></span><p>Sign Up with Google +</p></a>
+                </div>
+              </div>
+                <div class="col-xs-6" id="register">
+                    <div class="form">
+                        <form action='{% url "register_user" %}' id=
+                        "contactform" method='post' name="contactform">
+                          <h4>Sign up with your email </h4>
+                            {% csrf_token %} <input id="username" name=
+                            "username" placeholder="Username" required=""
+                            tabindex="1" type="text"> <input id="password"
+                            name="password" placeholder="Password"
+                            required="" tabindex="1" type="password">
+                            <input id="repassword" name="repassword"
+                            placeholder="Confirm Password" required=""
+                            tabindex="1" type="password"><br>
+                            <input class="buttom" id="registration_button"
+                            name="submit" tabindex="1" type="submit" value=
+                            "Sign Me Up">
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+</div>
   
   
     <!-- EXTERNAL SCRIPTS

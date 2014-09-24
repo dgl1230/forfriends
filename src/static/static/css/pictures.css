@@ -19,6 +19,9 @@ input#image_file{
     color:#1FBAD6;
 }
 
+.mediaDescriptionHeader{
+    font-size:18px;
+}
 
 
 .caption label{

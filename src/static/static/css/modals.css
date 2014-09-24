@@ -1,0 +1,13 @@
+#register.col-xs-6{
+	width:50%!important;
+	float:right;
+}
+
+.modal-header{
+	border-bottom:1px solid black!important;
+}
+
+.modal-body{
+	padding:0px!important;
+}
+
