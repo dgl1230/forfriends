@@ -17,6 +17,7 @@ from django.core.mail import send_mail, EmailMultiAlternatives
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.cache import cache
+from django.template.loader import get_template
 
 
 
@@ -499,6 +500,7 @@ def new_user_registration2(request):
 			login
 			if DEBUG:
 				username = request.user.username
+				'''
 				subject = 'Thanks for registering with Frenvu!'
 				line1 = 'Hi %s, \nThanks for making an account with Frenvu! My name is Denis, ' % (username,)
 				html_line1 = 'Hi %s, \n<br>Thanks for making an account with Frenvu! My name is Denis, ' % (username,)
@@ -512,8 +514,13 @@ def new_user_registration2(request):
 				html_line6 = "We hope you enjoy the site!\n<br>Sincerely,\n<br>Denis and the rest of the team at Frenvu"
 				message = line1 + line2 + line3 + line4 + line5 + line6
 				html_message = html_line1 + line2 + line3 + line4 + line5 + html_line6
-				msg = EmailMultiAlternatives(subject, html_message, EMAIL_HOST_USER, [email])
-				msg.content_subtype = "html"
+				'''
+				subject = 'Thanks for registering with Frenvu!'
+				plaintext = get_template('email.txt')
+				d = Context({ 'username': username })
+				text_content = plaintext.render(d)
+				msg = EmailMultiAlternatives(subject, text_content, EMAIL_HOST_USER, [email])
+				#msg.content_subtype = "html"
 				msg.send()
 			return HttpResponseRedirect(reverse('handle_new_user'))
 		else:
@@ -864,7 +871,7 @@ def calculate_age(born):
 
 
 
-#Creates a new user and assigns the appropriate fields to the user
+#Creates a new user and assigns the appropriate fields to the user (this is for signing up with Frenvu, not FB or Goog)
 def register_new_user(request):
 
 	try:
