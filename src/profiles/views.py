@@ -385,25 +385,14 @@ def new_user_info(request):
 			new_address.save()
 			user = authenticate(username=request.user.username, password=request.user.password)
 			request.user.save()
-			'''
 			if not DEBUG:
+				username = request.user.username
 				subject = 'Thanks for registering with Frenvu!'
-				line1 = 'Hi %s, \nThanks for making an account with Frenvu! My name is Denis, ' % (username,)
-				html_line1 = 'Hi %s, \n<br>Thanks for making an account with Frenvu! My name is Denis, ' % (username,)
-
-				line2 = "and I'm one of the Co-Founders of Frenvu. We're trying to make Frenvu a great"
-				line3 = "place for fostering new friendships, but we're still an early company, so if "
-				line4 = "you have any questions or concerns about the site, please feel free to reach "
-				line5 = "out to me. I'd love to hear feedback from you or help you with any problem you're having! "
-
-				line6 = "We hope you enjoy the site!\nSincerely,\nDenis and the rest of the team at Frenvu"
-				html_line6 = "We hope you enjoy the site!\n<br>Sincerely,\n<br>Denis and the rest of the team at Frenvu"
-				message = line1 + line2 + line3 + line4 + line5 + line6
-				html_message = html_line1 + line2 + line3 + line4 + line5 + html_line6
-				msg = EmailMultiAlternatives(subject, html_message, EMAIL_HOST_USER, [email])
-				msg.content_subtype = "html"
+				plaintext = get_template('registration/email.txt')
+				d = Context({ 'username': username })
+				text_content = plaintext.render(d)
+				msg = EmailMultiAlternatives(subject, text_content, EMAIL_HOST_USER, [email])
 				msg.send()
-			'''
 			return HttpResponseRedirect(reverse('handle_new_user'))
 		else:
 			messages.error(request, "We're sorry but you must be at least 18 to signup!")
@@ -499,29 +488,13 @@ def new_user_registration2(request):
 			user = authenticate(username=request.user.username, password=request.user.password)
 			request.user.save()
 			login
-			if DEBUG:
+			if not DEBUG:
 				username = request.user.username
-				'''
-				subject = 'Thanks for registering with Frenvu!'
-				line1 = 'Hi %s, \nThanks for making an account with Frenvu! My name is Denis, ' % (username,)
-				html_line1 = 'Hi %s, \n<br>Thanks for making an account with Frenvu! My name is Denis, ' % (username,)
-
-				line2 = "and I'm one of the Co-Founders of Frenvu. We're trying to make Frenvu a great"
-				line3 = "place for fostering new friendships, but we're still an early company, so if "
-				line4 = "you have any questions or concerns about the site, please feel free to reach "
-				line5 = "out to me. I'd love to hear feedback from you or help you with any problem you're having! "
-
-				line6 = "We hope you enjoy the site!\nSincerely,\nDenis and the rest of the team at Frenvu"
-				html_line6 = "We hope you enjoy the site!\n<br>Sincerely,\n<br>Denis and the rest of the team at Frenvu"
-				message = line1 + line2 + line3 + line4 + line5 + line6
-				html_message = html_line1 + line2 + line3 + line4 + line5 + html_line6
-				'''
 				subject = 'Thanks for registering with Frenvu!'
 				plaintext = get_template('registration/email.txt')
 				d = Context({ 'username': username })
 				text_content = plaintext.render(d)
 				msg = EmailMultiAlternatives(subject, text_content, EMAIL_HOST_USER, [email])
-				#msg.content_subtype = "html"
 				msg.send()
 			return HttpResponseRedirect(reverse('handle_new_user'))
 		else:
@@ -900,25 +873,6 @@ def register_new_user(request):
 						
 						new_user.save()
 						new_user = authenticate(username=username, password=password)
-						'''
-						if not DEBUG:
-							subject = 'Thanks for registering with Frenvu!'
-							line1 = 'Hi %s, \nThanks for making an account with Frenvu! My name is Denis, ' % (username,)
-							html_line1 = 'Hi %s, \n<br>Thanks for making an account with Frenvu! My name is Denis, ' % (username,)
-
-							line2 = "and I'm one of the Co-Founders of Frenvu. We're trying to make Frenvu a great"
-							line3 = "place for fostering new friendships, but we're still an early company, so if "
-							line4 = "you have any questions or concerns about the site, please feel free to reach "
-							line5 = "out to me. I'd love to hear feedback from you or help you with any problem you're having! "
-
-							line6 = "We hope you enjoy the site!\nSincerely,\nDenis and the rest of the team at Frenvu"
-							html_line6 = "We hope you enjoy the site!\n<br>Sincerely,\n<br>Denis and the rest of the team at Frenvu"
-							message = line1 + line2 + line3 + line4 + line5 + line6
-							html_message = html_line1 + line2 + line3 + line4 + line5 + html_line6
-							msg = EmailMultiAlternatives(subject, html_message, EMAIL_HOST_USER, [email])
-							msg.content_subtype = "html"
-							msg.send()
-						'''
 						login(request, new_user)
 						return HttpResponseRedirect(reverse('new_user_registration2'))
 				else:
