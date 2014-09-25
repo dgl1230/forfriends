@@ -498,6 +498,7 @@ def new_user_registration2(request):
 			request.user.save()
 			login
 			if DEBUG:
+				username = request.user.username
 				subject = 'Thanks for registering with Frenvu!'
 				line1 = 'Hi %s, \nThanks for making an account with Frenvu! My name is Denis, ' % (username,)
 				html_line1 = 'Hi %s, \n<br>Thanks for making an account with Frenvu! My name is Denis, ' % (username,)
