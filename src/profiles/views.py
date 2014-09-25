@@ -516,7 +516,7 @@ def new_user_registration2(request):
 				html_message = html_line1 + line2 + line3 + line4 + line5 + html_line6
 				'''
 				subject = 'Thanks for registering with Frenvu!'
-				plaintext = get_template('email.txt')
+				plaintext = get_template('registration/email.txt')
 				d = Context({ 'username': username })
 				text_content = plaintext.render(d)
 				msg = EmailMultiAlternatives(subject, text_content, EMAIL_HOST_USER, [email])
