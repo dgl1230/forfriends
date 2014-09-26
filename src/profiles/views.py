@@ -113,7 +113,7 @@ def all(request):
 			circle = user_gamification.circle.all()
 			#since_last_reset = user_gamification.circle_reset_started
 			current_time = datetime.now() 
-			until_next_reset = user_gamification.circle_time_until_resetreplace(tzinfo=None)
+			until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
 			hours_until_reset = int((until_next_reset - current_time).total_seconds() / 60 / 60)
 
 			if hours_until_reset <= 1: 
@@ -122,7 +122,7 @@ def all(request):
 				can_they_reset = False
 
 			#since_last_icebreaker = user_gamification.icebreaker_reset_started
-			until_next_icebreaker = user_gamification.icebreaker_until_resetreplace(tzinfo=None)
+			until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
 			icebreaker_hours_until_reset = int((until_next_icebreaker - current_time).total_seconds() / 60 / 60)
 			if icebreaker_hours_until_reset <= 0:
 				can_reset_icebreaker = True
@@ -136,7 +136,7 @@ def all(request):
 			user_gamification = Gamification.objects.get(user=request.user)
 			#since_last_reset = user_gamification.circle_reset_started
 			current_time = datetime.now() 
-			until_next_reset = user_gamification.circle_time_until_resetreplace(tzinfo=None)
+			until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
 			hours_until_reset = int((until_next_reset - current_time).total_seconds() / 60 / 60)
 
 			if hours_until_reset <= 1: 
@@ -145,7 +145,7 @@ def all(request):
 				can_they_reset = False
 
 			#since_last_icebreaker = user_gamification.icebreaker_reset_started
-			until_next_icebreaker = user_gamification.icebreaker_until_resetreplace(tzinfo=None)
+			until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
 			icebreaker_hours_until_reset = int((until_next_icebreaker - current_time).total_seconds() / 60 / 60)
 			if icebreaker_hours_until_reset <= 0:
 				can_reset_icebreaker = True
