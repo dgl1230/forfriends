@@ -139,6 +139,13 @@ def all(request):
 			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 		except: 
 			#the user has never calcuated their circle
+			try: 
+				user_gamification = Gamification.objects.get(user=request.user)
+			except: 
+				user_gamification = Gamification.objects.create(user=request.user)
+				user_gamification.circle_time_until_reset = datetime.now()
+				user_gamification.icebreaker_until_reset = datetime.now()
+				user_gamification.save()
 			generate_circle(request.user)
 			try:
 				until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
