@@ -109,6 +109,14 @@ def all(request):
 		except: 
 			return HttpResponseRedirect(reverse('handle_new_user'))
 
+		try: 
+			user_gamification = Gamification.objects.filter(user=request.user)
+			number_of_circles = user_gamification.count()
+			if number_of_circles > 1:
+				user_gamification.delete()
+		except: 
+			pass
+
 
 		try:
 			user_gamification = Gamification.objects.get(user=request.user)
