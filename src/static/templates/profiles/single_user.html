@@ -72,10 +72,10 @@
 				<a  class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
 				<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message<br>(Must be friends)</p></a>
 				{% elif match.user2_approved == True and match.user2 == request.user %}
-				<a  class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
+				<a class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
 				<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message<br>(Must be friends)</p></a>
 				{% else %}
-				<a  class="btn btn-default btn" id="friend_button" href='{% url "add_friend" single_user.username %}'><p>Add Friend</p></a>
+				<a  class="btn btn-default btn" id="friend_button"><p>Add Friend</p></a>
 				<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message<br>(Must be friends)</p></a>
 				{% endif %}
 				<a class="btn btn-default btn" id="interests_button" href="/members/{{ single_user.username}}/interests/"><p>View Interests</p></a>
@@ -127,6 +127,13 @@ $('#bio_panel').click(function() {
 
 $('#occ_panel').click(function() {
 	$('#occ_body').slideToggle("fast");
+});
+</script>
+
+<script>
+$('#friend_button').click(function(){
+	$.get('{% url "add_friend" single_user.username %}');
+	$('#add_me').text("Request Sent");
 });
 </script>
 

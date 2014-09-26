@@ -234,6 +234,14 @@ a.dropdown-toggle{
 	padding-bottom:5px;
 	min-width: 280px;
 }
+
+#button_navbar{
+	width: 100%;
+	text-align: center;
+	padding-top: 5px;
+	padding-bottom:5px;
+	min-width: 280px;
+}
 .inbox{
 	width:60px;
 }
@@ -247,6 +255,11 @@ a.dropdown-toggle{
 #tertiary_navbar a{
 	color: black;
 	text-align: center;
+}
+
+#button_navbar a{
+	text-align: center;
+	color:#1fbad6;
 }
 
 #tertiary_navbar span{
@@ -269,6 +282,9 @@ form.navbar-form.navbar-left{
 @media (max-width: 1000px) {
 	#tertiary_navbar{
 		margin-top: -10px;
+	}
+	#button_navbar{
+		margin-top:-10px;
 	}
 }
 
