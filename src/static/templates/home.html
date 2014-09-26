@@ -63,7 +63,7 @@
               <div class="post">
                 <div class="parallax2">
                   <div class="postwords">
-                    <h1> What is it? </h1><br><h2> Frenvu is revolutionizing the process of making real world friends, online. </h2>
+                    <h1> What is Frenvu? </h1><br><h2> Frenvu is revolutionizing the process of making real world friends, online. </h2>
                   </div>
                 </div>
               </div>
@@ -108,6 +108,7 @@
             </div>
 
             <div class="modal-body">
+              <div class="modal_content">
               <div class="sign_up_div">
                 <div id="social_logins">
                   <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}" id="fb_login"><span id="fb_icon"></span><p>Sign Up with Facebook</p></a>
@@ -131,8 +132,9 @@
                             name="submit" tabindex="1" type="submit" value=
                             "Sign Me Up!">
                         </form>
+                      </div>
                     </div>
-                </div>
+                  </div>
                 <div class="modal-footer"></div>
             </div>
         </div>
@@ -149,6 +151,7 @@
                 <h3 class="modal-title">Login here</h3>
             </div>
             <div class="modal-body">
+              <div class="modal_content">
               <div class="sign_up_div">
                 <div id="social_logins">
                   <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}" id="fb_login"><span id="fb_icon"></span><p>Login with Facebook</p></a>
@@ -168,6 +171,7 @@
                     </div>
                   </div>
                 </div>
+              </div>
                 <div class="modal-footer"></div>
             </div>
         </div>

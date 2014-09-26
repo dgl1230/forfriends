@@ -1,7 +1,6 @@
 #register.col-xs-6{
 	width:50%!important;
 	float:right;
-	border-bottom:2px solid black;
 }
 
 .modal-header{	
@@ -11,7 +10,11 @@
 .modal-body{
 	padding:0px!important;
 }
-
+.modal_content{
+	width:100%;
+	border-bottom:2px solid black;
+	height:300px;
+}
 .sign_up_div input{
 	width:200px!important;
 }
@@ -47,7 +50,6 @@
 	width:50%!important;
 	float:left!important;
 	border-top:none!important;
-	border-bottom: 2px solid black!important;
 	color: #1FBAD6;
 }
 #contactform input{
@@ -94,7 +96,6 @@
 	text-align: center;
 	margin: 0 auto;
 	width: 50%;
-	border-bottom:2px solid black;
 }
 .login {
   text-align: center;
@@ -179,11 +180,10 @@
 	.modal-body .sign_up_div{
 	width:100%!important;
 	border-top:none!important;
-	border-bottom: 2px solid black!important;
+	
 	}
 	#register.col-xs-6{
 	width:80%!important;
-	border-bottom:2px solid black;
 	padding:0px 10px 0px 10px;
 	margin:0 auto;
 	clear:both!important;
@@ -206,6 +206,11 @@
 	#login_modal #google_login{
 	margin-top:10px;
 	margin-bottom:15px;
+	}
+	.modal_content{
+	width:100%;
+	border-bottom:2px solid black;
+	height:500px;
 	}
 }
 
