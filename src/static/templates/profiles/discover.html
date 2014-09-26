@@ -201,10 +201,10 @@
 				{% endif %}
 			
 			<h3 id="location">{% for item in user.address_set.all %}
-				{{ item.city|title }}, {{ item.state|upper }}
+				{{ item.city|title }}, {% if item.state|length == 2 %} {{ item.state|upper }} {% else %} {{ item.state|capfirst }} {% endif %}
 				{% endfor %}
 				{% ifnotequal match.distance 10000000 %}
-				{{ match.distance }} miles away
+				{{ match.distance|floatformat:"0" }} miles away
 				{% endifnotequal %}
 			</h3>
 		</div>
@@ -221,7 +221,7 @@
 				<a  class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
 				<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Message <br> (Must be Friends)</p></a>
 				{% else %}
-				<a  class="btn btn-default btn" id="friend_button" href='{% url "add_friend" user.username %}'><p>Add Friend</p></a>
+				<a  class="btn btn-default btn" id="friend_button" href='{% url "add_friend_discovery" user.username page %}'><p>Add Friend</p></a>
 				<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Message <br> (Must be Friends)</p></a>
 				{% endif %}
 				<a class="btn btn-default btn" id="interests_button" href="/members/{{ user.username}}/interests/"><p>View Interests</p></a>

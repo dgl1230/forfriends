@@ -9,4 +9,4 @@ Link is valid for {{ expiration_days }} days.
 
 Thanks, 
 
- - Team ForFriends
+ - Team Frenvu

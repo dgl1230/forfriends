@@ -1,0 +1,9 @@
+Hi {{ username }}, 
+
+
+Thanks for making an account with Frenvu! My name is Denis, and I'm one of the Co-Founders of Frenvu. We're trying to make Frenvu a great place for fostering new friendships, but we're still a work in progress, so if you have any questions or concerns about our site, please feel free to reach out to me. I'd love to hear feedback from you or help you with any problem you're having! We hope you enjoy the site!
+
+
+Thanks, 
+
+ Denis and the rest of the team at Frenvu

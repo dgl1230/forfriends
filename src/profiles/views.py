@@ -17,6 +17,9 @@ from django.core.mail import send_mail, EmailMultiAlternatives
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.cache import cache
+from django.template.loader import get_template
+from django.template import Context
+
 
 
 
@@ -91,7 +94,7 @@ def add_friend_discovery(request, username, page):
 	single_user = User.objects.get(username=username)
 	match.save()
 	if not DEBUG:
-		return HttpResponseRedirect('www.frenvu.com/discover/?page=%s' % page)
+		return HttpResponseRedirect('http://www.frenvu.com/discover/?page=%s' % page)
 	else: 
 		return HttpResponseRedirect('http://127.0.0.1:8000/discover/?page=%s' % page)
 
@@ -105,23 +108,61 @@ def all(request):
 			assert(info.is_new_user == False)
 		except: 
 			return HttpResponseRedirect(reverse('handle_new_user'))
-	
+		user_gamification = Gamification.objects.get(user=request.user)
+		circle = user_gamification.circle.all()
+		#since_last_reset = user_gamification.circle_reset_started
+		current_time = datetime.now() 
+
+		until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
+		hours_until_reset = int((until_next_reset - current_time).total_seconds() / 60 / 60)
+
+		if hours_until_reset <= 1: 
+			can_they_reset = True
+		else: 
+			can_they_reset = False
+
+		#since_last_icebreaker = user_gamification.icebreaker_reset_started
+		until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
+		icebreaker_hours_until_reset = int((until_next_icebreaker - current_time).total_seconds() / 60 / 60)
+		print icebreaker_hours_until_reset
+		if icebreaker_hours_until_reset <= 0:
+			can_reset_icebreaker = True
+		else:
+			can_reset_icebreaker = False
+		return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 		try:
 			user_gamification = Gamification.objects.get(user=request.user)
 			circle = user_gamification.circle.all()
-			since_last_reset = user_gamification.circle_reset_started
+			#since_last_reset = user_gamification.circle_reset_started
+			current_time = datetime.now() 
 			until_next_reset = user_gamification.circle_time_until_reset
-			hours_until_reset = int((until_next_reset - since_last_reset).total_seconds() / 60 / 60)
-			if hours_until_reset == 0 or hours_until_reset >= 24: 
+			hours_until_reset = int((until_next_reset - current_time).total_seconds() / 60 / 60)
+
+			if hours_until_reset <= 1: 
 				can_they_reset = True
+			else: 
+				can_they_reset = False
+
+			since_last_icebreaker = user_gamification.icebreaker_reset_started
+			until_next_icebreaker = user_gamification.icebreaker_until_reset
+			icebreaker_hours_until_reset = int((until_next_icebreaker - since_last_icebreaker).total_seconds() / 60 / 60)
+			if icebreaker_hours_until_reset <= 0:
+				can_reset_icebreaker = True
+			else:
+				can_reset_icebreaker = False
 			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 		except: 
 			#the user has never calcuated their circle
-			#user_gamification = Gamification.objects.create(user=request.user)
-			#user_gamification.save()
 			generate_circle(request.user)
 			#makes it so that the circle is displayed right away instead of having to click "generate circle"
 			user_gamification = Gamification.objects.get(user=request.user)
+			since_last_reset = user_gamification.circle_reset_started
+			until_next_reset = user_gamification.circle_time_until_reset
+			hours_until_reset = int((until_next_reset - since_last_reset).total_seconds() / 60 / 60)
+			if hours_until_reset <= 1: 
+				can_they_reset = True
+			else: 
+				can_they_reset = False
 			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 			
 	else:
@@ -196,12 +237,13 @@ def generate_circle(logged_in_user):
 			else: 
 				matches = Match.objects.filter(
 					Q(user1=logged_in_user) | Q(user2=logged_in_user)
-				).order_by('-percent')[:8]
+				).order_by('-percent')[:6]
 				user_gamification = Gamification.objects.get(user=logged_in_user)
 				user_gamification.circle.clear()
 				for match in matches: 
 					user_gamification.circle.add(match) 
 				user_gamification.circle_reset_started = datetime.now()
+				print "okay one"
 				user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 				user_gamification.save()
 
@@ -212,7 +254,7 @@ def circle_distance(logged_in_user):
 			)
 	matches_10m = matches_basic.filter(is_10_miles=True)
 	if matches_10m.count() >= 10: 
-		matches = matches_10m.order_by('-percent')[:8]
+		matches = matches_10m.order_by('-percent')[:6]
 		user_gamification = Gamification.objects.get(user=logged_in_user)
 		user_gamification.circle.clear()
 		for match in matches: 
@@ -223,7 +265,7 @@ def circle_distance(logged_in_user):
 		return 1
 	matches_20m = matches_basic.filter(is_20_miles=True)
 	if matches_20m.count() >= 10:
-		matches = matches_20m.order_by('-percent')[:8]
+		matches = matches_20m.order_by('-percent')[:6]
 		user_gamification = Gamification.objects.get(user=logged_in_user)
 		user_gamification.circle.clear()
 		for match in matches: 
@@ -234,7 +276,7 @@ def circle_distance(logged_in_user):
 		return 1
 	matches_30m = matches_basic.filter(is_30_miles=True)
 	if matches_30m.count() >= 10:
-		matches = matches_30m.order_by('-percent')[:8]
+		matches = matches_30m.order_by('-percent')[:6]
 		user_gamification = Gamification.objects.get(user=logged_in_user)
 		user_gamification.circle.clear()
 		for match in matches: 
@@ -245,7 +287,7 @@ def circle_distance(logged_in_user):
 		return 1
 	matches_40m = matches_basic.filter(is_40_miles=True)
 	if matches_40m.count() >= 10:
-		matches = matches_40m.order_by('-percent')[:8]
+		matches = matches_40m.order_by('-percent')[:6]
 		user_gamification = Gamification.objects.get(user=logged_in_user)
 		user_gamification.circle.clear()
 		for match in matches: 
@@ -256,7 +298,7 @@ def circle_distance(logged_in_user):
 		return 1
 	matches_50m = matches_basic.filter(is_50_miles=True)
 	if matches_50m.count() >= 10:
-		matches = match_50m.order_by('-percent')[:8]
+		matches = match_50m.order_by('-percent')[:6]
 		user_gamification = Gamification.objects.get(user=logged_in_user)
 		user_gamification.circle.clear()
 		for match in matches: 
@@ -367,21 +409,12 @@ def new_user_info(request):
 			user = authenticate(username=request.user.username, password=request.user.password)
 			request.user.save()
 			if not DEBUG:
+				username = request.user.username
 				subject = 'Thanks for registering with Frenvu!'
-				line1 = 'Hi %s, \nThanks for making an account with Frenvu! My name is Denis, ' % (username,)
-				html_line1 = 'Hi %s, \n<br>Thanks for making an account with Frenvu! My name is Denis, ' % (username,)
-
-				line2 = "and I'm one of the Co-Founders of Frenvu. We're trying to make Frenvu a great"
-				line3 = "place for fostering new friendships, but we're still an early company, so if "
-				line4 = "you have any questions or concerns about the site, please feel free to reach "
-				line5 = "out to me. I'd love to hear feedback from you or help you with any problem you're having! "
-
-				line6 = "We hope you enjoy the site!\nSincerely,\nDenis and the rest of the team at Frenvu"
-				html_line6 = "We hope you enjoy the site!\n<br>Sincerely,\n<br>Denis and the rest of the team at Frenvu"
-				message = line1 + line2 + line3 + line4 + line5 + line6
-				html_message = html_line1 + line2 + line3 + line4 + line5 + html_line6
-				msg = EmailMultiAlternatives(subject, html_message, EMAIL_HOST_USER, [email])
-				msg.content_subtype = "html"
+				plaintext = get_template('registration/email.txt')
+				d = Context({ 'username': username })
+				text_content = plaintext.render(d)
+				msg = EmailMultiAlternatives(subject, text_content, EMAIL_HOST_USER, [email])
 				msg.send()
 			return HttpResponseRedirect(reverse('handle_new_user'))
 		else:
@@ -396,14 +429,31 @@ def new_user_registration2(request):
 	if request.POST:
 		name = request.POST['name']
 		full_name = name.split()
-		first_name = full_name[0]
+		first_name1 = str(full_name[0])
+		first_name2 = first_name1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>1234567890")
+		first_name = first_name2.translate(None, '"')
+		if len(first_name) == 0:
+			messages.error(request, "Please use only letters first name")
+			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 		if len(full_name) == 2:
-			last_name = full_name[1]
+			last_name1 = str(full_name[1])
+			last_name2 = last_name1.translate(None, "?.!/;:@#$%^&()`,[]{}~_=+*|<>1234567890")
+			last_name = last_name2.translate(None, '"')
+			if len(last_name) == 0:
+				messages.error(request, "Please use only letters in your last name")
+				return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 		if len(full_name) >= 3:
 			not_first_name = full_name[2:len(full_name)]
-			last_name = full_name[1]
+			last_name0 = full_name[1]
 			for name in not_first_name:
-				last_name = last_name + " " + name
+				last_name0 = last_name + " " + name
+			last_name1 = str(last_name0)
+			last_name2 = last_name1.translate(None, "?.!/;:@#$%^&()`,[]{}~_=+*|<>1234567890")
+			last_name = last_name2.translate(None, '"')
+			if len(last_name) == 0:
+				messages.error(request, "Please use only letters in your last name")
+				return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+
 		email = request.POST['email']
 		try: 
 			User.objects.get(email=email)
@@ -460,29 +510,21 @@ def new_user_registration2(request):
 			new_address.save()
 			user = authenticate(username=request.user.username, password=request.user.password)
 			request.user.save()
+			login
 			if not DEBUG:
+				username = request.user.username
 				subject = 'Thanks for registering with Frenvu!'
-				line1 = 'Hi %s, \nThanks for making an account with Frenvu! My name is Denis, ' % (username,)
-				html_line1 = 'Hi %s, \n<br>Thanks for making an account with Frenvu! My name is Denis, ' % (username,)
-
-				line2 = "and I'm one of the Co-Founders of Frenvu. We're trying to make Frenvu a great"
-				line3 = "place for fostering new friendships, but we're still an early company, so if "
-				line4 = "you have any questions or concerns about the site, please feel free to reach "
-				line5 = "out to me. I'd love to hear feedback from you or help you with any problem you're having! "
-
-				line6 = "We hope you enjoy the site!\nSincerely,\nDenis and the rest of the team at Frenvu"
-				html_line6 = "We hope you enjoy the site!\n<br>Sincerely,\n<br>Denis and the rest of the team at Frenvu"
-				message = line1 + line2 + line3 + line4 + line5 + line6
-				html_message = html_line1 + line2 + line3 + line4 + line5 + html_line6
-				msg = EmailMultiAlternatives(subject, html_message, EMAIL_HOST_USER, [email])
-				msg.content_subtype = "html"
+				plaintext = get_template('registration/email.txt')
+				d = Context({ 'username': username })
+				text_content = plaintext.render(d)
+				msg = EmailMultiAlternatives(subject, text_content, EMAIL_HOST_USER, [email])
 				msg.send()
 			return HttpResponseRedirect(reverse('handle_new_user'))
 		else:
 			messages.error(request, "We're sorry but you must be at least 18 to signup!")
 			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 	else:
-		return render_to_response('profiles/new_user.html', locals(), context_instance=RequestContext(request))
+		return render_to_response('new_user_registration_2.html', locals(), context_instance=RequestContext(request))
 
 
 
@@ -628,21 +670,29 @@ def edit_address(request):
 def edit_info(request):
 	if request.method == 'POST':
 		info = Info.objects.get(user=request.user)
-		#InfoFormSet = modelformset_factory(Info, form=InfoForm, extra=0)
-		#formset_i = InfoFormSet(request.POST or None, queryset=info)
 
-		'''if formset_i.is_valid():
-			for form in formset_i:
-				new_form = form.save(commit=False)
-				new_form.user = request.user
-				new_form.save()
-			messages.success(request, 'Profile details updated.')
-		else:
-			messages.error(request, 'Profile details did not update.')
-		'''
-		username = request.POST.get('username_form')
-		first_name = request.POST.get('first_name_form')
-		last_name = request.POST.get('last_name_form')
+		username1 = str(request.POST['username_form'])
+		username2 = username1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>")
+		username = username2.translate(None, '"')
+		if len(username) == 0:
+			messages.success(request, "Please use only letters and numbers in your username")
+			return HttpResponseRedirect(reverse('edit_profile'))
+
+		first_name1 = str(request.POST['first_name_form'])
+		first_name2 = first_name1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>1234567890")
+		first_name = first_name2.translate(None, '"')
+		if len(first_name) == 0:
+			messages.error(request, "Please use only letters first name")
+			return HttpResponseRedirect('/edit/')
+
+		last_name1 = str(request.POST['last_name_form'])
+		last_name2 = last_name1.translate(None, "?.!/;:@#$%^&()`,[]{}~_=+*|<>1234567890")
+		last_name = last_name2.translate(None, '"')
+		if len(last_name) == 0:
+			messages.error(request, "Please use only letters in your last name")
+			return HttpResponseRedirect('/edit/')
+
+
 		bio = request.POST.get('bio_form')
 		gender = request.POST.get('gender_form')
 		request.user.username = username
@@ -653,9 +703,8 @@ def edit_info(request):
 		info.gender = gender
 		info.save()
 
-		
-		#return render_to_response('profiles/edit_address.html', locals(), context_instance=RequestContext(request))
-		return HttpResponseRedirect(reverse('create'))
+		messages.success(request, "Profile details updated")
+		return HttpResponseRedirect(reverse('edit_profile'))
 	else:
 		raise Http404
 
@@ -781,11 +830,7 @@ def login_user(request):
 	try:
 		username = request.POST['username']
 		password = request.POST['password']
-		try: 
-			user = authenticate(username=username, password=password)
-		except: 
-			user = User.objects.get(email=username)
-			user = authenticate(username=user.username, password=password)
+		user = authenticate(username=username, password=password)
 
 		if user is not None:
 			if user.is_active == False:
@@ -822,121 +867,16 @@ def calculate_age(born):
 		return today.year - born.year
 
 
-'''
-#Creates a new user and assigns the appropriate fields to the user
+
+#Creates a new user and assigns the appropriate fields to the user (this is for signing up with Frenvu, not FB or Goog)
 def register_new_user(request):
-	name = request.POST['name']
-	full_name = name.split()
-	first_name = full_name[0]
-	if len(full_name) == 2:
-		last_name = full_name[1]
-	if len(full_name) >= 3:
-		not_first_name = full_name[2:len(full_name)]
-		last_name = full_name[1]
-		for name in not_first_name:
-			last_name = last_name + " " + name
-	
-	username1 = request.POST['username']
-	username = ''.join(username1.split())
-	if len(username) >= 30:
-		messages.error(request, "We're sorry but your username can't be longer than 30 characters")
-		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
-
-	password = request.POST['password']
-	confirm_password = request.POST['repassword']
-	email = request.POST['email']
-	gender1 = request.POST['gender']
-	day = request.POST['BirthDay']
-	month = request.POST['BirthMonth']
-	year = request.POST['BirthYear']
-	country = request.POST['country']
-	state = request.POST['state']
-	city = request.POST['city']
-	datestr = str(year) + '-' + str(month) + '-' + str(day)
-	birthday = datetime.strptime(datestr, '%Y-%m-%d').date()
-	user_age = calculate_age(birthday)
-
-	if gender1 == 'm':
-		gender = 'Male'
-	else:
-		gender = 'Female'
-		
 	try:
-		test_year = int(year)
-		test_day = int(day)
-	except:
-		messages.error(request, "Please enter a number for your birthday year and day")
-		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
-
-	if user_age >= 18:
-		datestr = str(year) + '-' + str(month) + '-' + str(day)
-		birthday = datetime.strptime(datestr, '%Y-%m-%d').date()
-		user_age = calculate_age(birthday)
-
-		if username and password and email:
-			if username != password: 
-				if password == confirm_password:
-					new_user,created = User.objects.get_or_create(username=username, email=email)
-					if created:
-						new_user.set_password(password)
-						new_user.first_name = first_name
-						if len(full_name) >= 2:
-							new_user.last_name = last_name
-						new_info = Info(user=new_user)
-						new_address = Address(user=new_user)
-						new_address.country = country
-						new_address.state = state
-						new_address.city = city
-						new_info.gender = gender
-						new_info.birthday = birthday
-						new_info.save()
-						new_address.save()
-						new_user.save()
-						new_user = authenticate(username=username, password=password)
-						if not DEBUG:
-							subject = 'Thanks for registering with Frenvu!'
-							line1 = 'Hi %s, \nThanks for making an account with Frenvu! My name is Denis, ' % (username,)
-							html_line1 = 'Hi %s, \n<br>Thanks for making an account with Frenvu! My name is Denis, ' % (username,)
-
-							line2 = "and I'm one of the Co-Founders of Frenvu. We're trying to make Frenvu a great"
-							line3 = "place for fostering new friendships, but we're still an early company, so if "
-							line4 = "you have any questions or concerns about the site, please feel free to reach "
-							line5 = "out to me. I'd love to hear feedback from you or help you with any problem you're having! "
-
-							line6 = "We hope you enjoy the site!\nSincerely,\nDenis and the rest of the team at Frenvu"
-							html_line6 = "We hope you enjoy the site!\n<br>Sincerely,\n<br>Denis and the rest of the team at Frenvu"
-							message = line1 + line2 + line3 + line4 + line5 + line6
-							html_message = html_line1 + line2 + line3 + line4 + line5 + html_line6
-							msg = EmailMultiAlternatives(subject, html_message, EMAIL_HOST_USER, [email])
-							msg.content_subtype = "html"
-							msg.send()
-						login(request, new_user)
-						return HttpResponseRedirect('/')
-					else:
-						messages.error(request, "Sorry but this username is already taken")
-				else:
-					messages.error(request, "Please make sure both password match")
-			else: 
-				messages.error(request, "Pleasure make sure your username and password aren't the same!")
-	else:
-		messages.error(request, "We're sorry but you must be at least 18 to signup!")
-		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
-	return render_to_response('home.html', locals(), context_instance=RequestContext(request))
-
-'''
-
-
-
-#Creates a new user and assigns the appropriate fields to the user
-def register_new_user(request):
-
-	try: 
 		username1 = str(request.POST['username'])
-		username = username1.translate(None, " ?.!/;:")
-
-		if len(username) >= 30:
-			messages.error(request, "We're sorry but your username can't be longer than 30 characters")
+		username2 = username1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>")
+		username = username2.translate(None, '"')
+		if len(username) == 0:
+			messages.error(request, "Please use only letters and numbers in your username")
 			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
 
@@ -946,41 +886,25 @@ def register_new_user(request):
 		if username and password:
 			if username != password: 
 				if password == confirm_password:
-					new_user,created = User.objects.get_or_create(username=username, password=password)
+					try:
+						new_user,created = User.objects.get_or_create(username=username, password=password)
+					except:	
+						messages.error(request, "Sorry but this username is already taken")
+						return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 					if created:
 						new_user.set_password(password)
 						
 						new_user.save()
 						new_user = authenticate(username=username, password=password)
-						if not DEBUG:
-							subject = 'Thanks for registering with Frenvu!'
-							line1 = 'Hi %s, \nThanks for making an account with Frenvu! My name is Denis, ' % (username,)
-							html_line1 = 'Hi %s, \n<br>Thanks for making an account with Frenvu! My name is Denis, ' % (username,)
-
-							line2 = "and I'm one of the Co-Founders of Frenvu. We're trying to make Frenvu a great"
-							line3 = "place for fostering new friendships, but we're still an early company, so if "
-							line4 = "you have any questions or concerns about the site, please feel free to reach "
-							line5 = "out to me. I'd love to hear feedback from you or help you with any problem you're having! "
-
-							line6 = "We hope you enjoy the site!\nSincerely,\nDenis and the rest of the team at Frenvu"
-							html_line6 = "We hope you enjoy the site!\n<br>Sincerely,\n<br>Denis and the rest of the team at Frenvu"
-							message = line1 + line2 + line3 + line4 + line5 + line6
-							html_message = html_line1 + line2 + line3 + line4 + line5 + html_line6
-							msg = EmailMultiAlternatives(subject, html_message, EMAIL_HOST_USER, [email])
-							msg.content_subtype = "html"
-							msg.send()
 						login(request, new_user)
-						return HttpResponseRedirect('/')
-					else:
-						messages.error(request, "Sorry but this username is already taken")
+						return HttpResponseRedirect(reverse('new_user_registration2'))
 				else:
 					messages.error(request, "Please make sure both passwords match")
 			else: 
 				messages.error(request, "Pleasure make sure your username and password aren't the same!")
-	except: 
-		messages.error(request, "Pleasure make sure to fill out all fields")
-
-	return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+	except:		
+		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
 
 
@@ -1030,54 +954,6 @@ def search(request):
 	results = users_queryset
 	return render_to_response('search.html', locals(), context_instance=RequestContext(request))
 
-
-def sort_by_match(request):
-
-	matches1 = Match.objects.filter(
-			Q(user1=request.user) | Q(user2=request.user)
-			)
-	for match in matches1: 
-		#match.percent = match_percentage(match.user1, match.user2)
-		try:
-			match.distance = round(calc_distance(request.user, u))
-		except:
-			match.distance = 10000000
-		match.save()
-	matches = Match.objects.filter(
-			Q(user1=request.user) | Q(user2=request.user)
-			).order_by('-percent')
-	user_gamification = Gamification.objects.get(user=request.user)
-	return render_to_response('all.html', locals(), context_instance=RequestContext(request))	
-	
-
-
-def sort_by_location(request):
-	user_address = Address.objects.get(user=request.user)
-	if user_address.city == False or user_address.state == False:
-		messages.error(request, "You need to enter your location to use this feature")
-		matches = Match.objects.filter(
-			Q(user1=request.user) | Q(user2=request.user)
-			).order_by('?')
-		return render_to_response('profiles/find_friends.html', locals(), context_instance=RequestContext(request))
-
-	matches = Match.objects.filter(
-			Q(user1=request.user) | Q(user2=request.user)
-			).order_by('-distance')
-	for match in matches: 
-		match.percent = match_percentage(match.user1, match.user2)
-		try:
-			match.distance = round(calc_distance(request.user, u))
-		except:
-			match.distance = 10000000
-		match.save()
-	return render_to_response('profiles/find_friends.html', locals(), context_instance=RequestContext(request))
-
-
-#Show all the visitors that have viewed the logged in user's profile page
-def all_visitors(request): 
-	visitors1, created = Visitor.objects.get_or_create(main_user=request.user)
-	visitors = [val for val in visitors1.visitors.all()]
-	return render_to_response('profiles/visitors.html', locals(), context_instance=RequestContext(request))
 
 
 def terms_and_agreement(request): 
@@ -1135,9 +1011,14 @@ def new_picture(request):
 
 def ice_breaker(request): 
 	user1 = request.user
-	user1_interests = UserInterestAnswer.objects.filter(user=user1)
+	user1_interests = UserInterestAnswer.objects.filter(user=user1).filter(
+		Q(importance_level="Like") | Q(importance_level="Strongly Like"))
+	if user1_interests.count() == 0:
+		messages.error(request, "We're sorry, but you need to like a few interests first!")
+		return HttpResponseRedirect(reverse('home'))
 	max_interest = user1_interests.latest('id').id
 	max_user = User.objects.latest('id').id
+
 	while True: 
 		try:
 			random_interest = user1_interests.get(pk=randint(1, max_interest))
@@ -1145,10 +1026,13 @@ def ice_breaker(request):
 			break
 		except: 
 			pass
+
 	while True: 
 		try: 
 			random_user = User.objects.get(pk=randint(1, max_user))
 			assert (user1 != random_user)
+			#random_info = Info.objects.get(user=random_user)
+			#assert (random_info.is_new_user == False)
 			same_interest = UserInterestAnswer.objects.filter(user=random_user).get(interest=random_interest.interest)
 			assert (same_interest.importance_level == "Strongly Like" or same_interest.importance_level == "Like") 
 			break
@@ -1175,8 +1059,10 @@ def ice_breaker(request):
 	user1_message.save()
 	user2_message.save()
 	user_gamification = Gamification.objects.get(user=request.user)
+	user_gamification.icebreaker_until_reset = datetime.now() + timedelta(hours=3)
+	user_gamification.save()
 	messages.success(request, "Please check your inbox, we've found a user that you have an interest in common with!")
-	return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+	return HttpResponseRedirect(reverse('home'))
 
 
 
