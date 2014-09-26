@@ -137,7 +137,7 @@ def all(request):
 			try:
 				until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
 				until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
-			except
+			except:
 				user_gamification.circle_time_until_reset = datetime.now()
 				user_gamification.icebreaker_until_reset = datetime.now()
 			#makes it so that the circle is displayed right away instead of having to click "generate circle"
