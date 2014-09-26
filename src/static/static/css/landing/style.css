@@ -557,7 +557,7 @@ input[type=submit]:active {
 @media (max-width:500px){
   .parallax{
   background-size: cover;
-  background-image: url(/static/img/landing/huge_city_mobile.jpg);
+  background-image: url(/static/img/landing/huge_city_mobile_compressed.jpg);
   min-height:500px;
   background-position: center;
 }
