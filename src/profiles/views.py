@@ -108,6 +108,26 @@ def all(request):
 			assert(info.is_new_user == False)
 		except: 
 			return HttpResponseRedirect(reverse('handle_new_user'))
+		user_gamification = Gamification.objects.get(user=request.user)
+		circle = user_gamification.circle.all()
+		#since_last_reset = user_gamification.circle_reset_started
+		current_time = datetime.now() 
+		until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
+		hours_until_reset = int((until_next_reset - current_time).total_seconds() / 60 / 60)
+
+		if hours_until_reset <= 1: 
+			can_they_reset = True
+		else: 
+			can_they_reset = False
+
+		#since_last_icebreaker = user_gamification.icebreaker_reset_started
+		until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
+		icebreaker_hours_until_reset = int((until_next_icebreaker - current_time).total_seconds() / 60 / 60)
+		if icebreaker_hours_until_reset <= 0:
+			can_reset_icebreaker = True
+		else:
+			can_reset_icebreaker = False
+		return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 		try:
 			user_gamification = Gamification.objects.get(user=request.user)
 			circle = user_gamification.circle.all()
