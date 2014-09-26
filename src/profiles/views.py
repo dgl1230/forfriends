@@ -112,6 +112,12 @@ def all(request):
 
 		try:
 			user_gamification = Gamification.objects.get(user=request.user)
+			try:
+				until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
+				until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
+			except:
+				user_gamification.circle_time_until_reset = datetime.now()
+				user_gamification.icebreaker_until_reset = datetime.now()
 			circle = user_gamification.circle.all()
 			#since_last_reset = user_gamification.circle_reset_started
 			current_time = datetime.now() 
