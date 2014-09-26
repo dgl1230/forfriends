@@ -133,7 +133,7 @@ def all(request):
 			#the user has never calcuated their circle
 			generate_circle(request.user)
 			#makes it so that the circle is displayed right away instead of having to click "generate circle"
-			user_gamification = Gamification.objects.get(user=request.user)
+			user_gamification, created = Gamification.objects.get(user=request.user)
 			#since_last_reset = user_gamification.circle_reset_started
 			current_time = datetime.now() 
 			until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
