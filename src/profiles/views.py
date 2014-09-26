@@ -109,6 +109,7 @@ def all(request):
 		except: 
 			return HttpResponseRedirect(reverse('handle_new_user'))
 
+
 		try:
 			user_gamification = Gamification.objects.get(user=request.user)
 			circle = user_gamification.circle.all()
@@ -133,6 +134,12 @@ def all(request):
 		except: 
 			#the user has never calcuated their circle
 			generate_circle(request.user)
+			try:
+				until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
+				until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
+			except
+				user_gamification.circle_time_until_reset = datetime.now()
+				user_gamification.icebreaker_until_reset = datetime.now()
 			#makes it so that the circle is displayed right away instead of having to click "generate circle"
 			user_gamification= Gamification.objects.get(user=request.user)
 			#since_last_reset = user_gamification.circle_reset_started
