@@ -346,77 +346,7 @@ select{
   box-shadow: 0 1px whitesmoke;
 }
 
-/*login */
-#login{
-	text-align: center;
-	margin: 0 auto;
-	width: 100%;
-}
-.login {
-  text-align: center;
-  margin: 30px auto;
-  padding: 20px 20px 20px;
-  width: 50%;
-  max-width: 350px;
-  background: white;
-  border-radius: 3px;
-  opacity: .8;
-  border-bottom: 1px solid black;
-  border-left:1px solid black;
-  border-right: 1px solid black;
-  margin-bottom: 30px;
-}
 
-.login:focus, .login:hover{
-  opacity:.9;
-}
-.login:before {
-  content: '';
-  z-index: -1;
-  background: rgba(0, 0, 0, 0.08);
-  border-radius: 4px;
-}
-.login h1 {
-  margin: -20px -20px 21px;
-  line-height: 40px;
-  font-size: 15px;
-  color: black;
-  text-align: center;
-  text-shadow: 0 1px white;
-  background: #f3f3f3;
-  border-bottom: 1px solid black;
-  border-top: 1px solid black;
-  border-radius: 3px 3px 0 0;
-  -webkit-box-shadow: 0 1px whitesmoke;
-  box-shadow: 0 1px whitesmoke;
-  letter-spacing: .15em
-}
-.login p {
-  margin: 5px 0 0;
-  display:inline-block;
-
-}
-.login p:first-child {
-  margin-top: 0;
-}
-.login input[type=text], .login input[type=password] {
-  width:100%;
-  display: block;
-}
-.login p.remember_me {
-  float: left;
-  line-height: 14px;
-}
-.login p.remember_me label {
-  font-size: 12px;
-  color: #777;
-}
-.login p.remember_me input {
-  position: relative;
-  bottom: 1px;
-  margin-right: 4px;
-  vertical-align: middle;
-}
 
 @media (min-width:500px){
   .parallax{

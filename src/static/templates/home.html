@@ -49,50 +49,15 @@
               <h1 id="title">Frenvu</h1>
               <br>
               <h3 class="subheading">The new place to meet people</h3>
+            <div class="button_holder">
+              <button class='login_button' data-toggle="modal" data-target="#login_modal">Login</button>
+              <button class='login_button' data-toggle="modal" data-target="#new_user_modal">Sign up</button>
+            </div>
 
-              <!-- Logo Image -->
-            <div class="row" id="call_to_action"> 
-              <div class="col-xs-6" id="login">
-                
-                  <div class="login">
-                    <h1>Login to Frenvu</h1>
-                  <form method="post" action='{% url "login_user" %}'>{% csrf_token %}
-                  <p><input type="text" name="username" maxlength="40" value="" placeholder="Email or username"></p>
-                  <p><input type="password" name="password" value="" placeholder="Password"></p><br>
-                  <p class="submit"><input type="submit" name="commit" value="Login"></p><br>
-                  <p class="remember_me">
-                    <label>
-                      <input type="checkbox" name="remember_me" id="remember_me">
-                      Remember me
-                    </label>
-                  </p>
-                  </form>
-                  <div class="login-help">
-                  <a href='{% url "password_reset" %}'>Forgot Password?</a>
-                </div>
-              </div>
-
-
-    
   </div>
 </div>
-</div>
-    <div class="sign_up_div">
-      <div id="social_logins">
-         <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}" id="fb_login"><span id="fb_icon"></span><p>Login with Facebook</p></a>
-         <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}" id="google_login"><span id="google_icon"></span><p>Login with Google +</p></a>
-         <br>
-         <hr>
-         <a href="#signup" data-toggle="modal" data-target="#new_user_modal" id="email_login2"><span id="email_icon"></span><p>Sign up for free</p></a>
-         <div id="signinButton">
-
-    
-</div>
-      </div>
-    </div>  
                 </ul>
               </div>   <!-- End Footer Social Icons --> 
-              
             </div>
           </header> <!-- End Header --> 
           <div id="features">
@@ -140,7 +105,7 @@
                 "button"><span>&times;</span><span class=
                 "sr-only">Close</span></button>
 
-                <h3 class="modal-title">Sign up here.</h3>
+                <h3 class="modal-title">Sign up here</h3>
             </div>
 
             <div class="modal-body">
@@ -165,7 +130,7 @@
                             tabindex="1" type="password"><br>
                             <input class="buttom" id="registration_button"
                             name="submit" tabindex="1" type="submit" value=
-                            "Sign Me Up">
+                            "Sign Me Up!">
                         </form>
                     </div>
                 </div>
@@ -174,7 +139,6 @@
         </div>
     </div>
 </div>
-
 <div class="modal fade" id="login_modal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -183,34 +147,27 @@
                 "button"><span>&times;</span><span class=
                 "sr-only">Close</span></button>
 
-                <h3 class="modal-title">Sign up here.</h3>
+                <h3 class="modal-title">Login here</h3>
             </div>
-
             <div class="modal-body">
               <div class="sign_up_div">
                 <div id="social_logins">
-                  <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}" id="fb_login"><span id="fb_icon"></span><p>Sign Up with Facebook</p></a>
-                   <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}" id="google_login"><span id="google_icon"></span><p>Sign Up with Google +</p></a>
+                  <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}" id="fb_login"><span id="fb_icon"></span><p>Login with Facebook</p></a>
+                   <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}" id="google_login"><span id="google_icon"></span><p>Login with Google +</p></a>
                 </div>
               </div>
-                <div class="col-xs-6" id="register">
-                    <div class="form">
-                        <form action='{% url "register_user" %}' id=
-                        "contactform" method='post' name="contactform">
-                          <h4>Sign up with your email </h4>
-                            {% csrf_token %} <input id="username" name=
-                            "username" placeholder="Username" required=""
-                            tabindex="1" type="text"> <input id="password"
-                            name="password" placeholder="Password"
-                            required="" tabindex="1" type="password">
-                            <input id="repassword" name="repassword"
-                            placeholder="Confirm Password" required=""
-                            tabindex="1" type="password"><br>
-                            <input class="buttom" id="registration_button"
-                            name="submit" tabindex="1" type="submit" value=
-                            "Sign Me Up">
-                        </form>
+                  <div class="col-xs-6" id="login">
+                      <div class="login">
+                        <h1 data-toggle="modal" data-target="#login_modal">Login with your username</h1>
+                      <form method="post" action='{% url "login_user" %}'>{% csrf_token %}
+                      <p><input type="text" id="un" name="username" maxlength="40" value="" placeholder="Username"></p>
+                      <p><input type="password" name="password" value="" placeholder="Password"></p><br>
+                      <p class="submit"><input type="submit" name="commit" value="Login"></p><br>
+                      </form>
+                      <div class="login-help">
+                      <a href='{% url "password_reset" %}'>Forgot Password?</a>
                     </div>
+                  </div>
                 </div>
                 <div class="modal-footer"></div>
             </div>

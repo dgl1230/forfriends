@@ -12,11 +12,11 @@
   <div class='col-lg-10 col-12' id="interests-wrapper">
 {% if messages %}
 <div class='row'>
-                <ul class="messages">
-                  {% for message in messages %}
-                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                  {% endfor %}
-                </ul>
+    <ul class="messages">
+      {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
 </div>
 {% endif %}
 	<br/>
@@ -41,28 +41,33 @@
 		<form method='POST' action=''> {% csrf_token %}
 				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<div class="interest_ranking">
-				<p>How much do they like this? <br>
-				
 			
-				<span class="star-rating">
-					{% for imp in importance_levels %}
-					<input type="radio" name="rating" value='{{ imp }}' id='{{ imp }}' class="star" {% for abc in interest.userinterestanswer_set.all %} {% if abc.importance_level == imp and abc.user == single_user %} checked="checked" {% else %} disabled="disabled" {% endif %} {% endfor %}><i></i>
-					{% endfor %}
-				</span>
-				<br>
-				<strong class="choice">Choose a rating</strong>
-
-
-		<br/>
+			<span class="star-rating">
+				{% for imp in importance_levels %}
+				<input type="radio" name="rating" value='{{ imp }}' id='{{ imp }}' class="star" {% for abc in interest.userinterestanswer_set.all %} {% if abc.importance_level == imp and abc.user == single_user %} checked="checked" {% else %} disabled="disabled" {% endif %} {% endfor %}><i></i>
+				{% endfor %}
+			</span>
+			<br/>
 			
 		{% endfor %}
 			</div>
-			</span>
+			</form>
 		</div>
 		</div>
-		</div>
-	</div>
-	</div>
+		
+	<div class="pagination">
+	<span class="step-links">
+		<ul class="pager">
+			<div class="directions">
+				{% if interests.has_previous %}
+				<li class="previous"><a href="?page={{ interests.previous_page_number }}">&larr; Previous</a></li>
+				{% endif %}
+				{% if interests.has_next %}
+				<li class="next"><a href="?page={{ interests.next_page_number }}">Next &rarr;</a></li>
+			</div>
+				{% endif %}			
+		</ul>
+	</span>
 </div>
 </div>
 </div>
@@ -75,4 +80,37 @@ $(':radio').change(
   } 
 )
 </script>
+{% if interests.has_previous %}
+<script>
+
+$(document).keydown(function(e) {
+    switch(e.which) {
+        case 37: // left
+        
+        window.location = "?page={{ interests.previous_page_number }}";
+        break;
+
+        default: return; // exit this handler for other keys
+    }
+    e.preventDefault(); // prevent the default action (scroll / move caret)
+});
+</script>
+
+{% endif %}
+{% if interests.has_next %}
+
+<script>
+	$(document).keydown(function(e) {
+    switch(e.which) {
+        case 39: // right
+        window.location = "?page={{ interests.next_page_number }}";
+        break;
+
+        default: return; // exit this handler for other keys
+    }
+    e.preventDefault(); // prevent the default action (scroll / move caret)
+});
+</script>
+
+{% endif %}
 {% endblock %}
