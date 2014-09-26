@@ -8,7 +8,6 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 
 #tertiary_navbar a:hover{
 	color: #1fBAD6!important;
-
 }
 
 .navbar-brand{
@@ -191,14 +190,6 @@ a.dropdown-toggle{
 }
 .navbar-collapse.collapsing{
 	border-top:white;
-}
-
-#tertiary_navbar a:hover{
-	text-shadow: 
-  -.1px -.1px 0 white, 
-   .1px -.1px 0 white,
-  -.1px  .1px 0 white,
-   .1px  .1px 0 white;
 }
 
 #secondary_navbar a:hover, #secondary_navbar a:focus, #secondary_navbar a:active {
