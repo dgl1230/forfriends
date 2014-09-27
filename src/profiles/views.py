@@ -242,7 +242,7 @@ def generate_circle(logged_in_user):
 			num_30m = 1
 			num_40m = 0
 			num_50m = 0 
-			users = User.objects.filter(is_active=True).order_by('?')
+			users = User.objects.filter(is_active=True).exclude(user=logged_in_user).order_by('?')
 			for user in users: 
 				if num_10m >= 10 or num_20m >= 10:
 					break 
