@@ -242,7 +242,7 @@ def generate_circle(logged_in_user):
 			num_30m = 1
 			num_40m = 0
 			num_50m = 0 
-			users = User.objects.filter(is_active=True).exclude(user=logged_in_user).order_by('?')
+			users = User.objects.filter(is_active=True).exclude(username=logged_in_user.username).order_by('?')
 			for user in users: 
 				if num_10m >= 10 or num_20m >= 10:
 					break 
@@ -692,14 +692,20 @@ def all_pictures(request):
 
 def calculate_circle(request):
 	user_gamification = Gamification.objects.get(user=request.user)
-	if user_gamification.circle_reset_started and user_gamification.circle_time_until_reset:
-		current_time = datetime.now() 
-		until_next_reset = user_gamification.circle_time_until_reset
-		hours_until_reset = int((until_next_reset - current_time).total_seconds() / 60 / 60)
-		if hours_until_reset <= 1: 
-			generate_circle(request.user)
-		else: 
-			messages.success(request, "sorry, you need to wait!")
+	try:
+		until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
+		until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
+	except:
+		user_gamification.circle_time_until_reset = datetime.now()
+		user_gamification.icebreaker_until_reset = datetime.now()
+	
+	current_time = datetime.now() 
+	until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
+	hours_until_reset = int((until_next_reset - current_time).total_seconds() / 60 / 60)
+	if hours_until_reset <= 1: 
+		generate_circle(request.user)
+	else: 
+		messages.success(request, "sorry, you need to wait!")
 	return HttpResponseRedirect(reverse('home'))
 
 
