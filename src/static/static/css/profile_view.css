@@ -262,12 +262,6 @@
 }
 }
 
-@media(max-width: 770px){
-	#message_button, #interests_button, #friend_button, #pictures_button, #message_button_not_friends{
-	font-size: .9em;
-	}
-}
-
 @media(max-width: 480px){
 
 	.panel-heading p{

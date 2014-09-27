@@ -93,7 +93,10 @@
 </div>
 
 <script>
-
+$('#friend_button').click(function(){
+	$('#add_me').text("Request Sent");
+	$.get('{% url "add_friend" single_user.username %}');	
+});
 </script>
 
 {% endblock %}

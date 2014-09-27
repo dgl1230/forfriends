@@ -308,8 +308,8 @@ $(document).keydown(function(e) {
 
 <script>
 $('#friend_button').click(function(){
-	$.get('{% url "add_friend_discovery" user.username page %}');
 	$('#add_me').text("Request Sent");
+	$.get('{% url "add_friend_discovery" user.username page %}');
 });
 </script>
 
