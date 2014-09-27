@@ -297,7 +297,7 @@ def generate_circle(logged_in_user):
 			else: 
 				matches = Match.objects.filter(
 					Q(user1=logged_in_user) | Q(user2=logged_in_user)
-				).exclude(user1=logged_in_user, user2=logged_in_user).order_by('?')[:6]
+				).exclude(user1=logged_in_user, user2=logged_in_user).order_by('-percent')[:6]
 				user_gamification = Gamification.objects.get(user=logged_in_user)
 				user_gamification.circle.clear()
 				for match in matches: 
