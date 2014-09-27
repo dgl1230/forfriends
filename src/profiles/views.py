@@ -699,7 +699,7 @@ def calculate_circle(request):
 		if hours_until_reset == 0 or hours_until_reset >= 24: 
 			generate_circle(request.user)
 		else: 
-			messages.error(request, "sorry, you need to wait!")
+			messages.success(request, "sorry, you need to wait!")
 	return HttpResponseRedirect(reverse('home'))
 
 
