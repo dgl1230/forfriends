@@ -112,12 +112,51 @@ def all(request):
 		try: 
 			user_gamification = Gamification.objects.filter(user=request.user)
 			number_of_circles = user_gamification.count()
+			if number_of_circles == 1:
+				user_gamification = Gamification.objects.get(user=request.user)
+				i = 0
+				for user in user_gamification.circle.all():
+					i = i + 1
+				if i < 5:
+					generate_circle(request.user)
 			if number_of_circles > 1:
 				user_gamification.delete()
-		except: 
+		except:
 			pass
 
+		try: 
+			user_gamification = Gamification.objects.get(user=request.user)
+		except: 
+			user_gamification = Gamification.objects.create(user=request.user)
+			user_gamification.circle_time_until_reset = datetime.now()
+			user_gamification.icebreaker_until_reset = datetime.now()
+			user_gamification.save()
+			generate_circle(request.user)
+		try:
+			until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
+			until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
+		except:
+			user_gamification.circle_time_until_reset = datetime.now()
+			user_gamification.icebreaker_until_reset = datetime.now()
+		current_time = datetime.now() 
+		until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
+		hours_until_reset = int((until_next_reset - current_time).total_seconds() / 60 / 60)
+		if hours_until_reset <= 1: 
+			can_they_reset = True
+		else: 
+			can_they_reset = False
 
+		until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
+		icebreaker_hours_until_reset = int((until_next_icebreaker - current_time).total_seconds() / 60 / 60)
+		if icebreaker_hours_until_reset <= 0:
+			can_reset_icebreaker = True
+		else:
+			can_reset_icebreaker = False
+		return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+
+
+
+		'''
 		try:
 			user_gamification = Gamification.objects.get(user=request.user)
 			try:
@@ -126,12 +165,12 @@ def all(request):
 			except:
 				user_gamification.circle_time_until_reset = datetime.now()
 				user_gamification.icebreaker_until_reset = datetime.now()
+				print 8
 			circle = user_gamification.circle.all()
 			#since_last_reset = user_gamification.circle_reset_started
 			current_time = datetime.now() 
 			until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
 			hours_until_reset = int((until_next_reset - current_time).total_seconds() / 60 / 60)
-
 			if hours_until_reset <= 1: 
 				can_they_reset = True
 			else: 
@@ -149,6 +188,7 @@ def all(request):
 			#the user has never calcuated their circle
 			try: 
 				user_gamification = Gamification.objects.get(user=request.user)
+
 			except: 
 				user_gamification = Gamification.objects.create(user=request.user)
 				user_gamification.circle_time_until_reset = datetime.now()
@@ -167,7 +207,6 @@ def all(request):
 			current_time = datetime.now() 
 			until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
 			hours_until_reset = int((until_next_reset - current_time).total_seconds() / 60 / 60)
-
 			if hours_until_reset <= 1: 
 				can_they_reset = True
 			else: 
@@ -181,6 +220,7 @@ def all(request):
 			else:
 				can_reset_icebreaker = False
 			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+		'''
 			
 	else:
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
@@ -260,7 +300,6 @@ def generate_circle(logged_in_user):
 				for match in matches: 
 					user_gamification.circle.add(match) 
 				user_gamification.circle_reset_started = datetime.now()
-				print "okay one"
 				user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 				user_gamification.save()
 
@@ -359,6 +398,14 @@ def handle_new_user(request):
 		user_gamification.icebreaker_until_reset = datetime.now()
 		user_gamification.save()
 		return HttpResponseRedirect(reverse('home'))
+	info = Info.objects.get(user=request.user)
+	info.is_new_user = False
+	info.save()
+	user_gamification = Gamification.objects.create(user=request.user)
+	user_gamification.circle_time_until_reset = datetime.now()
+	user_gamification.icebreaker_until_reset = datetime.now()
+	user_gamification.save()
+	return HttpResponseRedirect(reverse('home'))
 
 
 def new_user_info(request):
