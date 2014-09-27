@@ -147,11 +147,14 @@ def all(request):
 			can_they_reset = False
 
 		until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
+		print "until next icebreaker is: ", until_next_icebreaker
 		icebreaker_hours_until_reset = int((until_next_icebreaker - current_time).total_seconds() / 60 / 60)
+		print "icebreaker hours until reset is: ", icebreaker_hours_until_reset
 		if icebreaker_hours_until_reset <= 0:
 			can_reset_icebreaker = True
 		else:
 			can_reset_icebreaker = False
+		can_reset_icebreaker = True
 		return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 
 
@@ -1080,7 +1083,7 @@ def ice_breaker(request):
 	user1_interests = UserInterestAnswer.objects.filter(user=user1).filter(
 		Q(importance_level="Like") | Q(importance_level="Strongly Like"))
 	if user1_interests.count() == 0:
-		messages.error(request, "We're sorry, but you need to like a few interests first!")
+		messages.success(request, "We're sorry, but you need to like a few interests first!")
 		return HttpResponseRedirect(reverse('home'))
 	max_interest = user1_interests.latest('id').id
 	max_user = User.objects.latest('id').id
