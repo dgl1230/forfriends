@@ -297,7 +297,7 @@ def generate_circle(logged_in_user):
 			else: 
 				matches = Match.objects.filter(
 					Q(user1=logged_in_user) | Q(user2=logged_in_user)
-				).order_by('-percent')[:6]
+				).exclude(user1=logged_in_user, user2=logged_in_user).order_by('-percent')[:6]
 				user_gamification = Gamification.objects.get(user=logged_in_user)
 				user_gamification.circle.clear()
 				for match in matches: 
@@ -310,7 +310,7 @@ def generate_circle(logged_in_user):
 def circle_distance(logged_in_user):
 	matches_basic = Match.objects.filter(
 			Q(user1=logged_in_user) | Q(user2=logged_in_user)
-			)
+			).exclude(user1=logged_in_user, user2=logged_in_user)
 	matches_10m = matches_basic.filter(is_10_miles=True)
 	if matches_10m.count() >= 10: 
 		matches = matches_10m.order_by('-percent')[:6]
@@ -700,7 +700,8 @@ def calculate_circle(request):
 			generate_circle(request.user)
 		else: 
 			messages.error(request, "sorry, you need to wait!")
-	return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+	return HttpResponseRedirect(reverse('home'))
+
 
 
 
