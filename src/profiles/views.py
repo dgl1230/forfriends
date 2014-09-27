@@ -693,10 +693,10 @@ def all_pictures(request):
 def calculate_circle(request):
 	user_gamification = Gamification.objects.get(user=request.user)
 	if user_gamification.circle_reset_started and user_gamification.circle_time_until_reset:
-		since_last_reset = user_gamification.circle_reset_started
+		current_time = datetime.now() 
 		until_next_reset = user_gamification.circle_time_until_reset
-		hours_until_reset = int((until_next_reset - since_last_reset).total_seconds() / 60 / 60)
-		if hours_until_reset == 0 or hours_until_reset >= 24: 
+		hours_until_reset = int((until_next_reset - current_time).total_seconds() / 60 / 60)
+		if hours_until_reset <= 1: 
 			generate_circle(request.user)
 		else: 
 			messages.success(request, "sorry, you need to wait!")
