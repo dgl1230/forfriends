@@ -244,7 +244,7 @@
             {% endif %}
             {% endfor %}
             {% if not match.user2.userpicture_set.all %}
-            <li data-type="link" data-url='/members/{{ match.2.username}}' data-target="_self"></li>
+            <li data-type="link" data-url='/members/{{ match.user2.username}}' data-target="_self"></li>
             <li class="thumbnail_carousel" data-thumbnail-path='{{ STATIC_URL }}img/avatar.png'></li>
             <li data-thumbnail-text="{{ match.user2.username }}" data-thumbnail-text-title-offset="35" data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="7">
                 <p class="smallLabel2"></p>
