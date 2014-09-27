@@ -157,6 +157,11 @@ footer{
 .question_answers{
 	margin: 20px auto;
 	width:60%;
+	max-width: 300px;
+}
+
+#submit_question{
+	float:none!important;
 }
 
 .question_answers label{

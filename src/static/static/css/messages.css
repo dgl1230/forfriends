@@ -18,7 +18,9 @@
 #message_modal_content{
 	color:black;
 }
-
+#inbox_trash:hover{
+	color:#1fbad6!important;
+}
 #delete_message_hidden{
 	width: 20px!important;
 	position:relative;

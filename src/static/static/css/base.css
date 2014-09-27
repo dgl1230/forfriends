@@ -111,7 +111,7 @@ p{
  	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
 }
 
-#message_button{
+#delete_message_button, #message_button{
 	width: 80px;
 	background: #1FBAD6!important;
 	font-weight: 300;
@@ -123,8 +123,8 @@ p{
 	padding:5px 5px 5px 5px;
 	margin:2px 2px 2px 2px;
 }
-#message_button:hover{
-box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
+#delete_message_button:hover, #message_button:hover{
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
 }
 .pager{
 	margin-top:30px;

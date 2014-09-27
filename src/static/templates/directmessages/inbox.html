@@ -30,8 +30,8 @@
 		<thead>
 		<th>From</th> 
 		<th>Message</th> 
-		<th> <button id="trash_button" data-toggle="modal" data-target="#new_user_modal"><span id="inbox_trash" class="glyphicon glyphicon-trash" style="color:white"></span>
-		</button>
+		<th> <span data-toggle="modal" id="inbox_trash"  data-target="#new_user_modal" class="glyphicon glyphicon-trash" style="color:white"></span>
+		
 		<form method='POST' action='{% url "delete_messages" %}'>
 			{% csrf_token %}
 		</th>
@@ -78,7 +78,7 @@
         <p>Once you delete these messages, they're gone forever.</p>
       </div>
       <div class="modal-footer">
-      	<input id="message_button" type='submit' value='Yes'/>
+      	<input id="delete_message_button" type='submit' value='Yes'/>
         <button type="button" id="message_button" data-dismiss="modal">No</button>
       </div>
     </div><!-- /.modal-content -->
@@ -91,7 +91,6 @@
 <br>
 <br>
 </div>
-
 
 
 {% endblock %}
