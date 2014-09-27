@@ -1,9 +1,6 @@
 .right-button{
 	float: right;
 }
-#tertiary_navbar a:focus, #tertiary_navbar a:active {
-	color:#1FBAD6!important;
-}
 
 #trash_button{
 	background-color:black;

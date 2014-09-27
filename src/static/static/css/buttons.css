@@ -1,0 +1,30 @@
+.login_button{
+	background-color: white;
+	transition: background-color 0.5s ease 0s;
+	margin: 5px 5px 5px 5px;
+	padding-top: 5px;
+	padding-bottom:10px;
+	line-height: 30px;
+	border: 5px solid #1FBAD6;
+	color: #1FBAD6!important;
+	text-align: center;
+	height: 50px;
+	width: 150px;
+	text-decoration: none;
+	outline: medium none;
+	display: inline-block;
+	border-radius: 25px;
+	cursor: pointer;
+	font-size:14px;
+	font-weight:500;
+}
+
+.login_button:hover{
+	background-color: #1FBAD6;
+	transition: background-color 0.5s ease 0s;
+	color: white!important;
+}
+
+.largeLabel{
+	margin-bottom: 10px!important;
+}
