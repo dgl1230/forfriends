@@ -31,6 +31,7 @@
     <script src="{{ STATIC_URL }}js/3dcarousel/FWDR3DCarThumbsManager.js" type="text/javascript"></script>  
     <script src="{{ STATIC_URL }}js/3dcarousel/FWDRoyal3DCarousel_uncompressed.js" type="text/javascript"></script>
     <script src="{{ STATIC_URL }}js/3dcarousel/initiate.js" type="text/javascript"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/3.50/jquery.form.min.js"></script>
     <script>
             FWDR3DCarUtils.onReady(function(){
         var carousel = new FWDRoyal3DCarousel({
@@ -293,6 +294,8 @@
 
 <script>
 $('#ice_breaker_button').click(function(){
+    $(this).text("Ice Breaker Completed! Check your messages to see your match.");
+    $(this).attr('class', 'not_a_button');
     $.get('{% url "ice_breaker" %}');
 });
 </script>

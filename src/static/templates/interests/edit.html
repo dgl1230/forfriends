@@ -166,7 +166,7 @@
 				{% endfor %}
 			</div>
 
-			<form method='POST' action=''> {% csrf_token %}
+			<form id="interests_edit"> {% csrf_token %}
 				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<div class="interest_ranking">
 				<strong class="choice">Choose a rating</strong><br>
@@ -180,7 +180,7 @@
 
 			<div class="interest_buttons">
 				<!-- Submit Button -->
-			<input type='submit' class='btn-lg' value='Save'>
+			<input type='submit' id="interests_edit" class='btn-lg' value='Save'>
 			</div>
 
 			</form>
@@ -244,6 +244,10 @@ $(document).keydown(function(e) {
         default: return; // exit this handler for other keys
     }
     e.preventDefault(); // prevent the default action (scroll / move caret)
+});
+</script>
+<script>
+    $('#interests_edit').ajaxForm({url: '', type: 'post'})
 });
 </script>
 
