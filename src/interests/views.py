@@ -186,7 +186,7 @@ def new_user_interests(request):
 		answered, created = UserInterestAnswer.objects.get_or_create(user=request.user, interest=interest)
 		answered.save()
 
-		interests_all = Interest.objects.filter(for_new_users=True).exclude(userinterestanswer__user=request.user)
+		interests_all = Interest.objects.exclude(userinterestanswer__user=request.user)
 		paginator = Paginator(interests_all, 1)
 		importance_levels = ['Strongly Dislike', 'Dislike', 'Neutral', 'Like', 'Strongly Like']
 

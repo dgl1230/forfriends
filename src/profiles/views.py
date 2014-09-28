@@ -108,44 +108,80 @@ def all(request):
 			assert(info.is_new_user == False)
 		except: 
 			return HttpResponseRedirect(reverse('handle_new_user'))
-		user_gamification = Gamification.objects.get(user=request.user)
-		circle = user_gamification.circle.all()
-		#since_last_reset = user_gamification.circle_reset_started
-		current_time = datetime.now() 
 
+		try: 
+			user_gamification = Gamification.objects.filter(user=request.user)
+			number_of_circles = user_gamification.count()
+			if number_of_circles == 1:
+				user_gamification = Gamification.objects.get(user=request.user)
+				i = 0
+				for user in user_gamification.circle.all():
+					i = i + 1
+				if i < 5:
+					generate_circle(request.user)
+			if number_of_circles > 1:
+				user_gamification.delete()
+		except:
+			pass
+
+		try: 
+			user_gamification = Gamification.objects.get(user=request.user)
+		except: 
+			user_gamification = Gamification.objects.create(user=request.user)
+			user_gamification.circle_time_until_reset = datetime.now()
+			user_gamification.icebreaker_until_reset = datetime.now()
+			user_gamification.save()
+			generate_circle(request.user)
+		try:
+			until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
+			until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
+		except:
+			user_gamification.circle_time_until_reset = datetime.now()
+			user_gamification.icebreaker_until_reset = datetime.now()
+		current_time = datetime.now() 
 		until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
 		hours_until_reset = int((until_next_reset - current_time).total_seconds() / 60 / 60)
-
 		if hours_until_reset <= 1: 
 			can_they_reset = True
 		else: 
 			can_they_reset = False
 
-		#since_last_icebreaker = user_gamification.icebreaker_reset_started
 		until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
+		print "until next icebreaker is: ", until_next_icebreaker
 		icebreaker_hours_until_reset = int((until_next_icebreaker - current_time).total_seconds() / 60 / 60)
-		print icebreaker_hours_until_reset
+		print "icebreaker hours until reset is: ", icebreaker_hours_until_reset
 		if icebreaker_hours_until_reset <= 0:
 			can_reset_icebreaker = True
 		else:
 			can_reset_icebreaker = False
+		can_reset_icebreaker = True
 		return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+
+
+
+		'''
 		try:
 			user_gamification = Gamification.objects.get(user=request.user)
+			try:
+				until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
+				until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
+			except:
+				user_gamification.circle_time_until_reset = datetime.now()
+				user_gamification.icebreaker_until_reset = datetime.now()
+				print 8
 			circle = user_gamification.circle.all()
 			#since_last_reset = user_gamification.circle_reset_started
 			current_time = datetime.now() 
-			until_next_reset = user_gamification.circle_time_until_reset
+			until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
 			hours_until_reset = int((until_next_reset - current_time).total_seconds() / 60 / 60)
-
 			if hours_until_reset <= 1: 
 				can_they_reset = True
 			else: 
 				can_they_reset = False
 
-			since_last_icebreaker = user_gamification.icebreaker_reset_started
-			until_next_icebreaker = user_gamification.icebreaker_until_reset
-			icebreaker_hours_until_reset = int((until_next_icebreaker - since_last_icebreaker).total_seconds() / 60 / 60)
+			#since_last_icebreaker = user_gamification.icebreaker_reset_started
+			until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
+			icebreaker_hours_until_reset = int((until_next_icebreaker - current_time).total_seconds() / 60 / 60)
 			if icebreaker_hours_until_reset <= 0:
 				can_reset_icebreaker = True
 			else:
@@ -153,17 +189,41 @@ def all(request):
 			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 		except: 
 			#the user has never calcuated their circle
+			try: 
+				user_gamification = Gamification.objects.get(user=request.user)
+
+			except: 
+				user_gamification = Gamification.objects.create(user=request.user)
+				user_gamification.circle_time_until_reset = datetime.now()
+				user_gamification.icebreaker_until_reset = datetime.now()
+				user_gamification.save()
 			generate_circle(request.user)
+			try:
+				until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
+				until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
+			except:
+				user_gamification.circle_time_until_reset = datetime.now()
+				user_gamification.icebreaker_until_reset = datetime.now()
 			#makes it so that the circle is displayed right away instead of having to click "generate circle"
-			user_gamification = Gamification.objects.get(user=request.user)
-			since_last_reset = user_gamification.circle_reset_started
-			until_next_reset = user_gamification.circle_time_until_reset
-			hours_until_reset = int((until_next_reset - since_last_reset).total_seconds() / 60 / 60)
+			user_gamification= Gamification.objects.get(user=request.user)
+			#since_last_reset = user_gamification.circle_reset_started
+			current_time = datetime.now() 
+			until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
+			hours_until_reset = int((until_next_reset - current_time).total_seconds() / 60 / 60)
 			if hours_until_reset <= 1: 
 				can_they_reset = True
 			else: 
 				can_they_reset = False
+
+			#since_last_icebreaker = user_gamification.icebreaker_reset_started
+			until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
+			icebreaker_hours_until_reset = int((until_next_icebreaker - current_time).total_seconds() / 60 / 60)
+			if icebreaker_hours_until_reset <= 0:
+				can_reset_icebreaker = True
+			else:
+				can_reset_icebreaker = False
 			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+		'''
 			
 	else:
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
@@ -182,7 +242,7 @@ def generate_circle(logged_in_user):
 			num_30m = 1
 			num_40m = 0
 			num_50m = 0 
-			users = User.objects.filter(is_active=True).order_by('?')
+			users = User.objects.filter(is_active=True).exclude(username=logged_in_user.username).order_by('?')
 			for user in users: 
 				if num_10m >= 10 or num_20m >= 10:
 					break 
@@ -237,13 +297,12 @@ def generate_circle(logged_in_user):
 			else: 
 				matches = Match.objects.filter(
 					Q(user1=logged_in_user) | Q(user2=logged_in_user)
-				).order_by('-percent')[:6]
+				).exclude(user1=logged_in_user, user2=logged_in_user).order_by('-percent')[:6]
 				user_gamification = Gamification.objects.get(user=logged_in_user)
 				user_gamification.circle.clear()
 				for match in matches: 
 					user_gamification.circle.add(match) 
 				user_gamification.circle_reset_started = datetime.now()
-				print "okay one"
 				user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 				user_gamification.save()
 
@@ -251,7 +310,7 @@ def generate_circle(logged_in_user):
 def circle_distance(logged_in_user):
 	matches_basic = Match.objects.filter(
 			Q(user1=logged_in_user) | Q(user2=logged_in_user)
-			)
+			).exclude(user1=logged_in_user, user2=logged_in_user)
 	matches_10m = matches_basic.filter(is_10_miles=True)
 	if matches_10m.count() >= 10: 
 		matches = matches_10m.order_by('-percent')[:6]
@@ -338,8 +397,18 @@ def handle_new_user(request):
 		info.is_new_user = False
 		info.save()
 		user_gamification = Gamification.objects.create(user=request.user)
+		user_gamification.circle_time_until_reset = datetime.now()
+		user_gamification.icebreaker_until_reset = datetime.now()
 		user_gamification.save()
 		return HttpResponseRedirect(reverse('home'))
+	info = Info.objects.get(user=request.user)
+	info.is_new_user = False
+	info.save()
+	user_gamification = Gamification.objects.create(user=request.user)
+	user_gamification.circle_time_until_reset = datetime.now()
+	user_gamification.icebreaker_until_reset = datetime.now()
+	user_gamification.save()
+	return HttpResponseRedirect(reverse('home'))
 
 
 def new_user_info(request):
@@ -623,15 +692,22 @@ def all_pictures(request):
 
 def calculate_circle(request):
 	user_gamification = Gamification.objects.get(user=request.user)
-	if user_gamification.circle_reset_started and user_gamification.circle_time_until_reset:
-		since_last_reset = user_gamification.circle_reset_started
-		until_next_reset = user_gamification.circle_time_until_reset
-		hours_until_reset = int((until_next_reset - since_last_reset).total_seconds() / 60 / 60)
-		if hours_until_reset == 0 or hours_until_reset >= 24: 
-			generate_circle(request.user)
-		else: 
-			messages.error(request, "sorry, you need to wait!")
-	return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+	try:
+		until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
+		until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
+	except:
+		user_gamification.circle_time_until_reset = datetime.now()
+		user_gamification.icebreaker_until_reset = datetime.now()
+	
+	current_time = datetime.now() 
+	until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
+	hours_until_reset = int((until_next_reset - current_time).total_seconds() / 60 / 60)
+	if hours_until_reset <= 1: 
+		generate_circle(request.user)
+	else: 
+		messages.success(request, "sorry, you need to wait!")
+	return HttpResponseRedirect(reverse('home'))
+
 
 
 
@@ -843,7 +919,7 @@ def login_user(request):
 					msg.send()
 				messages.succes(request, "We missed you!")
 			login(request, user)
-			return HttpResponseRedirect('/')
+			return HttpResponseRedirect(reverse('home'))
 		else:
 			messages.error(request, "Please double check your username and password")
 	except: 
@@ -1014,7 +1090,7 @@ def ice_breaker(request):
 	user1_interests = UserInterestAnswer.objects.filter(user=user1).filter(
 		Q(importance_level="Like") | Q(importance_level="Strongly Like"))
 	if user1_interests.count() == 0:
-		messages.error(request, "We're sorry, but you need to like a few interests first!")
+		messages.success(request, "We're sorry, but you need to like a few interests first!")
 		return HttpResponseRedirect(reverse('home'))
 	max_interest = user1_interests.latest('id').id
 	max_user = User.objects.latest('id').id
