@@ -25,9 +25,6 @@ def save_profile_picture(strategy, user, response, details, is_new=False,*args,*
             picture, created = UserPicture.objects.get_or_create(user=user, image='{0}_social.jpg')
             picture.is_profile_pic = True
             picture.save()
-            #profile.profile_photo.save('{0}_social.jpg'.format(user.username),
-                                   ContentFile(response.content))
-            #profile.save()
 
 
 # User details pipeline
