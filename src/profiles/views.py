@@ -909,7 +909,7 @@ def login_user(request):
 		kwargs = {'email': username}
 	else:
 		kwargs = {'username': username}
-	user1 = User.objects.get(**kwargs)
+	user1 = User.objects.get(**kwargs, password=password)
 	username = user1.username
 	user = authenticate(username=username, password=password)
 
