@@ -905,7 +905,14 @@ def login_user(request):
 	username = request.POST['username']
 	password = request.POST['password']
 
-	
+	if '@' in username:
+		kwargs = {'email': username}
+	else:
+		kwargs = {'username': username}
+	user1 = User.objects.get(**kwargs)
+	username = user1.username
+	user = authenticate(username=username, password=password)
+
 
 	try:
 		username = request.POST['username']
