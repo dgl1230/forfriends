@@ -93,43 +93,55 @@ def add_friend_discovery(request, username, page):
 		return HttpResponseRedirect('http://127.0.0.1:8000/discover/?page=%s' % page)
 
 
-'''The view for the home page of a user. If they're logged in, it shows relevant
-matches for them, otherwise it shows the home page for non-logged in viewers '''
+'''
+The view for the home page of a user. If they're logged in and not a new user, 
+it shows their crowd. If they're logged in and a new user, it redirects them to handle_new_user, 
+which will have the user fill in relevant info before they can access the site. Otherwise, 
+the user is not logged in, and is shown the landing page.
+'''
 def all(request):
 	if request.user.is_authenticated():
 		try: 
+			# if both of these statements pass without error, then the user is not new
 			info = Info.objects.get(user=request.user)
 			assert(info.is_new_user == False)
 		except: 
 			return HttpResponseRedirect(reverse('handle_new_user'))
-
 		try: 
+			# this is to test if somehow the user has multiple circles and fix said error
 			user_gamification = Gamification.objects.filter(user=request.user)
 			number_of_circles = user_gamification.count()
+			# this is to check to make sure the user has users in their circle 
 			if number_of_circles == 1:
 				user_gamification = Gamification.objects.get(user=request.user)
 				i = 0
 				for user in user_gamification.circle.all():
 					i = i + 1
+				#if the user has less than 5 users in their circle, we reset their circle
 				if i < 5:
 					generate_circle(request.user)
+			# if the user has multiple circles, we delete all of their circles
 			if number_of_circles > 1:
 				user_gamification.delete()
 		except:
 			pass
 
+		# this is to see if the user has a circle
 		try: 
 			user_gamification = Gamification.objects.get(user=request.user)
 		except: 
+			#user does not have a circle
 			user_gamification = Gamification.objects.create(user=request.user)
 			user_gamification.circle_time_until_reset = datetime.now()
 			user_gamification.icebreaker_until_reset = datetime.now()
 			user_gamification.save()
 			generate_circle(request.user)
 		try:
+			# check and see if the user has any value in their circle fields
 			until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
 			until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
 		except:
+			# if they don't, we assign them the current time
 			user_gamification.circle_time_until_reset = datetime.now()
 			user_gamification.icebreaker_until_reset = datetime.now()
 		current_time = datetime.now() 
@@ -141,9 +153,7 @@ def all(request):
 			can_they_reset = False
 
 		until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
-		print "until next icebreaker is: ", until_next_icebreaker
 		icebreaker_hours_until_reset = int((until_next_icebreaker - current_time).total_seconds() / 60 / 60)
-		print "icebreaker hours until reset is: ", icebreaker_hours_until_reset
 		if icebreaker_hours_until_reset <= 0:
 			can_reset_icebreaker = True
 		else:
@@ -226,10 +236,13 @@ def all(request):
 def generate_circle(logged_in_user):
 	if logged_in_user.is_authenticated(): 
 		try: 
+			# if this is true, then there are a considerable amount of users who live nearby, so we won't
+			# need to create a lot of matches 
 			assert (circle_distance(logged_in_user) == 1)
 			return
 		except: 
-			#either a new user or someone who hasn't used the site much
+			#these variables are for keeping track of users that live within certain miles, ie num_10m is 
+			# for users that live within 10 miles
 			num_10m = 0
 			num_20m = 0
 			num_30m = 1
@@ -237,6 +250,7 @@ def generate_circle(logged_in_user):
 			num_50m = 0 
 			users = User.objects.filter(is_active=True).exclude(username=logged_in_user.username).order_by('?')
 			for user in users: 
+				# if there are some new matches where the users live nearby, we'll break the loop
 				if num_10m >= 10 or num_20m >= 10:
 					break 
 				if user != logged_in_user:
@@ -253,6 +267,8 @@ def generate_circle(logged_in_user):
 							num_30m += 1
 							num_40m += 1
 							num_50m += 1
+							# for querying purposes, assigned all fields as true for a user within 10 miles
+							# makes things less convoluted
 							match.is_10_miles = True
 							match.is_20_miles = True 
 							match.is_30_miles = True
@@ -288,10 +304,13 @@ def generate_circle(logged_in_user):
 			if circle_distance(logged_in_user) == 1:
 				return 
 			else: 
+				# otherwise, there are not very many users who live close by, so we default to 
+				# ordering current matches by their percent
 				matches = Match.objects.filter(
 					Q(user1=logged_in_user) | Q(user2=logged_in_user)
 				).exclude(user1=logged_in_user, user2=logged_in_user).order_by('-percent')[:6]
 				user_gamification = Gamification.objects.get(user=logged_in_user)
+				# so we dont have more than 6-7 users in a circle at a time
 				user_gamification.circle.clear()
 				for match in matches: 
 					user_gamification.circle.add(match) 
@@ -305,6 +324,8 @@ def circle_distance(logged_in_user):
 			Q(user1=logged_in_user) | Q(user2=logged_in_user)
 			).exclude(user1=logged_in_user, user2=logged_in_user)
 	matches_10m = matches_basic.filter(is_10_miles=True)
+	# if there are 10 users that live within ten miles, we calcualte their circle and break
+	# same for users with varying distances
 	if matches_10m.count() >= 10: 
 		matches = matches_10m.order_by('-percent')[:6]
 		user_gamification = Gamification.objects.get(user=logged_in_user)
@@ -394,31 +415,39 @@ def handle_new_user(request):
 		user_gamification.icebreaker_until_reset = datetime.now()
 		user_gamification.save()
 		return HttpResponseRedirect(reverse('home'))
-	info = Info.objects.get(user=request.user)
-	info.is_new_user = False
-	info.save()
-	user_gamification = Gamification.objects.create(user=request.user)
-	user_gamification.circle_time_until_reset = datetime.now()
-	user_gamification.icebreaker_until_reset = datetime.now()
-	user_gamification.save()
-	return HttpResponseRedirect(reverse('home'))
-
+	
 
 #This is the first/second part of registration for users signing up with FB or GOOGerror(request, "Please double check your username or email address and password")
 def new_user_info(request):
 	if request.POST:
 		name = request.POST['name']
 		full_name = name.split()
-		first_name = full_name[0]
+		first_name1 = str(full_name[0])
+		first_name2 = first_name1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>1234567890")
+		first_name = first_name2.translate(None, '"')
+		if len(first_name) == 0:
+			messages.error(request, "Please use only letters first name")
+			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 		if len(full_name) == 2:
-			last_name = full_name[1]
+			last_name1 = str(full_name[1])
+			last_name2 = last_name1.translate(None, "?.!/;:@#$%^&()`,[]{}~_=+*|<>1234567890")
+			last_name = last_name2.translate(None, '"')
+			if len(last_name) == 0:
+				messages.error(request, "Please use only letters in your last name")
+				return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 		if len(full_name) >= 3:
 			not_first_name = full_name[2:len(full_name)]
-			last_name = full_name[1]
+			last_name0 = full_name[1]
 			for name in not_first_name:
-				last_name = last_name + " " + name
+				last_name0 = last_name + " " + name
+			last_name1 = str(last_name0)
+			last_name2 = last_name1.translate(None, "?.!/;:@#$%^&()`,[]{}~_=+*|<>1234567890")
+			last_name = last_name2.translate(None, '"')
+			if len(last_name) == 0:
+				messages.error(request, "Please use only letters in your last name")
+				return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 		username1 = str(request.POST['username'])
-		username = username1.translate(None, " ?.!/;:")
+		username = username1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>1234567890")
 		if len(username) >= 30:
 			messages.error(request, "We're sorry but your username can't be longer than 30 characters")
 			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
@@ -589,13 +618,20 @@ def new_user_registration2(request):
 	else:
 		return render_to_response('new_user_registration_2.html', locals(), context_instance=RequestContext(request))
 
-
+'''
+The Discover function creates functionality similar to tinder. Users can swipe or use arrow keys or press 
+arrows through multiple users. We display their match percentage and all other functionality displayed
+on the single user page.
+'''
 
 def discover(request):
+	# first we check to see if a session exists
 	if not request.session.get('random_exp'):
 		request.session['random_exp']=1
+	# we see if a cache exists
 	users_all = cache.get('random_exp_%d' % request.session['random_exp'])
 	if not users_all:
+		# if not, we create a new one
 		users_all = list(User.objects.filter(is_active=True).order_by('?'))
 		cache.set('random_exp_%d' % request.session['random_exp'], users_all, 500)
 	paginator = Paginator(users_all, 1)
@@ -608,6 +644,7 @@ def discover(request):
 			try: 
 				assert (user != request.user)
 			except: 
+				# if the user would go to themselves on pagination, we have them skip a page
 				page_int = int(page)
 				new_page = page_int + 1
 				new_page_u = unicode(new_page)
@@ -642,6 +679,7 @@ def discover(request):
 				elif match.distance <=50: 
 					match.is_50_miles = True
 			except:
+				# they have an invalid location
 				match.distance = 10000000
 			match.percent = match_percentage(match.user1, match.user2)
 			match.save()
@@ -686,10 +724,12 @@ def all_pictures(request):
 
 def calculate_circle(request):
 	user_gamification = Gamification.objects.get(user=request.user)
+	# see if they have any value in the fields of their circle
 	try:
 		until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
 		until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
 	except:
+		# else we assign these values the current time
 		user_gamification.circle_time_until_reset = datetime.now()
 		user_gamification.icebreaker_until_reset = datetime.now()
 	
@@ -898,6 +938,7 @@ def login_user(request):
 		username = request.POST['username']
 		password = request.POST['password']
 
+		# check to see whether they provied their username or email for logging in
 		if '@' in username:
 			kwargs = {'email': username}
 		else:
@@ -907,6 +948,7 @@ def login_user(request):
 		user = authenticate(username=username, password=password)
 
 		if user is not None:
+			# if user deactivated their account and logged in, they are no longer deactivated
 			if user.is_active == False:
 				user.is_active = True
 				if not DEBUG: 
@@ -1091,6 +1133,7 @@ def ice_breaker(request):
 	max_interest = user1_interests.latest('id').id
 	max_user = User.objects.latest('id').id
 
+	#we keep iterating through until we find an interest that the logged in user either liked or strongly liked
 	while True: 
 		try:
 			random_interest = user1_interests.get(pk=randint(1, max_interest))
@@ -1098,7 +1141,7 @@ def ice_breaker(request):
 			break
 		except: 
 			pass
-
+	# we keep iterating until we find a user that either liked or strongly liked the interested we found in previous loop
 	while True: 
 		try: 
 			random_user = User.objects.get(pk=randint(1, max_user))
