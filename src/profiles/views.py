@@ -515,7 +515,7 @@ def new_user_info(request):
 	else:
 		return render_to_response('profiles/new_user.html', locals(), context_instance=RequestContext(request))
 
-
+'''
 # this is the second portion of registration for users not signing up with FB or GOOG
 def new_user_registration2(request):
 	if request.POST:
@@ -617,6 +617,8 @@ def new_user_registration2(request):
 			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 	else:
 		return render_to_response('new_user_registration_2.html', locals(), context_instance=RequestContext(request))
+'''
+
 
 '''
 The Discover function creates functionality similar to tinder. Users can swipe or use arrow keys or press 
