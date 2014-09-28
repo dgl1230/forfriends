@@ -10,7 +10,7 @@ from django.db.models import Q
 from matches.models import Match
 from .models import DirectMessage
 from .forms import ComposeForm, FriendForm, ReplyForm
-from visitors.models import Visitor
+
 
 
 

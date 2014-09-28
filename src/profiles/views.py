@@ -2,8 +2,6 @@
 import operator 
 import datetime
 from datetime import date, datetime, timedelta
-#from datetime import *
-
 from random import randint
 
 from django.shortcuts import render
@@ -21,9 +19,6 @@ from django.template.loader import get_template
 from django.template import Context
 
 
-
-
-
 from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG, MEDIA_URL
 from forfriends.matching import match_percentage
 from forfriends.distance import calc_distance
@@ -31,7 +26,6 @@ from matches.models import Match
 from .models import Address, Job, Info, UserPicture, Gamification
 from .forms import AddressForm, InfoForm, JobForm, UserPictureForm
 from interests.models import UserInterestAnswer, Interest
-from visitors.models import Visitor
 from directmessages.models import DirectMessage
 from questions.models import Question, UserAnswer
 
@@ -410,6 +404,7 @@ def handle_new_user(request):
 	return HttpResponseRedirect(reverse('home'))
 
 
+#This is the first/second part of registration for users signing up with FB or GOOGerror(request, "Please double check your username or email address and password")
 def new_user_info(request):
 	if request.POST:
 		name = request.POST['name']
@@ -492,7 +487,7 @@ def new_user_info(request):
 		return render_to_response('profiles/new_user.html', locals(), context_instance=RequestContext(request))
 
 
-
+# this is the second portion of registration for users not signing up with FB or GOOG
 def new_user_registration2(request):
 	if request.POST:
 		name = request.POST['name']
@@ -711,10 +706,8 @@ def calculate_circle(request):
 
 
 def delete_picture(request, pic_id):
-	#pic_id = request.GET['picture_id']
 	picture = UserPicture.objects.get(pk=pic_id)
 	picture.delete()
-	#HttpResponseRedirect('/')
 	return HttpResponseRedirect(reverse('view_pictures'))
 
 
@@ -901,8 +894,6 @@ def find_friends(request):
 
 
 def login_user(request):
-
-
 	try:
 		username = request.POST['username']
 		password = request.POST['password']
@@ -933,9 +924,11 @@ def login_user(request):
 		messages.error(request, "Please double check your username or email address and password")
 	return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
+
 def logout_user(request):
 	logout(request)
 	return render_to_response('logout.html', locals(), context_instance=RequestContext(request))
+
 
 #Calculates a new users age
 def calculate_age(born):
@@ -948,7 +941,6 @@ def calculate_age(born):
 		return today.year - born.year -1 
 	else:
 		return today.year - born.year
-
 
 
 #Creates a new user and assigns the appropriate fields to the user (this is for signing up with Frenvu, not FB or Goog)
@@ -1011,9 +1003,6 @@ def single_user(request, username):
 			except:
 				match.distance = 10000000
 			match.save()
-			visited_list, created = Visitor.objects.get_or_create(main_user=single_user)
-			visited_list.visitors.add(request.user)
-			visited_list.save()
 	except: 
 		raise Http404
 	

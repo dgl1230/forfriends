@@ -43,7 +43,6 @@ INSTALLED_APPS = (
     'directmessages',
     'matches',
     'questions',
-    'visitors',
     'social.apps.django_app.default',
 )
 
