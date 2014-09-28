@@ -87,7 +87,6 @@ def edit_questions(request):
 		question_id = request.POST['question_id']
 
 		#user answer
-		importance_level = request.POST['importance_level']
 		answer_form =  request.POST['answer']
 		#answer_form = request.POST.get('answer', False)
 
@@ -99,7 +98,6 @@ def edit_questions(request):
 		answer = Answer.objects.get(question=question, answer=answer_form)
 		answered, created = UserAnswer.objects.get_or_create(user=user, question=question)
 		answered.answer = answer
-		answered.importance_level = importance_level
 		answered.save()
 
 		return HttpResponseRedirect('')
