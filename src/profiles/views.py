@@ -987,24 +987,29 @@ def calculate_age(born):
 
 #Creates a new user and assigns the appropriate fields to the user (this is for signing up with Frenvu, not FB or Goog)
 def register_new_user(request):
-
 	try:
+		'''
 		username1 = str(request.POST['username'])
 		username2 = username1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>")
 		username = username2.translate(None, '"')
 		if len(username) == 0:
 			messages.error(request, "Please use only letters and numbers in your username")
 			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+		'''
 
 
+		email = str(request.POST['email'])
+		email_as_username = email.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>")
+		if len(email_as_username) == 0:
+			messages.error("Please provide a valid email")
+			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 		password = request.POST['password']
 		confirm_password = request.POST['repassword']
 
-		if username and password:
-			if username != password: 
+		if email and password:
 				if password == confirm_password:
 					try:
-						new_user,created = User.objects.get_or_create(username=username, password=password)
+						new_user,created = User.objects.get_or_create(username=email_as_username, password=password)
 					except:	
 						messages.error(request, "Sorry but this username is already taken")
 						return render_to_response('home.html', locals(), context_instance=RequestContext(request))
@@ -1012,13 +1017,11 @@ def register_new_user(request):
 						new_user.set_password(password)
 						
 						new_user.save()
-						new_user = authenticate(username=username, password=password)
+						new_user = authenticate(username=email_as_username, password=password)
 						login(request, new_user)
-						return HttpResponseRedirect(reverse('new_user_registration2'))
+						return HttpResponseRedirect(reverse('new_user_info'))
 				else:
 					messages.error(request, "Please make sure both passwords match")
-			else: 
-				messages.error(request, "Pleasure make sure your username and password aren't the same!")
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 	except:		
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
