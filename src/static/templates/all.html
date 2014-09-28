@@ -151,7 +151,7 @@
         {% else %}
         <p> {{ hours_until_reset }} hours until you can find a new crowd! </p>
         {% endif %}
-        {% if can_reset_icebreaker  == True %}
+        {% if can_reset_icebreaker == True %}
         <a class="login_button" href='{% url "ice_breaker" %}'>Do an icebreaker!</a>
         {% else %}
         <p> {{ icebreaker_hours_until_reset }} hours until you can do an icebreaker! </p>

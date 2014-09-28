@@ -154,7 +154,6 @@ def all(request):
 			can_reset_icebreaker = True
 		else:
 			can_reset_icebreaker = False
-		can_reset_icebreaker = True
 		return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 
 
@@ -903,9 +902,21 @@ def find_friends(request):
 
 def login_user(request):
 
+	username = request.POST['username']
+	password = request.POST['password']
+
+	
+
 	try:
 		username = request.POST['username']
 		password = request.POST['password']
+
+		if '@' in username:
+			kwargs = {'email': username}
+		else:
+			kwargs = {'username': username}
+		user1 = User.objects.get(**kwargs)
+		username = user1.username
 		user = authenticate(username=username, password=password)
 
 		if user is not None:
