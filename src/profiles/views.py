@@ -902,17 +902,6 @@ def find_friends(request):
 
 def login_user(request):
 
-	username = request.POST['username']
-	password = request.POST['password']
-
-	if '@' in username:
-		kwargs = {'email': username}
-	else:
-		kwargs = {'username': username}
-	user1 = User.objects.get(**kwargs)
-	username = user1.username
-	user = authenticate(username=username, password=password)
-
 
 	try:
 		username = request.POST['username']
@@ -939,9 +928,9 @@ def login_user(request):
 			login(request, user)
 			return HttpResponseRedirect(reverse('home'))
 		else:
-			messages.error(request, "Please double check your username and password")
+			messages.error(request, "Please double check your username or email address and password")
 	except: 
-		messages.error(request, "Please double check your username and password")
+		messages.error(request, "Please double check your username or email address and password")
 	return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
 def logout_user(request):
