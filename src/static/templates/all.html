@@ -299,5 +299,11 @@ $('#ice_breaker_button').click(function(){
     $.get('{% url "ice_breaker" %}');
 });
 </script>
-
+<script>
+$(document).ready(function(){
+$('#interests_edit_form').ajaxForm(function() {
+    $(".tertiary_hidden").attr('class', 'tertiary_show');
+})
+});
+</script>
 {% endblock %}

@@ -47,6 +47,14 @@ p{
 	margin-right: 0px;
 }
 
+.tertiary_hidden{
+	display:none;
+}
+.tertiary_show{
+	display:block;
+	color:#1FBAD6;
+}
+
 #messages_badge{
 	margin-right:0%;
 }

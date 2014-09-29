@@ -135,6 +135,9 @@
      	<span class="glyphicon glyphicon-thumbs-up" id="tertiary-icon"></span>
      	<a href="/interests/">Interests Home</a>
 	</div>
+	<div class="col-md-1" id="tertiary_navbar">
+     	<span class="tertiary_hidden" >Edit Saved!</span>
+	</div>
 <div class='row'>
   <div class='col-lg-10 col-12' id="interests-wrapper">
 {% if messages %}
@@ -166,7 +169,7 @@
 				{% endfor %}
 			</div>
 
-			<form id="interests_edit"> {% csrf_token %}
+			<form id="interests_edit_form" action='' method="POST">
 				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<div class="interest_ranking">
 				<strong class="choice">Choose a rating</strong><br>
@@ -176,8 +179,6 @@
 					{% endfor %}
 				</span>
 				
-				
-
 			<div class="interest_buttons">
 				<!-- Submit Button -->
 			<input type='submit' id="interests_edit" class='btn-lg' value='Save'>
@@ -247,9 +248,11 @@ $(document).keydown(function(e) {
 });
 </script>
 <script>
-    $('#interests_edit').ajaxForm({url: '', type: 'post'})
+$(document).ready(function(){
+$('#interests_edit_form').ajaxForm(function() {
+	$(".tertiary_hidden").attr('class', 'tertiary_show');
+})
 });
 </script>
-
 {% endif %}
 {% endblock %}

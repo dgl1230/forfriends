@@ -15,6 +15,14 @@
 	outline: 0;
 }
 
+#selectall{
+	color:white!important;
+}
+
+#individual_trash{
+	cursor:pointer;
+}
+
 #message_modal_content{
 	color:black;
 }
@@ -59,6 +67,10 @@
 
 #delete_sent{
 	float:right;
+}
+th h1{
+	font-size:1em;
+	color:white!important;
 }
 
 #inbox_body{

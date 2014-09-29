@@ -56,10 +56,7 @@ span.glyphicon{
   line-height: 40px;
   text-indent: 20px;
 }
-i:hover{
-  color:blue!important;
-  background-color:blue!important;
-}
+
 .sidebar-nav li a {
   color: black!important;
   display: block;

@@ -10,9 +10,6 @@
         <h1>Matches</h1>
 	</div>
 	<div class="col-md-1" id="tertiary_navbar">
-     	<a href="#">Sort by Location</a>
-     	<span class="glyphicon glyphicon-user" id="tertiary-icon"></span>
-     	<a href="#">Sort by Match %</a>
 	</div>
 </div>
 <h3>{{ query }}</h3>	
@@ -20,11 +17,11 @@
   <div class='col-lg-10 col-12' id="center_div">
 {% if messages %}
 <div class='row'>
-                <ul class="messages">
-                  {% for message in messages %}
-                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                  {% endfor %}
-                </ul>
+        <ul class="messages">
+          {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+          {% endfor %}
+        </ul>
 </div>
 {% endif %}
 
@@ -46,12 +43,10 @@
 		<p id="user_name">{{ user }}</p>
 		</a>
 		<div class="matching">
-		{% if not request.user == user %}<p id="match">Match: {{ user.percent }}%	</p>{% endif %}
 		{% for item in user.address_set.all %} 
 			{% if forloop.first %} {{ item }}
 			{% endif %} 
 		{% endfor %}
-		
 			</div>
 		<br/>
 		</div>
