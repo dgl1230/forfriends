@@ -1,37 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<script src="{{ STATIC_URL }}js/3dcarousel/FWDPage.js" type="text/javascript"></script>
-    <script src="{{ STATIC_URL }}js/3dcarousel/FWDR3DCarModTweenMax.js" type="text/javascript"></script>
-     <script src="{{ STATIC_URL }}js/3dcarousel/FWDR3DCarUtils.js" type="text/javascript"></script>
-     <script src="{{ STATIC_URL }}js/3dcarousel/FWDRoyal3DCarousel_uncompressed.js" type="text/javascript"></script>
-     <script src="{{ STATIC_URL }}js/3dcarousel/FWDRoyal3DCarousel.js" type="text/javascript"></script>
-     <script src="{{ STATIC_URL }}js/FWDRoyal3DCarousel.js" type="text/javascript"></script>
- 
-    <script src="{{ STATIC_URL }}js/3dcarousel/FWDR3DCarColorPropsPlugin.js" type="text/javascript"></script>
-    <script src="{{ STATIC_URL }}js/3dcarousel/FWDR3DCarComboBox.js" type="text/javascript"></script>
-    <script src="{{ STATIC_URL }}js/3dcarousel/FWDR3DCarComboBoxButton.js" type="text/javascript"></script>
-    <script src="{{ STATIC_URL }}js/3dcarousel/FWDR3DCarComboBoxSelector.js" type="text/javascript"></script>
-    <script src="{{ STATIC_URL }}js/3dcarousel/FWDR3DCarComplexButton.js" type="text/javascript"></script>
-    <script src="{{ STATIC_URL }}js/3dcarousel/FWDR3DCarContextMenu.js" type="text/javascript"></script>
-    <script src="{{ STATIC_URL }}js/3dcarousel/FWDR3DCarData.js" type="text/javascript"></script>
-    <script src="{{ STATIC_URL }}js/3dcarousel/FWDR3DCarDisplayObject.js" type="text/javascript"></script>
-    <script src="{{ STATIC_URL }}js/3dcarousel/FWDR3DCarDisplayObject3D.js" type="text/javascript"></script>
-    <script src="{{ STATIC_URL }}js/3dcarousel/FWDR3DCarEventDispatcher.js" type="text/javascript"></script>
-    <script src="{{ STATIC_URL }}js/3dcarousel/FWDR3DCarInfo.js" type="text/javascript"></script>
-    <script src="{{ STATIC_URL }}js/3dcarousel/FWDR3DCarInfoWindow.js" type="text/javascript"></script>
-    <script src="{{ STATIC_URL }}js/3dcarousel/FWDR3DCarLightBox.js" type="text/javascript"></script>
-    <script src="{{ STATIC_URL }}js/3dcarousel/FWDR3DCarPreloader.js" type="text/javascript"></script>
-    <script src="{{ STATIC_URL }}js/3dcarousel/FWDR3DCarScrollbar.js" type="text/javascript"></script>
-    <script src="{{ STATIC_URL }}js/3dcarousel/FWDR3DCarSimpleButton.js" type="text/javascript"></script>
-    <script src="{{ STATIC_URL }}js/3dcarousel/FWDR3DCarSimpleDisplayObject.js" type="text/javascript"></script>
-    <script src="{{ STATIC_URL }}js/3dcarousel/FWDR3DCarSlideshowButton.js" type="text/javascript"></script>
-    <script src="{{ STATIC_URL }}js/3dcarousel/FWDR3DCarSlideShowPreloader.js" type="text/javascript"></script>
-    <script src="{{ STATIC_URL }}js/3dcarousel/FWDR3DCarThumb.js" type="text/javascript"></script>
-    <script src="{{ STATIC_URL }}js/3dcarousel/FWDR3DCarThumbsManager.js" type="text/javascript"></script>  
-    <script src="{{ STATIC_URL }}js/3dcarousel/FWDRoyal3DCarousel_uncompressed.js" type="text/javascript"></script>
+    
+     
+     
+    <script src="{{ STATIC_URL }}js/FWDRoyal3DCarousel.js" type="text/javascript"></script>
     <script src="{{ STATIC_URL }}js/3dcarousel/initiate.js" type="text/javascript"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/3.50/jquery.form.min.js"></script>
     <script>
             FWDR3DCarUtils.onReady(function(){
         var carousel = new FWDRoyal3DCarousel({
@@ -279,7 +253,7 @@
         <h4 class="modal-title">This is your Crowd!</h4>
       </div>
       <div class="modal-body">
-        <p>Frenvu has matched you to some other users who we think you'd mesh pretty well with. You can search for a new crowd every 24 hours, but check out <a href="/discover/?page=1">Discover</a> if you want to meet more people now.</p>
+        <p>Frenvu has matched you to some other users who we think you'd mesh pretty well with. You can search for a new crowd every 24 hours, but check out <a href="/discover/?page=1">Discover</a> if you want to meet more people now, or go ahead and add a <a href="/pictures">profile picture</a></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Okay</button>
@@ -299,11 +273,5 @@ $('#ice_breaker_button').click(function(){
     $.get('{% url "ice_breaker" %}');
 });
 </script>
-<script>
-$(document).ready(function(){
-$('#interests_edit_form').ajaxForm(function() {
-    $(".tertiary_hidden").attr('class', 'tertiary_show');
-})
-});
-</script>
+
 {% endblock %}

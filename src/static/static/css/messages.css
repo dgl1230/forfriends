@@ -116,6 +116,7 @@ th h1{
 }
 tr th{
 	width:50%;
+	padding-bottom:15px!important;
 }
 th{
 	color: white;
@@ -141,7 +142,6 @@ table a{
 	color:black!important;
 }
 
-#view_
 th a:hover{
 	color: #1FBAD6!important;
 }

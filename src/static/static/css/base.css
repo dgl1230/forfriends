@@ -68,93 +68,14 @@ p{
 	border: 2px #404040 solid!important;
 }
 
-#annoying_row{
-	width:90%;
-}
-#pictures input[type=submit], .btn.btn-info.btn-sm, .pager li a{
-	background-color: white!important;
-	color: black!important;
-	border: 1px solid #111;
-	border-radius:0px;
-	font-weight: 100;
-	-webkit-transition-duration: .5s;
-	-transition-duration: .5s;
-	-moz-transition-duration: .5s;
-}
-
-#go_button, #upload_button{
-	width: 80px;
-	background: #1FBAD6!important;
-	font-weight: 300;
-	color: white;
-	border: 0 none;
-	border-radius: 1px;
-	cursor: pointer;
-	z-index:1000;
-}
-
-.btn-lg, .btn-success{
-	width: 100px;
-	background: #1FBAD6!important;
-	font-weight: bold;
-	color: white;
-	border: 0 none;
-	border-radius: 1px;
-	cursor: pointer;
-	padding: 10px 5px;
-	margin: 10px 5px;
-	z-index:1000;
-}
-
-.btn-lg:hover, .btn-lg:focus, .btn-success:hover, .btn-success:focus{
-	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
-}
-
-#pictures input[type=submit]:hover, .btn-info.btn-sm:hover, .btn-sm:hover, .pager li a:hover, .btn-success:hover{
-	background-color:#1FBAD6!important;
-	color:white!important;
-}
-#go_button:hover, #go_button:focus, #upload_button:hover, #upload_button:focus{
- 	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
-}
-
-#delete_message_button, #message_button{
-	width: 80px;
-	background: #1FBAD6!important;
-	font-weight: 300;
-	color: white;
-	border: 0 none;
-	border-radius: 1px;
-	cursor: pointer;
-	z-index:1000;
-	padding:5px 5px 5px 5px;
-	margin:2px 2px 2px 2px;
-}
-#delete_message_button:hover, #message_button:hover{
-	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
-}
-.pager{
-	margin-top:30px;
-}
-
 .location_div_left{
 	margin-left:100px;
 	height:70px;
 }
 
-.btn-lg{
-	width:180px;
-}
 
 tr, td{
 	color: #404040;
-}
-
-
-.btn-success{
-	width:200px;
-	margin-top:10px;
-	font-size:16px;
 }
 
 .pagination{
@@ -181,7 +102,7 @@ h1, h2, h3, h5, a{
 }
 h1{
 	color: #404040!important;
-	letter-spacing:.2em;
+	letter-spacing:.05em;
     font-weight: 100!important;
 }
 
@@ -202,9 +123,6 @@ input::-moz-focus-inner{
 
 h1{
 	text-transform: none!important;
-}
-
-input{
 }
 
 .form-control{
@@ -276,20 +194,6 @@ form {
 	font-size: 1.125em;
 }
 
-#regenerate{
-	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
-	background: white;
-	font-weight: 300;
-	color: #1fbad6!important;
-	border: 0 none;
-	border-radius: 1px;
-	cursor: pointer;
-	padding: 5px 5px;
-	margin: 5px 5px;
-	z-index:1000;
-	font-size:1.25em;
-}
-
 a:hover{
 	text-decoration: none;
 }
@@ -340,18 +244,6 @@ a:hover{
 
 /* Profile */
 @media (max-width: 450px) {
-	#friend_button{
-		width:100%;
-	}
-	#messages_button{
-		width:100%;
-	}
-	#pictures_button{
-		width:100%;
-	}
-	#interests_button{
-		width:100%;
-	}
 	#single_user_body{
 		width:100%;
 	}

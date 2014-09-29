@@ -135,11 +135,6 @@
 	text-align: center;
 }
 
-.buttons{
-	margin-left: 1%;
-
-}
-
 .matching{
 	line-height: 1;
 }
@@ -155,40 +150,7 @@
 .col-sm-4 img{
 	margin: 0 auto;
 }
-#buttons_row{
-	text-align: center;
-}
-#buttons_row .btn:hover, #buttons_row .btn:active, #buttons_row .btn:focus {
-	color:#1FBAD6;
-	background-color:white;
-}
 
-.button_top{
-
-}
-#buttons_row #friend_button{
-	background: url(/static/img/profile/bar_friends_dark.jpg);
-	background-size:cover;
-	height:100px;
-}
-
-#buttons_row #interests_button{
-	background: url(/static/img/profile/yoga_dark.png);
-	background-size:cover;
-	height:100px;
-}
-
-#buttons_row #pictures_button{
-	background: url(/static/img/profile/camera_stock_dark.png);
-	background-size:cover;
-	height:100px;
-}
-
-#buttons_row #message_button, #buttons_row #message_button_not_friends{
-	background: url(/static/img/profile/iphone_dark.png);
-	background-size:cover;
-	height:100px;
-}
 
 .col-lg-6{
 	margin-top: 0%;

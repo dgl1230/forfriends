@@ -186,20 +186,6 @@
 </div>
 </div>
 </div>
-<script>
-        $(function () {
-            $('.rating-enable').click(function () {
-                
-                $('#example-b').barrating('show', {
-                    readonly:false,
-
-                });
-
-                $('.rating-disable').removeClass('deactivated');
-            });
-            $('.rating-enable').trigger('click');
-        });
-</script>
 
 {% if questions.has_previous %}
 <script>
