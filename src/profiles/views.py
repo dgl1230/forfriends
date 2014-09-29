@@ -874,7 +874,7 @@ def edit_profile(request):
 	num_of_pictures = UserPicture.objects.filter(user=user).count()
 	addresses = Address.objects.filter(user=user)
 	jobs = Job.objects.filter(user=user)
-	info = Info.objects.filter(user=user)
+	info = Info.objects.get(user=user)
 
 	if num_of_pictures == 4:
 		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=1)
@@ -1050,8 +1050,10 @@ def single_user(request, username):
 			except:
 				match.distance = 10000000
 			match.save()
+
 	except: 
 		raise Http404
+	
 	
 	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))	
 
