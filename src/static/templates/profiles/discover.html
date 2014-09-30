@@ -175,15 +175,15 @@
 					<div class="next_user_hidden"><span class='glyphicon glyphicon-arrow-right'></span></div>
 				{% endif %}
 					{% if match.percent >= 90 %}
-					<h3>Very Good Match</h3>
+					<h3 id="very_good">Very Good Match</h3>
 					{% elif match.percent >= 80 %}
-					<h3>Good Match</h3>
+					<h3 id="good">Good Match</h3>
 					{% elif match.percent >= 70 %}
-					<h3>Average Match</h3>
+					<h3 id="average">Average Match</h3>
 					{% elif match.percent >= 45 %}
-					<h3>Weak Match</h3>
+					<h3 id="weak">Weak Match</h3>
 					{% else %}
-					<h3>Very Weak Match</h3>
+					<h3 id="very_weak">Very Weak Match</h3>
 					{% endif %}
 
 			{% if users.has_previous %}

@@ -63,6 +63,7 @@
 				({{ match.distance|floatformat:"0" }} miles away)
 				{% endifnotequal %}
 		</h3>
+		<a href="#" id="load_interests">Click me</a>
 		<div class="row" id="buttons_row">
 			<div class="buttons">
 				{% if match.user1_approved == True and match.user2_approved == True %}
@@ -85,6 +86,10 @@
 		</div>
 	
 	{% endif %}
+
+	<div id="content">
+
+	</div>
 	
 
 	<div class='col-lg-6' id="single_user_body">
@@ -140,4 +145,12 @@ $('#friend_button').click(function(){
 
 
 
+<script>
+$(document).ready(function() {
+	$('#load_interests').on("click", function() {
+		$("#content").load("interests/single_user.html", function() { alert("Load was performed");
+		});
+	});
+});
+</script>
 {% endblock %}

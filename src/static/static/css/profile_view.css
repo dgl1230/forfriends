@@ -12,7 +12,10 @@
 	margin-bottom:0px!important;
 	min-width:150px!important;
 }
-
+#content{
+	height:500px;
+	width:500px;
+}
 .location_div{
 	height:70px;
 }
