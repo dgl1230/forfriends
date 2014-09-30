@@ -28,13 +28,17 @@
 	<div class="body_section">
 	<table class='table table-striped' id="items_table">
 		<thead>
-		<th>From</th> 
-		<th>Message</th> 
+		<th><h1>From</h1></th> 
+		<th><h1>Message</h1></th> 
+		<th>
+		<input type="checkbox" name="selectall" id="selectall" ></input>
+		</th>
 		<th> <span data-toggle="modal" id="inbox_trash"  data-target="#new_user_modal" class="glyphicon glyphicon-trash" style="color:white"></span>
 		
-		<form method='POST' action='{% url "delete_messages" %}'>
+		<form id="delete_messages_form" method='POST' action='{% url "delete_messages" %}'>
 			{% csrf_token %}
 		</th>
+		
 		</thead>
 
 		<tbody>
@@ -59,7 +63,10 @@
 					<small>{{ item.sent }}</small> 
 					{% endif %}
 				<td>
-					<input type="checkbox" name="delete_messages" value="{{ item.id }}"></input> 
+					<input type="checkbox" class="delete_messages" name="delete_messages" value="{{ item.id }}"></input> 
+				</td>
+				<td>
+					<span id="individual_trash" class="glyphicon glyphicon-trash" style="color:black"></span>
 				</td>
 
 			</tr>
@@ -91,6 +98,24 @@
 <br>
 <br>
 </div>
+
+
+<script>
+$(document).ready(function(){
+	$('#selectall').click(function(event){
+		if(this.checked) {
+			$('.delete_messages').each(function() {
+				this.checked = true;
+			});
+		}else{
+			$('.delete_messages').each(function() {
+				this.checked = false;
+			});
+		}
+	});
+});
+</script>
+
 
 
 {% endblock %}

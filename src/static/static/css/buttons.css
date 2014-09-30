@@ -28,3 +28,152 @@
 .largeLabel{
 	margin-bottom: 10px!important;
 }
+
+.not_a_button{
+	color:#1FBAD6!important;
+}
+
+#go_button, #upload_button{
+	width: 80px;
+	background: #1FBAD6!important;
+	font-weight: 300;
+	color: white;
+	border: 0 none;
+	border-radius: 1px;
+	cursor: pointer;
+	z-index:1000;
+}
+
+.btn-lg, .btn-success{
+	width: 100px;
+	background: #1FBAD6!important;
+	font-weight: bold;
+	color: white;
+	border: 0 none;
+	cursor: pointer;
+	border: 1px solid #CCC;
+	border-radius: 4px;
+	margin-top: 20px;
+	padding: 4px 10px;
+	z-index:1000;
+}
+
+.btn-lg:hover, .btn-lg:focus, .btn-success:hover, .btn-success:focus{
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
+}
+
+#pictures input[type=submit]:hover, .btn-info.btn-sm:hover, .btn-sm:hover, .pager li a:hover, .btn-success:hover{
+	background-color:#1FBAD6!important;
+	color:white!important;
+}
+#go_button:hover, #go_button:focus, #upload_button:hover, #upload_button:focus{
+ 	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
+}
+
+#delete_message_button, #message_button{
+	width: 80px;
+	background: #1FBAD6!important;
+	font-weight: 300;
+	color: white;
+	border: 0 none;
+	border-radius: 1px;
+	cursor: pointer;
+	z-index:1000;
+	padding:5px 5px 5px 5px;
+	margin:2px 2px 2px 2px;
+}
+#delete_message_button:hover, #message_button:hover{
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
+}
+.pager{
+	margin-top:30px;
+}
+
+#pictures input[type=submit], .btn.btn-info.btn-sm, .pager li a{
+	background-color: white!important;
+	color: black!important;
+	border: 1px solid #111;
+	border-radius:0px;
+	font-weight: 100;
+	-webkit-transition-duration: .5s;
+	-transition-duration: .5s;
+	-moz-transition-duration: .5s;
+}
+
+.btn-lg{
+	width:180px;
+}
+
+#regenerate{
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
+	background: white;
+	font-weight: 300;
+	color: #1fbad6!important;
+	border: 0 none;
+	border-radius: 1px;
+	cursor: pointer;
+	padding: 5px 5px;
+	margin: 5px 5px;
+	z-index:1000;
+	font-size:1.25em;
+}
+
+.buttons{
+	margin-left: 1%;
+
+}
+
+.btn-success{
+	width:200px;
+	margin-top:10px;
+	font-size:16px;
+}
+
+/* Profile */
+#buttons_row{
+	text-align: center;
+}
+#buttons_row .btn:hover, #buttons_row .btn:active, #buttons_row .btn:focus {
+	color:#1FBAD6;
+	background-color:white;
+}
+
+#buttons_row #friend_button{
+	background: url(/static/img/profile/bar_friends_dark.jpg);
+	background-size:cover;
+	height:100px;
+}
+
+#buttons_row #interests_button{
+	background: url(/static/img/profile/yoga_dark.png);
+	background-size:cover;
+	height:100px;
+}
+
+#buttons_row #pictures_button{
+	background: url(/static/img/profile/camera_stock_dark.png);
+	background-size:cover;
+	height:100px;
+}
+
+#buttons_row #message_button, #buttons_row #message_button_not_friends{
+	background: url(/static/img/profile/iphone_dark.png);
+	background-size:cover;
+	height:100px;
+}
+
+
+@media (max-width: 450px) {
+	#friend_button{
+		width:100%;
+	}
+	#messages_button{
+		width:100%;
+	}
+	#pictures_button{
+		width:100%;
+	}
+	#interests_button{
+		width:100%;
+	}
+}

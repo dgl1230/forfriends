@@ -15,6 +15,14 @@
 	outline: 0;
 }
 
+#selectall{
+	color:white!important;
+}
+
+#individual_trash{
+	cursor:pointer;
+}
+
 #message_modal_content{
 	color:black;
 }
@@ -60,6 +68,10 @@
 #delete_sent{
 	float:right;
 }
+th h1{
+	font-size:1em;
+	color:white!important;
+}
 
 #inbox_body{
 	overflow:hidden;
@@ -104,6 +116,7 @@
 }
 tr th{
 	width:50%;
+	padding-bottom:15px!important;
 }
 th{
 	color: white;
@@ -129,7 +142,6 @@ table a{
 	color:black!important;
 }
 
-#view_
 th a:hover{
 	color: #1FBAD6!important;
 }
