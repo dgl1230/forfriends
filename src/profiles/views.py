@@ -1050,6 +1050,8 @@ def single_user(request, username):
 			except:
 				match.distance = 10000000
 			match.save()
+			interests_all = Interest.objects.filter(userinterestanswer__user=single_user)
+			pictures = UserPicture.objects.filter(user=single_user)
 
 	except: 
 		raise Http404
