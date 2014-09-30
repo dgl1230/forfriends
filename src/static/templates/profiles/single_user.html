@@ -29,7 +29,7 @@
 			
 			{% for pic in single_user.userpicture_set.all %}
 				{% if pic.is_profile_pic or single_user.userpicture_set.all.count == 1 %}
-					<img src='{{ MEDIA_URL }}{{ pic }}' class='img' id="myfriend"/>
+					<img src='{{ MEDIA_URL }}{{ pic }}' class='img' id="myfriend" onclick="load_interests()"/>
 				{% endif %}
 			{% endfor %}
 
@@ -85,6 +85,10 @@
 		</div>
 	
 	{% endif %}
+
+	<div id="content">
+
+	</div>
 	
 
 	<div class='col-lg-6' id="single_user_body">
@@ -140,4 +144,9 @@ $('#friend_button').click(function(){
 
 
 
+<script>
+ function load_interests(){
+ 	document.getElementById("content").innerHTML='<object type="text/html" data="interests/single_user.html">'
+ }
+</script>
 {% endblock %}
