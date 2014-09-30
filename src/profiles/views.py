@@ -245,7 +245,7 @@ def generate_circle(logged_in_user):
 			# for users that live within 10 miles
 			num_10m = 0
 			num_20m = 0
-			num_30m = 1
+			num_30m = 0
 			num_40m = 0
 			num_50m = 0 
 			users = User.objects.filter(is_active=True).exclude(username=logged_in_user.username).order_by('?')
@@ -1050,10 +1050,12 @@ def single_user(request, username):
 			except:
 				match.distance = 10000000
 			match.save()
+			interests_all = Interest.objects.filter(userinterestanswer__user=single_user)
+			pictures = UserPicture.objects.filter(user=single_user)
 
 	except: 
 		raise Http404
-	
+
 	
 	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))	
 
@@ -1093,7 +1095,7 @@ def delete_account(request):
 	deactivated_user = User.objects.get(username=username)
 	deactivated_user.is_active = False
 	logout(request)
-	messages.success(request, "Your account has been deactivated. Your account will be deleleted in 30 days.")
+	messages.success(request, "Your account has been deactivated. Your account will be deleted in 30 days.")
 	messages.success(request, "We're sorry to see you go, but if you change your mind before then, just log back in to reactivate it!")
 	if not DEBUG: 
 		subject = 'A user is deactivating their account.'
