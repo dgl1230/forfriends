@@ -430,9 +430,11 @@ def new_user_info(request):
 		first_name1 = str(full_name[0])
 		first_name2 = first_name1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>1234567890")
 		first_name = first_name2.translate(None, '"')
+
 		if len(first_name) == 0:
 			messages.error(request, "Please use only letters first name")
 			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+
 		if len(full_name) == 2:
 			last_name1 = str(full_name[1])
 			last_name2 = last_name1.translate(None, "?.!/;:@#$%^&()`,[]{}~_=+*|<>1234567890")
@@ -440,6 +442,7 @@ def new_user_info(request):
 			if len(last_name) == 0:
 				messages.error(request, "Please use only letters in your last name")
 				return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+
 		if len(full_name) >= 3:
 			not_first_name = full_name[2:len(full_name)]
 			last_name0 = full_name[1]
@@ -452,7 +455,20 @@ def new_user_info(request):
 				messages.error(request, "Please use only letters in your last name")
 				return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 		username1 = str(request.POST['username'])
-		username = username1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>1234567890")
+
+		username2 = username1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>1234567890")
+		username = username2.translate(None, '"')
+
+		bad_words = ['shit', 'cunt', 'fuck', 'nigger', 'kyke', 'dyke', 'fag', 'ass', 'rape', 
+			'murder', 'kill', 'gook', 'pussy', 'bitch', 'damn', 'hell', 'whore', 'slut', 
+			'cum', 'jizz', 'clit', 'anal', 'cock', 'molest', 'necro', 'satan', 'devil', 
+			'pedo', 'negro', 'spic', 'beaner', 'chink', 'coon', 'kike', 'wetback', 'sex', 
+			'kidnap']
+
+		for word in bad_words:
+			if word in username:
+				messages.success(request, "We're sorry but some people might find your username offensive. Please pick a different username.")
+				return HttpResponseRedirect(reverse('home'))
 		if len(username) >= 30:
 			messages.error(request, "We're sorry but your username can't be longer than 30 characters")
 			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
@@ -789,9 +805,23 @@ def edit_info(request):
 		username1 = str(request.POST['username_form'])
 		username2 = username1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>")
 		username = username2.translate(None, '"')
+
+		bad_words = ['shit', 'cunt', 'fuck', 'nigger', 'kyke', 'dyke', 'fag', 'ass', 'rape', 
+				'murder', 'kill', 'gook', 'pussy', 'bitch', 'damn', 'hell', 'whore', 'slut', 
+				'cum', 'jizz', 'clit', 'anal', 'cock', 'molest', 'necro', 'satan', 'devil', 
+				'pedo', 'negro', 'spic', 'beaner', 'chink', 'coon', 'kike', 'wetback', 'sex', 
+				'kidnap']
+		for word in bad_words:
+			if word in username:
+				messages.success(request, "We're sorry but some people might find your username offensive. Please pick a different username.")
+				return HttpResponseRedirect(reverse('edit_profile'))
+
+
 		if len(username) == 0:
 			messages.success(request, "Please use only letters and numbers in your username")
 			return HttpResponseRedirect(reverse('edit_profile'))
+
+
 
 		first_name1 = str(request.POST['first_name_form'])
 		first_name2 = first_name1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>1234567890")
