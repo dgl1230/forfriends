@@ -58,6 +58,11 @@ def add_friend(request, username):
 		messages.success(request, "%s has received your request. If %s is interested too, they will add you!" %(username, username))
 	single_user = User.objects.get(username=username)
 	match.save()
+	if not DEBUG:
+		return HttpResponseRedirect('http://www.frenvu.com/discover/?page=%s' % page)
+	else: 
+		return HttpResponseRedirect('http://127.0.0.1:8000/discover/?page=%s' % page)
+	
 	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))
 
 
