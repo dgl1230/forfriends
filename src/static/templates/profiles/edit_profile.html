@@ -71,7 +71,7 @@ $('#myTab a').click(function (e) {
           {% csrf_token %}
           <div id="info_forms">
             <p><label for "#username_form">Username: </label><input id="username_form" name="username_form" type="text" value="{% if user.username %} {{ user.username }} {% endif %}" maxlength="20" required ></p>
-            <p><label for "#first_name_form">First Name:</label><input  id="first_name_form" name="first_name_form" type="text" value="{% if user.first_name%} {{ user.first_name }} {% endif %}" required></p>
+            <p><label for "#first_name_form">First Name:</label><input  id="first_name_form" name="first_name_form" type="text" value="{% if user.first_name %} {{ user.first_name }} {% endif %}" required></p>
             <p><label for "#last_name_form">Last Name: </label><input  id="last_name_form" name="last_name_form" type="text" value="{% if user.last_name %} {{ user.last_name }} {% endif %}" required></p>
             <p>
               <label for "#gender_form">Gender:</label>

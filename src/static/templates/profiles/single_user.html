@@ -46,21 +46,21 @@
 	</div>
 	{% if not request.user == single_user %}
 		{% if match.percent >= 90 %}
-		<h3>Very Good Match</h3>
+		<h3 id="very_good">Very Good Match</h3>
 		{% elif match.percent >= 80 %}
-		<h3>Good Match</h3>
+		<h3  id="good">Good Match</h3>
 		{% elif match.percent >= 70 %}
-		<h3>Average Match</h3>
+		<h3  id="average">Average Match</h3>
 		{% elif match.percent >= 45 %}
-		<h3>Weak Match</h3>
+		<h3  id="weak">Weak Match</h3>
 		{% else %}
-		<h3>Very Weak Match</h3>
+		<h3  id="very_weak">Very Weak Match</h3>
 		{% endif %}
 		<h3 id="location">{% for item in user.address_set.all %}
 				{{ item.city|title }}, {% if item.state|length == 2 %} {{ item.state|upper }} {% else %} {{ item.state|capfirst }} {% endif %}
 				{% endfor %}
 				{% ifnotequal match.distance 10000000 %}
-				{{ match.distance|floatformat:"0" }} miles away
+				({{ match.distance|floatformat:"0" }} miles away)
 				{% endifnotequal %}
 		</h3>
 		<div class="row" id="buttons_row">
@@ -98,6 +98,7 @@
 		{% endfor %}
 		</div>
 		</div>
+	
 	<div class='panel panel-default'>
 		<div class='panel-heading' id="occ_panel"><p>Occupation</p><span class="glyphicon glyphicon-chevron-down"></span><p id="info_edit"></p></div>
 		<div class="panel-body" id="occ_body">

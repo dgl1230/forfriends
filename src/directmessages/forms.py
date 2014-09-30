@@ -2,7 +2,7 @@ from django import forms
 
 from .models import DirectMessage
 from matches.models import Match
-from visitors.models import Visitor
+
 
 class ComposeForm(forms.ModelForm):
 	class Meta:
