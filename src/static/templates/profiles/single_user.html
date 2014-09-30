@@ -29,7 +29,7 @@
 			
 			{% for pic in single_user.userpicture_set.all %}
 				{% if pic.is_profile_pic or single_user.userpicture_set.all.count == 1 %}
-					<img src='{{ MEDIA_URL }}{{ pic }}' class='img' id="myfriend" onclick="load_interests()"/>
+					<img src='{{ MEDIA_URL }}{{ pic }}' class='img' id="myfriend"/>
 				{% endif %}
 			{% endfor %}
 
@@ -63,6 +63,7 @@
 				({{ match.distance|floatformat:"0" }} miles away)
 				{% endifnotequal %}
 		</h3>
+		<a href="#" id="load_interests">Click me</a>
 		<div class="row" id="buttons_row">
 			<div class="buttons">
 				{% if match.user1_approved == True and match.user2_approved == True %}
@@ -145,8 +146,11 @@ $('#friend_button').click(function(){
 
 
 <script>
- function load_interests(){
- 	document.getElementById("content").innerHTML='<object type="text/html" data="interests/single_user.html">'
- }
+$jQuery(document).ready(function() {
+	$('#load_interests').on("click", function() {
+		jQuery("#content").load("interests/single_user.html", function() { alert("Load was performed");
+		});
+	});
+});
 </script>
 {% endblock %}
