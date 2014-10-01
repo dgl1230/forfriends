@@ -39,6 +39,27 @@ def add_friend(request, username):
 	except: 
 		match, created = Match.objects.get_or_create(user1__username=username, user2=request.user)
 		match.user2_approved = True
+
+	if (match.user1 == request.user and match.user1_approved == True and match.user2_approved == False):
+		requester = request.user
+		requested= match.user2
+		subject = "Someone wants to be your friend!"
+		body = "Hey %s, I think we could be pretty good friends! Why don't you check out my profile and see if you think we'd get along?" %(requested)
+		message = DirectMessage.objects.create(subject=subject, body=body, sender=requester, receiver=requested)
+		match.save()
+		message.save()
+		messages.success(request, "%s has received your request!") %(requested)
+
+	if (match.user2 == request.user and match.user2_approved == True and match.user1_approved == False):
+		requester = request.user
+		requested= match.user1
+		subject = "Someone wants to be your friend!"
+		body = "Hey %s, I think we could be pretty good friends! Why don't you check out my profile and see if you think we'd get along?" %(requested)
+		message = DirectMessage.objects.create(subject=subject, body=body, sender=requester,receiver=requested)
+		match.save()
+		message.save()
+		messages.success(request, "%s has received your request!") %(requested)
+
 	if (match.user1_approved == True and match.user2_approved == True):
 		user1 = match.user1
 		user2 = match.user2
@@ -73,6 +94,28 @@ def add_friend_discovery(request, username, page):
 	except: 
 		match, created = Match.objects.get_or_create(user1__username=username, user2=request.user)
 		match.user2_approved = True
+
+	if (match.user1 == request.user and match.user1_approved == True and match.user2_approved == False):
+		requester = request.user
+		requested= match.user2
+		subject = "Someone wants to be your friend!"
+		body = "Hey %s, I think we could be pretty good friends! Why don't you check out my profile and see if you think we'd get along?" %(requested)
+		message = DirectMessage.objects.create(subject=subject, body=body, sender=requester, receiver=requested)
+		match.save()
+		message.save()
+		messages.success(request, "%s has received your request!") %(requested)
+
+	if (match.user2 == request.user and match.user2_approved == True and match.user1_approved == False):
+		requester = request.user
+		requested= match.user1
+		subject = "Someone wants to be your friend!"
+		body = "Hey %s, I think we could be pretty good friends! Why don't you check out my profile and see if you think we'd get along?" %(requested)
+		message = DirectMessage.objects.create(subject=subject, body=body, sender=requester,receiver=requested)
+		match.save()
+		message.save()
+		messages.success(request, "%s has received your request!") %(requested)
+
+
 	if (match.user1_approved == True and match.user2_approved == True):
 		user1 = match.user1
 		user2 = match.user2
@@ -462,14 +505,14 @@ def new_user_info(request):
 				return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 		username1 = str(request.POST['username'])
 
-		username2 = username1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>1234567890")
+		username2 = username1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-=+*|<>")
 		username = username2.translate(None, '"')
 
 		bad_words = ['shit', 'cunt', 'fuck', 'nigger', 'kyke', 'dyke', 'fag', 'ass', 'rape', 
 			'murder', 'kill', 'gook', 'pussy', 'bitch', 'damn', 'hell', 'whore', 'slut', 
 			'cum', 'jizz', 'clit', 'anal', 'cock', 'molest', 'necro', 'satan', 'devil', 
 			'pedo', 'negro', 'spic', 'beaner', 'chink', 'coon', 'kike', 'wetback', 'sex', 
-			'kidnap']
+			'kidnap', 'penis', 'vagina', 'boobs', 'titties', 'sodom', 'kkk', 'nazi', 'klux']
 
 		for word in bad_words:
 			if word in username:
@@ -710,8 +753,22 @@ def discover(request):
 			except:
 				# they have an invalid location
 				match.distance = 10000000
+
 			match.percent = match_percentage(match.user1, match.user2)
 			match.save()
+
+			try: 
+				assert (match.are_friends == False)
+				if match.user1 == request.user: 
+					assert (match.user1_approved == False)
+				if match.user2 == request.user:
+					assert (match.user2_approved == False)
+			except: 
+				page_int = int(page)
+				new_page = page_int + 1
+				new_page_u = unicode(new_page)
+				users = paginator.page(new_page_u)
+				user = users.object_list[0]
 
 
 	except PageNotAnInteger:
@@ -721,6 +778,8 @@ def discover(request):
 	except EmptyPage:
 		#If page is out of range, deliver last page of results
 		interests = paginator.page(paginator.num_pages)
+ 
+
 
 
 
@@ -809,14 +868,14 @@ def edit_info(request):
 		info = Info.objects.get(user=request.user)
 
 		username1 = str(request.POST['username_form'])
-		username2 = username1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>")
+		username2 = username1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-=+*|<>")
 		username = username2.translate(None, '"')
 
 		bad_words = ['shit', 'cunt', 'fuck', 'nigger', 'kyke', 'dyke', 'fag', 'ass', 'rape', 
 				'murder', 'kill', 'gook', 'pussy', 'bitch', 'damn', 'hell', 'whore', 'slut', 
 				'cum', 'jizz', 'clit', 'anal', 'cock', 'molest', 'necro', 'satan', 'devil', 
 				'pedo', 'negro', 'spic', 'beaner', 'chink', 'coon', 'kike', 'wetback', 'sex', 
-				'kidnap']
+				'kidnap', 'penis', 'vagina', 'boobs', 'titties', 'sodom', 'kkk', 'nazi', 'klux']
 		for word in bad_words:
 			if word in username:
 				messages.success(request, "We're sorry but some people might find your username offensive. Please pick a different username.")
