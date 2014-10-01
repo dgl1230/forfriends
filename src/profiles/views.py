@@ -58,6 +58,11 @@ def add_friend(request, username):
 		messages.success(request, "%s has received your request. If %s is interested too, they will add you!" %(username, username))
 	single_user = User.objects.get(username=username)
 	match.save()
+	if not DEBUG:
+		return HttpResponseRedirect('http://www.frenvu.com/discover/?page=%s' % page)
+	else: 
+		return HttpResponseRedirect('http://127.0.0.1:8000/discover/?page=%s' % page)
+	
 	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))
 
 
@@ -87,6 +92,9 @@ def add_friend_discovery(request, username, page):
 		messages.success(request, "%s has received your request. If %s is interested too, they will add you!" %(username, username))
 	single_user = User.objects.get(username=username)
 	match.save()
+	messages_in_inbox = DirectMessage.objects.filter(receiver=request.user)
+	direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
+	request.session['num_of_messages'] = direct_messages
 	if not DEBUG:
 		return HttpResponseRedirect('http://www.frenvu.com/discover/?page=%s' % page)
 	else: 
@@ -158,6 +166,9 @@ def all(request):
 			can_reset_icebreaker = True
 		else:
 			can_reset_icebreaker = False
+		messages_in_inbox = DirectMessage.objects.filter(receiver=request.user)
+		direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
+		request.session['num_of_messages'] = direct_messages
 		return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 
 
@@ -425,9 +436,11 @@ def new_user_info(request):
 		first_name1 = str(full_name[0])
 		first_name2 = first_name1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>1234567890")
 		first_name = first_name2.translate(None, '"')
+
 		if len(first_name) == 0:
 			messages.error(request, "Please use only letters first name")
 			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+
 		if len(full_name) == 2:
 			last_name1 = str(full_name[1])
 			last_name2 = last_name1.translate(None, "?.!/;:@#$%^&()`,[]{}~_=+*|<>1234567890")
@@ -435,6 +448,7 @@ def new_user_info(request):
 			if len(last_name) == 0:
 				messages.error(request, "Please use only letters in your last name")
 				return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+
 		if len(full_name) >= 3:
 			not_first_name = full_name[2:len(full_name)]
 			last_name0 = full_name[1]
@@ -447,7 +461,20 @@ def new_user_info(request):
 				messages.error(request, "Please use only letters in your last name")
 				return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 		username1 = str(request.POST['username'])
-		username = username1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>1234567890")
+
+		username2 = username1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>1234567890")
+		username = username2.translate(None, '"')
+
+		bad_words = ['shit', 'cunt', 'fuck', 'nigger', 'kyke', 'dyke', 'fag', 'ass', 'rape', 
+			'murder', 'kill', 'gook', 'pussy', 'bitch', 'damn', 'hell', 'whore', 'slut', 
+			'cum', 'jizz', 'clit', 'anal', 'cock', 'molest', 'necro', 'satan', 'devil', 
+			'pedo', 'negro', 'spic', 'beaner', 'chink', 'coon', 'kike', 'wetback', 'sex', 
+			'kidnap']
+
+		for word in bad_words:
+			if word in username:
+				messages.success(request, "We're sorry but some people might find your username offensive. Please pick a different username.")
+				return HttpResponseRedirect(reverse('home'))
 		if len(username) >= 30:
 			messages.error(request, "We're sorry but your username can't be longer than 30 characters")
 			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
@@ -784,9 +811,23 @@ def edit_info(request):
 		username1 = str(request.POST['username_form'])
 		username2 = username1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>")
 		username = username2.translate(None, '"')
+
+		bad_words = ['shit', 'cunt', 'fuck', 'nigger', 'kyke', 'dyke', 'fag', 'ass', 'rape', 
+				'murder', 'kill', 'gook', 'pussy', 'bitch', 'damn', 'hell', 'whore', 'slut', 
+				'cum', 'jizz', 'clit', 'anal', 'cock', 'molest', 'necro', 'satan', 'devil', 
+				'pedo', 'negro', 'spic', 'beaner', 'chink', 'coon', 'kike', 'wetback', 'sex', 
+				'kidnap']
+		for word in bad_words:
+			if word in username:
+				messages.success(request, "We're sorry but some people might find your username offensive. Please pick a different username.")
+				return HttpResponseRedirect(reverse('edit_profile'))
+
+
 		if len(username) == 0:
 			messages.success(request, "Please use only letters and numbers in your username")
 			return HttpResponseRedirect(reverse('edit_profile'))
+
+
 
 		first_name1 = str(request.POST['first_name_form'])
 		first_name2 = first_name1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>1234567890")
@@ -875,6 +916,9 @@ def edit_profile(request):
 	addresses = Address.objects.filter(user=user)
 	jobs = Job.objects.filter(user=user)
 	info = Info.objects.get(user=user)
+	messages_in_inbox = DirectMessage.objects.filter(receiver=request.user)
+	direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
+	request.session['num_of_messages'] = direct_messages
 
 	if num_of_pictures == 4:
 		PictureFormSet = modelformset_factory(UserPicture, form=UserPictureForm, extra=1)
@@ -1001,12 +1045,19 @@ def register_new_user(request):
 
 
 		email = str(request.POST['email'])
+
+		if '@' not in email:
+			messages.success(request, 'Please provide a valid email address')
+			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+
 		email_as_username = email.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>")
 		if len(email_as_username) == 0:
 			messages.error("Please provide a valid email")
 			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 		password = request.POST['password']
 		confirm_password = request.POST['repassword']
+
+
 
 		if email and password:
 				if password == confirm_password:
@@ -1055,6 +1106,9 @@ def single_user(request, username):
 
 	except: 
 		raise Http404
+	messages_in_inbox = DirectMessage.objects.filter(receiver=request.user)
+	direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
+	request.session['num_of_messages'] = direct_messages
 
 	
 	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))	
