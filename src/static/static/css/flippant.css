@@ -47,14 +47,15 @@
 .flippant-modal-dark, .flippant-modal-light {
 	position: fixed;
 	margin: 0;
-	top: 2.5%;
+	top: 10%;
 	left: 2.5%;
 	width: 95%;
-	height: 95%;
+	height: 80%;
 	padding: 1em;
 	box-sizing: border-box;
 	background: rgba(0,0,0,0.7);
 	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+	margin-bottom:100px;
 }
 
 .flippant-modal-dark, .flippant-modal-dark p { color: white;}
@@ -63,5 +64,9 @@
 	background: rgba(230,230,230,0.7);
 	box-shadow: 3px 3px 6px rgba(0,0,0,0.3);
 	border-radius: 5px;
-	border: 1px solid #aaa;
+	border: 1px solid #1fbad6;
+}
+
+#view_buttons{
+	z-index:300px;
 }

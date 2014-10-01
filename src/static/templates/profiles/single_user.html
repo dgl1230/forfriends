@@ -63,7 +63,12 @@
 				({{ match.distance|floatformat:"0" }} miles away)
 				{% endifnotequal %}
 		</h3>
-		<a href="#" id="load_interests">Click me</a>
+		<a class='hidden' id='view_buttons'>View More</a>
+		<a class='btn-success' id='view_info'>View Info</a>
+		<br>
+		<div id="flip_card">
+		
+
 		<div class="row" id="buttons_row">
 			<div class="buttons">
 				{% if match.user1_approved == True and match.user2_approved == True %}
@@ -82,39 +87,10 @@
 				<a class="btn btn-default btn" id="interests_button" href="/members/{{ single_user.username}}/interests/"><p>View Interests</p></a>
 				<a class="btn btn-default btn" id="pictures_button" href="/members/{{ single_user.username}}/pictures/"><p>Browse Pictures</p></a>
 			</div>
-
+		</div>
 		</div>
 	
 	{% endif %}
-
-	<div id="content">
-
-	</div>
-	
-
-	<div class='col-lg-6' id="single_user_body">
-		<div class='panel panel-default'>
-		<div class='panel-heading' id="bio_panel"><p>Bio</p><span class="glyphicon glyphicon-chevron-down"></span><p id="info_edit"></p></div>
-		<div class="panel-body" id="bio_body">
-		{% for item in single_user.info_set.all %}
-			{% if forloop.first %}
-				{{ item.bio }}
-			{% endif %}
-		{% endfor %}
-		</div>
-		</div>
-	
-	<div class='panel panel-default'>
-		<div class='panel-heading' id="occ_panel"><p>Occupation</p><span class="glyphicon glyphicon-chevron-down"></span><p id="info_edit"></p></div>
-		<div class="panel-body" id="occ_body">
-		{% for item in single_user.job_set.all %} 
-			{{ item.position|title }} at {{ item.employer|title }}
-		{% endfor %}
-	</div>
-	</div>
-	</div>
-</div>
-</div>
 </div>
 <script>
 $('form').on('submit', function(event) {
@@ -127,16 +103,6 @@ $.ajax('/members/{{ single_user.username}}', {
 </script>
 
 <script>
-$('#bio_panel').click(function() {
-	$('#bio_body').slideToggle("fast");
-});
-
-$('#occ_panel').click(function() {
-	$('#occ_body').slideToggle("fast");
-});
-</script>
-
-<script>
 $('#friend_button').click(function(){
 	$('#add_me').text("Request Sent");
 	$.get('{% url "add_friend" single_user.username %}');	
@@ -145,12 +111,35 @@ $('#friend_button').click(function(){
 
 
 
-<script>
+<!--<script>
 $(document).ready(function() {
 	$('#load_interests').on("click", function() {
 		$("#content").load("interests/single_user.html", function() { alert("Load was performed");
 		});
 	});
 });
+</script>
+-->
+
+<script>
+
+var front = document.getElementById('flip_card')
+  , back_content = "<div class='col-lg-6' id='single_user_body'><div class='panel panel-default'><div class='panel-heading' id='bio_panel'><p>Bio</p><span class='glyphicon glyphicon-chevron-down'></span><p id='info_edit'></p></div><div class='panel-body' id='bio_body'>{% for item in single_user.info_set.all %}{% if forloop.first %}{{item.bio}}{% endif %}{% endfor %}</div></div><div class='panel panel-default'><div class='panel-heading' id='occ_panel'><p>Occupation</p><span class='glyphicon glyphicon-chevron-down'></span><p id='info_edit'></p></div><div class='panel-body' id='occ_body'>{% for item in single_user.job_set.all %}{{item.position|title}}at{{item.employer|title}}{% endfor %}</div></div></div></div>" // Generate or pull any HTML you want for the back.
+  , back
+
+$('#view_info').click(function(){
+	$(this).addClass("hidden");
+	$('#view_buttons').removeClass("hidden");
+	back = flippant.flip(front, back_content)
+});
+
+var close_event = new CustomEvent('close')
+$('#view_buttons').click(function(){
+	$(this).addClass("hidden");
+	$('#view_info').removeClass("hidden")
+	back.dispatchEvent(close_event)
+});
+
+
 </script>
 {% endblock %}

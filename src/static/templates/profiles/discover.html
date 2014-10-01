@@ -208,7 +208,7 @@
 				{% endifnotequal %}
 			</h3>
 		</div>
-
+	
 			<div class="row" id="buttons_row">
 			<div class="buttons">
 				{% if match.user1_approved == True and match.user2_approved == True %}
@@ -310,6 +310,14 @@ $(document).keydown(function(e) {
 $('#friend_button').click(function(){
 	$('#add_me').text("Request Sent");
 	$.get('{% url "add_friend_discovery" user.username page %}');
+});
+</script>
+
+<script>
+$(document).ready( function() {
+	$("#load_home").on("click", function() {
+		$("#single_user_container").load("single_user.html");
+	});
 });
 </script>
 
