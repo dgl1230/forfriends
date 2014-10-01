@@ -44,7 +44,7 @@
 	z-index:1000;
 }
 
-.btn-lg, .btn-success{
+.btn-lg, .btn-success, #view_buttons{
 	width: 100px;
 	background: #1FBAD6!important;
 	font-weight: bold;
@@ -58,7 +58,9 @@
 	z-index:1000;
 }
 
-.btn-lg:hover, .btn-lg:focus, .btn-success:hover, .btn-success:focus{
+
+
+#view_buttons, .btn-lg:hover, .btn-lg:focus, .btn-success:hover, .btn-success:focus{
 	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
 }
 

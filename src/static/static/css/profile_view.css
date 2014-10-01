@@ -111,6 +111,14 @@
 
 }
 
+.hidden{
+	display:none;
+}
+
+.unhidden{
+	display:block;
+}
+
 .tab-pane{
 	min-height: 10em;
 }
