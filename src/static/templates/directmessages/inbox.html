@@ -56,7 +56,7 @@
 					{% if item.read %}
 						<span style='color: grey;' class='glyphicon glyphicon-ok'></span>
 					{% endif %}
-					<a {% if item.read %} style='color: grey;' {% endif %} href= '{{ item.get_absolute_url }}'>{{ item.body|truncatechars:"25" }}</a>
+					<a {% if item.read %} style='color: grey;' {% endif %} href= '{{ item.get_absolute_url }}'><div class="message_body">{{ item.body|truncatechars:"25" }}</div></a>
 					{% if item.sent %}
 				</td>
 				
@@ -66,9 +66,8 @@
 					<input type="checkbox" class="delete_messages" name="delete_messages" value="{{ item.id }}"></input> 
 				</td>
 				<td>
-					<span id="individual_trash" class="glyphicon glyphicon-trash" style="color:black"></span>
+					<span id="hidden_trash" class="glyphicon glyphicon-trash" style="color:black"></span>
 				</td>
-
 			</tr>
 			{% endfor %}
 		</body>
@@ -98,8 +97,6 @@
 <br>
 <br>
 </div>
-
-
 <script>
 $(document).ready(function(){
 	$('#selectall').click(function(event){

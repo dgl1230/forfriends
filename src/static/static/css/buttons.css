@@ -58,7 +58,16 @@
 	z-index:1000;
 }
 
-
+#view_info{
+	font-size:14px;
+	float:left;
+	width:100px;
+	margin-top: 0px!important
+}
+#view_buttons, #view_more{
+	float:left;
+	margin-top:0px!important;
+}
 
 #view_buttons, .btn-lg:hover, .btn-lg:focus, .btn-success:hover, .btn-success:focus{
 	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
@@ -122,7 +131,6 @@
 
 .buttons{
 	margin-left: 1%;
-
 }
 
 .btn-success{
@@ -130,10 +138,14 @@
 	margin-top:10px;
 	font-size:16px;
 }
+#flip_card{
+	margin-top:20px;
+}
 
 /* Profile */
 #buttons_row{
 	text-align: center;
+	height:370px;
 }
 #buttons_row .btn:hover, #buttons_row .btn:active, #buttons_row .btn:focus {
 	color:#1FBAD6;

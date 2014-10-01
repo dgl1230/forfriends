@@ -110,7 +110,11 @@
 	-webkit-border-radius: 50%;
 
 }
-
+#flip_card{
+}
+.ui.button{
+	padding:0px!important;
+}
 .hidden{
 	display:none;
 }

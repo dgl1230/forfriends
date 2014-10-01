@@ -7,6 +7,9 @@
 	<div class="col-md-1" id="secondary_navbar">
         <h1> {{ single_user.username }}'s Interests</h1>
 	</div>
+	<div class="col-md-1" id="tertiary_navbar">
+       <a href="javascript:history.back()">Back</a>
+    </div>
 </div>	
 <div class="row" >
   <div class='col-lg-10 col-12' id="interests-wrapper">
@@ -41,7 +44,7 @@
 				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<div class="interest_ranking">
 			
-			<span class="star-rating">
+			<span class="star-rating2">
 				{% for imp in importance_levels %}
 				<input type="radio" name="rating" value='{{ imp }}' id='{{ imp }}' class="star" {% for abc in interest.userinterestanswer_set.all %} {% if abc.importance_level == imp and abc.user == single_user %} checked="checked" {% else %} disabled="disabled" {% endif %} {% endfor %}><i></i>
 				{% endfor %}
