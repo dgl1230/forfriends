@@ -190,4 +190,10 @@
 	#interests_button{
 		width:100%;
 	}
+	#view_info{
+		margin-top:30px!important;
+	}
+	#view_buttons{
+		margin-top:30px!important;
+	}
 }

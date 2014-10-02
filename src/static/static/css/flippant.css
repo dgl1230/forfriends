@@ -68,3 +68,33 @@
 #view_buttons{
 	z-index:300px;
 }
+
+@media (max-width: 500px) {
+	.flippant-modal-dark, .flippant-modal-light {
+		position: fixed;
+		margin: 0;
+		top: 15%;
+		left: 2.5%;
+		width: 95%;
+		height: 80%;
+		padding: 1em;
+		box-sizing: border-box;
+		box-shadow: 0 0 10px rgba(0,0,0,0.5);
+		margin-bottom:100px;
+	}
+}
+@media (max-width: 400px) {
+	.flippant-modal-dark, .flippant-modal-light {
+		position: fixed;
+		margin: 0;
+		top: 25%;
+		left: 2.5%;
+		width: 95%;
+		height: 80%;
+		padding: 1em;
+		box-sizing: border-box;
+		box-shadow: 0 0 10px rgba(0,0,0,0.5);
+		margin-bottom:100px;
+		margin-top:50px!important;
+	}
+}

@@ -16,7 +16,6 @@
   <div id="myDiv"></div>
         <!-- carousel data -->
         <div id="carouselData">
-          
           <!-- image datalist category 1 -->
           <ul data-cat="Category one" style="display:none">  {% for pic in pictures %}     
             <ul>
@@ -27,12 +26,10 @@
               data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="0">
 
                 <p class="smallLabel" id="delete_picture"><a href='{% url "delete_picture" pic.id %}' type='submit' value='Yes'><span style="color:white"class="glyphicon glyphicon-trash"></span></a></p>
-
               </li>
               <li data-info="">
                 <p class="mediaDescriptionHeader">{{ pic.caption }}</p>
               </li>
-
             </ul>
             {% endfor %}
           </ul>
@@ -64,7 +61,8 @@
                 <img type="file" id="preview" name="preview" style="height:286px;width:auto" />
 
             </div>
-            <div class="caption">
+            <div id="rotate_row"><a id="rotate"><span class='glyphicon glyphicon-refresh' ></span>Rotate</a></div>
+            <div class="caption" >
                 <label>Caption:</label> 
                 <textarea cols="20" id="caption" name="caption" rows="3">
                 </textarea>
@@ -231,7 +229,6 @@
 <script> 
     $("#upload_more").click(function() {
         $(".bbody").toggle(function() {
-
         });
     });
 </script>
@@ -239,10 +236,17 @@
 <script> 
     $("#upload_more_pictures").click(function() {
         $(".bbody").toggle(function() {
-
         });
     });
 </script>
+
+<script>
+    $('#rotate').click(function() {
+        $('#preview').rotateRight(90);
+    });
+</script>
+
+
 
 <!--<script>
 $("#preview").rotate({
