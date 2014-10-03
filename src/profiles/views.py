@@ -414,7 +414,7 @@ def generate_circle(request):
 		# so we dont have more than 6-7 users in a circle at a time
 		current_matches = []
 		for match in user_gamification.circle.all():
-			current_users.append(match)
+			current_matches.append(match)
 		user_gamification.circle.clear()
 		j = 0
 		already_chosen = []
