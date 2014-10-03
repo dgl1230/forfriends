@@ -416,9 +416,12 @@ def generate_circle(request):
 		for match in user_gamification.circle.all():
 			current_matches.append(match)
 		user_gamification.circle.clear()
+		i = 0
 		j = 0
 		already_chosen = []
 		while j < 6:
+			if i > 200:
+				break
 			random_index = randint(0, count - 1)
 			if random_index not in already_chosen:
 				random_match = matches[random_index]
@@ -428,6 +431,7 @@ def generate_circle(request):
 					j += 1
 					if j == 5:
 						break
+			i += 1
 		user_gamification.circle_time_until_reset = datetime.now() 
 		user_gamification.save()
 		#messages.success(request, "We're sorry, but there aren't many users nearby you right now. We rested your circle as best we could, but you can reset it again if you'd like.")
