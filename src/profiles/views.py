@@ -871,7 +871,7 @@ def discover(request):
 	'''
 	# we see if a cache exists
 	matches_all = cache.get(username)
-	if not users_all:
+	if not matches_all:
 		matches = Match.objects.filter(
 			Q(user1=logged_in_user) | Q(user2=logged_in_user)
 			).exclude(user1=logged_in_user, user2=logged_in_user).exclude(are_friends=True).filter(distance__lte=preferred_distance)
@@ -880,9 +880,11 @@ def discover(request):
 			matches_all = list(matches)
 			cache.set(username, matches_all, 180)
 		else:
-			messages.succes(request, "We're really sorry, but there aren't many users nearby you. Perhaps broaden your distance?")
-			return render_to_response('profiles/discover.html', locals(), context_instance=RequestContext(request))
-		
+			matches = Match.objects.filter(
+				Q(user1=logged_in_user) | Q(user2=logged_in_user)
+				).exclude(user1=logged_in_user, user2=logged_in_user).exclude(are_friends=True)
+			matches_all = list(matches)
+			cache.set(username, matches_all, 180)
 	paginator = Paginator(users_all, 1)
 	
 	page = request.GET.get('page')
