@@ -412,32 +412,19 @@ def generate_circle(request):
 				).exclude(user1=request.user, user2=request.user).exclude(are_friends=True).order_by('?')
 			count = matches.count()
 		# so we dont have more than 6-7 users in a circle at a time
-		'''
-		current_matches = []
+		#current_matches = []
 		for match in user_gamification.circle.all():
 			current_matches.append(match)
 		user_gamification.circle.clear()
-		i = 0
 		j = 0
 		already_chosen = []
 		while j < 6:
-			if i > 200:
-				break
 			random_index = randint(0, count - 1)
 			if random_index not in already_chosen:
 				random_match = matches[random_index]
-				if random_match not in current_matches:
-					user_gamification.circle.add(random_match)
-					already_chosen.append(random_index)
-					j += 1
-					if j == 5:
-						break
-			i += 1
-		'''
-		user_gamification.circle.clear()
-		new_circle = matches[:7]
-		for match in new_circle:
-			user_gamification.circle.add(match)
+				user_gamification.circle.add(random_match)
+				already_chosen.append(random_index)
+				j += 1
 
 		user_gamification.circle_time_until_reset = datetime.now() 
 		user_gamification.save()
