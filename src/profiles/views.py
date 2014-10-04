@@ -885,7 +885,7 @@ def discover(request):
 				).exclude(user1=request.user, user2=request.user).exclude(are_friends=True)
 			matches_all = list(matches)
 			cache.set(username, matches_all, 180)
-	paginator = Paginator(users_all, 1)
+	paginator = Paginator(matches_all, 1)
 	
 	page = request.GET.get('page')
 	try:
