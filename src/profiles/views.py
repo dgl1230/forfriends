@@ -873,16 +873,16 @@ def discover(request):
 	matches_all = cache.get(username)
 	if not matches_all:
 		matches = Match.objects.filter(
-			Q(user1=logged_in_user) | Q(user2=logged_in_user)
-			).exclude(user1=logged_in_user, user2=logged_in_user).exclude(are_friends=True).filter(distance__lte=preferred_distance)
+			Q(user1=request.user) | Q(user2=request.user)
+			).exclude(user1=request.user, user2=request.user).exclude(are_friends=True).filter(distance__lte=preferred_distance)
 		# if not, we create a new one
 		if matches.count() >= 10:
 			matches_all = list(matches)
 			cache.set(username, matches_all, 180)
 		else:
 			matches = Match.objects.filter(
-				Q(user1=logged_in_user) | Q(user2=logged_in_user)
-				).exclude(user1=logged_in_user, user2=logged_in_user).exclude(are_friends=True)
+				Q(user1=request.user) | Q(user2=request.user)
+				).exclude(user1=request.user, user2=request.user).exclude(are_friends=True)
 			matches_all = list(matches)
 			cache.set(username, matches_all, 180)
 	paginator = Paginator(users_all, 1)
