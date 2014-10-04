@@ -122,7 +122,7 @@
 	</div>
     <div class="col-md-1" id="button_navbar">
         {% if can_they_reset == True %}
-        <a class="login_button" href='{% url "calculate_circle" %}'>Find a new Crowd!</a>
+        <a class="login_button" href='{% url "generate_circle" %}'>Find a new Crowd!</a>
         {% else %}
         <p> {{ hours_until_reset }} hours until you can find a new crowd! </p>
         {% endif %}
