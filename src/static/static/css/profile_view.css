@@ -264,15 +264,16 @@
 	}
 
 	#single_user_container h1{
-		font-size: 1.25em;
+		font-size: 2em;
 	}
+	#single_user_container h3{
+		font-size: 1.25em;
 }
 
 @media(max-width: 380px){
 	#buttons_row{
 		width:100%;
 	}
-	
 } 
 
 @media(max-width: 670px){
