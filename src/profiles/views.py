@@ -425,10 +425,9 @@ def generate_circle(request):
 			random_index = randint(0, count - 1)
 			if random_index not in already_chosen:
 				random_match = matches[random_index]
-				if random_match not in current_matches:
-					user_gamification.circle.add(random_match)
-					already_chosen.append(random_index)
-					j += 1
+				user_gamification.circle.add(random_match)
+				already_chosen.append(random_index)
+				j += 1
 
 		user_gamification.circle_time_until_reset = datetime.now() 
 		user_gamification.save()
