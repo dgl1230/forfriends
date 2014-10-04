@@ -313,7 +313,7 @@ def generate_circle(logged_in_user):
 				# ordering current matches by their percent
 				matches = Match.objects.filter(
 					Q(user1=logged_in_user) | Q(user2=logged_in_user)
-				).exclude(user1=logged_in_user, user2=logged_in_user).order_by('-percent')[:6]
+				).filter(are_friends=False).exclude(user1=logged_in_user, user2=logged_in_user).order_by('-percent')[:6]
 				user_gamification = Gamification.objects.get(user=logged_in_user)
 				# so we dont have more than 6-7 users in a circle at a time
 				user_gamification.circle.clear()
@@ -327,7 +327,7 @@ def generate_circle(logged_in_user):
 def circle_distance(logged_in_user):
 	matches_basic = Match.objects.filter(
 			Q(user1=logged_in_user) | Q(user2=logged_in_user)
-			).exclude(user1=logged_in_user, user2=logged_in_user)
+			).filter(are_friends=False).exclude(user1=logged_in_user, user2=logged_in_user)
 	matches_10m = matches_basic.filter(is_10_miles=True)
 	# if there are 10 users that live within ten miles, we calcualte their circle and break
 	# same for users with varying distances
