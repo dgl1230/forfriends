@@ -42,8 +42,8 @@
       <input id="name" name="name" placeholder="First and Last Name" required="" tabindex="1" type="text">
       <input id="username" name="email" placeholder="Email" required="" tabindex="1" type="text" maxlength="40"> 
       <label>Date of Birth </label><br>
-      <select class="select-style" name="BirthMonth" tabindex="1">
-        <option value="">Month</option>
+      <select class="select-style" name="BirthMonth" tabindex="1" required>
+        <option required selected="selected" disabled="disabled" value="">Month</option>
         <option  value="01">January</option>
         <option value="02">February</option>
         <option value="03" >March</option>
@@ -58,21 +58,21 @@
         <option value="12" >December</option>           
       </select>
       <br>
-      <input type="text" class="birthday" maxlength="2" name="BirthDay" tabindex="1"  placeholder="Day">
-      <input type="text" class="birthyear" maxlength="4" name="BirthYear" tabindex="1" placeholder="Year">
+      <input type="text" class="birthday" maxlength="2" name="BirthDay" tabindex="1"  placeholder="Day" required>
+      <input type="text" class="birthyear" maxlength="4" name="BirthYear" tabindex="1" placeholder="Year" required>
       <br>
       <input type="button" name="next" class="next action-button" value="Next" />
     </fieldset>
     <fieldset>
       <h2 class="fs-title">Personal Info</h2>
       <h3 class="fs-subtitle">More helpful information so you can be better matched</h3>
-      <select class="select-style gender" tabindex="1" name="gender">
+      <select class="select-style gender" tabindex="1" name="gender" required>
         <option value="select" placeholder="gender"></option>
         <option value="m" selected>Male</option>
         <option value="f">Female</option>
       </select><br>
-        Country:<select id="country" name ="country"></select>
-        State: <select name ="state" id ="state"></select>
+        Country:<select id="country" name ="country" required></select>
+        State: <select name ="state" id ="state" required></select>
             <script language="javascript">
               populateCountries("country", "state");
             </script> 

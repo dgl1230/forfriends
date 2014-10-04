@@ -16,6 +16,10 @@
 	height:500px;
 	width:500px;
 }
+.previous_user{
+	visibility:hidden
+}
+
 .location_div{
 	height:70px;
 }
@@ -110,7 +114,11 @@
 	-webkit-border-radius: 50%;
 
 }
-
+#flip_card{
+}
+.ui.button{
+	padding:0px!important;
+}
 .hidden{
 	display:none;
 }

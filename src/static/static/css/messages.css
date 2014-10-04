@@ -14,6 +14,11 @@
 #trash_button:active{
 	outline: 0;
 }
+.message_body{
+	width:90%;
+	height:100%;
+	float:right;
+}
 
 #selectall{
 	color:white!important;
@@ -21,6 +26,9 @@
 
 #individual_trash{
 	cursor:pointer;
+}
+#hidden_trash{
+	visibility:hidden;
 }
 
 #message_modal_content{

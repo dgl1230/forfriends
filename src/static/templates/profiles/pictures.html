@@ -4,7 +4,6 @@
 <div id="pictures">
   <div class="row" id="view_container">
     <div class="col-md-1" id="secondary_navbar">
-
           <h1>Pictures</h1>
     </div>
     <div class="col-md-1" id="tertiary_navbar">
@@ -17,17 +16,16 @@
   <div id="myDiv"></div>
         <!-- carousel data -->
         <div id="carouselData">
-          
           <!-- image datalist category 1 -->
           <ul data-cat="Category one" style="display:none">  {% for pic in pictures %}     
             <ul>
               <li data-type="media" data-url="{{ MEDIA_URL }}{{ pic }}" data-target="_blank"></li>
               <li data-thumbnail-path="{{ MEDIA_URL }}{{ pic }}"></li>
+
               <li data-thumbnail-text="{{ pic.caption }}" data-thumbnail-text-title-offset="35"
               data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="0">
 
-                <p class="smallLabel" id="delete_picture"><a href='{% url "delete_picture" pic.id %}'><span style="color:white"class="glyphicon glyphicon-trash"></a></p>
-                
+                <p class="smallLabel" id="delete_picture"><a href='{% url "delete_picture" pic.id %}' type='submit' value='Yes'><span style="color:white"class="glyphicon glyphicon-trash"></span></a></p>
               </li>
               <li data-info="">
                 <p class="mediaDescriptionHeader">{{ pic.caption }}</p>
@@ -63,7 +61,8 @@
                 <img type="file" id="preview" name="preview" style="height:286px;width:auto" />
 
             </div>
-            <div class="caption">
+            <div id="rotate_row"><a id="rotate"><span class='glyphicon glyphicon-refresh' ></span>Rotate</a></div>
+            <div class="caption" >
                 <label>Caption:</label> 
                 <textarea cols="20" id="caption" name="caption" rows="3">
                 </textarea>
@@ -88,6 +87,29 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+{% for pic in pictures %}
+<div class="modal fade" id="delete_picture_modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Are you sure you want to delete this picture?</h4>
+      </div>
+      <div class="modal-body">
+        <p></p>
+      </div>
+      <div class="modal-footer">
+        <div class="modal-footer">
+        <a href='{% url "delete_picture" pic.id %}' id="delete_message_button"  type='submit' value='Yes'></a>
+        <button type="button" id="message_button" data-dismiss="modal">No</button>
+      </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+{% endfor %}
+
     <script src="{{ STATIC_URL }}js/pictures_cookie.js" type="text/javascript"></script>
     <script src="{{ STATIC_URL }}js/new_user_pictures.js" type="text/javascript"></script>
     <!-- Circle Carousel -->
@@ -207,7 +229,6 @@
 <script> 
     $("#upload_more").click(function() {
         $(".bbody").toggle(function() {
-
         });
     });
 </script>
@@ -215,10 +236,17 @@
 <script> 
     $("#upload_more_pictures").click(function() {
         $(".bbody").toggle(function() {
-
         });
     });
 </script>
+
+<script>
+    $('#rotate').click(function() {
+        $('#preview').rotateRight(90);
+    });
+</script>
+
+
 
 <!--<script>
 $("#preview").rotate({
