@@ -276,14 +276,14 @@ def generate_circle(request):
 		#current_matches = list(user_gamification.circle.all())
 		user_gamification.circle.clear()
 		j = 0
-		already_chosen = []
+		already_chosen = {}
 		while j < 6:
 			try:
 				random_index = randint(0, max_match - 1)
 				if random_index not in already_chosen:
 					random_match = matches[random_index]
 					user_gamification.circle.add(random_match)
-					already_chosen.append(random_index)
+					already_chosen[random_index] = random_index
 					j += 1
 			except:
 				pass
