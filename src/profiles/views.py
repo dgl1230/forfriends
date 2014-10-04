@@ -406,11 +406,12 @@ def generate_circle(request):
 			).exclude(user1=request.user, user2=request.user).exclude(are_friends=True).filter(percent__gte=70)
 		user_gamification = Gamification.objects.get(user=request.user)
 		count = matches.count()
+		max_match = matches.latest('id').id
 		if count < 6:
 			matches = Match.objects.filter(
 				Q(user1=request.user) | Q(user2=request.user)
 				).exclude(user1=request.user, user2=request.user).exclude(are_friends=True)
-			count = matches.count()
+			max_match = matches.latest('id').id
 		# so we dont have more than 6-7 users in a circle at a time
 		'''
 		current_matches = []
@@ -422,12 +423,15 @@ def generate_circle(request):
 		j = 0
 		already_chosen = []
 		while j < 6:
-			random_index = randint(0, count - 1)
-			if random_index not in already_chosen:
-				random_match = matches[random_index]
-				user_gamification.circle.add(random_match)
-				already_chosen.append(random_index)
-				j += 1
+			try:
+				random_index = randint(0, max_match - 1)
+				if random_index not in already_chosen:
+					random_match = matches[random_index]
+					user_gamification.circle.add(random_match)
+					already_chosen.append(random_index)
+					j += 1
+			except:
+				pass
 
 		user_gamification.circle_time_until_reset = datetime.now() 
 		user_gamification.save()
