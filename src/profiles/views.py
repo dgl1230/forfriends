@@ -891,12 +891,8 @@ def discover(request):
 	try:
 		if page != False:
 			users = paginator.page(page)
-			user = users.object_list[0]
+			match = users.object_list[0]
 
-			try: 
-				match = Match.objects.get(user1=request.user, user2=user)
-			except: 
-				match, created = Match.objects.get_or_create(user1=user, user2=request.user)
 			try:
 				match.distance = round(calc_distance(logged_in_user, user))
 			except:
