@@ -403,15 +403,16 @@ def generate_circle(request):
 		# adding to their circle randomly
 		matches = Match.objects.filter(
 			Q(user1=request.user) | Q(user2=request.user)
-			).exclude(user1=request.user, user2=request.user).exclude(are_friends=True).filter(percent__gte=70)
+			).exclude(user1=request.user, user2=request.user).exclude(are_friends=True).filter(percent__gte=70).order_by('?')
 		user_gamification = Gamification.objects.get(user=request.user)
 		count = matches.count()
 		if count < 6:
 			matches = Match.objects.filter(
 				Q(user1=request.user) | Q(user2=request.user)
-				).exclude(user1=request.user, user2=request.user).exclude(are_friends=True)
+				).exclude(user1=request.user, user2=request.user).exclude(are_friends=True).order_by('?')
 			count = matches.count()
 		# so we dont have more than 6-7 users in a circle at a time
+		'''
 		current_matches = []
 		for match in user_gamification.circle.all():
 			current_matches.append(match)
@@ -432,6 +433,12 @@ def generate_circle(request):
 					if j == 5:
 						break
 			i += 1
+		'''
+		user_gamification.circle.clear()
+		new_circle = matches[:7]
+		for match in new_circle:
+			user_gamification.circle.add(match)
+
 		user_gamification.circle_time_until_reset = datetime.now() 
 		user_gamification.save()
 		#messages.success(request, "We're sorry, but there aren't many users nearby you right now. We rested your circle as best we could, but you can reset it again if you'd like.")
