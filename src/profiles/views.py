@@ -445,21 +445,26 @@ def generate_circle(request):
 
 
 def circle_distance(logged_in_user, preferred_distance):
+	user_gamification = Gamification.objects.get(user=logged_in_user)
+	current_circle = list(user_gamification.circle.all())
 	matches = Match.objects.filter(
 		Q(user1=logged_in_user) | Q(user2=logged_in_user)
-		).exclude(user1=logged_in_user, user2=logged_in_user).exclude(are_friends=True).filter(percent__gte=70).filter(distance__lte=preferred_distance)
+		).exclude(user1=logged_in_user, user2=logged_in_user).exclude(are_friends=True).filter(percent__gte=70).exclude(id__in=[o.id for o in current_circle]).filter(distance__lte=preferred_distance)
 	count = matches.count()
 	if matches.count() < 7:
 		return 0
 	i = 0
-	user_gamification = Gamification.objects.get(user=logged_in_user)
+	already_chosen = []
 	user_gamification.clear()
+	max_match = matches.latest('id').id
 	while i < 6:
 		try:
-			random_index = randint(0, count - 1)
-			random_match = matches[random_index]
-			user_gamification.circle.add(random_match)
-			i += 1
+			random_index = randint(0, max_match - 1)
+			if random_index not in already_chosen:
+				random_match = matches[random_index]
+				user_gamification.circle.add(random_match)
+				already_chosen.append(random_index)
+				i += 1
 		except:
 			pass
 	user_gamification.circle_reset_started = datetime.now()
