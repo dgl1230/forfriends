@@ -25,6 +25,9 @@ def view_direct_message(request, dm_id):
 		message.read = True
 		message.read_at = datetime.datetime.now()
 		message.save()
+	messages_in_inbox = DirectMessage.objects.filter(receiver=request.user)
+	direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
+	request.session['num_of_messages'] = direct_messages
 	
 	return render_to_response('directmessages/views.html', locals(), 
 										context_instance=RequestContext(request))
@@ -42,6 +45,12 @@ def view_direct_message(request, dm_id):
 def delete_messages(request):
 	messages_to_delete = request.POST.getlist('delete_messages')
 	DirectMessage.objects.filter(id__in=messages_to_delete).delete()
+	return HttpResponseRedirect(reverse('inbox'))
+
+
+def delete_individual_message(request, dm_id):
+	message = DirectMessage.objects.get(id=dm_id)
+	message.delete()
 	return HttpResponseRedirect(reverse('inbox'))
 
 

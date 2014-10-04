@@ -208,3 +208,15 @@ def new_user_interests(request):
 	return render_to_response('interests/new_user.html', locals(), context_instance=RequestContext(request))
 
 
+def search_interests(request):
+	try:
+		q = request.GET.get('q', '')
+	except: 
+		q = False
+	interest_queryset = Interest.objects.filter(
+		Q(interest__icontains=q)
+		)
+	results = interest_queryset
+	return render_to_response('interests/search.html', locals(), context_instance=RequestContext(request))
+
+
