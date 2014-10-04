@@ -304,7 +304,7 @@ def circle_distance(logged_in_user, preferred_distance):
 	if matches.count() < 7:
 		return 0
 	i = 0
-	already_chosen = []
+	already_chosen = {}
 	user_gamification.clear()
 	max_match = matches.latest('id').id
 	while i < 6:
@@ -313,7 +313,7 @@ def circle_distance(logged_in_user, preferred_distance):
 			if random_index not in already_chosen:
 				random_match = matches[random_index]
 				user_gamification.circle.add(random_match)
-				already_chosen.append(random_index)
+				already_chosen[random_index] = random_index
 				i += 1
 		except:
 			pass
