@@ -401,16 +401,18 @@ def generate_circle(request):
 	else: 
 		# otherwise, there are not very many users who live close by, so we default to 
 		# adding to their circle randomly
+		user_gamification = Gamification.objects.get(user=request.user)
+		current_circle = list(user_gamification.circle.all())
 		matches = Match.objects.filter(
 			Q(user1=request.user) | Q(user2=request.user)
-			).exclude(user1=request.user, user2=request.user).exclude(are_friends=True).filter(percent__gte=70)
+			).exclude(user1=request.user, user2=request.user).exclude(are_friends=True).exclude(id__in=[o.id for o in current_circle]).filter(percent__gte=70)
 		user_gamification = Gamification.objects.get(user=request.user)
 		count = matches.count()
 		max_match = matches.latest('id').id
 		if count < 6:
 			matches = Match.objects.filter(
 				Q(user1=request.user) | Q(user2=request.user)
-				).exclude(user1=request.user, user2=request.user).exclude(are_friends=True)
+				).exclude(user1=request.user, user2=request.user).exclude(are_friends=True).exclude(id__in=[o.id for o in current_circle])
 			max_match = matches.latest('id').id
 		# so we dont have more than 6-7 users in a circle at a time
 		'''
@@ -418,7 +420,7 @@ def generate_circle(request):
 		for match in user_gamification.circle.all():
 			current_matches.append(match)
 		'''
-		current_matches = list(user_gamification.circle.all())
+		#current_matches = list(user_gamification.circle.all())
 		user_gamification.circle.clear()
 		j = 0
 		already_chosen = []
