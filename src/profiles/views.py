@@ -861,7 +861,8 @@ on the single user page.
 
 
 
-def discover(request, preferred_distance):
+def discover(request):
+	preferred_distance = 20
 	# first we check to see if a session exists
 	username = request.user.username
 	'''
