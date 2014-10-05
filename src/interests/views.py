@@ -26,14 +26,23 @@ def create_interest(request):
 	return render_to_response("interests/create.html", locals(), context_instance=RequestContext(request))
 
 
-def all_interests(request):
-	if not request.session.get('random_interests'):
-		request.session['random_interests']= request.user.id
-	interests_all = cache.get('random_interests_%d' % request.session['random_interests'])
-	if not interests_all:
+def all_interests(request, starting_interests=False):
+	if starting_interests == "True":
+		if not request.session.get('random_interests'):
+			request.session['random_interests']= request.user.id
 		interests_all = list(Interest.objects.exclude(userinterestanswer__user=request.user).filter(approved=True).order_by('?'))
 		cache.set('random_interests_%d' % request.session['random_interests'], interests_all, 100)
+
+		
 	#interests_all = Interest.objects.exclude(userinterestanswer__user=request.user).filter(approved=True).order_by('?')
+	else: 
+		if not request.session.get('random_interests'):
+			request.session['random_interests']= request.user.id
+		interests_all = cache.get('random_interests_%d' % request.session['random_interests'])
+		if not interests_all:
+			interests_all = list(Interest.objects.exclude(userinterestanswer__user=request.user).filter(approved=True).order_by('?'))
+			cache.set('random_interests_%d' % request.session['random_interests'], interests_all, 100)
+			
 	paginator = Paginator(interests_all, 1)
 	importance_levels = ['Strongly Dislike', 'Dislike', 'Neutral', 'Like', 'Strongly Like']
 
@@ -102,7 +111,7 @@ def edit_interests(request):
 		interests = paginator.page(1)
 	except EmptyPage:
 		#If page is out of range, deliver last page of results
-		interets = paginator.page(paginator.num_pages)
+		interests = paginator.page(paginator.num_pages)
 
 	if request.method == 'POST':
 		interest_id = request.POST['interest_id']
@@ -150,12 +159,15 @@ def single_user_interests(request, username):
 
 def new_user_interests(request):
 	#interests_all = Interest.objects.filter(for_new_users=True)
+	'''
 	if not request.session.get('random_interests'):
 		request.session['random_interests']= request.user.id
 	interests_all = cache.get('random_interests_%d' % request.session['random_interests'])
 	if not interests_all:
 		interests_all = list(Interest.objects.exclude(userinterestanswer__user=request.user).filter(approved=True).order_by('?'))
 		cache.set('random_interests_%d' % request.session['random_interests'], interests_all, 400)
+	'''
+	interests_all = Interest.objects.exclude(userinterestanswer__user=request.user).filter(approved=True).order_by('?')
 	paginator = Paginator(interests_all, 1)
 	importance_levels = ['Strongly Dislike', 'Dislike', 'Neutral', 'Like', 'Strongly Like']
 
@@ -173,16 +185,12 @@ def new_user_interests(request):
 		interest_id = request.POST['interest_id']
 
 		importance_level = request.POST['importance_level']
-		#user answer
 
-		#user = User.objects.get(id=request.user.id)
 		interest = Interest.objects.get(id=interest_id)
 		try:
 			interest_pic = InterestPicture.objects.get(interest=interest).filter(id=1)
 		except: 
 			pass
-
-		#user answer save
 
 		answered, created = UserInterestAnswer.objects.get_or_create(user=request.user, interest=interest)
 		answered.importance_level = importance_level
@@ -199,7 +207,7 @@ def new_user_interests(request):
 			#If page is not an integer, deliver first page.
 			interests = paginator.page(1)
 		except EmptyPage:
-		#If page is out of range, deliver last page of results
+			#If page is out of range, deliver last page of results
 			interests = paginator.page(paginator.num_pages)
 
 
