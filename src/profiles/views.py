@@ -193,12 +193,10 @@ def all(request):
 			# check and see if the user has any value in their circle fields
 			until_next_reset = user_gamification.circle_time_until_reset
 			until_next_icebreaker = user_gamification.icebreaker_until_reset
-			print 3
 		except:
 			# if they don't, we assign them the current time
 			user_gamification.circle_time_until_reset = datetime.now()
 			user_gamification.icebreaker_until_reset = datetime.now()
-			print 4
 
 		current_time = datetime.now() 
 		until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
