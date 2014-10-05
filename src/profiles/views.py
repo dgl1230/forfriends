@@ -194,7 +194,7 @@ def all(request):
 			# if they don't, we assign them the current time
 			user_gamification.circle_time_until_reset = datetime.now()
 			user_gamification.icebreaker_until_reset = datetime.now()
-		
+
 		current_time = datetime.now() 
 		until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
 		print "until next reset is: ", until_next_reset
@@ -739,6 +739,8 @@ def new_user_info(request):
 			new_info.signed_up_with_fb_or_goog = False
 			new_info.save()
 			new_address.save()
+			request.user.username = username
+			request.user.save()
 			user = authenticate(username=request.user.username, password=request.user.password)
 			request.user.save()
 			if not DEBUG:
