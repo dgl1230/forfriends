@@ -188,15 +188,18 @@ def all(request):
 			generate_circle(request.user)
 		try:
 			# check and see if the user has any value in their circle fields
-			until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
-			until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
+			until_next_reset = user_gamification.circle_time_until_reset
+			until_next_icebreaker = user_gamification.icebreaker_until_reset
 		except:
 			# if they don't, we assign them the current time
 			user_gamification.circle_time_until_reset = datetime.now()
 			user_gamification.icebreaker_until_reset = datetime.now()
+		
 		current_time = datetime.now() 
 		until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
+		print "until next reset is: ", until_next_reset
 		hours_until_reset = int((until_next_reset - current_time).total_seconds() / 60 / 60)
+		print "hours until reset is: ", hours_until_reset
 		if hours_until_reset <= 1: 
 			can_they_reset = True
 		else: 

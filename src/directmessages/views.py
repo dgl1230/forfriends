@@ -48,6 +48,12 @@ def delete_messages(request):
 	return HttpResponseRedirect(reverse('inbox'))
 
 
+def delete_individual_message(request, dm_id):
+	message = DirectMessage.objects.get(id=dm_id)
+	message.delete()
+	return HttpResponseRedirect(reverse('inbox'))
+
+
 
 ''' The logged in user creates a new message using ComposeForm. The logged in
 user can only send messages to users that have approved the logged in user for
