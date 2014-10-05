@@ -294,9 +294,6 @@ def generate_circle(request):
 
 	return HttpResponseRedirect(reverse('home'))
 
-
-
-
 def circle_distance(logged_in_user, preferred_distance):
 	user_gamification = Gamification.objects.get(user=logged_in_user)
 	current_circle = list(user_gamification.circle.all())
@@ -307,7 +304,7 @@ def circle_distance(logged_in_user, preferred_distance):
 	if matches.count() < 7:
 		return 0
 	i = 0
-	already_chosen = []
+	already_chosen = {}
 	user_gamification.clear()
 	max_match = matches.latest('id').id
 	while i < 6:
@@ -316,7 +313,7 @@ def circle_distance(logged_in_user, preferred_distance):
 			if random_index not in already_chosen:
 				random_match = matches[random_index]
 				user_gamification.circle.add(random_match)
-				already_chosen.append(random_index)
+				already_chosen[random_index] = random_index
 				i += 1
 		except:
 			pass
@@ -355,7 +352,7 @@ def calculate_circle(request):
 def circle_distance(logged_in_user):
 	matches_basic = Match.objects.filter(
 			Q(user1=logged_in_user) | Q(user2=logged_in_user)
-			).exclude(user1=logged_in_user, user2=logged_in_user)
+			).filter(are_friends=False).exclude(user1=logged_in_user, user2=logged_in_user)
 	matches_10m = matches_basic.filter(is_10_miles=True)
 	# if there are 10 users that live within ten miles, we calcualte their circle and break
 	# same for users with varying distances
