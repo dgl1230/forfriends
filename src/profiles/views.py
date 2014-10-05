@@ -103,7 +103,7 @@ def add_friend_discovery(request, username, page):
 		message = DirectMessage.objects.create(subject=subject, body=body, sender=requester, receiver=requested)
 		match.save()
 		message.save()
-		messages.success(request, "%s has received your request!") %(requested)
+
 
 	if (match.user2 == request.user and match.user2_approved == True and match.user1_approved == False):
 		requester = request.user
@@ -113,7 +113,7 @@ def add_friend_discovery(request, username, page):
 		message = DirectMessage.objects.create(subject=subject, body=body, sender=requester,receiver=requested)
 		match.save()
 		message.save()
-		messages.success(request, "%s has received your request!") %(requested)
+
 
 
 	if (match.user1_approved == True and match.user2_approved == True):
@@ -130,9 +130,8 @@ def add_friend_discovery(request, username, page):
 		match.save()
 		user1_message.save()
 		user2_message.save()
-		messages.success(request, "%s also is interested in being your friend - You can now message each other!" %username)
-	else:
-		messages.success(request, "%s has received your request. If %s is interested too, they will add you!" %(username, username))
+		
+	
 	single_user = User.objects.get(username=username)
 	match.save()
 	messages_in_inbox = DirectMessage.objects.filter(receiver=request.user)
