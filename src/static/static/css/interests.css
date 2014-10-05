@@ -206,17 +206,6 @@ footer{
 	margin: 0 30% 0 4%;
 }
 
-@media only screen and (min-width:975px){
-	.footer-container{
-		margin-left: 20%;
-	}
-}
-
-@media only screen and (min-width:1275px){
-	.footer-container{
-		margin-top:30%;
-	}
-}
 
 @media only screen and (min-width:900px){
 	#interests-wrapper .img-responsive{

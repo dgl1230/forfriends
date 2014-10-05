@@ -12,6 +12,9 @@
 	margin-bottom:0px!important;
 	min-width:150px!important;
 }
+.next_user_hidden span{
+	font-size:4em;
+}
 #content{
 	height:500px;
 	width:500px;
@@ -378,6 +381,12 @@
 	background: url(/static/img/profile/iphone_dark.png);
 	background-size:cover;
 	height:150px;
+}
+
+#message_button_not_friends{
+	background: url(/static/img/profile/iphone_dark.png)!important;
+	background-size:cover!important;
+	height:150px!important;
 }
 
 #delete_message_button, #message_button, #interests_button, #friend_button, #pictures_button, #message_button_not_friends {
