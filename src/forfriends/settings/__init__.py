@@ -1,5 +1,2 @@
 
-
-
-from .deployment_local import *
-
+from .local import *
