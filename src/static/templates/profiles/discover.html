@@ -21,25 +21,41 @@
 	<div class='row' id="interests-wrapper">
 			<div class="main_interests" id="main_interests">
 			<div class="discover-title">
-			
-			<h2>{{ user.username|title }}</h2>
-
-			<div id="new_user_body">
-					
-				{% for pic in user.userpicture_set.all %}
+			{% if not request.user == match.user1 %}  
+			<h2>{{ match.user1.username }}</h2>
+			<div id="new_user_body">    
+				{% for pic in match.user1.userpicture_set.all %}
+                {% if forloop.first %}
 					{% if pic.is_profile_pic or user.userpicture_set.all.count == 1 %}
 					<div id="myfriend_container">
 						<img src='{{ MEDIA_URL }}{{ pic }}' class='img' id="myfriend"/>
 					</div>
 					{% endif %}
+				{% endif %}
 				{% endfor %}
-				{% if not user.userpicture_set.all %}
+				{% if not match.user1.userpicture_set.all %}
 				<img src='{{ STATIC_URL }}img/avatar.png' class='img' id="myfriend"/>
 				{% endif %}
-				
+				{% endif %}
+			</div>	
+			{% if not request.user == match.user2 %}  
+			<h2>{{ match.user2.username }}</h2>
+			<div id="new_user_body">    
+				{% for pic in match.user2.userpicture_set.all %}
+                {% if forloop.first %}
+					{% if pic.is_profile_pic or user.userpicture_set.all.count == 1 %}
+					<div id="myfriend_container">
+						<img src='{{ MEDIA_URL }}{{ pic }}' class='img' id="myfriend"/>
+					</div>
+					{% endif %}
+				{% endif %}
+				{% endfor %}
+				{% if not match.user2.userpicture_set.all %}
+				<img src='{{ STATIC_URL }}img/avatar.png' class='img' id="myfriend"/>
+				{% endif %}
 			</div>	
 		</div>
-			
+			{% endif %}
 			{% if users.has_previous %}
 					<div class="previous_user"><a href="?page={{ users.previous_page_number }}"><span class='glyphicon glyphicon-arrow-left'></span></a></div>
 				{% else %}
@@ -123,23 +139,6 @@ $('#occ_panel').click(function() {
 });
 
 </script>
-{% if users.has_previous %}
-<script>
-
-$(document).keydown(function(e) {
-    switch(e.which) {
-        case 37: // left
-        
-        window.location = "?page={{ users.previous_page_number }}";
-        break;
-
-        default: return; // exit this handler for other keys
-    }
-    e.preventDefault(); // prevent the default action (scroll / move caret)
-});
-</script>
-
-{% endif %}
 {% if users.has_next %}
 
 <script>
