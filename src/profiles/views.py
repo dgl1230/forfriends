@@ -622,6 +622,7 @@ def handle_new_user(request):
 			).exclude(user1=request.user, user2=request.user).exclude(are_friends=True).filter(percent__gte=70)
 		num_matches = matches.count()
 		if num_matches >= 7:
+			matches_new = matches.order_by('?')[:7]
 			for match in matches:
 				user_gamification.circle.add(match)
 		else:
