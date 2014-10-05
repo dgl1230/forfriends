@@ -172,6 +172,7 @@ def new_user_interests(request):
 	if request.method == 'POST':
 		interest_id = request.POST['interest_id']
 
+		importance_level = request.POST['importance_level']
 		#user answer
 
 		#user = User.objects.get(id=request.user.id)
@@ -184,6 +185,7 @@ def new_user_interests(request):
 		#user answer save
 
 		answered, created = UserInterestAnswer.objects.get_or_create(user=request.user, interest=interest)
+		answered.importance_level = importance_level
 		answered.save()
 
 		interests_all = Interest.objects.exclude(userinterestanswer__user=request.user)

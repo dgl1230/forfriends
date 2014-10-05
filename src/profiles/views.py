@@ -48,7 +48,7 @@ def add_friend(request, username):
 		message = DirectMessage.objects.create(subject=subject, body=body, sender=requester, receiver=requested)
 		match.save()
 		message.save()
-		messages.success(request, "%s has received your request!") %(requested)
+
 
 	if (match.user2 == request.user and match.user2_approved == True and match.user1_approved == False):
 		requester = request.user
@@ -58,7 +58,7 @@ def add_friend(request, username):
 		message = DirectMessage.objects.create(subject=subject, body=body, sender=requester,receiver=requested)
 		match.save()
 		message.save()
-		messages.success(request, "%s has received your request!") %(requested)
+
 
 	if (match.user1_approved == True and match.user2_approved == True):
 		user1 = match.user1
@@ -74,7 +74,7 @@ def add_friend(request, username):
 		match.save()
 		user1_message.save()
 		user2_message.save()
-		messages.success(request, "%s also is interested in being your friend - You can now message each other!" %username)
+		
 	else:
 		messages.success(request, "%s has received your request. If %s is interested too, they will add you!" %(username, username))
 	single_user = User.objects.get(username=username)
@@ -290,7 +290,7 @@ def generate_circle(request):
 			except:
 				pass
 
-		user_gamification.circle_time_until_reset = datetime.now() 
+		user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 		user_gamification.save()
 		#messages.success(request, "We're sorry, but there aren't many users nearby you right now. We rested your circle as best we could, but you can reset it again if you'd like.")
 
@@ -324,97 +324,6 @@ def circle_distance(logged_in_user, preferred_distance):
 	user_gamification.save()
 	return 1
 
-
-
-
-'''
-def calculate_circle(request):
-	user_gamification = Gamification.objects.get(user=request.user)
-	# see if they have any value in the fields of their circle
-	try:
-		until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
-		until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
-	except:
-		# else we assign these values the current time
-		user_gamification.circle_time_until_reset = datetime.now()
-		user_gamification.icebreaker_until_reset = datetime.now()
-	
-	current_time = datetime.now() 
-	until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
-	hours_until_reset = int((until_next_reset - current_time).total_seconds() / 60 / 60)
-	if hours_until_reset <= 1: 
-		generate_circle(request.user)
-	else: 
-		messages.success(request, "sorry, you need to wait!")
-	return HttpResponseRedirect(reverse('home'))
-'''
-
-
-'''
-def circle_distance(logged_in_user):
-	matches_basic = Match.objects.filter(
-			Q(user1=logged_in_user) | Q(user2=logged_in_user)
-			).filter(are_friends=False).exclude(user1=logged_in_user, user2=logged_in_user)
-	matches_10m = matches_basic.filter(is_10_miles=True)
-	# if there are 10 users that live within ten miles, we calcualte their circle and break
-	# same for users with varying distances
-	if matches_10m.count() >= 10: 
-		matches = matches_10m.order_by('-percent')[:6]
-		user_gamification = Gamification.objects.get(user=logged_in_user)
-		user_gamification.circle.clear()
-		for match in matches: 
-			user_gamification.circle.add(match) 
-		user_gamification.circle_reset_started = datetime.now()
-		user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
-		user_gamification.save()
-		return 1
-	matches_20m = matches_basic.filter(is_20_miles=True)
-	if matches_20m.count() >= 10:
-		matches = matches_20m.order_by('-percent')[:6]
-		user_gamification = Gamification.objects.get(user=logged_in_user)
-		user_gamification.circle.clear()
-		for match in matches: 
-			user_gamification.circle.add(match) 
-		user_gamification.circle_reset_started = datetime.now()
-		user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
-		user_gamification.save()
-		return 1
-	matches_30m = matches_basic.filter(is_30_miles=True)
-	if matches_30m.count() >= 10:
-		matches = matches_30m.order_by('-percent')[:6]
-		user_gamification = Gamification.objects.get(user=logged_in_user)
-		user_gamification.circle.clear()
-		for match in matches: 
-			user_gamification.circle.add(match) 
-		user_gamification.circle_reset_started = datetime.now()
-		user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
-		user_gamification.save()
-		return 1
-	matches_40m = matches_basic.filter(is_40_miles=True)
-	if matches_40m.count() >= 10:
-		matches = matches_40m.order_by('-percent')[:6]
-		user_gamification = Gamification.objects.get(user=logged_in_user)
-		user_gamification.circle.clear()
-		for match in matches: 
-			user_gamification.circle.add(match) 
-		user_gamification.circle_reset_started = datetime.now()
-		user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
-		user_gamification.save()
-		return 1
-	matches_50m = matches_basic.filter(is_50_miles=True)
-	if matches_50m.count() >= 10:
-		matches = match_50m.order_by('-percent')[:6]
-		user_gamification = Gamification.objects.get(user=logged_in_user)
-		user_gamification.circle.clear()
-		for match in matches: 
-			user_gamification.circle.add(match) 
-		user_gamification.circle_reset_started = datetime.now()
-		user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
-		user_gamification.save()
-		return 1
-	else:
-		return 0 
-'''
 
 
 
