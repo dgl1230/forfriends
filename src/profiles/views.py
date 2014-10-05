@@ -629,7 +629,8 @@ def handle_new_user(request):
 			matches = Match.objects.filter(
 				Q(user1=request.user) | Q(user2=request.user)
 				).exclude(user1=request.user, user2=request.user).exclude(are_friends=True)
-			for match in matches:
+			matches_new = matches.order_by('?')[:7]
+			for match in matches_new:
 				user_gamification.circle.add(match)
 		
 		user_gamification.circle_time_until_reset = datetime.now()
