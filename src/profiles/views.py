@@ -615,7 +615,7 @@ def handle_new_user(request):
 
 		matches = Match.objects.filter(
 			Q(user1=request.user) | Q(user2=request.user)
-			).exclude(user1=request.user, user2=request.user).exclude(are_friends=True).filter(percentage__gte=70)
+			).exclude(user1=request.user, user2=request.user).exclude(are_friends=True).filter(percent__gte=70)
 		num_matches = match.count()
 		if num_matches >= 7:
 			for match in matches:
