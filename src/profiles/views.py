@@ -614,16 +614,16 @@ def handle_new_user(request):
 				match.save()
 
 		matches = Match.objects.filter(
-			Q(user1=logged_in_user) | Q(user2=logged_in_user)
-			).exclude(user1=logged_in_user, user2=logged_in_user).exclude(are_friends=True).filter(percentage__gte=70)
+			Q(user1=request.user) | Q(user2=request.user)
+			).exclude(user1=request.user, user2=request.user).exclude(are_friends=True).filter(percentage__gte=70)
 		num_matches = match.count()
 		if num_matches >= 7:
 			for match in matches:
 				user_gamification.circle.add(match)
 		else:
 			matches = Match.objects.filter(
-				Q(user1=logged_in_user) | Q(user2=logged_in_user)
-				).exclude(user1=logged_in_user, user2=logged_in_user).exclude(are_friends=True)
+				Q(user1=request.user) | Q(user2=request.user)
+				).exclude(user1=request.user, user2=request.user).exclude(are_friends=True)
 			for match in matches:
 				user_gamification.circle.add(match)
 		
