@@ -195,6 +195,7 @@ def new_user_interests(request):
 		answered.importance_level = importance_level
 		answered.save()
 
+		'''
 		interests_all = Interest.objects.filter(for_new_users=True)
 		paginator = Paginator(interests_all, 1)
 		importance_levels = ['Strongly Dislike', 'Dislike', 'Neutral', 'Like', 'Strongly Like']
@@ -208,10 +209,10 @@ def new_user_interests(request):
 		except EmptyPage:
 			#If page is out of range, deliver last page of results
 			interests = paginator.page(paginator.num_pages)
-
+		'''
 
 		user_interests = UserInterestAnswer.objects.filter(user=request.user)
-		if user_interests.count() == 5: 
+		if user_interests.count() >= 5: 
 			return HttpResponseRedirect(reverse('handle_new_user'))
 
 	return render_to_response('interests/new_user.html', locals(), context_instance=RequestContext(request))
@@ -228,4 +229,15 @@ def search_interests(request):
 	results = interest_queryset
 	return render_to_response('interests/search.html', locals(), context_instance=RequestContext(request))
 
+
+def search_user_interests(request, username):
+	try:
+		q = request.GET.get('q', '')
+	except: 
+		q = False
+	interest_queryset = Interest.objects.filter(
+		Q(interest__icontains=q)
+		).filter(userinterestanswer__user__username=single_user)
+	results = interest_queryset
+	return render_to_response('interests/search.html', locals(), context_instance=RequestContext(request))
 
