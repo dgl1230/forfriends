@@ -42,7 +42,7 @@ def all_interests(request, starting_interests=False):
 		if not interests_all:
 			interests_all = list(Interest.objects.exclude(userinterestanswer__user=request.user).filter(approved=True).order_by('?'))
 			cache.set('random_interests_%d' % request.session['random_interests'], interests_all, 100)
-			
+
 	paginator = Paginator(interests_all, 1)
 	importance_levels = ['Strongly Dislike', 'Dislike', 'Neutral', 'Like', 'Strongly Like']
 
@@ -158,7 +158,7 @@ def single_user_interests(request, username):
 
 
 def new_user_interests(request):
-	#interests_all = Interest.objects.filter(for_new_users=True)
+	interests_all = Interest.objects.filter(for_new_users=True)
 	'''
 	if not request.session.get('random_interests'):
 		request.session['random_interests']= request.user.id
@@ -167,7 +167,6 @@ def new_user_interests(request):
 		interests_all = list(Interest.objects.exclude(userinterestanswer__user=request.user).filter(approved=True).order_by('?'))
 		cache.set('random_interests_%d' % request.session['random_interests'], interests_all, 400)
 	'''
-	interests_all = Interest.objects.exclude(userinterestanswer__user=request.user).filter(approved=True).order_by('?')
 	paginator = Paginator(interests_all, 1)
 	importance_levels = ['Strongly Dislike', 'Dislike', 'Neutral', 'Like', 'Strongly Like']
 
