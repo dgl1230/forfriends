@@ -196,7 +196,7 @@ def new_user_interests(request):
 		answered.save()
 
 		user_interests = UserInterestAnswer.objects.filter(user=request.user)
-		if user_interests.count() = 5: 
+		if user_interests.count() == 5: 
 			return HttpResponseRedirect(reverse('handle_new_user'))
 
 		
