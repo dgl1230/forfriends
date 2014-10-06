@@ -991,10 +991,11 @@ def register_new_user(request):
 				if password == confirm_password:
 					try:
 						new_user = User.objects.get(email=email)
-					except:	
 						messages.error(request, "Sorry but this email is already associated with an account")
 						return render_to_response('home.html', locals(), context_instance=RequestContext(request))
-						
+					except:	
+						pass
+
 					new_user = User.objects.create(username=email_as_username, password=password)
 					new_user.set_password(password)
 					
