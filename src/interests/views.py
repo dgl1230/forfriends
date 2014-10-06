@@ -158,7 +158,7 @@ def single_user_interests(request, username):
 
 
 def new_user_interests(request):
-	interests_all = Interest.objects.filter(for_new_users=True)
+	interests_all = Interest.objects.filter(for_new_users=True).exclude(userinterestanswer__user=request.user)
 	'''
 	if not request.session.get('random_interests'):
 		request.session['random_interests']= request.user.id
