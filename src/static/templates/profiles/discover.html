@@ -14,12 +14,10 @@
 	</div>
 </div>
 {% endif %}
-
 <div class='row' id="interests-wrapper">
 	<div class="main_interests" id="main_interests">
-	<div class="discover-title">
 	{% if not request.user == match.user1 %}  
-	<h2>{{ match.user1.username }}</h2>
+	<h2 id="name_of_user">{{ match.user1.username }}</h2>
 	<div id="new_user_body">    
 		{% for pic in match.user1.userpicture_set.all %}
         {% if forloop.first %}
@@ -33,10 +31,71 @@
 		{% if not match.user1.userpicture_set.all %}
 		<img src='{{ STATIC_URL }}img/avatar.png' class='img' id="myfriend"/>
 		{% endif %}
+		</div>
+
+		{% if users.has_previous %}
+			<div class="previous_user"><a href="?page={{ users.previous_page_number }}"><span class='glyphicon glyphicon-arrow-left'></span></a></div>
+		{% else %}
+			<div class="previous_user_hidden"><a href=""><span class='glyphicon glyphicon-arrow-left'></span></a></div>
 		{% endif %}
-	</div>	
-	{% if not request.user == match.user2 %}  
-	<h2>{{ match.user2.username }}</h2>
+		{% if users.has_next %}
+			<div class="next_user" id="next_user" ontouchstart="touchStart(event,'main_interests');" ontouchend="touchEnd(event);" ontouchmove="touchMove(event);" ontouchcancel="touchCancel(event);"><a href="?page={{ users.next_page_number }}"><span class='glyphicon glyphicon-arrow-right'></span></a>
+			</div>
+		{% else %}
+			<div class="next_user_hidden"><a href=""><span class='glyphicon glyphicon-arrow-right'></a></span></div>
+		{% endif %}
+			{% if match.percent >= 90 %}
+			<h4 id="very_good">Excellent Match</h4>
+			{% elif match.percent >= 80 %}
+			<h4 id="good">Very Good Match</h4>
+			{% elif match.percent >= 60 %}
+			<h4 id="average">Good Match</h4>
+			{% elif match.percent >= 45 %}
+			<h4 id="weak">Average Match</h4>
+			{% else %}
+			<h4 id="very_weak">Weak Match</h4>
+			{% endif %}
+	<h4 id="location">{% for item in user.address_set.all %}
+		{{ item.city|title }}, {% if item.state|length == 2 %} {{ item.state|upper }} {% else %} {{ item.state|capfirst }} {% endif %}
+		{% endfor %}
+		{% ifnotequal match.distance 10000000 %}
+		{{ match.distance|floatformat:"0" }} miles away
+		{% endifnotequal %}
+	</h4>
+</div>
+	<a class='hidden' id='view_buttons'>View More</a>
+	<a class='btn-success' id='view_info'>View Info</a>
+	<br>
+<div id="flip_card">
+	<div class="row" id="buttons_row">
+		<div class="buttons">	
+			{% if match.user1_approved == True and match.user2_approved == True %}
+			<a  class="btn btn-default btn" id="friend_button" title="You are friends!"><p>Friends</p></a>
+			<a class="btn btn-default btn" id="message_button" data-toggle="tooltip" data-placement="top" href='{% url "su_compose" match.user1.username %}'><p>Send Message</p></a>
+			{% elif match.user1_approved == True and match.user1 == request.user %}
+			<a class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
+			<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message<br>(Must be friends)</p></a>
+			{% elif match.user2_approved == True and match.user2 == request.user %}
+			<a class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
+			<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message<br>(Must be friends)</p></a>
+			{% else %}
+			<a class="btn btn-default btn" id="friend_button"><p id="add_me">Add Friend</p></a>
+			<script>
+			$('#friend_button').click(function(){
+				$('#add_me').text("Request Sent");
+				$.get('{% url "add_friend_discovery" match.user1.username page %}');
+			});
+			</script>
+			<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message<br>(Must be friends)</p></a>
+			{% endif %}
+			<a class="btn btn-default btn" id="interests_button" href="/members/{{ single_user.username}}/interests/"><p>View Interests</p></a>
+			<a class="btn btn-default btn" id="pictures_button" href="/members/{{ single_user.username}}/pictures/"><p>Browse Pictures</p></a>
+		</div>
+	</div>
+</div>
+	{% endif %}  
+	{% if not request.user == match.user2 %} 
+	<h2 id="name_of_user">{{ match.user2.username }}</h2>
 	<div id="new_user_body">    
 		{% for pic in match.user2.userpicture_set.all %}
         {% if forloop.first %}
@@ -51,74 +110,70 @@
 		<img src='{{ STATIC_URL }}img/avatar.png' class='img' id="myfriend"/>
 		{% endif %}
 	</div>	
-</div>
-	{% endif %}
+
 	{% if users.has_previous %}
 			<div class="previous_user"><a href="?page={{ users.previous_page_number }}"><span class='glyphicon glyphicon-arrow-left'></span></a></div>
 		{% else %}
-			<div class="previous_user_hidden"><span class='glyphicon glyphicon-arrow-left'></span></div>
+			<div class="previous_user_hidden"><a href=""><span class='glyphicon glyphicon-arrow-left'></span></a></div>
 		{% endif %}
 		{% if users.has_next %}
 			<div class="next_user" id="next_user" ontouchstart="touchStart(event,'main_interests');" ontouchend="touchEnd(event);" ontouchmove="touchMove(event);" ontouchcancel="touchCancel(event);"><a href="?page={{ users.next_page_number }}"><span class='glyphicon glyphicon-arrow-right'></span></a>
 			</div>
 		{% else %}
-			<div class="next_user_hidden"><span class='glyphicon glyphicon-arrow-right'></span></div>
+			<div class="next_user_hidden"><a href=""><span class='glyphicon glyphicon-arrow-right'></a></span></div>
 		{% endif %}
 			{% if match.percent >= 90 %}
-			<h3 id="very_good">Excellent Match</h3>
+			<h4 id="very_good">Excellent Match</h4>
 			{% elif match.percent >= 80 %}
-			<h3 id="good">Very Good Match</h3>
+			<h4 id="good">Very Good Match</h4>
 			{% elif match.percent >= 60 %}
-			<h3 id="average">Good Match</h3>
+			<h4 id="average">Good Match</h4>
 			{% elif match.percent >= 45 %}
-			<h3 id="weak">Average Match</h3>
+			<h4 id="weak">Average Match</h4>
 			{% else %}
-			<h3 id="very_weak">Weak Match</h3>
+			<h4 id="very_weak">Weak Match</h4>
 			{% endif %}
-	<h3 id="location">{% for item in user.address_set.all %}
+	<h4 id="location">{% for item in user.address_set.all %}
 		{{ item.city|title }}, {% if item.state|length == 2 %} {{ item.state|upper }} {% else %} {{ item.state|capfirst }} {% endif %}
 		{% endfor %}
 		{% ifnotequal match.distance 10000000 %}
 		{{ match.distance|floatformat:"0" }} miles away
 		{% endifnotequal %}
-	</h3>
-</div>
+	</h4>
+
 <a class='hidden' id='view_buttons'>View More</a>
 	<a class='btn-success' id='view_info'>View Info</a>
 	<br>
 <div id="flip_card">
 	<div class="row" id="buttons_row">
-		<div class="buttons">
+		<div class="buttons">	
 			{% if match.user1_approved == True and match.user2_approved == True %}
 			<a  class="btn btn-default btn" id="friend_button" title="You are friends!"><p>Friends</p></a>
-			<a class="btn btn-default btn" id="message_button" data-toggle="tooltip" data-placement="top" href='{% url "su_compose" single_user.username %}'><p>Send Message</p></a>
+			<a class="btn btn-default btn" id="message_button" data-toggle="tooltip" data-placement="top" href='{% url "su_compose" match.user1.username %}'><p>Send Message</p></a>
 			{% elif match.user1_approved == True and match.user1 == request.user %}
-			<a  class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
+			<a class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
 			<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message<br>(Must be friends)</p></a>
 			{% elif match.user2_approved == True and match.user2 == request.user %}
 			<a class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
 			<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message<br>(Must be friends)</p></a>
 			{% else %}
-			<a  class="btn btn-default btn" id="friend_button"><p id="add_me">Add Friend</p></a>
+			<a class="btn btn-default btn" id="friend_button"><p id="add_me">Add Friend</p></a>
 			<script>
 			$('#friend_button').click(function(){
 				$('#add_me').text("Request Sent");
-				$.get('{% url "add_friend_discovery" user.username page %}');
+				$.get('{% url "add_friend_discovery" match.user2.username page %}');
 			});
 			</script>
-			<a class="btn btn-default btn" id="	message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message<br>(Must be friends)</p></a>
+			<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message<br>(Must be friends)</p></a>
 			{% endif %}
 			<a class="btn btn-default btn" id="interests_button" href="/members/{{ single_user.username}}/interests/"><p>View Interests</p></a>
 			<a class="btn btn-default btn" id="pictures_button" href="/members/{{ single_user.username}}/pictures/"><p>Browse Pictures</p></a>
 		</div>
 	</div>
 	</div>
-	</div>
-	</div>
-	</div>
-</div>
-</div>
 
+</div>
+{% endif %}
 
 <script>
 $('#bio_panel').click(function() {
@@ -128,8 +183,8 @@ $('#bio_panel').click(function() {
 $('#occ_panel').click(function() {
 	$('#occ_body').slideToggle("fast");
 });
-
 </script>
+
 {% if users.has_next %}
 
 <script>
@@ -144,7 +199,7 @@ $('#occ_panel').click(function() {
     e.preventDefault(); // prevent the default action (scroll / move caret)
 });
 </script>
-
+{% endif %}
 <script>
 $(document).ready( function() {
 	$("#load_home").on("click", function() {
@@ -173,5 +228,5 @@ $('#view_buttons').click(function(){
 
 
 </script>
-{% endif %}
+
 {% endblock %}

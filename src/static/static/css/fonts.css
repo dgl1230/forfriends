@@ -1,0 +1,97 @@
+html{
+	font-size:62.5%!important;
+}
+
+p{
+	font-family: "Droid serif", serif;
+}
+.new_user_guide{
+	max-width: 450px;
+	font-size:1.2rem;
+	margin:0 auto;
+}
+
+#question_answers label{
+	font-weight:300;
+	font-size:1.4rem;
+}
+
+#question-wrapper h3{
+	font-size:2.1rem!important;
+	padding: 0px 20px 0px 20px;
+	width:90%;
+	margin:0 auto;
+}
+
+#secondary_navbar h1{
+	font-size:4.0rem!important;
+}
+
+.col-lg-4 a{
+	color: black;
+	font-size: 1.2em;
+}
+
+#myfriend a{
+	color: black;
+	font-size: 1.125em;
+}
+
+h3{
+	line-height:1.5em;
+}
+h1, h2, h3, h5, a{
+	font-family: 'Roboto', sans-serif;
+}
+h1{
+	color: #404040!important;
+	letter-spacing:.05em;
+    font-weight: 100!important;
+}
+
+p, form{
+	font-family: 'Droid Serif', serif;
+	outline:none;
+}
+
+#myfriend #match{
+	font-size: 1.125em;
+}
+
+@media (max-width:450px){
+	#interests-wrapper h2{
+		font-size:1.25em;
+	}
+  	h1{
+  	font-size: 2em;
+	}
+  	a{
+  	font-size:1em;
+  	}
+}
+
+@media (min-width: 1200px) {
+	#question-wrapper label{
+		font-size:18px;
+		font-weight: 500;
+	}
+	#question-wrapper h3{
+		font-size:24px;
+	}
+
+	#secondary_navbar h1{
+		font-size:40px;
+	}
+}
+
+ @media (max-width: 650px) {
+ 	#myfriend a{
+	font-size: 1em;
+	}
+	#myfriend #match{
+	font-size: 1em;
+	}
+	.buttons a{
+		font-size:1.5rem!important;
+	}
+}

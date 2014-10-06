@@ -12,6 +12,9 @@
 	margin-bottom:0px!important;
 	min-width:150px!important;
 }
+.next_user_hidden span{
+	font-size:4.2rem;
+}
 #content{
 	height:500px;
 	width:500px;
@@ -41,7 +44,7 @@
 
 .previous_user a{
 	color:black!important;
-	font-size:4em;
+	font-size:4.2rem;
 }
 
 .previous_user_hidden{
@@ -51,7 +54,8 @@
 }
 
 .previous_user_hidden span{
-	font-size:4em;
+	font-size:4.2rem;
+	padding-bottom:30px!important;
 }
 .previous_user a:hover{
 	color:#1FBAD6!important;
@@ -67,12 +71,13 @@
 }
 
 .next_user_hidden span{
-	font-size:4em;
+	font-size:4.2rem;
+	padding-bottom:30px!important;
 }
 
 .next_user a{
 	color:black!important;
-	font-size:4em;
+	font-size:4.2rem;
 }
 
 .next_user a:hover{
@@ -81,10 +86,14 @@
 
 .next_user span{
 	padding-right:20px;
+	padding-bottom:30px!important;
 }
+h4{
 
+}
 .previous_user span{
 	padding-left:20px;
+	padding-bottom:30px!important;
 }
 
 #new_user_body{
@@ -101,9 +110,10 @@
 	background-color:#f8f8f8;
 }
 
-#single_user_container h3{
+#single_user_container h4{
 	text-align: center;
 	margin: 0 auto;
+	font-size:1.8rem;
 }
 .img-responsive{
 	width: 175px;
@@ -268,6 +278,7 @@
 	}
 	#single_user_container h3{
 		font-size: 1.25em;
+	}
 }
 
 @media(max-width: 380px){
@@ -378,6 +389,12 @@
 	background: url(/static/img/profile/iphone_dark.png);
 	background-size:cover;
 	height:150px;
+}
+
+#message_button_not_friends{
+	background: url(/static/img/profile/iphone_dark.png)!important;
+	background-size:cover!important;
+	height:150px!important;
 }
 
 #delete_message_button, #message_button, #interests_button, #friend_button, #pictures_button, #message_button_not_friends {
