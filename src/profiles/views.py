@@ -990,17 +990,18 @@ def register_new_user(request):
 		if email and password:
 				if password == confirm_password:
 					try:
-						new_user,created = User.objects.get_or_create(username=email_as_username, password=password)
+						new_user = User.objects.get(email=email)
 					except:	
-						messages.error(request, "Sorry but this username is already taken")
+						messages.error(request, "Sorry but this email is already associated with an account")
 						return render_to_response('home.html', locals(), context_instance=RequestContext(request))
-					if created:
-						new_user.set_password(password)
 						
-						new_user.save()
-						new_user = authenticate(username=email_as_username, password=password)
-						login(request, new_user)
-						return HttpResponseRedirect(reverse('new_user_info'))
+					new_user = User.objects.create(username=email_as_username, password=password)
+					new_user.set_password(password)
+					
+					new_user.save()
+					new_user = authenticate(username=email_as_username, password=password)
+					login(request, new_user)
+					return HttpResponseRedirect(reverse('new_user_info'))
 				else:
 					messages.error(request, "Please make sure both passwords match")
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
