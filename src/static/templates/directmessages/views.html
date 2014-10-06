@@ -35,7 +35,7 @@
 			</td>
 			<td>{{ message.body }}</td>
 			<td>
-				<span id="individual_trash" class="glyphicon glyphicon-trash" style="color:black" href="{% url 'delete_individual_message' message.id %}"></span>
+				<a href="{% url 'delete_individual_message' message.id %}"><span id="individual_trash" class="glyphicon glyphicon-trash" style="color:black"></span></a>
 			</td>
 		</body>
 		</table>

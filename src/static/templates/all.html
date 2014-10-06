@@ -1,9 +1,5 @@
 {% extends 'base.html' %}
 {% block content %}
-
-    
-     
-     
     <script src="{{ STATIC_URL }}js/FWDRoyal3DCarousel.js" type="text/javascript"></script>
     <script src="{{ STATIC_URL }}js/3dcarousel/initiate.js" type="text/javascript"></script>
     <script>
@@ -124,12 +120,12 @@
         {% if can_they_reset == True %}
         <a class="login_button" href='{% url "generate_circle" %}'>Find a new Crowd!</a>
         {% else %}
-        <p> {{ hours_until_reset }} hours until you can find a new crowd! </p>
+        <p class="reset_button"> {{ hours_until_reset }} hours </p>
         {% endif %}
         {% if can_reset_icebreaker  == True %}
-        <a class="login_button" id="ice_breaker_button" >Do an icebreaker!</a>
+        <a class="login_button" id="ice_breaker_button">Do an icebreaker!</a>
         {% else %}
-        <p> {{ icebreaker_hours_until_reset }} hours until you can do an icebreaker! </p>
+        <p class="reset_button"> {{ icebreaker_hours_until_reset }} hours </p>
         {% endif %}
     </div>
     
@@ -141,10 +137,7 @@
 </div>
 </div>
 
-
-
-<div id="myDiv"></div>
-  
+<div id="myDiv"></div>  
     <!-- carousel data -->
     <div id="carouselData">
       

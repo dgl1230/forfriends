@@ -1,6 +1,6 @@
-footer p a{
+footer a{
 	text-decoration: none; 
-	color: #333;
+	color: black;
 
 }
 
@@ -10,9 +10,9 @@ footer p{
 	margin-left:15%;
 }
 
-footer p a:hover{
+footer a:hover{
 	text-decoration: none;
-	color: #333;
+	color: #1fbad6;
 	}
 
 footer{
@@ -22,10 +22,16 @@ footer{
 #contact_us{
 	float:right;
 	margin-right:15%;
-	color:black;
+	color: black;
+}
+
+#contact_us:hover{
+	color:#1fbad6;
 }
 
 .footer-container{
 	padding-top:20px;
 	padding-bottom:20px;
 }
+
+

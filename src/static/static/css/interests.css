@@ -1,7 +1,3 @@
-.interests-title h3{
-	font-size: 40px;
-}
-
 #interests-wrapper{
 	text-align: center;
 	min-width: 240px;
@@ -15,21 +11,9 @@
 	min-width:150px;
 	cursor:pointer;
 }
-
-#question_answers label{
-	font-weight:300;
-}
 #question-wrapper label:hover{
 	background-color:#a5e3ee;
 	border-radius:5px;
-}
-#question-wrapper h3{
-	font-size:1.25em;
-}
-.new_user_guide{
-	max-width: 450px;
-	font-size:1.2em;
-	margin:0 auto;
 }
 #question-wrapper.row{
 	min-width:100px;
@@ -317,8 +301,6 @@ footer{
 }
 .choice {
 }
-
-/* Star Animation 2 */
 .star-rating2 {
   font-size: 0;
   white-space: nowrap;

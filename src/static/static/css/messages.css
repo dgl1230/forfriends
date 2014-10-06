@@ -15,7 +15,7 @@
 	outline: 0;
 }
 .message_body{
-	width:90%;
+	width:100%;
 	height:100%;
 	float:right;
 }
@@ -23,14 +23,18 @@
 #selectall{
 	color:white!important;
 }
-
+#new_user_modal{
+	text-align: center;
+}
+.modal-footer{
+	text-align: center;	
+}
 #individual_trash{
 	cursor:pointer;
 }
 #hidden_trash{
 	visibility:hidden;
 }
-
 #message_modal_content{
 	color:black;
 }
@@ -61,7 +65,7 @@
 	margin-left:80px;
 }
 #message_container label{
-	width:90%;
+	width:100%;
 }
 
 #message_image{
@@ -208,7 +212,7 @@ input{
 #message_container{
 	margin-left:120px;
 	min-width:200px;
-	width:90%;
+	width:	90%;
 }
 
 @media (max-width: 402px){
