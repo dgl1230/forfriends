@@ -24,9 +24,6 @@
 		<div class='col col-sm-12'>
 			<h1 id="name_of_user">{{ single_user.username }}</h1>
 
-			
-
-			
 			{% for pic in single_user.userpicture_set.all %}
 				{% if pic.is_profile_pic or single_user.userpicture_set.all.count == 1 %}
 					<img src='{{ MEDIA_URL }}{{ pic }}' class='img' id="myfriend"/>
@@ -54,19 +51,18 @@
 		{% endif %}
 	{% endif %}
 		<h4 id="location">{% for item in user.address_set.all %}
-				{{ item.city|title }}, {% if item.state|length == 2 %} {{ item.state|upper }} {% else %} {{ item.state|capfirst }} {% endif %}
-				{% endfor %}
-				{% ifnotequal match.distance 10000000 %}
-				{% if not request.user == single_user %}
-				({{ match.distance|floatformat:"0" }} miles away)
-				{% endif %}
-				{% endifnotequal %}
+			{{ item.city|title }}, {% if item.state|length == 2 %} {{ item.state|upper }} {% else %} {{ item.state|capfirst }} {% endif %}
+			{% endfor %}
+			{% ifnotequal match.distance 10000000 %}
+			{% if not request.user == single_user %}
+			({{ match.distance|floatformat:"0" }} miles away)
+			{% endif %}
+			{% endifnotequal %}
 		</h4>
 		{% if not request.user == single_user %}
 		<a class='hidden' id='view_buttons'>View More</a>
 		<a class='btn-success' id='view_info'>View Info</a>
 		<br>
-		<div id="flip_card">
 		{% endif %}
 		{% if not request.user == single_user %}
 		<div class="row" id="buttons_row">
@@ -81,7 +77,7 @@
 				<a class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
 				<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message<br>(Must be friends)</p></a>
 				{% else %}
-				<a  class="btn btn-default btn" id="friend_button"><p id="add_me">Add Friend</p></a>
+				<a class="btn btn-default btn" id="friend_button"><p id="add_me">Add Friend</p></a>
 				<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message<br>(Must be friends)</p></a>
 				{% endif %}
 				<a class="btn btn-default btn" id="interests_button" href="/members/{{ single_user.username}}/interests/"><p>View Interests</p></a>
@@ -91,26 +87,11 @@
 			<div class='col-lg-6' id='single_user_body'><div class='panel panel-default'><div class='panel-heading' id='bio_panel'><p>Bio</p><span class='glyphicon glyphicon-chevron-down'></span><p id='info_edit'></p></div><div class='panel-body' id='bio_body'>{% for item in single_user.info_set.all %}{% if forloop.first %}{{item.bio}}{% endif %}{% endfor %}</div></div><div class='panel panel-default'><div class='panel-heading' id='occ_panel'><p>Occupation</p><span class='glyphicon glyphicon-chevron-down'></span><p id='info_edit'></p></div><div class='panel-body' id='occ_body'>{% for item in single_user.job_set.all %}{{item.position|title}}at{{item.employer|title}}{% endfor %}</div></div></div></div>
 		</div>
 	</div>	
-</div>
-
-
 <script>
 $('#friend_button').click(function(){
 	$('#add_me').text("Request Sent");
 	$.get('{% url "add_friend" single_user.username %}');	
 });
 </script>
-
-
-
-<!--<script>
-$(document).ready(function() {
-	$('#load_interests').on("click", function() {
-		$("#content").load("interests/single_user.html", function() { alert("Load was performed");
-		});
-	});
-});
-</script>
--->
 
 {% endblock %}
