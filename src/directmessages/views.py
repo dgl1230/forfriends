@@ -55,6 +55,19 @@ def delete_individual_message(request, dm_id):
 
 
 
+def delete_sent_messages(request):
+	messages_to_delete = request.POST.getlist('delete_messages')
+	DirectMessage.objects.filter(id__in=messages_to_delete).delete()
+	return HttpResponseRedirect(reverse('sent'))
+
+
+def delete_individual_sent_message(request, dm_id):
+	message = DirectMessage.objects.get(id=dm_id)
+	message.delete()
+	return HttpResponseRedirect(reverse('sent'))
+
+
+
 ''' The logged in user creates a new message using ComposeForm. The logged in
 user can only send messages to users that have approved the logged in user for
  friendship and that have also been approved by the logged in user. '''
@@ -80,7 +93,6 @@ def compose(request):
 			send_message.sender = request.user
 			send_message.sent = datetime.datetime.now()
 			send_message.save()
-			messages.success(request, "Message sent!")
 			return HttpResponseRedirect(reverse('inbox'))
 
 	return render_to_response('directmessages/compose.html', locals(), 
@@ -105,7 +117,6 @@ def su_compose(request, single_user):
 			send_message.receiver = su
 			send_message.sent = datetime.datetime.now()
 			send_message.save()
-			messages.success(request, "Message sent!")
 			return HttpResponseRedirect(reverse('inbox'))
 
 	return render_to_response('directmessages/su_compose.html', locals(), 
@@ -132,7 +143,6 @@ def reply(request, dm_id):
 		send_message.save()
 		parent.replied = True
 		parent.save()
-		messages.success(request, "Reply sent!")
 		#path = reverse('view_direct_message', args=dm_id)
 		#return HttpResponseRedirect(path)
 		messages_in_inbox = DirectMessage.objects.filter(sender=request.user)
@@ -159,7 +169,7 @@ def inbox(request):
 '''The logged in viewer views all messages that they have sent'''
 def sent(request):
 
-	messages_in_inbox = DirectMessage.objects.filter(sender=request.user)
+	messages_in_inbox = DirectMessage.objects.filter(sender=request.user).order_by('-sent')
 
 	return render_to_response('directmessages/sent.html', locals(), 
 									context_instance=RequestContext(request))
