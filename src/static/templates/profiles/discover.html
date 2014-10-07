@@ -16,19 +16,19 @@
 {% endif %}
 <div class='row' id="interests-wrapper">
 	<div class="main_interests" id="main_interests">
-	{% if not request.user == match.user1 %}  
-	<h2 id="name_of_user">{{ match.user1.username }}</h2>
+	{% if request.user == match.user1 %}  
+	<h2 id="name_of_user">{{ match.user2.username }}</h2>
 	<div id="new_user_body">    
-		{% for pic in match.user1.userpicture_set.all %}
+		{% for pic in match.user2.userpicture_set.all %}
         {% if forloop.first %}
-			{% if pic.is_profile_pic or user.userpicture_set.all.count == 1 %}
+			{% if pic.is_profile_pic or match.user2.userpicture_set.all.count == 1 %}
 			<div id="myfriend_container">
 				<img src='{{ MEDIA_URL }}{{ pic }}' class='img' id="myfriend"/>
 			</div>
 			{% endif %}
 		{% endif %}
 		{% endfor %}
-		{% if not match.user1.userpicture_set.all %}
+		{% if not match.user2.userpicture_set.all %}
 		<img src='{{ STATIC_URL }}img/avatar.png' class='img' id="myfriend"/>
 		{% endif %}
 		</div>
@@ -55,7 +55,7 @@
 			{% else %}
 			<h4 id="very_weak">Weak Match</h4>
 			{% endif %}
-	<h4 id="location">{% for item in user.address_set.all %}
+	<h4 id="location">{% for item in match.address_set.all %}
 		{{ item.city|title }}, {% if item.state|length == 2 %} {{ item.state|upper }} {% else %} {{ item.state|capfirst }} {% endif %}
 		{% endfor %}
 		{% ifnotequal match.distance 10000000 %}

@@ -336,7 +336,7 @@ def handle_new_user(request):
 		user_interests = 0
 		user_questions = 0
 	try: 
-		#if we get an error, then this means they signed up with google or facebook
+		# if we get an error, then this means they signed up with google or facebook
 		# so we need to get more info from them first 
 		address = Address.objects.get(user=request.user)
 		info = Info.objects.get(user=request.user)
@@ -344,6 +344,7 @@ def handle_new_user(request):
 	except: 
 		return HttpResponseRedirect(reverse('new_user_info'))
 	if user_interests.count() < 5:
+		print 1.5
 		return HttpResponseRedirect(reverse('new_user_interests'))
 	if user_questions.count() < 10: 
 		return HttpResponseRedirect(reverse('new_user_questions'))
@@ -434,14 +435,22 @@ def new_user_info(request):
 		username = username2.translate(None, '"')
 
 		bad_words = ['shit', 'cunt', 'fuck', 'nigger', 'kyke', 'dyke', 'fag', 'ass', 'rape', 
-			'murder', 'kill', 'gook', 'pussy', 'bitch', 'damn', 'hell', 'whore', 'slut', 
+			'murder', 'kill', 'gook', 'pussy', 'bitch', 'hell', 'whore', 'slut', 
 			'cum', 'jizz', 'clit', 'anal', 'cock', 'molest', 'necro', 'satan', 'devil', 
 			'pedo', 'negro', 'spic', 'beaner', 'chink', 'coon', 'kike', 'wetback', 'sex', 
-			'kidnap', 'penis', 'vagina', 'boobs', 'titties', 'sodom', 'kkk', 'nazi', 'klux']
+			'kidnap', 'penis', 'vagina', 'boobs', 'titties', 'sodom', 'kkk', 'nazi', 'klux', 
+			'dicksucker', 'rapist', 'anus', 'arse', 'bastard', 'tits', 'titties', 'blowjob', 
+			'boner', 'fister', 'butt', 'cameltoe', 'chink', 'coochie', 'coochy', 'bluewaffle', 
+			'cooter', 'dick', 'dildo', 'doochbag', 'douche', 'fellatio', 'feltch', 'flamer', 
+			'donkeypunch', 'fudgepacker', 'gooch', 'gringo', 'jerkoff', 'jigaboo', 'kooch', 
+			'kootch', 'kunt', 'kyke', 'dike', 'minge', 'munging', 'nigga', 'niglet', 'nutsack', 
+			'poon', 'pussies', 'pussy', 'queef', 'queer', 'rimjob', 'erection', 'schlong', 
+			'skeet', 'smeg', 'spick', 'splooge', 'spook', 'retard', 'testicle', 'tit', 'twat', 
+			'vajayjay', 'wankjob', 'bimbo', '69', 'fistr', 'fist3r']
 
 		for word in bad_words:
 			if word in username:
-				messages.success(request, "We're sorry but some people might find your username offensive. Please pick a different username.")
+				messages.success(request, "We're really sorry, but some people might find your username offensive. Please pick a different username.")
 				return HttpResponseRedirect(reverse('home'))
 		if len(username) >= 30:
 			messages.error(request, "We're sorry but your username can't be longer than 30 characters")
@@ -493,6 +502,12 @@ def new_user_info(request):
 			new_info.signed_up_with_fb_or_goog = False
 			new_info.save()
 			new_address.save()
+			try: 
+				user = User.objects.get(username=username)
+				messages.error(request, "We're sorry, but that user name is already taken!")
+				return HttpResponseRedirect(reverse('handle_new_user'))
+			except:
+				pass
 			request.user.username = username
 			request.user.save()
 			user = authenticate(username=request.user.username, password=request.user.password)

@@ -56,6 +56,7 @@
 		{% else %}
 		<h4 id="very_weak">Weak Match</h4>
 		{% endif %}
+	
 		<h4 id="location">{% for item in user.address_set.all %}
 				{{ item.city|title }}, {% if item.state|length == 2 %} {{ item.state|upper }} {% else %} {{ item.state|capfirst }} {% endif %}
 				{% endfor %}

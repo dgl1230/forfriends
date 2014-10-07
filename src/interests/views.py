@@ -47,7 +47,7 @@ def all_interests(request, starting_interests=False):
 	importance_levels = ['Strongly Dislike', 'Dislike', 'Neutral', 'Like', 'Strongly Like']
 
 	page = request.GET.get('page')
-	print page
+	print "accessing all interests"
 	try:
 		interests = paginator.page(page)
 	except PageNotAnInteger:
@@ -181,6 +181,7 @@ def new_user_interests(request):
 		interests = paginator.page(paginator.num_pages)
 
 	if request.method == 'POST':
+		print "accessing post"
 		interest_id = request.POST['interest_id']
 
 		importance_level = request.POST['importance_level']
