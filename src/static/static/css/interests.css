@@ -11,6 +11,9 @@
 	min-width:150px;
 	cursor:pointer;
 }
+.star-rating2 input{
+	cursor: default;
+}
 #question-wrapper label:hover{
 	background-color:#a5e3ee;
 	border-radius:5px;
@@ -335,7 +338,7 @@ footer{
   padding: 0;
   z-index: 2;
   position: relative;
-  cursor:pointer;
+  cursor:default!important;
 }
 .star-rating2 input:checked + i {
   opacity: 1;

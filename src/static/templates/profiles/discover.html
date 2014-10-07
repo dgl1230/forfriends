@@ -16,97 +16,20 @@
 {% endif %}
 <div class='row' id="interests-wrapper">
 	<div class="main_interests" id="main_interests">
-	{% if request.user == match.user1 %}  
-	<h2 id="name_of_user">{{ match.user2.username }}</h2>
+	<h2 id="name_of_user">{{ single_user.username }}</h2>
 	<div id="new_user_body">    
-		{% for pic in match.user2.userpicture_set.all %}
+		{% for pic in single_user.userpicture_set.all %}
         {% if forloop.first %}
-			{% if pic.is_profile_pic or match.user2.userpicture_set.all.count == 1 %}
+			{% if pic.is_profile_pic or single_user.userpicture_set.all.count == 1 %}
 			<div id="myfriend_container">
 				<img src='{{ MEDIA_URL }}{{ pic }}' class='img' id="myfriend"/>
 			</div>
 			{% endif %}
 		{% endif %}
 		{% endfor %}
-		{% if not match.user2.userpicture_set.all %}
-		<img src='{{ STATIC_URL }}img/avatar.png' class='img' id="myfriend"/>
-		{% endif %}
-		</div>
 
-		{% if users.has_previous %}
-			<div class="previous_user"><a href="?page={{ users.previous_page_number }}"><span class='glyphicon glyphicon-arrow-left'></span></a></div>
-		{% else %}
-			<div class="previous_user_hidden"><a href=""><span class='glyphicon glyphicon-arrow-left'></span></a></div>
-		{% endif %}
-		{% if users.has_next %}
-			<div class="next_user" id="next_user" ontouchstart="touchStart(event,'main_interests');" ontouchend="touchEnd(event);" ontouchmove="touchMove(event);" ontouchcancel="touchCancel(event);"><a href="?page={{ users.next_page_number }}"><span class='glyphicon glyphicon-arrow-right'></span></a>
-			</div>
-		{% else %}
-			<div class="next_user_hidden"><a href=""><span class='glyphicon glyphicon-arrow-right'></a></span></div>
-		{% endif %}
-			{% if match.percent >= 90 %}
-			<h4 id="very_good">Excellent Match</h4>
-			{% elif match.percent >= 80 %}
-			<h4 id="good">Very Good Match</h4>
-			{% elif match.percent >= 60 %}
-			<h4 id="average">Good Match</h4>
-			{% elif match.percent >= 45 %}
-			<h4 id="weak">Average Match</h4>
-			{% else %}
-			<h4 id="very_weak">Weak Match</h4>
-			{% endif %}
-	<h4 id="location">{% for item in match.address_set.all %}
-		{{ item.city|title }}, {% if item.state|length == 2 %} {{ item.state|upper }} {% else %} {{ item.state|capfirst }} {% endif %}
-		{% endfor %}
-		{% ifnotequal match.distance 10000000 %}
-		{{ match.distance|floatformat:"0" }} miles away
-		{% endifnotequal %}
-	</h4>
-</div>
-	<a class='hidden' id='view_buttons'>View More</a>
-	<a class='btn-success' id='view_info'>View Info</a>
-	<br>
-<div id="flip_card">
-	<div class="row" id="buttons_row">
-		<div class="buttons">	
-			{% if match.user1_approved == True and match.user2_approved == True %}
-			<a  class="btn btn-default btn" id="friend_button" title="You are friends!"><p>Friends</p></a>
-			<a class="btn btn-default btn" id="message_button" data-toggle="tooltip" data-placement="top" href='{% url "su_compose" match.user1.username %}'><p>Send Message</p></a>
-			{% elif match.user1_approved == True and match.user1 == request.user %}
-			<a class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
-			<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message<br>(Must be friends)</p></a>
-			{% elif match.user2_approved == True and match.user2 == request.user %}
-			<a class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
-			<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message<br>(Must be friends)</p></a>
-			{% else %}
-			<a class="btn btn-default btn" id="friend_button"><p id="add_me">Add Friend</p></a>
-			<script>
-			$('#friend_button').click(function(){
-				$('#add_me').text("Request Sent");
-				$.get('{% url "add_friend_discovery" match.user1.username page %}');
-			});
-			</script>
-			<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message<br>(Must be friends)</p></a>
-			{% endif %}
-			<a class="btn btn-default btn" id="interests_button" href="/members/{{ single_user.username}}/interests/"><p>View Interests</p></a>
-			<a class="btn btn-default btn" id="pictures_button" href="/members/{{ single_user.username}}/pictures/"><p>Browse Pictures</p></a>
-		</div>
-	</div>
-</div>
-	{% endif %}  
-	{% if not request.user == match.user2 %} 
-	<h2 id="name_of_user">{{ match.user2.username }}</h2>
-	<div id="new_user_body">    
-		{% for pic in match.user2.userpicture_set.all %}
-        {% if forloop.first %}
-			{% if pic.is_profile_pic or user.userpicture_set.all.count == 1 %}
-			<div id="myfriend_container">
-				<img src='{{ MEDIA_URL }}{{ pic }}' class='img' id="myfriend"/>
-			</div>
-			{% endif %}
-		{% endif %}
-		{% endfor %}
-		{% if not match.user2.userpicture_set.all %}
+		{% if not single_user.userpicture_set.all %}
+
 		<img src='{{ STATIC_URL }}img/avatar.png' class='img' id="myfriend"/>
 		{% endif %}
 	</div>	
@@ -140,11 +63,7 @@
 		{{ match.distance|floatformat:"0" }} miles away
 		{% endifnotequal %}
 	</h4>
-
-<a class='hidden' id='view_buttons'>View More</a>
-	<a class='btn-success' id='view_info'>View Info</a>
 	<br>
-<div id="flip_card">
 	<div class="row" id="buttons_row">
 		<div class="buttons">	
 			{% if match.user1_approved == True and match.user2_approved == True %}
@@ -157,23 +76,20 @@
 			<a class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
 			<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message<br>(Must be friends)</p></a>
 			{% else %}
-			<a class="btn btn-default btn" id="friend_button"><p id="add_me">Add Friend</p></a>
-			<script>
-			$('#friend_button').click(function(){
-				$('#add_me').text("Request Sent");
-				$.get('{% url "add_friend_discovery" match.user2.username page %}');
-			});
-			</script>
+			<a href='{% url "add_friend_discovery" single_user.username page %}' class="btn btn-default btn" id="friend_button"><p id="add_me">Add Friend</p></a>
 			<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message<br>(Must be friends)</p></a>
 			{% endif %}
 			<a class="btn btn-default btn" id="interests_button" href="/members/{{ single_user.username}}/interests/"><p>View Interests</p></a>
 			<a class="btn btn-default btn" id="pictures_button" href="/members/{{ single_user.username}}/pictures/"><p>Browse Pictures</p></a>
 		</div>
+		<a class='hidden' id='view_buttons'>View More</a>
+		<a class='btn-success' id='view_info'>View Info</a>
+	
+		<div id="information">
+			<div class='col-lg-6' id='single_user_body'><div class='panel panel-default'><div class='panel-heading' id='bio_panel'><p>Bio</p><span class='glyphicon glyphicon-chevron-down'></span><p id='info_edit'></p></div><div class='panel-body' id='bio_body'>{% for item in single_user.info_set.all %}{% if forloop.first %}{{item.bio}}{% endif %}{% endfor %}</div></div><div class='panel panel-default'><div class='panel-heading' id='occ_panel'><p>Occupation</p><span class='glyphicon glyphicon-chevron-down'></span><p id='info_edit'></p></div><div class='panel-body' id='occ_body'>{% for item in single_user.job_set.all %}{{item.position|title}}at{{item.employer|title}}{% endfor %}</div></div></div></div>
+		</div>
+		</div>
 	</div>
-	</div>
-
-</div>
-{% endif %}
 
 <script>
 $('#bio_panel').click(function() {
@@ -208,22 +124,20 @@ $(document).ready( function() {
 });
 </script>
 
+
 <script>
-var front = document.getElementById('flip_card')
-  , back_content = "<div class='col-lg-6' id='single_user_body'><div class='panel panel-default'><div class='panel-heading' id='bio_panel'><p>Bio</p><span class='glyphicon glyphicon-chevron-down'></span><p id='info_edit'></p></div><div class='panel-body' id='bio_body'>{% for item in single_user.info_set.all %}{% if forloop.first %}{{item.bio}}{% endif %}{% endfor %}</div></div><div class='panel panel-default'><div class='panel-heading' id='occ_panel'><p>Occupation</p><span class='glyphicon glyphicon-chevron-down'></span><p id='info_edit'></p></div><div class='panel-body' id='occ_body'>{% for item in single_user.job_set.all %}{{item.position|title}}at{{item.employer|title}}{% endfor %}</div></div></div></div>" // Generate or pull any HTML you want for the back.
-  , back
 
 $('#view_info').click(function(){
 	$(this).addClass("hidden");
 	$('#view_buttons').removeClass("hidden");
-	back = flippant.flip(front, back_content)
+	$('#information').fadeIn();
 });
 
 var close_event = new CustomEvent('close')
 $('#view_buttons').click(function(){
 	$(this).addClass("hidden");
 	$('#view_info').removeClass("hidden")
-	back.dispatchEvent(close_event)
+	$('#information').fadeOut();
 });
 
 
