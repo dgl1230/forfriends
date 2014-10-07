@@ -64,6 +64,10 @@
 	width:100px;
 	margin-top: 0px!important
 }
+
+#information{
+	display:none;
+}
 #view_buttons, #view_more{
 	float:left;
 	margin-top:0px!important;
