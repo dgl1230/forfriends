@@ -18,7 +18,9 @@
 	font-size:14px;
 	font-weight:500;
 }
-
+.reset_button{
+	cursor:default;
+}
 .login_button:hover{
 	background-color: #1FBAD6;
 	transition: background-color 0.5s ease 0s;
@@ -47,7 +49,6 @@
 .btn-lg, .btn-success, #view_buttons{
 	width: 100px;
 	background: #1FBAD6!important;
-	font-weight: bold;
 	color: white;
 	border: 0 none;
 	cursor: pointer;
@@ -56,22 +57,18 @@
 	margin-top: 20px;
 	padding: 4px 10px;
 	z-index:1000;
+
 }
 
-#view_info{
+#view_info, #view_buttons{
 	font-size:14px;
 	float:left;
 	width:100px;
-	margin-top: 0px!important
+	margin-top:20px;
+	margin-bottom:20px;
+	text-align: center;
 }
 
-#information{
-	display:none;
-}
-#view_buttons, #view_more{
-	float:left;
-	margin-top:0px!important;
-}
 
 #view_buttons, .btn-lg:hover, .btn-lg:focus, .btn-success:hover, .btn-success:focus{
 	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;

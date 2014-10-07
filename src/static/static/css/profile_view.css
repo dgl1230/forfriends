@@ -19,6 +19,17 @@
 	height:500px;
 	width:500px;
 }
+
+#information{
+	margin-top:30px;
+	margin-bottom:30px;
+	min-height:200px;
+}
+
+#information{
+	display:none;
+}
+
 .previous_user{
 	visibility:hidden
 }
@@ -189,8 +200,7 @@ h4{
 }
 .panel-heading{
 	background-color: rgb(31, 186, 214) !important;
-	padding: 10px 5px!important;
-	cursor:pointer;
+	padding: 5px 5px!important;
 }
 .panel-heading p{
 	color: white!important;
@@ -463,6 +473,9 @@ h4{
 	}
 	.previous_user span{
 		padding-top:10px;
+	}
+	#information{
+		margin-top:80px;
 	}
 
 }
