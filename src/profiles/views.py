@@ -534,15 +534,15 @@ on the single user page.
 '''
 
 
-
+'''
 def discover(request):
 	preferred_distance = 20
 	# first we check to see if a session exists
 	username = request.user.username
-	'''
-	if not request.session.get(username):
-		request.session[username] = username
-	'''
+	
+	#if not request.session.get(username):
+		#request.session[username] = username
+	
 	# we see if a cache exists
 	matches_all = cache.get(username)
 	if not matches_all:
@@ -594,11 +594,11 @@ def discover(request):
 
 	return render_to_response('profiles/discover.html', locals(), context_instance=RequestContext(request))
 
-
-
-
-
 '''
+
+
+
+
 def discover(request):
 	# first we check to see if a session exists
 	if not request.session.get('random_exp'):
@@ -615,7 +615,7 @@ def discover(request):
 	try:
 		if page != False:
 			users = paginator.page(page)
-			user = users.object_list[0]
+			single_user = users.object_list[0]
 			try: 
 				assert (user != request.user)
 			except: 
@@ -632,27 +632,7 @@ def discover(request):
 				match, created = Match.objects.get_or_create(user1=user, user2=request.user)
 			try:
 				match.distance = round(calc_distance(logged_in_user, user))
-				if match.distance <= 10:
-					match.percent = match_percentage(match.user1, match.user2)
-					match.is_10_miles = True
-					match.is_20_miles = True 
-					match.is_30_miles = True
-					match.is_40_miles = True
-					match.is_50_miles = True
-				elif match.distance <=20:
-					match.is_20_miles = True
-					match.is_30_miles = True
-					match.is_40_miles = True
-					match.is_50_miles = True
-				elif match.distance <=30:
-					match.is_30_miles = True
-					match.is_40_miles = True
-					match.is_50_miles = True
-				elif match.distance <=40:
-					match.is_40_miles = True
-					match.is_50_miles = True
-				elif match.distance <=50: 
-					match.is_50_miles = True
+				match.percent = match_percentage(match.user1, match.user2)
 			except:
 				# they have an invalid location
 				match.distance = 10000000
@@ -687,7 +667,7 @@ def discover(request):
 
 
 	return render_to_response('profiles/discover.html', locals(), context_instance=RequestContext(request))
-'''
+
 
 
 
