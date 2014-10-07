@@ -76,7 +76,7 @@
 			<a class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
 			<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message<br>(Must be friends)</p></a>
 			{% else %}
-			<a href='{% url "add_friend_discovery" single_user.username page %}' class="btn btn-default btn" id="friend_button"><p id="add_me">Add Friend</p></a>
+			<a class="btn btn-default btn" id="friend_button"><p id="add_me">Add Friend</p></a>
 			<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message<br>(Must be friends)</p></a>
 			{% endif %}
 			<a class="btn btn-default btn" id="interests_button" href="/members/{{ single_user.username}}/interests/"><p>View Interests</p></a>
@@ -124,7 +124,6 @@ $(document).ready( function() {
 });
 </script>
 
-
 <script>
 
 $('#view_info').click(function(){
@@ -141,6 +140,13 @@ $('#view_buttons').click(function(){
 });
 
 
+</script>
+
+<script>
+$('#friend_button').click(function(){
+	$('#add_me').text("Request Sent");
+	$.get('{% url "add_friend_discovery" single_user.username page %}');	
+});
 </script>
 
 {% endblock %}
