@@ -2,4 +2,4 @@
 
 
 
-from .deployment_local import *
+from .deployment import *

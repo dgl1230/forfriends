@@ -75,8 +75,7 @@ def add_friend(request, username):
 		user1_message.save()
 		user2_message.save()
 		
-	else:
-		messages.success(request, "%s has received your request. If %s is interested too, they will add you!" %(username, username))
+	
 	single_user = User.objects.get(username=username)
 	match.save()
 	if not DEBUG:
