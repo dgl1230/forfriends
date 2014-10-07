@@ -54,7 +54,7 @@
 			{% else %}
 			<h4 id="very_weak">Weak Match</h4>
 			{% endif %}
-	<h4 id="location">{% for item in user.address_set.all %}
+	<h4 id="location">{% for item in single_user.address_set.all %}
 		{{ item.city|title }}, {% if item.state|length == 2 %} {{ item.state|upper }} {% else %} {{ item.state|capfirst }} {% endif %}
 		{% endfor %}
 		{% ifnotequal match.distance 10000000 %}
@@ -123,7 +123,6 @@ $(document).ready( function() {
 </script>
 
 <script>
-
 $('#view_info').click(function(){
 	$(this).addClass("hidden");
 	$('#view_buttons').removeClass("hidden");
@@ -136,14 +135,12 @@ $('#view_buttons').click(function(){
 	$('#view_info').removeClass("hidden")
 	$('#information').fadeOut();
 });
-
-
 </script>
 
 <script>
 $('#friend_button').click(function(){
 	$('#add_me').text("Request Sent");
-	$.get('{% url "add_friend_discovery" single_user.username page %}');	
+	$.get('{% url "add_friend" single_user.username %}');	
 });
 </script>
 
