@@ -62,6 +62,7 @@
 		{% endifnotequal %}
 	</h4>
 	<br>
+	{% if not request.user == single_user %}
 	<div class="row" id="buttons_row">
 		<div class="buttons">	
 			{% if match.user1_approved == True and match.user2_approved == True %}
@@ -75,6 +76,12 @@
 			<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message<br>(Must be friends)</p></a>
 			{% else %}
 			<a class="btn btn-default btn" id="friend_button"><p id="add_me">Add Friend</p></a>
+			<script>
+			$('#friend_button').click(function(){
+				$('#add_me').text("Request Sent");
+				$.get('{% url "add_friend" single_user.username %}');	
+			});
+			</script>
 			<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message<br>(Must be friends)</p></a>
 			{% endif %}
 			<a class="btn btn-default btn" id="interests_button" href="/members/{{ single_user.username}}/interests/"><p>View Interests</p></a>
@@ -82,7 +89,7 @@
 		</div>
 		<a class='hidden' id='view_buttons'>View More</a>
 		<a class='btn-success' id='view_info'>View Info</a>
-	
+		{% endif %}
 		<div id="information">
 			<div class='col-lg-6' id='single_user_body'><div class='panel panel-default'><div class='panel-heading' id='bio_panel'><p>Bio</p><span class='glyphicon glyphicon-chevron-down'></span><p id='info_edit'></p></div><div class='panel-body' id='bio_body'>{% for item in single_user.info_set.all %}{% if forloop.first %}{{item.bio}}{% endif %}{% endfor %}</div></div><div class='panel panel-default'><div class='panel-heading' id='occ_panel'><p>Occupation</p><span class='glyphicon glyphicon-chevron-down'></span><p id='info_edit'></p></div><div class='panel-body' id='occ_body'>{% for item in single_user.job_set.all %}{{item.position|title}}at{{item.employer|title}}{% endfor %}</div></div></div></div>
 		</div>
@@ -114,13 +121,6 @@ $('#occ_panel').click(function() {
 });
 </script>
 {% endif %}
-<script>
-$(document).ready( function() {
-	$("#load_home").on("click", function() {
-		$("#single_user_container").load("single_user.html");
-	});
-});
-</script>
 
 <script>
 $('#view_info').click(function(){
@@ -137,11 +137,6 @@ $('#view_buttons').click(function(){
 });
 </script>
 
-<script>
-$('#friend_button').click(function(){
-	$('#add_me').text("Request Sent");
-	$.get('{% url "add_friend" single_user.username %}');	
-});
-</script>
+
 
 {% endblock %}
