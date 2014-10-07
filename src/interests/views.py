@@ -126,10 +126,10 @@ def edit_interests(request):
 		answered.importance_level = importance_level
 		answered.save()
 
-
 		interests_all = Interest.objects.filter(userinterestanswer__user=request.user)
 		paginator = Paginator(interests_all, 1)
-		importance_levels = ['Strongly DisLike', 'DisLike', 'Neutral', 'Like', 'Strongly Like']
+		importance_levels = ['Strongly Dislike', 'Dislike', 'Neutral', 'Like', 'Strongly Like']
+
 		page = request.GET.get('page')
 	
 		try:
@@ -140,6 +140,9 @@ def edit_interests(request):
 		except EmptyPage:
 		#If page is out of range, deliver last page of results
 			interests = paginator.page(paginator.num_pages)
+
+
+
 
 		
 	return render_to_response('interests/edit.html', locals(), context_instance=RequestContext(request))
