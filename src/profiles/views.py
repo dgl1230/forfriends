@@ -79,9 +79,9 @@ def add_friend(request, username):
 	single_user = User.objects.get(username=username)
 	match.save()
 	if not DEBUG:
-		return HttpResponseRedirect('http://www.frenvu.com/discover/?page=%s' % page)
+		return HttpResponseRedirect('http://www.frenvu.com/members/%s' % username)
 	else: 
-		return HttpResponseRedirect('http://127.0.0.1:8000/discover/?page=%s' % page)
+		return HttpResponseRedirect('http://127.0.0.1:8000/members/%s' % username)
 	
 	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))
 
