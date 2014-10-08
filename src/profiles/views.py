@@ -674,14 +674,14 @@ def discover(request):
 				new_page = page_int + 1
 				new_page_u = unicode(new_page)
 				users = paginator.page(new_page_u)
-				user = users.object_list[0]
+				single_user = users.object_list[0]
 
 			try: 
-				match = Match.objects.get(user1=request.user, user2=user)
+				match = Match.objects.get(user1=request.user, user2=single_user)
 			except: 
-				match, created = Match.objects.get_or_create(user1=user, user2=request.user)
+				match, created = Match.objects.get_or_create(user1=single_user, user2=request.user)
 			try:
-				match.distance = round(calc_distance(logged_in_user, user))
+				match.distance = round(calc_distance(request.user, single_user))
 			except:
 				# they have an invalid location
 				match.distance = 10000000
