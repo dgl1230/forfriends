@@ -170,9 +170,9 @@
               </div>
                   <div class="col-xs-6" id="login">
                       <div class="login">
-                        <h1 data-toggle="modal" data-target="#login_modal">Login with your username</h1>
+                        <h1 data-toggle="modal" data-target="#login_modal">Login with your username or email</h1>
                       <form method="post" action='{% url "login_user" %}'>{% csrf_token %}
-                      <p><input type="text" id="un" name="username" maxlength="40" value="" placeholder="Username" required></p>
+                      <p><input type="text" id="un" name="username" maxlength="40" value="" placeholder="Username or Email" required></p>
                       <p><input type="password" name="password" value="" placeholder="Password" required></p><br>
                       <p class="submit"><input type="submit" name="commit" value="Login"></p><br>
                       </form>
