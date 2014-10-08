@@ -1,19 +1,29 @@
 <!DOCTYPE html>
 <html lang="en"> 
   <head>
-    <meta name="google-site-verification" content="Ra4Fz1CLVqfxY0Q_NdungzTTevkn5tbNZxtIy3dCkTI" />
-    <!-- Basic -->
-    <meta charset="utf-8">
     <title>Frenvu{% block title %}{% endblock %}</title>
-    <!-- Mobile Specific Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">     
+    <meta name="google-site-verification" content="Ra4Fz1CLVqfxY0Q_NdungzTTevkn5tbNZxtIy3dCkTI" />
+    <!-- Basic Meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">   
+    <meta name="keywords" content="Friends, relationships, make, friend, online">
+    <meta name="Frenvu" content="">
+    <meta name="description" content="Make friends with cool people near you, without leaving your computer.">
+    <meta property="og:title" content="Frenvu. The place to meet people." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="http://www.logomaker.com/logo-images/0766a28f4ca4192e.gif" />
+    <meta property="og:url" content="http://www.frenvu.com/" />
+    <meta property="og:site_name" content="Frenvu" />
+    <meta property="fb:admins" content="nick.kebback.5" />  
+
+    <link rel="apple-touch-icon" href="/static/img/frenvu_logo-2circles.png">
       
     <!-- Libs CSS -->
 
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> 
     <!--<link href="{{ STATIC_URL }}css/landing/compressed_stylesheets.min.css" rel="stylesheet">  -->
     
-     <link href="{{ STATIC_URL }}css/landing/style.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/landing/style.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/landing/social_login.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/landing/features.css" rel="stylesheet"> 
     <link href="{{ STATIC_URL }}css/landing/animate.css" rel="stylesheet"> 
@@ -53,49 +63,49 @@
             <button class='login_button' data-toggle="modal" data-target="#login_modal">Login</button>
             <button class='login_button' data-toggle="modal" data-target="#new_user_modal">Sign up</button>
           </div>
-  </div>
-</div>
-                </ul>
-              </div>   <!-- End Footer Social Icons --> 
-            </div>
-          </header> <!-- End Header --> 
-          <div id="features">
-              <div class="post">
-                <div class="parallax2">
-                  <div class="postwords">
-                    <h1> What is Frenvu? </h1><br><h2> Frenvu is revolutionizing the process of making real world friends, online. </h2>
-                  </div>
-                </div>
-              </div>
-              <div class="post">
-                <div class="parallax3">
-                  <div class="postwords">
-                    <h2> All you need to do is say what you're interested in </h2>
-                  </div>
-                </div>
-              </div>
-              <div class="post">
-                <div class="parallax4">
-                  <div class="postwords">
-                    <h2> Answer some questions about yourself </h2>
-                  </div>
-                </div>
-              </div>
-              <div class="post">
-                <div class="parallax5">
-                  <div class="postwords">
-                    <h2> And get introduced to awesome people.</h2>
-                  </div>
-                </div>
-              </div>
-            <div class="post" id="sign_up_now">
-              <div class="parallax6">
-                <div class="postwords">
-                  <h2>Moving to a new city and don't know anyone? A couple clicks and you will.</h2>
-                </div>
-              </div>
+      </div>
+    </div>
+          </ul>
+        </div>   <!-- End Footer Social Icons --> 
+      </div>
+    </header> <!-- End Header --> 
+    <div id="features">
+        <div class="post">
+          <div class="parallax2">
+            <div class="postwords">
+              <h1> What is Frenvu? </h1><br><h2> Frenvu is revolutionizing the process of making real world friends, online. </h2>
             </div>
           </div>
+        </div>
+        <div class="post">
+          <div class="parallax3">
+            <div class="postwords">
+              <h2> All you need to do is say what you're interested in </h2>
+            </div>
+          </div>
+        </div>
+        <div class="post">
+          <div class="parallax4">
+            <div class="postwords">
+              <h2> Answer some questions about yourself </h2>
+            </div>
+          </div>
+        </div>
+        <div class="post">
+          <div class="parallax5">
+            <div class="postwords">
+              <h2> And get introduced to awesome people.</h2>
+            </div>
+          </div>
+        </div>
+      <div class="post" id="sign_up_now">
+        <div class="parallax6">
+          <div class="postwords">
+            <h2>Moving to a new city and don't know anyone? A couple clicks and you will.</h2>
+          </div>
+        </div>
+      </div>
+    </div>
   <div class="modal fade" id="new_user_modal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -162,8 +172,8 @@
                       <div class="login">
                         <h1 data-toggle="modal" data-target="#login_modal">Login with your username</h1>
                       <form method="post" action='{% url "login_user" %}'>{% csrf_token %}
-                      <p><input type="text" id="un" name="username" maxlength="40" value="" placeholder="Username"></p>
-                      <p><input type="password" name="password" value="" placeholder="Password"></p><br>
+                      <p><input type="text" id="un" name="username" maxlength="40" value="" placeholder="Username" required></p>
+                      <p><input type="password" name="password" value="" placeholder="Password" required></p><br>
                       <p class="submit"><input type="submit" name="commit" value="Login"></p><br>
                       </form>
                       <div class="login-help">

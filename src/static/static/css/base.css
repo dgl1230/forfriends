@@ -163,7 +163,6 @@ form {
 #myfriend{
 	width: auto;
 	height:300px;
-	max-width:450px;
 }
 
 a:hover{
@@ -185,14 +184,6 @@ a:hover{
 *:focus{
 	outline:0;
 }
-@media (max-width: 760px) {
-	#myfriend{
-		height:300px;
-	}
-	.previous_user, .previous_user_hidden, .next_user, .next_user_hidden{
-	}
-}
-
 /* Mobile Media Query */
 
 /* Profile */
@@ -269,5 +260,3 @@ a:hover{
 		margin-left:50px;
 	}
 }
-
-@media (max-width: 670px) {

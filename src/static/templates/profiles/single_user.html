@@ -35,7 +35,6 @@
 				<img src='{{ STATIC_URL }}img/avatar.png' class='img' id="myfriend" />
 			{% endif %}
 		</div>
-
 	</div>
 	{% if not request.user == single_user %}
 		{% if match.percent >= 90 %}
@@ -59,8 +58,8 @@
 			{% endif %}
 			{% endifnotequal %}
 		</h4>
-		{% if not request.user == single_user %}
 		<div class="row" id="buttons_row">
+		{% if not request.user == single_user %}
 			<div class="buttons">
 				{% if match.user1_approved == True and match.user2_approved == True %}
 				<a  class="btn btn-default btn" id="friend_button" title="You are friends!"><p>Friends</p></a>
@@ -80,8 +79,9 @@
 			</div>
 			{% endif %}
 			<div class='col-lg-6' id='single_user_body'>
-			<a class='hidden' id='view_buttons'>View More</a>
-			<a class='btn-success' id='view_info'>View Info</a>
+				<a class='hidden' id='view_buttons'>View More</a>
+				<a class='btn-success' id='view_info'>View Info</a>
+			</div>
 			<div id="information">
 				<div class='panel panel-default'><div class='panel-heading' id='bio_panel'><p>Bio</p></span><p id='info_edit'></p></div><div class='panel-body' id='bio_body'>{% for item in single_user.info_set.all %}{% if forloop.first %}{{item.bio}}{% endif %}{% endfor %}</div></div><div class='panel panel-default'><div class='panel-heading' id='occ_panel'><p>Occupation</p></span><p id='info_edit'></p></div><div class='panel-body' id='occ_body'>{% for item in single_user.job_set.all %}{{item.position|title}}at{{item.employer|title}}{% endfor %}</div></div></div></div>
 		</div>

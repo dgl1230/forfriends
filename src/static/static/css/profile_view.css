@@ -196,7 +196,7 @@ h4{
 }
 
 #single_user_body{
-	margin-top:10%;
+	margin-top:5%;
 }
 .panel-heading{
 	background-color: rgb(31, 186, 214) !important;
@@ -251,7 +251,7 @@ h4{
 	background-color: white!important;
 }
 
-.navbar-collapse.collapsing{
+.	navbar-collapse.collapsing{
 	background-color: white!important;
 }
 
@@ -268,6 +268,9 @@ h4{
 	}
 	.panel-heading .glyphicon.glyphicon-chevron-down{
 		margin-top:0px;
+	}
+	#single_user_body{
+	margin-top:10%;
 	}
 }
 
@@ -301,19 +304,11 @@ h4{
 	#delete_message_button, #message_button, #interests_button, #friend_button, #pictures_button, #buttons_row #message_button_not_friends{
 		width: 49%;	
 	}
-	#myfriend{
-		width:100%;
-	}
 	#single_user_body{
 		padding-left:0px!important;
 		padding-right:0px!important;
 	}
 } 
-
-
-#single_user_body{
-	margin-bottom:10%;
-}
 
 .panel-default{
 	min-width:115px;
