@@ -479,5 +479,8 @@ h4{
 	}
 
 }
-
+@media(min-width: 1205px){
+	#single_user_container{
+		margin-top:0%!!important;
+	}
 

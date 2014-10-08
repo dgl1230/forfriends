@@ -34,4 +34,10 @@ footer{
 	padding-bottom:20px;
 }
 
+@media (max-width: 450px){
+	.footer-container{
+	margin-top:100px;
+}
+
+}
 

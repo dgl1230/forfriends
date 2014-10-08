@@ -62,10 +62,8 @@
 
 #view_info, #view_buttons{
 	font-size:14px;
-	float:left;
 	width:100px;
 	margin-top:20px;
-	margin-bottom:20px;
 	text-align: center;
 }
 
@@ -82,7 +80,7 @@
  	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
 }
 
-#delete_message_button, #message_button{
+#delete_message_button{
 	width: 80px;
 	background: #1FBAD6!important;
 	font-weight: 300;
@@ -94,7 +92,7 @@
 	padding:5px 5px 5px 5px;
 	margin:2px 2px 2px 2px;
 }
-#delete_message_button:hover, #message_button:hover{
+#delete_message_button:hover{
 	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
 }
 .pager{
@@ -146,7 +144,6 @@
 /* Profile */
 #buttons_row{
 	text-align: center;
-	height:370px;
 }
 #buttons_row .btn:hover, #buttons_row .btn:active, #buttons_row .btn:focus {
 	color:#1FBAD6;

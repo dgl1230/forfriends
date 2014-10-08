@@ -106,10 +106,6 @@ $('#myTab a').click(function (e) {
 <br>
 </div>
 
-
-
-
-
 <script>
 $(document).ready(function(){
 	$('#selectall').click(function(event){
@@ -126,6 +122,9 @@ $(document).ready(function(){
 });
 </script>
 
+<script>
+  $('#delete_messages_form').find('input[type="checkbox"]').shiftSelectable();
+</script>
 
 
 {% endblock %}
