@@ -73,7 +73,7 @@ def interest_points(user1, user2):
 			user1_points += user_score_tuple[0]
 			user2_points += user_score_tuple[1]
 	if points_possible >= 75:
-		percentage = float((points_possible - abs(user1_points - user2_points))) / float(points_possible)
+		percentage = (points_possible - abs(user1_points - user2_points)) * 100 / points_possible
 	else:
 		percentage = 0
 	return percentage
@@ -141,22 +141,21 @@ def question_points(user1, user2):
 	user1_list = []
 	user2_dict = {}
 	for ans in user1_answers:
-		user1_list.append([ans.question, ans.importance_level, ans.answer.pattern_number])
+		user1_list.append([ans.question, ans.answer.pattern_number])
 	for ans in user2_answers:
-		user2_dict[ans.question] = [ans.importance_level, ans.answer.pattern_number]
+		user2_dict[ans.question] = ans.answer.pattern_number
 	for i in range(len(user1_list)):
 		user1_question = user1_list[i][0]
-		user1_importance = user1_list[i][1]
-		user1_answer = user1_list[i][2]
-		user2_tuple = user2_dict.pop(user1_question, "false")
+		user1_answer = user1_list[i][1]
+		user2_answer = user2_dict.pop(user1_question, "false")
 		if user2_tuple != "false":
 			points_possible += 100
 			user_list = []
-			user_list = answer_points(user1_answer, user2_tuple[1])
+			user_list = answer_points(user1_answer, user2_answer)
 			user1_points += user_list[0]
 			user2_points += user_list[1]
 	if points_possible >= 100:
-		percentage = (points_possible - abs(user1_points - user2_points)) / points_possible
+		percentage = (points_possible - abs(user1_points - user2_points)) * 100 / points_possible
 	else:
 		percentage = 0
 	return percentage
