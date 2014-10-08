@@ -667,7 +667,7 @@ def discover(request):
 			users = paginator.page(page)
 			single_user = users.object_list[0]
 			try: 
-				assert (user != request.user)
+				assert (single_user != request.user)
 			except: 
 				# if the user would go to themselves on pagination, we have them skip a page
 				page_int = int(page)
