@@ -90,6 +90,9 @@ def all_interests(request):
 	return render_to_response('interests/all.html', locals(), context_instance=RequestContext(request))
 
 
+
+
+
 def edit_interests(request):
 
 	interests_all = Interest.objects.filter(userinterestanswer__user=request.user)
