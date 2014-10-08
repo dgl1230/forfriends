@@ -19,8 +19,10 @@ user is not allowed to view a message sent from themselves (to prevent errors).
 If the user has not seen it already, it's read and read_at fields are changed.'''
 def view_direct_message(request, dm_id):
 	message = get_object_or_404(DirectMessage, id=dm_id)
+	'''
 	if not message.sender != request.user or message.receiver != request.user:
-		raise Http404
+	raise Http404
+	'''
 	if not message.read:
 		message.read = True
 		message.read_at = datetime.datetime.now()
