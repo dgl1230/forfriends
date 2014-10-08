@@ -69,8 +69,8 @@ def add_friend(request, username):
 		body_for_user2 = "Congrats! You and %s both requested to be each other's friends, so now you can message each other!" %(user1.username)
 		user1_message = DirectMessage.objects.create(subject=subject, body=body_for_user1, receiver=user1)
 		user2_message = DirectMessage.objects.create(subject=subject, body=body_for_user2, receiver=user2)
-		user1_message.sent = datetime.datetime.now()
-		user2_message.sent = datetime.datetime.now()
+		user1_message.sent = datetime.now()
+		user2_message.sent = datetime.now()
 		match.save()
 		user1_message.save()
 		user2_message.save()
@@ -78,10 +78,10 @@ def add_friend(request, username):
 	
 	single_user = User.objects.get(username=username)
 	match.save()
-	if not DEBUG:
-		return HttpResponseRedirect('http://www.frenvu.com/discover/?page=%s' % page)
+	if DEBUG:
+		return HttpResponseRedirect('http://www.frenvu.com/members/%s' % username)
 	else: 
-		return HttpResponseRedirect('http://127.0.0.1:8000/discover/?page=%s' % page)
+		return HttpResponseRedirect('http://127.0.0.1:8000/members/%s' % username)
 	
 	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))
 
@@ -438,7 +438,7 @@ def new_user_info(request):
 			'cum', 'jizz', 'clit', 'anal', 'cock', 'molest', 'necro', 'satan', 'devil', 
 			'pedo', 'negro', 'spic', 'beaner', 'chink', 'coon', 'kike', 'wetback', 'sex', 
 			'kidnap', 'penis', 'vagina', 'boobs', 'titties', 'sodom', 'kkk', 'nazi', 'klux', 
-			'dicksucker', 'rapist', 'anus', 'arse', 'bastard', 'tits', 'titties', 'blowjob', 
+			'dicksucker', 'rapist', 'anus', 'arse', 'bastard','blowjob', 
 			'boner', 'fister', 'butt', 'cameltoe', 'chink', 'coochie', 'coochy', 'bluewaffle', 
 			'cooter', 'dick', 'dildo', 'doochbag', 'douche', 'fellatio', 'feltch', 'flamer', 
 			'donkeypunch', 'fudgepacker', 'gooch', 'gringo', 'jerkoff', 'jigaboo', 'kooch', 
@@ -632,7 +632,6 @@ def discover(request):
 				match, created = Match.objects.get_or_create(user1=user, user2=request.user)
 			try:
 				match.distance = round(calc_distance(logged_in_user, user))
-				match.percent = match_percentage(match.user1, match.user2)
 			except:
 				# they have an invalid location
 				match.distance = 10000000
@@ -662,10 +661,6 @@ def discover(request):
 		#If page is out of range, deliver last page of results
 		interests = paginator.page(paginator.num_pages)
  
-
-
-
-
 	return render_to_response('profiles/discover.html', locals(), context_instance=RequestContext(request))
 
 
