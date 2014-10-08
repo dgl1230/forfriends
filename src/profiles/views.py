@@ -78,7 +78,7 @@ def add_friend(request, username):
 	
 	single_user = User.objects.get(username=username)
 	match.save()
-	if not DEBUG:
+	if DEBUG:
 		return HttpResponseRedirect('http://www.frenvu.com/members/%s' % username)
 	else: 
 		return HttpResponseRedirect('http://127.0.0.1:8000/members/%s' % username)
