@@ -7,7 +7,10 @@
 	border:none;
 	outline:none;
 }
+#sent_container a{
+	color:black;
 
+}
 #trash_button:focus{
 	outline: 0!important;
 }

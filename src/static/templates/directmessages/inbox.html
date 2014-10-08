@@ -2,19 +2,27 @@
 
 <link href="{{ STATIC_URL }}css/messages.css" rel="stylesheet">
 
+{% block jquery %}
+$('#myTab a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+{% endblock %}
+
+
 {% block content %}
 
 <div id="view_container">
-<div class="row">
-	<div class="col-md-1" id="secondary_navbar">
-        <h1 align="center">Inbox</h1>
+	<div class="row">
+		<div class="col-md-1" id="secondary_navbar">
+	        <h1 align="center">Inbox</h1>
+		</div>
+		<div class="col-md-1" id="tertiary_navbar">
+	 		<a href="/messages/compose/" class="half-nav1">New Message</a>
+	 		<span class= 'glyphicon glyphicon-envelope' id="tertiary-icon"></span>
+	 		<a href="/messages/sent/" class="half-nav2">Sent Messages</a>
+		</div>
 	</div>
-	<div class="col-md-1" id="tertiary_navbar">
- 		<a href="/messages/compose/" class="half-nav1">New Message</a>
- 		<span class= 'glyphicon glyphicon-envelope' id="tertiary-icon"></span>
- 		<a href="/messages/sent/" class="half-nav2">Sent Messages</a>
-	</div>
-</div>
 <div class='row'>
     <div class="col-md-1" id="tertiary_navbar">
       {% for message in messages %}
@@ -23,10 +31,10 @@
     </div>
 </div>
 <br>
-<div class="container" id="message_body_holder">
+<div class="container" id="sent_container">
   <div class='col-lg-10 col-12' id="message_body_container">
-	<div class="body_section">
-	<table class='table table-striped' id="items_table">
+  <div class="body_section">
+  <table class='table table-striped' id="items_table">
 		<thead>
 		<th><h1>From</h1></th> 
 		<th><h1>Message</h1></th> 
@@ -97,6 +105,11 @@
 <br>
 <br>
 </div>
+
+
+
+
+
 <script>
 $(document).ready(function(){
 	$('#selectall').click(function(event){

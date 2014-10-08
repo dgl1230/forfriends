@@ -4,7 +4,7 @@
 
 
 {% block content %}
-<div id="view_container">
+
 
 <div class="row">
 	<div class="col-md-1" id="secondary_navbar">
@@ -16,37 +16,116 @@
      		<a href="/messages/compose/">New Message</a>
 	</div>
   {% if messages %}
+
 <div class='row'>
     <ul class="messages">
       {% for message in messages %}
         <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
       {% endfor %}
     </ul>
-</div>
 {% endif %}
-{% for item in messages_in_inbox %}
-<div class="container">
-  <div class='col-lg-10 col-12'>
-<h4>To:<a href="/members/{{ item.receiver }}/"> 
-  {% for pic in item.receiver.userpicture_set.all %}
-    {% if forloop.first %}
-    <img src='{{ MEDIA_URL }}{{ pic }}' alt="Owl Image" id="message_image"></div>
-    {% endif %}
-  {% endfor %}
-  {{ item.receiver }}</a></h4>
-  <a id="delete_sent"><span class="glyphicon glyphicon-trash"></a>
-on {{ item.sent }}<br/>
+<br>
+<div class="container" id="sent_container">
+  <div class='col-lg-10 col-12' id="message_body_container">
+  <div class="body_section">
+  <table class='table table-striped' id="items_table">
+    <thead>
+    <th><h1>To</h1></th> 
+    <th><h1>Message</h1></th> 
+    <th>
+    <input type="checkbox" name="selectall" id="selectall" ></input>
+    </th>
+    <th> <span data-toggle="modal" id="inbox_trash"  data-target="#new_user_modal" class="glyphicon glyphicon-trash" style="color:white"></span>
+    
+    <form id="delete_messages_form" method='POST' action='{% url "delete_messages" %}'>
+      {% csrf_token %}
+    </th>
+    </thead>
+    <tbody>
+      {% for item in messages_in_inbox %}
+      <tr id="message_row" name="{{ item.id }}" class="message_row">
+        <td><a href="/members/{{ item.receiver }}/">
+            {% for pic in item.receiver.userpicture_set.all %}
+                      {% if forloop.first %}
+                      <img src='{{ MEDIA_URL }}{{ pic }}' alt="Owl Image" id="delete_message" name="{{ pic.id }}"></div>
+                      {% endif %}
+                    {% endfor %}
+          {{ item.receiver|truncatechars:"15" }}</a>
+        </td>
+        <td id="inbox_body">
+          {% if item.read %}
+            <span style='color: grey;' class='glyphicon glyphicon-ok'></span>
+          {% endif %}
+          <a {% if item.read %} style='color: grey;' {% endif %} href= '{{ item.get_absolute_url }}'><div class="message_body">{{ item.body|truncatechars:"25" }}</div></a>
+          {% if item.sent %}
+        </td>
+        
+          <small>{{ item.sent }}</small> 
+          {% endif %}
+        <td>
+          <input type="checkbox" class="delete_messages" name="delete_messages" value="{{ item.id }}"></input> 
+        </td>
+        <td>
+          <span id="hidden_trash" class="glyphicon glyphicon-trash" style="color:black"></span>
+        </td>
+      </tr>
+      {% endfor %}
+    </body>
 
-<div class="well">
-	<textarea id="sent_text" disabled="disabled">{{ item.body }}</textarea>
+  </table>
+  <div class="modal fade" id="new_user_modal">
+  <div class="modal-dialog">
+    <div class="modal-content" id="message_modal_content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Are you sure?</h4>
+      </div>
+      <div class="modal-body">
+        <p>Once you delete these messages, they're gone forever.</p>
+      </div>
+      <div class="modal-footer">
+        <input id="delete_message_button" type='submit' value='Yes'/>
+        <button type="button" id="delete_message_button" data-dismiss="modal">No</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+</form>
 </div>
 </div>
-
-
+</div>
 <br>
 <br>
+</div>
+<script>
+$(document).ready(function(){
+  $('#selectall').click(function(event){
+    if(this.checked) {
+      $('.delete_messages').each(function() {
+        this.checked = true;
+      });
+    }else{
+      $('.delete_messages').each(function() {
+        this.checked = false;
+      });
+    }
+  });
+});
+</script>
 
-{% endfor %}
+
+
+
+
 </div>
 </div>
+</div>
+
+
+
+
+
+
+
+
 {% endblock %}
