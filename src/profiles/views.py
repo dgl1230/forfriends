@@ -150,18 +150,21 @@ the user is not logged in, and is shown the landing page.
 '''
 def all(request):
 	if request.user.is_authenticated():
-		info = Info.objects.get(user=request.user)
-		if info.is_new_user == True:
-			is_new_user = True
-			user_interests = UserInterestAnswer.objects.filter(user=request.user)
-			user_questions = UserAnswer.objects.filter(user=request.user)
-			if user_interests.count() >= 5 and user_questions.count() >= 10:
-				can_make_first_crowd = True
-				info.is_new_user = False
-				info.save()
-			else:
-				can_make_first_crowd = False
-			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+		try: 
+			info = Info.objects.get(user=request.user)
+			if info.is_new_user == True:
+				is_new_user = True
+				user_interests = UserInterestAnswer.objects.filter(user=request.user)
+				user_questions = UserAnswer.objects.filter(user=request.user)
+				if user_interests.count() >= 5 and user_questions.count() >= 10:
+					can_make_first_crowd = True
+					info.is_new_user = False
+					info.save()
+				else:
+					can_make_first_crowd = False
+				return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+		except: 
+			pass
 		else:
 			is_new_user = False
 
