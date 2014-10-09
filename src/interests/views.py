@@ -97,12 +97,17 @@ def edit_interests(request):
 
 	interests_all = Interest.objects.filter(userinterestanswer__user=request.user)
 	paginator = Paginator(interests_all, 1)
-	importance_levels = ['Strongly DisLike', 'DisLike', 'Neutral', 'Like', 'Strongly Like']
+	importance_levels = ['Strongly Dislike', 'Dislike', 'Neutral', 'Like', 'Strongly Like']
 
 
 	page = request.GET.get('page')
 	try:
 		interests = paginator.page(page)
+		interest = interests.object_list[0]
+		print "The Interest is: ", interest
+		useranswer = UserInterestAnswer.objects.get(user=request.user, interest=interest)
+		importance_level = useranswer.importance_level
+		print "The importance level: ", useranswer.importance_level
 	except PageNotAnInteger:
 		#If page is not an integer, deliver first page.
 		interests = paginator.page(1)
@@ -154,17 +159,17 @@ def single_user_interests(request, username):
 	return render_to_response('interests/single_user.html', locals(), context_instance=RequestContext(request))
 
 
-
+'''
 def new_user_interests(request):
 	interests_all = Interest.objects.filter(for_new_users=True).exclude(userinterestanswer__user=request.user)
-	'''
+	''''''
 	if not request.session.get('random_interests'):
 		request.session['random_interests']= request.user.id
 	interests_all = cache.get('random_interests_%d' % request.session['random_interests'])
 	if not interests_all:
 		interests_all = list(Interest.objects.exclude(userinterestanswer__user=request.user).filter(approved=True).order_by('?'))
 		cache.set('random_interests_%d' % request.session['random_interests'], interests_all, 400)
-	'''
+	''''''
 	paginator = Paginator(interests_all, 1)
 	importance_levels = ['Strongly Dislike', 'Dislike', 'Neutral', 'Like', 'Strongly Like']
 
@@ -216,6 +221,7 @@ def new_user_interests(request):
 
 
 	return render_to_response('interests/new_user.html', locals(), context_instance=RequestContext(request))
+'''
 
 
 def search_interests(request):
