@@ -25,7 +25,7 @@
     </ul>
 {% endif %}
 <br>
-<div class="container" id="sent_container">
+<div id="sent_container">
   <div class='col-lg-10 col-12' id="message_body_container">
   <div class="body_section">
   <table class='table table-striped' id="items_table">
@@ -50,13 +50,13 @@
                       <img src='{{ MEDIA_URL }}{{ pic }}' alt="Owl Image" id="delete_message" name="{{ pic.id }}"></div>
                       {% endif %}
                     {% endfor %}
-          {{ item.receiver|truncatechars:"15" }}</a>
+          {{ item.receiver|truncatechars:"12" }}</a>
         </td>
         <td id="inbox_body">
           {% if item.read %}
             <span style='color: grey;' class='glyphicon glyphicon-ok'></span>
           {% endif %}
-          <a {% if item.read %} style='color: grey;' {% endif %} href= '{{ item.get_absolute_url }}'><div class="message_body">{{ item.body|truncatechars:"25" }}</div></a>
+          <a {% if item.read %} style='color: grey;' {% endif %} href= '{{ item.get_absolute_url }}'><div class="message_body">{{ item.body|truncatechars:"20" }}</div></a>
           {% if item.sent %}
         </td>
         

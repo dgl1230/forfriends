@@ -15,18 +15,22 @@ input#image_file{
     margin:0 auto;
 }
 
+#profile_span{
+    float:left;
+}
+
 #no_pictures a, #no_pictures a:active, #no_pictures a:focus{
     color:#1FBAD6;
 }
 #rotate{
-    width:100px;
     float:right;
     color:#1fbad6;
     cursor:pointer;
 }
 #rotate_row{
-    width:80%;
+    width:400px;
     height:20px;
+    margin:0 auto;
 }
 .mediaDescriptionHeader{
     font-size:18px;
@@ -169,5 +173,9 @@ margin-left: 80px;
 @media (max-width: 450px){
     #no_pictures{
     width:80%;
+    }
+    #rotate_row{
+        width:220px;
+        margin-bottom:20px;
     }
 }
