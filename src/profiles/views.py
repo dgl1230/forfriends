@@ -554,7 +554,7 @@ def new_user_info(request):
 			try: 
 				user = User.objects.get(username=username)
 				messages.error(request, "We're sorry, but that user name is already taken!")
-				return HttpResponseRedirect(reverse('handle_new_user'))
+				return HttpResponseRedirect(reverse('home'))
 			except:
 				pass
 			request.user.username = username
