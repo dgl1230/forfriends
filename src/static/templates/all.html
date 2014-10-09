@@ -2,7 +2,17 @@
 {% block content %}
     <script src="{{ STATIC_URL }}js/FWDRoyal3DCarousel.js" type="text/javascript"></script>
     <script src="{{ STATIC_URL }}js/3dcarousel/initiate.js" type="text/javascript"></script>
-    <script>
+
+<div id="view_container">
+<div class="row">
+	<div class="col-md-1" id="secondary_navbar">
+        <h1>My Crowd</h1>
+	</div>
+    {% if can_make_first_crowd == false %}
+        <h3 id="no_pictures">This is where you'll be able to find your crowd. Your crowd is comprised of people near you. Just answer 5 interests and 10 personality questions so you can start meeting people! 
+        </h3>
+    {% else %}
+        <script>
             FWDR3DCarUtils.onReady(function(){
         var carousel = new FWDRoyal3DCarousel({
             //required settings
@@ -111,11 +121,6 @@
         }); 
     })
     </script>
-<div id="view_container">
-<div class="row">
-	<div class="col-md-1" id="secondary_navbar">
-        <h1>My Crowd</h1>
-	</div>
     <div class="col-md-1" id="button_navbar">
         {% if can_they_reset == True %}
         <a class="login_button" href='{% url "generate_circle" %}'>Find a new Crowd!</a>
@@ -235,7 +240,7 @@
 <br/>
 </div>
 </div>
-
+{% endif %}
 <div class="modal fade" id="new_user_modal">
   <div class="modal-dialog">
     <div class="modal-content">

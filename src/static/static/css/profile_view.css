@@ -258,7 +258,7 @@ h4{
 @media(max-width: 1000px){
 	#delete_message_button, #message_button, #interests_button, #friend_button, #pictures_button, #message_button_not_friends{
 	width: 23.5%;	
-}
+	}
 }
 
 @media(max-width: 480px){
@@ -268,9 +268,6 @@ h4{
 	}
 	.panel-heading .glyphicon.glyphicon-chevron-down{
 		margin-top:0px;
-	}
-	#single_user_body{
-	margin-top:10%;
 	}
 }
 
@@ -469,13 +466,15 @@ h4{
 	.previous_user span{
 		padding-top:10px;
 	}
-	#information{
-		margin-top:80px;
-	}
 
 }
 @media(min-width: 1205px){
 	#single_user_container{
 		margin-top:0%!!important;
 	}
+	#information{
+		margin-top:100px!important;
+	}
+}
+
 
