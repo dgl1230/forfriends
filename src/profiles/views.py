@@ -610,7 +610,7 @@ def new_user_info(request):
 
 				subject = "Welcome to Frenvu!"
 				line1 = "Thanks for signing up %s! Frenvu is a place where you can find your closest friends, someone cool to see a movie with," % (request.user.username)
-				line2 = " or anything in between. After you answer some interests and questions, try creating a crowd to find 7 potential friends who live close by."
+				line2 = " or anything in between. After you answer some interests and questions, try creating a crowd to find 6 potential friends who live close by."
 				line3 = " Or you could do an icebreaker, and we'll start a conversation with another user you share an interest with! There's plenty more to do as well,"
 				line4 = " and we are constantly working on additional features. If you have any questions are concerns, please let us know! We want Frenvu to be the most fun"
 				line5 = " and welcoming place for you to meet new people. We hope you enjoy the site!" + '\n' + '\n'
@@ -841,10 +841,18 @@ def edit_info(request):
 		username = username2.translate(None, '"')
 
 		bad_words = ['shit', 'cunt', 'fuck', 'nigger', 'kyke', 'dyke', 'fag', 'ass', 'rape', 
-				'murder', 'kill', 'gook', 'pussy', 'bitch', 'damn', 'hell', 'whore', 'slut', 
-				'cum', 'jizz', 'clit', 'anal', 'cock', 'molest', 'necro', 'satan', 'devil', 
-				'pedo', 'negro', 'spic', 'beaner', 'chink', 'coon', 'kike', 'wetback', 'sex', 
-				'kidnap', 'penis', 'vagina', 'boobs', 'titties', 'sodom', 'kkk', 'nazi', 'klux']
+			'murder', 'kill', 'gook', 'pussy', 'bitch', 'hell', 'whore', 'slut', 
+			'cum', 'jizz', 'clit', 'anal', 'cock', 'molest', 'necro', 'satan', 'devil', 
+			'pedo', 'negro', 'spic', 'beaner', 'chink', 'coon', 'kike', 'wetback', 'sex', 
+			'kidnap', 'penis', 'vagina', 'boobs', 'titties', 'sodom', 'kkk', 'nazi', 'klux', 
+			'dicksucker', 'rapist', 'anus', 'arse', 'bastard','blowjob', 
+			'boner', 'fister', 'butt', 'cameltoe', 'chink', 'coochie', 'coochy', 'bluewaffle', 
+			'cooter', 'dick', 'dildo', 'doochbag', 'douche', 'fellatio', 'feltch', 'flamer', 
+			'donkeypunch', 'fudgepacker', 'gooch', 'gringo', 'jerkoff', 'jigaboo', 'kooch', 
+			'kootch', 'kunt', 'kyke', 'dike', 'minge', 'munging', 'nigga', 'niglet', 'nutsack', 
+			'poon', 'pussies', 'pussy', 'queef', 'queer', 'rimjob', 'erection', 'schlong', 
+			'skeet', 'smeg', 'spick', 'splooge', 'spook', 'retard', 'testicle', 'tit', 'twat', 
+			'vajayjay', 'wankjob', 'bimbo', '69', 'fistr', 'fist3r']
 		for word in bad_words:
 			if word in username:
 				messages.success(request, "We're sorry but some people might find your username offensive. Please pick a different username.")
@@ -1265,8 +1273,8 @@ def ice_breaker(request):
 		sender1 = user1
 		sender2 = user2
 	subject = "You two have an interest in common!"
-	body_for_user1 = "You and %s both like %s! What exactly is it about %s that you like so much? Let %s know your thoughts! " %(user2.username, random_interest, random_interest, user2.username)
-	body_for_user2 = "You and %s both like %s! What exactly is it about %s that you like so much? Let %s know your thoughts! " %(user1.username, random_interest, random_interest, user1.username)
+	body_for_user1 = "You and %s both like %s! What exactly is it about %s that you like so much? Let %s know your thoughts because you can message each other for the next 3 hours! " %(user2.username, random_interest, random_interest, user2.username)
+	body_for_user2 = "You and %s both like %s! What exactly is it about %s that you like so much? Let %s know your thoughts because you can message each other for the next 3 hours! " %(user1.username, random_interest, random_interest, user1.username)
 	user1_message = DirectMessage.objects.create(subject=subject, body=body_for_user1, receiver=user1, sender=sender1)
 	user2_message = DirectMessage.objects.create(subject=subject, body=body_for_user2, receiver=user2, sender=sender2)
 	user1_message.sent = datetime.now()
