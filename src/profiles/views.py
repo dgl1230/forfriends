@@ -1233,11 +1233,17 @@ def ice_breaker(request):
 	match.user1_approved = True
 	match.user2.approved = True
 
+	if not CURRENTLY_LOCALLY_TESTING: 
+			sender1 = User.objects.get(username="TeamFrenvu")
+			sender2 = User.objects.get(username="TeamFrenvu")
+	else:
+		sender1 = user1
+		sender2 = user2
 	subject = "You two have an interest in common!"
 	body_for_user1 = "You and %s both like %s! What exactly is it about %s that you like so much? Let %s know your thoughts! " %(user2.username, random_interest, random_interest, user2.username)
 	body_for_user2 = "You and %s both like %s! What exactly is it about %s that you like so much? Let %s know your thoughts! " %(user1.username, random_interest, random_interest, user1.username)
-	user1_message = DirectMessage.objects.create(subject=subject, body=body_for_user1, receiver=user1, sender=user2)
-	user2_message = DirectMessage.objects.create(subject=subject, body=body_for_user2, receiver=user2, sender=user1)
+	user1_message = DirectMessage.objects.create(subject=subject, body=body_for_user1, receiver=user1, sender=sender1)
+	user2_message = DirectMessage.objects.create(subject=subject, body=body_for_user2, receiver=user2, sender=sender2)
 	user1_message.sent = datetime.now()
 	user2_message.sent = datetime.now()
 	user1_message.save()
