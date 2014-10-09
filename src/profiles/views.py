@@ -30,6 +30,11 @@ from directmessages.models import DirectMessage
 from questions.models import Question, UserAnswer
 
 
+
+
+CURRENTLY_LOCALLY_TESTING = False
+
+
 '''Implements the 'add friend' button when viewing a user's profile
 If both users click this button on each other's profile, they can message'''
 def add_friend(request, username):
@@ -78,7 +83,7 @@ def add_friend(request, username):
 	
 	single_user = User.objects.get(username=username)
 	match.save()
-	if DEBUG:
+	if not CURRENTLY_LOCALLY_TESTING:
 		return HttpResponseRedirect('http://www.frenvu.com/members/%s' % username)
 	else: 
 		return HttpResponseRedirect('http://127.0.0.1:8000/members/%s' % username)
@@ -136,7 +141,7 @@ def add_friend_discovery(request, username, page):
 	messages_in_inbox = DirectMessage.objects.filter(receiver=request.user)
 	direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
 	request.session['num_of_messages'] = direct_messages
-	if DEBUG:
+	if not CURRENTLY_LOCALLY_TESTING:
 		return HttpResponseRedirect('http://www.frenvu.com/discover/?page=%s' % page)
 	else: 
 		return HttpResponseRedirect('http://127.0.0.1:8000/discover/?page=%s' % page)
@@ -564,7 +569,22 @@ def new_user_info(request):
 			request.user.save()
 			user = authenticate(username=request.user.username, password=request.user.password)
 			request.user.save()
-			if not DEBUG:
+
+			if not not CURRENTLY_LOCALLY_TESTING:
+
+				subject = "Welcome to Frenvu!"
+				line1 = "Thanks for signing up %s! Frenvu is a place where you can find your closest friends, someone cool to see a movie with," % (request.user.username)
+				line2 = " or anything in between. After you answer some interests and questions, try creating a crowd to find 7 potential friends who live close by."
+				line3 = " Or you could do an icebreaker, and we'll start a conversation with another user you share an interest with! There's plenty more to do as well,"
+				line4 = " and we are constantly working on additional features. If you have any questions are concerns, please let us know! We want Frenvu to be the most fun"
+				line5 = " and welcoming place for you to meet new people. We hope you enjoy the site!" + '\n' + '\n'
+				line6 = " - The Team at Frenvu "
+				body = line1 + line2 + line3 + line4 + line5 + line6
+				sender = User.objects.get(username="TeamFrenvu")
+				new_user_welcome_message = DirectMessage.objects.create(subject=subject, body=body, receiver=request.user, sender=sender)
+				new_user_welcome_message.save()
+
+
 				username = request.user.username
 				subject = 'Thanks for registering with Frenvu!'
 				plaintext = get_template('registration/email.txt')
@@ -1125,7 +1145,7 @@ def delete_account(request):
 	logout(request)
 	messages.success(request, "Your account has been deactivated. Your account will be deleted in 30 days.")
 	messages.success(request, "We're sorry to see you go, but if you change your mind before then, just log back in to reactivate it!")
-	if not DEBUG: 
+	if not CURRENTLY_TESTING: 
 		subject = 'A user is deactivating their account.'
 		message = '%s wants to delete their account.' % (username,)
 		msg = EmailMultiAlternatives(subject, message, EMAIL_HOST_USER, [email])
