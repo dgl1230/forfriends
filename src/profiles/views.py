@@ -46,34 +46,46 @@ def add_friend(request, username):
 		match.user2_approved = True
 
 	if (match.user1 == request.user and match.user1_approved == True and match.user2_approved == False):
-		requester = request.user
+		if not CURRENTLY_LOCALLY_TESTING: 
+			sender = User.objects.get(username="TeamFrenvu")
+		else: 
+			sender = request.user
 		requested= match.user2
 		subject = "Someone wants to be your friend!"
 		body = "Hey %s, I think we could be pretty good friends! Why don't you check out my profile and see if you think we'd get along?" %(requested)
-		message = DirectMessage.objects.create(subject=subject, body=body, sender=requester, receiver=requested)
+		message = DirectMessage.objects.create(subject=subject, body=body, sender=sender, receiver=requested)
 		match.save()
 		message.save()
 
 
 	if (match.user2 == request.user and match.user2_approved == True and match.user1_approved == False):
-		requester = request.user
+		if not CURRENTLY_LOCALLY_TESTING: 
+			sender = User.objects.get(username="TeamFrenvu")
+		else: 	
+			sender = request.user
 		requested= match.user1
 		subject = "Someone wants to be your friend!"
 		body = "Hey %s, I think we could be pretty good friends! Why don't you check out my profile and see if you think we'd get along?" %(requested)
-		message = DirectMessage.objects.create(subject=subject, body=body, sender=requester,receiver=requested)
+		message = DirectMessage.objects.create(subject=subject, body=body, sender=sender,receiver=requested)
 		match.save()
 		message.save()
 
 
 	if (match.user1_approved == True and match.user2_approved == True):
-		user1 = match.user1
-		user2 = match.user2
+		if not CURRENTLY_LOCALLY_TESTING: 
+			sender1 = User.objects.get(username="TeamFrenvu")
+			sender2 = User.objects.get(username="TeamFrenvu")
+		else:
+			sender1 = match.user1
+			sender2 = match.user2
+		#user1 = match.user1
+		#user2 = match.user2
 		match.are_friends = True
 		subject = "You have a new friend!"
 		body_for_user1 = "Congrats! You and %s both requested to be each other's friends, so now you can message each other!" %(user2.username)
 		body_for_user2 = "Congrats! You and %s both requested to be each other's friends, so now you can message each other!" %(user1.username)
-		user1_message = DirectMessage.objects.create(subject=subject, body=body_for_user1, receiver=user1)
-		user2_message = DirectMessage.objects.create(subject=subject, body=body_for_user2, receiver=user2)
+		user1_message = DirectMessage.objects.create(subject=subject, body=body_for_user1, receiver=sender1)
+		user2_message = DirectMessage.objects.create(subject=subject, body=body_for_user2, receiver=sender2)
 		user1_message.sent = datetime.now()
 		user2_message.sent = datetime.now()
 		match.save()
@@ -1145,7 +1157,7 @@ def delete_account(request):
 	logout(request)
 	messages.success(request, "Your account has been deactivated. Your account will be deleted in 30 days.")
 	messages.success(request, "We're sorry to see you go, but if you change your mind before then, just log back in to reactivate it!")
-	if not CURRENTLY_TESTING: 
+	if not CURRENTLY_LOCALLY_TESTING: 
 		subject = 'A user is deactivating their account.'
 		message = '%s wants to delete their account.' % (username,)
 		msg = EmailMultiAlternatives(subject, message, EMAIL_HOST_USER, [email])
