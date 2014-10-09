@@ -256,6 +256,16 @@ def all(request):
 			direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
 			request.session['num_of_messages'] = direct_messages
 			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+			#try to get their current icebreaker match
+			try: 
+				icebreaker_match = Match.objects.filter(
+					Q(user1=request.user) | Q(user2=request.user)).get(currently_in_icebreaker=True)
+				if can_reset_icebreaker == True: 
+					icebreaker_match.currently_in_icebreaker = False
+					icebreaker_match.save()
+			except: 
+				pass
+
 
 			
 	else:
@@ -1246,10 +1256,11 @@ def ice_breaker(request):
 		user2 = request.user
 	match.user1_approved = True
 	match.user2.approved = True
+	match.currently_in_icebreaker = True
 
 	if not CURRENTLY_LOCALLY_TESTING: 
-			sender1 = User.objects.get(username="TeamFrenvu")
-			sender2 = User.objects.get(username="TeamFrenvu")
+		sender1 = User.objects.get(username="TeamFrenvu")
+		sender2 = User.objects.get(username="TeamFrenvu")
 	else:
 		sender1 = user1
 		sender2 = user2
