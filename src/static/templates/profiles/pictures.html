@@ -47,19 +47,15 @@
       <form id="upload_form" enctype="multipart/form-data" method="post" action='{% url "new_picture" %}' onsubmit="return checkForm()"> {% csrf_token %}
           <!-- hidden crop params -->
         <p class="step1">Please select an image file</p>
-
             <div>
                 <input id="image_file" name="image" onchange=
                 "fileSelectHandler()" type="file">
             </div>
             <br>
-
-
             <div class="error"></div>
 
             <div class="step2">
                 <img type="file" id="preview" name="preview" style="height:286px;width:auto" />
-
             </div>
             <div id="rotate_row"><a id="rotate"><span class='glyphicon glyphicon-refresh' ></span>Rotate</a></div>
             <div class="caption" >
