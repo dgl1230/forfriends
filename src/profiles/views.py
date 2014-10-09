@@ -1005,7 +1005,7 @@ def calculate_age(born):
 
 #Creates a new user and assigns the appropriate fields to the user (this is for signing up with Frenvu, not FB or Goog)
 def register_new_user(request):
-	try:
+	if True:
 		'''
 		username1 = str(request.POST['username'])
 		username2 = username1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>")
@@ -1050,7 +1050,7 @@ def register_new_user(request):
 				else:
 					messages.error(request, "Please make sure both passwords match")
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
-	except:		
+	else:		
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
 
