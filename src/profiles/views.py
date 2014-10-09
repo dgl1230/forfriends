@@ -52,7 +52,7 @@ def add_friend(request, username):
 			sender = request.user
 		requested= match.user2
 		subject = "Someone wants to be your friend!"
-		body = "Hey %s, I think we could be pretty good friends! Why don't you check out my profile and see if you think we'd get along?" %(requested)
+		body = "Hey %s, %s thinks you two could be pretty good friends! Why don't you check out their profile and see if you think they seem cool? " %(requested, request.user.username)
 		message = DirectMessage.objects.create(subject=subject, body=body, sender=sender, receiver=requested)
 		match.save()
 		message.save()
@@ -65,7 +65,7 @@ def add_friend(request, username):
 			sender = request.user
 		requested= match.user1
 		subject = "Someone wants to be your friend!"
-		body = "Hey %s, I think we could be pretty good friends! Why don't you check out my profile and see if you think we'd get along?" %(requested)
+		body = "Hey %s, %s thinks you two could be pretty good friends! Why don't you check out their profile and see if you think they seem cool?" %(requested, request.user.username)
 		message = DirectMessage.objects.create(subject=subject, body=body, sender=sender,receiver=requested)
 		match.save()
 		message.save()

@@ -163,6 +163,7 @@ def inbox(request):
 	messages_in_inbox = DirectMessage.objects.filter(receiver=request.user)
 	direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
 	request.session['num_of_messages'] = direct_messages
+	number_of_messages = messages_in_inbox.count()
 	return render_to_response('directmessages/inbox.html', locals(), 
 									context_instance=RequestContext(request))
 
@@ -172,6 +173,7 @@ def inbox(request):
 def sent(request):
 
 	messages_in_inbox = DirectMessage.objects.filter(sender=request.user).order_by('-sent')
+	number_of_messages = messages_in_inbox.count()
 
 	return render_to_response('directmessages/sent.html', locals(), 
 									context_instance=RequestContext(request))
