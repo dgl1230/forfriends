@@ -7,7 +7,11 @@
           <h1>Pictures</h1>
     </div>
     <div class="col-md-1" id="tertiary_navbar">
-       <a href="#add_more_pictures" id="upload_more">Add Pictures</a>
+        {% if num_of_pics == 5 %}
+        {% else %}
+    <a href="#add_more_pictures" id="upload_more">Add Pictures
+    </a>
+    {% endif %}
     </div>
   </div>
   {% if num_of_pics == 0 %}
@@ -33,16 +37,13 @@
             </ul>
             {% endfor %}
           </ul>
-          <!-- end  -->
-          <!-- end  -->
         </div>
     <br>
-      
     </div>
     <br> 
-
+        {% if num_of_pics == 5 %}
+        {% else %}
       <div class="bbody" id="add_more_pictures">
-
       <!-- upload form -->
       <form id="upload_form" enctype="multipart/form-data" method="post" action='{% url "new_picture" %}' onsubmit="return checkForm()"> {% csrf_token %}
           <!-- hidden crop params -->
@@ -57,7 +58,11 @@
             <div class="step2">
                 <img type="file" id="preview" name="preview" style="height:286px;width:auto" />
             </div>
-            <div id="rotate_row"><a id="rotate"><span class='glyphicon glyphicon-refresh' ></span>Rotate</a></div>
+            <div id="rotate_row">
+                <a id="rotate"><span class='glyphicon glyphicon-refresh' ></span>Rotate</a>
+                <span id="profile_span"><input id="profile_pic" name="profile_pic" type="checkbox"> Profile picture?</span>
+            </div>
+            <br>
             <div class="caption" >
                 <label>Caption:</label> 
                 <textarea cols="20" id="caption" name="caption" rows="3">
@@ -67,6 +72,7 @@
             <input class="btn" id="upload_button" type="submit" value="Upload">
         </form>
     </div>
+    {% endif %}
 <div class="modal fade" id="new_user_modal">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -75,7 +81,7 @@
         <h4 class="modal-title">Let others put a name to a face!</h4>
       </div>
       <div class="modal-body">
-        <p>That way, people won't think you're creepy. You're only allowed a limited number of pictures, so choose wisely. </p>
+        <p>That way, people won't think you're creepy. You're only allowed 5 pictures pictures, so choose wisely(Not really though, you can change them later). </p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Okay</button>
@@ -152,7 +158,7 @@
         thumbnailBorderColor1:"#fcfdfd",
         thumbnailBorderColor2:"#e4e4e4",
         transparentImages:"no",
-        maxNumberOfThumbnailsOnMobile:13,
+        maxNumberOfThumbnailsOnMobile:5,
         showThumbnailsGradient:"yes",
         showThumbnailsHtmlContent:"no",
         textBackgroundColor:"#333333",
@@ -242,19 +248,16 @@
     });
 </script>
 
-
-
 <!--<script>
-$("#preview").rotate({
-    bind: {
-        click: function() {
-            $(this).rotate({
-                angle: 0,
-                animateTo: 90,
-                easing: $.easing.easeInOutExpo
-            });
-        }
-    }});
-</script>
--->
+$(document).ready(function() {
+    var options = {
+        target:   '#output',   // target element(s) to be updated with server response
+        resetForm: true        // reset the form after successful submit
+    };
+    $('#upload_form').submit(function() {
+        $(this).ajaxSubmit(options);           
+        return false;
+    });
+});
+</script> -->
 {% endblock %}

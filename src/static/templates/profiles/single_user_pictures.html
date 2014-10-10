@@ -9,6 +9,10 @@
        <a href="javascript:history.back()">Back</a>
     </div>
   </div>
+
+  {% if num_of_pics == 0 %}
+  <h3 id="no_pictures">It doesn't look like you have any pictures. Go ahead and <a href="#add_more_pictures" id="upload_more_pictures">start adding some</a></h3>
+  {% else %} 
   <div id="myDiv"></div>
   
     <!-- carousel data -->
@@ -147,4 +151,5 @@ var carousel = new FWDRoyal3DCarousel({
     }); 
 })
 </script>
+{% endif %}
 {% endblock %}
