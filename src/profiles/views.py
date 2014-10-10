@@ -78,8 +78,8 @@ def add_friend(request, username):
 		else:
 			sender1 = match.user1
 			sender2 = match.user2
-		#user1 = match.user1
-		#user2 = match.user2
+		user1 = match.user1
+		user2 = match.user2
 		match.are_friends = True
 		subject = "You have a new friend!"
 		body_for_user1 = "Congrats! You and %s both requested to be each other's friends, so now you can message each other!" %(user2.username)
