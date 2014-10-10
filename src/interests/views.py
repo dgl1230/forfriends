@@ -11,7 +11,9 @@ from django.core.urlresolvers import reverse
 from django.core.cache import cache
 
 
-
+def all_interests_experimental(request):
+	interests_all = Interest.objects.exclude(userinterestanswer__user=request.user).filter(approved=True).order_by('?')
+	return render_to_response('interests/experimental.html', locals(), context_instance=RequestContext(request))
 
 
 def create_interest(request):
