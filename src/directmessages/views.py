@@ -168,7 +168,7 @@ def reply(request, dm_id):
 '''The logged in user views all messages that they have'''
 def inbox(request):
 
-	messages_in_inbox = DirectMessage.objects.filter(receiver=request.user)
+	messages_in_inbox = DirectMessage.objects.filter(receiver=request.user).order_by('-sent')
 	direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
 	request.session['num_of_messages'] = direct_messages
 	number_of_messages = messages_in_inbox.count()
