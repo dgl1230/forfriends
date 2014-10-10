@@ -349,9 +349,11 @@ def generate_circle(request):
 			# adding to their circle randomly
 			user_gamification = Gamification.objects.get(user=request.user)
 			current_circle = list(user_gamification.circle.all())
+			requested_users = list(Match.objects.filter(Q(user1=request.user) | Q(user1_approved=True)).filter(Q(user2=request.user) | Q(user2_approved=True)))
+			excluded_users = current_circle + requested_users
 			matches = Match.objects.filter(
 				Q(user1=request.user) | Q(user2=request.user)
-				).exclude(user1=request.user, user2=request.user).exclude(are_friends=True).exclude(id__in=[o.id for o in current_circle]).filter(percent__gte=70)
+				).exclude(user1=request.user, user2=request.user).exclude(are_friends=True).exclude(id__in=[o.id for o in excluded_users]).filter(percent__gte=70)
 			user_gamification = Gamification.objects.get(user=request.user)
 			count = matches.count()
 			try:
