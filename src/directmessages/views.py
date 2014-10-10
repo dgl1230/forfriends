@@ -19,8 +19,10 @@ user is not allowed to view a message sent from themselves (to prevent errors).
 If the user has not seen it already, it's read and read_at fields are changed.'''
 def view_direct_message(request, dm_id):
 	message = get_object_or_404(DirectMessage, id=dm_id)
+	'''
 	if not message.sender != request.user or message.receiver != request.user:
-		raise Http404
+	raise Http404
+	'''
 	if not message.read:
 		message.read = True
 		message.read_at = datetime.datetime.now()
@@ -85,6 +87,19 @@ def compose(request):
 			message_users.append(match.user1)
 		else:
 			message_users.append(match.user2)
+	icebreaker_match = Match.objects.filter(Q(user1=request.user) | Q(user2=request.user)).get(currently_in_icebreaker=True)
+	if icebreaker_match.user1 != request.user:
+		message_users.append(icebreaker_match.user1)
+	else:
+		message_users.append(icebreaker_match.user2)
+	try:
+		icebreaker_match = Match.objects.filter(Q(user1=request.user) | Q(user2=request.user)).get(currently_in_icebreaker=True)
+		if icebreaker_match.user1 != request.user:
+			message_users.append(icebreaker_match.user1)
+		else:
+			message_users.append(icebreaker_match.user2)
+	except:
+		pass
 	form.fields['receiver'].queryset = User.objects.filter(username__in=message_users)
 	
 
@@ -158,9 +173,10 @@ def reply(request, dm_id):
 '''The logged in user views all messages that they have'''
 def inbox(request):
 
-	messages_in_inbox = DirectMessage.objects.filter(receiver=request.user)
+	messages_in_inbox = DirectMessage.objects.filter(receiver=request.user).order_by('-sent')
 	direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
 	request.session['num_of_messages'] = direct_messages
+	number_of_messages = messages_in_inbox.count()
 	return render_to_response('directmessages/inbox.html', locals(), 
 									context_instance=RequestContext(request))
 
@@ -170,6 +186,7 @@ def inbox(request):
 def sent(request):
 
 	messages_in_inbox = DirectMessage.objects.filter(sender=request.user).order_by('-sent')
+	number_of_messages = messages_in_inbox.count()
 
 	return render_to_response('directmessages/sent.html', locals(), 
 									context_instance=RequestContext(request))

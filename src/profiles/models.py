@@ -33,14 +33,13 @@ class Gamification(models.Model):
 	user = models.ForeignKey(User, related_name="logged_in_user")
 	circle = models.ManyToManyField(Match)
 	friends_list = models.ManyToManyField(User, related_name="friends_list", null=True, blank=True)
-	circle_reset_started = models.DateTimeField(null=True, blank=True)
+
 	circle_time_until_reset = models.DateTimeField(null=True, blank=True)
 
-	icebreaker_reset_started = models.DateTimeField(null=True, blank=True)
+
 	icebreaker_until_reset = models.DateTimeField(null=True, blank=True)
 
-	speed_friend_reset_started = models.DateTimeField(null=True, blank=True)
-	speed_friend_until_reset = models.DateTimeField(null=True, blank=True)
+	
 
 	def __unicode__(self):
 		return self.user.username
@@ -103,13 +102,6 @@ class UserPicture(models.Model):
 				pass
 		super(UserPicture, self).save(*args, **kwargs)
 
-
-'''
-def check_if_new_user(sender, request, user, **kwargs):
-	info = Info.models.get(user=user)
-	if info.is_new_user == True:
-		if handle_new_user(user)
-'''
 
 
 

@@ -30,6 +30,11 @@ from directmessages.models import DirectMessage
 from questions.models import Question, UserAnswer
 
 
+
+
+CURRENTLY_LOCALLY_TESTING = False
+
+
 '''Implements the 'add friend' button when viewing a user's profile
 If both users click this button on each other's profile, they can message'''
 def add_friend(request, username):
@@ -41,34 +46,46 @@ def add_friend(request, username):
 		match.user2_approved = True
 
 	if (match.user1 == request.user and match.user1_approved == True and match.user2_approved == False):
-		requester = request.user
+		if not CURRENTLY_LOCALLY_TESTING: 
+			sender = User.objects.get(username="TeamFrenvu")
+		else: 
+			sender = request.user
 		requested= match.user2
 		subject = "Someone wants to be your friend!"
-		body = "Hey %s, I think we could be pretty good friends! Why don't you check out my profile and see if you think we'd get along?" %(requested)
-		message = DirectMessage.objects.create(subject=subject, body=body, sender=requester, receiver=requested)
+		body = "Hey %s, %s thinks you two could be pretty good friends! Why don't you check out their profile and see if you think they seem cool? " %(requested, request.user.username)
+		message = DirectMessage.objects.create(subject=subject, body=body, sender=sender, receiver=requested)
 		match.save()
 		message.save()
 
 
 	if (match.user2 == request.user and match.user2_approved == True and match.user1_approved == False):
-		requester = request.user
+		if not CURRENTLY_LOCALLY_TESTING: 
+			sender = User.objects.get(username="TeamFrenvu")
+		else: 	
+			sender = request.user
 		requested= match.user1
 		subject = "Someone wants to be your friend!"
-		body = "Hey %s, I think we could be pretty good friends! Why don't you check out my profile and see if you think we'd get along?" %(requested)
-		message = DirectMessage.objects.create(subject=subject, body=body, sender=requester,receiver=requested)
+		body = "Hey %s, %s thinks you two could be pretty good friends! Why don't you check out their profile and see if you think they seem cool?" %(requested, request.user.username)
+		message = DirectMessage.objects.create(subject=subject, body=body, sender=sender,receiver=requested)
 		match.save()
 		message.save()
 
 
 	if (match.user1_approved == True and match.user2_approved == True):
+		if not CURRENTLY_LOCALLY_TESTING: 
+			sender1 = User.objects.get(username="TeamFrenvu")
+			sender2 = User.objects.get(username="TeamFrenvu")
+		else:
+			sender1 = match.user1
+			sender2 = match.user2
 		user1 = match.user1
 		user2 = match.user2
 		match.are_friends = True
 		subject = "You have a new friend!"
 		body_for_user1 = "Congrats! You and %s both requested to be each other's friends, so now you can message each other!" %(user2.username)
 		body_for_user2 = "Congrats! You and %s both requested to be each other's friends, so now you can message each other!" %(user1.username)
-		user1_message = DirectMessage.objects.create(subject=subject, body=body_for_user1, receiver=user1)
-		user2_message = DirectMessage.objects.create(subject=subject, body=body_for_user2, receiver=user2)
+		user1_message = DirectMessage.objects.create(subject=subject, body=body_for_user1, receiver=sender1)
+		user2_message = DirectMessage.objects.create(subject=subject, body=body_for_user2, receiver=sender2)
 		user1_message.sent = datetime.now()
 		user2_message.sent = datetime.now()
 		match.save()
@@ -78,7 +95,7 @@ def add_friend(request, username):
 	
 	single_user = User.objects.get(username=username)
 	match.save()
-	if DEBUG:
+	if not CURRENTLY_LOCALLY_TESTING:
 		return HttpResponseRedirect('http://www.frenvu.com/members/%s' % username)
 	else: 
 		return HttpResponseRedirect('http://127.0.0.1:8000/members/%s' % username)
@@ -95,35 +112,49 @@ def add_friend_discovery(request, username, page):
 		match.user2_approved = True
 
 	if (match.user1 == request.user and match.user1_approved == True and match.user2_approved == False):
+		if not CURRENTLY_LOCALLY_TESTING: 
+			sender = User.objects.get(username="TeamFrenvu")
+		else: 	
+			sender = request.user
 		requester = request.user
 		requested= match.user2
 		subject = "Someone wants to be your friend!"
 		body = "Hey %s, I think we could be pretty good friends! Why don't you check out my profile and see if you think we'd get along?" %(requested)
-		message = DirectMessage.objects.create(subject=subject, body=body, sender=requester, receiver=requested)
+		message = DirectMessage.objects.create(subject=subject, body=body, sender=sender, receiver=requested)
 		match.save()
 		message.save()
 
 
 	if (match.user2 == request.user and match.user2_approved == True and match.user1_approved == False):
+		if not CURRENTLY_LOCALLY_TESTING: 
+			sender = User.objects.get(username="TeamFrenvu")
+		else: 	
+			sender = request.user
 		requester = request.user
 		requested= match.user1
 		subject = "Someone wants to be your friend!"
 		body = "Hey %s, I think we could be pretty good friends! Why don't you check out my profile and see if you think we'd get along?" %(requested)
-		message = DirectMessage.objects.create(subject=subject, body=body, sender=requester,receiver=requested)
+		message = DirectMessage.objects.create(subject=subject, body=body, sender=sender,receiver=requested)
 		match.save()
 		message.save()
 
 
 
 	if (match.user1_approved == True and match.user2_approved == True):
+		if not CURRENTLY_LOCALLY_TESTING: 
+			sender1 = User.objects.get(username="TeamFrenvu")
+			sender2 = User.objects.get(username="TeamFrenvu")
+		else:
+			sender1 = match.user1
+			sender2 = match.user2
 		user1 = match.user1
 		user2 = match.user2
 		match.are_friends = True
 		subject = "You have a new friend!"
 		body_for_user1 = "Congrats! You and %s both requested to be each other's friends, so now you can message each other!" %(user2.username)
 		body_for_user2 = "Congrats! You and %s both requested to be each other's friends, so now you can message each other!" %(user1.username)
-		user1_message = DirectMessage.objects.create(subject=subject, body=body_for_user1, receiver=user1)
-		user2_message = DirectMessage.objects.create(subject=subject, body=body_for_user2, receiver=user2)
+		user1_message = DirectMessage.objects.create(subject=subject, body=body_for_user1, receiver=user1, sender=sender1)
+		user2_message = DirectMessage.objects.create(subject=subject, body=body_for_user2, receiver=user2, sender=sender2)
 		user1_message.sent = datetime.now()
 		user2_message.sent = datetime.now()
 		match.save()
@@ -136,7 +167,7 @@ def add_friend_discovery(request, username, page):
 	messages_in_inbox = DirectMessage.objects.filter(receiver=request.user)
 	direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
 	request.session['num_of_messages'] = direct_messages
-	if DEBUG:
+	if not CURRENTLY_LOCALLY_TESTING:
 		return HttpResponseRedirect('http://www.frenvu.com/discover/?page=%s' % page)
 	else: 
 		return HttpResponseRedirect('http://127.0.0.1:8000/discover/?page=%s' % page)
@@ -150,18 +181,21 @@ the user is not logged in, and is shown the landing page.
 '''
 def all(request):
 	if request.user.is_authenticated():
-		info = Info.objects.get(user=request.user)
-		if info.is_new_user == True:
-			is_new_user = True
-			user_interests = UserInterestAnswer.objects.filter(user=request.user)
-			user_questions = UserAnswer.objects.filter(user=request.user)
-			if user_interests.count() >= 5 and user_questions.count() >= 10:
-				can_make_first_crowd = True
-				info.is_new_user = False
-				info.save()
-			else:
-				can_make_first_crowd = False
-			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+		try: 
+			info = Info.objects.get(user=request.user)
+			if info.is_new_user == True:
+				is_new_user = True
+				user_interests = UserInterestAnswer.objects.filter(user=request.user)
+				user_questions = UserAnswer.objects.filter(user=request.user)
+				if user_interests.count() >= 5 and user_questions.count() >= 10:
+					can_make_first_crowd = True
+					info.is_new_user = False
+					info.save()
+				else:
+					can_make_first_crowd = False
+				return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+		except: 
+			pass
 		else:
 			is_new_user = False
 
@@ -222,43 +256,50 @@ def all(request):
 			direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
 			request.session['num_of_messages'] = direct_messages
 			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
-
-			
+			#try to get their current icebreaker match
+			try: 
+				icebreaker_match = Match.objects.filter(Q(user1=request.user) | Q(user2=request.user)).get(currently_in_icebreaker=True)
+				if can_reset_icebreaker == True: 
+					icebreaker_match.currently_in_icebreaker = False
+					icebreaker_match.save()
+			except: 
+				pass
+	
 	else:
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
 
-def generate_circle(request):
-	info = Info.objects.get(user=request.user)
+def generate_circle(logged_in_user):
+	info = Info.objects.get(user=logged_in_user)
 	if info.is_new_user:
 		info.is_new_user = False
 		info.save()
-		user_gamification = Gamification.objects.create(user=request.user)
+		user_gamification = Gamification.objects.create(user=logged_in_user)
 
-		users = User.objects.filter(is_active=True).exclude(username=request.user.username)
+		users = User.objects.filter(is_active=True).exclude(username=logged_in_user.username)
 		i = 0
 		for user in users: 
 			if i > 7:
 				break
-			if user != request.user:
+			if user != logged_in_user:
 				try: 
-					match = Match.objects.get(user1=request.user, user2=user)
+					match = Match.objects.get(user1=logged_in_user, user2=user)
 				except: 
-					match, created = Match.objects.get_or_create(user1=user, user2=request.user)
+					match, created = Match.objects.get_or_create(user1=user, user2=logged_in_user)
 				try:
 					match.distance = round(calc_distance(logged_in_user, user))
 				except:
 					match.distance = 10000000
 				if match.distance <= 20:
-					match.percent = match_percentage(request.user, single_user)
+					match.percent = match_percentage(logged_in_user, single_user)
 					if match.percent >= 70:
 						i += 1
 
 				match.save()
 
 		matches = Match.objects.filter(
-			Q(user1=request.user) | Q(user2=request.user)
-			).exclude(user1=request.user, user2=request.user).exclude(are_friends=True).filter(percent__gte=70)
+			Q(user1=logged_in_user) | Q(user2=logged_in_user)
+			).exclude(user1=logged_in_user, user2=logged_in_user).exclude(are_friends=True).filter(percent__gte=70)
 		num_matches = matches.count()
 		if num_matches >= 7:
 			matches_new = matches.order_by('?')[:7]
@@ -266,8 +307,8 @@ def generate_circle(request):
 				user_gamification.circle.add(match)
 		else:
 			matches = Match.objects.filter(
-				Q(user1=request.user) | Q(user2=request.user)
-				).exclude(user1=request.user, user2=request.user).exclude(are_friends=True)
+				Q(user1=logged_in_user) | Q(user2=logged_in_user)
+				).exclude(user1=logged_in_user, user2=logged_in_user).exclude(are_friends=True)
 			matches_new = matches.order_by('?')[:7]
 			for match in matches_new:
 				user_gamification.circle.add(match)
@@ -281,46 +322,48 @@ def generate_circle(request):
 		preferred_distance = 10
 		#these variables are for keeping track of users that live within certain miles, ie num_10m is 
 		# for users that live within 10 miles
-		users = User.objects.filter(is_active=True).exclude(username=request.user.username)
+		users = User.objects.filter(is_active=True).exclude(username=logged_in_user.username)
 		for user in users: 
 			if user != request.user:
 				try: 
-					match = Match.objects.get(user1=request.user, user2=user)
+					match = Match.objects.get(user1=logged_in_user, user2=user)
 				except: 
-					match, created = Match.objects.get_or_create(user1=user, user2=request.user)
+					match, created = Match.objects.get_or_create(user1=user, user2=logged_in_user)
 				try:
 					match.distance = round(calc_distance(logged_in_user, user))
 				except:
 					match.distance = 10000000
 				match.save()
-		if circle_distance(request.user, preferred_distance) == 1:
+		if circle_distance(logged_in_user, preferred_distance) == 1:
 			pass
-		elif circle_distance(request.user, unicode(int(preferred_distance) + 10)) == 1:
+		elif circle_distance(logged_in_user, unicode(int(preferred_distance) + 10)) == 1:
 			pass
-		elif circle_distance(request.user, unicode(int(preferred_distance) + 20)) == 1:
+		elif circle_distance(logged_in_user, unicode(int(preferred_distance) + 20)) == 1:
 			pass
-		elif circle_distance(request.user, unicode(int(preferred_distance) + 30)) == 1:
+		elif circle_distance(logged_in_user, unicode(int(preferred_distance) + 30)) == 1:
 			pass
 		else: 
 			# otherwise, there are not very many users who live close by, so we default to 
 			# adding to their circle randomly
-			user_gamification = Gamification.objects.get(user=request.user)
+			user_gamification = Gamification.objects.get(user=logged_in_user)
 			current_circle = list(user_gamification.circle.all())
+			requested_users = list(Match.objects.filter(Q(user1=logged_in_user) | Q(user1_approved=True)).filter(Q(user2=logged_in_user) | Q(user2_approved=True)))
+			excluded_users = current_circle + requested_users
 			matches = Match.objects.filter(
-				Q(user1=request.user) | Q(user2=request.user)
-				).exclude(user1=request.user, user2=request.user).exclude(are_friends=True).exclude(id__in=[o.id for o in current_circle]).filter(percent__gte=70)
-			user_gamification = Gamification.objects.get(user=request.user)
+				Q(user1=logged_in_user) | Q(user2=logged_in_user)
+				).exclude(user1=logged_in_user, user2=logged_in_user).exclude(are_friends=True).exclude(id__in=[o.id for o in excluded_users]).filter(percent__gte=70)
+			user_gamification = Gamification.objects.get(user=logged_in_user)
 			count = matches.count()
 			try:
 				max_match = matches.latest('id').id
 			except: 
 				matches = Match.objects.filter(
-					Q(user1=request.user) | Q(user2=request.user)
-					).exclude(user1=request.user, user2=request.user).exclude(are_friends=True).exclude(id__in=[o.id for o in current_circle])
+					Q(user1=logged_in_user) | Q(user2=logged_in_user)
+					).exclude(user1=logged_in_user, user2=logged_in_user).exclude(are_friends=True).exclude(id__in=[o.id for o in current_circle])
 			if count < 6:
 				matches = Match.objects.filter(
-					Q(user1=request.user) | Q(user2=request.user)
-					).exclude(user1=request.user, user2=request.user).exclude(are_friends=True).exclude(id__in=[o.id for o in current_circle])
+					Q(user1=logged_in_user) | Q(user2=logged_in_user)
+					).exclude(user1=logged_in_user, user2=logged_in_user).exclude(are_friends=True).exclude(id__in=[o.id for o in current_circle])
 				max_match = matches.latest('id').id
 			# so we dont have more than 6-7 users in a circle at a time
 
@@ -342,7 +385,6 @@ def generate_circle(request):
 			user_gamification.save()
 			#messages.success(request, "We're sorry, but there aren't many users nearby you right now. We rested your circle as best we could, but you can reset it again if you'd like.")
 
-	return HttpResponseRedirect(reverse('home'))
 
 def circle_distance(logged_in_user, preferred_distance):
 	user_gamification = Gamification.objects.get(user=logged_in_user)
@@ -554,14 +596,29 @@ def new_user_info(request):
 			try: 
 				user = User.objects.get(username=username)
 				messages.error(request, "We're sorry, but that user name is already taken!")
-				return HttpResponseRedirect(reverse('handle_new_user'))
+				return HttpResponseRedirect(reverse('home'))
 			except:
 				pass
 			request.user.username = username
 			request.user.save()
 			user = authenticate(username=request.user.username, password=request.user.password)
 			request.user.save()
-			if not DEBUG:
+
+			if not not CURRENTLY_LOCALLY_TESTING:
+
+				subject = "Welcome to Frenvu!"
+				line1 = "Thanks for signing up %s! Frenvu is a place where you can find your closest friends, someone cool to see a movie with," % (request.user.username)
+				line2 = " or anything in between. After you answer some interests and questions, try creating a crowd to find 6 potential friends who live close by."
+				line3 = " Or you could do an icebreaker, and we'll start a conversation with another user you share an interest with! There's plenty more to do as well,"
+				line4 = " and we are constantly working on additional features. If you have any questions are concerns, please let us know! We want Frenvu to be the most fun"
+				line5 = " and welcoming place for you to meet new people. We hope you enjoy the site!" + '\n' + '\n'
+				line6 = " - The Team at Frenvu "
+				body = line1 + line2 + line3 + line4 + line5 + line6
+				sender = User.objects.get(username="TeamFrenvu")
+				new_user_welcome_message = DirectMessage.objects.create(subject=subject, body=body, receiver=request.user, sender=sender)
+				new_user_welcome_message.save()
+
+
 				username = request.user.username
 				subject = 'Thanks for registering with Frenvu!'
 				plaintext = get_template('registration/email.txt')
@@ -667,21 +724,21 @@ def discover(request):
 			users = paginator.page(page)
 			single_user = users.object_list[0]
 			try: 
-				assert (user != request.user)
+				assert (single_user != request.user)
 			except: 
 				# if the user would go to themselves on pagination, we have them skip a page
 				page_int = int(page)
 				new_page = page_int + 1
 				new_page_u = unicode(new_page)
 				users = paginator.page(new_page_u)
-				user = users.object_list[0]
+				single_user = users.object_list[0]
 
 			try: 
-				match = Match.objects.get(user1=request.user, user2=user)
+				match = Match.objects.get(user1=request.user, user2=single_user)
 			except: 
-				match, created = Match.objects.get_or_create(user1=user, user2=request.user)
+				match, created = Match.objects.get_or_create(user1=single_user, user2=request.user)
 			try:
-				match.distance = round(calc_distance(logged_in_user, user))
+				match.distance = round(calc_distance(request.user, single_user))
 			except:
 				# they have an invalid location
 				match.distance = 10000000
@@ -737,7 +794,7 @@ def all_pictures(request):
 		pictures = UserPicture.objects.filter(user=user)
 		num_of_pics = pictures.count()
 	except: 
-		pass
+		num_of_pics = 0
 	return render_to_response('profiles/pictures.html', locals(), context_instance=RequestContext(request))
 
 
@@ -782,10 +839,18 @@ def edit_info(request):
 		username = username2.translate(None, '"')
 
 		bad_words = ['shit', 'cunt', 'fuck', 'nigger', 'kyke', 'dyke', 'fag', 'ass', 'rape', 
-				'murder', 'kill', 'gook', 'pussy', 'bitch', 'damn', 'hell', 'whore', 'slut', 
-				'cum', 'jizz', 'clit', 'anal', 'cock', 'molest', 'necro', 'satan', 'devil', 
-				'pedo', 'negro', 'spic', 'beaner', 'chink', 'coon', 'kike', 'wetback', 'sex', 
-				'kidnap', 'penis', 'vagina', 'boobs', 'titties', 'sodom', 'kkk', 'nazi', 'klux']
+			'murder', 'kill', 'gook', 'pussy', 'bitch', 'hell', 'whore', 'slut', 
+			'cum', 'jizz', 'clit', 'anal', 'cock', 'molest', 'necro', 'satan', 'devil', 
+			'pedo', 'negro', 'spic', 'beaner', 'chink', 'coon', 'kike', 'wetback', 'sex', 
+			'kidnap', 'penis', 'vagina', 'boobs', 'titties', 'sodom', 'kkk', 'nazi', 'klux', 
+			'dicksucker', 'rapist', 'anus', 'arse', 'bastard','blowjob', 
+			'boner', 'fister', 'butt', 'cameltoe', 'chink', 'coochie', 'coochy', 'bluewaffle', 
+			'cooter', 'dick', 'dildo', 'doochbag', 'douche', 'fellatio', 'feltch', 'flamer', 
+			'donkeypunch', 'fudgepacker', 'gooch', 'gringo', 'jerkoff', 'jigaboo', 'kooch', 
+			'kootch', 'kunt', 'kyke', 'dike', 'minge', 'munging', 'nigga', 'niglet', 'nutsack', 
+			'poon', 'pussies', 'pussy', 'queef', 'queer', 'rimjob', 'erection', 'schlong', 
+			'skeet', 'smeg', 'spick', 'splooge', 'spook', 'retard', 'testicle', 'tit', 'twat', 
+			'vajayjay', 'wankjob', 'bimbo', '69', 'fistr', 'fist3r']
 		for word in bad_words:
 			if word in username:
 				messages.success(request, "We're sorry but some people might find your username offensive. Please pick a different username.")
@@ -1002,7 +1067,7 @@ def calculate_age(born):
 
 #Creates a new user and assigns the appropriate fields to the user (this is for signing up with Frenvu, not FB or Goog)
 def register_new_user(request):
-	try:
+	if True:
 		'''
 		username1 = str(request.POST['username'])
 		username2 = username1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>")
@@ -1047,7 +1112,7 @@ def register_new_user(request):
 				else:
 					messages.error(request, "Please make sure both passwords match")
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
-	except:		
+	else:		
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
 
@@ -1122,7 +1187,7 @@ def delete_account(request):
 	logout(request)
 	messages.success(request, "Your account has been deactivated. Your account will be deleted in 30 days.")
 	messages.success(request, "We're sorry to see you go, but if you change your mind before then, just log back in to reactivate it!")
-	if not DEBUG: 
+	if not CURRENTLY_LOCALLY_TESTING: 
 		subject = 'A user is deactivating their account.'
 		message = '%s wants to delete their account.' % (username,)
 		msg = EmailMultiAlternatives(subject, message, EMAIL_HOST_USER, [email])
@@ -1197,14 +1262,22 @@ def ice_breaker(request):
 		user2 = request.user
 	match.user1_approved = True
 	match.user2.approved = True
+	match.currently_in_icebreaker = True
 
+	if not CURRENTLY_LOCALLY_TESTING: 
+		sender1 = User.objects.get(username="TeamFrenvu")
+		sender2 = User.objects.get(username="TeamFrenvu")
+	else:
+		sender1 = user1
+		sender2 = user2
 	subject = "You two have an interest in common!"
-	body_for_user1 = "You and %s both like %s! What exactly is it about %s that you like so much? Let %s know your thoughts! " %(user2.username, random_interest, random_interest, user2.username)
-	body_for_user2 = "You and %s both like %s! What exactly is it about %s that you like so much? Let %s know your thoughts! " %(user1.username, random_interest, random_interest, user1.username)
-	user1_message = DirectMessage.objects.create(subject=subject, body=body_for_user1, receiver=user1, sender=user2)
-	user2_message = DirectMessage.objects.create(subject=subject, body=body_for_user2, receiver=user2, sender=user1)
+	body_for_user1 = "You and %s both like %s! What exactly is it about %s that you like so much? Let %s know your thoughts because you can message each other for the next 3 hours! " %(user2.username, random_interest, random_interest, user2.username)
+	body_for_user2 = "You and %s both like %s! What exactly is it about %s that you like so much? Let %s know your thoughts because you can message each other for the next 3 hours! " %(user1.username, random_interest, random_interest, user1.username)
+	user1_message = DirectMessage.objects.create(subject=subject, body=body_for_user1, receiver=user1, sender=sender1)
+	user2_message = DirectMessage.objects.create(subject=subject, body=body_for_user2, receiver=user2, sender=sender2)
 	user1_message.sent = datetime.now()
 	user2_message.sent = datetime.now()
+	match.save()
 	user1_message.save()
 	user2_message.save()
 	user_gamification = Gamification.objects.get(user=request.user)

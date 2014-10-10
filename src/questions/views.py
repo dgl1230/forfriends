@@ -103,7 +103,7 @@ def edit_questions(request):
 		return HttpResponseRedirect('')
 	return render_to_response('questions/edit.html', locals(), context_instance=RequestContext(request))
 
-
+'''
 def new_user_questions(request):
 	
 	questions_all = Question.objects.filter(for_new_users=True).exclude(useranswer__user=request.user)
@@ -161,3 +161,4 @@ def new_user_questions(request):
 
 
 	return render_to_response('questions/new_user.html', locals(), context_instance=RequestContext(request))
+'''

@@ -49,7 +49,7 @@ class UserPictureInline(admin.TabularInline):
 
 class UserAdmin(admin.ModelAdmin):
     inlines = [AddressInline, InfoInline, JobInline, 
-    		UserPictureInline, UserInterestAnswerInline, UserAnswerInline, GameInline]
+    		UserPictureInline, UserInterestAnswerInline, GameInline]
 
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
