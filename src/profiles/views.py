@@ -258,8 +258,7 @@ def all(request):
 			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 			#try to get their current icebreaker match
 			try: 
-				icebreaker_match = Match.objects.filter(
-					Q(user1=request.user) | Q(user2=request.user)).get(currently_in_icebreaker=True)
+				icebreaker_match = Match.objects.filter(Q(user1=request.user) | Q(user2=request.user)).get(currently_in_icebreaker=True)
 				if can_reset_icebreaker == True: 
 					icebreaker_match.currently_in_icebreaker = False
 					icebreaker_match.save()
@@ -796,7 +795,7 @@ def all_pictures(request):
 		pictures = UserPicture.objects.filter(user=user)
 		num_of_pics = pictures.count()
 	except: 
-		pass
+		num_of_pics = 0
 	return render_to_response('profiles/pictures.html', locals(), context_instance=RequestContext(request))
 
 
