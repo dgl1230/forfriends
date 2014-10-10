@@ -1278,6 +1278,7 @@ def ice_breaker(request):
 	user2_message = DirectMessage.objects.create(subject=subject, body=body_for_user2, receiver=user2, sender=sender2)
 	user1_message.sent = datetime.now()
 	user2_message.sent = datetime.now()
+	match.save()
 	user1_message.save()
 	user2_message.save()
 	user_gamification = Gamification.objects.get(user=request.user)
