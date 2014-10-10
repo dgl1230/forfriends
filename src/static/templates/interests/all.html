@@ -156,7 +156,7 @@
 			<div class="main_interests" id="main_interests"  ontouchstart="touchStart(event,'main_interests');" ontouchend="touchEnd(event);" ontouchmove="touchMove(event);" ontouchcancel="touchCancel(event);">
 			<div class="interests-title">
 			{% for interest in interests %}
-				<h3>{{ interest.interest|title }}</h3><p>
+				<h3>{{ interest.interest|title }}</h3>
 			</div>	
 				{% if interest.description %}
 					<h5 class="description">{{ interest.description|title }}</h5>

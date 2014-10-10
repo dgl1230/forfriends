@@ -41,14 +41,11 @@
 				{% if interest.description %}
 					<h5 class="description">{{ interest.description|title }}</h5>
 				{% endif %}
-
 			</div>
 			<form method='POST' action=''> {% csrf_token %}
 				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<div class="interest_ranking">
 				<strong class="choice">Choose a rating</strong>	 <br>
-				
-			
 				<span class="star-rating">
 					{% for imp in importance_levels %}
 					<input type="radio" name="rating" value='{{ imp }}' id='{{ imp }}' class="star" {% for abc in interest.userinterestanswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} checked="checked" {% endif %} {% endfor %}><i></i>
