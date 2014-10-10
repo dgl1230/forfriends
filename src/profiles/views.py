@@ -50,7 +50,7 @@ def add_friend(request, username):
 			sender = User.objects.get(username="TeamFrenvu")
 		else: 
 			sender = request.user
-		requested= match.user2
+		requested= match.user2.username
 		subject = "Someone wants to be your friend!"
 		body = "Hey %s, %s thinks you two could be pretty good friends! Why don't you check out their profile and see if you think they seem cool? " %(requested, request.user.username)
 		message = DirectMessage.objects.create(subject=subject, body=body, sender=sender, receiver=requested)
@@ -63,7 +63,7 @@ def add_friend(request, username):
 			sender = User.objects.get(username="TeamFrenvu")
 		else: 	
 			sender = request.user
-		requested= match.user1
+		requested= match.user1.username
 		subject = "Someone wants to be your friend!"
 		body = "Hey %s, %s thinks you two could be pretty good friends! Why don't you check out their profile and see if you think they seem cool?" %(requested, request.user.username)
 		message = DirectMessage.objects.create(subject=subject, body=body, sender=sender,receiver=requested)

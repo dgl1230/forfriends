@@ -103,13 +103,6 @@ class UserPicture(models.Model):
 		super(UserPicture, self).save(*args, **kwargs)
 
 
-'''
-def check_if_new_user(sender, request, user, **kwargs):
-	info = Info.models.get(user=user)
-	if info.is_new_user == True:
-		if handle_new_user(user)
-'''
-
 
 
 
