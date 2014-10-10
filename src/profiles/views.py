@@ -324,7 +324,7 @@ def generate_circle(logged_in_user):
 		# for users that live within 10 miles
 		users = User.objects.filter(is_active=True).exclude(username=logged_in_user.username)
 		for user in users: 
-			if user != request.user:
+			if user != logged_in_user:
 				try: 
 					match = Match.objects.get(user1=logged_in_user, user2=user)
 				except: 
