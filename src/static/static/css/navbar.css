@@ -376,4 +376,14 @@ form.navbar-form.navbar-left{
 	.navbar-form.navbar-left{
 		margin-top:0px!important;
 	}
+	.navbar-mobile{
+		width:100%;
+	}
+}
+
+@media (min-width: 767px){
+	.navbar-mobile{
+		display:none;
+	}
+
 }

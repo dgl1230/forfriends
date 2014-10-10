@@ -41,13 +41,6 @@
 				{% if interest.description %}
 					<h5 class="description">{{ interest.description|title }}</h5>
 				{% endif %}
-				{% for pic in interest.interestpicture_set.all %}
-					{% if forloop.first %}
-						<img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' />
-						<br>
-					{% endif %}
-
-				{% endfor %}
 
 			</div>
 			<form method='POST' action=''> {% csrf_token %}

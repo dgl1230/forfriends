@@ -158,15 +158,6 @@
 				{% if interest.description %}
 					<h5 class="description">{{ interest.description|title }}</h5>
 				{% endif %}
-				{% for pic in interest.interestpicture_set.all %}
-					{% if forloop.first %}
-					<div class="img-container">
-						<img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' />
-						<br>
-					</div>
-					{% endif %}
-
-				{% endfor %}
 			</div>
 
 			<form id="interests_edit_form" action='' method="POST">

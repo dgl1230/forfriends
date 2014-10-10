@@ -1,38 +1,41 @@
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div id="navbar-container">
-        <div class="navbar-header">
-          <a class="navbar-brand"  data-variation=".left"><img id="menu_icon" src="{{ STATIC_URL }}img/menu_icon.png"></a>
-          {% if request.user.is_authenticated %}
-          <form class="navbar-form navbar-left" role="search" action='{% url "search" %}'>
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Search users..." name='q' required>
-              <button type="submit" class="btn btn-default" id="go_button">Search</button>
-            </div>
-          </form>
-        
-          <ul class='nav navbar-nav pull-right'>
-            
-              <li class="inbox">
-              <a href='{% url "inbox" %}' title="Inbox" class="sidebar-tool" id="messages_sidebar">
-                  <span class='glyphicon glyphicon-envelope'></span>
-                  {% if not request.session.num_of_messages == 0 %} 
-                     <span class="badge pull-right" id="messages_badge"> {{ request.session.num_of_messages }}</span>
-                  {% endif %}
-                </a>
-              </li>
-            <li class="logout">
-              <a href='{% url "logout_user" %}'>Logout</a>
-            </li> 
+  <div id="navbar-container">
+    <div class="navbar-header">
+      <a class="navbar-brand"  data-variation=".left"><img id="menu_icon" src="{{ STATIC_URL }}img/menu_icon.png"></a>
+      {% if request.user.is_authenticated %}
+      <form class="navbar-form navbar-left" role="search" action='{% url "search" %}'>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search users..." name='q' required>
+          <button type="submit" class="btn btn-default" id="go_button">Search</button>
+        </div>
+      </form>
+      <ul class='nav navbar-nav pull-right'>
+          <form class="navbar-mobile" role="search" action='{% url "search" %}'>
+          <div class="form-group">
+            <input type="text" class="input-mobile" placeholder="Search users..." name='q' required>
+            <button type="submit" class="btn btn-mobile" id="go_button">Search</button>
+          </div>
+      </form><span class='glyphicon glyphicon-search'></span>
+        <li class="inbox">
+          <a href='{% url "inbox" %}' title="Inbox" class="sidebar-tool" id="messages_sidebar">
+          <span class='glyphicon glyphicon-envelope'></span>
+            {% if not request.session.num_of_messages == 0 %} 
+          <span class="badge pull-right" id="messages_badge"> {{ request.session.num_of_messages }}</span>
+            {% endif %}
+          </a>
+        </li>
+      <li class="logout">
+          <a href='{% url "logout_user" %}'>Logout</a>
+        </li> 
 
-          
-          {% else %}
-                      <ul class='nav navbar-nav pull-right'>
-                        <li class='profiles'>
-                          <a href="/">Back to Frenvu</a>
-                        </li>
-                      </ul>  
-            </ul>
-          {% endif %}
-      </div>
-    </div>  
-    </div>
+      {% else %}
+            <ul class='nav navbar-nav pull-right'>
+              <li class='profiles'>
+                <a href="/">Back to Frenvu</a>
+              </li>
+            </ul>  
+        </ul>
+      {% endif %}
+  </div>
+</div>  
+</div>
