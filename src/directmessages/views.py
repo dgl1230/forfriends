@@ -87,7 +87,7 @@ def compose(request):
 			message_users.append(match.user1)
 		else:
 			message_users.append(match.user2)
-	icebreaker_match = Match.objects.filter(Q(user1=request.user) | Q(user2=request.user)).get(currently_in_icebreaker=True)
+	#icebreaker_match = Match.objects.filter(Q(user1=request.user) | Q(user2=request.user)).get(currently_in_icebreaker=True)
 	if icebreaker_match.user1 != request.user:
 		message_users.append(icebreaker_match.user1)
 	else:

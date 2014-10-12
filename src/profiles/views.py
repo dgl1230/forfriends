@@ -181,8 +181,9 @@ the user is not logged in, and is shown the landing page.
 '''
 def all(request):
 	if request.user.is_authenticated():
+		info = Info.objects.get(user=request.user)
 		try: 
-			info = Info.objects.get(user=request.user)
+			#info = Info.objects.get(user=request.user)
 			if info.is_new_user == True:
 				is_new_user = True
 				user_interests = UserInterestAnswer.objects.filter(user=request.user)
@@ -191,12 +192,13 @@ def all(request):
 					can_make_first_crowd = True
 					info.is_new_user = False
 					info.save()
+					is_new_user = False
 				else:
 					can_make_first_crowd = False
-				return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+				#return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 		except: 
 			pass
-		else:
+		if info.is_new_user == False:
 			is_new_user = False
 
 			'''
