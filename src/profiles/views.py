@@ -199,6 +199,7 @@ def all(request):
 		else:
 			is_new_user = False
 
+			'''
 			try: 
 				# this is to test if somehow the user has multiple circles and fix said error
 				user_gamification = Gamification.objects.filter(user=request.user)
@@ -217,6 +218,7 @@ def all(request):
 					user_gamification.delete()
 			except:
 				pass
+			'''
 
 			# this is to see if the user has a circle
 
@@ -224,11 +226,14 @@ def all(request):
 				user_gamification = Gamification.objects.get(user=request.user)
 			except: 
 				#user does not have a circle
+				pass
+				'''
 				user_gamification = Gamification.objects.create(user=request.user)
 				user_gamification.circle_time_until_reset = datetime.now()
 				user_gamification.icebreaker_until_reset = datetime.now()
 				user_gamification.save()
 				return HttpResponseRedirect(reverse('generate_circle'))
+				'''
 			try:
 				# check and see if the user has any value in their circle fields
 				until_next_reset = user_gamification.circle_time_until_reset
@@ -255,7 +260,6 @@ def all(request):
 			messages_in_inbox = DirectMessage.objects.filter(receiver=request.user)
 			direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
 			request.session['num_of_messages'] = direct_messages
-			return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 			#try to get their current icebreaker match
 			try: 
 				icebreaker_match = Match.objects.filter(Q(user1=request.user) | Q(user2=request.user)).get(currently_in_icebreaker=True)
@@ -264,7 +268,7 @@ def all(request):
 					icebreaker_match.save()
 			except: 
 				pass
-	
+		return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 	else:
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
