@@ -91,9 +91,9 @@ def compose(request):
 		icebreaker_matches = Match.objects.filter(Q(user1=request.user) | Q(user2=request.user)).filter(currently_in_icebreaker=True)
 		for match in icebreaker_matches:
 			if match.user1 != request.user:
-				message_users.append(icebreaker_match.user1)
+				message_users.append(match.user1)
 			else:
-				message_users.append(icebreaker_match.user2)
+				message_users.append(match.user2)
 	except: 
 		pass
 	form.fields['receiver'].queryset = User.objects.filter(username__in=message_users)
