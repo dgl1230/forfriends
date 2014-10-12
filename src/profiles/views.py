@@ -227,13 +227,11 @@ def all(request):
 			except: 
 				#user does not have a circle
 				pass
-				'''
 				user_gamification = Gamification.objects.create(user=request.user)
 				user_gamification.circle_time_until_reset = datetime.now()
 				user_gamification.icebreaker_until_reset = datetime.now()
 				user_gamification.save()
-				return HttpResponseRedirect(reverse('generate_circle'))
-				'''
+				#return HttpResponseRedirect(reverse('generate_circle'))
 			try:
 				# check and see if the user has any value in their circle fields
 				until_next_reset = user_gamification.circle_time_until_reset
