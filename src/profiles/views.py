@@ -1083,6 +1083,8 @@ def new_picture(request):
 			form = pic_form.save(commit=False)
 			image = pic_form.cleaned_data["image"]
 			if image:
+				if "profile_pic" in request.GET:
+					form.is_profile_pic = True
 				form.user = request.user
 				form.image = image
 				form.save()
