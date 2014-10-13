@@ -16,7 +16,12 @@ class Match(models.Model):
 
 	is_same_state = models.BooleanField(default=False)
 
-	currently_in_icebreaker = models.BooleanField(default=False)
+	#is True if user1 initiated this match currently being in an icebreaker
+	currently_in_icebreaker_user1 = models.BooleanField(default=False)
+
+	#is True if user2 initiated this match currently being in an icebreaker
+	currently_in_icebreaker_user2 = models.BooleanField(default=False)
+
 
 
 
