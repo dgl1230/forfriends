@@ -883,15 +883,14 @@ def find_friends(request):
 
 
 def login_user(request):
-	username = request.POST['username']
-	password = request.POST['password']
+	username = str(request.POST['username'])
+	password = str(request.POST['password'])
 
 	# check to see whether they provied their username or email for logging in
 	if '@' in username:
 		kwargs = {'email': username}
 	else:
 		kwargs = {'username': username}
-	kwargs['password'] = password
 	user1 = User.objects.get(**kwargs)
 	username = user1.username
 	user = authenticate(username=username, password=password)
