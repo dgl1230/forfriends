@@ -105,11 +105,11 @@ def edit_interests(request):
 	page = request.GET.get('page')
 	try:
 		interests = paginator.page(page)
-		interest = interests.object_list[0]
-		print "The Interest is: ", interest
-		useranswer = UserInterestAnswer.objects.get(user=request.user, interest=interest)
-		importance_level = useranswer.importance_level
-		print "The importance level: ", useranswer.importance_level
+		#interest = interests.object_list[0]
+		#print "The Interest is: ", interest
+		#useranswer = UserInterestAnswer.objects.get(user=request.user, interest=interest)
+		#importance_level = useranswer.importance_level
+		#print "The importance level: ", useranswer.importance_level
 	except PageNotAnInteger:
 		#If page is not an integer, deliver first page.
 		interests = paginator.page(1)
