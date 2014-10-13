@@ -262,9 +262,9 @@ def all(request):
 			request.session['num_of_messages'] = direct_messages
 			#try to get their current icebreaker match
 			icebreaker_match = Match.objects.filter(Q(user1=request.user) | Q(user2=request.user)).get(currently_in_icebreaker=True)
-				if can_reset_icebreaker == True: 
-					icebreaker_match.currently_in_icebreaker = False
-					icebreaker_match.save()
+			if can_reset_icebreaker == True: 
+				icebreaker_match.currently_in_icebreaker = False
+				icebreaker_match.save()
 			try: 
 				icebreaker_match = Match.objects.filter(Q(user1=request.user) | Q(user2=request.user)).get(currently_in_icebreaker=True)
 				if can_reset_icebreaker == True: 
