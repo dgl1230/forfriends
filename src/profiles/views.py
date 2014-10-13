@@ -261,12 +261,16 @@ def all(request):
 			direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
 			request.session['num_of_messages'] = direct_messages
 			#try to get their current icebreaker match
-			#icebreaker_match = Match.objects.filter(Q(user1=request.user) | Q(user2=request.user)).filter(currently_in_icebreaker=True)
-			'''
+			icebreaker_match = Match.objects.get(Q(user1=request.user, currently_in_icebreaker_user1=True) | Q(user2=request.user, currently_in_icebreaker_user2=True))
+			
 			if can_reset_icebreaker == True: 
-				icebreaker_match.currently_in_icebreaker = False
-				icebreaker_match.save()
-			'''
+				if icebreaker_match.currently_in_icebreaker_user1 == True: 
+					icebreaker_match.currently_in_icebreaker_user1 = False
+					icebreaker_match.save()
+				else:
+					icebreaker_match.currently_in_icebreaker_user2 = False
+					icebreaker_match.save()
+			
 			try: 
 				icebreaker_match = Match.objects.filter(Q(user1=request.user) | Q(user2=request.user)).get(currently_in_icebreaker=True)
 				if can_reset_icebreaker == True: 
