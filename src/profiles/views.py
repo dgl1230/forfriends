@@ -883,36 +883,34 @@ def find_friends(request):
 
 
 def login_user(request):
-	try:
-		username = request.POST['username']
-		password = request.POST['password']
+	username = request.POST['username']
+	password = request.POST['password']
 
-		# check to see whether they provied their username or email for logging in
-		if '@' in username:
-			kwargs = {'email': username}
-		else:
-			kwargs = {'username': username}
-		user1 = User.objects.get(**kwargs)
-		username = user1.username
-		user = authenticate(username=username, password=password)
+	# check to see whether they provied their username or email for logging in
+	if '@' in username:
+		kwargs = {'email': username}
+	else:
+		kwargs = {'username': username}
+	user1 = User.objects.get(**kwargs)
+	username = user1.username
+	user = authenticate(username=username, password=password)
 
-		if user is not None:
-			# if user deactivated their account and logged in, they are no longer deactivated
-			if user.is_active == False:
-				user.is_active = True
-				if not DEBUG: 
-					subject = 'A user is reactivating their account.'
-					message = '%s wants to reactivate their account.' % (username,)
-					msg = EmailMultiAlternatives(subject, message, EMAIL_HOST_USER, [email])
-					msg.content_subtype = "html"
-					msg.send()
-				messages.succes(request, "We missed you!")
-			login(request, user)
-			return HttpResponseRedirect(reverse('home'))
-		else:
-			messages.error(request, "Please double check your username or email address and password")
-	except: 
+	if user is not None:
+		# if user deactivated their account and logged in, they are no longer deactivated
+		if user.is_active == False:
+			user.is_active = True
+			if not DEBUG: 
+				subject = 'A user is reactivating their account.'
+				message = '%s wants to reactivate their account.' % (username,)
+				msg = EmailMultiAlternatives(subject, message, EMAIL_HOST_USER, [email])
+				msg.content_subtype = "html"
+				msg.send()
+			messages.succes(request, "We missed you!")
+		login(request, user)
+		return HttpResponseRedirect(reverse('home'))
+	else:
 		messages.error(request, "Please double check your username or email address and password")
+	
 	return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
 
