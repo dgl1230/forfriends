@@ -32,7 +32,7 @@ from questions.models import Question, UserAnswer
 
 
 
-CURRENTLY_LOCALLY_TESTING = True
+CURRENTLY_LOCALLY_TESTING = False
 
 
 '''Implements the 'add friend' button when viewing a user's profile
@@ -261,21 +261,16 @@ def all(request):
 			direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
 			request.session['num_of_messages'] = direct_messages
 			#try to get their current icebreaker match
-			icebreaker_match = Match.objects.get(Q(user1=request.user, currently_in_icebreaker_user1=True) | Q(user2=request.user, currently_in_icebreaker_user2=True))
-			
-			if can_reset_icebreaker == True: 
-				if icebreaker_match.currently_in_icebreaker_user1 == True: 
-					icebreaker_match.currently_in_icebreaker_user1 = False
-					icebreaker_match.save()
-				else:
-					icebreaker_match.currently_in_icebreaker_user2 = False
-					icebreaker_match.save()
-			
-			try: 
-				icebreaker_match = Match.objects.filter(Q(user1=request.user) | Q(user2=request.user)).get(currently_in_icebreaker=True)
+			try:
+				icebreaker_match = Match.objects.get(Q(user1=request.user, currently_in_icebreaker_user1=True) | Q(user2=request.user, currently_in_icebreaker_user2=True))
+				
 				if can_reset_icebreaker == True: 
-					icebreaker_match.currently_in_icebreaker = False
-					icebreaker_match.save()
+					if icebreaker_match.currently_in_icebreaker_user1 == True: 
+						icebreaker_match.currently_in_icebreaker_user1 = False
+						icebreaker_match.save()
+					else:
+						icebreaker_match.currently_in_icebreaker_user2 = False
+						icebreaker_match.save()
 			except: 
 				pass
 		return render_to_response('all.html', locals(), context_instance=RequestContext(request))
