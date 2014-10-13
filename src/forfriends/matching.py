@@ -172,4 +172,4 @@ def match_percentage(user1, user2):
 		overall_score = interest_score
 	else:
 		overall_score = (.8 * question_score) + (.2 * interest_score)
-	return int(round(overall_score * 100))
+	return int(round(overall_score))
