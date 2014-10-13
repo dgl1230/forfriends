@@ -887,10 +887,10 @@ def login_user(request):
 	password = str(request.POST['password'])
 
 	# check to see whether they provied their username or email for logging in
-	if not '@' in username:
-		kwargs = {'username': username}
-	else:
+	if '@' in username:
 		kwargs = {'email': username}
+	else:
+		kwargs = {'username': username}
 	user1 = User.objects.get(**kwargs)
 	username = user1.username
 	user = authenticate(username=username, password=password)
@@ -971,6 +971,7 @@ def register_new_user(request):
 
 					new_user = User.objects.create(username=email_as_username, password=password)
 					new_user.set_password(password)
+					new_user.email = email
 					
 					new_user.save()
 					new_user = authenticate(username=email_as_username, password=password)
