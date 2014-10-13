@@ -93,7 +93,7 @@ class UserPicture(models.Model):
 	def save(self, *args, **kwargs):
 		if self.is_profile_pic:
 			try:
-				temp = UserPicture.objects.filter(user=self.user).get(is_profile_pic=True)
+				temp = UserPicture.objects.filter(user=self.user).filter(is_profile_pic=True)
 				for pic in temp:
 					if self != pic:
 						pic.is_profile_pic = False

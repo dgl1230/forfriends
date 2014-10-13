@@ -32,7 +32,7 @@ from questions.models import Question, UserAnswer
 
 
 
-CURRENTLY_LOCALLY_TESTING = False
+CURRENTLY_LOCALLY_TESTING = True
 
 
 '''Implements the 'add friend' button when viewing a user's profile
@@ -261,6 +261,10 @@ def all(request):
 			direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
 			request.session['num_of_messages'] = direct_messages
 			#try to get their current icebreaker match
+			icebreaker_match = Match.objects.filter(Q(user1=request.user) | Q(user2=request.user)).get(currently_in_icebreaker=True)
+				if can_reset_icebreaker == True: 
+					icebreaker_match.currently_in_icebreaker = False
+					icebreaker_match.save()
 			try: 
 				icebreaker_match = Match.objects.filter(Q(user1=request.user) | Q(user2=request.user)).get(currently_in_icebreaker=True)
 				if can_reset_icebreaker == True: 
@@ -657,10 +661,8 @@ def friends(request):
 
 #Shows all pictures that the logged in user has 
 def all_pictures(request): 
-	username = request.user.username
-	user = User.objects.get(username=username)
 	try: 
-		pictures = UserPicture.objects.filter(user=user)
+		pictures = UserPicture.objects.filter(user=request.user)
 		num_of_pics = pictures.count()
 	except: 
 		num_of_pics = 0
@@ -724,6 +726,12 @@ def edit_info(request):
 			if word in username:
 				messages.success(request, "We're sorry but some people might find your username offensive. Please pick a different username.")
 				return HttpResponseRedirect(reverse('edit_profile'))
+		try: 
+			taken_username = User.objects.get(username=username)
+			messages.success(request, "We're sorry but that username is already taken.")
+			return HttpResponseRedirect(reverse('edit_profile'))
+		except:
+			pass
 
 
 		if len(username) == 0:
@@ -993,6 +1001,11 @@ def single_user(request, username):
 			single_user = user
 	except:
 		raise Http404
+	user = User.objects.get(username=username)
+	try:
+		profile_pic = UserPicture.objects.get(user=user, is_profile_pic=True)
+	except: 
+		pass
 	try: 
 		if single_user != request.user:
 			try: 
@@ -1083,7 +1096,8 @@ def new_picture(request):
 			form = pic_form.save(commit=False)
 			image = pic_form.cleaned_data["image"]
 			if image:
-				if "profile_pic" in request.GET:
+				if "profile_pic" in request.POST:
+					print "here I am"
 					form.is_profile_pic = True
 				form.user = request.user
 				form.image = image
