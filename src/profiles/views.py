@@ -729,7 +729,7 @@ def edit_info(request):
 				return HttpResponseRedirect(reverse('edit_profile'))
 		try: 
 			taken_username_user = User.objects.get(username=username)
-			if taken_username_user != request.user
+			if taken_username_user != request.user:
 				messages.success(request, "We're sorry but that username is already taken.")
 				return HttpResponseRedirect(reverse('edit_profile'))
 		except:
