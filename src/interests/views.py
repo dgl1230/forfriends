@@ -103,7 +103,8 @@ def edit_interests(request):
 
 
 	page = request.GET.get('page')
-	interests = paginator.page(page)
+	try:
+		interests = paginator.page(page)
 		#interest = interests.object_list[0]
 		#print "The Interest is: ", interest
 		#useranswer = UserInterestAnswer.objects.get(user=request.user, interest=interest)
@@ -117,7 +118,8 @@ def edit_interests(request):
 		#If page is out of range, deliver last page of results
 		interests = paginator.page(paginator.num_pages)
 	'''
-
+	except: 
+		pass
 	if request.method == 'POST':
 		interest_id = request.POST['interest_id']
 
