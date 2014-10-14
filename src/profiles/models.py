@@ -115,6 +115,7 @@ class UserPicture(models.Model):
 			num_of_pics = UserPicture.objects.filter(user=self.user).count()
 		except:
 			num_of_pics = 0
+		return num_of_pics
 
 
 
