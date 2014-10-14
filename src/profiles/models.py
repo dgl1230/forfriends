@@ -111,11 +111,14 @@ class UserPicture(models.Model):
 
 
 	def get_num_user_pics(self):
+		num_of_pics = UserPicture.objects.filter(user=self.user).count()
+		'''
 		try: 
 			num_of_pics = UserPicture.objects.filter(user=self.user).count()
 		except:
 			num_of_pics = 0
 		return num_of_pics
+		'''
 
 
 
