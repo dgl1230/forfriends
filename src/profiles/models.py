@@ -75,7 +75,8 @@ class Job(models.Model):
 
 
 def save_path(instance, filename):
-	return 'profiles/' + str(instance.user.username) + '/' + filename
+	number = instance.get_num_user_pics
+	return 'profiles/' + str(instance.user.username) + '/' + filename + str(number)
 
 
 class UserPicture(models.Model):
@@ -107,6 +108,13 @@ class UserPicture(models.Model):
 			except:
 				pass
 		super(UserPicture, self).save(*args, **kwargs)
+
+
+	def get_num_user_pics(self):
+		try: 
+			num_of_pics = UserPicture.objects.filter(user=self.user).count()
+		except:
+			num_of_pics = 0
 
 
 
