@@ -265,7 +265,7 @@ def all(request):
 				icebreaker_match = Match.objects.get(Q(user1=request.user, currently_in_icebreaker_user1=True) | Q(user2=request.user, currently_in_icebreaker_user2=True))
 				
 				if can_reset_icebreaker == True: 
-					if icebreaker_match.currently_in_icebreaker_user1 == True: 
+					if icebreaker_match.currently_in_icebreaker_user1 == True and icebreaker_match.user1 == request.user: 
 						icebreaker_match.currently_in_icebreaker_user1 = False
 						icebreaker_match.save()
 					else:
