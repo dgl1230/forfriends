@@ -74,10 +74,14 @@ class Job(models.Model):
 		return self.position
 
 
+def save_path(instance, filename):
+	return 'profiles/' + str(self.user.username) + '/' + filename
+
+
 class UserPicture(models.Model):
 	user = models.ForeignKey(User)
 	caption = models.CharField(max_length=100, null=True, blank=True)
-	image = models.ImageField(upload_to='profiles/')
+	image = models.ImageField(upload_to=save_path)
 	#image = ImageCropField(null=True, blank=True, upload_to='profiles/')
 	is_profile_pic = models.BooleanField(default=False)
 	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
@@ -89,6 +93,8 @@ class UserPicture(models.Model):
 
 	def __unicode__(self):
 		return str(self.image)
+
+
 
 	def save(self, *args, **kwargs):
 		if self.is_profile_pic:

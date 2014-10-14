@@ -143,14 +143,15 @@ def single_user_interests(request, username):
 	importance_levels = ['Strongly Dislike', 'Dislike', 'Neutral', 'Like', 'Strongly Like']
 
 	page = request.GET.get('page')
-	try:
-		interests = paginator.page(page)
+	interests = paginator.page(page)
+	'''
 	except PageNotAnInteger:
 		#If page is not an integer, deliver first page.
 		interests = paginator.page(1)
 	except EmptyPage:
 		#If page is out of range, deliver last page of results
 		interests = paginator.page(paginator.num_pages)
+	'''
 
 	return render_to_response('interests/single_user.html', locals(), context_instance=RequestContext(request))
 
