@@ -82,7 +82,7 @@ def save_path(instance, filename):
 class UserPicture(models.Model):
 	user = models.ForeignKey(User)
 	caption = models.CharField(max_length=100, null=True, blank=True)
-	image = models.ImageField(upload_to=save_path)
+	image = models.ImageField(upload_to=save_path, max_length=200)
 	#image = ImageCropField(null=True, blank=True, upload_to='profiles/')
 	is_profile_pic = models.BooleanField(default=False)
 	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
