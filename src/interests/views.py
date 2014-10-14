@@ -31,16 +31,13 @@ def create_interest(request):
 def all_interests(request):
 	
 	#interests_all = Interest.objects.exclude(userinterestanswer__user=request.user).filter(approved=True).order_by('?')
-	'''
+	
 	if not request.session.get('random_interests'):
 		request.session['random_interests']= request.user.id
 	interests_all = cache.get('random_interests_%d' % request.session['random_interests'])
 	if not interests_all:
 		interests_all = list(Interest.objects.exclude(userinterestanswer__user=request.user).filter(approved=True).order_by('?'))
 		cache.set('random_interests_%d' % request.session['random_interests'], interests_all, 100)
-	'''
-
-	interests_all = Interest.objects.exclude(userinterestanswer__user=request.user).filter(approved=True)
 
 	paginator = Paginator(interests_all, 1)
 	importance_levels = ['Strongly Dislike', 'Dislike', 'Neutral', 'Like', 'Strongly Like']
@@ -129,10 +126,12 @@ def edit_interests(request):
 
 		user = User.objects.get(id=request.user.id)
 		interest = Interest.objects.get(id=interest_id)
+		'''
 		try:
 			interest_pic = InterestPicture.objects.get(interest=interest).filter(id=1)
 		except: 
 			pass
+		'''
 
 		#user answer save
 
