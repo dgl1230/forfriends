@@ -98,7 +98,6 @@ def all_interests(request):
 def edit_interests(request):
 
 	interests_all = Interest.objects.filter(userinterestanswer__user=request.user)
-
 	paginator = Paginator(interests_all, 1)
 	importance_levels = ['Strongly Dislike', 'Dislike', 'Neutral', 'Like', 'Strongly Like']
 
@@ -111,12 +110,16 @@ def edit_interests(request):
 		#useranswer = UserInterestAnswer.objects.get(user=request.user, interest=interest)
 		#importance_level = useranswer.importance_level
 		#print "The importance level: ", useranswer.importance_level
+	'''
 	except PageNotAnInteger:
 		#If page is not an integer, deliver first page.
 		interests = paginator.page(1)
 	except EmptyPage:
 		#If page is out of range, deliver last page of results
 		interests = paginator.page(paginator.num_pages)
+	'''
+	except:
+		pass
 
 	if request.method == 'POST':
 		interest_id = request.POST['interest_id']
