@@ -103,15 +103,12 @@ def edit_interests(request):
 
 
 	page = request.GET.get('page')
-	try:
-		interests = paginator.page(page)
+	interests = paginator.page(page)
 		#interest = interests.object_list[0]
 		#print "The Interest is: ", interest
 		#useranswer = UserInterestAnswer.objects.get(user=request.user, interest=interest)
 		#importance_level = useranswer.importance_level
 		#print "The importance level: ", useranswer.importance_level
-	except: 
-		pass
 	if request.method == 'POST':
 		interest_id = request.POST['interest_id']
 
