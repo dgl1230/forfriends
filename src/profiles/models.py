@@ -120,6 +120,7 @@ class UserPicture(models.Model):
 			num_of_pics = 0
 		return num_of_pics
 		'''
+		return num_of_pics
 
 
 
