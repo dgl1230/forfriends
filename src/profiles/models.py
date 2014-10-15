@@ -75,7 +75,7 @@ class Job(models.Model):
 
 
 def save_path(instance, filename):
-	number = instance.get_num_user_pics()
+	number = instance.get_num_user_pics() + 1
 	#number = number + 1
 	return 'profiles/' + str(instance.user.username) + "/picture_number-" + str(number) + '/' + filename 
 
