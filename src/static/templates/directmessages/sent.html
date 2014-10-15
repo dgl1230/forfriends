@@ -56,7 +56,7 @@
           {% if item.read %}
             <span style='color: grey;' class='glyphicon glyphicon-ok'></span>
           {% endif %}
-          <a {% if item.read %} style='color: grey;' {% endif %} href= '{{ item.get_absolute_url }}'><div class="message_body">{{ item.body|truncatechars:"20" }}</div></a>
+          <a {% if item.read %} style='color: grey;' {% endif %} href= '{% url "view_sent_message" item.id %}' ><div class="message_body">{{ item.body|truncatechars:"20" }}</div></a>
           {% if item.sent %}
         </td>
         

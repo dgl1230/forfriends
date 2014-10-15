@@ -34,15 +34,16 @@ def view_direct_message(request, dm_id):
 	return render_to_response('directmessages/views.html', locals(), 
 										context_instance=RequestContext(request))
 
-'''def delete_messages(request, dm_id):
-	message = DirectMessage.objects.get(id=dm_id)
-	message.delete()
+
+def view_sent_message(request, dm_id):
+	message = get_object_or_404(DirectMessage, id=dm_id)
 	messages_in_inbox = DirectMessage.objects.filter(receiver=request.user)
 	direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
 	request.session['num_of_messages'] = direct_messages
-	return render_to_response('directmessages/inbox.html', locals(), 
-									context_instance=RequestContext(request))
-'''
+	
+	return render_to_response('directmessages/views_sent.html', locals(), 
+										context_instance=RequestContext(request))
+
 
 def delete_messages(request):
 	messages_to_delete = request.POST.getlist('delete_messages')
@@ -52,6 +53,7 @@ def delete_messages(request):
 
 def delete_individual_message(request, dm_id):
 	message = DirectMessage.objects.get(id=dm_id)
+	print "getting here for some strange reason"
 	message.delete()
 	return HttpResponseRedirect(reverse('inbox'))
 
@@ -65,6 +67,7 @@ def delete_sent_messages(request):
 
 def delete_individual_sent_message(request, dm_id):
 	message = DirectMessage.objects.get(id=dm_id)
+	print "getting here"
 	message.delete()
 	return HttpResponseRedirect(reverse('sent'))
 
