@@ -181,7 +181,8 @@ the user is not logged in, and is shown the landing page.
 '''
 def all(request):
 	if request.user.is_authenticated():
-		info = Info.objects.get(user=request.user)
+		info, created = Info.objects.get_or_create(user=request.user)
+		
 		try: 
 			#info = Info.objects.get(user=request.user)
 			if info.is_new_user == True:
