@@ -101,11 +101,11 @@
 $(document).ready(function(){
   $('#selectall').click(function(event){
     if(this.checked) {
-      $('.delete_messages').each(function() {
+      $('.delete_sent_messages').each(function() {
         this.checked = true;
       });
     }else{
-      $('.delete_messages').each(function() {
+      $('.delete_sent_messages').each(function() {
         this.checked = false;
       });
     }
