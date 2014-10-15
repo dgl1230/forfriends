@@ -37,7 +37,7 @@
     </th>
     <th> <span data-toggle="modal" id="inbox_trash"  data-target="#new_user_modal" class="glyphicon glyphicon-trash" style="color:white"></span>
     
-    <form id="delete_messages_form" method='POST' action=''>
+    <form id="delete_messages_form" method='POST' action='{% url "delete_sent_messages" %}'>
       {% csrf_token %}
     </th>
     </thead>
@@ -63,7 +63,7 @@
           <small>{{ item.sent }}</small> 
           {% endif %}
         <td>
-          <input type="checkbox" class="delete_sent_messages" name="delete_sent_messages" value="{{ item.id }}"></input> 
+          <input type="checkbox" class="delete_messages" name="delete_messages" value="{{ item.id }}"></input> 
         </td>
         <td>
           <span id="hidden_trash" class="glyphicon glyphicon-trash" style="color:black"></span>
@@ -101,11 +101,11 @@
 $(document).ready(function(){
   $('#selectall').click(function(event){
     if(this.checked) {
-      $('.delete_sent_messages').each(function() {
+      $('.delete_messages').each(function() {
         this.checked = true;
       });
     }else{
-      $('.delete_sent_messages').each(function() {
+      $('.delete_messages').each(function() {
         this.checked = false;
       });
     }
