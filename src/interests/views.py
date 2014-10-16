@@ -31,7 +31,7 @@ def create_interest(request):
 def all_interests(request):
 	
 	#interests_all = Interest.objects.exclude(userinterestanswer__user=request.user).filter(approved=True).order_by('?')
-
+	
 	if not request.session.get('random_interests'):
 		request.session['random_interests']= request.user.id
 	interests_all = cache.get('random_interests_%d' % request.session['random_interests'])
@@ -103,20 +103,12 @@ def edit_interests(request):
 
 
 	page = request.GET.get('page')
-	try:
-		interests = paginator.page(page)
-		interest = interests.object_list[0]
-		print "The Interest is: ", interest
-		useranswer = UserInterestAnswer.objects.get(user=request.user, interest=interest)
-		importance_level = useranswer.importance_level
-		print "The importance level: ", useranswer.importance_level
-	except PageNotAnInteger:
-		#If page is not an integer, deliver first page.
-		interests = paginator.page(1)
-	except EmptyPage:
-		#If page is out of range, deliver last page of results
-		interests = paginator.page(paginator.num_pages)
-
+	interests = paginator.page(page)
+		#interest = interests.object_list[0]
+		#print "The Interest is: ", interest
+		#useranswer = UserInterestAnswer.objects.get(user=request.user, interest=interest)
+		#importance_level = useranswer.importance_level
+		#print "The importance level: ", useranswer.importance_level
 	if request.method == 'POST':
 		interest_id = request.POST['interest_id']
 
@@ -125,10 +117,12 @@ def edit_interests(request):
 
 		user = User.objects.get(id=request.user.id)
 		interest = Interest.objects.get(id=interest_id)
+		'''
 		try:
 			interest_pic = InterestPicture.objects.get(interest=interest).filter(id=1)
 		except: 
 			pass
+		'''
 
 		#user answer save
 
@@ -149,14 +143,15 @@ def single_user_interests(request, username):
 	importance_levels = ['Strongly Dislike', 'Dislike', 'Neutral', 'Like', 'Strongly Like']
 
 	page = request.GET.get('page')
-	try:
-		interests = paginator.page(page)
+	interests = paginator.page(page)
+	'''
 	except PageNotAnInteger:
 		#If page is not an integer, deliver first page.
 		interests = paginator.page(1)
 	except EmptyPage:
 		#If page is out of range, deliver last page of results
 		interests = paginator.page(paginator.num_pages)
+	'''
 
 	return render_to_response('interests/single_user.html', locals(), context_instance=RequestContext(request))
 

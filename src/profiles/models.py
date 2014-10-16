@@ -74,10 +74,16 @@ class Job(models.Model):
 		return self.position
 
 
+def save_path(instance, filename):
+	number = instance.get_num_user_pics() + 1
+	#number = number + 1
+	return 'profiles/' + str(instance.user.username) + "/picture_number-" + str(number) + '/' + filename 
+
+
 class UserPicture(models.Model):
 	user = models.ForeignKey(User)
 	caption = models.CharField(max_length=100, null=True, blank=True)
-	image = models.ImageField(upload_to='profiles/')
+	image = models.ImageField(upload_to=save_path, max_length=200)
 	#image = ImageCropField(null=True, blank=True, upload_to='profiles/')
 	is_profile_pic = models.BooleanField(default=False)
 	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
@@ -90,10 +96,12 @@ class UserPicture(models.Model):
 	def __unicode__(self):
 		return str(self.image)
 
+
+
 	def save(self, *args, **kwargs):
 		if self.is_profile_pic:
 			try:
-				temp = UserPicture.objects.filter(user=self.user).get(is_profile_pic=True)
+				temp = UserPicture.objects.filter(user=self.user).filter(is_profile_pic=True)
 				for pic in temp:
 					if self != pic:
 						pic.is_profile_pic = False
@@ -101,6 +109,18 @@ class UserPicture(models.Model):
 			except:
 				pass
 		super(UserPicture, self).save(*args, **kwargs)
+
+
+	def get_num_user_pics(self):
+		num_of_pics = UserPicture.objects.filter(user=self.user).count()
+		'''
+		try: 
+			num_of_pics = UserPicture.objects.filter(user=self.user).count()
+		except:
+			num_of_pics = 0
+		return num_of_pics
+		'''
+		return num_of_pics
 
 
 

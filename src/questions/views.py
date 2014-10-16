@@ -71,7 +71,7 @@ def all_questions(request):
 def edit_questions(request):
 	questions_all = Question.objects.filter(useranswer__user=request.user)
 	paginator = Paginator(questions_all, 1)
-	importance_levels = ['Very Important', 'Somewhat Important', 'Not Important']
+	#importance_levels = ['Very Important', 'Somewhat Important', 'Not Important']
 
 	page = request.GET.get('page')
 	try:

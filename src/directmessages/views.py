@@ -34,15 +34,16 @@ def view_direct_message(request, dm_id):
 	return render_to_response('directmessages/views.html', locals(), 
 										context_instance=RequestContext(request))
 
-'''def delete_messages(request, dm_id):
-	message = DirectMessage.objects.get(id=dm_id)
-	message.delete()
+
+def view_sent_message(request, dm_id):
+	message = get_object_or_404(DirectMessage, id=dm_id)
 	messages_in_inbox = DirectMessage.objects.filter(receiver=request.user)
 	direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
 	request.session['num_of_messages'] = direct_messages
-	return render_to_response('directmessages/inbox.html', locals(), 
-									context_instance=RequestContext(request))
-'''
+	
+	return render_to_response('directmessages/views_sent.html', locals(), 
+										context_instance=RequestContext(request))
+
 
 def delete_messages(request):
 	messages_to_delete = request.POST.getlist('delete_messages')
@@ -52,6 +53,7 @@ def delete_messages(request):
 
 def delete_individual_message(request, dm_id):
 	message = DirectMessage.objects.get(id=dm_id)
+	print "getting here for some strange reason"
 	message.delete()
 	return HttpResponseRedirect(reverse('inbox'))
 
@@ -65,6 +67,7 @@ def delete_sent_messages(request):
 
 def delete_individual_sent_message(request, dm_id):
 	message = DirectMessage.objects.get(id=dm_id)
+	print "getting here"
 	message.delete()
 	return HttpResponseRedirect(reverse('sent'))
 
@@ -87,18 +90,14 @@ def compose(request):
 			message_users.append(match.user1)
 		else:
 			message_users.append(match.user2)
-	icebreaker_match = Match.objects.filter(Q(user1=request.user) | Q(user2=request.user)).get(currently_in_icebreaker=True)
-	if icebreaker_match.user1 != request.user:
-		message_users.append(icebreaker_match.user1)
-	else:
-		message_users.append(icebreaker_match.user2)
-	try:
-		icebreaker_match = Match.objects.filter(Q(user1=request.user) | Q(user2=request.user)).get(currently_in_icebreaker=True)
-		if icebreaker_match.user1 != request.user:
-			message_users.append(icebreaker_match.user1)
-		else:
-			message_users.append(icebreaker_match.user2)
-	except:
+	try: 
+		icebreaker_matches = Match.objects.filter(Q(user1=request.user) | Q(user2=request.user)).filter(Q(currently_in_icebreaker_user1=True) | Q(currently_in_icebreaker_user2=True))
+		for match in icebreaker_matches:
+			if match.user1 != request.user:
+				message_users.append(match.user1)
+			else:
+				message_users.append(match.user2)
+	except: 
 		pass
 	form.fields['receiver'].queryset = User.objects.filter(username__in=message_users)
 	
@@ -173,7 +172,7 @@ def reply(request, dm_id):
 '''The logged in user views all messages that they have'''
 def inbox(request):
 
-	messages_in_inbox = DirectMessage.objects.filter(receiver=request.user).order_by('-sent')
+	messages_in_inbox = DirectMessage.objects.filter(receiver=request.user).order_by('-id')
 	direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
 	request.session['num_of_messages'] = direct_messages
 	number_of_messages = messages_in_inbox.count()
