@@ -24,14 +24,18 @@
 		<div class='col col-sm-12'>
 			<h1 id="name_of_user">{{ single_user.username }}</h1>
 
+			{% if profile_pic %}
+				<img src='{{ MEDIA_URL }}{{ profile_pic }}' class='img' id="myfriend"/>		
+
+			{% elif single_user.userpicture_set.all %}
 			{% for pic in single_user.userpicture_set.all %}
-				{% if pic.is_profile_pic or single_user.userpicture_set.all.count == 1 %}
-					<img src='{{ MEDIA_URL }}{{ pic }}' class='img' id="myfriend"/>
-				{% endif %}
+					{% if forloop.first %}
+						<img src='{{ MEDIA_URL }}{{ pic }}' class='img' id="myfriend"/>
+					{% endif %}
 			{% endfor %}
 
 
-			{% if not single_user.userpicture_set.all %}
+			{% else %}
 				<img src='{{ STATIC_URL }}img/avatar.png' class='img' id="myfriend" />
 			{% endif %}
 		</div>
@@ -73,7 +77,13 @@
 				<a class='btn-success' id='view_info'>View Info</a>
 			</div>
 			<div id="information">
-				<div class='panel panel-default'><div class='panel-heading' id='bio_panel'><p>Bio</p></span><p id='info_edit'></p></div><div class='panel-body' id='bio_body'>{% for item in single_user.info_set.all %}{% if forloop.first %}{{item.bio}}{% endif %}{% endfor %}</div></div><div class='panel panel-default'><div class='panel-heading' id='occ_panel'><p>Occupation</p></span><p id='info_edit'></p></div><div class='panel-body' id='occ_body'>{% for item in single_user.job_set.all %}{{item.position|title}}at{{item.employer|title}}{% endfor %}</div></div></div></div>
+				<div class='panel panel-default'><div class='panel-heading' id='bio_panel'><p>
+				{% if not request.user == single_user %}
+				{{ single_user.username }} in a sentence
+				{% else %}
+				Me in a sentence
+				{% endif %}
+				</p></span><p id='info_edit'></p></div><div class='panel-body' id='bio_body'>{% for item in single_user.info_set.all %}{% if forloop.first %}{{item.bio}}{% endif %}{% endfor %}</div></div><div class='panel panel-default'><div class='panel-heading' id='occ_panel'><p>Occupation</p></span><p id='info_edit'></p></div><div class='panel-body' id='occ_body'>{% for item in single_user.job_set.all %}{{item.position|title}}at{{item.employer|title}}{% endfor %}</div></div></div></div>
 		</div>
 		</div>
 	</div>	

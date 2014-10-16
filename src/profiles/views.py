@@ -32,7 +32,7 @@ from questions.models import Question, UserAnswer
 
 
 
-CURRENTLY_LOCALLY_TESTING = False
+CURRENTLY_LOCALLY_TESTING = True
 
 
 '''Implements the 'add friend' button when viewing a user's profile
@@ -181,7 +181,8 @@ the user is not logged in, and is shown the landing page.
 '''
 def all(request):
 	if request.user.is_authenticated():
-		info = Info.objects.get(user=request.user)
+		info, created = Info.objects.get_or_create(user=request.user)
+		
 		try: 
 			#info = Info.objects.get(user=request.user)
 			if info.is_new_user == True:
@@ -261,11 +262,16 @@ def all(request):
 			direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
 			request.session['num_of_messages'] = direct_messages
 			#try to get their current icebreaker match
-			try: 
-				icebreaker_match = Match.objects.filter(Q(user1=request.user) | Q(user2=request.user)).get(currently_in_icebreaker=True)
+			try:
+				icebreaker_match = Match.objects.get(Q(user1=request.user, currently_in_icebreaker_user1=True) | Q(user2=request.user, currently_in_icebreaker_user2=True))
+				
 				if can_reset_icebreaker == True: 
-					icebreaker_match.currently_in_icebreaker = False
-					icebreaker_match.save()
+					if icebreaker_match.currently_in_icebreaker_user1 == True and icebreaker_match.user1 == request.user: 
+						icebreaker_match.currently_in_icebreaker_user1 = False
+						icebreaker_match.save()
+					else:
+						icebreaker_match.currently_in_icebreaker_user2 = False
+						icebreaker_match.save()
 			except: 
 				pass
 		return render_to_response('all.html', locals(), context_instance=RequestContext(request))
@@ -303,19 +309,33 @@ def generate_circle(request):
 
 		matches = Match.objects.filter(
 			Q(user1=request.user) | Q(user2=request.user)
-			).exclude(user1=request.user, user2=request.user).exclude(are_friends=True).filter(percent__gte=70)
+			).exclude(are_friends=True).filter(percent__gte=70)
 		num_matches = matches.count()
 		if num_matches >= 7:
-			matches_new = matches.order_by('?')[:7]
+			matches_new = matches.order_by('?')[:8]
+			i = 0
 			for match in matches:
-				user_gamification.circle.add(match)
+				if match.user1 == request.user and match.user2 == request.user:
+					pass
+				else:
+					i += 1
+					user_gamification.circle.add(match)
+					if i == 7:
+						break
 		else:
 			matches = Match.objects.filter(
 				Q(user1=request.user) | Q(user2=request.user)
-				).exclude(user1=request.user, user2=request.user).exclude(are_friends=True)
-			matches_new = matches.order_by('?')[:7]
+				).exclude(are_friends=True)
+			matches_new = matches.order_by('?')[:8]
+			i = 0
 			for match in matches_new:
-				user_gamification.circle.add(match)
+				if match.user1 == request.user and match.user2 == request.user:
+					pass
+				else:
+					i += 1
+					user_gamification.circle.add(match)
+					if i == 7:
+						break
 		
 		user_gamification.circle_time_until_reset = datetime.now()
 		user_gamification.icebreaker_until_reset = datetime.now()
@@ -338,6 +358,7 @@ def generate_circle(request):
 				except:
 					match.distance = 10000000
 				match.save()
+		# these blocks can lead to a lot of unnecessary querying evaluations
 		if circle_distance(request.user, preferred_distance) == 1:
 			pass
 		elif circle_distance(request.user, unicode(int(preferred_distance) + 10)) == 1:
@@ -351,24 +372,33 @@ def generate_circle(request):
 			# adding to their circle randomly
 			user_gamification = Gamification.objects.get(user=request.user)
 			current_circle = list(user_gamification.circle.all())
-			requested_users = list(Match.objects.filter(Q(user1=request.user) | Q(user1_approved=True)).filter(Q(user2=request.user) | Q(user2_approved=True)))
+			#requested_users = list(Match.objects.filter(Q(user1=request.user) | Q(user1_approved=True)).filter(Q(user2=request.user) | Q(user2_approved=True)))
+			# for now are_friends=True is excluded from other queries because in theory all friends should be in requested users
+			requested_users = list(Match.objects.filter(Q(user1=request.user, user1_approved=True) | Q(user2=request.user, user2_approved=True )))
 			excluded_users = current_circle + requested_users
+
 			matches = Match.objects.filter(
 				Q(user1=request.user) | Q(user2=request.user)
-				).exclude(user1=request.user, user2=request.user).exclude(are_friends=True).exclude(id__in=[o.id for o in excluded_users]).filter(percent__gte=70)
+				).exclude(user1=request.user, user2=request.user).exclude(id__in=[o.id for o in excluded_users]).filter(percent__gte=70)
 			user_gamification = Gamification.objects.get(user=request.user)
 			count = matches.count()
+
+
 			try:
 				max_match = matches.latest('id').id
 			except: 
 				matches = Match.objects.filter(
 					Q(user1=request.user) | Q(user2=request.user)
-					).exclude(user1=request.user, user2=request.user).exclude(are_friends=True).exclude(id__in=[o.id for o in current_circle])
+					).exclude(user1=request.user, user2=request.user).exclude(id__in=[o.id for o in current_circle])	
 			if count < 6:
 				matches = Match.objects.filter(
 					Q(user1=request.user) | Q(user2=request.user)
-					).exclude(user1=request.user, user2=request.user).exclude(are_friends=True).exclude(id__in=[o.id for o in current_circle])
+					).exclude(user1=request.user, user2=request.user).exclude(id__in=[o.id for o in current_circle])
 				max_match = matches.latest('id').id
+
+
+
+
 			# so we dont have more than 6-7 users in a circle at a time
 
 			user_gamification.circle.clear()
@@ -657,10 +687,8 @@ def friends(request):
 
 #Shows all pictures that the logged in user has 
 def all_pictures(request): 
-	username = request.user.username
-	user = User.objects.get(username=username)
 	try: 
-		pictures = UserPicture.objects.filter(user=user)
+		pictures = UserPicture.objects.filter(user=request.user)
 		num_of_pics = pictures.count()
 	except: 
 		num_of_pics = 0
@@ -724,6 +752,13 @@ def edit_info(request):
 			if word in username:
 				messages.success(request, "We're sorry but some people might find your username offensive. Please pick a different username.")
 				return HttpResponseRedirect(reverse('edit_profile'))
+		try: 
+			taken_username_user = User.objects.get(username=username)
+			if taken_username_user != request.user:
+				messages.success(request, "We're sorry but that username is already taken.")
+				return HttpResponseRedirect(reverse('edit_profile'))
+		except:
+			pass
 
 
 		if len(username) == 0:
@@ -883,36 +918,34 @@ def find_friends(request):
 
 
 def login_user(request):
-	try:
-		username = request.POST['username']
-		password = request.POST['password']
+	username = str(request.POST['username'])
+	password = str(request.POST['password'])
 
-		# check to see whether they provied their username or email for logging in
-		if '@' in username:
-			kwargs = {'email': username}
-		else:
-			kwargs = {'username': username}
-		user1 = User.objects.get(**kwargs)
-		username = user1.username
-		user = authenticate(username=username, password=password)
+	# check to see whether they provied their username or email for logging in
+	if '@' in username:
+		kwargs = {'email': username}
+	else:
+		kwargs = {'username': username}
+	user1 = User.objects.get(**kwargs)
+	username = user1.username
+	user = authenticate(username=username, password=password)
 
-		if user is not None:
-			# if user deactivated their account and logged in, they are no longer deactivated
-			if user.is_active == False:
-				user.is_active = True
-				if not DEBUG: 
-					subject = 'A user is reactivating their account.'
-					message = '%s wants to reactivate their account.' % (username,)
-					msg = EmailMultiAlternatives(subject, message, EMAIL_HOST_USER, [email])
-					msg.content_subtype = "html"
-					msg.send()
-				messages.succes(request, "We missed you!")
-			login(request, user)
-			return HttpResponseRedirect(reverse('home'))
-		else:
-			messages.error(request, "Please double check your username or email address and password")
-	except: 
+	if user is not None:
+		# if user deactivated their account and logged in, they are no longer deactivated
+		if user.is_active == False:
+			user.is_active = True
+			if not DEBUG: 
+				subject = 'A user is reactivating their account.'
+				message = '%s wants to reactivate their account.' % (username,)
+				msg = EmailMultiAlternatives(subject, message, EMAIL_HOST_USER, [email])
+				msg.content_subtype = "html"
+				msg.send()
+			messages.succes(request, "We missed you!")
+		login(request, user)
+		return HttpResponseRedirect(reverse('home'))
+	else:
 		messages.error(request, "Please double check your username or email address and password")
+	
 	return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
 
@@ -973,6 +1006,7 @@ def register_new_user(request):
 
 					new_user = User.objects.create(username=email_as_username, password=password)
 					new_user.set_password(password)
+					new_user.email = email
 					
 					new_user.save()
 					new_user = authenticate(username=email_as_username, password=password)
@@ -994,6 +1028,11 @@ def single_user(request, username):
 			single_user = user
 	except:
 		raise Http404
+	user = User.objects.get(username=username)
+	try:
+		profile_pic = UserPicture.objects.get(user=user, is_profile_pic=True)
+	except: 
+		pass
 	try: 
 		if single_user != request.user:
 			try: 
@@ -1084,6 +1123,9 @@ def new_picture(request):
 			form = pic_form.save(commit=False)
 			image = pic_form.cleaned_data["image"]
 			if image:
+				if "profile_pic" in request.POST:
+					print "here I am"
+					form.is_profile_pic = True
 				form.user = request.user
 				form.image = image
 				form.save()
@@ -1131,7 +1173,10 @@ def ice_breaker(request):
 		user2 = request.user
 	match.user1_approved = True
 	match.user2.approved = True
-	match.currently_in_icebreaker = True
+	if match.user1 == request.user:
+		match.currently_in_icebreaker_user1 = True
+	else:
+		match.currently_in_icebreaker_user2 = True
 
 	if not CURRENTLY_LOCALLY_TESTING: 
 		sender1 = User.objects.get(username="TeamFrenvu")

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="view_container">
+<br>
+  <div class='col-lg-10 col-12'>
+  	<div class="row">
+	<div class="col-md-1" id="secondary_navbar">
+        <h1>Message View</h1>
+	</div>
+	<div class="col-md-1" id="tertiary_navbar">
+     		<a href="/messages/inbox/" class="half-nav1">Inbox</a>
+     		<span class='glyphicon glyphicon-envelope' id="tertiary-icon"></span>
+     		<a href="/messages/sent/" class="half-nav2">Sent</a>
+	</div>
+</div>
+<div class='row'>
+                <div class="col-md-1" id="tertiary_navbar">
+                  {% for message in messages %}
+                    <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                  {% endfor %}
+                </div>
+</div>
+	<div class="container" id="message_body_holder">
+	<div class="body_section">
+	<table class='table table-striped' id="view_table">
+	<table>
+		<thead>
+		<th>From</th> <th> Message </th> <th> </th>
+		</thead>
+		<tbody>
+			<td><a href="/members/{{ message.sender }}/">
+					{{ message.receiver }}
+				</a>
+			</td>
+			<td>{{ message.body }}</td>
+			<td>
+				<a href="{% url 'delete_individual_sent_message' message.id %}"><span id="individual_trash" class="glyphicon glyphicon-trash" style="color:black"></span></a>
+			</td>
+		</body>
+		</table>
+		</div>
+		<br>
+		<div class="button_container">
+		<a class='btn btn-info btn-sm' href="{% url 'reply' message.id %}">Reply</a>
+	</div>
+	</div>
+</div>
+</div>
+{% endblock %}
