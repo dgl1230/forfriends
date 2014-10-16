@@ -101,8 +101,15 @@ def edit_interests(request):
 	paginator = Paginator(interests_all, 1)
 	importance_levels = ['Strongly Dislike', 'Dislike', 'Neutral', 'Like', 'Strongly Like']
 
-
-	page = request.GET.get('page')
+	try:
+		interests = paginator.page(page)
+	except PageNotAnInteger:
+		#If page is not an integer, deliver first page.
+		interests = paginator.page(1)
+	except EmptyPage:
+		#If page is out of range, deliver last page of results
+		interests = paginator.page(paginator.num_pages)
+		#page = request.GET.get('page')
 	interests = paginator.page(page)
 		#interest = interests.object_list[0]
 		#print "The Interest is: ", interest

@@ -309,19 +309,33 @@ def generate_circle(request):
 
 		matches = Match.objects.filter(
 			Q(user1=request.user) | Q(user2=request.user)
-			).exclude(user1=request.user, user2=request.user).exclude(are_friends=True).filter(percent__gte=70)
+			).exclude(are_friends=True).filter(percent__gte=70)
 		num_matches = matches.count()
 		if num_matches >= 7:
-			matches_new = matches.order_by('?')[:7]
+			matches_new = matches.order_by('?')[:8]
+			i = 0
 			for match in matches:
-				user_gamification.circle.add(match)
+				if match.user1 == request.user and match.user2 == request.user:
+					pass
+				else:
+					i += 1
+					user_gamification.circle.add(match)
+					if i == 7:
+						break
 		else:
 			matches = Match.objects.filter(
 				Q(user1=request.user) | Q(user2=request.user)
-				).exclude(user1=request.user, user2=request.user).exclude(are_friends=True)
-			matches_new = matches.order_by('?')[:7]
+				).exclude(are_friends=True)
+			matches_new = matches.order_by('?')[:8]
+			i = 0
 			for match in matches_new:
-				user_gamification.circle.add(match)
+				if match.user1 == request.user and match.user2 == request.user:
+					pass
+				else:
+					i += 1
+					user_gamification.circle.add(match)
+					if i == 7:
+						break
 		
 		user_gamification.circle_time_until_reset = datetime.now()
 		user_gamification.icebreaker_until_reset = datetime.now()
@@ -344,6 +358,7 @@ def generate_circle(request):
 				except:
 					match.distance = 10000000
 				match.save()
+		# these blocks can lead to a lot of unnecessary querying evaluations
 		if circle_distance(request.user, preferred_distance) == 1:
 			pass
 		elif circle_distance(request.user, unicode(int(preferred_distance) + 10)) == 1:
@@ -357,24 +372,33 @@ def generate_circle(request):
 			# adding to their circle randomly
 			user_gamification = Gamification.objects.get(user=request.user)
 			current_circle = list(user_gamification.circle.all())
-			requested_users = list(Match.objects.filter(Q(user1=request.user) | Q(user1_approved=True)).filter(Q(user2=request.user) | Q(user2_approved=True)))
+			#requested_users = list(Match.objects.filter(Q(user1=request.user) | Q(user1_approved=True)).filter(Q(user2=request.user) | Q(user2_approved=True)))
+			# for now are_friends=True is excluded from other queries because in theory all friends should be in requested users
+			requested_users = list(Match.objects.filter(Q(user1=request.user, user1_approved=True) | Q(user2=request.user, user2_approved=True )))
 			excluded_users = current_circle + requested_users
+
 			matches = Match.objects.filter(
 				Q(user1=request.user) | Q(user2=request.user)
-				).exclude(user1=request.user, user2=request.user).exclude(are_friends=True).exclude(id__in=[o.id for o in excluded_users]).filter(percent__gte=70)
+				).exclude(user1=request.user, user2=request.user).exclude(id__in=[o.id for o in excluded_users]).filter(percent__gte=70)
 			user_gamification = Gamification.objects.get(user=request.user)
 			count = matches.count()
+
+
 			try:
 				max_match = matches.latest('id').id
 			except: 
 				matches = Match.objects.filter(
 					Q(user1=request.user) | Q(user2=request.user)
-					).exclude(user1=request.user, user2=request.user).exclude(are_friends=True).exclude(id__in=[o.id for o in current_circle])
+					).exclude(user1=request.user, user2=request.user).exclude(id__in=[o.id for o in current_circle])	
 			if count < 6:
 				matches = Match.objects.filter(
 					Q(user1=request.user) | Q(user2=request.user)
-					).exclude(user1=request.user, user2=request.user).exclude(are_friends=True).exclude(id__in=[o.id for o in current_circle])
+					).exclude(user1=request.user, user2=request.user).exclude(id__in=[o.id for o in current_circle])
 				max_match = matches.latest('id').id
+
+
+
+
 			# so we dont have more than 6-7 users in a circle at a time
 
 			user_gamification.circle.clear()
