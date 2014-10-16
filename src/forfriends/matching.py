@@ -148,7 +148,7 @@ def question_points(user1, user2):
 		user1_question = user1_list[i][0]
 		user1_answer = user1_list[i][1]
 		user2_answer = user2_dict.pop(user1_question, "false")
-		if user2_tuple != "false":
+		if user2_answer != "false":
 			points_possible += 100
 			user_list = []
 			user_list = answer_points(user1_answer, user2_answer)
@@ -172,4 +172,4 @@ def match_percentage(user1, user2):
 		overall_score = interest_score
 	else:
 		overall_score = (.8 * question_score) + (.2 * interest_score)
-	return int(round(overall_score * 100))
+	return int(round(overall_score))
