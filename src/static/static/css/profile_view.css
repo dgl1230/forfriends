@@ -19,6 +19,9 @@
 	height:500px;
 	width:500px;
 }
+#bio_body{
+	text-align:left;
+}
 
 #information{
 	margin-top:30px;

@@ -148,7 +148,7 @@ footer{
 .question_answers{
 	margin: 20px auto;
 	width:60%;
-	max-width: 300px;
+	max-width: 500px;
 }
 
 #submit_question{
@@ -161,10 +161,15 @@ footer{
 	margin:0 auto;
 	display:block;
 	width:100%;
-
+	text-align: left;
+}
+.custom-radio{
+	margin-right: 10px;
+	height: 50px;
 }
 .question_answers input{
 	float: left;
+
 }
 /* Media Queries */
 @media only screen and (max-width:450px){
