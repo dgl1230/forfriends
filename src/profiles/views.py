@@ -32,7 +32,7 @@ from questions.models import Question, UserAnswer
 
 
 
-CURRENTLY_LOCALLY_TESTING = True
+CURRENTLY_LOCALLY_TESTING = False
 
 
 '''Implements the 'add friend' button when viewing a user's profile
