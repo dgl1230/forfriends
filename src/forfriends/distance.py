@@ -31,3 +31,26 @@ def calc_distance(user1, user2):
 	address2, (latitude2, longitude2) = geolocator.geocode(user2_city + " " + user2_state)
 	miles = haversine(longitude1, latitude1, longitude2, latitude2)
 	return miles	
+
+# Method that checks whether what the user entered is valid or not
+# Presumably, Country+State are always valid. If the city is invalid,
+# it defaults to a general location of the state. So, we check to see
+# if it recognizes the city and return true if so, otherwise return false 
+def check_valid_location(user1):
+	geolocator = GoogleV3()
+	try:
+		user1_address = Address.objects.get(user=user1)
+		user1_city = user1_address.city
+		user1_state = user1_address.state
+		#Check to see if city name on its own is valid somewhere in the world.
+		#If not, this line should give an error, and we return False
+		address1, (latitude1, longitude1) = geolocator.geocode(user1_city)
+		#Check to see if city+state is equal to just state. If it is, then the city is not
+		#recognized in the state, so it has defaulted to just state. So, we return false.
+		address2, (latitude2, longitude2) = geolocator.geocode(user1_city + " " + user1_state)
+		address3, (latitude3, longitude3) = geolocator.geocode(user1_state)
+		if (address2 == address3):
+			return False
+		return True
+	except:
+		return False 		
