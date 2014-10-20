@@ -476,7 +476,7 @@ def new_user_info(request):
 			not_first_name = full_name[1:]
 			last_name = ""
 			for name in not_first_name:
-				last_name = name + " " + last_name
+				last_name = str(name) + " " + last_name
 			last_name1 = last_name.translate(None, "?.!/;:@#$%^&()`,[]{}~_=+*|<>1234567890")
 			last_name = last_name1.translate(None, '"')
 			if len(last_name) == 0:
