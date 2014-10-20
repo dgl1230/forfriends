@@ -473,13 +473,12 @@ def new_user_info(request):
 				return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
 		if len(full_name) >= 3:
-			not_first_name = full_name[2:len(full_name)]
-			last_name0 = full_name[1]
+			not_first_name = full_name[1:]
+			last_name = ""
 			for name in not_first_name:
-				last_name0 = last_name + " " + name
-			last_name1 = str(last_name0)
-			last_name2 = last_name1.translate(None, "?.!/;:@#$%^&()`,[]{}~_=+*|<>1234567890")
-			last_name = last_name2.translate(None, '"')
+				last_name = name + " " + last_name
+			last_name1 = last_name.translate(None, "?.!/;:@#$%^&()`,[]{}~_=+*|<>1234567890")
+			last_name = last_name1.translate(None, '"')
 			if len(last_name) == 0:
 				messages.error(request, "Please use only letters in your last name")
 				return render_to_response('home.html', locals(), context_instance=RequestContext(request))
