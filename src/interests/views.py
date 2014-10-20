@@ -100,6 +100,7 @@ def edit_interests(request):
 	interests_all = Interest.objects.filter(userinterestanswer__user=request.user)
 	paginator = Paginator(interests_all, 1)
 	importance_levels = ['Strongly Dislike', 'Dislike', 'Neutral', 'Like', 'Strongly Like']
+	page = request.GET.get('page')
 
 	try:
 		interests = paginator.page(page)
