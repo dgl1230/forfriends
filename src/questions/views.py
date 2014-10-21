@@ -13,6 +13,7 @@ from profiles.views import user_not_new
 
 from .models import Question, Answer, UserAnswer
 from .forms import QuestionForm, AnswerForm
+from profiles.views import user_not_new
 
 
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
