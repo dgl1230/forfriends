@@ -11,13 +11,14 @@ from django.contrib.auth.models import User
 from django.forms.models import modelformset_factory
 from django.db.models import Q, Max
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import user_passes_test, login_required
 from django.core.mail import send_mail, EmailMultiAlternatives
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.cache import cache
 from django.template.loader import get_template
 from django.template import Context
+
 
 
 
@@ -50,7 +51,7 @@ def user_not_new(user):
 
 '''Implements the 'add friend' button when viewing a user's profile
 If both users click this button on each other's profile, they can message'''
-@user_passes_test(user_not_new)
+@login_required
 def add_friend(request, username):
 	try: 
 		match = Match.objects.get(user1=request.user, user2__username=username)
@@ -117,7 +118,7 @@ def add_friend(request, username):
 	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))
 
 
-@user_passes_test(user_not_new)
+@login_required
 def add_friend_discovery(request, username, page):
 	try: 
 		match = Match.objects.get(user1=request.user, user2__username=username)
@@ -631,7 +632,7 @@ on the single user page.
 '''
 
 
-@user_passes_test(user_not_new)
+@login_required
 def discover(request):
 	# first we check to see if a session exists
 	if not request.session.get('random_exp'):
