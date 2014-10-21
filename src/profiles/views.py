@@ -61,6 +61,9 @@ def user_can_reset_circle(user):
 	return hours_until_reset <= 1
 
 
+
+
+
 '''Implements the 'add friend' button when viewing a user's profile
 If both users click this button on each other's profile, they can message'''
 @user_passes_test(user_not_new)
@@ -311,7 +314,7 @@ def all(request):
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
 @user_passes_test(user_not_new)
-@user_passes_test(user_not_new, login_url=reverse_lazy('home'))
+@user_passes_test(user_can_reset_circle, login_url=reverse_lazy('home'))
 def generate_circle(request):
 	info = Info.objects.get(user=request.user)
 	if info.is_new_user:
