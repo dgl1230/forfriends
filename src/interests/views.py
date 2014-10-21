@@ -3,12 +3,15 @@ from django.shortcuts import render
 from django.contrib import messages
 from django.shortcuts import render_to_response, RequestContext, Http404, HttpResponseRedirect
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import user_passes_test
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import Interest, UserInterestAnswer, InterestPicture
 from .forms import InterestForm
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
+from profiles.views import user_not_new
+
 
 
 def all_interests_experimental(request):
@@ -16,6 +19,7 @@ def all_interests_experimental(request):
 	return render_to_response('interests/experimental.html', locals(), context_instance=RequestContext(request))
 
 
+@user_passes_test(user_not_new)
 def create_interest(request):
 	form = InterestForm(request.POST or None)
 	if form.is_valid():
@@ -28,6 +32,7 @@ def create_interest(request):
 	return render_to_response("interests/create.html", locals(), context_instance=RequestContext(request))
 
 
+@user_passes_test(user_not_new)
 def all_interests(request):
 	
 	#interests_all = Interest.objects.exclude(userinterestanswer__user=request.user).filter(approved=True).order_by('?')
@@ -94,7 +99,7 @@ def all_interests(request):
 
 
 
-
+@user_passes_test(user_not_new)
 def edit_interests(request):
 
 	interests_all = Interest.objects.filter(userinterestanswer__user=request.user)
@@ -144,6 +149,7 @@ def edit_interests(request):
 
 
 # displays the interests for a particular user
+@user_passes_test(user_not_new)
 def single_user_interests(request, username):
 	single_user = User.objects.get(username=username)
 	interests_all = Interest.objects.filter(userinterestanswer__user=single_user)
@@ -229,6 +235,7 @@ def new_user_interests(request):
 '''
 
 
+@user_passes_test(user_not_new)
 def search_interests(request):
 	try:
 		q = request.GET.get('q', '')
@@ -241,6 +248,7 @@ def search_interests(request):
 	return render_to_response('interests/search.html', locals(), context_instance=RequestContext(request))
 
 
+@user_passes_test(user_not_new)
 def search_user_interests(request, username):
 	try:
 		q = request.GET.get('q', '')

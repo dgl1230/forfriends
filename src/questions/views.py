@@ -7,11 +7,15 @@ from django.shortcuts import render_to_response, RequestContext, Http404, HttpRe
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import user_passes_test
+from profiles.views import user_not_new
 
 
 from .models import Question, Answer, UserAnswer
 from .forms import QuestionForm, AnswerForm
 
+
+@user_passes_test(user_not_new)
 def all_questions(request):
 	
 	questions_all = Question.objects.exclude(useranswer__user=request.user)
@@ -68,6 +72,8 @@ def all_questions(request):
 	return render_to_response('questions/all.html', locals(), context_instance=RequestContext(request))
 
 
+
+@user_passes_test(user_not_new)
 def edit_questions(request):
 	questions_all = Question.objects.filter(useranswer__user=request.user)
 	paginator = Paginator(questions_all, 1)

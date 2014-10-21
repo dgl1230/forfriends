@@ -11,12 +11,14 @@ from django.contrib.auth.models import User
 from django.forms.models import modelformset_factory
 from django.db.models import Q, Max
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import user_passes_test
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.cache import cache
 from django.template.loader import get_template
 from django.template import Context
+
 
 
 from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG, MEDIA_URL
@@ -35,8 +37,18 @@ from questions.models import Question, UserAnswer
 CURRENTLY_LOCALLY_TESTING = False
 
 
+def user_not_new(user):
+	try: 
+		user_info = Info.objects.get(user=user)
+	except:
+		return False
+	return user.is_authenticated() and user_info.signed_up_with_fb_or_goog == False
+
+
+
 '''Implements the 'add friend' button when viewing a user's profile
 If both users click this button on each other's profile, they can message'''
+@user_passes_test(user_not_new)
 def add_friend(request, username):
 	try: 
 		match = Match.objects.get(user1=request.user, user2__username=username)
@@ -103,6 +115,7 @@ def add_friend(request, username):
 	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))
 
 
+@user_passes_test(user_not_new)
 def add_friend_discovery(request, username, page):
 	try: 
 		match = Match.objects.get(user1=request.user, user2__username=username)
@@ -179,15 +192,13 @@ it shows their crowd. If they're logged in and a new user, it redirects them to 
 which will have the user fill in relevant info before they can access the site. Otherwise, 
 the user is not logged in, and is shown the landing page.
 '''
+
+@user_passes_test(user_not_new)
 def all(request):
 	if request.user.is_authenticated():
 		info, created = Info.objects.get_or_create(user=request.user)
 		
 		try: 
-			#info = Info.objects.get(user=request.user)
-			if info.signed_up_with_fb_or_goog:
-				return HttpResponseRedirect(reverse('new_user_info'))
-
 			if info.is_new_user == True:
 				is_new_user = True
 				user_interests = UserInterestAnswer.objects.filter(user=request.user)
@@ -600,6 +611,14 @@ def new_user_info(request):
 		return render_to_response('profiles/new_user.html', locals(), context_instance=RequestContext(request))
 
 
+def user_not_new(user):
+	try: 
+		user_info = Info.objects.get(user=user)
+	except:
+		return False
+	return user.is_authenticated() and user_info.signed_up_with_fb_or_goog == False
+
+
 '''
 The Discover function creates functionality similar to tinder. Users can swipe or use arrow keys or press 
 arrows through multiple users. We display their match percentage and all other functionality displayed
@@ -607,7 +626,7 @@ on the single user page.
 '''
 
 
-
+@user_passes_test(user_not_new)
 def discover(request):
 	# first we check to see if a session exists
 	if not request.session.get('random_exp'):
@@ -677,7 +696,7 @@ def discover(request):
 
 
 
-
+@user_passes_test(user_not_new)
 def friends(request):
 	matches = Match.objects.filter(
 		Q(user1=request.user) | Q(user2=request.user)
@@ -689,6 +708,7 @@ def friends(request):
 
 
 #Shows all pictures that the logged in user has 
+@user_passes_test(user_not_new)
 def all_pictures(request): 
 	try: 
 		pictures = UserPicture.objects.filter(user=request.user)
@@ -850,6 +870,7 @@ def edit_pictures(request):
 	return render_to_response('profiles/edit_pictures.html', locals(), context_instance=RequestContext(request))
 
 
+@user_passes_test(user_not_new)
 def edit_profile(request):
 	user = request.user
 	pictures = UserPicture.objects.filter(user=user)
@@ -1015,7 +1036,7 @@ def register_new_user(request):
 					new_user.set_password(password)
 					new_user.email = email
 
-					
+
 					
 					new_user.save()
 					new_user = authenticate(username=email_as_username, password=password)
@@ -1030,6 +1051,7 @@ def register_new_user(request):
 
 
 #Displays the profile page of a specific user and their match % against the logged in user
+@user_passes_test(user_not_new)
 def single_user(request, username):
 	try:
 		user = User.objects.get(username=username)
@@ -1067,12 +1089,13 @@ def single_user(request, username):
 	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))	
 
 
+@user_passes_test(user_not_new)
 def single_user_pictures(request, username):
 	pictures = UserPicture.objects.filter(user__username=username)
 	return render_to_response('profiles/single_user_pictures.html', locals(), context_instance=RequestContext(request))
 
 
-
+@user_passes_test(user_not_new)
 def search(request):
 	try:
 		q = request.GET.get('q', '')
@@ -1125,6 +1148,7 @@ def contact_us(request):
 	return render_to_response ('contact_us.html', locals(), context_instance=RequestContext(request))
 
 
+@user_passes_test(user_not_new)
 def new_picture(request):
 	if request.method == 'POST':
 		pic_form = UserPictureForm(request.POST, request.FILES)
@@ -1142,6 +1166,7 @@ def new_picture(request):
 
 
 
+@user_passes_test(user_not_new)
 def ice_breaker(request): 
 	user1 = request.user
 	user1_interests = UserInterestAnswer.objects.filter(user=user1).filter(
