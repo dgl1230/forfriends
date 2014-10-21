@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth.models import User
 from django.db.models import Q
+from django.contrib.auth.decorators import user_passes_test
 
 from matches.models import Match
 from .models import DirectMessage
