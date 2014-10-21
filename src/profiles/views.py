@@ -37,6 +37,8 @@ from questions.models import Question, UserAnswer
 CURRENTLY_LOCALLY_TESTING = False
 
 
+
+
 def user_not_new(user):
 	try: 
 		user_info = Info.objects.get(user=user)
