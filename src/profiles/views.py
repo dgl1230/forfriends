@@ -185,6 +185,9 @@ def all(request):
 		
 		try: 
 			#info = Info.objects.get(user=request.user)
+			if info.signed_up_with_fb_or_goog:
+				return HttpResponseRedirect(reverse('new_user_info'))
+
 			if info.is_new_user == True:
 				is_new_user = True
 				user_interests = UserInterestAnswer.objects.filter(user=request.user)
@@ -1011,6 +1014,10 @@ def register_new_user(request):
 					new_user = User.objects.create(username=email_as_username, password=password)
 					new_user.set_password(password)
 					new_user.email = email
+
+					new_info = Info.objects.create(user=request.user)
+					new_info.signed_up_with_fb_or_goog = False
+					new_info.save()
 					
 					new_user.save()
 					new_user = authenticate(username=email_as_username, password=password)
