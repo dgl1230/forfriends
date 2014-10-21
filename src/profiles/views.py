@@ -48,10 +48,22 @@ def user_not_new(user):
 	return user.is_authenticated() and user_info.signed_up_with_fb_or_goog == False
 
 
+def user_can_reset_circle(user):
+	try: 
+		user_gamification = Gamification.objects.get(user=request.user)
+	except:
+		return False
+	try:
+		until_next_reset = user_gamification.circle_time_until_reset
+	except:
+		user_gamification.circle_time_until_reset = datetime.now()
+	hours_until_reset = int((until_next_reset - current_time).total_seconds() / 60 / 60)
+	return hours_until_reset <= 1
+
 
 '''Implements the 'add friend' button when viewing a user's profile
 If both users click this button on each other's profile, they can message'''
-@login_required
+@user_passes_test(user_not_new)
 def add_friend(request, username):
 	try: 
 		match = Match.objects.get(user1=request.user, user2__username=username)
@@ -118,7 +130,7 @@ def add_friend(request, username):
 	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))
 
 
-@login_required
+@user_passes_test(user_not_new)
 def add_friend_discovery(request, username, page):
 	try: 
 		match = Match.objects.get(user1=request.user, user2__username=username)
@@ -298,7 +310,8 @@ def all(request):
 	else:
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
-
+@user_passes_test(user_not_new)
+@user_passes_test(user_not_new, login_url=reverse_lazy('home'))
 def generate_circle(request):
 	info = Info.objects.get(user=request.user)
 	if info.is_new_user:
@@ -440,6 +453,7 @@ def generate_circle(request):
 			#messages.success(request, "We're sorry, but there aren't many users nearby you right now. We rested your circle as best we could, but you can reset it again if you'd like.")
 	return HttpResponseRedirect(reverse('home'))
 
+@user_passes_test(user_not_new)
 def circle_distance(logged_in_user, preferred_distance):
 	user_gamification = Gamification.objects.get(user=logged_in_user)
 	current_circle = list(user_gamification.circle.all())
@@ -632,7 +646,7 @@ on the single user page.
 '''
 
 
-@login_required
+@user_passes_test(user_not_new)
 def discover(request):
 	# first we check to see if a session exists
 	if not request.session.get('random_exp'):
