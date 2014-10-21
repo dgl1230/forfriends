@@ -77,8 +77,8 @@ def delete_individual_sent_message(request, dm_id):
 
 ''' The logged in user creates a new message using ComposeForm. The logged in
 user can only send messages to users that have approved the logged in user for
- friendship and that have also been approved by the logged in user. '''
- @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
+friendship and that have also been approved by the logged in user. '''
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def compose(request):
 	title = "<h1>Compose</h1>"
 
