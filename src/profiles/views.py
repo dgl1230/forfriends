@@ -313,6 +313,7 @@ def all(request):
 	else:
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
+
 @user_passes_test(user_not_new)
 @user_passes_test(user_can_reset_circle, login_url=reverse_lazy('home'))
 def generate_circle(request):
@@ -456,7 +457,8 @@ def generate_circle(request):
 			#messages.success(request, "We're sorry, but there aren't many users nearby you right now. We rested your circle as best we could, but you can reset it again if you'd like.")
 	return HttpResponseRedirect(reverse('home'))
 
-@user_passes_test(user_not_new)
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
+@user_passes_test(user_can_reset_circle, login_url=reverse_lazy('home'))
 def circle_distance(logged_in_user, preferred_distance):
 	user_gamification = Gamification.objects.get(user=logged_in_user)
 	current_circle = list(user_gamification.circle.all())

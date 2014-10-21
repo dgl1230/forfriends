@@ -5,6 +5,7 @@ from django.shortcuts import render_to_response, RequestContext, Http404, HttpRe
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import user_passes_test
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.urlresolvers import reverse, reverse_lazy
 
 from .models import Interest, UserInterestAnswer, InterestPicture
 from .forms import InterestForm
@@ -32,7 +33,7 @@ def create_interest(request):
 	return render_to_response("interests/create.html", locals(), context_instance=RequestContext(request))
 
 
-@user_passes_test(user_not_new)
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def all_interests(request):
 	
 	#interests_all = Interest.objects.exclude(userinterestanswer__user=request.user).filter(approved=True).order_by('?')
