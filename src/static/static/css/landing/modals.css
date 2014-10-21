@@ -225,10 +225,10 @@
 }
 
 @media (max-width:425px){
-	#login_modal #fb_login p{
+	#social_logins #fb_login p{
 		font-size:18px;
 	}
-	#login_modal #google_login p{
+	#social_logins #google_login p{
 		font-size:18px;
 	}
 

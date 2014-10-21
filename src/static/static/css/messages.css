@@ -18,11 +18,13 @@
 	outline: 0;
 }
 .message_body{
-	width:80%;
+	width:100%;
 	height:100%;
 	float:right;
 }
-
+.trash_row{
+	text-align: right;
+}
 #selectall{
 	color:white!important;
 }
@@ -130,17 +132,21 @@ th h1{
 	color:white;
 }
 tr th{
-	width:50%;
+	width:35%;
 	padding-bottom:15px!important;
 }
 th{
 	color: white;
+	font-size:1.5rem!important;
 }
 th a{
 	color:white!important;
 }
 thead{
 	background-color: black;
+}
+#time_sent, #time_sent_header{
+	width:20%;
 }
 .btn-sm{
 	width:120px;
@@ -215,7 +221,6 @@ input{
 #message_container{
 	margin-left:120px;
 	min-width:200px;
-	width:	90%;
 }
 
 @media (max-width: 402px){

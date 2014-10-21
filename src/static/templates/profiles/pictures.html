@@ -29,7 +29,7 @@
               <li data-thumbnail-text="{{ pic.caption }}" data-thumbnail-text-title-offset="35"
               data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="0">
 
-                <p class="smallLabel" id="delete_picture"><a href='{% url "delete_picture" pic.id %}' type='submit' value='Yes'><span style="color:white"class="glyphicon glyphicon-trash"></span></a></p>
+                <p class="smallLabel" id="delete_picture"><a href='{% url "delete_picture" pic.id %}' type='submit' value='Yes'><span style="color:white;"class="glyphicon glyphicon-trash"></span></a></p>
               </li>
               <li data-info="">
                 <p class="mediaDescriptionHeader">{{ pic.caption }}</p>
@@ -81,7 +81,7 @@
         <h4 class="modal-title">Let others put a name to a face!</h4>
       </div>
       <div class="modal-body">
-        <p>That way, people won't think you're creepy. You're only allowed 5 pictures pictures, so choose wisely(Not really though, you can change them later). </p>
+        <p>That way, people won't think you're creepy. You're only allowed 5 pictures, so choose wisely (Not really though, you can change them later). </p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Okay</button>
@@ -118,9 +118,9 @@
     <script src="{{ STATIC_URL }}js/pictures_crop.js" type="text/javascript"></script>
     <script src="{{ STATIC_URL }}js/FWDRoyal3DCarousel.js" type="text/javascript"></script>
     <script src="{{ STATIC_URL }}js/3dcarousel/initiate.js" type="text/javascript"></script>
-<script>
+    <script>
         FWDR3DCarUtils.onReady(function(){
-    var carousel = new FWDRoyal3DCarousel({
+        var carousel = new FWDRoyal3DCarousel({
         //required settings
         carouselHolderDivId:"myDiv",
         carouselDataListDivId:"carouselData",

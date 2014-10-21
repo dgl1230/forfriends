@@ -190,9 +190,6 @@ a.dropdown-toggle{
 	border-top:white;
 }
 
-#secondary_navbar a:hover, #secondary_navbar a:focus, #secondary_navbar a:active {
-	background-color: #084c8d;
-}
 .navbar-brand{
 	text-align: center;
 	margin-top:5px;

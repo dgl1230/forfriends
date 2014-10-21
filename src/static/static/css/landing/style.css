@@ -405,7 +405,7 @@ input {
   font-size: 14px;
 }
 
-input[type=text], input[type=password] {
+input[type=text], input[type=password], input[type=email] {
   padding: 0 10px;
   width: 200px;
   height: 34px;

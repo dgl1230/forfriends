@@ -160,6 +160,9 @@ margin-left: 80px;
 #picture_caption{
 	width:50%;
 }
+#carouselData{
+    min-width:100%!important;
+}
 @media (min-width: 800px) {
 	.container{
 		min-width:200px;
@@ -177,5 +180,10 @@ margin-left: 80px;
     #rotate_row{
         width:220px;
         margin-bottom:20px;
+    }
+    .smallLabel{
+        width:150px!important;
+        padding-left:50px!important;
+
     }
 }

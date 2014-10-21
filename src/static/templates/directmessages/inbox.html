@@ -37,10 +37,11 @@ $('#myTab a').click(function (e) {
 		<thead>
 		<th><h1>From</h1></th> 
 		<th><h1>Message</h1></th> 
+		<th id="time_sent_header"><h1>Received</h1></th>
 		<th>
-		<input type="checkbox" name="selectall" id="selectall" ></input>
+		<h1><input type="checkbox" name="selectall" id="selectall" ></input></h1>
 		</th>
-		<th> <span data-toggle="modal" id="inbox_trash"  data-target="#new_user_modal" class="glyphicon glyphicon-trash" style="color:white"></span>
+		<th><h1> <span data-toggle="modal" id="inbox_trash"  data-target="#new_user_modal" class="glyphicon glyphicon-trash" style="color:white"></span></h1>
 		
 		<form id="delete_messages_form" method='POST' action='{% url "delete_messages" %}'>
 			{% csrf_token %}
@@ -64,11 +65,12 @@ $('#myTab a').click(function (e) {
 						<span style='color: grey;' class='glyphicon glyphicon-ok'></span>
 					{% endif %}
 					<a {% if item.read %} style='color: grey;' {% endif %} href= '{{ item.get_absolute_url }}'><div class="message_body">{{ item.body|truncatechars:"25" }}</div></a>
-					{% if item.sent %}
+					
 				</td>
-				
+				<td id="time_sent">
 					<small>{{ item.sent }}</small> 
-					{% endif %}
+					
+				</td>
 				<td>
 					<input type="checkbox" class="delete_messages" name="delete_messages" value="{{ item.id }}"></input> 
 				</td>

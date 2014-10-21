@@ -1,3 +1,6 @@
+html, ul, ul li, li, li a, .btn{
+	font-family: 'Roboto', sans-serif;
+}
 body{
 	background-color: #fff;
 	padding-top: 40px;
@@ -13,6 +16,7 @@ textarea:focus, input:focus{
 
 #name_of_user{
 	font-size:3.2rem!important;
+	font-weight:300;
 }
 
 select:focus, input:focus, textarea:focus{
@@ -20,6 +24,7 @@ select:focus, input:focus, textarea:focus{
 	-moz-box-shadow: inset 0 0px 1px 1px #1FBAD6;
 	-webkit-box-shadow: inset 0 0px 1px 1px #1FBAD6;
 }
+
 textarea:active, input:active{
 	outline:0;
 	outline:none;
