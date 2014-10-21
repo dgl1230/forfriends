@@ -193,12 +193,15 @@ which will have the user fill in relevant info before they can access the site. 
 the user is not logged in, and is shown the landing page.
 '''
 
-@user_passes_test(user_not_new)
+
 def all(request):
 	if request.user.is_authenticated():
 		info, created = Info.objects.get_or_create(user=request.user)
 		
 		try: 
+			if info.signed_up_with_fb_or_goog == True:
+				return HttpResponseRedirect(reverse('new_user_info'))
+
 			if info.is_new_user == True:
 				is_new_user = True
 				user_interests = UserInterestAnswer.objects.filter(user=request.user)
