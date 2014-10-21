@@ -3,7 +3,7 @@ import datetime
 
 from django.shortcuts import render_to_response, RequestContext, Http404, get_object_or_404, HttpResponseRedirect
 from django.contrib import messages
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth.models import User
 from django.db.models import Q
 
@@ -17,6 +17,7 @@ from .forms import ComposeForm, FriendForm, ReplyForm
 ''' Gets a message using the dm_id in the url for the logged in user. The 
 user is not allowed to view a message sent from themselves (to prevent errors).
 If the user has not seen it already, it's read and read_at fields are changed.'''
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def view_direct_message(request, dm_id):
 	message = get_object_or_404(DirectMessage, id=dm_id)
 	'''
@@ -34,7 +35,7 @@ def view_direct_message(request, dm_id):
 	return render_to_response('directmessages/views.html', locals(), 
 										context_instance=RequestContext(request))
 
-
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def view_sent_message(request, dm_id):
 	message = get_object_or_404(DirectMessage, id=dm_id)
 	messages_in_inbox = DirectMessage.objects.filter(receiver=request.user)
@@ -44,13 +45,14 @@ def view_sent_message(request, dm_id):
 	return render_to_response('directmessages/views_sent.html', locals(), 
 										context_instance=RequestContext(request))
 
-
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def delete_messages(request):
 	messages_to_delete = request.POST.getlist('delete_messages')
 	DirectMessage.objects.filter(id__in=messages_to_delete).delete()
 	return HttpResponseRedirect(reverse('inbox'))
 
 
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def delete_individual_message(request, dm_id):
 	message = DirectMessage.objects.get(id=dm_id)
 	print "getting here for some strange reason"
@@ -58,13 +60,13 @@ def delete_individual_message(request, dm_id):
 	return HttpResponseRedirect(reverse('inbox'))
 
 
-
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def delete_sent_messages(request):
 	messages_to_delete = request.POST.getlist('delete_messages')
 	DirectMessage.objects.filter(id__in=messages_to_delete).delete()
 	return HttpResponseRedirect(reverse('sent'))
 
-
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def delete_individual_sent_message(request, dm_id):
 	message = DirectMessage.objects.get(id=dm_id)
 	print "getting here"
@@ -76,6 +78,7 @@ def delete_individual_sent_message(request, dm_id):
 ''' The logged in user creates a new message using ComposeForm. The logged in
 user can only send messages to users that have approved the logged in user for
  friendship and that have also been approved by the logged in user. '''
+ @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def compose(request):
 	title = "<h1>Compose</h1>"
 
@@ -119,6 +122,7 @@ via the "send message" button. If both users have approved each other for
 friendship, then the logged in user can message the viewed user from their profile. 
 Otherwise, the html template renders a response saying that they aren't both 
 approved yet. '''
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def su_compose(request, single_user):
 	su = User.objects.get(username=single_user)
 	title = "<h1>Compose</h1>"
@@ -140,6 +144,7 @@ def su_compose(request, single_user):
 
 '''The logged in user replies to a message that was sent to them, using
 the dm_id field to determine what the correct message to reply to is. '''
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def reply(request, dm_id):
 
 	parent_id = dm_id
@@ -170,6 +175,7 @@ def reply(request, dm_id):
 
 
 '''The logged in user views all messages that they have'''
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def inbox(request):
 
 	messages_in_inbox = DirectMessage.objects.filter(receiver=request.user).order_by('-id')
@@ -182,6 +188,7 @@ def inbox(request):
 
 
 '''The logged in viewer views all messages that they have sent'''
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def sent(request):
 
 	messages_in_inbox = DirectMessage.objects.filter(sender=request.user).order_by('-sent')

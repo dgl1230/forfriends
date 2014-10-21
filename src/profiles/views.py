@@ -57,8 +57,23 @@ def user_can_reset_circle(user):
 		until_next_reset = user_gamification.circle_time_until_reset
 	except:
 		user_gamification.circle_time_until_reset = datetime.now()
+	until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
 	hours_until_reset = int((until_next_reset - current_time).total_seconds() / 60 / 60)
 	return hours_until_reset <= 1
+
+
+def user_can_reset_icebreaker(user):
+	try: 
+		user_gamification = Gamification.objects.get(user=request.user)
+	except:
+		return False
+	try:
+		until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
+	except:
+		user_gamification.icebreaker_until_reset = datetime.now()
+	until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
+	icebreaker_hours_until_reset = int((until_next_icebreaker - current_time).total_seconds() / 60 / 60)
+	return icebreaker_hours_until_reset <= 0
 
 
 
@@ -66,7 +81,7 @@ def user_can_reset_circle(user):
 
 '''Implements the 'add friend' button when viewing a user's profile
 If both users click this button on each other's profile, they can message'''
-@user_passes_test(user_not_new)
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def add_friend(request, username):
 	try: 
 		match = Match.objects.get(user1=request.user, user2__username=username)
@@ -133,7 +148,7 @@ def add_friend(request, username):
 	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))
 
 
-@user_passes_test(user_not_new)
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def add_friend_discovery(request, username, page):
 	try: 
 		match = Match.objects.get(user1=request.user, user2__username=username)
@@ -314,7 +329,7 @@ def all(request):
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
 
-@user_passes_test(user_not_new)
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 @user_passes_test(user_can_reset_circle, login_url=reverse_lazy('home'))
 def generate_circle(request):
 	info = Info.objects.get(user=request.user)
@@ -651,7 +666,7 @@ on the single user page.
 '''
 
 
-@user_passes_test(user_not_new)
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def discover(request):
 	# first we check to see if a session exists
 	if not request.session.get('random_exp'):
@@ -721,7 +736,7 @@ def discover(request):
 
 
 
-@user_passes_test(user_not_new)
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def friends(request):
 	matches = Match.objects.filter(
 		Q(user1=request.user) | Q(user2=request.user)
@@ -733,7 +748,7 @@ def friends(request):
 
 
 #Shows all pictures that the logged in user has 
-@user_passes_test(user_not_new)
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def all_pictures(request): 
 	try: 
 		pictures = UserPicture.objects.filter(user=request.user)
@@ -895,7 +910,7 @@ def edit_pictures(request):
 	return render_to_response('profiles/edit_pictures.html', locals(), context_instance=RequestContext(request))
 
 
-@user_passes_test(user_not_new)
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def edit_profile(request):
 	user = request.user
 	pictures = UserPicture.objects.filter(user=user)
@@ -1076,7 +1091,7 @@ def register_new_user(request):
 
 
 #Displays the profile page of a specific user and their match % against the logged in user
-@user_passes_test(user_not_new)
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def single_user(request, username):
 	try:
 		user = User.objects.get(username=username)
@@ -1114,13 +1129,13 @@ def single_user(request, username):
 	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))	
 
 
-@user_passes_test(user_not_new)
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def single_user_pictures(request, username):
 	pictures = UserPicture.objects.filter(user__username=username)
 	return render_to_response('profiles/single_user_pictures.html', locals(), context_instance=RequestContext(request))
 
 
-@user_passes_test(user_not_new)
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def search(request):
 	try:
 		q = request.GET.get('q', '')
@@ -1173,7 +1188,7 @@ def contact_us(request):
 	return render_to_response ('contact_us.html', locals(), context_instance=RequestContext(request))
 
 
-@user_passes_test(user_not_new)
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def new_picture(request):
 	if request.method == 'POST':
 		pic_form = UserPictureForm(request.POST, request.FILES)
@@ -1191,7 +1206,8 @@ def new_picture(request):
 
 
 
-@user_passes_test(user_not_new)
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
+@user_passes_test(user_can_reset_icebreaker, login_url=reverse_lazy('home'))
 def ice_breaker(request): 
 	user1 = request.user
 	user1_interests = UserInterestAnswer.objects.filter(user=user1).filter(

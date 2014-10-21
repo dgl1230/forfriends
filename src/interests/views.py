@@ -20,7 +20,7 @@ def all_interests_experimental(request):
 	return render_to_response('interests/experimental.html', locals(), context_instance=RequestContext(request))
 
 
-@user_passes_test(user_not_new)
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def create_interest(request):
 	form = InterestForm(request.POST or None)
 	if form.is_valid():
