@@ -1,6 +1,3 @@
-/* ==========================================================================
-   01. GENERAL & BASIC STYLES
-   ========================================================================== */
 @keyframes fadeIn { from { opacity:0; } to { opacity:1;} }
 
 .container{
@@ -22,18 +19,10 @@
 
 }
 
-/*------------------------------------------*/
-/*	 Parallax Settings
-/*------------------------------------------*/
-
 
 #call-to-action { 
 	background-color: #6682b5;
 }
-
-/*------------------------------------------*/
-/*	 Headers
-/*------------------------------------------*/
 
 h1, h2, h3, h4, h5, h6 {
 	margin-top: 0; 
@@ -65,10 +54,6 @@ a:focus {
 	border: none;
 	text-decoration: none;
 } 
-
-/*------------------------------------------*/
-/*	 Lists
-/*------------------------------------------*/
 
 ul {
 	margin: 0;
@@ -294,9 +279,6 @@ select{
     font-size: 3em;
   }
 }
-
-
-
 /* Registration and Login */
 #contactform h1{
   margin: -20px 0px 5px;
@@ -315,8 +297,6 @@ select{
   -webkit-box-shadow: 0 1px whitesmoke;
   box-shadow: 0 1px whitesmoke;
 }
-
-
 
 @media (min-width:1200px){
   .parallax{
@@ -388,6 +368,13 @@ select{
 }
 .login-help a:hover {
   text-decoration: underline;
+}
+
+#pw_required{
+  font-size:10px;
+  color: #333;
+  padding:0px 0px 0px 0px;
+  margin-bottom:0px;
 }
 
 :-moz-placeholder {

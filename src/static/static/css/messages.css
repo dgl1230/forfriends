@@ -271,6 +271,9 @@ input{
 	.long_nav{
 		margin-left:20px!important;
 	}
+	td{
+		font-size:12px;
+	}
 }
 
 @media(min-width:450px){

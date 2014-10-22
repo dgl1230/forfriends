@@ -9,8 +9,10 @@
     <div class="col-md-1" id="tertiary_navbar">
         {% if num_of_pics == 5 %}
         {% else %}
+    <span class='glyphicon glyphicon-camera' id="tertiary-icon"></span>
     <a href="#add_more_pictures" id="upload_more">Add Pictures
     </a>
+    <span class='glyphicon glyphicon-camera' id="tertiary-icon"></span>
     {% endif %}
     </div>
   </div>
@@ -30,6 +32,7 @@
               data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="0">
 
                 <p class="smallLabel" id="delete_picture"><a href='{% url "delete_picture" pic.id %}' type='submit' value='Yes'><span style="color:white;"class="glyphicon glyphicon-trash"></span></a></p>
+                <p class="smallLabel" id="make_profile"><a href='{% url "delete_picture" pic.id %}' type='submit' value='Yes' data-toggle="tooltip" title="Make Profile Picture!"><span style="color:white;"class="glyphicon glyphicon-user"></span></a></p>
               </li>
               <li data-info="">
                 <p class="mediaDescriptionHeader">{{ pic.caption }}</p>
@@ -246,6 +249,10 @@
     $('#rotate').click(function() {
         $('#preview').rotateRight(90);
     });
+</script>
+
+<script>
+$(function() { $("[data-toggle='tooltip']").tooltip(); trigger:"hover"});
 </script>
 
 <!--<script>

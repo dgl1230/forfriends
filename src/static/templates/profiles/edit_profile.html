@@ -67,7 +67,6 @@ $('#myTab a').click(function (e) {
         <form method="POST" action="/edit/info/">
           {% csrf_token %}
           <div id="info_forms">
-            <p><label for "#username_form">Username:</label><input id="username_form" name="username_form" type="text" value="{% if user.username %}{{ user.username }}{% endif %}" maxlength="20" required ></p>
             <p><label for "#first_name_form">First Name:</label><input id="first_name_form" name="first_name_form" type="text" maxlength="30" value="{% if user.first_name %}{{ user.first_name }}{% endif %}" required></p>
             <p><label for "#last_name_form">Last Name:</label><input maxlength="50"  id="last_name_form" name="last_name_form" type="text" value="{% if user.last_name %}{{ user.last_name }}{% endif %}" required></p>
             <p>

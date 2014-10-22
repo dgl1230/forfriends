@@ -52,7 +52,7 @@
 	border-top:none!important;
 	color: #1FBAD6;
 }
-#contactform input{
+#contactform input[type="email"]{
 	margin-bottom:11px;
 }
 #contactform h4{

@@ -127,6 +127,10 @@
   background-color:white;
 }
 
+.features{
+	text-align: left;
+}
+
 @media only screen and (max-width: 580px) {
 	#form-div{
 		margin-right: 3%;
