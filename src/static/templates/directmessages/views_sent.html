@@ -14,11 +14,11 @@
 	</div>
 </div>
 <div class='row'>
-                <div class="col-md-1" id="tertiary_navbar">
-                  {% for message in messages %}
-                    <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
-                  {% endfor %}
-                </div>
+    <div class="col-md-1" id="tertiary_navbar">
+      {% for message in messages %}
+        <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+      {% endfor %}
+    </div>
 </div>
 	<div class="container" id="message_body_holder">
 	<div class="body_section">
@@ -31,7 +31,8 @@
 		<th> </th>
 		</thead>
 		<tbody>
-			<td><a href="/members/{{ message.sender }}/">
+			<td>
+				<a href="/members/{{ message.sender }}/">
 					{{ message.receiver }}
 				</a>
 			</td>
@@ -45,7 +46,7 @@
 		</div>
 		<br>
 		<div class="button_container">
-		<a class='btn btn-info btn-sm' href="{% url 'reply' message.id %}">Reply</a>
+		<a class='btn btn-success' href="{% url 'reply' message.id %}">Reply</a>
 	</div>
 	</div>
 </div>
