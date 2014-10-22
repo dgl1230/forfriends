@@ -508,35 +508,26 @@ def circle_distance(logged_in_user, preferred_distance):
 #This is the first/second part of registration for users signing up with FB or GOOGerror(request, "Please double check your username or email address and password")
 def new_user_info(request):
 	if request.POST:
-		name = request.POST['name']
-		full_name = name.split()
-		first_name1 = str(full_name[0])
+		first_name1 = str(frequest.POST['first_name'])
 		first_name2 = first_name1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>1234567890")
 		first_name = first_name2.translate(None, '"')
+
+		
 
 		if len(first_name) == 0:
 			messages.error(request, "Please use only letters first name")
 			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
-		'''
-		if len(full_name) == 2:
-			last_name1 = str(full_name[1])
-			last_name2 = last_name1.translate(None, "?.!/;:@#$%^&()`,[]{}~_=+*|<>1234567890")
-			last_name = last_name2.translate(None, '"')
-			if len(last_name) == 0:
-				messages.error(request, "Please use only letters in your last name")
-				return render_to_response('home.html', locals(), context_instance=RequestContext(request))
-		'''
 
-		if len(full_name) >= 2:
-			not_first_name = full_name[1:]
-			last_name = ""
-			for name in not_first_name:
-				last_name = last_name + str(name) + " "
-			last_name1 = last_name.translate(None, "?.!/;:@#$%^&()`,[]{}~_=+*|<>1234567890")
-			last_name = last_name1.translate(None, '"')
-			if len(last_name) == 0:
-				messages.error(request, "Please use only letters in your last name")
-				return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+		last_name_string = str(frequest.POST['last_name'])
+				
+		last_name = ""
+		for name in last_name_string:
+			last_name = last_name + str(name) + " "
+		last_name1 = last_name.translate(None, "?.!/;:@#$%^&()`,[]{}~_=+*|<>1234567890")
+		last_name = last_name1.translate(None, '"')
+		if len(last_name) == 0:
+			messages.error(request, "Please use only letters in your last name")
+			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 		username1 = str(request.POST['username'])
 
 		username2 = username1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-=+*|<>")
