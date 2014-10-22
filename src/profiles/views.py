@@ -612,7 +612,7 @@ def new_user_info(request):
 			user = authenticate(username=request.user.username, password=request.user.password)
 			request.user.save()
 
-			if not not CURRENTLY_LOCALLY_TESTING:
+			if not CURRENTLY_LOCALLY_TESTING:
 
 				subject = "Welcome to Frenvu!"
 				line1 = "Thanks for signing up %s! Frenvu is a place where you can find your closest friends, someone cool to see a movie with," % (request.user.username)
