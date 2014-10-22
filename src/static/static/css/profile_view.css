@@ -19,10 +19,13 @@
 	height:500px;
 	width:500px;
 }
+#bio_body, #occ_body{
+	text-align:left;
+}
 
 #information{
-	margin-top:30px;
-	margin-bottom:30px;
+	margin-top:25px;
+	margin-bottom:25px;
 	min-height:200px;
 }
 
@@ -347,7 +350,7 @@ h4{
 }
 
 .modal-body a{
-	color: #1FBAD6;
+	color: #1FBAD6!important;
 
 }
 
@@ -466,7 +469,6 @@ h4{
 	.previous_user span{
 		padding-top:10px;
 	}
-
 }
 @media(min-width: 1205px){
 	#single_user_container{
@@ -478,3 +480,11 @@ h4{
 }
 
 
+/* Carousel */
+
+.largeLabel{
+	font-size:2.5rem!important;
+	display:block!important;
+	padding-top:0px!important;
+	margin-top:0px!important;	
+}

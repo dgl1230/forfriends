@@ -69,6 +69,7 @@
 	background-size: 30px 30px;
 	background-position: 11px 8px;
 	background-repeat: no-repeat;
+	width:100%;
 }
 
 .contact_form_wrapper textarea {
@@ -126,22 +127,29 @@
   background-color:white;
 }
 
+.features{
+	text-align: left;
+}
+
 @media only screen and (max-width: 580px) {
 	#form-div{
 		margin-right: 3%;
 		padding-left: 3%;
 		padding-right: 3%;
-		width:98%;
+		width:100%;
 		margin-left:0px;
 		min-width:300px;
 	
 	}
 	.contact_form_wrapper{
-	width:85%;
-	margin-left:100px;
+	width:100%;
+	margin-left:0px;
+	margin-right:0px;
 	min-height:500px;
 	text-align:center;
-}
+	padding-left:0px;
+	padding-right:0px;
+	}
 }
 
 @media only screen and (max-width: 677px){

@@ -2,7 +2,6 @@
 
 {% block content %}
 <div id="view_container">
-<br>
   <div class='col-lg-10 col-12'>
   	<div class="row">
 	<div class="col-md-1" id="secondary_navbar">
@@ -26,7 +25,10 @@
 	<table class='table table-striped' id="view_table">
 	<table>
 		<thead>
-		<th>From</th> <th> Message </th> <th> </th>
+		<th><h1>From</h1></th>
+		<th><h1>Message</h1></th>
+		<th id="time_sent_head"><h1>Sent</h1></th>
+		<th> </th>
 		</thead>
 		<tbody>
 			<td><a href="/members/{{ message.sender }}/">
@@ -34,7 +36,8 @@
 				</a>
 			</td>
 			<td>{{ message.body }}</td>
-			<td>
+			<td>{{ message.sent }}</td>
+			<td class="trash_row">
 				<a href="{% url 'delete_individual_sent_message' message.id %}"><span id="individual_trash" class="glyphicon glyphicon-trash" style="color:black"></span></a>
 			</td>
 		</body>

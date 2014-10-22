@@ -190,9 +190,6 @@ a.dropdown-toggle{
 	border-top:white;
 }
 
-#secondary_navbar a:hover, #secondary_navbar a:focus, #secondary_navbar a:active {
-	background-color: #084c8d;
-}
 .navbar-brand{
 	text-align: center;
 	margin-top:5px;
@@ -272,6 +269,10 @@ a.dropdown-toggle{
 	margin-left:-10px;
 	
 }
+
+.btn-mobile{
+	z-index:100;
+}
 form.navbar-form.navbar-left{
 	border-top: none!important;
 	border-bottom:none!important;
@@ -344,7 +345,7 @@ form.navbar-form.navbar-left{
 @media (max-width: 767px){
 	.pull-right{
 		margin-left:0px;
-		width:50%;
+		width:150px;
 		display:inline;
 	}
 	.navbar-form.navbar-left{
@@ -375,5 +376,54 @@ form.navbar-form.navbar-left{
 	}
 	.navbar-form.navbar-left{
 		margin-top:0px!important;
+		display:none;
 	}
+
+	#navbar_mobile{
+		display:inline-block!important;
+		float:left;
+		width:200px;
+	}
+	.form-mobile{
+		width:150px!important;
+		margin-top:5px;
+	}
+	.input_mobile{
+		width:100px!important;
+	}
+	.btn-mobile{
+		width:30px!important;
+	}
+}
+
+@media (min-width: 767px){
+	#navbar_mobile{
+		display:none;
+	}
+
+}
+
+@media (max-width: 420px){
+	#navbar_mobile{
+		display:inline-block!important;
+		float:left;
+		width:120px;
+	}
+	.form-mobile{
+		width:110px!important;
+		margin-top:5px;
+	}
+	.input_mobile{
+		width:80px!important;
+	}
+	.btn-mobile{
+		width:20px!important;
+	}
+	#messages_sidebar{
+		width:20px;
+		height:10px;
+		margin-left:10px;
+	}
+}	
+
 }

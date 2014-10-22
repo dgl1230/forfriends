@@ -24,7 +24,7 @@
       {% endfor %}
     </ul>
 {% endif %}
-<br>
+</div>
 <div id="sent_container">
   <div class='col-lg-10 col-12' id="message_body_container">
   <div class="body_section">
@@ -32,6 +32,7 @@
     <thead>
     <th><h1>To</h1></th> 
     <th><h1>Message</h1></th> 
+    <th id="time_sent_heading"><h1>Sent</h1></th> 
     <th>
     <input type="checkbox" name="selectall" id="selectall" ></input>
     </th>
@@ -53,15 +54,11 @@
           {{ item.receiver|truncatechars:"12" }}</a>
         </td>
         <td id="inbox_body">
-          {% if item.read %}
-            <span style='color: grey;' class='glyphicon glyphicon-ok'></span>
-          {% endif %}
           <a {% if item.read %} style='color: grey;' {% endif %} href= '{% url "view_sent_message" item.id %}' ><div class="message_body">{{ item.body|truncatechars:"20" }}</div></a>
-          {% if item.sent %}
         </td>
-        
+        <td id="time_sent">
           <small>{{ item.sent }}</small> 
-          {% endif %}
+        </td>
         <td>
           <input type="checkbox" class="delete_messages" name="delete_messages" value="{{ item.id }}"></input> 
         </td>

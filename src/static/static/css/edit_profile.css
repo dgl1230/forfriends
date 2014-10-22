@@ -1,8 +1,7 @@
-html, ul, ul li, li, li a, .btn{
-	font-family: 'Roboto', sans-serif;
-}
+
 .tab-content{
 	min-height: 500px;
+	padding-top:20px;
 }
 
 .tab-content input{
@@ -193,9 +192,7 @@ p a{
 	font-size: 2em;
 }
 
-.tab-content{
-	padding-top:20px;
-}
+
 .tab-content .btn-lg{
 	text-align: center;
 }
@@ -239,5 +236,10 @@ p a{
 		width:400px;
 		margin:0 auto;
 
+	}
+}
+@media (max-width:450px){
+	.tab-content{
+	min-height: 100px;
 	}
 }
