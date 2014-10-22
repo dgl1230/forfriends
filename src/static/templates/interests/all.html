@@ -164,11 +164,12 @@
 		<div class="interest_ranking">
 			<span class="star-rating" id="star-rating">
 				{% for imp in importance_levels %}
-				<input type="radio" name="rating" value='{{ imp }}' id='{{ imp }}' class="star" {% for abc in interest.userinterestanswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} checked="checked" {% endif %} {% endfor %} required><i></i>
+				<input type="radio" name="rating" value='{{ imp }}' id='{{ imp }}' class="star" {% for abc in interest.userinterestanswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} checked="checked" {% endif %} {% endfor %}><i></i>
 				{% endfor %}
 			</span>
 			<br>
-		<input type='submit' class='btn-lg' value='Save'>
+			<input id="hide_interest" type='submit' class='btn-lg' value='Choose an Interest' disabled>
+			<input id="save_interest" type='submit' class='btn-lg' value='Save' >
 		</div>
 
 		</form>
@@ -243,7 +244,29 @@ $(document).keydown(function(e) {
 });
 </script>
 
-
-
 {% endif %}
+
+<script>
+$("[id='Strongly Dislike']").click(function(){
+	$('#save_interest').show();
+	$('#hide_interest').hide();
+});	
+$("[id='Dislike']").click(function(){
+	$('#save_interest').show();
+	$('#hide_interest').hide();
+});	
+$('#Neutral').click(function(){
+	$('#save_interest').show();
+	$('#hide_interest').hide();
+});	
+$("[id='Like']").click(function(){
+	$('#save_interest').show();
+	$('#hide_interest').hide();
+});	
+$("[id='Strongly Like']").click(function(){
+	$('#save_interest').show();
+	$('#hide_interest').hide();
+});	
+</script>
+
 {% endblock %}
