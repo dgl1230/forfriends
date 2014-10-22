@@ -135,7 +135,7 @@ AUTH_PROFILE_MODULE = "profiles.Info"
 
 ACCOUNT_ACTIVATION_DAYS = 7
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = reverse_lazy('home')
 
 SITE_ID = 1
 

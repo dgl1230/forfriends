@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 from django.forms.models import modelformset_factory
 from django.db.models import Q, Max
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import user_passes_test, login_required
+from django.contrib.auth.decorators import user_passes_test
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -794,42 +794,6 @@ def edit_info(request):
 	if request.method == 'POST':
 		info = Info.objects.get(user=request.user)
 
-		username1 = str(request.POST['username_form'])
-		username2 = username1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-=+*|<>")
-		username = username2.translate(None, '"')
-
-		bad_words = ['shit', 'cunt', 'fuck', 'nigger', 'kyke', 'dyke', 'fag', 'ass', 'rape', 
-			'murder', 'kill', 'gook', 'pussy', 'bitch', 'hell', 'whore', 'slut', 
-			'cum', 'jizz', 'clit', 'anal', 'cock', 'molest', 'necro', 'satan', 'devil', 
-			'pedo', 'negro', 'spic', 'beaner', 'chink', 'coon', 'kike', 'wetback', 'sex', 
-			'kidnap', 'penis', 'vagina', 'boobs', 'titties', 'sodom', 'kkk', 'nazi', 'klux', 
-			'dicksucker', 'rapist', 'anus', 'arse', 'bastard','blowjob', 
-			'boner', 'fister', 'butt', 'cameltoe', 'chink', 'coochie', 'coochy', 'bluewaffle', 
-			'cooter', 'dick', 'dildo', 'doochbag', 'douche', 'fellatio', 'feltch', 'flamer', 
-			'donkeypunch', 'fudgepacker', 'gooch', 'gringo', 'jerkoff', 'jigaboo', 'kooch', 
-			'kootch', 'kunt', 'kyke', 'dike', 'minge', 'munging', 'nigga', 'niglet', 'nutsack', 
-			'poon', 'pussies', 'pussy', 'queef', 'queer', 'rimjob', 'erection', 'schlong', 
-			'skeet', 'smeg', 'spick', 'splooge', 'spook', 'retard', 'testicle', 'tit', 'twat', 
-			'vajayjay', 'wankjob', 'bimbo', '69', 'fistr', 'fist3r']
-		for word in bad_words:
-			if word in username:
-				messages.success(request, "We're sorry but some people might find your username offensive. Please pick a different username.")
-				return HttpResponseRedirect(reverse('edit_profile'))
-		try: 
-			taken_username_user = User.objects.get(username=username)
-			if taken_username_user != request.user:
-				messages.success(request, "We're sorry but that username is already taken.")
-				return HttpResponseRedirect(reverse('edit_profile'))
-		except:
-			pass
-
-
-		if len(username) == 0:
-			messages.success(request, "Please use only letters and numbers in your username")
-			return HttpResponseRedirect(reverse('edit_profile'))
-
-
-
 		first_name1 = str(request.POST['first_name_form'])
 		first_name2 = first_name1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>1234567890")
 		first_name = first_name2.translate(None, '"')
@@ -982,16 +946,12 @@ def find_friends(request):
 
 
 def login_user(request):
-	username = str(request.POST['username'])
+	email = str(request.POST['email'])
 	password = str(request.POST['password'])
 
-	# check to see whether they provied their username or email for logging in
-	if '@' in username:
-		kwargs = {'email': username}
-	else:
-		kwargs = {'username': username}
+
 	try: 
-		user1 = User.objects.get(**kwargs)
+		user1 = User.objects.get(email=email)
 	except: 
 		messages.error(request, "Please double check your username or email address and password")
 		return HttpResponseRedirect(reverse('home'))
@@ -1037,56 +997,43 @@ def calculate_age(born):
 
 #Creates a new user and assigns the appropriate fields to the user (this is for signing up with Frenvu, not FB or Goog)
 def register_new_user(request):
-	if True:
-		'''
-		username1 = str(request.POST['username'])
-		username2 = username1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>")
-		username = username2.translate(None, '"')
-		if len(username) == 0:
-			messages.error(request, "Please use only letters and numbers in your username")
-			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
-		'''
 
+	email = str(request.POST['email'])
 
-		email = str(request.POST['email'])
-
-		if '@' not in email:
-			messages.success(request, 'Please provide a valid email address')
-			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
-
-		email_as_username = email.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>")
-		if len(email_as_username) == 0:
-			messages.error("Please provide a valid email")
-			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
-		password = request.POST['password']
-		confirm_password = request.POST['repassword']
-
-
-
-		if email and password:
-				if password == confirm_password:
-					try:
-						new_user = User.objects.get(email=email)
-						messages.error(request, "Sorry but this email is already associated with an account")
-						return render_to_response('home.html', locals(), context_instance=RequestContext(request))
-					except:	
-						pass
-
-					new_user = User.objects.create(username=email_as_username, password=password)
-					new_user.set_password(password)
-					new_user.email = email
-
-
-					
-					new_user.save()
-					new_user = authenticate(username=email_as_username, password=password)
-					login(request, new_user)
-					return HttpResponseRedirect(reverse('new_user_info'))
-				else:
-					messages.error(request, "Please make sure both passwords match")
+	if '@' not in email:
+		messages.success(request, 'Please provide a valid email address')
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
-	else:		
+
+	email_as_username = email.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>")
+	if len(email_as_username) == 0:
+		messages.error("Please provide a valid email")
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+	password = request.POST['password']
+	confirm_password = request.POST['repassword']
+
+
+
+	if email and password:
+			if password == confirm_password:
+				try:
+					new_user = User.objects.get(email=email)
+					messages.error(request, "Sorry but this email is already associated with an account")
+					return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+				except:	
+					pass
+
+				new_user = User.objects.create(username=email_as_username, password=password)
+				new_user.set_password(password)
+				new_user.email = email
+				
+				new_user.save()
+				new_user = authenticate(username=email_as_username, password=password)
+				login(request, new_user)
+				return HttpResponseRedirect(reverse('new_user_info'))
+			else:
+				messages.error(request, "Please make sure both passwords match")
+	return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+
 
 
 
