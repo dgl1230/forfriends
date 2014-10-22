@@ -63,7 +63,11 @@ def all_interests(request):
 		interest_id = request.POST['interest_id']
 
 		#user answer
-		importance_level = request.POST['importance_level']
+		try:
+			importance_level = request.POST['importance_level']
+		except: 
+			messages.error(request, "Please select an importance level first")
+			HttpResponseRedirect(reverse('home'))
 
 		user = User.objects.get(id=request.user.id)
 		interest = Interest.objects.get(id=interest_id)

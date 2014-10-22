@@ -1145,6 +1145,17 @@ def new_picture(request):
 
 
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
+def make_profile_pic(request, pic_id):
+	pic = UserPicture.objects.get(id=pic_id)
+	pic.is_profile_pic = True
+	pic.save()
+	return HttpResponseRedirect(reverse('pictures'))
+
+
+
+
+
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 @user_passes_test(user_can_reset_icebreaker, login_url=reverse_lazy('home'))
 def ice_breaker(request): 
 	user1 = request.user
