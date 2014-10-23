@@ -508,7 +508,7 @@ def circle_distance(logged_in_user, preferred_distance):
 #This is the first/second part of registration for users signing up with FB or GOOGerror(request, "Please double check your username or email address and password")
 def new_user_info(request):
 	if request.POST:
-		first_name1 = str(frequest.POST['first_name'])
+		first_name1 = str(request.POST['first_name'])
 		first_name2 = first_name1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>1234567890")
 		first_name = first_name2.translate(None, '"')
 
