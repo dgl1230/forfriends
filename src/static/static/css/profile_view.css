@@ -370,6 +370,27 @@ h4{
 .discover-title{
 	font-size: 36px;
 }
+#loading_gif{
+	display:none;
+	width:100%;
+	margin-top:100px;
+	text-align:center;
+}
+#loading_gif_header{
+	font-size:24px;
+	margin-bottom:50px;
+	color:#1fbad6!important;
+	-webkit-animation-duration:5s;
+	-webkit-animation-iteration-count:infinite;
+	-webkit-animation-delay:1s;
+	-moz-animation-duration:5s;
+	-moz-animation-iteration-count:infinite;
+	-moz-animation-delay:1s;
+	animation-duration:5s;
+	animation-iteration-count:infinite;
+	animation-delay:1s;
+}
+
 
 @media(min-width:1400px){
 	#buttons_row #friend_button{

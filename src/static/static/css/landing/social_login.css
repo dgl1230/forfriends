@@ -37,6 +37,7 @@
 	background-color: #1FBAD6;
 	color:white;
 	border-color:white;
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
 }
 
 #fb_icon{
@@ -54,6 +55,7 @@
 	background-color: #1FBAD6;
 	color:white;
 	border-color:white;
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
 }
 
 #twitter_icon{
@@ -86,6 +88,7 @@
 	background-color: #1FBAD6;
 	color:white;
 	border-color:white;
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
 }
 
 #email_login:hover, #email_login2:hover, #google_login:hover, #fb_login:hover, #twitter_login:hover{

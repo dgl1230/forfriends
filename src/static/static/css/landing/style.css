@@ -7,20 +7,11 @@
 	overflow:hidden;
 }
 
-#header{
-	width: 100%;
-	margin-bottom: 0px!important;
-}
 
 #title{
 	letter-spacing: .25em;
   padding-top:50px;
   text-align: center;
-}
-
-
-#call-to-action { 
-	background-color: #6682b5;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -434,7 +425,7 @@ input[type=submit]:hover{
     width:70%;
   }
 }
-
+/* Mobile Size Images */
 @media (max-width:500px){
   .parallax{
   background-size: cover;
@@ -483,7 +474,7 @@ input[type=submit]:hover{
     background-position: center;
   }
 }
-
+/* Mid Sized Images (Small Laptops etc.)*/
 @media only screen 
 and (min-width : 500px)
 and (max-width : 1200px){
