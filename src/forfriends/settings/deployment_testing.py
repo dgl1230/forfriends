@@ -223,7 +223,7 @@ def get_cache():
 CACHES = get_cache()
 
 
-LOGIN_URL = reverse_lazy('home')
+#LOGIN_URL = reverse_lazy('home')
 
 
 
