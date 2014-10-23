@@ -518,7 +518,7 @@ def new_user_info(request):
 			messages.error(request, "Please use only letters first name")
 			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
-		last_name_string = str(frequest.POST['last_name'])
+		last_name_string = str(request.POST['last_name'])
 				
 		last_name = ""
 		for name in last_name_string:
