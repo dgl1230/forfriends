@@ -583,8 +583,7 @@ def new_user_info(request):
 			user_age = calculate_age(birthday)
 
 			request.user.first_name = first_name
-			if len(full_name) >= 2:
-				request.user.last_name = last_name
+			request.user.last_name = last_name
 			try: 
 				new_info = Info.objects.get(user=request.user)
 			except: 
