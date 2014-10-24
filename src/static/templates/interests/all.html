@@ -130,62 +130,51 @@
 		}
 	</script>
 {% endif %}
-
 <div id="view_container">
 	<div class="col-md-1" id="secondary_navbar">
         <h1>Interests</h1>
 	</div>
 	<div class="col-md-1" id="tertiary_navbar">
-     		<a href="/interests/edit/" class="half-nav1">Edit Interests</a>
-     		<span class="glyphicon glyphicon-thumbs-up" id="tertiary-icon"></span>
-     		<a href="/interests/create/" class="half-nav2">Add Interests</a>
+ 		<a href="/interests/edit/" class="half-nav1">Edit Interests</a>
+ 		<span class="glyphicon glyphicon-thumbs-up" id="tertiary-icon"></span>
+ 		<a href="/interests/create/" class="half-nav2">Add Interests</a>
 	</div>
 <div class="row" >
-  <div class='col-lg-10 col-12' id="interests-wrapper">
+  <div  id="interests-wrapper">
 {% if messages %}
-<div class="row">
 <div class="col-md-1" id="tertiary_navbar">
     {% for message in messages %}
     <p id="interests_messages"{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
     {% endfor %}
 </div>
-</div>
 {% endif %}
-	<br/>
 	<div class='row' id="interests-wrapper">
-			<div class="main_interests" id="main_interests"  ontouchstart="touchStart(event,'main_interests');" ontouchend="touchEnd(event);" ontouchmove="touchMove(event);" ontouchcancel="touchCancel(event);">
-			<div class="interests-title">
-			{% for interest in interests %}
-				<h3>{{ interest.interest|title }}</h3><p>
-			</div>	
-				{% if interest.description %}
-					<h5 class="description">{{ interest.description|title }}</h5>
-				{% endif %}
-				{% for pic in interest.interestpicture_set.all %}
-					{% if forloop.first %}
-						<img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' />
-						<br>
-					{% endif %}
+		<div class="main_interests" id="main_interests"  ontouchstart="touchStart(event,'main_interests');" ontouchend="touchEnd(event);" ontouchmove="touchMove(event);" ontouchcancel="touchCancel(event);">
+		<div class="interests-title">
+		{% for interest in interests %}
+			<h3>{{ interest.interest|title }}</h3>
+		</div>	
+			{% if interest.description %}
+				<h5 class="description">{{ interest.description|title }}</h5>
+			{% endif %}
 
+		</div>
+		<form method='POST' action=''> {% csrf_token %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+		<div class="interest_ranking">
+			<span class="star-rating" id="star-rating">
+				{% for imp in importance_levels %}
+				<input type="radio" name="rating" value='{{ imp }}' id='{{ imp }}' class="star" {% for abc in interest.userinterestanswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} checked="checked" {% endif %} {% endfor %}><i></i>
 				{% endfor %}
+			</span>
+			<br>
+			<input id="hide_interest" type='submit' class='btn-lg' value='Choose an Interest' disabled>
+			<input id="save_interest" type='submit' class='btn-lg' value='Save' >
+		</div>
 
-			</div>
-			<form method='POST' action=''> {% csrf_token %}
-				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
-			<div class="interest_ranking">
-				<strong class="choice">Choose a rating</strong>	 <br>
-				<span class="star-rating" id="star-rating">
-					{% for imp in importance_levels %}
-					<input type="radio" name="rating" value='{{ imp }}' id='{{ imp }}' class="star" {% for abc in interest.userinterestanswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} checked="checked" {% endif %} {% endfor %}><i></i>
-					{% endfor %}
-				</span>
-				<br>
-			<input type='submit' class='btn-lg' value='Save'>
-			</div>
-
-			</form>
-		{% endfor %}
-			</div>
+		</form>
+	{% endfor %}
+		</div>
 	
 		<div class="pagination">
 			<span class="step-links">
@@ -200,9 +189,30 @@
 						{% endif %}			
 				</ul>
 			</span>
+		</div><!--End Pagination -->
+		<hr>
+		<!--
+		<div class="search_interests">
+			<form class="navbar-form navbar-left" role="search" action='{% url "search" %}'>
+		        <div class="form-group">
+		          <input type="text" class="form-control" placeholder="Search through our Interests..." name='q' required>
+		          <button type="submit" class="btn btn-default" id="go_button">Search</button>
+		        </div>
+      		</form>
+	      	
+	      	<form class="navbar-form navbar-left" id="navbar_mobile" role="search" action='{% url "search" %}'>
+	        	<div class="form-mobile" id="interests_mobile_search">
+		          <input type="text" class="input_mobile" placeholder="Search..." name='q' required>
+		          <button type="submit" class="btn-mobile" id="go_button"><span class='glyphicon glyphicon-search'></span></button>
+	        	</div>
+	      	</form>
 		</div>
-		</div>
+	-->
+	<!--End Search Interests -->
 	</div>
+
+
+
 <script>
 $(':radio').change(
   function(){
@@ -212,7 +222,6 @@ $(':radio').change(
   } 
 )
 </script>
-
 {% if interests.has_previous %}
 <script>
 
@@ -245,7 +254,29 @@ $(document).keydown(function(e) {
 });
 </script>
 
-
-
 {% endif %}
+
+<script>
+$("[id='Strongly Dislike']").click(function(){
+	$('#save_interest').show();
+	$('#hide_interest').hide();
+});	
+$("[id='Dislike']").click(function(){
+	$('#save_interest').show();
+	$('#hide_interest').hide();
+});	
+$('#Neutral').click(function(){
+	$('#save_interest').show();
+	$('#hide_interest').hide();
+});	
+$("[id='Like']").click(function(){
+	$('#save_interest').show();
+	$('#hide_interest').hide();
+});	
+$("[id='Strongly Like']").click(function(){
+	$('#save_interest').show();
+	$('#hide_interest').hide();
+});	
+</script>
+
 {% endblock %}

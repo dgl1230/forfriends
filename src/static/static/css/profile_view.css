@@ -19,10 +19,13 @@
 	height:500px;
 	width:500px;
 }
+#bio_body, #occ_body{
+	text-align:left;
+}
 
 #information{
-	margin-top:30px;
-	margin-bottom:30px;
+	margin-top:25px;
+	margin-bottom:25px;
 	min-height:200px;
 }
 
@@ -347,7 +350,7 @@ h4{
 }
 
 .modal-body a{
-	color: #1FBAD6;
+	color: #1FBAD6!important;
 
 }
 
@@ -367,6 +370,27 @@ h4{
 .discover-title{
 	font-size: 36px;
 }
+#loading_gif{
+	display:none;
+	width:100%;
+	margin-top:100px;
+	text-align:center;
+}
+#loading_gif_header{
+	font-size:24px;
+	margin-bottom:50px;
+	color:#1fbad6!important;
+	-webkit-animation-duration:5s;
+	-webkit-animation-iteration-count:infinite;
+	-webkit-animation-delay:1s;
+	-moz-animation-duration:5s;
+	-moz-animation-iteration-count:infinite;
+	-moz-animation-delay:1s;
+	animation-duration:5s;
+	animation-iteration-count:infinite;
+	animation-delay:1s;
+}
+
 
 @media(min-width:1400px){
 	#buttons_row #friend_button{
@@ -466,7 +490,6 @@ h4{
 	.previous_user span{
 		padding-top:10px;
 	}
-
 }
 @media(min-width: 1205px){
 	#single_user_container{
@@ -478,3 +501,11 @@ h4{
 }
 
 
+/* Carousel */
+
+.largeLabel{
+	font-size:2.5rem!important;
+	display:block!important;
+	padding-top:0px!important;
+	margin-top:0px!important;	
+}

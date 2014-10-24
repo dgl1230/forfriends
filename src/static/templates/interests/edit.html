@@ -139,69 +139,69 @@
      	<span class="tertiary_hidden" >Edit Saved!</span>
 	</div>
 <div class='row'>
-  <div class='col-lg-10 col-12' id="interests-wrapper">
+  <div id="interests-wrapper">
 {% if messages %}
-<div class="row">
 <div class="col-md-1" id="tertiary_navbar">
     {% for message in messages %}
     <p  id="interests_messages"{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
     {% endfor %}
 </div>
-</div>
 {% endif %}
-		<div class='row' id="interests-wrapper">
-			<div class="main_interests" id="main_interests" ontouchstart="touchStart(event,'main_interests');" ontouchend="touchEnd(event);" ontouchmove="touchMove(event);" ontouchcancel="touchCancel(event);">
-			<div class="interests-title">
-			{% for interest in interests %}
-				<h3>{{ interest.interest|title }}</h3><p>
-			</div>	
-				{% if interest.description %}
-					<h5 class="description">{{ interest.description|title }}</h5>
-				{% endif %}
-				{% for pic in interest.interestpicture_set.all %}
-					{% if forloop.first %}
-					<div class="img-container">
-						<img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive' />
-						<br>
-					</div>
-					{% endif %}
+<div class='row' id="interests-wrapper">
+	<div class="main_interests" id="main_interests" ontouchstart="touchStart(event,'main_interests');" ontouchend="touchEnd(event);" ontouchmove="touchMove(event);" ontouchcancel="touchCancel(event);">
+	<div class="interests-title">
+	{% for interest in interests %}
+		<h3>{{ interest.interest|title }}</h3>
+	</div>	
+		{% if interest.description %}
+			<h5 class="description">{{ interest.description|title }}</h5>
+		{% endif %}
+	</div>
+</div>
+	<form id="interests_edit_form" action='' method="POST">
+		<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+	<div class="interest_ranking">
+		<span class="choice">Choose a rating</span><br>
+		<span class="star-rating">
+			{% for imp in importance_levels %}
+			<input type="radio" name="rating" value='{{ imp }}' id='{{ imp }}' class="star" {% for abc in interest.userinterestanswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} checked="checked" {% endif %} {% endfor %}><i></i>
+			{% endfor %}
+		</span>
+		
+	<div class="interest_buttons">
+		<!-- Submit Button -->
+	<input type='submit' id="submit_question" class='btn-lg' value='Save'>
+	</div>
 
-				{% endfor %}
-			</div>
+	</form>
+{% endfor %}
+	</div>
 
-			<form id="interests_edit_form" action='' method="POST">
-				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
-			<div class="interest_ranking">
-				<strong class="choice">Choose a rating</strong><br>
-				<span class="star-rating">
-					{% for imp in importance_levels %}
-					<input type="radio" name="rating" value='{{ imp }}' id='{{ imp }}' class="star" {% for abc in interest.userinterestanswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} checked="checked" {% endif %} {% endfor %}><i></i>
-					{% endfor %}
+		<div class="pagination">
+				<span class="step-links">
+					<ul class="pager">
+						<div class="directions">
+							{% if interests.has_previous %}
+							<li class="previous"><a href="?page={{ interests.previous_page_number }}">&larr; Previous</a></li>
+							{% endif %}
+							{% if interests.has_next %}
+							<li class="next"><a href="?page={{ interests.next_page_number }}">Next &rarr;</a></li>
+						</div>
+							{% endif %}	
+					</ul>
 				</span>
-				
-			<div class="interest_buttons">
-				<!-- Submit Button -->
-			<input type='submit' id="submit_question" class='btn-lg' value='Save'>
-			</div>
-
-			</form>
-		{% endfor %}
-			</div>
-	
-				<div class="pagination">
-						<span class="step-links">
-							<ul class="pager">
-								<div class="directions">
-									{% if interests.has_previous %}
-									<li class="previous"><a href="?page={{ interests.previous_page_number }}">&larr; Previous</a></li>
-									{% endif %}
-									{% if interests.has_next %}
-									<li class="next"><a href="?page={{ interests.next_page_number }}">Next &rarr;</a></li>
-								</div>
-									{% endif %}	
-							</ul>
-						</span>
-		</div>
+		</div><!--End Pagination -->
+		<hr>
+		<!--
+		<div class="search_interests">
+			<form class="navbar-form navbar-left" role="search" action='{% url "search" %}'>
+		        <div class="form-group">
+		          <input type="text" class="form-control" placeholder="Search through our Interests..." name='q' required>
+		          <button type="submit" class="btn btn-default" id="go_button">Search</button>
+		        </div>
+      		</form>
+		</div> -->
+		<!--End Search Interests -->
 		</div>
 		</div>
 		</div>

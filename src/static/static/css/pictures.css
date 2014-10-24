@@ -52,7 +52,16 @@ input#image_file{
     padding-bottom:10px;
 }
 #delete_picture{
-    z-index:100;
+    z-index:1000;
+    width:50%;
+    display:inline-block;
+}
+#make_profile{
+    width:50%;
+    float:right;
+    display:inline-block;
+    text-align: right;
+    padding-right:5px;
 }
 .100px_margin{
     margin-bottom:100px!important;
@@ -160,6 +169,9 @@ margin-left: 80px;
 #picture_caption{
 	width:50%;
 }
+#carouselData{
+    min-width:100%!important;
+}
 @media (min-width: 800px) {
 	.container{
 		min-width:200px;
@@ -177,5 +189,10 @@ margin-left: 80px;
     #rotate_row{
         width:220px;
         margin-bottom:20px;
+    }
+    .smallLabel{
+        width:150px!important;
+        padding-left:50px!important;
+
     }
 }

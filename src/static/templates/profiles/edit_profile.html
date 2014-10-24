@@ -15,8 +15,6 @@ $('#myTab a').click(function (e) {
   </div>
 </div>
 
-
-
   <div class='col-lg-10 col-12'>
 {% if messages %}
 <div class="row">
@@ -37,7 +35,6 @@ $('#myTab a').click(function (e) {
     <li><a href="#delete_account" data-toggle="tab">Delete Account</a></li>
   </ul>
   <br>
-
 
   <div class="tab-content">
 
@@ -70,22 +67,19 @@ $('#myTab a').click(function (e) {
         <form method="POST" action="/edit/info/">
           {% csrf_token %}
           <div id="info_forms">
-            <p><label for "#username_form">Username: </label><input id="username_form" name="username_form" type="text" value="{% if user.username %} {{ user.username }} {% endif %}" maxlength="20" required ></p>
-            <p><label for "#first_name_form">First Name:</label><input  id="first_name_form" name="first_name_form" type="text" value="{% if user.first_name %} {{ user.first_name }} {% endif %}" required></p>
-            <p><label for "#last_name_form">Last Name: </label><input  id="last_name_form" name="last_name_form" type="text" value="{% if user.last_name %} {{ user.last_name }} {% endif %}" required></p>
+            <p><label for "#first_name_form">First Name:</label><input id="first_name_form" name="first_name_form" type="text" maxlength="30" value="{% if user.first_name %}{{ user.first_name }}{% endif %}" required></p>
+            <p><label for "#last_name_form">Last Name:</label><input maxlength="50"  id="last_name_form" name="last_name_form" type="text" value="{% if user.last_name %}{{ user.last_name }}{% endif %}" required></p>
             <p>
               <label for "#gender_form">Gender:</label>
               <select id="gender_form" name="gender_form"> 
-                <option> Male </option>
-                <option> Female </option>
+                <option>Male</option>
+                <option>Female</option>
               </select>
             </p>
-            <p><label for "#bio_form" id='bio_label'>Me in a sentence: </label><input  id="bio_form" name="bio_form" type="text" value="{% if info.bio %} {{ info.bio }} {% endif %}"></p>
-            <input class='btn btn-success' type='submit' value='Update' />
-
+            <p><label for "#bio_form" id='bio_label'>Me in a sentence:</label><input id="bio_form" name="bio_form" type="text" value="{% if info.bio %}{{ info.bio }}{% endif %}"></p>
+            <input class='btn btn-success' type='submit' value='Update'/>
           </div>
         </form>
-
       </div>
       </div>
     </div>

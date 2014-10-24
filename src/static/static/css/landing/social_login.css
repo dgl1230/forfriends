@@ -33,8 +33,11 @@
 #google_login{
 	width:150px;
 	height:75px;
-	border: 2px solid black;
 	border-radius: 4px;
+	background-color: #1FBAD6;
+	color:white;
+	border-color:white;
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
 }
 
 #fb_icon{
@@ -48,8 +51,11 @@
 #fb_login{
 	width:150px;
 	height:75px;
-	border: 2px solid black;
 	border-radius: 4px;
+	background-color: #1FBAD6;
+	color:white;
+	border-color:white;
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
 }
 
 #twitter_icon{
@@ -73,23 +79,38 @@
 	height:71px;
 	background-size:cover;
 	float:left;
-
 }
 
 #email_login, #email_login2{
 	width:150px;
 	height:75px;
-	border: 2px solid black;
 	border-radius: 4px;
+	background-color: #1FBAD6;
+	color:white;
+	border-color:white;
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
 }
 
 #email_login:hover, #email_login2:hover, #google_login:hover, #fb_login:hover, #twitter_login:hover{
-	background-color: #1FBAD6;
-	color:white;
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
 }
 
 @media only screen and (max-width:620px){
 	#email_login, #email_login2, #google_login, #fb_login, #twitter_login{
 	width:80%!important;
+	}
+}
+
+@media only screen and (max-width:500px){
+	#email_login, #email_login2, #google_login, #fb_login, #twitter_login{
+	background-color: #1fbad6;
+	color:white;
+	border-color:white;
+	}
+}
+@media only screen and (min-width:300px) and (max-width:550px){
+#social_logins p{
+	padding-left:20px;
+	padding-right:20px;
 	}
 }

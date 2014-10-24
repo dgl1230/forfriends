@@ -2,6 +2,8 @@
 import os
 
 
+
+
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = os.environ["EMAIL_HOST_USER"]
@@ -130,7 +132,7 @@ STATICFILES_FINDERS = (
 )
 
 # may want it to be AUTH_PROFILE_MODULE = "profiles.blah"
-AUTH_PROFILE_MODULE = "profiles.Info"
+AUTH_PROFILE_MODULE = "profiles.UserPicture"
 
 ACCOUNT_ACTIVATION_DAYS = 7
 
@@ -186,7 +188,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.user.create_user',
     'social.pipeline.social_auth.associate_user',
     'social.pipeline.social_auth.load_extra_data',
-    #'forfriends.pipeline.save_profile_picture',
+    'forfriends.pipeline.save_profile_picture',
     #'forfriends.pipeline.user_details',
 )
 
@@ -220,6 +222,8 @@ def get_cache():
         }
 
 CACHES = get_cache()
+
+
 
 
 

@@ -65,10 +65,10 @@
 	width:100px;
 	margin-top:20px;
 	text-align: center;
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
 }
 
-
-#view_buttons, .btn-lg:hover, .btn-lg:focus, .btn-success:hover, .btn-success:focus{
+.btn-lg:hover, .btn-lg:focus, .btn-success:hover, .btn-success:focus{
 	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
 }
 
@@ -78,6 +78,9 @@
 }
 #go_button:hover, #go_button:focus, #upload_button:hover, #upload_button:focus{
  	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
+}
+.pager li a:hover{
+	border:1px solid white;
 }
 
 #delete_message_button{
@@ -172,6 +175,10 @@
 	background: url(/static/img/profile/iphone_dark.png);
 	background-size:cover;
 	height:100px;
+}
+
+.user_profile_buttons{
+	margin-top:20px;
 }
 
 

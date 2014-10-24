@@ -11,45 +11,33 @@
 	  </div>
     {% if messages %}
 <div class='row'>
-                <ul class="messages">
-                  {% for message in messages %}
-                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                  {% endfor %}
-                </ul>
+  <ul class="messages">
+    {% for message in messages %}
+      <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
 </div>
 {% endif %}
 <div id="form-main">
   <div id="form-div">
     <form class="form" id="form1" action='' method='POST'>
    		{% csrf_token %}
-      
       <p class="text">
         <textarea name="message" class="validate[required,length[6,300]] feedback-input" id="comment" placeholder="Comment"></textarea>
       </p>
-      
-      
       <div class="submit">
         <input type="submit" value="Contact Us" id="button-blue"/>
         <div class="ease"></div>
       </div>
     </form>
-  </div>
-
-
-	</div>
+  </div><!--Form Div-->
+</div><!--Form Main-->
+<div class="features">
+  <h2>In the Works...</h2>
+      <li>Live Chat</li>
+      <li>An improved pictures interface</li>
+      <li>Mobile site redesign</li>
+</div><!--Features -->
 </div>
-<div id="message_container">
-  <div class='col-lg-10 col-12'>
-	</div>
-
-
-<br>
-<br>
-
-</div>
-</div>
-</div>
-<script>
-
-</script>
+</div><!--Wrapper -->
 {% endblock %}

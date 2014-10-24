@@ -21,6 +21,9 @@
 #question-wrapper.row{
 	min-width:100px;
 }
+#interests_mobile_search{
+	margin:0 auto;
+}
 #interests_search{
 	padding-left:40px;
 }
@@ -148,23 +151,30 @@ footer{
 .question_answers{
 	margin: 20px auto;
 	width:60%;
-	max-width: 300px;
+	max-width: 500px;
 }
 
 #submit_question{
 	float:none!important;
 }
+#save_interest{
+	display:none;
+}
 
 .question_answers label{
-	padding:5px 5px 5px 5px;
+	padding:5px 5px 0px 5px;
 	float:left;
 	margin:0 auto;
 	display:block;
 	width:100%;
-
+	font-size:1.75rem!important;
+}
+.custom-radio{
+	height: 50px;
 }
 .question_answers input{
 	float: left;
+
 }
 /* Media Queries */
 @media only screen and (max-width:450px){
@@ -355,5 +365,12 @@ footer{
 .star-rating2 i ~ i ~ i ~ i ~ i {
   width: 100%;
 }
-.choice {
+.search_interests{
+	width:100%;
+}
+.search_interests .form-group{
+	width:80%;
+}
+.search_interests .form-control{
+	width:80%;
 }

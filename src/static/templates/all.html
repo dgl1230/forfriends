@@ -2,8 +2,11 @@
 {% block content %}
     <script src="{{ STATIC_URL }}js/FWDRoyal3DCarousel.js" type="text/javascript"></script>
     <script src="{{ STATIC_URL }}js/3dcarousel/initiate.js" type="text/javascript"></script>
-
-<div id="view_container">
+<div id="loading_gif">
+    <h1 id="loading_gif_header">One sec, we're putting together your new crowd...</h1>
+    <img id="loading" src="{{ STATIC_URL }}img/ajax-loader.gif" />
+</div>
+<div id="view_container">  
 <div class="row">
 	<div class="col-md-1" id="secondary_navbar">
         <h1>My Crowd</h1>
@@ -123,7 +126,7 @@
     </script>
     <div class="col-md-1" id="button_navbar">
         {% if can_they_reset == True %}
-        <a class="login_button" href='{% url "generate_circle" %}'>Find a new Crowd!</a>
+        <a id="generate_button" class="login_button" href='{% url "generate_circle" %}'>Find a new Crowd!</a>
         {% else %}
         <p class="reset_button"> {{ hours_until_reset }} hours </p>
         {% endif %}
@@ -142,6 +145,7 @@
 </div>
 </div>
 
+<div id="loading_gif"><img id="loading" src="{{ STATIC_URL }}img/ajax-loader.gif" /></div>
 <div id="myDiv"></div>  
     <!-- carousel data -->
     <div id="carouselData">
@@ -155,9 +159,8 @@
                 {% if forloop.first %}
           <li data-type="link" data-url='/members/{{ match.user1.username}}'  data-target="_self"></li>
           <li class="thumbnail_carousel" data-thumbnail-path="{{ MEDIA_URL }}{{ pic }}"></li>
-          <li data-thumbnail-text="{{ match.user1.username }}" data-thumbnail-text-title-offset="35"
-          data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="7">
-            <p class="smallLabel2"></p>
+          <li data-thumbnail-text="{{ match.user1.username }}" data-thumbnail-text-title-offset="50"
+          data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="20"><a href="/members/{{ match.user1.username}}"></a>
             <p class="largeLabel">{{ match.user1.username }}</p>
             <p class="smallLabel2"></p>
             <p class="smallLabel2">
@@ -172,9 +175,22 @@
             {% endif %}
             {% endfor %}
             {% if not match.user1.userpicture_set.all %}
+            {% if match.percent >= 90 %}
+            <h4 class="smallLabel2" id="very_good">Excellent Match</h4>
+            {% elif match.percent >= 80 %}
+            <h4 class="smallLabel2" id="good">Very Good Match</h4>
+            {% elif match.percent >= 60 %}
+            <h4 class="smallLabel2" id="average">Good Match</h4>
+            {% elif match.percent >= 45 %}
+            <h4 class="smallLabel2" id="weak">Average Match</h4>
+            {% else %}
+            <h4 class="smallLabel2" id="very_weak">Weak Match</h4>
+            {% endif %}
+
+
             <li data-type="link" data-url='/members/{{ match.user1.username}}' data-target="_self"></li>
             <li class="thumbnail_carousel" data-thumbnail-path='{{ STATIC_URL }}img/avatar.png'></li>
-            <li data-thumbnail-text="{{ match.user1.username }}" data-thumbnail-text-title-offset="35" data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="7">
+            <li data-thumbnail-text="{{ match.user1.username }}" data-thumbnail-text-title-offset="55" data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="7"><a href="/members/{{ match.user1.username}}"></a>
                 <p class="smallLabel2"></p>
                 <p class="largeLabel">{{ match.user1.username }}</p>
                 <p class="smallLabel2"></p>
@@ -200,9 +216,9 @@
                 {% if forloop.first %}
           <li data-type="link" data-url='/members/{{ match.user2.username}}'  data-target="_self"></li>
           <li class="thumbnail_carousel" data-thumbnail-path="{{ MEDIA_URL }}{{ pic }}"></li>
-          <li data-thumbnail-text="{{ match.user2.username }}" data-thumbnail-text-title-offset="35"
-          data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="7">
-            <p class="smallLabel2"></p>
+          <li data-thumbnail-text="{{ match.user2.username }}" data-thumbnail-text-title-offset="50"
+          data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="20"><a href="/members/{{ match.user2.username}}"></a>
+            
             <p class="largeLabel">{{ match.user2.username }}</p>
             <p class="smallLabel2">
                 {% for item in match.user2.address_set.all %} 
@@ -216,12 +232,12 @@
             {% endif %}
             {% endfor %}
             {% if not match.user2.userpicture_set.all %}
+            <p class="smallLabel2"></p>
             <li data-type="link" data-url='/members/{{ match.user2.username}}' data-target="_self"></li>
             <li class="thumbnail_carousel" data-thumbnail-path='{{ STATIC_URL }}img/avatar.png'></li>
-            <li data-thumbnail-text="{{ match.user2.username }}" data-thumbnail-text-title-offset="35" data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="7">
-                <p class="smallLabel2"></p>
+            <li data-thumbnail-text="{{ match.user2.username }}" data-thumbnail-text-title-offset="50" data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="20"><a href="/members/{{ match.user2.username}}"></a>
                 <p class="largeLabel">{{ match.user2.username }}</p>
-                <p class="smallLabel2">
+                <p class="smallLabel">
                     {% for item in match.user2.address_set.all %} 
                     {% if forloop.first %} {{ item }}
                     {% endif %} 
@@ -230,6 +246,7 @@
                      ({{ match.distance }} miles away)</p>
                      {% endifnotequal %}
                     {% endif %}
+                <p class="smallLabel2"></p>
             <p class="mediaDescriptionHeader">{{ pic.caption }}</p>
           </li>
         </ul>
@@ -269,5 +286,19 @@ $('#ice_breaker_button').click(function(){
     $.get('{% url "ice_breaker" %}');
 });
 </script>
+<script>
+$('#generate_button').click(function(){
+    $(this).text("Your Crowd is being calculated...");
+    $(this).attr('class', 'not_a_button');
+    $.get('{% url "generate_circle" %}');
+    $('#loading_gif').show();
+    $('#view_container').hide();
+    $('#myDiv').hide();
+});
+</script>
 
+<!--Animate Gif -->
+<script>
+$('#loading_gif_header').addClass('animated flash');
+</script>
 {% endblock %}

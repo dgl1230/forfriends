@@ -11,12 +11,15 @@ from django.contrib.auth.models import User
 from django.forms.models import modelformset_factory
 from django.db.models import Q, Max
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import user_passes_test
 from django.core.mail import send_mail, EmailMultiAlternatives
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.cache import cache
 from django.template.loader import get_template
 from django.template import Context
+
+
 
 
 from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG, MEDIA_URL
@@ -32,11 +35,54 @@ from questions.models import Question, UserAnswer
 
 
 
-CURRENTLY_LOCALLY_TESTING = True
+CURRENTLY_LOCALLY_TESTING = False
+
+
+
+
+def user_not_new(user):
+	try: 
+		user_info = Info.objects.get(user=user)
+	except:
+		return False
+	return user.is_authenticated() and user_info.signed_up_with_fb_or_goog == False
+
+'''
+def user_can_reset_circle(user):
+	try: 
+		user_gamification = Gamification.objects.get(user=request.user)
+	except:
+		return False
+	try:
+		until_next_reset = user_gamification.circle_time_until_reset
+	except:
+		user_gamification.circle_time_until_reset = datetime.now()
+	until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
+	hours_until_reset = int((until_next_reset - current_time).total_seconds() / 60 / 60)
+	return hours_until_reset <= 1
+'''
+
+
+def user_can_reset_icebreaker(user):
+	try: 
+		user_gamification = Gamification.objects.get(user=request.user)
+	except:
+		return False
+	try:
+		until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
+	except:
+		user_gamification.icebreaker_until_reset = datetime.now()
+	until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
+	icebreaker_hours_until_reset = int((until_next_icebreaker - current_time).total_seconds() / 60 / 60)
+	return icebreaker_hours_until_reset <= 0
+
+
+
 
 
 '''Implements the 'add friend' button when viewing a user's profile
 If both users click this button on each other's profile, they can message'''
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def add_friend(request, username):
 	try: 
 		match = Match.objects.get(user1=request.user, user2__username=username)
@@ -103,6 +149,7 @@ def add_friend(request, username):
 	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))
 
 
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def add_friend_discovery(request, username, page):
 	try: 
 		match = Match.objects.get(user1=request.user, user2__username=username)
@@ -179,12 +226,16 @@ it shows their crowd. If they're logged in and a new user, it redirects them to 
 which will have the user fill in relevant info before they can access the site. Otherwise, 
 the user is not logged in, and is shown the landing page.
 '''
+
+
 def all(request):
 	if request.user.is_authenticated():
 		info, created = Info.objects.get_or_create(user=request.user)
 		
 		try: 
-			#info = Info.objects.get(user=request.user)
+			if info.signed_up_with_fb_or_goog == True:
+				return HttpResponseRedirect(reverse('new_user_info'))
+
 			if info.is_new_user == True:
 				is_new_user = True
 				user_interests = UserInterestAnswer.objects.filter(user=request.user)
@@ -279,6 +330,8 @@ def all(request):
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
 
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
+#@user_passes_test(user_can_reset_circle, login_url=reverse_lazy('home'))
 def generate_circle(request):
 	info = Info.objects.get(user=request.user)
 	if info.is_new_user:
@@ -420,6 +473,8 @@ def generate_circle(request):
 			#messages.success(request, "We're sorry, but there aren't many users nearby you right now. We rested your circle as best we could, but you can reset it again if you'd like.")
 	return HttpResponseRedirect(reverse('home'))
 
+#@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
+#@user_passes_test(user_can_reset_circle, login_url=reverse_lazy('home'))
 def circle_distance(logged_in_user, preferred_distance):
 	user_gamification = Gamification.objects.get(user=logged_in_user)
 	current_circle = list(user_gamification.circle.all())
@@ -454,35 +509,26 @@ def circle_distance(logged_in_user, preferred_distance):
 #This is the first/second part of registration for users signing up with FB or GOOGerror(request, "Please double check your username or email address and password")
 def new_user_info(request):
 	if request.POST:
-		name = request.POST['name']
-		full_name = name.split()
-		first_name1 = str(full_name[0])
+		first_name1 = str(request.POST['first_name'])
 		first_name2 = first_name1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>1234567890")
 		first_name = first_name2.translate(None, '"')
+
+		
 
 		if len(first_name) == 0:
 			messages.error(request, "Please use only letters first name")
 			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
-		if len(full_name) == 2:
-			last_name1 = str(full_name[1])
-			last_name2 = last_name1.translate(None, "?.!/;:@#$%^&()`,[]{}~_=+*|<>1234567890")
-			last_name = last_name2.translate(None, '"')
-			if len(last_name) == 0:
-				messages.error(request, "Please use only letters in your last name")
-				return render_to_response('home.html', locals(), context_instance=RequestContext(request))
-
-		if len(full_name) >= 3:
-			not_first_name = full_name[2:len(full_name)]
-			last_name0 = full_name[1]
-			for name in not_first_name:
-				last_name0 = last_name + " " + name
-			last_name1 = str(last_name0)
-			last_name2 = last_name1.translate(None, "?.!/;:@#$%^&()`,[]{}~_=+*|<>1234567890")
-			last_name = last_name2.translate(None, '"')
-			if len(last_name) == 0:
-				messages.error(request, "Please use only letters in your last name")
-				return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+		last_name_string = str(request.POST['last_name']).split()
+				
+		last_name = ""
+		for name in last_name_string:
+			last_name = last_name + str(name) + " "
+		last_name1 = last_name.translate(None, "?.!/;:@#$%^&()`,[]{}~_=+*|<>1234567890")
+		last_name = last_name1.translate(None, '"')
+		if len(last_name) == 0:
+			messages.error(request, "Please use only letters in your last name")
+			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 		username1 = str(request.POST['username'])
 
 		username2 = username1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-=+*|<>")
@@ -538,8 +584,7 @@ def new_user_info(request):
 			user_age = calculate_age(birthday)
 
 			request.user.first_name = first_name
-			if len(full_name) >= 2:
-				request.user.last_name = last_name
+			request.user.last_name = last_name
 			try: 
 				new_info = Info.objects.get(user=request.user)
 			except: 
@@ -567,7 +612,7 @@ def new_user_info(request):
 			user = authenticate(username=request.user.username, password=request.user.password)
 			request.user.save()
 
-			if not not CURRENTLY_LOCALLY_TESTING:
+			if not CURRENTLY_LOCALLY_TESTING:
 
 				subject = "Welcome to Frenvu!"
 				line1 = "Thanks for signing up %s! Frenvu is a place where you can find your closest friends, someone cool to see a movie with," % (request.user.username)
@@ -597,6 +642,14 @@ def new_user_info(request):
 		return render_to_response('profiles/new_user.html', locals(), context_instance=RequestContext(request))
 
 
+def user_not_new(user):
+	try: 
+		user_info = Info.objects.get(user=user)
+	except:
+		return False
+	return user.is_authenticated() and user_info.signed_up_with_fb_or_goog == False
+
+
 '''
 The Discover function creates functionality similar to tinder. Users can swipe or use arrow keys or press 
 arrows through multiple users. We display their match percentage and all other functionality displayed
@@ -604,7 +657,7 @@ on the single user page.
 '''
 
 
-
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def discover(request):
 	# first we check to see if a session exists
 	if not request.session.get('random_exp'):
@@ -674,7 +727,7 @@ def discover(request):
 
 
 
-
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def friends(request):
 	matches = Match.objects.filter(
 		Q(user1=request.user) | Q(user2=request.user)
@@ -686,6 +739,7 @@ def friends(request):
 
 
 #Shows all pictures that the logged in user has 
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def all_pictures(request): 
 	try: 
 		pictures = UserPicture.objects.filter(user=request.user)
@@ -730,42 +784,6 @@ def edit_address(request):
 def edit_info(request):
 	if request.method == 'POST':
 		info = Info.objects.get(user=request.user)
-
-		username1 = str(request.POST['username_form'])
-		username2 = username1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-=+*|<>")
-		username = username2.translate(None, '"')
-
-		bad_words = ['shit', 'cunt', 'fuck', 'nigger', 'kyke', 'dyke', 'fag', 'ass', 'rape', 
-			'murder', 'kill', 'gook', 'pussy', 'bitch', 'hell', 'whore', 'slut', 
-			'cum', 'jizz', 'clit', 'anal', 'cock', 'molest', 'necro', 'satan', 'devil', 
-			'pedo', 'negro', 'spic', 'beaner', 'chink', 'coon', 'kike', 'wetback', 'sex', 
-			'kidnap', 'penis', 'vagina', 'boobs', 'titties', 'sodom', 'kkk', 'nazi', 'klux', 
-			'dicksucker', 'rapist', 'anus', 'arse', 'bastard','blowjob', 
-			'boner', 'fister', 'butt', 'cameltoe', 'chink', 'coochie', 'coochy', 'bluewaffle', 
-			'cooter', 'dick', 'dildo', 'doochbag', 'douche', 'fellatio', 'feltch', 'flamer', 
-			'donkeypunch', 'fudgepacker', 'gooch', 'gringo', 'jerkoff', 'jigaboo', 'kooch', 
-			'kootch', 'kunt', 'kyke', 'dike', 'minge', 'munging', 'nigga', 'niglet', 'nutsack', 
-			'poon', 'pussies', 'pussy', 'queef', 'queer', 'rimjob', 'erection', 'schlong', 
-			'skeet', 'smeg', 'spick', 'splooge', 'spook', 'retard', 'testicle', 'tit', 'twat', 
-			'vajayjay', 'wankjob', 'bimbo', '69', 'fistr', 'fist3r']
-		for word in bad_words:
-			if word in username:
-				messages.success(request, "We're sorry but some people might find your username offensive. Please pick a different username.")
-				return HttpResponseRedirect(reverse('edit_profile'))
-		try: 
-			taken_username_user = User.objects.get(username=username)
-			if taken_username_user != request.user:
-				messages.success(request, "We're sorry but that username is already taken.")
-				return HttpResponseRedirect(reverse('edit_profile'))
-		except:
-			pass
-
-
-		if len(username) == 0:
-			messages.success(request, "Please use only letters and numbers in your username")
-			return HttpResponseRedirect(reverse('edit_profile'))
-
-
 
 		first_name1 = str(request.POST['first_name_form'])
 		first_name2 = first_name1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>1234567890")
@@ -847,6 +865,7 @@ def edit_pictures(request):
 	return render_to_response('profiles/edit_pictures.html', locals(), context_instance=RequestContext(request))
 
 
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def edit_profile(request):
 	user = request.user
 	pictures = UserPicture.objects.filter(user=user)
@@ -918,15 +937,15 @@ def find_friends(request):
 
 
 def login_user(request):
-	username = str(request.POST['username'])
+	email = str(request.POST['email'])
 	password = str(request.POST['password'])
 
-	# check to see whether they provied their username or email for logging in
-	if '@' in username:
-		kwargs = {'email': username}
-	else:
-		kwargs = {'username': username}
-	user1 = User.objects.get(**kwargs)
+
+	try: 
+		user1 = User.objects.get(email=email)
+	except: 
+		messages.error(request, "Please double check your username or email address and password")
+		return HttpResponseRedirect(reverse('home'))
 	username = user1.username
 	user = authenticate(username=username, password=password)
 
@@ -969,58 +988,48 @@ def calculate_age(born):
 
 #Creates a new user and assigns the appropriate fields to the user (this is for signing up with Frenvu, not FB or Goog)
 def register_new_user(request):
-	if True:
-		'''
-		username1 = str(request.POST['username'])
-		username2 = username1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>")
-		username = username2.translate(None, '"')
-		if len(username) == 0:
-			messages.error(request, "Please use only letters and numbers in your username")
-			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
-		'''
 
+	email = str(request.POST['email'])
 
-		email = str(request.POST['email'])
-
-		if '@' not in email:
-			messages.success(request, 'Please provide a valid email address')
-			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
-
-		email_as_username = email.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>")
-		if len(email_as_username) == 0:
-			messages.error("Please provide a valid email")
-			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
-		password = request.POST['password']
-		confirm_password = request.POST['repassword']
-
-
-
-		if email and password:
-				if password == confirm_password:
-					try:
-						new_user = User.objects.get(email=email)
-						messages.error(request, "Sorry but this email is already associated with an account")
-						return render_to_response('home.html', locals(), context_instance=RequestContext(request))
-					except:	
-						pass
-
-					new_user = User.objects.create(username=email_as_username, password=password)
-					new_user.set_password(password)
-					new_user.email = email
-					
-					new_user.save()
-					new_user = authenticate(username=email_as_username, password=password)
-					login(request, new_user)
-					return HttpResponseRedirect(reverse('new_user_info'))
-				else:
-					messages.error(request, "Please make sure both passwords match")
+	if '@' not in email:
+		messages.success(request, 'Please provide a valid email address')
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
-	else:		
+
+	email_as_username = email.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>")
+	if len(email_as_username) == 0:
+		messages.error("Please provide a valid email")
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+	password = request.POST['password']
+	confirm_password = request.POST['repassword']
+
+
+
+	if email and password:
+			if password == confirm_password:
+				try:
+					new_user = User.objects.get(email=email)
+					messages.error(request, "Sorry but this email is already associated with an account")
+					return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+				except:	
+					pass
+
+				new_user = User.objects.create(username=email_as_username, password=password)
+				new_user.set_password(password)
+				new_user.email = email
+				
+				new_user.save()
+				new_user = authenticate(username=email_as_username, password=password)
+				login(request, new_user)
+				return HttpResponseRedirect(reverse('new_user_info'))
+			else:
+				messages.error(request, "Please make sure both passwords match")
+	return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+
 
 
 
 #Displays the profile page of a specific user and their match % against the logged in user
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def single_user(request, username):
 	try:
 		user = User.objects.get(username=username)
@@ -1058,12 +1067,13 @@ def single_user(request, username):
 	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))	
 
 
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def single_user_pictures(request, username):
 	pictures = UserPicture.objects.filter(user__username=username)
 	return render_to_response('profiles/single_user_pictures.html', locals(), context_instance=RequestContext(request))
 
 
-
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def search(request):
 	try:
 		q = request.GET.get('q', '')
@@ -1116,6 +1126,7 @@ def contact_us(request):
 	return render_to_response ('contact_us.html', locals(), context_instance=RequestContext(request))
 
 
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def new_picture(request):
 	if request.method == 'POST':
 		pic_form = UserPictureForm(request.POST, request.FILES)
@@ -1133,6 +1144,19 @@ def new_picture(request):
 
 
 
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
+def make_profile_pic(request, pic_id):
+	pic = UserPicture.objects.get(id=pic_id)
+	pic.is_profile_pic = True
+	pic.save()
+	return HttpResponseRedirect(reverse('pictures'))
+
+
+
+
+
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
+#@user_passes_test(user_can_reset_icebreaker, login_url=reverse_lazy('home'))
 def ice_breaker(request): 
 	user1 = request.user
 	user1_interests = UserInterestAnswer.objects.filter(user=user1).filter(

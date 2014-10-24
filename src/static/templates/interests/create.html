@@ -7,17 +7,17 @@
 
 <div id="view_container">
 	<div class="col-md-1" id="secondary_navbar">
-		<div class="col-md-1" id="tertiary_navbar">
-    {% for message in messages %}
-    <p id="interests_messages"{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
-    {% endfor %}
-</div>
-        <h1>Create an Interest</h1>
-	</div>
+		<h1>Create an Interest</h1>
+	
 	<div class="col-md-1" id="tertiary_navbar">
      	<a href="/interests/edit/">Edit Interests</a>
      	<span class="glyphicon glyphicon-thumbs-up" id="tertiary-icon"></span>
      	<a href="{% url "interests" %}">Interests Home</a>
+	</div>
+	<div class="col-md-1" id="tertiary_navbar">
+	    {% for message in messages %}
+	    <p id="interests_messages"{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+	    {% endfor %}
 	</div>
 <div class='col-lg-10 col-12'>
 	<div class="contain">
