@@ -1,4 +1,5 @@
 import datetime
+import urllib2
 
 
 from requests import request, HTTPError
@@ -17,20 +18,18 @@ from profiles.models import Address, Job, Info, UserPicture, Gamification
 def save_profile_picture(strategy, user, response, details, is_new=False,*args,**kwargs):
     if strategy.backend.name == 'facebook':
         url = 'http://graph.facebook.com/{0}/picture'.format(response['id'])
-        avatar = urlopen(url)
+        avatar = urllib2.urlopen(url)
 
         try:
             response = request('GET', url, params={'type': 'large'})
             response.raise_for_status()
         except HTTPError:
             pass
-        try:
-            picture = UserPicture.objects.create(user=user)
-            #picture.image = ('{0}_social.jpg'.format(user.username), ContentFile(response.content))
-            picture.image = slugify(user.username + " social") + '.jpg', ContentFile(avatar.read())
-            picture.save()
-        except: 
-            pass
+        picture = UserPicture.objects.create(user=user)
+        #picture.image = ('{0}_social.jpg'.format(user.username), ContentFile(response.content))
+        picture.image = slugify(user.username + " social") + '.jpg', ContentFile(avatar.read())
+        picture.save()
+
             '''
             profile = user.get_profile()
             profile.image = ('{0}_social.jpg'.format(user.username), ContentFile(response.content))
