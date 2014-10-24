@@ -24,10 +24,13 @@ def save_profile_picture(strategy, user, response, details, is_new=False,*args,*
             response.raise_for_status()
         except HTTPError:
             pass
+
         picture = UserPicture.objects.create(user=user)
+        name = urlparse(url).path.split('/')[-1]
+        picture.image.save(name, File(urllib2.urlopen(self.url).read(), save=True)
         #picture.image = ('{0}_social.jpg'.format(user.username), ContentFile(response.content))
-        picture.image = response
-        picture.save()
+        #picture.image = response
+        #picture.save()
 
         '''
         profile = user.get_profile()
