@@ -184,6 +184,7 @@ def inbox(request):
 	direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
 	request.session['num_of_messages'] = direct_messages
 	number_of_messages = messages_in_inbox.count()
+	team_frenvu = "TeamFrenvu"
 	return render_to_response('directmessages/inbox.html', locals(), 
 									context_instance=RequestContext(request))
 
