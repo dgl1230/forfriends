@@ -1,6 +1,8 @@
 
 import os
 
+from django.core.urlresolvers import reverse_lazy
+
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
@@ -220,6 +222,8 @@ def get_cache():
         }
 
 CACHES = get_cache()
+
+LOGIN_URL = reverse_lazy('home')
 
 
 
