@@ -47,7 +47,7 @@ def user_not_new(user):
 		return False
 	return user.is_authenticated() and user_info.signed_up_with_fb_or_goog == False
 
-
+'''
 def user_can_reset_circle(user):
 	try: 
 		user_gamification = Gamification.objects.get(user=request.user)
@@ -60,6 +60,7 @@ def user_can_reset_circle(user):
 	until_next_reset = user_gamification.circle_time_until_reset.replace(tzinfo=None)
 	hours_until_reset = int((until_next_reset - current_time).total_seconds() / 60 / 60)
 	return hours_until_reset <= 1
+'''
 
 
 def user_can_reset_icebreaker(user):
@@ -330,7 +331,7 @@ def all(request):
 
 
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
-@user_passes_test(user_can_reset_circle, login_url=reverse_lazy('home'))
+#@user_passes_test(user_can_reset_circle, login_url=reverse_lazy('home'))
 def generate_circle(request):
 	info = Info.objects.get(user=request.user)
 	if info.is_new_user:
