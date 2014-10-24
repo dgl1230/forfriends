@@ -19,7 +19,7 @@ from profiles.models import Address, Job, Info, UserPicture, Gamification
 def save_profile_picture(strategy, user, response, details, is_new=False,*args,**kwargs):
     if strategy.backend.name == 'facebook':
         url = 'http://graph.facebook.com/{0}/picture'.format(response['id'])
-        avatar = urllib2.urlropen(url)
+        avatar = urllib.urlropen(url)
         output = open("file01.jpg","wb")
         output.write(avatar.read())
         output.close()
