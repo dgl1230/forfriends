@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 from profiles.models import Address, Job, Info, UserPicture, Gamification
 
 
-'''
+
 def save_profile_picture(strategy, user, response, details, is_new=False,*args,**kwargs):
 
     if strategy.backend.name == 'facebook':
@@ -22,11 +22,11 @@ def save_profile_picture(strategy, user, response, details, is_new=False,*args,*
         except HTTPError:
             pass
         else:
-            picture, created = UserPicture.objects.get_or_create(user=user, image='{0}_social.jpg'.format(user.username), ContentFile(response.content))
+            picture, created = UserPicture.objects.get_or_create(user=user, image=ContentFile(response.content))
             picture.is_profile_pic = True
             picture.save()
 
-'''
+
 
 
 
