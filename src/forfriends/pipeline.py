@@ -22,7 +22,7 @@ def save_profile_picture(strategy, user, response, details, is_new=False,*args,*
         except HTTPError:
             pass
         else:
-            picture, created = UserPicture.objects.get_or_create(user=user)
+            picture, created = UserPicture.objects.create(user=user)
             picture.image = ('{0}_social.jpg'.format(user.username), ContentFile(response.content))
             picture.save()
             '''
