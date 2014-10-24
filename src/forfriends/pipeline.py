@@ -24,10 +24,11 @@ def save_profile_picture(strategy, user, response, details, is_new=False,*args,*
             response.raise_for_status()
         except HTTPError:
             pass
-
         picture = UserPicture.objects.create(user=user)
         name = urlparse(url).path.split('/')[-1]
-        picture.image.save(name, File(urllib2.urlopen(self.url).read(), save=True)
+        picture.image.save(File(urllib2.urlopen(self.url).read())
+
+
 
 
 def associate_user_by_email(**kwargs):
