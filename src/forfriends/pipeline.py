@@ -27,7 +27,7 @@ def save_profile_picture(strategy, user, response, details, is_new=False,*args,*
             pass
         picture = UserPicture.objects.create(user=user)
         #picture.image = ('{0}_social.jpg'.format(user.username), ContentFile(response.content))
-        picture.image = slugify(user.username + " social") + '.jpg', ContentFile(avatar.read())
+        picture.image = avatar
         picture.save()
 
         '''
