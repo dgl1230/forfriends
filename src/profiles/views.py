@@ -1156,7 +1156,7 @@ def make_profile_pic(request, pic_id):
 
 
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
-@user_passes_test(user_can_reset_icebreaker, login_url=reverse_lazy('home'))
+#@user_passes_test(user_can_reset_icebreaker, login_url=reverse_lazy('home'))
 def ice_breaker(request): 
 	user1 = request.user
 	user1_interests = UserInterestAnswer.objects.filter(user=user1).filter(
