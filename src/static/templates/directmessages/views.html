@@ -29,11 +29,14 @@
 		</thead>
 		<tbody>
 			<td>
-				{% if item.sender.username == team_frenvu %}
-	                <p>{{ item.sender|truncatechars:"15" }}</p>
+				
+	                {% if message.sender.username == team_frenvu %}
+	                </a><p>{{ message.sender|truncatechars:"15" }}</p>
 	                	{% else %}
-				<a href="/members/{{ message.sender }}/">
-					{{ message.sender }}
+						{{ message.sender|truncatechars:"15" }}</a>
+					
+					{% endif %}
+					
 				</a>
 				{% endif %}
 			</td>
