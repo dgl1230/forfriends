@@ -474,7 +474,7 @@ def generate_circle(request):
 	return HttpResponseRedirect(reverse('home'))
 
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
-@user_passes_test(user_can_reset_circle, login_url=reverse_lazy('home'))
+#@user_passes_test(user_can_reset_circle, login_url=reverse_lazy('home'))
 def circle_distance(logged_in_user, preferred_distance):
 	user_gamification = Gamification.objects.get(user=logged_in_user)
 	current_circle = list(user_gamification.circle.all())
