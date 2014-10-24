@@ -21,7 +21,9 @@
 #question-wrapper.row{
 	min-width:100px;
 }
-
+#interests_mobile_search{
+	margin:0 auto;
+}
 #interests_search{
 	padding-left:40px;
 }

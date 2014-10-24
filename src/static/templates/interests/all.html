@@ -198,6 +198,12 @@
 		          <button type="submit" class="btn btn-default" id="go_button">Search</button>
 		        </div>
       		</form>
+	      	<form class="navbar-form navbar-left" id="navbar_mobile" role="search" action='{% url "search" %}'>
+	        	<div class="form-mobile" id="interests_mobile_search">
+		          <input type="text" class="input_mobile" placeholder="Search..." name='q' required>
+		          <button type="submit" class="btn-mobile" id="go_button"><span class='glyphicon glyphicon-search'></span></button>
+	        	</div>
+	      	</form>
 		</div><!--End Search Interests -->
 	</div>
 
