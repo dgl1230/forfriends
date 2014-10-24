@@ -254,12 +254,12 @@ span.glyphicon{
     margin-top: 0px!important;
     padding-top:5px!important;
   }
-}
 
-#leftbar-wrapper{
-  margin-top:40px;
-}
 
+  #leftbar-wrapper{
+    margin-top:40px;
+  }
+}
 @media (min-width: 600px){
   .mobile_fix{
     display:none;
