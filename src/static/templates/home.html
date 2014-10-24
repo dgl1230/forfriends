@@ -126,17 +126,17 @@
                    <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}" id="google_login"><span id="google_icon"></span><p>Sign Up with Google</p></a>
                 </div>
               </div>
-                <div class="col-xs-6" id="register">
-                    <div class="form">
+                <div class="col-xs-6" id="login">
+                      <div class="signup">
                         <form action='{% url "register_user" %}' id=
                         "contactform" method='post' name="contactform">
-                          <h4>Sign up with Frenvu </h4>
+                          <h1>Sign up with Frenvu </h1>
                             {% csrf_token %} <input id="username" name=
                             "email" placeholder="Email" required=""
                             tabindex="1" type="email">
                             <input id="password"
                             name="password" placeholder="Password"tabindex="1" type="password" pattern=".{8,}" required />
-                            <p id="pw_required">Password must be at least 8 characters</p>
+                            <p id="pw_required">*Password must be at least 8 characters</p>
 
                             <input id="repassword" name="repassword"
                             placeholder="Confirm Password" pattern=".{8,}" required 

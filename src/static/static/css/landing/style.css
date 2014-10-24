@@ -7,20 +7,11 @@
 	overflow:hidden;
 }
 
-#header{
-	width: 100%;
-	margin-bottom: 0px!important;
-}
 
 #title{
 	letter-spacing: .25em;
   padding-top:50px;
   text-align: center;
-}
-
-
-#call-to-action { 
-	background-color: #6682b5;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -204,7 +195,6 @@ select{
 }
 /* Registration and Login */
 #contactform h1{
-  margin: -20px 0px 5px;
   line-height: 40px;
   font-size: 15px;
   color: #555;
@@ -294,8 +284,8 @@ select{
 }
 
 #pw_required{
-  font-size:10px;
-  color: #333;
+  font-size:9px;
+  color: #888;
   padding:0px 0px 0px 0px;
   margin-bottom:0px;
 }
@@ -317,7 +307,7 @@ input {
 
 input[type=text], input[type=password], input[type=email] {
   padding: 0 10px;
-  width: 200px;
+  width: 100%;
   height: 34px;
   color: #404040;
   background: white;
@@ -327,7 +317,7 @@ input[type=text], input[type=password], input[type=email] {
   
   
 }
-input[type=text]:focus, input[type=password]:focus {
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus {
   border-color: black;
   outline-color: white;
   outline-offset: 0;
@@ -434,7 +424,7 @@ input[type=submit]:hover{
     width:70%;
   }
 }
-
+/* Mobile Size Images */
 @media (max-width:500px){
   .parallax{
   background-size: cover;
@@ -483,7 +473,7 @@ input[type=submit]:hover{
     background-position: center;
   }
 }
-
+/* Mid Sized Images (Small Laptops etc.)*/
 @media only screen 
 and (min-width : 500px)
 and (max-width : 1200px){

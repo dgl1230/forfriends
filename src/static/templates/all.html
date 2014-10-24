@@ -2,8 +2,11 @@
 {% block content %}
     <script src="{{ STATIC_URL }}js/FWDRoyal3DCarousel.js" type="text/javascript"></script>
     <script src="{{ STATIC_URL }}js/3dcarousel/initiate.js" type="text/javascript"></script>
-
-<div id="view_container">
+<div id="loading_gif">
+    <h1 id="loading_gif_header">One sec, we're putting together your new crowd...</h1>
+    <img id="loading" src="{{ STATIC_URL }}img/ajax-loader.gif" />
+</div>
+<div id="view_container">  
 <div class="row">
 	<div class="col-md-1" id="secondary_navbar">
         <h1>My Crowd</h1>
@@ -123,7 +126,7 @@
     </script>
     <div class="col-md-1" id="button_navbar">
         {% if can_they_reset == True %}
-        <a class="login_button" href='{% url "generate_circle" %}'>Find a new Crowd!</a>
+        <a id="generate_button" class="login_button" href='{% url "generate_circle" %}'>Find a new Crowd!</a>
         {% else %}
         <p class="reset_button"> {{ hours_until_reset }} hours </p>
         {% endif %}
@@ -142,6 +145,7 @@
 </div>
 </div>
 
+<div id="loading_gif"><img id="loading" src="{{ STATIC_URL }}img/ajax-loader.gif" /></div>
 <div id="myDiv"></div>  
     <!-- carousel data -->
     <div id="carouselData">
@@ -282,5 +286,19 @@ $('#ice_breaker_button').click(function(){
     $.get('{% url "ice_breaker" %}');
 });
 </script>
+<script>
+$('#generate_button').click(function(){
+    $(this).text("Your Crowd is being calculated...");
+    $(this).attr('class', 'not_a_button');
+    $.get('{% url "generate_circle" %}');
+    $('#loading_gif').show();
+    $('#view_container').hide();
+    $('#myDiv').hide();
+});
+</script>
 
+<!--Animate Gif -->
+<script>
+$('#loading_gif_header').addClass('animated flash');
+</script>
 {% endblock %}
