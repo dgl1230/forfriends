@@ -59,6 +59,9 @@ $('#myTab a').click(function (e) {
 	                		{% endif %}
 	                	{% endfor %}
 					{{ item.sender|truncatechars:"15" }}</a>
+					{% if item.sender.username == team_frenvu %}
+
+					{% endif %}
 				</td>
 				<td id="inbox_body">
 					{% if item.read %}

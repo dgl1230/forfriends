@@ -177,7 +177,7 @@
                       <div class="login">
                         <h1 data-toggle="modal" data-target="#login_modal">Login with Email</h1>
                       <form method="post" action='{% url "login_user" %}'>{% csrf_token %}
-                      <p><input type="text" id="un" name="username" maxlength="40" value="" placeholder="Email" required></p>
+                      <p><input type="text" id="un" name="email" maxlength="40" value="" placeholder="Email" required></p>
                       <p><input type="password" name="password" value="" placeholder="Password" required></p><br>
                       <p class="submit"><input type="submit" name="commit" value="Login"></p><br>
                       </form>

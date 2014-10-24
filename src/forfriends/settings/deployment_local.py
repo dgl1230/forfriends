@@ -1,6 +1,8 @@
 
 
 import os
+from django.core.urlresolvers import reverse_lazy
+
 
 
 
@@ -153,6 +155,8 @@ CACHES = {
         'LOCATION': '127.0.0.1:11211',
     }
 }
+
+LOGIN_URL = reverse_lazy('new_user_info')
 
 
 
