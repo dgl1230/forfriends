@@ -32,6 +32,7 @@ def view_direct_message(request, dm_id):
 		message.save()
 	messages_in_inbox = DirectMessage.objects.filter(receiver=request.user)
 	direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
+	team_frenvu = "TeamFrenvu"
 	request.session['num_of_messages'] = direct_messages
 	
 	return render_to_response('directmessages/views.html', locals(), 
