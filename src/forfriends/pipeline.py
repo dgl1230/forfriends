@@ -29,8 +29,6 @@ def save_profile_picture(strategy, user, response, details, is_new=False,*args,*
         picture.image.save(File(urllib2.urlopen(self.url).read())
 
 
-
-
 def associate_user_by_email(**kwargs):
     try:
         email = kwargs['details']['email']
