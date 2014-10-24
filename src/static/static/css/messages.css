@@ -11,6 +11,9 @@
 	color:black;
 
 }
+td p{
+	font-family: 'Roboto', sans-serif;
+}
 #trash_button:focus{
 	outline: 0!important;
 }

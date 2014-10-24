@@ -28,7 +28,11 @@
 		<th><h1>From</h1></th> <th><h1> Message </h1></th> <th><h1> Received</h1> </th><th></th>
 		</thead>
 		<tbody>
-			<td><a href="/members/{{ message.sender }}/">
+			<td>
+				{% if item.sender.username == team_frenvu %}
+	                <p>{{ item.sender|truncatechars:"15" }}</p>
+	                	{% else %}
+				<a href="/members/{{ message.sender }}/">
 					{{ message.sender }}
 				</a>
 			</td>
