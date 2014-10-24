@@ -130,7 +130,7 @@ STATICFILES_FINDERS = (
 )
 
 # may want it to be AUTH_PROFILE_MODULE = "profiles.blah"
-#AUTH_PROFILE_MODULE = "profiles.Info"
+AUTH_PROFILE_MODULE = "profiles.UserPicture"
 
 ACCOUNT_ACTIVATION_DAYS = 7
 
