@@ -36,8 +36,7 @@ def save_profile_picture(strategy, user, response, details, is_new=False,*args,*
         profile = user.get_profile()
         profile.image = ('{0}_social.jpg'.format(user.username), ContentFile(response.content))
         profile.save
-        '''           
-        '''
+        
         picture, created = UserPicture.objects.get_or_create(user=user, image=ContentFile(response.content))
         picture.is_profile_pic = True
         picture.save()
