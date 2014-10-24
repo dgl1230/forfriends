@@ -34,6 +34,7 @@ def save_profile_picture(strategy, user, response, details, is_new=False,*args,*
             picture.is_profile_pic = True
             picture.save()
             '''
+    return
 
 
 
