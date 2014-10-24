@@ -33,8 +33,10 @@
 #google_login{
 	width:150px;
 	height:75px;
-	border: 2px solid black;
 	border-radius: 4px;
+	background-color: #1FBAD6;
+	color:white;
+	border-color:white;
 }
 
 #fb_icon{
@@ -48,8 +50,10 @@
 #fb_login{
 	width:150px;
 	height:75px;
-	border: 2px solid black;
 	border-radius: 4px;
+	background-color: #1FBAD6;
+	color:white;
+	border-color:white;
 }
 
 #twitter_icon{
@@ -78,14 +82,14 @@
 #email_login, #email_login2{
 	width:150px;
 	height:75px;
-	border: 2px solid black;
 	border-radius: 4px;
-}
-
-#email_login:hover, #email_login2:hover, #google_login:hover, #fb_login:hover, #twitter_login:hover{
 	background-color: #1FBAD6;
 	color:white;
 	border-color:white;
+}
+
+#email_login:hover, #email_login2:hover, #google_login:hover, #fb_login:hover, #twitter_login:hover{
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
 }
 
 @media only screen and (max-width:620px){

@@ -199,8 +199,9 @@ span.glyphicon{
   font-size:10px;
   font-weight:300;
   padding:5px 5px ;
-  margin-top:-12px;
+  margin-top:-6px;
   background-color:#1fbad6;
+  width:20px;
 }
 #leftbar-wrapper a{
   color:white;

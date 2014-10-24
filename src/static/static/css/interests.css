@@ -21,6 +21,7 @@
 #question-wrapper.row{
 	min-width:100px;
 }
+
 #interests_search{
 	padding-left:40px;
 }
@@ -154,17 +155,19 @@ footer{
 #submit_question{
 	float:none!important;
 }
+#save_interest{
+	display:none;
+}
 
 .question_answers label{
-	padding:5px 5px 5px 5px;
+	padding:5px 5px 0px 5px;
 	float:left;
 	margin:0 auto;
 	display:block;
 	width:100%;
-	text-align: left;
+	font-size:1.75rem!important;
 }
 .custom-radio{
-	margin-right: 10px;
 	height: 50px;
 }
 .question_answers input{
