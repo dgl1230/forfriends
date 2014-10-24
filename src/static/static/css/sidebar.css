@@ -256,6 +256,10 @@ span.glyphicon{
   }
 }
 
+#leftbar-wrapper{
+  margin-top:40px;
+}
+
 @media (min-width: 600px){
   .mobile_fix{
     display:none;
