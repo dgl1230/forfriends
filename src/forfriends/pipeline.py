@@ -22,7 +22,7 @@ def save_profile_picture(strategy, user, response, details, is_new=False,*args,*
     if strategy.backend.name == 'facebook':
         url = 'http://graph.facebook.com/{0}/picture'.format(response['id'])
         try:
-            response = request('GET', url, params={'type': 'small'})
+            response = request('GET', url, params={'type': 'large'})
             response.raise_for_status()
         except HTTPError:
             pass
