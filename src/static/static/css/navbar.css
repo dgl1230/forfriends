@@ -408,21 +408,25 @@ form.navbar-form.navbar-left{
 		display:inline-block!important;
 		float:left;
 		width:120px;
+		margin-left:-50px;
 	}
 	.form-mobile{
-		width:110px!important;
+		width:115px!important;
 		margin-top:5px;
 	}
 	.input_mobile{
 		width:80px!important;
 	}
 	.btn-mobile{
-		width:20px!important;
+		width:30px!important;
 	}
 	#messages_sidebar{
 		width:20px;
 		height:10px;
 		margin-left:10px;
+	}
+	.login a{
+		padding-right:0px;
 	}
 }	
 

@@ -21,7 +21,7 @@
 {% endif %}
 {% for match in matches %}
 	{% ifnotequal request.user match.user1 %}
-	<div class='col-sm-4'>
+	<div class='col-sm-4' id="friend">
 			{% for pic in match.user1.userpicture_set.all %}
 				{% if forloop.first %}
 					<a href='/members/{{ match.user1.username}}'><img src='{{ MEDIA_URL }}{{ pic }}' class='img-responsive'/></a>
@@ -31,24 +31,25 @@
 					<a href='/members/{{ match.user1.username}}'><img src='{{ STATIC_URL }}img/avatar.png' class='img-responsive' /></a>
 				{% endif %}
 			<h2>{{ match.user1.username }}</h2>
+			<p id="user_address">
 		{% for item in match.user1.address_set.all %} 
 			{% if forloop.first %} {{ item }}
 			{% endif %} 
 		{% endfor %}
-		<div class="matching">
-		<p id="match">{% if match.percent >= 90 %}
-			<h4 id="very_good">Excellent Match</h4>
+			</p>
+		<div id="match">{% if match.percent >= 90 %}
+			<p id="very_good">Excellent Match</p>
 			{% elif match.percent >= 80 %}
-			<h4 id="good">Very Good Match</h4>
+			<p id="good">Very Good Match</p>
 			{% elif match.percent >= 60 %}
-			<h4 id="average">Good Match</h4>
+			<p id="average">Good Match</p>
 			{% elif match.percent >= 45 %}
-			<h4 id="weak">Average Match</h4>
+			<p id="weak">Average Match</p>
 			{% else %}
-			<h4 id="very_weak">Weak Match</h4>
-			{% endif %}</p>
-		<br/>
+			<p id="very_weak">Weak Match</p>
+			{% endif %}
 		</div>
+		<br/>
 		</div>
 		{% else %}
 		<div class='col-sm-4'>
