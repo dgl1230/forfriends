@@ -40,11 +40,11 @@ def save_profile_picture(strategy, user, response, details, is_new=False,*args,*
         except HTTPError:
             pass
         #num_of_pics = UserPicture.objects.filter(user=self.user).count()
-        image_content = ContentFile(requests.get(url2).content)
+        image_content2 = ContentFile(requests.get(url2).content)
 
-        picture = UserPicture.objects.create(user=user)
+        picture2 = UserPicture.objects.create(user=user)
        
-        picture.image.save("facebook-%s2.jpg" %(user.username), image_content)
+        picture2.image.save("facebook-%s2.jpg" %(user.username), image_content2)
 
 
     return
