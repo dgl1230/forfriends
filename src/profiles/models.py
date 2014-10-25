@@ -2,7 +2,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from matches.models import Match 
-
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
 
 
 
@@ -121,6 +122,11 @@ class UserPicture(models.Model):
 		return num_of_pics
 		'''
 		return num_of_pics
+
+
+	@receiver(models.signals.pre_delete, sender=ContentFile)
+	def remove_file_from_s3(sender, instance, using):
+	    instance.content.delete(save=False)
 
 
 
