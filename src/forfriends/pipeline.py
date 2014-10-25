@@ -1,7 +1,7 @@
 import datetime
 import urllib2
 import urllib
-
+import requests
 
 from requests import request, HTTPError
 from social.pipeline.user import get_username as social_get_username
@@ -31,7 +31,7 @@ def save_profile_picture(strategy, user, response, details, is_new=False,*args,*
         img_temp.write(urllib2.urlopen(url).read())
         img_temp.flush()
         '''
-        image_content = ContentFile(requests.get(url_image).content)
+        image_content = ContentFile(requests.get(url).content)
 
         picture = UserPicture.objects.create(user=user)
         #picture.image = File(img_temp)
