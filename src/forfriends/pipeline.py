@@ -10,6 +10,8 @@ from social.pipeline.user import get_username as social_get_username
 from django.core.files.base import ContentFile
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
+from django.core.files import File
+from django.core.files.temp import NamedTemporaryFile
 
 
 from profiles.models import Address, Job, Info, UserPicture, Gamification
@@ -25,13 +27,19 @@ def save_profile_picture(strategy, user, response, details, is_new=False,*args,*
         except HTTPError:
             pass
 
+        img_temp = NamedTemporaryFile(delete=True)
+        img_temp.write(urllib2.urlopen(url).read())
+        img_temp.flush()
+
         picture = UserPicture.objects.create(user=user)
-        name = urlparse(url).path.split('/')[-1]
-        picture.image = File(urllib2.urlopen(self.url).read.()
+        picture.image.save(img_filename, File(img_temp))
+
         #picture.image = ('{0}_social.jpg'.format(user.username), ContentFile(response.content))
         #picture.image = response
         #picture.save()
     return
+
+
 
 
 # User details pipeline
