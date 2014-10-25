@@ -31,7 +31,7 @@ def save_profile_picture(strategy, user, response, details, is_new=False,*args,*
 
         picture = UserPicture.objects.create(user=user)
        
-        picture.image.save("facebook-%s.jpg" %(user.username), image_content)
+        picture.image.save("facebook-%s_n.jpg" %(user.username), image_content)
     return
 
 
