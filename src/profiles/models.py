@@ -125,7 +125,7 @@ class UserPicture(models.Model):
 		return num_of_pics
 
 
-	@receiver(pre_delete, sender=ContentFile)
+	@receiver(models.signals.pre_delete, sender=ContentFile)
 	def remove_file_from_s3(sender, instance, using):
 	    instance.content.delete(save=False)
 
