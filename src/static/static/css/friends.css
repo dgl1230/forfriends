@@ -8,6 +8,11 @@
 #friend p{
 	margin:0px 0px 0px;
 }
+@media (max-width: 450px){
+	#friend h2{
+		margin-top:0px;
+	}
+}
 
 
 
