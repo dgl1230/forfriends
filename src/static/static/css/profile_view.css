@@ -199,7 +199,8 @@ h4{
 }
 
 #single_user_body{
-	margin-top:5%;
+	margin-top:2%;
+	text-align: center;
 }
 .panel-heading{
 	background-color: rgb(31, 186, 214) !important;
