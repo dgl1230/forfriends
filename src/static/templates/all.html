@@ -151,6 +151,8 @@
       <!-- image datalist category 1 -->
       <ul data-cat="Category one" style="display:none">  
         {% for match in user_gamification.circle.all %}
+
+        <!--=====================User 1=======================-->
             {% if not request.user == match.user1 %}     
         <ul>
             {% for pic in match.user1.userpicture_set.all %}
@@ -165,12 +167,12 @@
                 {% for item in match.user1.address_set.all %} 
                     {% if forloop.first %} {{ item }}
                     {% endif %} 
-                {% endfor %}
+                {% endfor %} <!-- End address user 1 -->
                 {% ifnotequal match.distance 10000000 %}
                  ({{ match.distance }} miles away)
             </p>
-                    {% endifnotequal %}
-                {% endif %}
+                {% endifnotequal %} <!-- End conditional Distance -->
+                {% endif %} <!-- End forloop first -->
                     {% if match.percent >= 90 %}
                     <p class="smallLabel2" id="very_good">Excellent Match</p>
                     {% elif match.percent >= 80 %}
@@ -182,7 +184,7 @@
                     {% else %}
                     <p class="smallLabel2" id="very_weak">Weak Match</p>
                     {% endif %}
-            {% endfor %}
+            {% endfor %} <!-- End forpic user 1 -->
 
 
             <li data-type="link" data-url='/members/{{ match.user1.username}}' data-target="_self"></li>
@@ -195,14 +197,16 @@
                     {% for item in match.user1.address_set.all %} 
                         {% if forloop.first %} {{ item }}
                         {% endif %} 
-                    {% endfor %}
+                    {% endfor %} <!--End address -->
                     {% ifnotequal match.distance 10000000 %}
                         ({{ match.distance }} miles away)</p>
-                    {% endifnotequal %}
-                    {% endif %}
-            <p class="mediaDescriptionHeader">{{ pic.caption }}</p>
-          </li>
-        </ul>
+                    {% endifnotequal %} <!-- End conditional distance -->
+            </li>
+         </ul>
+        {% endif %} <!-- End user 1-->
+          
+       
+<!--============================User 2=========================-->
         {% if not request.user == match.user2 %}     
         <ul>
             {% for pic in match.user2.userpicture_set.all %}
@@ -216,12 +220,12 @@
                 {% for item in match.user2.address_set.all %} 
                     {% if forloop.first %} {{ item }}
                     {% endif %} 
-                {% endfor %}
+                {% endfor %} <!-- End user 2 address -->
                     {% ifnotequal match.distance 10000000 %}
                      ({{ match.distance }} miles away)
             </p>
-                    {% endifnotequal %}
-            {% endif %}
+                    {% endifnotequal %} <!-- end conditional distance -->
+                {% endif %} <!-- End if forloop first -->
                     {% if match.percent >= 90 %}
                     <p class="smallLabel2" id="very_good">Excellent Match</p>
                     {% elif match.percent >= 80 %}
@@ -232,8 +236,8 @@
                     <p class="smallLabel2" id="weak">Average Match</p>
                     {% else %}
                     <p class="smallLabel2" id="very_weak">Weak Match</p>
-                    {% endif %}
-            {% endfor %}
+                    {% endif %} <!-- End match % -->
+            {% endfor %} <!-- End forpic -->
             {% if not match.user2.userpicture_set.all %}
             <p class="smallLabel2"></p>
             <li data-type="link" data-url='/members/{{ match.user2.username}}' data-target="_self"></li>
@@ -244,11 +248,11 @@
                     {% for item in match.user2.address_set.all %} 
                         {% if forloop.first %} {{ item }}
                         {% endif %} 
-                    {% endfor %}
+                    {% endfor %} <!-- End user 2 address -->
                     {% ifnotequal match.distance 10000000 %}
                      ({{ match.distance }} miles away)</p>
-                    {% endifnotequal %}
-                    {% endif %}
+                    {% endifnotequal %}<!-- End conditional -->
+                    {% endif %} <!-- End if not match user2.userpicture -->
                 <p class="smallLabel2"></p>
             <p class="mediaDescriptionHeader">{{ pic.caption }}</p>
           </li>
@@ -264,14 +268,14 @@
             {% else %}
             <p class="smallLabel2" id="very_weak">Weak Match</p>
             {% endif %}
-        {% endif %}
-        {% endfor %}
+        {% endif %} <!-- End if something -->
+        {% endfor %} <!-- End for gamification -->
       </ul>
     </div>
 <br/>
 </div>
 </div>
-{% endif %}
+{% endif %} <!-- End if something -->
 <div class="modal fade" id="new_user_modal">
   <div class="modal-dialog">
     <div class="modal-content">
