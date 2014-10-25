@@ -626,7 +626,7 @@ def new_user_info(request):
 				new_user_welcome_message = DirectMessage.objects.create(subject=subject, body=body, receiver=request.user, sender=sender)
 				new_user_welcome_message.save()
 
-
+				email = request.user.email
 				username = request.user.username
 				subject = 'Thanks for registering with Frenvu!'
 				plaintext = get_template('registration/email.txt')
