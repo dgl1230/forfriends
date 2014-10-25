@@ -67,7 +67,19 @@
 			{% endif %} 
 		{% endfor %}
 		<div class="matching">
-		<p id="match">Match: {{ match.percent }}%	</p>
+		<p id="match">
+			<div id="match">{% if match.percent >= 90 %}
+			<p id="very_good">Excellent Match</p>
+			{% elif match.percent >= 80 %}
+			<p id="good">Very Good Match</p>
+			{% elif match.percent >= 60 %}
+			<p id="average">Good Match</p>
+			{% elif match.percent >= 45 %}
+			<p id="weak">Average Match</p>
+			{% else %}
+			<p id="very_weak">Weak Match</p>
+			{% endif %}
+		</div></p>
 		<br/>
 		</div>
 		</div>
