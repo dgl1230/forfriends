@@ -24,10 +24,34 @@ def save_profile_picture(strategy, user, response, details, is_new=False,*args,*
             response.raise_for_status()
         except HTTPError:
             pass
+
         picture = UserPicture.objects.create(user=user)
         name = urlparse(url).path.split('/')[-1]
-        picture.image.save(File(urllib2.urlopen(self.url).read())
+        picture.image = File(urllib2.urlopen(self.url).read.()
+        #picture.image = ('{0}_social.jpg'.format(user.username), ContentFile(response.content))
+        #picture.image = response
+        #picture.save()
+    return
 
+
+# User details pipeline
+'''def user_details(strategy, details, response, user=None, *args, **kwargs):
+    """Update user details using data from provider."""
+    if user:
+        if kwargs['is_new']:
+            attrs = {'user': user}
+           #if facebook
+            if strategy.backend.__class__.__name__ == 'FacebookOAuth2':
+                fb_data = {
+                    
+                    'gender': response['gender'],
+                    
+                }
+                attrs = dict(attrs.items() + fb_data.items())
+            Info.objects.create(
+                **attrs
+            )
+'''
 
 def associate_user_by_email(**kwargs):
     try:
