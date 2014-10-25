@@ -170,18 +170,19 @@ data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="20"><a hr
 </p>
 {% endifnotequal %}
 {% endif %}
-{% if match.percent >= 90 %}
-<p class="smallLabel2" id="very_good">Excellent Match</p>
-{% elif match.percent >= 80 %}
-<p class="smallLabel2" id="good">Very Good Match</p>
-{% elif match.percent >= 60 %}
-<p class="smallLabel2" id="average">Good Match</p>
-{% elif match.percent >= 45 %}
-<p class="smallLabel2" id="weak">Average Match</p>
-{% else %}
-<p class="smallLabel2" id="very_weak">Weak Match</p>
-{% endif %}
 {% endfor %}
+{% if not match.user1.userpicture_set.all %}
+{% if match.percent >= 90 %}
+<h4 class="smallLabel2" id="very_good">Excellent Match</h4>
+{% elif match.percent >= 80 %}
+<h4 class="smallLabel2" id="good">Very Good Match</h4>
+{% elif match.percent >= 60 %}
+<h4 class="smallLabel2" id="average">Good Match</h4>
+{% elif match.percent >= 45 %}
+<h4 class="smallLabel2" id="weak">Average Match</h4>
+{% else %}
+<h4 class="smallLabel2" id="very_weak">Weak Match</h4>
+{% endif %}
 <li data-type="link" data-url='/members/{{ match.user1.username}}' data-target="_self"></li>
 <li class="thumbnail_carousel" data-thumbnail-path='{{ STATIC_URL }}img/avatar.png'></li>
 <li data-thumbnail-text="{{ match.user1.username }}" data-thumbnail-text-title-offset="55" data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="7"><a href="/members/{{ match.user1.username}}"></a>
@@ -200,6 +201,7 @@ data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="20"><a hr
 <p class="mediaDescriptionHeader">{{ pic.caption }}</p>
 </li>
 </ul>
+{% endif %}
 {% if not request.user == match.user2 %}
 <ul>
 {% for pic in match.user2.userpicture_set.all %}
@@ -218,17 +220,6 @@ data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="20"><a hr
 ({{ match.distance }} miles away)
 </p>
 {% endifnotequal %}
-{% endif %}
-{% if match.percent >= 90 %}
-<p class="smallLabel2" id="very_good">Excellent Match</p>
-{% elif match.percent >= 80 %}
-<p class="smallLabel2" id="good">Very Good Match</p>
-{% elif match.percent >= 60 %}
-<p class="smallLabel2" id="average">Good Match</p>
-{% elif match.percent >= 45 %}
-<p class="smallLabel2" id="weak">Average Match</p>
-{% else %}
-<p class="smallLabel2" id="very_weak">Weak Match</p>
 {% endif %}
 {% endfor %}
 {% if not match.user2.userpicture_set.all %}
@@ -250,17 +241,6 @@ data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="20"><a hr
 <p class="mediaDescriptionHeader">{{ pic.caption }}</p>
 </li>
 </ul>
-{% if match.percent >= 90 %}
-<p class="smallLabel2" id="very_good">Excellent Match</p>
-{% elif match.percent >= 80 %}
-<p class="smallLabel2" id="good">Very Good Match</p>
-{% elif match.percent >= 60 %}
-<p class="smallLabel2" id="average">Good Match</p>
-{% elif match.percent >= 45 %}
-<p class="smallLabel2" id="weak">Average Match</p>
-{% else %}
-<p class="smallLabel2" id="very_weak">Weak Match</p>
-{% endif %}
 {% endif %}
 {% endfor %}
 </ul>
