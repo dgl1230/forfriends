@@ -486,7 +486,7 @@ def circle_distance(logged_in_user, preferred_distance):
 		return 0
 	i = 0
 	already_chosen = {}
-	user_gamification.clear()
+	user_gamification.circle.clear()
 	max_match = matches.latest('id').id
 	while i < 6:
 		try:
