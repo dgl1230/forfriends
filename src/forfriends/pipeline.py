@@ -26,7 +26,7 @@ def save_profile_picture(strategy, user, response, details, is_new=False,*args,*
             response.raise_for_status()
         except HTTPError:
             pass
-        num_of_pics = UserPicture.objects.filter(user=self.user).count()
+        #num_of_pics = UserPicture.objects.filter(user=self.user).count()
         image_content = ContentFile(requests.get(url).content)
 
         picture = UserPicture.objects.create(user=user)
