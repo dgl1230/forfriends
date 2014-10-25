@@ -188,7 +188,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.user.create_user',
     'social.pipeline.social_auth.associate_user',
     'social.pipeline.social_auth.load_extra_data',
-    'forfriends.pipeline.save_profile_picture',
+    #'forfriends.pipeline.save_profile_picture',
     #'forfriends.pipeline.user_details',
 )
 
