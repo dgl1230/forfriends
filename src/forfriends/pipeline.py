@@ -20,7 +20,7 @@ from profiles.models import Address, Job, Info, UserPicture, Gamification
 
 def save_profile_picture(strategy, user, response, details, is_new=False,*args,**kwargs):
     if strategy.backend.name == 'facebook':
-        url = 'http://graph.facebook.com/{0}/picture'.format(response['id'])
+        url = "http://graph.facebook.com/%s/picture?type=large" % response['id']
         try:
             response = request('GET', url, params={'type': 'large'})
             response.raise_for_status()
