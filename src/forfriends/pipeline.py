@@ -22,25 +22,17 @@ def save_profile_picture(strategy, user, response, details, is_new=False,*args,*
     if strategy.backend.name == 'facebook':
         url = 'http://graph.facebook.com/{0}/picture'.format(response['id'])
         try:
-            response = request('GET', url, params={'type': 'large'})
+            response = request('GET', url, params={'type': 'small'})
             response.raise_for_status()
         except HTTPError:
             pass
-        '''
-        img_temp = NamedTemporaryFile(delete=True)
-        img_temp.write(urllib2.urlopen(url).read())
-        img_temp.flush()
-        '''
+
         image_content = ContentFile(requests.get(url).content)
 
         picture = UserPicture.objects.create(user=user)
-        #picture.image = File(img_temp)
+       
         picture.image.save("chihuaha.jpg", image_content)
-        #picture.save()
-
-        #picture.image = ('{0}_social.jpg'.format(user.username), ContentFile(response.content))
-        #picture.image = response
-        #picture.save()
+        
     return
 
 
