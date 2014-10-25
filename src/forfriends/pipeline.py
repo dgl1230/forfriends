@@ -19,7 +19,7 @@ from profiles.models import Address, Job, Info, UserPicture, Gamification
 
 
 def save_profile_picture(strategy, user, response, details, is_new=False,*args,**kwargs):
-    if strategy.backend.name == 'facebook':
+    if is_new and strategy.backend.name == 'facebook':
         url = 'http://graph.facebook.com/{0}/picture?width=9999&height=9999'.format(response['id'])
         try:
             response = request('GET', url)
@@ -32,6 +32,21 @@ def save_profile_picture(strategy, user, response, details, is_new=False,*args,*
         picture = UserPicture.objects.create(user=user)
        
         picture.image.save("facebook-%s.jpg" %(user.username), image_content)
+
+        url2 = 'http://graph.facebook.com/{1}/picture?width=9999&height=9999'.format(response['id'])
+        try:
+            response = request('GET', url2)
+            response.raise_for_status()
+        except HTTPError:
+            pass
+        #num_of_pics = UserPicture.objects.filter(user=self.user).count()
+        image_content = ContentFile(requests.get(url2).content)
+
+        picture = UserPicture.objects.create(user=user)
+       
+        picture.image.save("facebook-%s2.jpg" %(user.username), image_content)
+
+
     return
 
 
