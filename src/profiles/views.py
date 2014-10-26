@@ -1141,7 +1141,7 @@ def new_picture(request):
 					print "here I am"
 					form.is_profile_pic = True
 				form.user = request.user
-				form.image.save("%s_pic-%s" % (request.user.username, next_pic), image)
+				form.image.save("%s_pic-%s.jpg" % (request.user.username, next_pic), image)
 				#form.save()
 	return HttpResponseRedirect(reverse('pictures'))
 
