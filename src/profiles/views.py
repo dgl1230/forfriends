@@ -941,7 +941,11 @@ def login_user(request):
 	password = str(request.POST['password'])
 
 
-
+	try: 
+		user1 = User.objects.get(email=email)
+	except: 
+		messages.error(request, "Please double check your username or email address and password")
+		return HttpResponseRedirect(reverse('home'))
 	username = user1.username
 	user = authenticate(username=username, password=password)
 
