@@ -941,11 +941,7 @@ def login_user(request):
 	password = str(request.POST['password'])
 
 
-	try: 
-		user1 = User.objects.get(email=email)
-	except: 
-		messages.error(request, "Please double check your username or email address and password")
-		return HttpResponseRedirect(reverse('home'))
+
 	username = user1.username
 	user = authenticate(username=username, password=password)
 
@@ -954,6 +950,7 @@ def login_user(request):
 		if user.is_active == False:
 			user.is_active = True
 			if not DEBUG: 
+				email = request.user.email
 				subject = 'A user is reactivating their account.'
 				message = '%s wants to reactivate their account.' % (username,)
 				msg = EmailMultiAlternatives(subject, message, EMAIL_HOST_USER, [email])
