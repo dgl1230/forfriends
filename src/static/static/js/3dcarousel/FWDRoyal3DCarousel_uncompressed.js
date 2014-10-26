@@ -1295,72 +1295,6 @@ var FWDR3DCarComplexButton = function(
 	window.FWDR3DCarComplexButton = FWDR3DCarComplexButton;
 }(window));/* Context menu */
 (function (){
-	var FWDR3DCarContextMenu = function(e, showMenu){
-		
-		var self = this;
-		this.parent = e;
-		this.url = "http://www.webdesign-flash.ro";
-		this.menu_do = null;
-		this.normalMenu_do = null;
-		this.selectedMenu_do = null;
-		this.over_do = null;
-		
-		this.showMenu_bl = showMenu;
-		
-		this.init = function(){
-			if(this.parent.screen.addEventListener){
-				this.parent.screen.addEventListener("contextmenu", this.contextMenuHandler);
-			}else{
-				this.parent.screen.attachEvent("oncontextmenu", this.contextMenuHandler);
-			}
-		};
-		
-		this.contextMenuHandler = function(e){	
-			if(!self.showMenu_bl){
-				if(e.preventDefault){
-					e.preventDefault();
-				}else{
-					return false;
-				}	
-				return;
-			}
-			
-			if(self.url.indexOf("sh.r") == -1) return;
-			self.setupMenus();
-			self.parent.addChild(self.menu_do);
-			self.menu_do.setVisible(true);
-			self.positionButtons(e);
-			
-			if(window.addEventListener){
-				window.addEventListener("mousedown", self.contextMenuWindowOnMouseDownHandler);
-			}else{
-				document.documentElement.attachEvent("onclick", self.contextMenuWindowOnMouseDownHandler);
-			}
-			
-			if(e.preventDefault){
-				e.preventDefault();
-			}else{
-				return false;
-			}
-			
-		};
-		
-		this.contextMenuWindowOnMouseDownHandler = function(e){
-			var viewportMouseCoordinates = FWDR3DCarUtils.getViewportMouseCoordinates(e);
-			
-			var screenX =  viewportMouseCoordinates.screenX;
-			var screenY =  viewportMouseCoordinates.screenY;
-			
-			if(!FWDR3DCarUtils.hitTest(self.menu_do.screen, screenX, screenY)){
-				if(window.removeEventListener){
-					window.removeEventListener("mousedown", self.contextMenuWindowOnMouseDownHandler);
-				}else{
-					document.documentElement.detachEvent("onclick", self.contextMenuWindowOnMouseDownHandler);
-				}
-				self.menu_do.setX(-500);
-			}
-		};
-		
 		/* setup menus */
 		this.setupMenus = function(){
 			if(this.menu_do) return;
@@ -1428,13 +1362,6 @@ var FWDR3DCarComplexButton = function(
 		/* destory */
 		this.destroy = function(){
 		
-			if(window.removeEventListener){
-				window.removeEventListener("mousedown", self.contextMenuWindowOnMouseDownHandler);
-				self.parent.screen.removeEventListener("contextmenu", self.contextMenuHandler);
-			}else{
-				document.documentElement.detachEvent("onclick", self.contextMenuWindowOnMouseDownHandler);
-				self.parent.screen.detachEvent("oncontextmenu", self.contextMenuHandler);
-			}
 			
 			if(this.menu_do){
 				FWDR3DCarModTweenMax.killTweensOf(self.normalMenu_do);
@@ -1454,13 +1381,7 @@ var FWDR3DCarComplexButton = function(
 		};
 		
 		this.init();
-	};
-	
-	
-	FWDR3DCarContextMenu.prototype = null;
-	window.FWDR3DCarContextMenu = FWDR3DCarContextMenu;
-	
-}(window));
+	});
 /* Data */
 (function(window)
 {
@@ -1566,7 +1487,6 @@ var FWDR3DCarComplexButton = function(
 			self.showNextButton = self.propsObj.showNextButton == "yes" ? true : false;
 			self.showSlideshowButton = self.propsObj.showSlideshowButton == "yes" ? true : false;
 			self.slideshowTimerColor = self.propsObj.slideshowTimerColor || "#777777";
-			self.showContextMenu = self.propsObj.showContextMenu == "yes" ? true : false;
 			self.addKeyboardSupport = self.propsObj.addKeyboardSupport == "yes" ? true : false;
 			
 			//reflection
@@ -3883,7 +3803,6 @@ var FWDR3DCarComplexButton = function(
 		this.infoWindow_do;
 		this.preloader_do;
 		this.slideShowPreloader_do;
-		this.customContextMenu;
 		this.timerManager;
 		
 		this.bk_do;
@@ -3970,7 +3889,6 @@ var FWDR3DCarComplexButton = function(
 		this.firstTimeShowed_bl = true;
 		this.isTweening_bl = false;
 		this.addKeyboardSupport_bl =  props.addKeyboardSupport_bl == false ? false : true;
-		this.showContextMenu_bl = props.showContextMenu == false ? false : true;
 		this.showNextAndPrevButtons_bl = props.showNextAndPrevButtons == false ? false : true;
 		this.showZoomButton_bl = props.showZoomButton == false ? false : true;
 		this.showInfoButton_bl = props.showInfoButton == false ? false : true;
@@ -4015,7 +3933,6 @@ var FWDR3DCarComplexButton = function(
 				this.setupSlideshowButton();
 			}
 			
-			this.setupContextMenu();
 		
 			this.buttons_ar = [];
 			this.buttons_ar.push(this.closeButton_do);
@@ -4127,9 +4044,6 @@ var FWDR3DCarComplexButton = function(
 		//#############################################//
 		/* setup context menu */
 		//#############################################//
-		this.setupContextMenu = function(){
-			this.customContextMenu = new FWDR3DCarContextMenu(this, this.showContextMenu_bl);
-		};
 		
 		//###############################################//
 		/* Disable scroll and touch events for the main browser scrollbar.*/
@@ -5547,7 +5461,7 @@ var FWDR3DCarComplexButton = function(
 			if(this.timerManager) this.timerManager.destroy();
 			
 			this.preloader_do.destroy();
-			if(this.customContextMenu) this.customContextMenu.destroy();
+			
 			this.clearMainEventsIntervalsAndTimeOuts();
 			
 			this.cleanChildren(0);
@@ -17849,7 +17763,6 @@ var FWDR3DCarSimpleButton = function(nImg, sImg){
 		
 		this.mainDO;
 		this.preloaderDO;
-		this.customContextMenuDO;
 		this.infoDO;
 		this.thumbsManagerDO;
 		this.bgDO;
@@ -18268,10 +18181,6 @@ var FWDR3DCarSimpleButton = function(nImg, sImg){
 		// #############################################//
 		/* setup context menu */
 		// #############################################//
-		this.setupContextMenu = function()
-		{
-			self.customContextMenuDO = new FWDR3DCarContextMenu(self.mainDO, self.data.showContextMenu);
-		};
 
 		// #############################################//
 		/* setup data */
@@ -18293,9 +18202,6 @@ var FWDR3DCarSimpleButton = function(nImg, sImg){
 			self.positionPreloader();
 			
 			if (!self.isMobile)
-			{
-				self.setupContextMenu();
-			}
 			
 			self.preloaderLoaded = true;
 			self.resizeHandler();
@@ -18502,7 +18408,6 @@ var FWDR3DCarSimpleButton = function(nImg, sImg){
 				pauseN_img:this.data.lightboxPauseN_img,
 				pauseS_img:this.data.lightboxPauseS_img,
 				//properties
-				showContextMenu:self.data.showContextMenu,
 				addKeyboardSupport_bl:self.data.addLightBoxKeyboardSupport_bl,
 				showNextAndPrevButtons:self.data.showLighBoxNextAndPrevButtons_bl,
 				showZoomButton:self.data.showLightBoxZoomButton_bl,
@@ -18718,11 +18623,6 @@ var FWDR3DCarSimpleButton = function(nImg, sImg){
 				self.data.destroy();
 			}
 
-			if (self.customContextMenuDO)
-			{
-				self.customContextMenuDO.destroy();
-			}
-
 			if (self.infoDO)
 			{
 				self.infoDO.destroy();
@@ -18789,7 +18689,6 @@ var FWDR3DCarSimpleButton = function(nImg, sImg){
 			}
 			
 			self.preloaderDO = null;
-			self.customContextMenuDO = null;
 			self.infoDO = null;
 			self.thumbsManagerDO = null;
 			self.bgDO = null;

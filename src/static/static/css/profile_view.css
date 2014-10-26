@@ -136,7 +136,6 @@ h4{
 	border-radius: 50%;
 	-moz-border-radius: 50%;
 	-webkit-border-radius: 50%;
-
 }
 
 .ui.button{
@@ -219,7 +218,6 @@ h4{
 	padding-right:10px;
 
 }
-
 
 #message_button a, #interests_button a, #friend_button a, #pictures_button a, #buttons_row #message_button_not_friends a{
 	font-size: 1.25em;
