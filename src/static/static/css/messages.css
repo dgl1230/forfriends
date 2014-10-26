@@ -131,7 +131,7 @@ th h1{
 	min-width: 150px;
 }
 
-#send_message_button:hover{
+#send_message_button:hover, #send_message_button:active, #send_message_button:focus{
 	color:white;
 }
 tr th{

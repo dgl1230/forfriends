@@ -130,16 +130,14 @@ h4{
 	font-size:1.8rem;
 }
 .img-responsive{
-	width: 175px;
+	width: auto;
 	height: 200px;
 	margin-top: 10px;
 	border-radius: 50%;
 	-moz-border-radius: 50%;
 	-webkit-border-radius: 50%;
+}
 
-}
-#flip_card{
-}
 .ui.button{
 	padding:0px!important;
 }
@@ -221,7 +219,6 @@ h4{
 
 }
 
-
 #message_button a, #interests_button a, #friend_button a, #pictures_button a, #buttons_row #message_button_not_friends a{
 	font-size: 1.25em;
 }
@@ -277,8 +274,8 @@ h4{
 
 @media(max-width: 400px){
 	#myfriend{
-	width: auto!important;
-	height:150px!important;
+	width:100%;
+	height:auto;
 	}
 	.previous_user{
 		padding-top:10px;
