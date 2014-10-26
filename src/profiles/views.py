@@ -1130,7 +1130,7 @@ def contact_us(request):
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def new_picture(request):
 	if request.method == 'POST':
-		num_of_pics = UserPicture.objects.filter(user=user).count()
+		num_of_pics = UserPicture.objects.filter(user=request.user).count()
 		next_pic = str(num_of_pics + 1)
 		pic_form = UserPictureForm(request.POST, request.FILES)
 		if pic_form.is_valid():
