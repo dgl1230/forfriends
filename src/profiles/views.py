@@ -1130,6 +1130,7 @@ def contact_us(request):
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def new_picture(request):
 	if request.method == 'POST':
+		num_of_pics = UserPicture.objects.filter(user=self.user).count()
 		pic_form = UserPictureForm(request.POST, request.FILES)
 		if pic_form.is_valid():
 			form = pic_form.save(commit=False)
@@ -1139,8 +1140,8 @@ def new_picture(request):
 					print "here I am"
 					form.is_profile_pic = True
 				form.user = request.user
-				form.image = image
-				form.save()
+				form.image.save(("%s_pic-%s" % (request.user.username, str(num_of_pics + 1), image))
+				#form.save()
 	return HttpResponseRedirect(reverse('pictures'))
 
 
