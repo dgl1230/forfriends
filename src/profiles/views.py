@@ -1131,6 +1131,7 @@ def contact_us(request):
 def new_picture(request):
 	if request.method == 'POST':
 		num_of_pics = UserPicture.objects.filter(user=self.user).count()
+		next_pic = str(num_of_pics + 1)
 		pic_form = UserPictureForm(request.POST, request.FILES)
 		if pic_form.is_valid():
 			form = pic_form.save(commit=False)
@@ -1140,7 +1141,7 @@ def new_picture(request):
 					print "here I am"
 					form.is_profile_pic = True
 				form.user = request.user
-				form.image.save("%s_pic-%s" % (request.user.username, str(num_of_pics + 1), image)
+				form.image.save("%s_pic-%s" % (request.user.username, next_pic), image)
 				#form.save()
 	return HttpResponseRedirect(reverse('pictures'))
 
