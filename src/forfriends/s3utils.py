@@ -11,12 +11,12 @@ MediaRootS3BotoStorage  = lambda: S3BotoStorage(location='media')
 
 def delete_s3_pic(user, image):
 
-conn = S3Connection(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
+	conn = S3Connection(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
 
-b = Bucket(conn, AWS_STORAGE_BUCKET_NAME)
+	b = Bucket(conn, AWS_STORAGE_BUCKET_NAME)
 
-k = Key(b)
+	k = Key(b)
 
-k.key = 'media/profiles/%s/'+image
-b.delete_key(k)
-return 
+	k.key = 'media/profiles/%s/'+image
+	b.delete_key(k)
+	return 
