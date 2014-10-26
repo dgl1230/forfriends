@@ -175,6 +175,8 @@ SOCIAL_AUTH_FACEBOOK_SECRET = 'cb9fb330dd5708b5e7ca789b5521d86a'
 
 SOCIAL_AUTH_FACEBOOK_SCOPE = [
     'email',
+    'first_name'
+    'last_name'
 ]
 
 SOCIAL_AUTH_PIPELINE = (

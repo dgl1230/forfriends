@@ -33,27 +33,30 @@ def save_profile_picture(strategy, user, response, details, is_new=False,*args,*
        
         picture.image.save("facebook-%s.jpg" %(user.username), image_content)
 
-        url2 = 'http://graph.facebook.com/{1}/picture?width=9999&height=9999'.format(response['id'])
-        try:
-            response = request('GET', url2)
-            response.raise_for_status()
-        except HTTPError:
-            pass
-        #num_of_pics = UserPicture.objects.filter(user=self.user).count()
-        image_content2 = ContentFile(requests.get(url2).content)
-
-        picture2 = UserPicture.objects.create(user=user)
-       
-        picture2.image.save("facebook-%s2.jpg" %(user.username), image_content2)
-
-
     return
 
 
+'''
+def user_details(strategy, details, response, user=None, *args, **kwargs):
+    """Update user details using data from provider."""
+    if is_new and strategy.backend.name == 'facebook':
+    
+        
+        fb_data = {
+            
+            'gender': response['gender'],
+            
+        }
+        attrs = dict(attrs.items() + fb_data.items())
+    Info.objects.create(
+        **attrs
+    )
+'''
 
+'''
 
 # User details pipeline
-'''def user_details(strategy, details, response, user=None, *args, **kwargs):
+def user_details(strategy, details, response, user=None, *args, **kwargs):
     """Update user details using data from provider."""
     if user:
         if kwargs['is_new']:
@@ -70,6 +73,7 @@ def save_profile_picture(strategy, user, response, details, is_new=False,*args,*
                 **attrs
             )
 '''
+
 
 def associate_user_by_email(**kwargs):
     try:
