@@ -25,6 +25,7 @@ from django.template import Context
 from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG, MEDIA_URL
 from forfriends.matching import match_percentage
 from forfriends.distance import calc_distance
+from forfriends.s3utils import delete_s3_pic
 from matches.models import Match
 from .models import Address, Job, Info, UserPicture, Gamification
 from .forms import AddressForm, InfoForm, JobForm, UserPictureForm
@@ -754,6 +755,7 @@ def all_pictures(request):
 def delete_picture(request, pic_id):
 	picture = UserPicture.objects.get(pk=pic_id)
 	picture.delete()
+	delete_s3_pic(user, picture)
 	return HttpResponseRedirect(reverse('view_pictures'))
 
 
