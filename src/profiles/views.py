@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 from django.forms.models import modelformset_factory
 from django.db.models import Q, Max
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import user_passes_test, login_required
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -335,7 +335,7 @@ def all(request):
 #@user_passes_test(user_can_reset_circle, login_url=reverse_lazy('home'))
 def generate_circle(request):
 	if check_valid_location(request.user) == False:
-			messages.success(request, "We're sorry but uou need to enter a valid location before you find a new crowd")
+			messages.success(request, "We're sorry but you need to enter a valid location before you can use discover")
 			return HttpResponseRedirect(reverse('home'))
 
 
@@ -511,7 +511,7 @@ def circle_distance(logged_in_user, preferred_distance):
 
 
 	
-
+@login_required(login_url=reverse_lazy('home'))
 #This is the first/second part of registration for users signing up with FB or GOOGerror(request, "Please double check your username or email address and password")
 def new_user_info(request):
 	if request.POST:
