@@ -6,7 +6,7 @@
     <!-- Basic Meta tags-->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">   
-    <meta name="keywords" content="Friends, relationships, make, friend, online">
+    <meta name="keywords" content="Friends, relationships, make, friend, online, meet, cool, people, website, for, making, friendships, platonic">
     <meta name="Frenvu" content="">
     <meta name="description" content="Make friends with cool people near you, without leaving your computer.">
     <meta property="og:title" content="Frenvu. The place to meet people." />
@@ -48,7 +48,7 @@
                   {% endfor %}
              </ul>
             </div>
-          {% endif %}
+      {% endif %}
   <body>
   <div id="content-wrapper">
     <section id="intro" class="intro-parallax">
@@ -135,7 +135,7 @@
                             "email" placeholder="Email" required=""
                             tabindex="1" type="email">
                             <input id="password"
-                            name="password" placeholder="Password"tabindex="1" type="password" pattern=".{8,}" required />
+                            name="password" placeholder="Password"tabindex="1" type="password"  required pattern=".{8,}"/>
                             <p id="pw_required">*Password must be at least 8 characters</p>
 
                             <input id="repassword" name="repassword"
@@ -145,7 +145,7 @@
                             <br>
                             <input class="buttom" id="registration_button"
                             name="submit" tabindex="1" type="submit" value=
-                            "Sign Me Up!">
+                            "Sign Me Up!" onclick="checkPwd()">
                         </form>
                       </div>
                     </div>
@@ -240,6 +240,16 @@ function checkPasswordMatch() {
 $(document).ready(function () {
    $("#repassword").keyup(checkPasswordMatch);
 });
+</script>
+
+<script>
+checkPwd = function () {
+    var str = document.getElementById('password').value;
+    if (str.length < 6) {
+        alert("Please enter a password that is at least 8 characters.");
+        return ("too_short");
+    }
+}
 </script>
   </body>
 
