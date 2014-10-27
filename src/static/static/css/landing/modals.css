@@ -280,3 +280,9 @@
 	}
 
 }
+
+@media (max-width: 625px){
+	.modal_content{
+		height:620px!important;
+	}
+}
