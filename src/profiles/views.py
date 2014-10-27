@@ -696,7 +696,7 @@ def discover(request):
 				# they have an invalid location
 				match.distance = 10000000
 
-			match.percent = match_percentage(match.user1, match.user2)
+			#match.percent = match_percentage(match.user1, match.user2)
 			match.save()
 			try:
 				profile_pic = UserPicture.objects.get(user=user, is_profile_pic=True)
