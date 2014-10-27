@@ -17,6 +17,6 @@ def delete_s3_pic(user, image):
 
 	k = Key(b)
 
-	k.key = 'media/profiles/%s/'+image
+	k.key = 'media/profiles/%s/' % (user.username) + image
 	b.delete_key(k)
 	return 
