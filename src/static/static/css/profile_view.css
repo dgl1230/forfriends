@@ -498,6 +498,16 @@ h4{
 	}
 }
 
+@media(max-width: 450px){
+	.col-lg-10.col-12{
+		padding-right:0px!important;
+		padding-left:0px!important;
+	}
+	.reset_button, #generate_button, #ice_breaker_button{
+		width:100%;
+	}
+}
+
 
 /* Carousel */
 
