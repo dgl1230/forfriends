@@ -5,7 +5,6 @@
 	<div class="col-md-1" id="secondary_navbar">
 	    <h1>Discover</h1>
 	</div>
-    <br>
     <div class="container" id="single_user_container">
 	{% if messages %}
     {% for message in messages %}
@@ -18,17 +17,17 @@
 	<div class="main_interests" id="main_interests">
 	<h2 id="name_of_user">{{ single_user.username }}</h2>
 	<div id="new_user_body">    
-		{% for pic in single_user.userpicture_set.all %}
-        {% if forloop.first %}
-			{% if pic.is_profile_pic or single_user.userpicture_set.all.count == 1 %}
-			<div id="myfriend_container">
-				<img src='{{ MEDIA_URL }}{{ pic }}' class='img' id="myfriend"/>
-			</div>
-			{% endif %}
-		{% endif %}
-		{% endfor %}
+		{% if profile_pic %}
+				<img src='{{ MEDIA_URL }}{{ profile_pic }}' class='img' id="myfriend"/>		
 
-		{% if not single_user.userpicture_set.all %}
+		{% elif single_user.userpicture_set.all %}
+			{% for pic in single_user.userpicture_set.all %}
+					{% if forloop.first %}
+						<img src='{{ MEDIA_URL }}{{ pic }}' class='img' id="myfriend"/>
+					{% endif %}
+			{% endfor %}
+
+		{% else %}
 
 		<img src='{{ STATIC_URL }}img/avatar.png' class='img' id="myfriend"/>
 		{% endif %}
@@ -86,7 +85,7 @@
 		
 		{% endif %}
 		<div class='col-lg-6' id='single_user_body'>
-			<a class='hidden' id='view_buttons'>View More</a>
+			<a class='hidden' id='view_buttons'>Hide Info</a>
 			<a class='btn-success' id='view_info'>View Info</a>
 		<div id="information">
 			<div class='panel panel-default'><div class='panel-heading' id='bio_panel'><p>Bio</p><span class='glyphicon glyphicon-chevron-down'></span><p id='info_edit'></p></div><div class='panel-body' id='bio_body'>{% for item in single_user.info_set.all %}{% if forloop.first %}{{item.bio}}{% endif %}{% endfor %}</div></div><div class='panel panel-default'><div class='panel-heading' id='occ_panel'><p>Occupation</p><span class='glyphicon glyphicon-chevron-down'></span><p id='info_edit'></p></div><div class='panel-body' id='occ_body'>{% for item in single_user.job_set.all %}{{item.position|title}}at{{item.employer|title}}{% endfor %}</div></div></div></div>

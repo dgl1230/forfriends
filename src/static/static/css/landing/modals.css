@@ -273,5 +273,16 @@
 	#social_logins #google_login p{
 		font-size:18px;
 	}
+	.modal_content{
+	width:100%;
+	border-bottom:2px solid black;
+	height:580px!important;
+	}
 
+}
+
+@media (max-width: 625px){
+	.modal_content{
+		height:620px!important;
+	}
 }

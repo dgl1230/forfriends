@@ -1,19 +1,24 @@
 #very_good{
 	color:green;
+	text-align: center;
 }
 
 #good{
 	color:blue;
+	text-align: center;
 }
 
 #average{
 	color:purple;
+	text-align: center;
 }
 
 #weak{
 	color:orange;
+	text-align: center;
 }
 
 #very_weak{
 	color:black;
+	text-align: center;
 }

@@ -1,16 +1,19 @@
-h1{
-  text-align: center;
+#friend h2{
+	margin-top:5px;
+	margin-bottom:0px;
+}
+#friend #match{
+	margin:0px 0px 0px;
+}
+#friend p{
+	margin:0px 0px 0px;
+}
+@media (max-width: 450px){
+	#friend h2{
+		margin-top:0px;
+	}
 }
 
-#myfriend{
-  display: inline-block;
-}
- 
- 
-li img {
-  float: left;
-  margin: 0 15px 0 0;
-}
 
 
 

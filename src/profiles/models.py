@@ -2,7 +2,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 from matches.models import Match 
-
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
+from django.core.files.base import ContentFile
 
 
 
@@ -77,7 +79,7 @@ class Job(models.Model):
 def save_path(instance, filename):
 	number = instance.get_num_user_pics() + 1
 	#number = number + 1
-	return 'profiles/' + str(instance.user.username) + "/picture_number-" + str(number) + '/' + filename 
+	return 'profiles/' + str(instance.user.username) + '/' + filename 
 
 
 class UserPicture(models.Model):
@@ -121,6 +123,12 @@ class UserPicture(models.Model):
 		return num_of_pics
 		'''
 		return num_of_pics
+
+	'''
+	@receiver(models.signals.pre_delete, sender=ContentFile)
+	def remove_file_from_s3(sender, instance, using):
+	    instance.content.delete(save=False)
+	'''
 
 
 

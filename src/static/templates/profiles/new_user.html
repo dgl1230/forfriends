@@ -106,5 +106,15 @@ $('#city').alphanum({
   disallow:'0123456789'
 });
 </script>
+
+<script>
+checkPwd = function () {
+    var str = document.getElementById('password').value;
+    if (str.length < 6) {
+        alert("Please enter a password that is at least 8 characters.");
+        return ("too_short");
+    }
+}
+</script>
 </body>
 </html>

@@ -25,6 +25,7 @@ from django.template import Context
 from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG, MEDIA_URL
 from forfriends.matching import match_percentage
 from forfriends.distance import calc_distance
+from forfriends.s3utils import delete_s3_pic
 from matches.models import Match
 from .models import Address, Job, Info, UserPicture, Gamification
 from .forms import AddressForm, InfoForm, JobForm, UserPictureForm
@@ -486,7 +487,7 @@ def circle_distance(logged_in_user, preferred_distance):
 		return 0
 	i = 0
 	already_chosen = {}
-	user_gamification.clear()
+	user_gamification.circle.clear()
 	max_match = matches.latest('id').id
 	while i < 6:
 		try:
@@ -618,7 +619,7 @@ def new_user_info(request):
 				line1 = "Thanks for signing up %s! Frenvu is a place where you can find your closest friends, someone cool to see a movie with," % (request.user.username)
 				line2 = " or anything in between. After you answer some interests and questions, try creating a crowd to find 6 potential friends who live close by."
 				line3 = " Or you could do an icebreaker, and we'll start a conversation with another user you share an interest with! There's plenty more to do as well,"
-				line4 = " and we are constantly working on additional features. If you have any questions are concerns, please let us know! We want Frenvu to be the most fun"
+				line4 = " and we are constantly working on additional features. If you have any questions or concerns, please let us know! We want Frenvu to be the most fun"
 				line5 = " and welcoming place for you to meet new people. We hope you enjoy the site!" + '\n' + '\n'
 				line6 = " - The Team at Frenvu "
 				body = line1 + line2 + line3 + line4 + line5 + line6
@@ -626,7 +627,7 @@ def new_user_info(request):
 				new_user_welcome_message = DirectMessage.objects.create(subject=subject, body=body, receiver=request.user, sender=sender)
 				new_user_welcome_message.save()
 
-
+				email = request.user.email
 				username = request.user.username
 				subject = 'Thanks for registering with Frenvu!'
 				plaintext = get_template('registration/email.txt')
@@ -697,6 +698,10 @@ def discover(request):
 
 			match.percent = match_percentage(match.user1, match.user2)
 			match.save()
+			try:
+				profile_pic = UserPicture.objects.get(user=user, is_profile_pic=True)
+			except: 
+				pass
 
 			'''
 			try: 
@@ -754,6 +759,7 @@ def all_pictures(request):
 def delete_picture(request, pic_id):
 	picture = UserPicture.objects.get(pk=pic_id)
 	picture.delete()
+	delete_s3_pic(user, picture)
 	return HttpResponseRedirect(reverse('view_pictures'))
 
 
@@ -954,6 +960,7 @@ def login_user(request):
 		if user.is_active == False:
 			user.is_active = True
 			if not DEBUG: 
+				email = request.user.email
 				subject = 'A user is reactivating their account.'
 				message = '%s wants to reactivate their account.' % (username,)
 				msg = EmailMultiAlternatives(subject, message, EMAIL_HOST_USER, [email])
@@ -1129,6 +1136,8 @@ def contact_us(request):
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def new_picture(request):
 	if request.method == 'POST':
+		num_of_pics = UserPicture.objects.filter(user=request.user).count()
+		next_pic = str(num_of_pics + 1)
 		pic_form = UserPictureForm(request.POST, request.FILES)
 		if pic_form.is_valid():
 			form = pic_form.save(commit=False)
@@ -1138,8 +1147,8 @@ def new_picture(request):
 					print "here I am"
 					form.is_profile_pic = True
 				form.user = request.user
-				form.image = image
-				form.save()
+				form.image.save("%s_pic-%s.jpg" % (request.user.username, next_pic), image)
+				#form.save()
 	return HttpResponseRedirect(reverse('pictures'))
 
 
