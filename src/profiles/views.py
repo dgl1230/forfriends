@@ -335,7 +335,7 @@ def all(request):
 #@user_passes_test(user_can_reset_circle, login_url=reverse_lazy('home'))
 def generate_circle(request):
 	if check_valid_location(request.user) == False:
-			messages.error(request, "You need to enter a valid location before you find a new crowd")
+			messages.success(request, "You need to enter a valid location before you find a new crowd")
 			return HttpResponseRedirect(reverse('home'))
 	else:
 
