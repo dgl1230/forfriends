@@ -619,7 +619,7 @@ def new_user_info(request):
 				line1 = "Thanks for signing up %s! Frenvu is a place where you can find your closest friends, someone cool to see a movie with," % (request.user.username)
 				line2 = " or anything in between. After you answer some interests and questions, try creating a crowd to find 6 potential friends who live close by."
 				line3 = " Or you could do an icebreaker, and we'll start a conversation with another user you share an interest with! There's plenty more to do as well,"
-				line4 = " and we are constantly working on additional features. If you have any questions are concerns, please let us know! We want Frenvu to be the most fun"
+				line4 = " and we are constantly working on additional features. If you have any questions or concerns, please let us know! We want Frenvu to be the most fun"
 				line5 = " and welcoming place for you to meet new people. We hope you enjoy the site!" + '\n' + '\n'
 				line6 = " - The Team at Frenvu "
 				body = line1 + line2 + line3 + line4 + line5 + line6
@@ -698,6 +698,10 @@ def discover(request):
 
 			match.percent = match_percentage(match.user1, match.user2)
 			match.save()
+			try:
+				profile_pic = UserPicture.objects.get(user=user, is_profile_pic=True)
+			except: 
+				pass
 
 			'''
 			try: 
