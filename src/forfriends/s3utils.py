@@ -18,5 +18,6 @@ def delete_s3_pic(user, image):
 	k = Key(b)
 
 	k.key = 'forfriends-static/media/profiles/%s/%s' % (user.username, image.image)
+	assert (k.key)
 	b.delete_key(k)
 	return 
