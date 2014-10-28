@@ -17,17 +17,17 @@
 	<div class="main_interests" id="main_interests">
 	<h2 id="name_of_user">{{ single_user.username }}</h2>
 	<div id="new_user_body">    
-		{% for pic in single_user.userpicture_set.all %}
-        {% if forloop.first %}
-			{% if pic.is_profile_pic or single_user.userpicture_set.all.count == 1 %}
-			<div id="myfriend_container">
-				<img src='{{ MEDIA_URL }}{{ pic }}' class='img' id="myfriend"/>
-			</div>
-			{% endif %}
-		{% endif %}
-		{% endfor %}
+		{% if profile_pic %}
+				<img src='{{ MEDIA_URL }}{{ profile_pic }}' class='img' id="myfriend"/>		
 
-		{% if not single_user.userpicture_set.all %}
+		{% elif single_user.userpicture_set.all %}
+			{% for pic in single_user.userpicture_set.all %}
+					{% if forloop.first %}
+						<img src='{{ MEDIA_URL }}{{ pic }}' class='img' id="myfriend"/>
+					{% endif %}
+			{% endfor %}
+
+		{% else %}
 
 		<img src='{{ STATIC_URL }}img/avatar.png' class='img' id="myfriend"/>
 		{% endif %}

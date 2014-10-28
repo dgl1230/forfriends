@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 from django.forms.models import modelformset_factory
 from django.db.models import Q, Max
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import user_passes_test, login_required
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -24,7 +24,8 @@ from django.template import Context
 
 from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG, MEDIA_URL
 from forfriends.matching import match_percentage
-from forfriends.distance import calc_distance
+from forfriends.distance import calc_distance, check_valid_location
+from forfriends.s3utils import delete_s3_pic
 from matches.models import Match
 from .models import Address, Job, Info, UserPicture, Gamification
 from .forms import AddressForm, InfoForm, JobForm, UserPictureForm
@@ -333,6 +334,12 @@ def all(request):
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 #@user_passes_test(user_can_reset_circle, login_url=reverse_lazy('home'))
 def generate_circle(request):
+	location = Address.objects.get(user=request.user)
+	if check_valid_location(location.city, location.state) == False:
+			messages.success(request, "We're sorry but you need to enter a valid location before you can use discover")
+			return HttpResponseRedirect(reverse('home'))
+
+
 	info = Info.objects.get(user=request.user)
 	if info.is_new_user:
 		info.is_new_user = False
@@ -486,7 +493,7 @@ def circle_distance(logged_in_user, preferred_distance):
 		return 0
 	i = 0
 	already_chosen = {}
-	user_gamification.clear()
+	user_gamification.circle.clear()
 	max_match = matches.latest('id').id
 	while i < 6:
 		try:
@@ -505,7 +512,7 @@ def circle_distance(logged_in_user, preferred_distance):
 
 
 	
-
+@login_required(login_url=reverse_lazy('home'))
 #This is the first/second part of registration for users signing up with FB or GOOGerror(request, "Please double check your username or email address and password")
 def new_user_info(request):
 	if request.POST:
@@ -618,7 +625,7 @@ def new_user_info(request):
 				line1 = "Thanks for signing up %s! Frenvu is a place where you can find your closest friends, someone cool to see a movie with," % (request.user.username)
 				line2 = " or anything in between. After you answer some interests and questions, try creating a crowd to find 6 potential friends who live close by."
 				line3 = " Or you could do an icebreaker, and we'll start a conversation with another user you share an interest with! There's plenty more to do as well,"
-				line4 = " and we are constantly working on additional features. If you have any questions are concerns, please let us know! We want Frenvu to be the most fun"
+				line4 = " and we are constantly working on additional features. If you have any questions or concerns, please let us know! We want Frenvu to be the most fun"
 				line5 = " and welcoming place for you to meet new people. We hope you enjoy the site!" + '\n' + '\n'
 				line6 = " - The Team at Frenvu "
 				body = line1 + line2 + line3 + line4 + line5 + line6
@@ -626,7 +633,7 @@ def new_user_info(request):
 				new_user_welcome_message = DirectMessage.objects.create(subject=subject, body=body, receiver=request.user, sender=sender)
 				new_user_welcome_message.save()
 
-
+				email = request.user.email
 				username = request.user.username
 				subject = 'Thanks for registering with Frenvu!'
 				plaintext = get_template('registration/email.txt')
@@ -659,6 +666,11 @@ on the single user page.
 
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def discover(request):
+	location = Address.objects.get(user=request.user)
+	if check_valid_location(location.city, location.state) == False:
+		messages.success(request, "We're sorry but uou need to enter a valid location before you find a new crowd")
+		return HttpResponseRedirect(reverse('home'))
+
 	# first we check to see if a session exists
 	if not request.session.get('random_exp'):
 		request.session['random_exp']=1
@@ -697,6 +709,10 @@ def discover(request):
 
 			match.percent = match_percentage(match.user1, match.user2)
 			match.save()
+			try:
+				profile_pic = UserPicture.objects.get(user=user, is_profile_pic=True)
+			except: 
+				pass
 
 			'''
 			try: 
@@ -754,6 +770,7 @@ def all_pictures(request):
 def delete_picture(request, pic_id):
 	picture = UserPicture.objects.get(pk=pic_id)
 	picture.delete()
+	delete_s3_pic(user, picture)
 	return HttpResponseRedirect(reverse('view_pictures'))
 
 
@@ -771,6 +788,11 @@ def edit_address(request):
 			for form in formset_a:
 				new_form = form.save(commit=False)
 				new_form.user = request.user
+				print new_form.city
+				print new_form.state
+				if check_valid_location(new_form.city, new_form.state) == False:
+					messages.success(request, "We're sorry but you didn't enter a valid location")
+					return HttpResponseRedirect('/edit/')
 				new_form.save()
 			messages.success(request, 'Your location has been updated.')
 		else:
@@ -802,7 +824,7 @@ def edit_info(request):
 
 		bio = request.POST.get('bio_form')
 		gender = request.POST.get('gender_form')
-		request.user.username = username
+		
 		request.user.first_name = first_name
 		request.user.last_name = last_name
 		request.user.save()
@@ -954,6 +976,7 @@ def login_user(request):
 		if user.is_active == False:
 			user.is_active = True
 			if not DEBUG: 
+				email = request.user.email
 				subject = 'A user is reactivating their account.'
 				message = '%s wants to reactivate their account.' % (username,)
 				msg = EmailMultiAlternatives(subject, message, EMAIL_HOST_USER, [email])
@@ -1129,6 +1152,8 @@ def contact_us(request):
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def new_picture(request):
 	if request.method == 'POST':
+		num_of_pics = UserPicture.objects.filter(user=request.user).count()
+		next_pic = str(num_of_pics + 1)
 		pic_form = UserPictureForm(request.POST, request.FILES)
 		if pic_form.is_valid():
 			form = pic_form.save(commit=False)
@@ -1138,8 +1163,8 @@ def new_picture(request):
 					print "here I am"
 					form.is_profile_pic = True
 				form.user = request.user
-				form.image = image
-				form.save()
+				form.image.save("%s_pic-%s.jpg" % (request.user.username, next_pic), image)
+				#form.save()
 	return HttpResponseRedirect(reverse('pictures'))
 
 

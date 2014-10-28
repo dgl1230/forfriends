@@ -19,10 +19,10 @@ from profiles.models import Address, Job, Info, UserPicture, Gamification
 
 
 def save_profile_picture(strategy, user, response, details, is_new=False,*args,**kwargs):
-    if strategy.backend.name == 'facebook':
-        url = 'http://graph.facebook.com/{0}/picture'.format(response['id'])
+    if is_new and strategy.backend.name == 'facebook':
+        url = 'http://graph.facebook.com/{0}/picture?width=9999&height=9999'.format(response['id'])
         try:
-            response = request('GET', url, params={'type': 'small'})
+            response = request('GET', url)
             response.raise_for_status()
         except HTTPError:
             pass
@@ -31,14 +31,32 @@ def save_profile_picture(strategy, user, response, details, is_new=False,*args,*
 
         picture = UserPicture.objects.create(user=user)
        
-        picture.image.save("facebook-%s" %(user.username), image_content)
+        picture.image.save("facebook-%s.jpg" %(user.username), image_content)
+
     return
 
 
+'''
+def user_details(strategy, details, response, user=None, *args, **kwargs):
+    """Update user details using data from provider."""
+    if is_new and strategy.backend.name == 'facebook':
+    
+        
+        fb_data = {
+            
+            'gender': response['gender'],
+            
+        }
+        attrs = dict(attrs.items() + fb_data.items())
+    Info.objects.create(
+        **attrs
+    )
+'''
 
+'''
 
 # User details pipeline
-'''def user_details(strategy, details, response, user=None, *args, **kwargs):
+def user_details(strategy, details, response, user=None, *args, **kwargs):
     """Update user details using data from provider."""
     if user:
         if kwargs['is_new']:
@@ -55,6 +73,7 @@ def save_profile_picture(strategy, user, response, details, is_new=False,*args,*
                 **attrs
             )
 '''
+
 
 def associate_user_by_email(**kwargs):
     try:
