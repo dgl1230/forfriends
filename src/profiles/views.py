@@ -334,7 +334,8 @@ def all(request):
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 #@user_passes_test(user_can_reset_circle, login_url=reverse_lazy('home'))
 def generate_circle(request):
-	if check_valid_location(request.user) == False:
+	location = Address.objects.get(user=request.user)
+	if check_valid_location(location.city, location.state) == False:
 			messages.success(request, "We're sorry but you need to enter a valid location before you can use discover")
 			return HttpResponseRedirect(reverse('home'))
 
@@ -665,7 +666,8 @@ on the single user page.
 
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def discover(request):
-	if check_valid_location(request.user) == False:
+	location = Address.objects.get(user=request.user)
+	if check_valid_location(location.city, location.state) == False:
 		messages.success(request, "We're sorry but uou need to enter a valid location before you find a new crowd")
 		return HttpResponseRedirect(reverse('home'))
 

@@ -36,12 +36,12 @@ def calc_distance(user1, user2):
 # Presumably, Country+State are always valid. If the city is invalid,
 # it defaults to a general location of the state. So, we check to see
 # if it recognizes the city and return true if so, otherwise return false 
-def check_valid_location(user1):
+def check_valid_location(city, state):
 	geolocator = GoogleV3()
 	try:
-		user1_address = Address.objects.get(user=user1)
-		user1_city = user1_address.city
-		user1_state = user1_address.state
+		#user1_address = Address.objects.get(user=user1)
+		user1_city = city
+		user1_state = state
 		#Check to see if city name on its own is valid somewhere in the world.
 		#If not, this line should give an error, and we return False
 		address1, (latitude1, longitude1) = geolocator.geocode(user1_city)
