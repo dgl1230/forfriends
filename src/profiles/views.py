@@ -822,7 +822,7 @@ def edit_info(request):
 
 		bio = request.POST.get('bio_form')
 		gender = request.POST.get('gender_form')
-		request.user.username = username
+		
 		request.user.first_name = first_name
 		request.user.last_name = last_name
 		request.user.save()
