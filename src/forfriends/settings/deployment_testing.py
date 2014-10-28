@@ -1,8 +1,6 @@
 
 import os
 from django.core.urlresolvers import reverse_lazy
-from django.core.wsgi import get_wsgi_application
-from whitenoise.django import DjangoWhiteNoise
 
 
 EMAIL_USE_TLS = True
@@ -14,14 +12,8 @@ EMAIL_HOST_PASSWORD = os.environ["EMAIL_HOST_PASSWORD"]
 
 
 
-#BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT  = 'staticfiles'
-STATIC_URL = '/static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-STATICFILES_STORAGE='whitenoise.django.GzipManifestStaticFilesStorage'
-application = get_wsgi_application()
-application = DjangoWhiteNoise(application)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+
 
 SECRET_KEY = os.environ["FORFRIENDS_KEY"]
 
@@ -95,6 +87,7 @@ ROOT_URLCONF = 'forfriends.urls'
 
 WSGI_APPLICATION = 'forfriends.wsgi.application'
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -122,11 +115,11 @@ MEDIA_ROOT = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.pat
 
 MEDIA_URL = '/media/'
 
-#STATIC_URL = '/static/'
+STATIC_URL = '/static/'
 
-#STATIC_ROOT = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), 'static', 'static-only')
+STATIC_ROOT = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), 'static', 'static-only')
 
-#STATICFILES_DIRS = (
+STATICFILES_DIRS = (
     os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'static/static'),
     
 )
@@ -164,7 +157,7 @@ AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
 
 DEFAULT_FILE_STORAGE = 'forfriends.s3utils.MediaRootS3BotoStorage'
-#STATICFILES_STORAGE = 'forfriends.s3utils.StaticRootS3BotoStorage'
+STATICFILES_STORAGE = 'forfriends.s3utils.StaticRootS3BotoStorage'
 
 AWS_PRELOAD_METADATA = True 
 
