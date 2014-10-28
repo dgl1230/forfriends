@@ -78,8 +78,5 @@ urlpatterns = patterns('',
     url(r'^discover/$', 'profiles.views.discover', name='discover'),
     url(r'^friends/$', 'profiles.views.friends', name='friends'),
     url(r'^sitemap\.xml', 'django.contrib.sitemaps.views.sitemap', {'sitemaps':sitemaps}),
-
-
-
-
+    url(r'^press/$, profiles.views.press', name='press'),
 )

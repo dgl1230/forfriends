@@ -707,7 +707,17 @@ def discover(request):
 				# they have an invalid location
 				match.distance = 10000000
 
-			match.percent = match_percentage(match.user1, match.user2)
+			info = Info.objects.get(user=request.user)
+			is_new_user = info.is_new_user
+			if is_new_user:
+				pass
+			else:	
+				match.percent = match_percentage(match.user1, match.user2)
+			try:
+				su_info = Info.objects.get(user=single_user)
+				single_user_is_new = su_info.is_new_user
+			except: 
+				single_user_is_new = False
 			match.save()
 			try:
 				profile_pic = UserPicture.objects.get(user=user, is_profile_pic=True)
@@ -1112,6 +1122,10 @@ def search(request):
 
 def terms_and_agreement(request): 
 	return render_to_response('terms.html', locals(), context_instance=RequestContext(request))
+
+
+def press(request): 
+	return render_to_response('press.html', locals(), context_instance=RequestContext(request))
 
 
 def delete_picture(request, pic_id):

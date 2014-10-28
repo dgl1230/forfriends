@@ -44,7 +44,10 @@
 		{% else %}
 			<div class="next_user_hidden"><a href=""><span class='glyphicon glyphicon-arrow-right'></a></span></div>
 		{% endif %}
-			{% if match.percent >= 90 %}
+		{% if not is_new_user %}
+			{% if single_user_is_new %}
+			<h4 id="average">New User</h4>
+			{% elif match.percent >= 90 %}
 			<h4 id="very_good">Excellent Match</h4>
 			{% elif match.percent >= 80 %}
 			<h4 id="good">Very Good Match</h4>
@@ -55,6 +58,8 @@
 			{% else %}
 			<h4 id="very_weak">Weak Match</h4>
 			{% endif %}
+		{% else %}
+		{% endif %}
 	<h4 id="location">{% for item in single_user.address_set.all %}
 		{{ item.city|title }}, {% if item.state|length == 2 %} {{ item.state|upper }} {% else %} {{ item.state|capfirst }} {% endif %}
 		{% endfor %}
