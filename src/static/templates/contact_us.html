@@ -3,12 +3,17 @@
 <link href="{{ STATIC_URL }}css/messages.css" rel="stylesheet">
 
 {% block content %}
-<div class='contact_form_wrapper'>
-		<div class="row">
+  <div class="row" id="contact_header">
       <br>
 		<h3>Frenvu is a work in progress.</h3>
-	        <p>So, feel free to voice any opinion you have about the site. We'll read and reply to every inquiry and recommendation concering the site as we build up the Frenvu community.</p>
+	        <p>So, feel free to voice any opinion you have about the site.</p>
 	  </div>
+    <div class="features">
+      <h2>In the Works...</h2>
+          <li>Live Chat</li>
+          <li>Improved pictures interface</li>
+          <li>Mobile redesign</li>
+    </div><!--Features -->
     {% if messages %}
 <div class='row'>
   <ul class="messages">
@@ -18,6 +23,7 @@
   </ul>
 </div>
 {% endif %}
+<div class='contact_form_wrapper'>
 <div id="form-main">
   <div id="form-div">
     <form class="form" id="form1" action='' method='POST'>
@@ -32,12 +38,6 @@
     </form>
   </div><!--Form Div-->
 </div><!--Form Main-->
-<div class="features">
-  <h2>In the Works...</h2>
-      <li>Live Chat</li>
-      <li>An improved pictures interface</li>
-      <li>Mobile site redesign</li>
-</div><!--Features -->
 </div>
 </div><!--Wrapper -->
 {% endblock %}
