@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
 from django.views.generic import TemplateView
+from sitemaps import FrenvuSitemap
 
 from django.contrib import admin
 admin.autodiscover()
@@ -10,6 +11,10 @@ from registration.backends.simple.views import RegistrationView
 class MyRegistrationView(RegistrationView):
     def get_success_url(self, request, user):
         return "/"
+
+sitemaps = {
+    'home':FrenvuSitemap
+}
 
 
 urlpatterns = patterns('',	
@@ -72,6 +77,7 @@ urlpatterns = patterns('',
     #url(r'^new_user_registration/$', 'profiles.views.new_user_registration2', name='new_user_registration2'),
     url(r'^discover/$', 'profiles.views.discover', name='discover'),
     url(r'^friends/$', 'profiles.views.friends', name='friends'),
+    url(r'^sitemap\.xml', 'django.contrib.sitemaps.views.sitemap', {'sitemaps':sitemaps}),
 
 
 
