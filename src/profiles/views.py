@@ -788,9 +788,11 @@ def edit_address(request):
 			for form in formset_a:
 				new_form = form.save(commit=False)
 				new_form.user = request.user
+				print new_form.city
+				print new_form.state
 				if check_valid_location(new_form.city, new_form.state) == False:
 					messages.success(request, "We're sorry but you didn't enter a valid location")
-					return HttpResponseRedirect('/')
+					return HttpResponseRedirect('/edit/')
 				new_form.save()
 			messages.success(request, 'Your location has been updated.')
 		else:
