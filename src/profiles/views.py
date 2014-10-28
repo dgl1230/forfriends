@@ -22,7 +22,7 @@ from django.template import Context
 
 
 
-#from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG, MEDIA_URL
+from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG, MEDIA_URL
 from forfriends.matching import match_percentage
 from forfriends.distance import calc_distance
 from forfriends.s3utils import delete_s3_pic
