@@ -52,7 +52,7 @@
 .feedback-input:focus{
 	background: #fff;
 	box-shadow: 0;
-	border: 3px solid #3498db;
+	border: 3px solid #1fbad6;
 	color: #3498db;
 	outline: none;
   padding: 13px 13px 13px 54px;
@@ -60,7 +60,7 @@
 
 .focused{
 	color:#30aed6;
-	border:#30aed6 solid 3px;
+	border:#1fbad6 solid 3px;
 }
 
 
@@ -112,9 +112,9 @@
 	color: #084c8d;
 }
 	
-.ease {
+.ease{
 	width: 0px;
-	height: 82px;
+	height: 77px;
 	background-color: #fbfbfb;
 	-webkit-transition: .3s ease;
 	-moz-transition: .3s ease;
@@ -127,9 +127,18 @@
   width:100%;
   background-color:white;
 }
-
+#contact_header{
+	text-align: center;
+}
 .features{
-	text-align: left;
+	text-align: center;
+	width:100%;
+	max-width:600px;
+	margin:0 auto;
+}
+.features li{
+	display:inline-block;
+	width:30%;
 }
 
 @media only screen and (max-width: 580px) {
