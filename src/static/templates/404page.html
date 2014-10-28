@@ -1,6 +1,60 @@
 {% extends 'base.html' %}
 {% block content %}
-	<div class="col-md-1" id="tertiary_navbar">
-		<p>It looks like this page doesn't exist. If you think there's a mistake feel free to <a id="contact_us" href="/contact_us">contact us.</a></p>
+<style>
+.error_body{
+  text-align:center;
+  margin:0 auto;
+   width:100%;
+}
+
+.error_body p:first-child{
+    margin:20px auto;
+    font-size:1.4rem;
+    font-family:Roboto, sans-serif;
+    font-weight:300;
+}
+.second{
+    margin:30px auto;
+    font-size:1.2rem;
+    font-family:Roboto, sans-serif;
+    font-weight:300;
+}
+.error_body a{
+  color: #333;
+  text-decoration:none;
+}
+.error_body a:hover{
+  color:#1fbad6;
+}
+.navbar{
+  width:100%;
+  height:60px;
+  border-bottom:1px solid #1fbad6;
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.brand span{
+  font-size:3.2rem;
+  font-family: Roboto, sans-serif;
+  letter-spacing:2px;
+  color:#1fbad6;
+}
+
+</style>
+<div class="navbar">
+  <div id="navbar-container">
+    <div class="navbar-header">
+      <ul class='nav-right'>
+         <div class="brand">
+           <span>Frenvu</span>
+        </ul>
+  </div>
+</div>  
+</div>
+	<div class="error_body">
+		<p>Sorry! It looks like this page doesn't exist. If you think there's a mistake feel free to <a id="contact_us" href="/contact_us">contact us.</a></p>
+    
+    <p class="second">Otherwise, just head <a href="/">home</a> to get back on track.</p>
 	</div> 
 {% endblock %}
