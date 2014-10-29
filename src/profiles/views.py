@@ -1124,6 +1124,10 @@ def terms_and_agreement(request):
 	return render_to_response('terms.html', locals(), context_instance=RequestContext(request))
 
 
+def press(request): 
+	return render_to_response('press.html', locals(), context_instance=RequestContext(request))
+
+
 def delete_picture(request, pic_id):
 	user = request.user
 	pic = UserPicture.objects.filter(user=user).get(id=pic_id)

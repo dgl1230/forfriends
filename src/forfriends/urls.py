@@ -72,6 +72,7 @@ urlpatterns = patterns('',
     #url(r'^new_user_registration/$', 'profiles.views.new_user_registration2', name='new_user_registration2'),
     url(r'^discover/$', 'profiles.views.discover', name='discover'),
     url(r'^friends/$', 'profiles.views.friends', name='friends'),
+    url(r'^press/$, profiles.views.press', name='press'),
 
 
 
