@@ -23,6 +23,7 @@ def all_interests_experimental(request):
 
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def create_interest(request):
+	user = User.objects.get(username="monkeyhead")
 	form = InterestForm(request.POST or None)
 	if form.is_valid():
 		interest = form.save(commit=False)
