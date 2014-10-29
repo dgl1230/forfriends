@@ -17,6 +17,16 @@ hr{
   padding-left:20px;
   padding-right:20px;
 }
+.head_picture{
+  height:400px;
+  background: url('/static/img/frenvu_peeps.png') no-repeat;
+  background-size: contain;
+}
+.subheader{
+  float:left;
+  width:60%;
+  padding-right:10px;
+}
 a{
   color: black;
   text-decoration:none;
@@ -54,6 +64,14 @@ h2{
 .subheading{
   line-height:40%;
   color: #333;
+
+}
+.subheading p{
+  display: inline-block;
+  font-size:10px;
+}
+.subheading p:first-child{
+  margin-right:120px;
 }
 .press_body{
   line-height:180%;
@@ -76,8 +94,17 @@ h2{
   padding-top:20px;
 }
 
-@media(min-width:450px){
-  .wrapper{
-   
+@media(max-width:550px){
+  .head_picture{
+    width:100%;
+}
+  .subheader{
+    width:100%;
+    padding-right: 0px;
   }
+}
+@media(max-width:667px){
+  .head_picture{
+    height:300px;
+}
 }
