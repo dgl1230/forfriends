@@ -1131,6 +1131,7 @@ def press(request):
 def delete_picture(request, pic_id):
 	user = request.user
 	pic = UserPicture.objects.filter(user=user).get(id=pic_id)
+	delete_s3_pic(request.user, pic)
 	pic.delete()
 	return HttpResponseRedirect(reverse('pictures'))
 
