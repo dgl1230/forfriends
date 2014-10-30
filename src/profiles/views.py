@@ -770,6 +770,8 @@ def all_pictures(request):
 	try: 
 		pictures = UserPicture.objects.filter(user=request.user)
 		num_of_pics = pictures.count()
+		for pic in pictures.all():
+			print pic
 	except: 
 		num_of_pics = 0
 	return render_to_response('profiles/pictures.html', locals(), context_instance=RequestContext(request))
