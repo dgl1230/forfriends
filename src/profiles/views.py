@@ -1175,7 +1175,6 @@ def new_picture(request):
 			image = pic_form.cleaned_data["image"]
 			if image:
 				if "profile_pic" in request.POST:
-					print "here I am"
 					form.is_profile_pic = True
 				form.user = request.user
 				form.image.save("%s_pic-%s.jpg" % (request.user.username, next_pic), image)
