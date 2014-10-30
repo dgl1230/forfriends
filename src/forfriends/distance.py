@@ -54,3 +54,10 @@ def check_valid_location(user1):
 		return True
 	except:
 		return False 		
+
+#user1_city = "Poop"
+#user1_state = "California"
+#address1, (latitude1, longitude1) = geolocator.geocode(user1_city)
+#address2, (latitude2, longitude2) = geolocator.geocode(user1_city + " " + user1_state)
+#print address1
+#print address2
