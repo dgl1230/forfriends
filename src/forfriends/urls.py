@@ -77,10 +77,15 @@ urlpatterns = patterns('',
     #url(r'^new_user_registration/$', 'profiles.views.new_user_registration2', name='new_user_registration2'),
     url(r'^discover/$', 'profiles.views.discover', name='discover'),
     url(r'^friends/$', 'profiles.views.friends', name='friends'),
+<<<<<<< HEAD
+    url(r'^sitemap\.xml', 'django.contrib.sitemaps.views.sitemap', {'sitemaps':sitemaps}),
+    url(r'^press/$, profiles.views.press', name='press'),
+=======
 
     url(r'^press/$', 'profiles.views.press', name='press'),
 
     url(r'^sitemap\.xml', 'django.contrib.sitemaps.views.sitemap', {'sitemaps':sitemaps}),
 
 
+>>>>>>> d42578ac9a52fd3a5af2392a3bed853019bcaf4f
 )

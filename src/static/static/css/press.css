@@ -1,0 +1,110 @@
+html{
+  background-color:#f8f8f8;
+  height:100%;
+  width:100%;
+}
+body{
+  height:100%;
+  width:100%;
+  margin:0px 0px 0px 0px;
+}
+hr{
+  border-color:#1fbad6;
+}
+.wrapper{
+  max-width:800px;
+  margin:0 auto;
+  padding-left:20px;
+  padding-right:20px;
+}
+.head_picture{
+  height:400px;
+  background: url('/static/img/frenvu_peeps.png') no-repeat;
+  background-size: contain;
+}
+.subheader{
+  float:left;
+  width:60%;
+  padding-right:10px;
+}
+a{
+  color: black;
+  text-decoration:none;
+}
+a:hover{
+  color:#1fbad6;
+}
+.navbar{
+  width:100%;
+  height:60px;
+  border-bottom:1px solid #1fbad6;
+  text-align:center;
+  margin-bottom:20px;
+  background-color:#fff;
+}
+
+.brand span{
+  font-size:3.2rem;
+  font-family: Roboto, sans-serif;
+  letter-spacing:2px;
+  color:#1fbad6;
+}
+
+h1{
+  font-family:Roboto, sans-serif;
+  font-weight:300;
+  font-size:2rem;
+}
+h2{
+  font-family:Roboto, sans-serif;
+  font-weight:300;
+  font-size:1.8rem;
+  color: #1fbad6;
+}
+.subheading{
+  line-height:40%;
+  color: #333;
+
+}
+.subheading p{
+  display: inline-block;
+  font-size:10px;
+}
+.subheading p:first-child{
+  margin-right:120px;
+}
+.press_body{
+  line-height:180%;
+}
+.press_list{
+  
+}
+.press_list li{
+  list-style
+}
+.footer{
+  height:60px;
+  text-align:center;
+  padding-top:20px;
+}
+.footer a{
+  width:100px;
+  margin:0 auto;
+  line-height:20px;
+  padding-top:20px;
+}
+
+@media(max-width:550px){
+  .head_picture{
+    width:100%;
+}
+  .subheader{
+    width:100%;
+    padding-right: 0px;
+  }
+}
+@media(max-width:667px){
+  .head_picture{
+    height:300px;
+}
+}
