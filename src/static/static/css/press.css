@@ -18,7 +18,7 @@ hr{
   padding-right:20px;
 }
 .head_picture{
-  height:400px;
+  height:440px;
   background: url('/static/img/frenvu_peeps.png') no-repeat;
   background-size: contain;
 }
@@ -76,11 +76,9 @@ h2{
 .press_body{
   line-height:180%;
 }
-.press_list{
-  
-}
+
 .press_list li{
-  list-style
+  list-style:none;
 }
 .footer{
   height:60px;
@@ -101,6 +99,11 @@ h2{
   .subheader{
     width:100%;
     padding-right: 0px;
+  }
+}
+@media(max-width:450px){
+  .head_picture{
+      height:250px!important;;
   }
 }
 @media(max-width:667px){
