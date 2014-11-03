@@ -374,3 +374,33 @@ footer{
 .search_interests .form-control{
 	width:80%;
 }
+
+/* Question Format */
+
+#one{
+  background-color:#1fbad6;
+  border:5px solid #1fbad6;
+  color:white;
+  width:40%;
+  height:300px;
+  font-size:32px;
+  border-radius:10px;
+  cursor:pointer;
+}
+#two{
+  background-color:#1fbad6;
+  border:5px solid #1fbad6;
+  color:white;
+  width:40%;
+  height:300px;
+  font-size:32px;
+  border-radius:10px;
+  cursor:pointer;
+}
+.choice_container{
+  margin:0 auto;
+  text-align:center;
+}
+#one:hover, #two:hover{
+  opacity:.9
+}
