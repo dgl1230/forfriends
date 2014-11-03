@@ -5,7 +5,7 @@ from .models import Interest, InterestPicture
 class InterestForm(forms.ModelForm):
 	class Meta:
 		model = Interest
-		fields = ('interest', 'description')
+		fields = ('interest')
 
 
 class InterestPictureForm(forms.ModelForm):
