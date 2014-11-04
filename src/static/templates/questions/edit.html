@@ -128,7 +128,6 @@
 </script>
 {% endif %}
 <div id="big_wrapper">
-<div class="row" id="margin_wrapper">
 	<div class="col-md-1" id="secondary_navbar">
         <h1>Edit Answers</h1>
 	</div>
@@ -156,11 +155,11 @@
 			<br>
 		<div class="question_answers" id="question_answers">
 		{% for ans in question.answer_set.all %}
-		<label>
-			<input type='radio' required=
+		<label id="one">
+			<input type='radio'  required=
 			'required' value='{{ ans }}' {% for abc in ans.useranswer_set.all %} {% if abc and abc.user == request.user %} checked='checked' {% endif %} {% endfor %} name='answer'> {{ ans }} 
 		</label>
-		<br/>
+		
 		{% endfor %}
 		
 		<br><br><br>
@@ -242,5 +241,11 @@ $(document).keydown(function(e) {
     $(document).ready(function (){
         customRadio("answer");
     })
+</script>
+
+<script>
+$('input[type=radio]').click(function(){
+	$(this).closest("form").submit();
+});
 </script>
 {% endblock %}

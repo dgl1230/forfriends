@@ -250,13 +250,6 @@ a:hover{
 	}	
 }
 
-
-@media (min-width: 1200px) {
-	.question_answers{
-		width:600px;
-	}
-}
-
 @media (max-width: 586px) {
 	.location_div_left{
 		margin-left:50px;

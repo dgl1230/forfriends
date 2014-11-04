@@ -168,14 +168,11 @@
 
 		<div class="question_answers" id="question_answers" >
 		{% for ans in question.answer_set.all %}
-			<label>
-			<input type='radio' required=
+			<label id="one">
+			<input id="answer" type='radio' required=
 			'required' value='{{ ans }}' {% for abc in ans.useranswer_set.all %} {% if abc and abc.user == request.user %} checked='checked' {% endif %} {% endfor %} name='answer'> {{ ans }} 
-			</label><br/>
+			</label>
 		{% endfor %}
-		
-		<br>
-
 		<!-- Submit Button -->
 		<input type='submit' id="submit_question" class='btn-lg' value='Save'>
 		</div>
@@ -271,6 +268,12 @@ $(document).keydown(function(e) {
     $(document).ready(function (){
         customRadio("answer");
     })
+</script>
+
+<script>
+$('input[type=radio]').click(function(){
+	$(this).closest("form").submit();
+});
 </script>
 
 {% endblock %}
