@@ -8,6 +8,9 @@ admin.autodiscover()
 
 from registration.backends.simple.views import RegistrationView
 
+
+from settings.deployment import DEBUG 
+
 class MyRegistrationView(RegistrationView):
     def get_success_url(self, request, user):
         return "/"
@@ -84,3 +87,10 @@ urlpatterns = patterns('',
     url(r'^sitemap\.xml', 'django.contrib.sitemaps.views.sitemap', {'sitemaps':sitemaps}),
 
 )
+
+
+if DEBUG:
+    import debug_toolbar
+    urlpatterns += patterns('',
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    )
