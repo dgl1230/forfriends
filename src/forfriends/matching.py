@@ -97,32 +97,23 @@ def interest_points(user1, user2):
 				and the multiplier of importance.
 	Returns:	A list with 2 attributes, the first being user1_points and the 
 				second being user2_points: [user1_points, user2_points] '''
-def answer_points(user1_answer, user2_answer):
+def answer_points(user1_answer, user2_answer, importance_multiplier_list):
 	temp_list = []
+	user1_interest_multiplier = importance_multiplier_list[0]
+	user2_interest_multiplier = importance_multiplier_list[1]
 	user1_score, user2_score = 0, 0
 	#Find score for user1
 	if user1_answer == 1:
-		user1_score = 25 
-	elif user1_answer == 2:
-		user1_score = 15  
-	elif user1_answer == 3:
-		user1_score = 0  
-	elif user1_answer == 4:
-		user1_score = -15  
+		user1_score = 25  * user1_interest_multiplier
 	else:
-		user1_score = -25  
+		user1_score = -25  * user1_interest_multiplier
 
 	#Find score for user2
 	if user2_answer == 1:
-		user2_score = 25 
-	elif user2_answer == 2:
-		user2_score = 15 
-	elif user2_answer == 3:
-		user2_score = 0 
-	elif user2_answer == 4:
-		user2_score = -15 
+		user2_score = 25 * user2_interest_multiplier
 	else:
-		user2_score = -25 
+		user2_score = -25 * user2_interest_multiplier
+
 	temp_list.append(user1_score)
 	temp_list.append(user2_score)
 	return temp_list
@@ -141,17 +132,20 @@ def question_points(user1, user2):
 	user1_list = []
 	user2_dict = {}
 	for ans in user1_answers:
-		user1_list.append([ans.question, ans.answer.pattern_number])
+		user1_list.append([ans.question, ans.importance_level, ans.answer.pattern_number])
 	for ans in user2_answers:
-		user2_dict[ans.question] = ans.answer.pattern_number
+		user2_dict[ans.question] = [ans.importance_level,ans.answer.pattern_number]
 	for i in range(len(user1_list)):
 		user1_question = user1_list[i][0]
-		user1_answer = user1_list[i][1]
+		user1_importance = user1_list[i][1]
+		user1_answer = user1_list[i][2]
 		user2_answer = user2_dict.pop(user1_question, "false")
 		if user2_answer != "false":
 			points_possible += 100
 			user_list = []
-			user_list = answer_points(user1_answer, user2_answer)
+			importance_list = []
+			importance_list = find_importance(user1_importance, user2_tuple[0])
+			user_list = answer_points(user1_answer, user2_answer[1], importance_list)
 			user1_points += user_list[0]
 			user2_points += user_list[1]
 	if points_possible >= 100:

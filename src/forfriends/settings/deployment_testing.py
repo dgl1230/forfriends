@@ -18,7 +18,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 SECRET_KEY = os.environ["FORFRIENDS_KEY"]
 
 
-DEBUG = True
+DEBUG = False
 
 
 TEMPLATE_DEBUG = True
@@ -43,7 +43,7 @@ INSTALLED_APPS = (
     'questions',
     'storages',
     'social.apps.django_app.default',
-    
+    'debug_toolbar',
     
 )
 
@@ -53,6 +53,7 @@ TEMPLATE_DIRS = (
 
 
 MIDDLEWARE_CLASSES = (
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
