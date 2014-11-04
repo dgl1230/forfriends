@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 from sitemaps import FrenvuSitemap
 
 from django.contrib import admin
-
+admin.autodiscover()
 
 from registration.backends.simple.views import RegistrationView
 
@@ -81,6 +81,6 @@ urlpatterns = patterns('',
 
     url(r'^press/$', 'profiles.views.press', name='press'),
 
-    url(r'^sitemap\.xml', 'django.contrib.sitemaps.views.sitemap', {'sitemaps':sitemaps}),
+    #url(r'^sitemap\.xml', 'django.contrib.sitemaps.views.sitemap', {'sitemaps':sitemaps}),
 
 )
