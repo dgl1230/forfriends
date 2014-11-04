@@ -770,6 +770,8 @@ def all_pictures(request):
 	try: 
 		pictures = UserPicture.objects.filter(user=request.user)
 		num_of_pics = pictures.count()
+		for pic in pictures.all():
+			print pic
 	except: 
 		num_of_pics = 0
 	return render_to_response('profiles/pictures.html', locals(), context_instance=RequestContext(request))
@@ -1089,6 +1091,11 @@ def single_user(request, username):
 			match.save()
 			interests_all = Interest.objects.filter(userinterestanswer__user=single_user)
 			pictures = UserPicture.objects.filter(user=single_user)
+			try:
+				su_info = Info.objects.get(user=single_user)
+				single_user_is_new = su_info.is_new_user
+			except: 
+				single_user_is_new = False
 
 	except: 
 		raise Http404
@@ -1131,6 +1138,7 @@ def press(request):
 def delete_picture(request, pic_id):
 	user = request.user
 	pic = UserPicture.objects.filter(user=user).get(id=pic_id)
+	delete_s3_pic(request.user, pic)
 	pic.delete()
 	return HttpResponseRedirect(reverse('pictures'))
 
@@ -1174,7 +1182,6 @@ def new_picture(request):
 			image = pic_form.cleaned_data["image"]
 			if image:
 				if "profile_pic" in request.POST:
-					print "here I am"
 					form.is_profile_pic = True
 				form.user = request.user
 				form.image.save("%s_pic-%s.jpg" % (request.user.username, next_pic), image)
