@@ -38,6 +38,9 @@ from questions.models import Question, UserAnswer
 
 CURRENTLY_LOCALLY_TESTING = False
 
+def custom_show_toolbar(request):
+	return True
+
 
 
 
