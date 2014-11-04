@@ -17,7 +17,8 @@ from profiles.views import user_not_new
 
 
 def all_interests_experimental(request):
-	interests_all = Interest.objects.exclude(userinterestanswer__user=request.user).filter(approved=True).order_by('?')
+	#interests_all = Interest.objects.exclude(userinterestanswer__user=request.user).filter(approved=True).order_by('?')
+	interests_all = Interest.objects.all()
 	return render_to_response('interests/experimental.html', locals(), context_instance=RequestContext(request))
 
 
