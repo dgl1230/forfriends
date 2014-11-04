@@ -255,3 +255,7 @@ a:hover{
 		margin-left:50px;
 	}
 }
+
+tr#message_row:nth-child(even){
+	background-color:#383838!important;
+}

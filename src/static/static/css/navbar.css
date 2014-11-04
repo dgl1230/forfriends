@@ -373,6 +373,7 @@ form.navbar-form.navbar-left{
 	}
 	#go_button{
 		width:15%;
+		text-align: center!important;
 	}
 	.navbar-form.navbar-left{
 		margin-top:0px!important;
@@ -427,4 +428,7 @@ form.navbar-form.navbar-left{
 	}
 }	
 
+}
+.glyphicon.glyphicon-search{
+	margin:0 auto!important;
 }
