@@ -28,7 +28,6 @@ ALLOWED_HOSTS = []
 
 
 INSTALLED_APPS = (
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
