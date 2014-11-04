@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 from sitemaps import FrenvuSitemap
 
 from django.contrib import admin
-admin.autodiscover()
+
 
 from registration.backends.simple.views import RegistrationView
 
