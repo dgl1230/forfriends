@@ -1,13 +1,6 @@
 from django.contrib import admin
 
-from .models import Interest, InterestPicture,  UserInterestAnswer
-
-
-class InterestPictureInline(admin.TabularInline):
-	max_num = 1	
-	model = InterestPicture
-
-
+from .models import Interest,  UserInterestAnswer
 
 
 class InterestAdmin(admin.ModelAdmin):
