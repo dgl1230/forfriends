@@ -1,6 +1,8 @@
 
 import os
-from profiles.views import ip_variable
+import sys
+sys.path.insert(0, 'home/andreas/Frenvu/src/profiles/views.py')
+import views
 
 
 
