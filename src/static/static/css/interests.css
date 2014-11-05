@@ -48,7 +48,9 @@
 	color: #084c8d!important;
 }
 
-
+#button_div{
+  width:100%;
+}
 
 .contain{
 	margin-top: 5%;
@@ -158,8 +160,7 @@ footer{
 	height: 100px;
   width:100%!important;
 }
-.question_answers input{
-	float: left;
+.answers_all input{
   visibility: hidden;
 }
 #answer{
