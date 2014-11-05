@@ -36,12 +36,8 @@ def all_questions(request):
 
 	if request.method == 'POST':
 		question_id = request.POST['question_id']
-		#print  "question importance is:" + question_id
 
-		#user answer
-		#importance_level = request.POST['importance_level']
 		answer_form =  request.POST['answer']
-		#answer_form = request.POST.get('answer', False)
 
 	
 
@@ -52,13 +48,14 @@ def all_questions(request):
 		answer = Answer.objects.get(question=question, answer=answer_form)
 		answered, created = UserAnswer.objects.get_or_create(user=user, question=question)
 		answered.answer = answer
-		#answered.importance_level = importance_level
+		
+
 		answered.save()
 		questions_all = Question.objects.exclude(useranswer__user=request.user)
 		questions_left = questions_all.count()
 
 		paginator = Paginator(questions_all, 1)
-		#importance_levels = ['Very Important', 'Somewhat Important', 'Not Important']
+		
 
 		page = request.GET.get('page')
 		try:

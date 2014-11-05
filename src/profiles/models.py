@@ -37,11 +37,7 @@ class Gamification(models.Model):
 	friends_list = models.ManyToManyField(User, related_name="friends_list", null=True, blank=True)
 
 	circle_time_until_reset = models.DateTimeField(null=True, blank=True)
-
-
 	icebreaker_until_reset = models.DateTimeField(null=True, blank=True)
-
-	
 
 	def __unicode__(self):
 		return self.user.username
@@ -124,11 +120,6 @@ class UserPicture(models.Model):
 		'''
 		return num_of_pics
 
-	'''
-	@receiver(models.signals.pre_delete, sender=ContentFile)
-	def remove_file_from_s3(sender, instance, using):
-	    instance.content.delete(save=False)
-	'''
 
 
 

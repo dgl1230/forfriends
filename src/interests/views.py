@@ -8,7 +8,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth.decorators import user_passes_test
 
-from .models import Interest, UserInterestAnswer, InterestPicture
+from .models import Interest, UserInterestAnswer
 from .forms import InterestForm
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
