@@ -56,7 +56,6 @@ INSTALLED_APPS = (
     'questions',
     'storages',
     'social.apps.django_app.default',
-    'debug_toolbar',
     
 )
 
