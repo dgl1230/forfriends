@@ -22,6 +22,9 @@ SECRET_KEY = os.environ["FORFRIENDS_KEY"]
 DEBUG = True
 
 
+
+INTERNAL_IPS = ('127.0.0.1', '67.169.73.204')
+
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -62,7 +65,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #'debug_toolbar.middleware.DebugToolbarMiddleware',
+    
 
 )
 
