@@ -22,6 +22,17 @@ input#image_file{
 #no_pictures a, #no_pictures a:active, #no_pictures a:focus{
     color:#1FBAD6;
 }
+#make_profile a{
+    color:white;
+    display:block;
+}
+#make_profile span{
+    display:block;
+    margin-right:40px;
+}
+#make_profile span:hover{
+    color:#1fbad6;
+}
 #rotate{
     float:right;
     color:#1fbad6;
