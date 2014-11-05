@@ -5,7 +5,17 @@ from django.contrib.auth.models import User
 
 
 
+
+class Category(models.Model):
+	title = models.CharField(max_length=120)
+
+	def __unicode__(self):
+		return str(self.title)
+
+
+
 class Interest(models.Model):
+	category = models.ForeignKey(Category, null=True, blank=True)
 	interest = models.CharField(max_length=120)
 	approved = models.BooleanField(default=False)
 
@@ -21,11 +31,3 @@ class UserInterestAnswer(models.Model):
 	def __unicode__(self):
 		return self.interest.interest
 
-
-class Category(models.Model):
-	interests = models.ManyToManyField(Interest)
-	title = models.CharField(max_length=120)
-	
-
-	def __unicode__(self):
-		return str(self.title)
