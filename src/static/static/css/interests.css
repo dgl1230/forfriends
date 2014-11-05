@@ -381,6 +381,7 @@ footer{
   border-radius:10px;
   cursor:pointer;
   display:inline-block;
+  max-width:600px;
 
 }
 .choice_container{

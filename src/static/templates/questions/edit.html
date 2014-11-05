@@ -158,7 +158,7 @@
 			'required' value='{{ ans }}' {% for abc in ans.useranswer_set.all %} {% if abc and abc.user == request.user %} checked='checked' {% endif %} {% endfor %} name='answer'> {{ ans }} 
 		</label>
 		{% endfor %}
-		<div id="button_div">
+		<div class="button_div">
 		<input type='submit' id="submit_question" class='btn-lg' value='Save'>
 		</div>
 		</div>
