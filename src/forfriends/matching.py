@@ -12,7 +12,7 @@ from questions.models import Question, Answer, UserAnswer
 				that they share, based on how much they like it.
 	Returns:	A list with 2 attributes, the first being user1_points and the 
 				second being user2_points: [user1_points, user2_points] '''
-def calc_interest_importance(i1, i2):
+'''def calc_interest_importance(i1, i2):
 	user1_points = 50 #start with bases of 50
 	user2_points = 50
 	return_tuple = []
@@ -41,7 +41,7 @@ def calc_interest_importance(i1, i2):
 		user2_points = 25
 	return_tuple.append(user1_points)
 	return_tuple.append(user2_points)
-	return return_tuple
+	return return_tuple'''
 
 
 ''' Purpose:	Calculates the percentage compatibility between 2 users based solely
@@ -51,29 +51,33 @@ def calc_interest_importance(i1, i2):
 def interest_points(user1, user2):
 	logged_in_user_interests = UserInterestAnswer.objects.filter(user=user1)
 	viewed_user_interests = UserInterestAnswer.objects.filter(user=user2)
-	user1_points = 0
-	user2_points = 0
-	points_possible = 0
+	#user1_points = 0
+	#user2_points = 0
+	number_in_common = 0
 	user_score_tuple = []
 	percentage = 0
 	user1_list = []
 	user2_dict = {}
+	#could move this for loop into range(len(user1_list)) possibly
 	for i in logged_in_user_interests:
 		user1_list.append([i.interest, i.importance_level])
 	for i in viewed_user_interests:
-		user2_dict[i.interest] = i.importance_level
+		user2_dict[i.interest] = "irrelephant"
 	for i in range(len(user1_list)):
 		user1_interest = user1_list[i][0]
 		user1_importance = user1_list[i][1]
-		#check to see if both share the same interest: if so, user2_importance = importance level of user2, else "false"
+		#check to see if both share the same interest: if so, increment number_in_common
 		user2_importance = user2_dict.pop(user1_interest, "false")
 		if user2_importance != "false": #key was found, interests were shared, calculate difference in importance
-			points_possible += 75
-			user_score_tuple = calc_interest_importance(user1_importance, user2_importance)
-			user1_points += user_score_tuple[0]
-			user2_points += user_score_tuple[1]
-	if points_possible >= 75:
-		percentage = (points_possible - abs(user1_points - user2_points)) * 100 / points_possible
+			#points_possible += 75
+			#user_score_tuple = calc_interest_importance(user1_importance, user2_importance)
+			#user1_points += user_score_tuple[0]
+			#user2_points += user_score_tuple[1]
+			number_in_common = number_in_common + 1
+	if number_in_common >= 1:
+		#percentage = (points_possible - abs(user1_points - user2_points)) * 100 / points_possible
+		#Need to figure out what we want to do in this case
+		percentage = 0
 	else:
 		percentage = 0
 	return percentage
