@@ -1,6 +1,6 @@
 
 import os
-
+import views
 
 
 
@@ -32,9 +32,9 @@ DEBUG_TOOLBAR_PATCH_SETTINGS = False
  #   'SHOW_TOOLBAR_CALLBACK': 'profiles.views.custom_show_toolbar',
 #}
 
-
-
-INTERNAL_IPS = ('67.169.73.204',)
+temp_ip = views.ip_variable
+temp_ip2 = str(temp_ip)
+INTERNAL_IPS = ('67.169.73.204', temp_ip2)
 
 SHOW_TOOLBAR_CALLBACK = True
 
