@@ -20,6 +20,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps',
     'registration',
     'south',
     'profiles',
@@ -28,14 +29,14 @@ INSTALLED_APPS = (
     'matches',
     'questions',
     'visitors',
-    'debug_toolbar',
 )
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'static/templates'),
 )
+
+
 MIDDLEWARE_CLASSES = (
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',

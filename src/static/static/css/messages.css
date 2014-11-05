@@ -25,6 +25,9 @@ td p{
 	height:100%;
 	float:right;
 }
+.su_container{
+	text-align: center;
+}
 .trash_row{
 	text-align: right;
 }

@@ -488,6 +488,7 @@ h4{
 	.previous_user span{
 		padding-top:10px;
 	}
+
 }
 @media(min-width: 1205px){
 	#single_user_container{
@@ -505,6 +506,9 @@ h4{
 	}
 	.reset_button, #generate_button, #ice_breaker_button{
 		width:100%;
+	}
+	#information{
+		margin-top:5px;
 	}
 }
 

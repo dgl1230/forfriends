@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 from django.forms.models import modelformset_factory
 from django.db.models import Q, Max
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import user_passes_test, login_required
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -24,7 +24,7 @@ from django.template import Context
 
 from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG, MEDIA_URL
 from forfriends.matching import match_percentage
-from forfriends.distance import calc_distance
+from forfriends.distance import calc_distance, check_valid_location
 from forfriends.s3utils import delete_s3_pic
 from matches.models import Match
 from .models import Address, Job, Info, UserPicture, Gamification
@@ -334,6 +334,12 @@ def all(request):
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 #@user_passes_test(user_can_reset_circle, login_url=reverse_lazy('home'))
 def generate_circle(request):
+	location = Address.objects.get(user=request.user)
+	if check_valid_location(location.city, location.state) == False:
+			messages.success(request, "We're sorry but you need to enter a valid location before you can use discover")
+			return HttpResponseRedirect(reverse('home'))
+
+
 	info = Info.objects.get(user=request.user)
 	if info.is_new_user:
 		info.is_new_user = False
@@ -506,7 +512,7 @@ def circle_distance(logged_in_user, preferred_distance):
 
 
 	
-
+@login_required(login_url=reverse_lazy('home'))
 #This is the first/second part of registration for users signing up with FB or GOOGerror(request, "Please double check your username or email address and password")
 def new_user_info(request):
 	if request.POST:
@@ -660,6 +666,11 @@ on the single user page.
 
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def discover(request):
+	location = Address.objects.get(user=request.user)
+	if check_valid_location(location.city, location.state) == False:
+		messages.success(request, "We're sorry but uou need to enter a valid location before you find a new crowd")
+		return HttpResponseRedirect(reverse('home'))
+
 	# first we check to see if a session exists
 	if not request.session.get('random_exp'):
 		request.session['random_exp']=1
@@ -696,7 +707,17 @@ def discover(request):
 				# they have an invalid location
 				match.distance = 10000000
 
-			match.percent = match_percentage(match.user1, match.user2)
+			info = Info.objects.get(user=request.user)
+			is_new_user = info.is_new_user
+			if is_new_user:
+				pass
+			else:	
+				match.percent = match_percentage(match.user1, match.user2)
+			try:
+				su_info = Info.objects.get(user=single_user)
+				single_user_is_new = su_info.is_new_user
+			except: 
+				single_user_is_new = False
 			match.save()
 			try:
 				profile_pic = UserPicture.objects.get(user=user, is_profile_pic=True)
@@ -749,6 +770,8 @@ def all_pictures(request):
 	try: 
 		pictures = UserPicture.objects.filter(user=request.user)
 		num_of_pics = pictures.count()
+		for pic in pictures.all():
+			print pic
 	except: 
 		num_of_pics = 0
 	return render_to_response('profiles/pictures.html', locals(), context_instance=RequestContext(request))
@@ -777,6 +800,11 @@ def edit_address(request):
 			for form in formset_a:
 				new_form = form.save(commit=False)
 				new_form.user = request.user
+				print new_form.city
+				print new_form.state
+				if check_valid_location(new_form.city, new_form.state) == False:
+					messages.success(request, "We're sorry but you didn't enter a valid location")
+					return HttpResponseRedirect('/edit/')
 				new_form.save()
 			messages.success(request, 'Your location has been updated.')
 		else:
@@ -808,7 +836,7 @@ def edit_info(request):
 
 		bio = request.POST.get('bio_form')
 		gender = request.POST.get('gender_form')
-		request.user.username = username
+		
 		request.user.first_name = first_name
 		request.user.last_name = last_name
 		request.user.save()
@@ -1063,6 +1091,11 @@ def single_user(request, username):
 			match.save()
 			interests_all = Interest.objects.filter(userinterestanswer__user=single_user)
 			pictures = UserPicture.objects.filter(user=single_user)
+			try:
+				su_info = Info.objects.get(user=single_user)
+				single_user_is_new = su_info.is_new_user
+			except: 
+				single_user_is_new = False
 
 	except: 
 		raise Http404
@@ -1098,9 +1131,14 @@ def terms_and_agreement(request):
 	return render_to_response('terms.html', locals(), context_instance=RequestContext(request))
 
 
+def press(request): 
+	return render_to_response('press.html', locals(), context_instance=RequestContext(request))
+
+
 def delete_picture(request, pic_id):
 	user = request.user
 	pic = UserPicture.objects.filter(user=user).get(id=pic_id)
+	delete_s3_pic(request.user, pic)
 	pic.delete()
 	return HttpResponseRedirect(reverse('pictures'))
 
@@ -1144,7 +1182,6 @@ def new_picture(request):
 			image = pic_form.cleaned_data["image"]
 			if image:
 				if "profile_pic" in request.POST:
-					print "here I am"
 					form.is_profile_pic = True
 				form.user = request.user
 				form.image.save("%s_pic-%s.jpg" % (request.user.username, next_pic), image)
