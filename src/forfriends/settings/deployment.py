@@ -1,6 +1,6 @@
 
 import os
-import views
+from profiles.views import ip_variable
 
 
 
