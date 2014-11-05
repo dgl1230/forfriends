@@ -28,9 +28,9 @@ DEBUG_TOOLBAR_PATCH_SETTINGS = False
 #temp = str(TEMP_IP)
 #INTERNAL_IPS = ('127.0.0.1', temp,)
 
-DEBUG_TOOLBAR_CONFIG = {
-    'SHOW_TOOLBAR_CALLBACK': 'profiles.views.custom_show_toolbar',
-}
+#DEBUG_TOOLBAR_CONFIG = {
+ #   'SHOW_TOOLBAR_CALLBACK': 'profiles.views.custom_show_toolbar',
+#}
 
 
 
