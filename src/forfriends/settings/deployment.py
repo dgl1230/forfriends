@@ -21,25 +21,6 @@ SECRET_KEY = os.environ["FORFRIENDS_KEY"]
 
 DEBUG = True
 
-DEBUG_TOOLBAR_PATCH_SETTINGS = False
-
-
-#TEMP_IP = request.META['REMOTE_ADDR']
-#temp = str(TEMP_IP)
-#INTERNAL_IPS = ('127.0.0.1', temp,)
-
-DEBUG_TOOLBAR_CONFIG = {
-    'SHOW_TOOLBAR_CALLBACK': 'profiles.views.custom_show_toolbar',
-}
-#temp_ip = views.ip_variable
-#temp_ip2 = str(temp_ip)
-
-INTERNAL_IPS = ('67.169.73.204', )
-
-SHOW_TOOLBAR_CALLBACK = True
-
-
-TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
