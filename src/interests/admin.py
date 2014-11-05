@@ -4,7 +4,6 @@ from .models import Interest,  UserInterestAnswer
 
 
 class InterestAdmin(admin.ModelAdmin):
-	inlines = [InterestPictureInline]
 	class Meta:
 		model = Interest
 
