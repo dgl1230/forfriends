@@ -17,8 +17,15 @@ from profiles.views import user_not_new
 
 
 def all_interests_experimental(request):
-	#interests_all = Interest.objects.exclude(userinterestanswer__user=request.user).filter(approved=True).order_by('?')
-	interests_all = Interest.objects.all()
+	games = Interest.objects.all(category='Games')
+	fitness_sports = Interest.objects.all(category='Fitness/Sports')
+	outdoor_activities = Interest.objects.all(category='Outdoor Activities')
+	performing_arts = Interest.objects.all(category='Performing Arts and Music')
+	arts_crafts = Interest.objects.all(category='Arts and Crafts')
+	spiritual = Interest.objects.all(category='Spiritual/Mental Health')
+	food = Interest.objects.all(category='Food/Cooking')
+	news = Interest.objects.all(category='News/Current Events')
+	indoor = Interest.objects.all(category='Indoor Activities')
 	return render_to_response('interests/experimental.html', locals(), context_instance=RequestContext(request))
 
 

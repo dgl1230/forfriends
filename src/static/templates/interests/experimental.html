@@ -23,9 +23,9 @@
 {% endif %}
 	<div class='row' id="interests-wrapper">
 		<div class="category">
-			<h2 class="category_name" id="category_name_1">Category Name</h2>
+			<h2 class="category_name" id="category_name_1">Games</h2>
 		<div class="category_hidden" id="category1">
-		{% for interest in interests_all %}
+		{% for interest in games %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest|title }}</h4>
 		<form method='POST' action=''> {% csrf_token %}
@@ -38,9 +38,9 @@
 		</div><!--Category 1-->
 		</div><!--End Category-->
 		<div class="category">
-			<h2 class="category_name" id="category_name_2">Category Name</h2>
+			<h2 class="category_name" id="category_name_2">Fitness/Sports</h2>
 		<div class="category_hidden" id="category2">
-		{% for interest in interests_all %}
+		{% for interest in fitness_sports %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest|title }}</h4>
 		<form method='POST' action=''> {% csrf_token %}
@@ -52,9 +52,9 @@
 	</div><!--Category 2-->
 		</div><!--End Category-->
 		<div class="category">
-			<h2 class="category_name" id="category_name_3">Category Name</h2>
+			<h2 class="category_name" id="category_name_3">Outdoor Activities</h2>
 		<div class="category_hidden" id="category3">
-		{% for interest in interests_all %}
+		{% for interest in outdoor_activities %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest|title }}</h4>
 		<form method='POST' action=''> {% csrf_token %}
@@ -65,6 +65,99 @@
 		{% endfor %}
 	</div><!--Category 3-->
 		</div><!--End Category-->
+		</div><!--Category 1-->
+		</div><!--End Category-->
+		<div class="category">
+			<h2 class="category_name" id="category_name_2">Performing Arts and Music</h2>
+		<div class="category_hidden" id="category2">
+		{% for interest in performing_arts %}
+		<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest|title }}</h4>
+		<form method='POST' action=''> {% csrf_token %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+		</form>
+		</div><!--End Interest-->
+		{% endfor %}
+		</div><!--End Category-->
+		</div><!--Category 1-->
+		</div><!--End Category-->
+		<div class="category">
+			<h2 class="category_name" id="category_name_2">Arts and Crafts</h2>
+		<div class="category_hidden" id="category2">
+		{% for interest in arts_crafts %}
+		<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest|title }}</h4>
+		<form method='POST' action=''> {% csrf_token %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+		</form>
+		</div><!--End Interest-->
+		{% endfor %}
+		</div><!--End Category-->
+		</div><!--Category 1-->
+		</div><!--End Category-->
+		<div class="category">
+			<h2 class="category_name" id="category_name_2">Spiritual/Mental Health</h2>
+		<div class="category_hidden" id="category2">
+		{% for interest in spiritual %}
+		<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest|title }}</h4>
+		<form method='POST' action=''> {% csrf_token %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+		</form>
+		</div><!--End Interest-->
+		{% endfor %}
+		</div><!--End Category-->
+		</div><!--Category 1-->
+		</div><!--End Category-->
+		<div class="category">
+			<h2 class="category_name" id="category_name_2">Food/Cooking</h2>
+		<div class="category_hidden" id="category2">
+		{% for interest in food %}
+		<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest|title }}</h4>
+		<form method='POST' action=''> {% csrf_token %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+		</form>
+		</div><!--End Interest-->
+		{% endfor %}
+		</div><!--End Category-->
+		</div><!--Category 1-->
+		</div><!--End Category-->
+		<div class="category">
+			<h2 class="category_name" id="category_name_2">News/Current Events</h2>
+		<div class="category_hidden" id="category2">
+		{% for interest in news %}
+		<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest|title }}</h4>
+		<form method='POST' action=''> {% csrf_token %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+		</form>
+		</div><!--End Interest-->
+		{% endfor %}
+		</div><!--End Category-->
+		</div><!--Category 1-->
+		</div><!--End Category-->
+		<div class="category">
+			<h2 class="category_name" id="category_name_2">Indoor Activities</h2>
+		<div class="category_hidden" id="category2">
+		{% for interest in indoor %}
+		<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest|title }}</h4>
+		<form method='POST' action=''> {% csrf_token %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+		</form>
+		</div><!--End Interest-->
+		{% endfor %}
+
+
+
+
 	</div><!--End wrapper-->
 </div><!--End big Wrapper-->
 <script>
