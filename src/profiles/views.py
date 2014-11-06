@@ -39,8 +39,8 @@ from questions.models import Question, UserAnswer
 CURRENTLY_LOCALLY_TESTING = False
 #print("IP Address for debug-toolbar: " + request.META['REMOTE_ADDR'])
 #ip_variable = request.META['REMOTE_ADDR']
-#def custom_show_toolbar(request):
-#	return True
+def custom_show_toolbar(request):
+	return True
 
 
 
