@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 
 class Category(models.Model):
 	title = models.CharField(max_length=120)
+	super_category = models.ForeignKey('self', null=True, blank=True)
 
 	def __unicode__(self):
 		return str(self.title)
