@@ -18,9 +18,13 @@ class InterestInline(admin.TabularInline):
 	model = Interest
 
 
+class InterestCategoryInline(admin.TabularInline):	
+	model = Category
+
+
 
 class InterestCategoryAdmin(admin.ModelAdmin):
-	inlines = [InterestInline]
+	inlines = [InterestCategoryInline, InterestInline]
 	class Meta:
 		model = Category
 
