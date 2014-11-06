@@ -344,6 +344,9 @@ footer{
   position: relative;
   cursor:default!important;
 }
+.category_name{
+  cursor:pointer;
+}
 .star-rating2 input:checked + i {
   opacity: 1;
 }
@@ -384,6 +387,9 @@ footer{
   max-width:600px;
 
 }
+.answers_all #one{
+  padding-top:90px;
+  }
 .choice_container{
   margin:0 auto;
   text-align:center;
@@ -405,5 +411,19 @@ footer{
   .custom-radio{
   height: 20px;
   width:100%!important;
+  }
+  .answers_all #one{
+  }
+}
+
+@media only screen and (min-width:1200px){
+  #one{
+    height:500px;
+  }
+  .custom-radio{
+    height:200px;
+  }
+  .answers_all #one{
+    padding-top:200px;
   }
 }

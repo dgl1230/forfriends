@@ -157,7 +157,7 @@
 	{% for question in questions %}
 		<h3>{{ question }}</h3>
 
-		<form method='POST' action=''> {% csrf_token %}
+		<form id="questions_all" method='POST' action=''> {% csrf_token %}
 			<input type='hidden' value='{{ question.id }}' name='question_id'/>
 
 		<div class="answers_all">
