@@ -148,7 +148,7 @@
 <div id="question-wrapper">
 	{% for question in questions %}
 		<h3>{{ question }}</h3><p>
-		<form method='POST' action=''> {% csrf_token %}
+		<form id="questions_edit_form"  method='POST' action=''> {% csrf_token %}
 			<input type='hidden' value='{{ question.id }}' name='question_id'/>	
 			<br>
 		<div>
@@ -158,9 +158,6 @@
 			'required' value='{{ ans }}' {% for abc in ans.useranswer_set.all %} {% if abc and abc.user == request.user %} checked='checked' {% endif %} {% endfor %} name='answer'> {{ ans }} 
 		</label>
 		{% endfor %}
-		<div class="button_div">
-		<input type='submit' id="submit_question" class='btn-lg' value='Save'>
-		</div>
 		</div>
 	</form>
 	{% endfor %}
@@ -240,6 +237,14 @@ $(document).keydown(function(e) {
 <script>
 $('input[type=radio]').click(function(){
 	$(this).closest("form").submit();
+});
+</script>
+
+<script>
+$(document).ready(function(){
+$('#questions_edit_form').ajaxForm(function() {
+	$(".tertiary_hidden").attr('class', 'tertiary_show');
+})
 });
 </script>
 {% endblock %}
