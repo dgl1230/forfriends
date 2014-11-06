@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class Question(models.Model):
 	question = models.CharField(max_length=120)
-	weight = models.DecimalField(max_digits=2, decimal_places=2, default=1)
+	weight = models.FloatField(default=1)
 
 	def __unicode__(self):
 		return self.question
