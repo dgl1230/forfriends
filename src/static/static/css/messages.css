@@ -14,6 +14,7 @@
 td p{
 	font-family: 'Roboto', sans-serif;
 }
+
 #trash_button:focus{
 	outline: 0!important;
 }
@@ -21,7 +22,7 @@ td p{
 	outline: 0;
 }
 .message_body{
-	width:100%;
+	width:90%;
 	height:100%;
 	float:right;
 }

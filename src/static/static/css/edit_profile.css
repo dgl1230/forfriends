@@ -44,8 +44,11 @@
 	float:none;
 }
 #gender_form{
-	width:50%;
+	width:52%;
 	text-align: center;
+	padding:5px 5px 5px 5px;
+	border-color:black;
+	background-color:white;
 }
 #form_container a{
 	color: #084c8d;

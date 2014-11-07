@@ -130,7 +130,6 @@
 {% endif %}
 
 <div id="big_wrapper">
-<div class="row" id="margin_wrapper">
 	<div class="col-md-1" id="secondary_navbar">
         <h1>Personality</h1>
 	</div>
@@ -139,7 +138,6 @@
      	<a href="/questions/edit/">Edit Answers</a>
      	<span class="glyphicon glyphicon-question-sign" id="tertiary-icon"></span>
 	</div>
-</div>
 {% if questions_left == 0%}
 	<h3 id="no_pictures">You've answered all of the questions available right now! <a href="/discover/?page=1" id="upload_more_pictures"> Now check out how you match up with other users!</a></h3>
 {% endif %}
@@ -155,28 +153,22 @@
 {% endif %}
 
 
-	<div class='row' id="interests_intro">
-		<div class='interests_intro'>
-		</div>
-	</div>
 <div class='row' id="question-wrapper">
 	{% for question in questions %}
 		<h3>{{ question }}</h3>
 
-		<form method='POST' action=''> {% csrf_token %}
+		<form id="questions_all" method='POST' action=''> {% csrf_token %}
 			<input type='hidden' value='{{ question.id }}' name='question_id'/>
 
-		<div class="question_answers" id="question_answers" >
+		<div class="answers_all">
 		{% for ans in question.answer_set.all %}
-			<label>
-			<input type='radio' required=
+			<label id="one">
+			<input id="answer" class="all" type='radio' required=
 			'required' value='{{ ans }}' {% for abc in ans.useranswer_set.all %} {% if abc and abc.user == request.user %} checked='checked' {% endif %} {% endfor %} name='answer'> {{ ans }} 
-			</label><br/>
+			</label>
 		{% endfor %}
-		
-		<br>
-
 		<!-- Submit Button -->
+		<div class="button_div">
 		<input type='submit' id="submit_question" class='btn-lg' value='Save'>
 		</div>
 	</form>
@@ -250,27 +242,10 @@ $(document).keydown(function(e) {
 </script>
 {% endif %}
 
-<script type="text/javascript">
-    function customRadio(radioName){
-        var radioButton = $('input[name="'+ radioName +'"]');
-        $(radioButton).each(function(){
-            $(this).wrap( "<span class='custom-radio'></span>" );
-            if($(this).is(':checked')){
-                $(this).parent().addClass("selected");
-            }
-        });
-        $(radioButton).click(function(){
-            if($(this).is(':checked')){
-                $(this).parent().addClass("selected");
-            }
-            $(radioButton).not(this).each(function(){
-                $(this).parent().removeClass("selected");
-            });
-        });
-    }
-    $(document).ready(function (){
-        customRadio("answer");
-    })
+<script>
+$('input[type=radio]').click(function(){
+	$(this).closest("form").submit();
+});
 </script>
 
 {% endblock %}

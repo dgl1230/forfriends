@@ -3,134 +3,6 @@
 
 
 {% block content %}
-
-{% if interests.has_next %}
-<script type="text/javascript">
-	// TOUCH-EVENTS SINGLE-FINGER SWIPE-SENSING JAVASCRIPT
-	// Courtesy of PADILICIOUS.COM and MACOSXAUTOMATION.COM
-	
-	// this script can be used with one or more page elements to perform actions based on them being swiped with a single finger
-
-	var triggerElementID = null; // this variable is used to identity the triggering element
-	var fingerCount = 0;
-	var startX = 0;
-	var startY = 0;
-	var curX = 0;
-	var curY = 0;
-	var deltaX = 0;
-	var deltaY = 0;
-	var horzDiff = 0;
-	var vertDiff = 0;
-	var minLength = 72; // the shortest distance the user may swipe
-	var swipeLength = 0;
-	var swipeAngle = null;
-	var swipeDirection = null;
-	
-	// The 4 Touch Event Handlers
-	
-	// NOTE: the touchStart handler should also receive the ID of the triggering element
-	// make sure its ID is passed in the event call placed in the element declaration, like:
-	// <div id="picture-frame" ontouchstart="touchStart(event,'picture-frame');"  ontouchend="touchEnd(event);" ontouchmove="touchMove(event);" ontouchcancel="touchCancel(event);">
-
-	function touchStart(event,passedName) {
-		// disable the standard ability to select the touched object
-		event.preventDefault();
-		// get the total number of fingers touching the screen
-		fingerCount = event.touches.length;
-		// since we're looking for a swipe (single finger) and not a gesture (multiple fingers),
-		// check that only one finger was used
-		if ( fingerCount == 1 ) {
-			// get the coordinates of the touch
-			startX = event.touches[0].pageX;
-			startY = event.touches[0].pageY;
-			// store the triggering element ID
-			triggerElementID = passedName;
-		} else {
-			// more than one finger touched so cancel
-			touchCancel(event);
-		}
-	}
-
-	function touchMove(event) {
-		event.preventDefault();
-		if ( event.touches.length == 1 ) {
-			curX = event.touches[0].pageX;
-			curY = event.touches[0].pageY;
-		} else {
-			touchCancel(event);
-		}
-	}
-	
-	function touchEnd(event) {
-		event.preventDefault();
-		// check to see if more than one finger was used and that there is an ending coordinate
-		if ( fingerCount == 1 && curX != 0 ) {
-			// use the Distance Formula to determine the length of the swipe
-			swipeLength = Math.round(Math.sqrt(Math.pow(curX - startX,2) + Math.pow(curY - startY,2)));
-			// if the user swiped more than the minimum length, perform the appropriate action
-			if ( swipeLength >= minLength ) {
-				caluculateAngle();
-				determineSwipeDirection();
-				processingRoutine();
-				touchCancel(event); // reset the variables
-			} else {
-				touchCancel(event);
-			}	
-		} else {
-			touchCancel(event);
-		}
-	}
-
-	function touchCancel(event) {
-		// reset the variables back to default values
-		fingerCount = 0;
-		startX = 0;
-		startY = 0;
-		curX = 0;
-		curY = 0;
-		deltaX = 0;
-		deltaY = 0;
-		horzDiff = 0;
-		vertDiff = 0;
-		swipeLength = 0;
-		swipeAngle = null;
-		swipeDirection = null;
-		triggerElementID = null;
-	}
-	
-	function caluculateAngle() {
-		var X = startX-curX;
-		var Y = curY-startY;
-		var Z = Math.round(Math.sqrt(Math.pow(X,2)+Math.pow(Y,2))); //the distance - rounded - in pixels
-		var r = Math.atan2(Y,X); //angle in radians (Cartesian system)
-		swipeAngle = Math.round(r*180/Math.PI); //angle in degrees
-		if ( swipeAngle < 0 ) { swipeAngle =  360 - Math.abs(swipeAngle); }
-	}
-	
-	function determineSwipeDirection() {
-		if ( (swipeAngle <= 45) && (swipeAngle >= 0) ) {
-			swipeDirection = 'left';
-		} else if ( (swipeAngle <= 360) && (swipeAngle >= 315) ) {
-			swipeDirection = 'left';
-		} else if ( (swipeAngle >= 135) && (swipeAngle <= 225) ) {
-			swipeDirection = 'right';
-		} else if ( (swipeAngle > 45) && (swipeAngle < 135) ) {
-			swipeDirection = 'down';
-		} else {
-			swipeDirection = 'up';
-		}
-	}
-	
-	function processingRoutine() {
-		var swipedElement = document.getElementById("main_interests");
-		if ( swipeDirection == 'left' ) {
-			// REPLACE WITH YOUR ROUTINES
-			window.location.href = "?page={{ interests.next_page_number }}";
-		}	
-	}
-</script>
-{% endif %}
-
 <div id="view_container">
 	<div class="col-md-1" id="secondary_navbar">
         <h1>Interests</h1>
@@ -140,8 +12,6 @@
 		<span class="glyphicon glyphicon-thumbs-up" id="tertiary-icon"></span>
 		<a href="/interests/create/" class="half-nav2">Add Interests</a>
 	</div>
-<div class="row" >
-  <div class='col-lg-10 col-12' id="interests-wrapper">
 {% if messages %}
 <div class="row">
 <div class="col-md-1" id="tertiary_navbar">
@@ -151,43 +21,145 @@
 </div>
 </div>
 {% endif %}
-	<br/>
 	<div class='row' id="interests-wrapper">
-		<div class="main_interests" id="main_interests"  ontouchstart="touchStart(event,'main_interests');" ontouchend="touchEnd(event);" ontouchmove="touchMove(event);" ontouchcancel="touchCancel(event);">
-			<div class='col-sm-4'>
-			<div class="interests-title">
-			{% for interest in interests_all %}
-				<h3>{{ interest.interest|title }}</h3>
-			</div>	
-				{% if interest.description %}
-					<h5 class="description">{{ interest.description|title }}</h5>
-				{% endif %}
-			<form method='POST' action=''> {% csrf_token %}
-				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
-				<div class="interest_ranking">
-					<strong class="choice">Choose a rating</strong>	<br>
-					<span class="star-rating" id="star-rating">
-						{% for imp in importance_levels %}
-						<input type="radio" name="rating" value='{{ imp }}' id='{{ imp }}' class="star" {% for abc in interest.userinterestanswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} checked="checked" {% endif %} {% endfor %}><i></i>
-						{% endfor %}
-					</span>
-					<input type='submit' class='btn-lg' value='Save'>
-					</div>
-			</form>
+		<div class="category">
+			<h2 class="category_name" id="category_name_1">Games</h2>
+		<div class="category_hidden" id="category1">
+		{% for interest in games %}
+		<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest|title }}</h4>
+		<form method='POST' action=''> {% csrf_token %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+		</form>
+		</div><!--End Interest-->
 		{% endfor %}
-			</div>
-		</div>
-	</div>
-<script>
-$(':radio').change(
-  function(){
-    $('.choice').text( this.value);
-    this.name = "importance_level";
-  } 
-)
-</script>
+		
+		</div><!--Category 1-->
+		</div><!--End Category-->
+		<div class="category">
+			<h2 class="category_name" id="category_name_2">Fitness/Sports</h2>
+		<div class="category_hidden" id="category2">
+		{% for interest in fitness_sports %}
+		<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest|title }}</h4>
+		<form method='POST' action=''> {% csrf_token %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+		</form>
+		</div><!--End Interest-->
+		{% endfor %}
+	</div><!--Category 2-->
+		</div><!--End Category-->
+		<div class="category">
+			<h2 class="category_name" id="category_name_3">Outdoor Activities</h2>
+		<div class="category_hidden" id="category3">
+		{% for interest in outdoor_activities %}
+		<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest|title }}</h4>
+		<form method='POST' action=''> {% csrf_token %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+		</form>
+		</div><!--End Interest-->
+		{% endfor %}
+	</div><!--Category 3-->
+		</div><!--End Category-->
+		</div><!--Category 1-->
+		</div><!--End Category-->
+		<div class="category">
+			<h2 class="category_name" id="category_name_2">Performing Arts and Music</h2>
+		<div class="category_hidden" id="category2">
+		{% for interest in performing_arts %}
+		<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest|title }}</h4>
+		<form method='POST' action=''> {% csrf_token %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+		</form>
+		</div><!--End Interest-->
+		{% endfor %}
+		</div><!--End Category-->
+		</div><!--Category 1-->
+		</div><!--End Category-->
+		<div class="category">
+			<h2 class="category_name" id="category_name_2">Arts and Crafts</h2>
+		<div class="category_hidden" id="category2">
+		{% for interest in arts_crafts %}
+		<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest|title }}</h4>
+		<form method='POST' action=''> {% csrf_token %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+		</form>
+		</div><!--End Interest-->
+		{% endfor %}
+		</div><!--End Category-->
+		</div><!--Category 1-->
+		</div><!--End Category-->
+		<div class="category">
+			<h2 class="category_name" id="category_name_2">Spiritual/Mental Health</h2>
+		<div class="category_hidden" id="category2">
+		{% for interest in spiritual %}
+		<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest|title }}</h4>
+		<form method='POST' action=''> {% csrf_token %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+		</form>
+		</div><!--End Interest-->
+		{% endfor %}
+		</div><!--End Category-->
+		</div><!--Category 1-->
+		</div><!--End Category-->
+		<div class="category">
+			<h2 class="category_name" id="category_name_2">Food/Cooking</h2>
+		<div class="category_hidden" id="category2">
+		{% for interest in food %}
+		<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest|title }}</h4>
+		<form method='POST' action=''> {% csrf_token %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+		</form>
+		</div><!--End Interest-->
+		{% endfor %}
+		</div><!--End Category-->
+		</div><!--Category 1-->
+		</div><!--End Category-->
+		<div class="category">
+			<h2 class="category_name" id="category_name_2">News/Current Events</h2>
+		<div class="category_hidden" id="category2">
+		{% for interest in news %}
+		<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest|title }}</h4>
+		<form method='POST' action=''> {% csrf_token %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+		</form>
+		</div><!--End Interest-->
+		{% endfor %}
+		</div><!--End Category-->
+		</div><!--Category 1-->
+		</div><!--End Category-->
+		<div class="category">
+			<h2 class="category_name" id="category_name_2">Indoor Activities</h2>
+		<div class="category_hidden" id="category2">
+		{% for interest in indoor %}
+		<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest|title }}</h4>
+		<form method='POST' action=''> {% csrf_token %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+		</form>
+		</div><!--End Interest-->
+		{% endfor %}
 
-{% if interests.has_previous %}
+
+
+
+	</div><!--End wrapper-->
+</div><!--End big Wrapper-->
 <script>
 $(document).keydown(function(e) {
     switch(e.which) {
@@ -202,9 +174,6 @@ $(document).keydown(function(e) {
 });
 </script>
 
-{% endif %}
-{% if interests.has_next %}
-
 <script>
 	$(document).keydown(function(e) {
     switch(e.which) {
@@ -217,5 +186,22 @@ $(document).keydown(function(e) {
     e.preventDefault(); // prevent the default action (scroll / move caret)
 });
 </script>
-{% endif %}
+<!--
+<script>
+$('#category1').jscroll({
+	nextSelector:'#next'
+});
+</script>
+-->
+<script>
+$( "#category_name_1" ).click(function() {
+$( "#category1" ).slideToggle( "slow")
+});
+$( "#category_name_2" ).click(function() {
+$( "#category2" ).slideToggle( "slow")
+});
+$( "#category_name_3" ).click(function() {
+$( "#category3" ).slideToggle( "slow")
+});
+</script>
 {% endblock %}

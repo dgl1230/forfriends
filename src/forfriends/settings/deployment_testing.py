@@ -18,7 +18,22 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 SECRET_KEY = os.environ["FORFRIENDS_KEY"]
 
 
-DEBUG = False
+DEBUG = True
+
+
+DEBUG_TOOLBAR_PATCH_SETTINGS = False
+
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': 'profiles.views.custom_show_toolbar',
+}
+
+
+
+INTERNAL_IPS = ('67.169.73.204',)
+
+SHOW_TOOLBAR_CALLBACK = True
+
+TEMPLATE_DEBUG = True
 
 
 TEMPLATE_DEBUG = True
@@ -60,6 +75,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 
 )
 
@@ -224,7 +240,8 @@ def get_cache():
 CACHES = get_cache()
 
 
-#LOGIN_URL = reverse_lazy('home')
+
+
 
 
 

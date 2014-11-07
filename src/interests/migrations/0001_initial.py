@@ -8,46 +8,38 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
+        # Adding model 'Category'
+        db.create_table(u'interests_category', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('title', self.gf('django.db.models.fields.CharField')(max_length=120)),
+            ('super_category', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['interests.Category'], null=True, blank=True)),
+        ))
+        db.send_create_signal(u'interests', ['Category'])
+
         # Adding model 'Interest'
         db.create_table(u'interests_interest', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
-            ('description', self.gf('django.db.models.fields.CharField')(max_length=200)),
+            ('category', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['interests.Category'], null=True, blank=True)),
             ('interest', self.gf('django.db.models.fields.CharField')(max_length=120)),
-            ('timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('update', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
+            ('approved', self.gf('django.db.models.fields.BooleanField')(default=False)),
         ))
         db.send_create_signal(u'interests', ['Interest'])
-
-        # Adding model 'InterestPicture'
-        db.create_table(u'interests_interestpicture', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('interest', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['interests.Interest'])),
-            ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=100)),
-            ('timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('active', self.gf('django.db.models.fields.BooleanField')(default=True)),
-        ))
-        db.send_create_signal(u'interests', ['InterestPicture'])
 
         # Adding model 'UserInterestAnswer'
         db.create_table(u'interests_userinterestanswer', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
             ('interest', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['interests.Interest'])),
-            ('importance_level', self.gf('django.db.models.fields.CharField')(default='Neutral', max_length=120, null=True, blank=True)),
-            ('points', self.gf('django.db.models.fields.IntegerField')(default='20')),
-            ('timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('update', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
         ))
         db.send_create_signal(u'interests', ['UserInterestAnswer'])
 
 
     def backwards(self, orm):
+        # Deleting model 'Category'
+        db.delete_table(u'interests_category')
+
         # Deleting model 'Interest'
         db.delete_table(u'interests_interest')
-
-        # Deleting model 'InterestPicture'
-        db.delete_table(u'interests_interestpicture')
 
         # Deleting model 'UserInterestAnswer'
         db.delete_table(u'interests_userinterestanswer')
@@ -90,31 +82,23 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
+        u'interests.category': {
+            'Meta': {'object_name': 'Category'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'super_category': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['interests.Category']", 'null': 'True', 'blank': 'True'}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '120'})
+        },
         u'interests.interest': {
             'Meta': {'object_name': 'Interest'},
-            'description': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
+            'approved': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'category': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['interests.Category']", 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'interest': ('django.db.models.fields.CharField', [], {'max_length': '120'}),
-            'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'update': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"})
-        },
-        u'interests.interestpicture': {
-            'Meta': {'object_name': 'InterestPicture'},
-            'active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
-            'interest': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['interests.Interest']"}),
-            'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'})
+            'interest': ('django.db.models.fields.CharField', [], {'max_length': '120'})
         },
         u'interests.userinterestanswer': {
             'Meta': {'object_name': 'UserInterestAnswer'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'importance_level': ('django.db.models.fields.CharField', [], {'default': "'Neutral'", 'max_length': '120', 'null': 'True', 'blank': 'True'}),
             'interest': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['interests.Interest']"}),
-            'points': ('django.db.models.fields.IntegerField', [], {'default': "'20'"}),
-            'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'update': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"})
         }
     }

@@ -244,21 +244,15 @@ a:hover{
 	}
 	#compose_button_container{
 		width:120px!important;
-	}
-	.navbar-brand{
-		margin-left:-15px!important;
 	}	
-}
-
-
-@media (min-width: 1200px) {
-	.question_answers{
-		width:600px;
-	}
 }
 
 @media (max-width: 586px) {
 	.location_div_left{
 		margin-left:50px;
 	}
+}
+
+tr#message_row:nth-child(even){
+	background-color:#383838!important;
 }

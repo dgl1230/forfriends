@@ -1,0 +1,37 @@
+.category h2{
+	text-align: left;
+	padding-left:20px;
+	padding-bottom:10px;
+	color:#1fbad6;
+	border-bottom:2px solid #1fbad6;
+}
+.category{
+	margin-top:50px;
+	text-align: left;
+	display:block;
+}
+#interest.col-sm-4{
+	display:inline-block;
+	width:33%;
+	height:200px;
+}
+#like{
+	width:100px!important;
+}
+
+.infinite{
+	width:100%;
+	height:150px;
+	display:block;
+	z-index:1000;
+}
+.col-sm-4{
+	float:none;
+	position:static;
+}
+.infinite a{
+	color:black!important;
+}
+.category_hidden{
+	display:none;
+}
