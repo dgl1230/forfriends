@@ -28,10 +28,9 @@
 		{% for interest in games %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-		<form id="interests_form_1" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+		<form class="interests_form_1" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
-			<input type='submit' id="liked" class='btn-lg' value='Liked!'>
 		</form>
 		</div><!--End Interest-->
 		{% endfor %}
@@ -44,7 +43,7 @@
 		{% for interest in fitness_sports %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-		<form method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+		<form class="interests_form_2"method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
 		</form>
@@ -58,7 +57,7 @@
 		{% for interest in outdoor_activities %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-		<form method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+		<form method='POST' class="interests_form_3" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
 		</form>
@@ -68,13 +67,13 @@
 		</div><!--End Category-->
 		</div><!--Category 1-->
 		</div><!--End Category-->
-		<div class="category">
+		<div category class="category">
 			<h2 class="category_name" id="category_name_4">Performing Arts and Music</h2>
 		<div class="category_hidden" id="category4">
 		{% for interest in performing_arts %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-		<form method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+		<form method='POST' class="interests_form_4" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
 		</form>
@@ -89,7 +88,7 @@
 		{% for interest in arts_crafts %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-		<form method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+		<form method='POST' class="interests_form_5" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
 		</form>
@@ -104,7 +103,7 @@
 		{% for interest in spiritual %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-		<form method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+		<form method='POST' class="interests_form_6" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
 		</form>
@@ -119,7 +118,7 @@
 		{% for interest in food %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-		<form method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+		<form method='POST' class="interests_form_7" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
 		</form>
@@ -134,7 +133,7 @@
 		{% for interest in news %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-		<form method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+		<form method='POST' class="interests_form_8" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
 		</form>
@@ -161,32 +160,6 @@
 
 	</div><!--End wrapper-->
 </div><!--End big Wrapper-->
-<script>
-$(document).keydown(function(e) {
-    switch(e.which) {
-        case 37: // left
-        
-        window.location = "?page={{ interests.previous_page_number }}";
-        break;
-
-        default: return; // exit this handler for other keys
-    }
-    e.preventDefault(); // prevent the default action (scroll / move caret)
-});
-</script>
-
-<script>
-	$(document).keydown(function(e) {
-    switch(e.which) {
-        case 39: // right
-        window.location = "?page={{ interests.next_page_number }}";
-        break;
-
-        default: return; // exit this handler for other keys
-    }
-    e.preventDefault(); // prevent the default action (scroll / move caret)
-});
-</script>
 <!--
 <script>
 $('#category1').jscroll({
@@ -219,19 +192,36 @@ $( "#category7" ).slideToggle( "slow")
 $( "#category_name_8" ).click(function() {
 $( "#category8" ).slideToggle( "slow")
 });
+$( "#category_name_9" ).click(function() {
+$( "#category8" ).slideToggle( "slow")
+});
 </script>
 
 <script>
 $(document).ready(function(){
-$('#interests_form_1').ajaxForm(function() {
+$('.interests_form_1').ajaxForm(function() {
+});
+$('.interests_form_2').ajaxForm(function() {
+});
+$('.interests_form_3').ajaxForm(function() {
+});
+$('.interests_form_4').ajaxForm(function() {
+});
+$('.interests_form_5').ajaxForm(function() {
+});
+$('.interests_form_6').ajaxForm(function() {
+});
+$('.interests_form_7').ajaxForm(function() {
+});
+$('.interests_form_8').ajaxForm(function() {
 });
 });
 </script>
 
 <script>
-$('#like').click(function(){
-	$(this).hide();
-	$('#liked').show();
+$('.btn-lg').click(function(){
+	$(this).val("Liked!");
+	$(this).removeClass('btn-lg').addClass("liked");
 });
 </script>
 {% endblock %}
