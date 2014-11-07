@@ -28,7 +28,7 @@
 		{% for interest in games %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-		<form method='POST' action=''> {% csrf_token %}
+		<form method='POST' action='{% 'save_interest' interest.id %}'> {% csrf_token %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
 		</form>
@@ -103,7 +103,7 @@
 		{% for interest in spiritual %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-		<form method='POST' action=''> {% csrf_token %}
+		<form method='POST' action='{'> {% csrf_token %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
 		</form>
