@@ -130,9 +130,9 @@ def question_points(user1, user2):
 	user1_list = []
 	user2_dict = {}
 	for ans in user1_answers:
-		user1_list.append([ans.question, ans.question.weight, ans.answer.pattern_number])
+		user1_list.append([ans.question, ans.question.weight, ans.answer.value])
 	for ans in user2_answers:
-		user2_dict[ans.question] = ans.answer.pattern_number
+		user2_dict[ans.question] = ans.answer.value
 	for i in range(len(user1_list)):
 		user1_question = user1_list[i][0]
 		importance_multiplier = user1_list[i][1]
