@@ -18,7 +18,11 @@
 #like{
 	width:100px!important;
 }
-
+#liked{
+	width:100px!important;
+	display:none;
+	background-color:#5ad75a!important;
+}
 .infinite{
 	width:100%;
 	height:150px;

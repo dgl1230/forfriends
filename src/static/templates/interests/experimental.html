@@ -28,9 +28,10 @@
 		{% for interest in games %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-		<form method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+		<form id="interests_form_1" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+			<input type='submit' id="liked" class='btn-lg' value='Liked!'>
 		</form>
 		</div><!--End Interest-->
 		{% endfor %}
@@ -68,8 +69,8 @@
 		</div><!--Category 1-->
 		</div><!--End Category-->
 		<div class="category">
-			<h2 class="category_name" id="category_name_2">Performing Arts and Music</h2>
-		<div class="category_hidden" id="category2">
+			<h2 class="category_name" id="category_name_4">Performing Arts and Music</h2>
+		<div class="category_hidden" id="category4">
 		{% for interest in performing_arts %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
@@ -83,8 +84,8 @@
 		</div><!--Category 1-->
 		</div><!--End Category-->
 		<div class="category">
-			<h2 class="category_name" id="category_name_2">Arts and Crafts</h2>
-		<div class="category_hidden" id="category2">
+			<h2 class="category_name" id="category_name_5">Arts and Crafts</h2>
+		<div class="category_hidden" id="category5">
 		{% for interest in arts_crafts %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
@@ -98,8 +99,8 @@
 		</div><!--Category 1-->
 		</div><!--End Category-->
 		<div class="category">
-			<h2 class="category_name" id="category_name_2">Spiritual/Mental Health</h2>
-		<div class="category_hidden" id="category2">
+			<h2 class="category_name" id="category_name_6">Spiritual/Mental Health</h2>
+		<div class="category_hidden" id="category6">
 		{% for interest in spiritual %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
@@ -113,8 +114,8 @@
 		</div><!--Category 1-->
 		</div><!--End Category-->
 		<div class="category">
-			<h2 class="category_name" id="category_name_2">Food/Cooking</h2>
-		<div class="category_hidden" id="category2">
+			<h2 class="category_name" id="category_name_7">Food/Cooking</h2>
+		<div class="category_hidden" id="category7">
 		{% for interest in food %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
@@ -128,8 +129,8 @@
 		</div><!--Category 1-->
 		</div><!--End Category-->
 		<div class="category">
-			<h2 class="category_name" id="category_name_2">News/Current Events</h2>
-		<div class="category_hidden" id="category2">
+			<h2 class="category_name" id="category_name_8">News/Current Events</h2>
+		<div class="category_hidden" id="category8">
 		{% for interest in news %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
@@ -143,8 +144,8 @@
 		</div><!--Category 1-->
 		</div><!--End Category-->
 		<div class="category">
-			<h2 class="category_name" id="category_name_2">Indoor Activities</h2>
-		<div class="category_hidden" id="category2">
+			<h2 class="category_name" id="category_name_9">Indoor Activities</h2>
+		<div class="category_hidden" id="category9">
 		{% for interest in indoor %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
@@ -202,6 +203,35 @@ $( "#category2" ).slideToggle( "slow")
 });
 $( "#category_name_3" ).click(function() {
 $( "#category3" ).slideToggle( "slow")
+});
+$( "#category_name_4" ).click(function() {
+$( "#category4" ).slideToggle( "slow")
+});
+$( "#category_name_5" ).click(function() {
+$( "#category5" ).slideToggle( "slow")
+});
+$( "#category_name_6" ).click(function() {
+$( "#category6" ).slideToggle( "slow")
+});
+$( "#category_name_7" ).click(function() {
+$( "#category7" ).slideToggle( "slow")
+});
+$( "#category_name_8" ).click(function() {
+$( "#category8" ).slideToggle( "slow")
+});
+</script>
+
+<script>
+$(document).ready(function(){
+$('#interests_form_1').ajaxForm(function() {
+});
+});
+</script>
+
+<script>
+$('#like').click(function(){
+	$(this).hide();
+	$('#liked').show();
 });
 </script>
 {% endblock %}
