@@ -32,10 +32,10 @@ def all_interests_experimental(request):
 def save_interest(request, interest_id):
 	interest = Interest.objects.get(id=interest_id)
 	try: 
-		answered = UserInterestAnswer.objects.get(user=user, interest=interest)
+		answered = UserInterestAnswer.objects.get(user=request.user, interest=interest)
 		answered.delete()
 	except: 
-		answered = UserInterestAnswer.objects.create(user=user, interest=interest)
+		answered = UserInterestAnswer.objects.create(user=request.user, interest=interest)
 		answered.save()
 	return HttpResponseRedirect(reverse('interests_all_experimental'))
 
