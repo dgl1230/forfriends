@@ -118,7 +118,7 @@
 		{% for interest in food %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-		<form method='POST' action='{% 'save_interest' interest.id %}'> {% csrf_token %}
+		<form method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
 		</form>
@@ -133,7 +133,7 @@
 		{% for interest in news %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-		<form method='POST' action='{% 'save_interest' interest.id %}'> {% csrf_token %}
+		<form method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
 		</form>
@@ -148,7 +148,7 @@
 		{% for interest in indoor %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-		<form method='POST' action='{% 'save_interest' interest.id %}'> {% csrf_token %}
+		<form method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
 		</form>
