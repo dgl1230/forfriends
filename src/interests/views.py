@@ -15,7 +15,7 @@ from django.core.cache import cache
 from profiles.views import user_not_new
 
 
-
+@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def all_interests_experimental(request):
 	games = Interest.objects.filter(category__title='Games')
 	fitness_sports = Interest.objects.filter(category__title='Fitness/Sports')

@@ -27,7 +27,7 @@
 		<div class="category_hidden" id="category1">
 		{% for interest in games %}
 		<div class='col-sm-4' id="interest">
-			<h4>{{ interest.interest|title }}</h4>
+			<h4>{{ interest.interest }}</h4>
 		<form method='POST' action=''> {% csrf_token %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
@@ -42,7 +42,7 @@
 		<div class="category_hidden" id="category2">
 		{% for interest in fitness_sports %}
 		<div class='col-sm-4' id="interest">
-			<h4>{{ interest.interest|title }}</h4>
+			<h4>{{ interest.interest }}</h4>
 		<form method='POST' action=''> {% csrf_token %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
@@ -56,7 +56,7 @@
 		<div class="category_hidden" id="category3">
 		{% for interest in outdoor_activities %}
 		<div class='col-sm-4' id="interest">
-			<h4>{{ interest.interest|title }}</h4>
+			<h4>{{ interest.interest }}</h4>
 		<form method='POST' action=''> {% csrf_token %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
@@ -72,7 +72,7 @@
 		<div class="category_hidden" id="category2">
 		{% for interest in performing_arts %}
 		<div class='col-sm-4' id="interest">
-			<h4>{{ interest.interest|title }}</h4>
+			<h4>{{ interest.interest }}</h4>
 		<form method='POST' action=''> {% csrf_token %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
@@ -87,7 +87,7 @@
 		<div class="category_hidden" id="category2">
 		{% for interest in arts_crafts %}
 		<div class='col-sm-4' id="interest">
-			<h4>{{ interest.interest|title }}</h4>
+			<h4>{{ interest.interest }}</h4>
 		<form method='POST' action=''> {% csrf_token %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
@@ -102,7 +102,7 @@
 		<div class="category_hidden" id="category2">
 		{% for interest in spiritual %}
 		<div class='col-sm-4' id="interest">
-			<h4>{{ interest.interest|title }}</h4>
+			<h4>{{ interest.interest }}</h4>
 		<form method='POST' action=''> {% csrf_token %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
@@ -117,7 +117,7 @@
 		<div class="category_hidden" id="category2">
 		{% for interest in food %}
 		<div class='col-sm-4' id="interest">
-			<h4>{{ interest.interest|title }}</h4>
+			<h4>{{ interest.interest }}</h4>
 		<form method='POST' action=''> {% csrf_token %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
@@ -132,7 +132,7 @@
 		<div class="category_hidden" id="category2">
 		{% for interest in news %}
 		<div class='col-sm-4' id="interest">
-			<h4>{{ interest.interest|title }}</h4>
+			<h4>{{ interest.interest }}</h4>
 		<form method='POST' action=''> {% csrf_token %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
@@ -147,7 +147,7 @@
 		<div class="category_hidden" id="category2">
 		{% for interest in indoor %}
 		<div class='col-sm-4' id="interest">
-			<h4>{{ interest.interest|title }}</h4>
+			<h4>{{ interest.interest }}</h4>
 		<form method='POST' action=''> {% csrf_token %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
