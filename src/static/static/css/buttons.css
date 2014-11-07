@@ -72,7 +72,7 @@
 	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
 }
 
-#pictures input[type=submit]:hover, .btn-info.btn-sm:hover, .btn-sm:hover, .pager li a:hover, .btn-success:hover{
+#pictures input[type=submit]:hover, .btn-info.btn-sm:hover, .btn-sm:hover, .btn-success:hover{
 	background-color:#1FBAD6!important;
 	color:white!important;
 }
@@ -80,7 +80,7 @@
  	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
 }
 .pager li a:hover{
-	border:1px solid white;
+	color:#1fbad6!important;
 }
 
 #delete_message_button{
@@ -102,7 +102,7 @@
 	margin-top:30px;
 }
 
-#pictures input[type=submit], .btn.btn-info.btn-sm, .pager li a{
+#pictures input[type=submit], .btn.btn-info.btn-sm{
 	background-color: white!important;
 	color: black!important;
 	border: 1px solid #111;
@@ -111,6 +111,17 @@
 	-webkit-transition-duration: .5s;
 	-transition-duration: .5s;
 	-moz-transition-duration: .5s;
+}
+.pager li a{
+	background-color: white!important;
+	color: black!important;
+	border: none;
+	border-radius:0px;
+	font-weight: 100;
+	-webkit-transition-duration: .5s;
+	-transition-duration: .5s;
+	-moz-transition-duration: .5s;
+	font-size:3rem;
 }
 
 .btn-lg{

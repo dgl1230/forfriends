@@ -50,3 +50,18 @@
 .category_hidden{
 	display:none;
 }
+
+/* Questions */
+
+#big_wrapper{
+	text-align: center;
+}
+.pager li > a{
+	padding:0px 0px!important;
+}
+.pagination{
+	margin:0 0;
+}
+#one input{
+	visibility: hidden;
+}

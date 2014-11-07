@@ -22,21 +22,22 @@
 </div>
 {% endif %}
 	<div class='row' id="interests-wrapper">
+		{% for category in categories %}
 		<div class="category">
 			<h2 class="category_name" id="category_name_1">Games</h2>
 		<div class="category_hidden" id="category1">
-		{% for interest in games %}
+		
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-		<form class="interests_form_1" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+		<form class="interests_form_1" method='POST' action=''> {% csrf_token %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
 		</form>
 		</div><!--End Interest-->
-		{% endfor %}
 		
 		</div><!--Category 1-->
 		</div><!--End Category-->
+		{% endfor %}
 		<div class="category">
 			<h2 class="category_name" id="category_name_2">Fitness/Sports</h2>
 		<div class="category_hidden" id="category2">
