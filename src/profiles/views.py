@@ -237,7 +237,6 @@ the user is not logged in, and is shown the landing page.
 
 
 def all(request):
-	print("*************IP Address for debug-toolbar: ********" + request.META['REMOTE_ADDR'])
 	if request.user.is_authenticated():
 		info, created = Info.objects.get_or_create(user=request.user)
 		
@@ -336,6 +335,7 @@ def all(request):
 				pass
 		return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 	else:
+		print("*************IP Address for debug-toolbar: ********" + request.META['REMOTE_ADDR'])
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
 
