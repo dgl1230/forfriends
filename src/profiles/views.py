@@ -235,7 +235,6 @@ the user is not logged in, and is shown the landing page.
 
 def all(request):
 	print("*************IP Address for debug-toolbar: ********" + request.META['REMOTE_ADDR'])
-	sys.stdout.flush()
 	if request.user.is_authenticated():
 		info, created = Info.objects.get_or_create(user=request.user)
 		
