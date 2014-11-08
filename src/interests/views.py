@@ -17,7 +17,7 @@ from profiles.views import user_not_new
 
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def all_interests_experimental(request):
-	user_interests = Interest.objects.filter(user=request.user)
+	user_interests = Interest.objects.filter(userinterestanswer__user=request.user)
 	subcategories = ["Video/Computer Games", "Board Games", "Extreme Sports" ,"Dancing"]
 	categories = Category.objects.exclude(title__in=subcategories)
 	video_games = Interest.objects.filter(category__title='Video/Computer Games')
