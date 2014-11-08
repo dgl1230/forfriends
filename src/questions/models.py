@@ -14,6 +14,7 @@ class Question(models.Model):
 class Answer(models.Model):
 	question = models.ForeignKey(Question)
 	answer = models.CharField(max_length=200)
+	value = models.IntegerField(null=True, blank=True)
 
 	def __unicode__(self):
 		return self.answer

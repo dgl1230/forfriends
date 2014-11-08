@@ -17,10 +17,16 @@ from profiles.views import user_not_new
 
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def all_interests_experimental(request):
+	
 	games = Interest.objects.filter(category__title='Games')
+	video_games = Interest.objects.filter(category__title='Video/Computer Games')
+	card_games = Interest.objects.filter(category__title='Card Games')
+	board_games = Interest.objects.filter(category__title='Board Games')
 	fitness_sports = Interest.objects.filter(category__title='Fitness/Sports')
+	extreme_sports = Interest.objects.filter(category__title='Extreme Sports')
 	outdoor_activities = Interest.objects.filter(category__title='Outdoor Activities')
 	performing_arts = Interest.objects.filter(category__title='Performing Arts and Music')
+	dancing = card_games = Interest.objects.filter(category__title='Dancing')
 	arts_crafts = Interest.objects.filter(category__title='Arts and Crafts')
 	spiritual = Interest.objects.filter(category__title='Spiritual/Mental Health')
 	food = Interest.objects.filter(category__title='Food/Cooking')
