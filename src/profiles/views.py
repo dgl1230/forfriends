@@ -335,7 +335,7 @@ def all(request):
 				pass
 		return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 	else:
-		print("FUUUUUUUUUCK IP Address for debug-toolbar: FUUUUUUUUCK" + request.META['REMOTE_ADDR'])
+		print("111111111111 IP Address for debug-toolbar: 11111111111" + request.META['REMOTE_ADDR'])
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
 
