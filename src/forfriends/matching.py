@@ -60,14 +60,13 @@ def interest_points(user1, user2):
 	user2_dict = {}
 	#could move this for loop into range(len(user1_list)) possibly
 	for i in logged_in_user_interests:
-		user1_list.append([i.interest, i.importance_level])
+		user1_list.append(i.interest)
 	for i in viewed_user_interests:
 		user2_dict[i.interest] = "irrelephant"
 	for i in range(len(user1_list)):
-		user1_interest = user1_list[i][0]
-		user1_importance = user1_list[i][1]
+		user1_interest = user1_list[i]
 		#check to see if both share the same interest: if so, increment number_in_common
-		user2_importance = user2_dict.pop(user1_interest, "false")
+		user2_interest = user2_dict.pop(user1_interest, "false")
 		if user2_importance != "false": #key was found, interests were shared, calculate difference in importance
 			#points_possible += 75
 			#user_score_tuple = calc_interest_importance(user1_importance, user2_importance)
@@ -134,9 +133,9 @@ def question_points(user1, user2):
 	user1_list = []
 	user2_dict = {}
 	for ans in user1_answers:
-		user1_list.append([ans.question, ans.question.weight, ans.answer.pattern_number])
+		user1_list.append([ans.question, ans.question.weight, ans.answer.value])
 	for ans in user2_answers:
-		user2_dict[ans.question] = ans.answer.pattern_number
+		user2_dict[ans.question] = ans.answer.value
 	for i in range(len(user1_list)):
 		user1_question = user1_list[i][0]
 		importance_multiplier = user1_list[i][1]

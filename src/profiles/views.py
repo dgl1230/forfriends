@@ -42,6 +42,9 @@ CURRENTLY_LOCALLY_TESTING = False
 def custom_show_toolbar(request):
 	return True
 
+#trying to get the right ip for the toolbar
+def correct_ip(request):
+	return str(request.META['REMOTE_ADDR'])
 
 
 

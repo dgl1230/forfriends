@@ -1,7 +1,7 @@
 
 import os
 from django.core.urlresolvers import reverse_lazy
-
+from profiles.views import correct_ip
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
@@ -29,7 +29,10 @@ DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
 
 
-INTERNAL_IPS = ('67.169.73.204',)
+
+
+#INTERNAL_IPS = ('67.169.73.204',)
+INTERNAL_IPS = (correct_ip(),)
 
 SHOW_TOOLBAR_CALLBACK = True
 
