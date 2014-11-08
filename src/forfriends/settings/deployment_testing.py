@@ -1,7 +1,7 @@
 
 import os
 from django.core.urlresolvers import reverse_lazy
-from profiles.views import correct_ip
+#from profiles.views import correct_ip
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
