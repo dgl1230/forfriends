@@ -13,7 +13,7 @@
 #interest.col-sm-4{
 	display:inline-block;
 	width:33%;
-	height:200px;
+	height:120px;
 }
 #like{
 	width:100px!important;
@@ -64,4 +64,8 @@
 }
 #one input{
 	visibility: hidden;
+}
+.subcategory{
+	border-bottom:1px solid #1fbad6;
+	display:none;
 }
