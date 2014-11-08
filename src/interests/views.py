@@ -8,7 +8,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth.decorators import user_passes_test
 
-from .models import Interest, UserInterestAnswer
+from .models import Interest, UserInterestAnswer, Category
 from .forms import InterestForm
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
@@ -17,7 +17,14 @@ from profiles.views import user_not_new
 
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def all_interests_experimental(request):
-	
+	user_interests = Interest.objects.filter(user=request.user)
+	subcategories = ["Video/Computer Games", "Board Games", "Extreme Sports" ,"Dancing"]
+	categories = Category.objects.exclude(title__in=subcategories)
+	video_games = Interest.objects.filter(category__title='Video/Computer Games')
+	card_games = Interest.objects.filter(category__title='Card Games')
+	board_games = Interest.objects.filter(category__title='Board Games')
+	dancing = card_games = Interest.objects.filter(category__title='Dancing')
+	'''
 	games = Interest.objects.filter(category__title='Games')
 	video_games = Interest.objects.filter(category__title='Video/Computer Games')
 	card_games = Interest.objects.filter(category__title='Card Games')
@@ -32,6 +39,7 @@ def all_interests_experimental(request):
 	food = Interest.objects.filter(category__title='Food/Cooking')
 	news = Interest.objects.filter(category__title='News/Current Events')
 	indoor = Interest.objects.filter(category__title='Indoor Activities')
+	'''
 	return render_to_response('interests/experimental.html', locals(), context_instance=RequestContext(request))
 
 
