@@ -23,9 +23,9 @@ DEBUG = True
 
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
-DEBUG_TOOLBAR_CONFIG = {
-    'SHOW_TOOLBAR_CALLBACK': 'profiles.views.custom_show_toolbar',
-}
+#DEBUG_TOOLBAR_CONFIG = {
+#    'SHOW_TOOLBAR_CALLBACK': 'profiles.views.custom_show_toolbar',
+#}
 
 
 
