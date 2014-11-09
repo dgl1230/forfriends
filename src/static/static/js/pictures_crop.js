@@ -56,7 +56,7 @@ function fileSelectHandler() {
         $('.error').html('Please select a smaller image file').show();
         return;
     }
-    if (oFile.size < 2500) {
+    if (oFile.size < 0) {
         $('.error').html(
             'You have selected too small of a file, please select a larger image file'
         ).show();

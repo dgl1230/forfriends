@@ -22,35 +22,43 @@
 </div>
 {% endif %}
 	<div class='row' id="interests-wrapper">
-	<!--=============Games=====================================-->
+<!--=============Games=====================================-->
 		<div class="category">
 
 			<h2 class="category_name" id="category_name_1">Games</h2>
 			{% for interest in games %}
 		<div class="category_hidden" id="category1">
 			<h2 class="category_name" id="subcategory_name_1a">Board Games</h2>
-			{% if interest in user_interests}
-			{% else %}
-			{% endif %}
+			
 			{% for interest in board_games %}
 		<div class="subcategory" id="subcategory_1a">
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-		<form class="interests_form_1" method='POST' action=''> {% csrf_token %}
+		<form class="interests_form_1a" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+			{% if interest in user_interests %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='liked' value='Liked!'>
+			{% else %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+			{% endif %}	
 		</form>
 		</div><!--End Interest-->
-		</div><!--End Subcategory 1a -->
 		{% endfor %}
+		</div><!--End Subcategory 1a -->
 		<h2 class="category_name" id="subcategory_name_1b">Card Games</h2>
 		<div class="subcategory" id="subcategory_1b">
 		{% for interest in card_games %}	
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-		<form class="interests_form_1" method='POST' action=''> {% csrf_token %}
+		<form class="interests_form_1b" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+			{% if interest in user_interests %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='liked' value='Liked!'>
+			{% else %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+			{% endif %}
 		</form>
 		</div><!--End Interest-->
 		{% endfor %}
@@ -60,18 +68,28 @@
 		{% for interest in video_games %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-		<form class="interests_form_1" method='POST' action=''> {% csrf_token %}
+		<form class="interests_form_1c" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+			{% if interest in user_interests %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='liked' value='Liked!'>
+			{% else %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+			{% endif %}
 		</form>
 		</div><!--End Interest-->
 		{% endfor %}
 		</div><!--End Subcategory 3-->
 			<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-		<form class="interests_form_1" method='POST' action=''> {% csrf_token %}
+		<form class="interests_form_1" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+			{% if interest in user_interests %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='liked' value='Liked!'>
+			{% else %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+			{% endif %}
 		</form>
 		</div><!--Category 1-->
 		</div><!--End Category-->
@@ -87,22 +105,31 @@
 		{% for interest in team_sports %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-		<form class="interests_form_1" method='POST' action=''> {% csrf_token %}
+		<form class="interests_form_1" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+			{% if interest in user_interests %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='liked' value='Liked!'>
+			{% else %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+			{% endif %}
 		</form>
 		</div><!--End Interest-->
 		{% endfor %}
 		</div><!--End Subcategory 2a -->
-		
 		<h2 class="category_name" id="subcategory_name_2b">Extreme Sports</h2>
 		<div class="subcategory" id="subcategory_2b">
 		{% for interest in extreme_sports %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-		<form class="interests_form_1" method='POST' action=''> {% csrf_token %}
+		<form class="interests_form_1" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+			{% if interest in user_interests %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='liked' value='Liked!'>
+			{% else %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+			{% endif %}
 		</form>
 		</div><!--End Interest-->
 		{% endfor %}
@@ -110,8 +137,13 @@
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
 		<form class="interests_form_2" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+			{% if interest in user_interests %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='liked' value='Liked!'>
+			{% else %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+			{% endif %}
 		</form>
 		</div><!--End Interest-->
 		{% endfor %}
@@ -125,8 +157,13 @@
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
 		<form method='POST' class="interests_form_3" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+			{% if interest in user_interests %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='liked' value='Liked!'>
+			{% else %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+			{% endif %}
 		</form>
 		</div><!--End Interest-->
 		{% endfor %}
@@ -144,9 +181,14 @@
 		{% for interest in musical_instruments %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-		<form class="interests_form_1" method='POST' action=''> {% csrf_token %}
+		<form class="interests_form_1" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+			{% if interest in user_interests %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='liked' value='Liked!'>
+			{% else %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+			{% endif %}
 		</form>
 		</div><!--End Interest-->
 		{% endfor %}
@@ -154,8 +196,13 @@
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
 		<form method='POST' class="interests_form_4" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+			{% if interest in user_interests %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='liked' value='Liked!'>
+			{% else %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+			{% endif %}
 		</form>
 		</div><!--End Interest-->
 		{% endfor %}
@@ -170,8 +217,13 @@
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
 		<form method='POST' class="interests_form_5" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+			{% if interest in user_interests %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='liked' value='Liked!'>
+			{% else %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+			{% endif %}
 		</form>
 		</div><!--End Interest-->
 		{% endfor %}
@@ -186,8 +238,13 @@
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
 		<form method='POST' class="interests_form_6" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+			{% if interest in user_interests %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='liked' value='Liked!'>
+			{% else %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+			{% endif %}
 		</form>
 		</div><!--End Interest-->
 		{% endfor %}
@@ -202,8 +259,13 @@
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
 		<form method='POST' class="interests_form_7" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+			{% if interest in user_interests %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='liked' value='Liked!'>
+			{% else %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+			{% endif %}
 		</form>
 		</div><!--End Interest-->
 		{% endfor %}
@@ -218,8 +280,13 @@
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
 		<form method='POST' class="interests_form_8" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+			{% if interest in user_interests %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='liked' value='Liked!'>
+			{% else %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+			{% endif %}
 		</form>
 		</div><!--End Interest-->
 		{% endfor %}
@@ -234,8 +301,13 @@
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
 		<form method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+			{% if interest in user_interests %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='liked' value='Liked!'>
+			{% else %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+			{% endif %}
 		</form>
 		</div><!--End Interest-->
 		{% endfor %}
@@ -364,6 +436,12 @@ $( "#subcategory_9c" ).slideToggle( "slow")
 $(document).ready(function(){
 $('.interests_form_1').ajaxForm(function() {
 });
+$('.interests_form_1a').ajaxForm(function() {
+});
+$('.interests_form_1b').ajaxForm(function() {
+});
+$('.interests_form_1c').ajaxForm(function() {
+});
 $('.interests_form_2').ajaxForm(function() {
 });
 $('.interests_form_3').ajaxForm(function() {
@@ -385,6 +463,12 @@ $('.interests_form_8').ajaxForm(function() {
 $('.btn-lg').click(function(){
 	$(this).val("Liked!");
 	$(this).removeClass('btn-lg').addClass("liked");
+});
+</script>
+<script>
+$('.liked').click(function(){
+	$(this).val("Like it!");
+	$(this).removeClass('liked').addClass("btn-lg");
 });
 </script>
 {% endblock %}
