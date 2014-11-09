@@ -69,10 +69,10 @@
 	float: left;
 }
 .previous a{
-	width:120px;
+	width:80px;
 }
 .next a{
-	width:120px;
+	width:80px;
 }
 .next{
 	float: right;
@@ -138,7 +138,7 @@ footer{
 }
 #question-wrapper{
 	min-width:250px!important;
-	padding:5px 5px 5px 5px;
+	padding:0px 5px 5px 5px;
 }
 
 #more_answers_appear1, #more_answers_appear1, #more_answers_appear2, #more_answers_appear3{
@@ -213,7 +213,7 @@ footer{
 
 @media only screen and (max-width:680px){
 	.pager{
-		width:120px;
+		width:160px;
 
 	}
 }

@@ -166,8 +166,7 @@
 			{% for imp in importance_levels %}
 			<input type="radio" name="rating" value='{{ imp }}' id='{{ imp }}' class="star" {% for abc in interest.userinterestanswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} checked="checked" {% endif %} {% endfor %}><i></i>
 			{% endfor %}
-		</span>
-		
+		</span>	
 	<div class="interest_buttons">
 		<!-- Submit Button -->
 	<input type='submit' id="submit_question" class='btn-lg' value='Save'>
