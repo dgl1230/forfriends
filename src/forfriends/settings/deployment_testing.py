@@ -23,15 +23,15 @@ DEBUG = True
 
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
-DEBUG_TOOLBAR_CONFIG = {
-    'SHOW_TOOLBAR_CALLBACK': 'profiles.views.custom_show_toolbar',
-}
+#DEBUG_TOOLBAR_CONFIG = {
+ #   'SHOW_TOOLBAR_CALLBACK': 'profiles.views.custom_show_toolbar',
+#}
 
 
 
 
 
-INTERNAL_IPS = ('10.0.2.15', '192.168.1.6', '67.169.73.204', '71.165.84.204',)
+#INTERNAL_IPS = ('10.0.2.15', '192.168.1.6', '67.169.73.204', '71.165.84.204',)
 #INTERNAL_IPS = (correct_ip(),)
 
 SHOW_TOOLBAR_CALLBACK = True
@@ -173,8 +173,8 @@ AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
 
-DEFAULT_FILE_STORAGE = 'forfriends.s3utils.MediaRootS3BotoStorage'
-STATICFILES_STORAGE = 'forfriends.s3utils.StaticRootS3BotoStorage'
+#DEFAULT_FILE_STORAGE = 'forfriends.s3utils.MediaRootS3BotoStorage'
+#STATICFILES_STORAGE = 'forfriends.s3utils.StaticRootS3BotoStorage'
 
 AWS_PRELOAD_METADATA = True 
 
