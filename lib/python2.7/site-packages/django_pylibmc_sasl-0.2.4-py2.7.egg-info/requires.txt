@@ -1,0 +1,2 @@
+pylibmc
+Django>=1.2
