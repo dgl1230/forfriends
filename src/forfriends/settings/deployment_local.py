@@ -224,7 +224,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
 ]
 
 #Caching with heroku 
-def get_cache():
+"""def get_cache():
     try:
         os.environ['MEMCACHE_SERVERS'] = os.environ['MEMCACHIER_SERVERS'].replace(',', ';')
         os.environ['MEMCACHE_USERNAME'] = os.environ['MEMCACHIER_USERNAME']
@@ -244,7 +244,7 @@ def get_cache():
             }
         }
 
-CACHES = get_cache()
+CACHES = get_cache()"""
 
 
 
