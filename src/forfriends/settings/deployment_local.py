@@ -186,8 +186,8 @@ AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
 AWS_PRELOAD_METADATA = True 
 
 S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
-#STATIC_URL = S3_URL + 'static/'
-#MEDIA_URL = S3_URL + 'media/'
+STATIC_URL = S3_URL + 'static/'
+MEDIA_URL = S3_URL + 'media/'
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
 DMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
@@ -224,7 +224,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
 ]
 
 #Caching with heroku 
-"""def get_cache():
+def get_cache():
     try:
         os.environ['MEMCACHE_SERVERS'] = os.environ['MEMCACHIER_SERVERS'].replace(',', ';')
         os.environ['MEMCACHE_USERNAME'] = os.environ['MEMCACHIER_USERNAME']
@@ -244,7 +244,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
             }
         }
 
-CACHES = get_cache()"""
+CACHES = get_cache()
 
 
 
