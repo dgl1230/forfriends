@@ -18,6 +18,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.cache import cache
 from django.template.loader import get_template
 from django.template import Context
+from django.views.decorators.clickjacking import xframe_options_exempt
 
 
 
@@ -41,10 +42,6 @@ CURRENTLY_LOCALLY_TESTING = False
 #ip_variable = request.META['REMOTE_ADDR']
 def custom_show_toolbar(request):
 	return True
-
-#trying to get the right ip for the toolbar
-def correct_ip(request):
-	return str(request.META['REMOTE_ADDR'])
 
 
 
@@ -335,8 +332,6 @@ def all(request):
 				pass
 		return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 	else:
-		#print("[][][][][][] IP Address for debug-toolbar: [][][][][]]" + request.META['REMOTE_ADDR'])
-		print("***********IP Address for debug-toolbar: **********" + request.META['REMOTE_ADDR'])
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
 
@@ -1139,6 +1134,7 @@ def terms_and_agreement(request):
 	return render_to_response('terms.html', locals(), context_instance=RequestContext(request))
 
 
+@xframe_options_exempt
 def press(request): 
 	return render_to_response('press.html', locals(), context_instance=RequestContext(request))
 
