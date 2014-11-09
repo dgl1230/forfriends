@@ -1071,12 +1071,11 @@ def register_new_user(request):
 #Displays the profile page of a specific user and their match % against the logged in user
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def single_user(request, username):
-	try:
-		user = User.objects.get(username=username)
-		if user.is_active:
-			single_user = user
-	except:
-		raise Http404
+
+	user = User.objects.get(username=username)
+	if user.is_active:
+		single_user = user
+
 	user = User.objects.get(username=username)
 	try:
 		profile_pic = UserPicture.objects.get(user=user, is_profile_pic=True)
