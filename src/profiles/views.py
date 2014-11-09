@@ -1071,38 +1071,38 @@ def register_new_user(request):
 #Displays the profile page of a specific user and their match % against the logged in user
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def single_user(request, username):
-
-	user = User.objects.get(username=username)
-	if user.is_active:
-		single_user = user
-
+	try:
+		user = User.objects.get(username=username)
+		if user.is_active:
+			single_user = user
+	except:
+		raise Http404
 	user = User.objects.get(username=username)
 	try:
 		profile_pic = UserPicture.objects.get(user=user, is_profile_pic=True)
 	except: 
 		pass
-	try: 
-		if single_user != request.user:
-			try: 
-				match = Match.objects.get(user1=request.user, user2=single_user)
-			except: 
-				match, created = Match.objects.get_or_create(user1=single_user, user2=request.user)
-			match.percent = match_percentage(request.user, single_user)
-			try:
-				match.distance = round(calc_distance(request.user, user))
-			except:
-				match.distance = 10000000
-			match.save()
-			interests_all = Interest.objects.filter(userinterestanswer__user=single_user)
-			pictures = UserPicture.objects.filter(user=single_user)
-			try:
-				su_info = Info.objects.get(user=single_user)
-				single_user_is_new = su_info.is_new_user
-			except: 
-				single_user_is_new = False
+	 
+	if single_user != request.user:
+		try: 
+			match = Match.objects.get(user1=request.user, user2=single_user)
+		except: 
+			match, created = Match.objects.get_or_create(user1=single_user, user2=request.user)
+		match.percent = match_percentage(request.user, single_user)
+		try:
+			match.distance = round(calc_distance(request.user, user))
+		except:
+			match.distance = 10000000
+		match.save()
+		interests_all = Interest.objects.filter(userinterestanswer__user=single_user)
+		pictures = UserPicture.objects.filter(user=single_user)
+		try:
+			su_info = Info.objects.get(user=single_user)
+			single_user_is_new = su_info.is_new_user
+		except: 
+			single_user_is_new = False
 
-	except: 
-		raise Http404
+	
 	messages_in_inbox = DirectMessage.objects.filter(receiver=request.user)
 	direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
 	request.session['num_of_messages'] = direct_messages
