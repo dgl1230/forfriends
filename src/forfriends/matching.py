@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from interests.models import Interest, UserInterestAnswer
 from questions.models import Question, Answer, UserAnswer
 
-
+#We don't need this as much"
 #********** Methods used for calculating compatibility based on INTERESTS **********#
 '''	Purpose:	Calculates the points for user1 and user2 for a single interest
 				that they share, based on how much they like it.
