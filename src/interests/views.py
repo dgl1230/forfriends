@@ -35,7 +35,7 @@ def all_interests_experimental(request):
 	team_sports = Interest.objects.filter(category__title='Team Sports')
 	outdoor_activities = Interest.objects.filter(category__title='Outdoor Activities')
 	performing_arts = Interest.objects.filter(category__title='Performing Arts and Music')
-	dancing = card_games = Interest.objects.filter(category__title='Dancing')
+	dancing = Interest.objects.filter(category__title='Dancing')
 	arts_crafts = Interest.objects.filter(category__title='Arts and Crafts')
 	spiritual = Interest.objects.filter(category__title='Spiritual/Mental Health')
 	food = Interest.objects.filter(category__title='Food/Cooking')
