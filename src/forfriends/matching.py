@@ -67,7 +67,7 @@ def interest_points(user1, user2):
 		user1_interest = user1_list[i]
 		#check to see if both share the same interest: if so, increment number_in_common
 		user2_interest = user2_dict.pop(user1_interest, "false")
-		if user2_importance != "false": #key was found, interests were shared, calculate difference in importance
+		if user2_interest != "false": #key was found, interests were shared, calculate difference in importance
 			#points_possible += 75
 			#user_score_tuple = calc_interest_importance(user1_importance, user2_importance)
 			#user1_points += user_score_tuple[0]
