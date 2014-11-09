@@ -34,8 +34,8 @@ DEBUG_TOOLBAR_CONFIG = {
 #  return str(request.META['REMOTE_ADDR'])
 
 #INTERNAL_IPS = (correct_ip(),)
-
-INTERNAL_IPS = ('67.169.73.204',)
+#INTERNAL_IPS = ()
+#INTERNAL_IPS = ('67.169.73.204',)
 
 SHOW_TOOLBAR_CALLBACK = True
 
