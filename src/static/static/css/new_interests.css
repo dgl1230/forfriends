@@ -14,6 +14,7 @@
 	display:inline-block;
 	width:33%;
 	height:120px;
+	min-width:200px;
 }
 #like{
 	width:100px!important;
@@ -50,6 +51,9 @@
 .category_hidden{
 	display:none;
 }
+.category_hidden .category_name{
+	margin-left:100px;
+}
 
 /* Questions */
 
@@ -68,4 +72,5 @@
 .subcategory{
 	border-bottom:1px solid #1fbad6;
 	display:none;
+	margin-left:100px;
 }
