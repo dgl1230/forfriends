@@ -28,7 +28,6 @@ INSTALLED_APPS = (
     'directmessages',
     'matches',
     'questions',
-    'visitors',
     'debug_toolbar',
 )
 
