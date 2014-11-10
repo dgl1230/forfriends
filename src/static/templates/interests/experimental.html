@@ -76,7 +76,7 @@
 			</form>
 		</div><!--End Interest-->
 		{% endfor %}
-		
+		</div><!--End sub category -->
 		{% for interest in games %}
 			<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
@@ -88,10 +88,12 @@
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
 			{% endif %}
-		</form>
-		</div><!--Category 1-->
-		</div><!--End Category-->
+			</form>
+			</div><!--Interest-->
 		{% endfor %}
+		</div><!--category 1-->
+	</div><!--end games-->
+		
 		<!--=================Sports=====================================-->
 		<div class="category">
 			<h2 class="category_name" id="category_name_2">Fitness/Sports</h2>
@@ -145,7 +147,7 @@
 		</div><!--End Interest-->
 		{% endfor %}
 	</div><!--Category 2-->
-		</div><!--End Category-->
+		</div><!--End sports-->
 	<!--=================Outdoor Activities======================-->
 		<div class="category">
 			<h2 class="category_name" id="category_name_3">Outdoor Activities</h2>
@@ -166,13 +168,10 @@
 		{% endfor %}
 	</div><!--Category 3-->
 		</div><!--End Category-->
-		</div><!--Category 1-->
-		</div><!--End Category-->
 	<!--=================Arts and Music===========================-->
 		<div category class="category">
 			<h2 class="category_name" id="category_name_4">Performing Arts and Music</h2>
 		<div class="category_hidden" id="category4">
-		{% for interest in performing_arts %}
 		<h2 class="category_name" id="subcategory_name_4a">Musical Instruments</h2>
 		<div class="subcategory" id="subcategory_4a">
 		{% for interest in musical_instruments %}
@@ -190,6 +189,7 @@
 		</div><!--End Interest-->
 		{% endfor %}
 		</div><!--End Subcategory 4a -->
+		{% for interest in performing_arts %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
 		<form method='POST' class="interests_form_4" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
@@ -205,7 +205,6 @@
 		{% endfor %}
 		</div><!--End Category-->
 		</div><!--Category 1-->
-		</div><!--End Category-->
 		<!--=================Arts and Crafts======================-->
 		<div class="category">
 			<h2 class="category_name" id="category_name_5">Arts and Crafts</h2>
@@ -226,7 +225,6 @@
 		{% endfor %}
 		</div><!--End Category-->
 		</div><!--Category 1-->
-		</div><!--End Category-->
 		<!--=================Spiritual/Mental Health==============-->
 		<div class="category">
 			<h2 class="category_name" id="category_name_6">Spiritual/Mental Health</h2>
@@ -247,7 +245,6 @@
 		{% endfor %}
 		</div><!--End Category-->
 		</div><!--Category 1-->
-		</div><!--End Category-->
 		<!--=================Food/Cooking==============-->
 		<div class="category">
 			<h2 class="category_name" id="category_name_7">Food/Cooking</h2>
@@ -268,7 +265,6 @@
 		{% endfor %}
 		</div><!--End Category-->
 		</div><!--Category 1-->
-		</div><!--End Category-->
 		<!--=================News/Current Events==============-->
 		<div class="category">
 			<h2 class="category_name" id="category_name_8">News/Current Events</h2>
@@ -289,7 +285,6 @@
 		{% endfor %}
 		</div><!--End Category-->
 		</div><!--Category 1-->
-		</div><!--End Category-->
 		<!--=================Indoor Activities==============-->
 		<div class="category">
 			<h2 class="category_name" id="category_name_9">Indoor Activities</h2>
@@ -308,7 +303,8 @@
 		</form>
 		</div><!--End Interest-->
 		{% endfor %}
-
+		</div><!--End category-->
+		</div><!--End category-->
 	</div><!--End wrapper-->
 </div><!--End big Wrapper-->
 <!--
