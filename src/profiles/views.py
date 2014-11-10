@@ -232,7 +232,7 @@ which will have the user fill in relevant info before they can access the site. 
 the user is not logged in, and is shown the landing page.
 '''
 
-
+@xframe_options_exempt
 def all(request):
 	if request.user.is_authenticated():
 		info, created = Info.objects.get_or_create(user=request.user)
