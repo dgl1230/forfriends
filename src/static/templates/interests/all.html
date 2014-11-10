@@ -3,280 +3,478 @@
 
 
 {% block content %}
-
-{% if interests.has_next %}
-	<script type="text/javascript">
-		// TOUCH-EVENTS SINGLE-FINGER SWIPE-SENSING JAVASCRIPT
-		// Courtesy of PADILICIOUS.COM and MACOSXAUTOMATION.COM
-		
-		// this script can be used with one or more page elements to perform actions based on them being swiped with a single finger
-
-		var triggerElementID = null; // this variable is used to identity the triggering element
-		var fingerCount = 0;
-		var startX = 0;
-		var startY = 0;
-		var curX = 0;
-		var curY = 0;
-		var deltaX = 0;
-		var deltaY = 0;
-		var horzDiff = 0;
-		var vertDiff = 0;
-		var minLength = 72; // the shortest distance the user may swipe
-		var swipeLength = 0;
-		var swipeAngle = null;
-		var swipeDirection = null;
-		
-		// The 4 Touch Event Handlers
-		
-		// NOTE: the touchStart handler should also receive the ID of the triggering element
-		// make sure its ID is passed in the event call placed in the element declaration, like:
-		// <div id="picture-frame" ontouchstart="touchStart(event,'picture-frame');"  ontouchend="touchEnd(event);" ontouchmove="touchMove(event);" ontouchcancel="touchCancel(event);">
-
-		function touchStart(event,passedName) {
-			// disable the standard ability to select the touched object
-			event.preventDefault();
-			// get the total number of fingers touching the screen
-			fingerCount = event.touches.length;
-			// since we're looking for a swipe (single finger) and not a gesture (multiple fingers),
-			// check that only one finger was used
-			if ( fingerCount == 1 ) {
-				// get the coordinates of the touch
-				startX = event.touches[0].pageX;
-				startY = event.touches[0].pageY;
-				// store the triggering element ID
-				triggerElementID = passedName;
-			} else {
-				// more than one finger touched so cancel
-				touchCancel(event);
-			}
-		}
-
-		function touchMove(event) {
-			event.preventDefault();
-			if ( event.touches.length == 1 ) {
-				curX = event.touches[0].pageX;
-				curY = event.touches[0].pageY;
-			} else {
-				touchCancel(event);
-			}
-		}
-		
-		function touchEnd(event) {
-			event.preventDefault();
-			// check to see if more than one finger was used and that there is an ending coordinate
-			if ( fingerCount == 1 && curX != 0 ) {
-				// use the Distance Formula to determine the length of the swipe
-				swipeLength = Math.round(Math.sqrt(Math.pow(curX - startX,2) + Math.pow(curY - startY,2)));
-				// if the user swiped more than the minimum length, perform the appropriate action
-				if ( swipeLength >= minLength ) {
-					caluculateAngle();
-					determineSwipeDirection();
-					processingRoutine();
-					touchCancel(event); // reset the variables
-				} else {
-					touchCancel(event);
-				}	
-			} else {
-				touchCancel(event);
-			}
-		}
-
-		function touchCancel(event) {
-			// reset the variables back to default values
-			fingerCount = 0;
-			startX = 0;
-			startY = 0;
-			curX = 0;
-			curY = 0;
-			deltaX = 0;
-			deltaY = 0;
-			horzDiff = 0;
-			vertDiff = 0;
-			swipeLength = 0;
-			swipeAngle = null;
-			swipeDirection = null;
-			triggerElementID = null;
-		}
-		
-		function caluculateAngle() {
-			var X = startX-curX;
-			var Y = curY-startY;
-			var Z = Math.round(Math.sqrt(Math.pow(X,2)+Math.pow(Y,2))); //the distance - rounded - in pixels
-			var r = Math.atan2(Y,X); //angle in radians (Cartesian system)
-			swipeAngle = Math.round(r*180/Math.PI); //angle in degrees
-			if ( swipeAngle < 0 ) { swipeAngle =  360 - Math.abs(swipeAngle); }
-		}
-		
-		function determineSwipeDirection() {
-			if ( (swipeAngle <= 45) && (swipeAngle >= 0) ) {
-				swipeDirection = 'left';
-			} else if ( (swipeAngle <= 360) && (swipeAngle >= 315) ) {
-				swipeDirection = 'left';
-			} else if ( (swipeAngle >= 135) && (swipeAngle <= 225) ) {
-				swipeDirection = 'right';
-			} else if ( (swipeAngle > 45) && (swipeAngle < 135) ) {
-				swipeDirection = 'down';
-			} else {
-				swipeDirection = 'up';
-			}
-		}
-		
-		function processingRoutine() {
-			var swipedElement = document.getElementById("main_interests");
-			if ( swipeDirection == 'left' ) {
-				// REPLACE WITH YOUR ROUTINES
-				window.location.href = "?page={{ interests.next_page_number }}";
-			}	
-		}
-	</script>
-{% endif %}
 <div id="view_container">
 	<div class="col-md-1" id="secondary_navbar">
         <h1>Interests</h1>
 	</div>
 	<div class="col-md-1" id="tertiary_navbar">
- 		<a href="/interests/edit/" class="half-nav1">Edit Interests</a>
- 		<span class="glyphicon glyphicon-thumbs-up" id="tertiary-icon"></span>
- 		<a href="/interests/create/" class="half-nav2">Add Interests</a>
+		<a href="/interests/edit/" class="half-nav1">Edit Interests</a>
+		<span class="glyphicon glyphicon-thumbs-up" id="tertiary-icon"></span>
+		<a href="/interests/create/" class="half-nav2">Add Interests</a>
 	</div>
-<div class="row" >
-  <div  id="interests-wrapper">
 {% if messages %}
+<div class="row">
 <div class="col-md-1" id="tertiary_navbar">
     {% for message in messages %}
     <p id="interests_messages"{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
     {% endfor %}
 </div>
+</div>
 {% endif %}
 	<div class='row' id="interests-wrapper">
-		<div class="main_interests" id="main_interests"  ontouchstart="touchStart(event,'main_interests');" ontouchend="touchEnd(event);" ontouchmove="touchMove(event);" ontouchcancel="touchCancel(event);">
-		<div class="interests-title">
-		{% for interest in interests %}
-			<h3>{{ interest.interest|title }}</h3>
-		</div>	
-			{% if interest.description %}
-				<h5 class="description">{{ interest.description|title }}</h5>
-			{% endif %}
-
-		</div>
-		<form method='POST' action=''> {% csrf_token %}
+<!--=============Games=====================================-->
+		<div class="category">
+			<h2 class="category_name" id="category_name_1">Games</h2>
+			<div class="category_hidden" id="category1">
+			<h2 class="category_name" id="subcategory_name_1a">Board Games</h2>
+			<div class="subcategory" id="subcategory_1a">
+			{% for interest in board_games %}
+			<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest }}</h4>
+				<form class="interests_form_1a" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+				{% if interest in user_interests %}
+				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+				<input type='submit' id="like" class='liked' value='Unlike'>
+				{% else %}
+				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+				<input type='submit' id="like" class='btn-lg' value='Like it!'>
+				{% endif %}	
+				</form>
+			</div><!--End Interest-->
+			{% endfor %}
+			</div><!--End Subcategory 1a -->
+			<h2 class="category_name" id="subcategory_name_1b">Card Games</h2>
+			<div class="subcategory" id="subcategory_1b">
+			{% for interest in card_games %}
+			<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest }}</h4>
+				<form class="interests_form_1b" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+				{% if interest in user_interests %}
+				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+				<input type='submit' id="like" class='liked' value='Unlike'>
+				{% else %}
+				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+				<input type='submit' id="like" class='btn-lg' value='Like it!'>
+				{% endif %}
+				</form>
+			</div><!--End Interest-->
+			{% endfor %}
+			</div><!--End Subcategory 2-->
+		<h2 class="category_name" id="subcategory_name_1c">Video/Computer Games</h2>
+		<div class="subcategory" id="subcategory_1c">
+		{% for interest in video_games %}
+		<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest }}</h4>
+			<form class="interests_form_1c" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+			{% if interest in user_interests %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
-		<div class="interest_ranking">
-			<span class="star-rating" id="star-rating">
-				{% for imp in importance_levels %}
-				<input type="radio" name="rating" value='{{ imp }}' id='{{ imp }}' class="star" {% for abc in interest.userinterestanswer_set.all %} {% if abc.importance_level == imp and abc.user == request.user %} checked="checked" {% endif %} {% endfor %}><i></i>
-				{% endfor %}
-			</span>
-			<br>
-			<input id="hide_interest" type='submit' class='btn-lg' value='Choose an Interest' disabled>
-			<input id="save_interest" type='submit' class='btn-lg' value='Save' >
+			<input type='submit' id="like" class='liked' value='Unlike'>
+			{% else %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+			{% endif %}
+			</form>
+		</div><!--End Interest-->
+		{% endfor %}
+		</div><!--End sub category -->
+		<div>
+		{% for interest in games %}
+			<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest }}</h4>
+			<form class="interests_form_1" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+			{% if interest in user_interests %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='liked' value='Unlike'>
+			{% else %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+			{% endif %}
+			</form>
+			</div><!--Interest-->
+		{% endfor %}
 		</div>
-
+		</div><!--category 1-->
+	</div><!--end games-->
+		
+		<!--=================Sports=====================================-->
+		<div class="category">
+			<h2 class="category_name" id="category_name_2">Fitness/Sports</h2>
+		<div class="category_hidden" id="category2">
+		<h2 class="category_name" id="subcategory_name_2a">Team Sports</h2>
+		<div class="subcategory" id="subcategory_2a">
+		{% for interest in team_sports %}
+		<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest }}</h4>
+		<form class="interests_form_1" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+			{% if interest in user_interests %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='liked' value='Unlike'>
+			{% else %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+			{% endif %}
 		</form>
-	{% endfor %}
-		</div>
-	
-		<div class="pagination">
-			<span class="step-links">
-				<ul class="pager">
-					<div class="directions">
-						{% if interests.has_previous %}
-						<li class="previous"><a href="?page={{ interests.previous_page_number }}">&larr; Back</a></li>
-						{% endif %}
-						{% if interests.has_next %}
-						<li class="next"><a href="?page={{ interests.next_page_number }}">Skip &rarr;</a></li>
-					</div>
-						{% endif %}			
-				</ul>
-			</span>
-		</div><!--End Pagination -->
-		<hr>
-		<!--
-		<div class="search_interests">
-			<form class="navbar-form navbar-left" role="search" action='{% url "search" %}'>
-		        <div class="form-group">
-		          <input type="text" class="form-control" placeholder="Search through our Interests..." name='q' required>
-		          <button type="submit" class="btn btn-default" id="go_button">Search</button>
-		        </div>
-      		</form>
-	      	
-	      	<form class="navbar-form navbar-left" id="navbar_mobile" role="search" action='{% url "search" %}'>
-	        	<div class="form-mobile" id="interests_mobile_search">
-		          <input type="text" class="input_mobile" placeholder="Search..." name='q' required>
-		          <button type="submit" class="btn-mobile" id="go_button"><span class='glyphicon glyphicon-search'></span></button>
-	        	</div>
-	      	</form>
-		</div>
-	-->
-	<!--End Search Interests -->
-	</div>
-
-
-
+		</div><!--End Interest-->
+		{% endfor %}
+		</div><!--End Subcategory 2a -->
+		<h2 class="category_name" id="subcategory_name_2b">Extreme Sports</h2>
+		<div class="subcategory" id="subcategory_2b">
+		{% for interest in extreme_sports %}
+		<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest }}</h4>
+		<form class="interests_form_1" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+			{% if interest in user_interests %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='liked' value='Unlike'>
+			{% else %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+			{% endif %}
+		</form>
+		</div><!--End Interest-->
+		{% endfor %}
+		</div><!--End Subcategory 2b -->
+		{% for interest in fitness_sports %}
+		<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest }}</h4>
+		<form class="interests_form_2" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+			{% if interest in user_interests %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='liked' value='Unlike'>
+			{% else %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+			{% endif %}
+		</form>
+		</div><!--End Interest-->
+		{% endfor %}
+	</div><!--Category 2-->
+		</div><!--End sports-->
+	<!--=================Outdoor Activities======================-->
+		<div class="category">
+			<h2 class="category_name" id="category_name_3">Outdoor Activities</h2>
+		<div class="category_hidden" id="category3">
+		{% for interest in outdoor_activities %}
+		<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest }}</h4>
+		<form method='POST' class="interests_form_3" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+			{% if interest in user_interests %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='liked' value='Unlike'>
+			{% else %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+			{% endif %}
+		</form>
+		</div><!--End Interest-->
+		{% endfor %}
+	</div><!--Category 3-->
+</div><!--End Category-->
+	<!--=================Arts and Music===========================-->
+		<div class="category">
+			<h2 class="category_name" id="category_name_4">Performing Arts and Music</h2>
+		<div class="category_hidden" id="category4">
+		<h2 class="category_name" id="subcategory_name_4a">Musical Instruments</h2>
+		<div class="subcategory" id="subcategory_4a">
+		{% for interest in musical_instruments %}
+		<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest }}</h4>
+		<form class="interests_form_1" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+			{% if interest in user_interests %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='liked' value='Unlike'>
+			{% else %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+			{% endif %}
+		</form>
+		</div><!--End Interest-->
+		{% endfor %}
+		</div><!--End Subcategory 4a -->
+		{% for interest in performing_arts %}
+		<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest }}</h4>
+		<form method='POST' class="interests_form_4" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+			{% if interest in user_interests %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='liked' value='Unlike'>
+			{% else %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+			{% endif %}
+		</form>
+		</div><!--End Interest-->
+		{% endfor %}
+		</div><!--End Category-->
+		</div><!--Category 1-->
+		<!--=================Arts and Crafts======================-->
+		<div class="category">
+			<h2 class="category_name" id="category_name_5">Arts and Crafts</h2>
+		<div class="category_hidden" id="category5">
+		{% for interest in arts_crafts %}
+		<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest }}</h4>
+		<form method='POST' class="interests_form_5" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+			{% if interest in user_interests %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='liked' value='Unlike'>
+			{% else %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+			{% endif %}
+		</form>
+		</div><!--End Interest-->
+		{% endfor %}
+		</div><!--End Category-->
+		</div><!--Category 1-->
+		<!--=================Spiritual/Mental Health==============-->
+		<div class="category">
+			<h2 class="category_name" id="category_name_6">Spiritual/Mental Health</h2>
+		<div class="category_hidden" id="category6">
+		{% for interest in spiritual %}
+		<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest }}</h4>
+		<form method='POST' class="interests_form_6" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+			{% if interest in user_interests %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='liked' value='Unlike'>
+			{% else %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+			{% endif %}
+		</form>
+		</div><!--End Interest-->
+		{% endfor %}
+		</div><!--End Category-->
+		</div><!--Category 1-->
+		<!--=================Food/Cooking==============-->
+		<div class="category">
+			<h2 class="category_name" id="category_name_7">Food/Cooking</h2>
+		<div class="category_hidden" id="category7">
+		{% for interest in food %}
+		<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest }}</h4>
+		<form method='POST' class="interests_form_7" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+			{% if interest in user_interests %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='liked' value='Unlike'>
+			{% else %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+			{% endif %}
+		</form>
+		</div><!--End Interest-->
+		{% endfor %}
+		</div><!--End Category-->
+		</div><!--Category 1-->
+		<!--=================News/Current Events==============-->
+		<div class="category">
+			<h2 class="category_name" id="category_name_8">News/Current Events</h2>
+		<div class="category_hidden" id="category8">
+		{% for interest in news %}
+		<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest }}</h4>
+		<form method='POST' class="interests_form_8" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+			{% if interest in user_interests %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='liked' value='Unlike'>
+			{% else %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='btn-lg' value='Unlike'>
+			{% endif %}
+		</form>
+		</div><!--End Interest-->
+		{% endfor %}
+		</div><!--End Category-->
+		</div><!--Category 1-->
+		<!--=================Indoor Activities==============-->
+		<div class="category">
+			<h2 class="category_name" id="category_name_9">Indoor Activities</h2>
+		<div class="category_hidden" id="category9">
+		{% for interest in indoor %}
+		<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest }}</h4>
+		<form method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+			{% if interest in user_interests %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='liked' value='Unlike'>
+			{% else %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+			{% endif %}
+		</form>
+		</div><!--End Interest-->
+		{% endfor %}
+		</div><!--End category-->
+		</div><!--End category-->
+	</div><!--End wrapper-->
+</div><!--End big Wrapper-->
+<!--
 <script>
-$(':radio').change(
-  function(){
-    $('.choice').text( this.value);
-    this.name = "importance_level";
-
-  } 
-)
+$('#category1').jscroll({
+	nextSelector:'#next'
+});
 </script>
-{% if interests.has_previous %}
+-->
 <script>
-
-$(document).keydown(function(e) {
-    switch(e.which) {
-        case 37: // left
-        
-        window.location = "?page={{ interests.previous_page_number }}";
-        break;
-
-        default: return; // exit this handler for other keys
-    }
-    e.preventDefault(); // prevent the default action (scroll / move caret)
+$( "#category_name_1" ).click(function() {
+$( "#category1" ).slideToggle( "slow")
+});
+$( "#category_name_2" ).click(function() {
+$( "#category2" ).slideToggle( "slow")
+});
+$( "#category_name_3" ).click(function() {
+$( "#category3" ).slideToggle( "slow")
+});
+$( "#category_name_4" ).click(function() {
+$( "#category4" ).slideToggle( "slow")
+});
+$( "#category_name_5" ).click(function() {
+$( "#category5" ).slideToggle( "slow")
+});
+$( "#category_name_6" ).click(function() {
+$( "#category6" ).slideToggle( "slow")
+});
+$( "#category_name_7" ).click(function() {
+$( "#category7" ).slideToggle( "slow")
+});
+$( "#category_name_8" ).click(function() {
+$( "#category8" ).slideToggle( "slow")
+});
+$( "#category_name_9" ).click(function() {
+$( "#category9" ).slideToggle( "slow")
+});
+$( "#subcategory_name_1a" ).click(function() {
+$( "#subcategory_1a" ).slideToggle( "slow")
+});
+$( "#subcategory_name_1b" ).click(function() {
+$( "#subcategory_1b" ).slideToggle( "slow")
+});
+$( "#subcategory_name_1c" ).click(function() {
+$( "#subcategory_1c" ).slideToggle( "slow")
+});
+$( "#subcategory_name_2a" ).click(function() {
+$( "#subcategory_2a" ).slideToggle( "slow")
+});
+$( "#subcategory_name_2b" ).click(function() {
+$( "#subcategory_2b" ).slideToggle( "slow")
+});
+$( "#subcategory_name_2c" ).click(function() {
+$( "#subcategory_2c" ).slideToggle( "slow")
+});
+$( "#subcategory_name_3" ).click(function() {
+$( "#subcategory_3" ).slideToggle( "slow")
+});
+$( "#subcategory_name_3a" ).click(function() {
+$( "#subcategory_3a" ).slideToggle( "slow")
+});
+$( "#subcategory_name_3b" ).click(function() {
+$( "#subcategory_3b" ).slideToggle( "slow")
+});
+$( "#subcategory_name_4a" ).click(function() {
+$( "#subcategory_4a" ).slideToggle( "slow")
+});
+$( "#subcategory_name_4b" ).click(function() {
+$( "#subcategory_4b" ).slideToggle( "slow")
+});
+$( "#subcategory_name_4c" ).click(function() {
+$( "#subcategory_4c" ).slideToggle( "slow")
+});
+$( "#subcategory_name_5a" ).click(function() {
+$( "#subcategory_5a" ).slideToggle( "slow")
+});
+$( "#subcategory_name_5b" ).click(function() {
+$( "#subcategory_5b" ).slideToggle( "slow")
+});
+$( "#subcategory_name_5c" ).click(function() {
+$( "#subcategory_5c" ).slideToggle( "slow")
+});
+$( "#subcategory_name_6a" ).click(function() {
+$( "#subcategory_6a" ).slideToggle( "slow")
+});
+$( "#subcategory_name_6b" ).click(function() {
+$( "#subcategory_6b" ).slideToggle( "slow")
+});
+$( "#subcategory_name_6c" ).click(function() {
+$( "#subcategory_6c" ).slideToggle( "slow")
+});
+$( "#subcategory_name_7a" ).click(function() {
+$( "#subcategory_7a" ).slideToggle( "slow")
+});
+$( "#subcategory_name_7b" ).click(function() {
+$( "#subcategory_7b" ).slideToggle( "slow")
+});
+$( "#subcategory_name_7c" ).click(function() {
+$( "#subcategory_7c" ).slideToggle( "slow")
+});
+$( "#subcategory_name_8a" ).click(function() {
+$( "#subcategory_8a" ).slideToggle( "slow")
+});
+$( "#subcategory_name_8b" ).click(function() {
+$( "#subcategory_8b" ).slideToggle( "slow")
+});
+$( "#subcategory_name_8c" ).click(function() {
+$( "#subcategory_8c" ).slideToggle( "slow")
+});
+$( "#subcategory_name_9a" ).click(function() {
+$( "#subcategory_9a" ).slideToggle( "slow")
+});
+$( "#subcategory_name_9b" ).click(function() {
+$( "#subcategory_9b" ).slideToggle( "slow")
+});
+$( "#subcategory_name_9c" ).click(function() {
+$( "#subcategory_9c" ).slideToggle( "slow")
 });
 </script>
 
-{% endif %}
-{% if interests.has_next %}
-
 <script>
-	$(document).keydown(function(e) {
-    switch(e.which) {
-        case 39: // right
-        window.location = "?page={{ interests.next_page_number }}";
-        break;
-
-        default: return; // exit this handler for other keys
-    }
-    e.preventDefault(); // prevent the default action (scroll / move caret)
+$(document).ready(function(){
+$('.interests_form_1').ajaxForm(function() {
+});
+$('.interests_form_1a').ajaxForm(function() {
+});
+$('.interests_form_1b').ajaxForm(function() {
+});
+$('.interests_form_1c').ajaxForm(function() {
+});
+$('.interests_form_2').ajaxForm(function() {
+});
+$('.interests_form_3').ajaxForm(function() {
+});
+$('.interests_form_4').ajaxForm(function() {
+});
+$('.interests_form_5').ajaxForm(function() {
+});
+$('.interests_form_6').ajaxForm(function() {
+});
+$('.interests_form_7').ajaxForm(function() {
+});
+$('.interests_form_8').ajaxForm(function() {
+});
 });
 </script>
 
-{% endif %}
-
 <script>
-$("[id='Strongly Dislike']").click(function(){
-	$('#save_interest').show();
-	$('#hide_interest').hide();
-});	
-$("[id='Dislike']").click(function(){
-	$('#save_interest').show();
-	$('#hide_interest').hide();
-});	
-$('#Neutral').click(function(){
-	$('#save_interest').show();
-	$('#hide_interest').hide();
-});	
-$("[id='Like']").click(function(){
-	$('#save_interest').show();
-	$('#hide_interest').hide();
-});	
-$("[id='Strongly Like']").click(function(){
-	$('#save_interest').show();
-	$('#hide_interest').hide();
-});	
+$('.btn-lg').click(function(){
+	if($(this).val() == "Like it!") {
+	$(this).val("Unlike");
+	}
+	else {
+		$(this).val("Like it!");
+	}
+	$(this).toggleClass('liked');
+	$(this).toggleClass('btn-lg');
+});
+$('.liked').click(function(){
+	if($(this).val() == "Like it!") {
+	$(this).val("Unlike");
+	}
+	else {
+		$(this).val("Like it!");
+	}
+	$(this).toggleClass('btn-lg');
+	$(this).toggleClass('liked');
+});
 </script>
 
 {% endblock %}

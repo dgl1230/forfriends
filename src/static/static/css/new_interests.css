@@ -72,5 +72,5 @@
 .subcategory{
 	border-bottom:1px solid #1fbad6;
 	display:none;
-	margin-left:100px;
+	margin-left:100px!important;
 }
