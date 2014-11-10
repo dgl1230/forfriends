@@ -25,11 +25,11 @@ def all_interests_experimental(request):
 	board_games = Interest.objects.filter(category__title='Board Games')
 	dancing = Interest.objects.filter(category__title='Dancing')
 	musical_instruments = Interest.objects.filter(category__title='Musical Instruments')
-	'''
+	
 	games = Interest.objects.filter(category__title='Games')
-	video_games = Interest.objects.filter(category__title='Video/Computer Games')
-	card_games = Interest.objects.filter(category__title='Card Games')
-	board_games = Interest.objects.filter(category__title='Board Games')
+	#video_games = Interest.objects.filter(category__title='Video/Computer Games')
+	#card_games = Interest.objects.filter(category__title='Card Games')
+	#board_games = Interest.objects.filter(category__title='Board Games')
 	fitness_sports = Interest.objects.filter(category__title='Fitness/Sports')
 	extreme_sports = Interest.objects.filter(category__title='Extreme Sports')
 	team_sports = Interest.objects.filter(category__title='Team Sports')
@@ -41,7 +41,7 @@ def all_interests_experimental(request):
 	food = Interest.objects.filter(category__title='Food/Cooking')
 	news = Interest.objects.filter(category__title='News/Current Events')
 	indoor = Interest.objects.filter(category__title='Indoor Activities')
-	'''
+	
 	return render_to_response('interests/experimental.html', locals(), context_instance=RequestContext(request))
 
 
