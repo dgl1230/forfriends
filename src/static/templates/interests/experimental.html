@@ -34,7 +34,7 @@
 				<form class="interests_form_1a" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 				{% if interest in user_interests %}
 				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
-				<input type='submit' id="like" class='liked' value='Liked!'>
+				<input type='submit' id="like" class='liked' value='Unlike'>
 				{% else %}
 				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 				<input type='submit' id="like" class='btn-lg' value='Like it!'>
@@ -51,7 +51,7 @@
 				<form class="interests_form_1b" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 				{% if interest in user_interests %}
 				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
-				<input type='submit' id="like" class='liked' value='Liked!'>
+				<input type='submit' id="like" class='liked' value='Unlike'>
 				{% else %}
 				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 				<input type='submit' id="like" class='btn-lg' value='Like it!'>
@@ -68,7 +68,7 @@
 			<form class="interests_form_1c" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			{% if interest in user_interests %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
-			<input type='submit' id="like" class='liked' value='Liked!'>
+			<input type='submit' id="like" class='liked' value='Unlike'>
 			{% else %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
@@ -84,7 +84,7 @@
 			<form class="interests_form_1" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			{% if interest in user_interests %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
-			<input type='submit' id="like" class='liked' value='Liked!'>
+			<input type='submit' id="like" class='liked' value='Unlike'>
 			{% else %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
@@ -108,7 +108,7 @@
 		<form class="interests_form_1" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			{% if interest in user_interests %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
-			<input type='submit' id="like" class='liked' value='Liked!'>
+			<input type='submit' id="like" class='liked' value='Unlike'>
 			{% else %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
@@ -125,7 +125,7 @@
 		<form class="interests_form_1" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			{% if interest in user_interests %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
-			<input type='submit' id="like" class='liked' value='Liked!'>
+			<input type='submit' id="like" class='liked' value='Unlike'>
 			{% else %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
@@ -140,7 +140,7 @@
 		<form class="interests_form_2" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			{% if interest in user_interests %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
-			<input type='submit' id="like" class='liked' value='Liked!'>
+			<input type='submit' id="like" class='liked' value='Unlike'>
 			{% else %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
@@ -160,7 +160,7 @@
 		<form method='POST' class="interests_form_3" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			{% if interest in user_interests %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
-			<input type='submit' id="like" class='liked' value='Liked!'>
+			<input type='submit' id="like" class='liked' value='Unlike'>
 			{% else %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
@@ -182,7 +182,7 @@
 		<form class="interests_form_1" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			{% if interest in user_interests %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
-			<input type='submit' id="like" class='liked' value='Liked!'>
+			<input type='submit' id="like" class='liked' value='Unlike'>
 			{% else %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
@@ -197,7 +197,7 @@
 		<form method='POST' class="interests_form_4" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			{% if interest in user_interests %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
-			<input type='submit' id="like" class='liked' value='Liked!'>
+			<input type='submit' id="like" class='liked' value='Unlike'>
 			{% else %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
@@ -217,7 +217,7 @@
 		<form method='POST' class="interests_form_5" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			{% if interest in user_interests %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
-			<input type='submit' id="like" class='liked' value='Liked!'>
+			<input type='submit' id="like" class='liked' value='Unlike'>
 			{% else %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
@@ -237,7 +237,7 @@
 		<form method='POST' class="interests_form_6" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			{% if interest in user_interests %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
-			<input type='submit' id="like" class='liked' value='Liked!'>
+			<input type='submit' id="like" class='liked' value='Unlike'>
 			{% else %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
@@ -257,7 +257,7 @@
 		<form method='POST' class="interests_form_7" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			{% if interest in user_interests %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
-			<input type='submit' id="like" class='liked' value='Liked!'>
+			<input type='submit' id="like" class='liked' value='Unlike'>
 			{% else %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
@@ -277,10 +277,10 @@
 		<form method='POST' class="interests_form_8" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			{% if interest in user_interests %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
-			<input type='submit' id="like" class='liked' value='Liked!'>
+			<input type='submit' id="like" class='liked' value='Unlike'>
 			{% else %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
-			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+			<input type='submit' id="like" class='btn-lg' value='Unlike'>
 			{% endif %}
 		</form>
 		</div><!--End Interest-->
@@ -297,7 +297,7 @@
 		<form method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			{% if interest in user_interests %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
-			<input type='submit' id="like" class='liked' value='Liked!'>
+			<input type='submit' id="like" class='liked' value='Unlike'>
 			{% else %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='btn-lg' value='Like it!'>
@@ -456,14 +456,24 @@ $('.interests_form_8').ajaxForm(function() {
 
 <script>
 $('.btn-lg').click(function(){
-	$(this).val("Liked!");
-	$(this).removeClass('btn-lg').addClass("liked");
+	if($(this).val() == "Like it!") {
+	$(this).val("Unlike");
+	}
+	else {
+		$(this).val("Like it!");
+	}
+	$(this).toggleClass('liked');
+	$(this).toggleClass('btn-lg');
 });
-</script>
-<script>
 $('.liked').click(function(){
-	$(this).val("Like it!");
-	$(this).removeClass('liked').addClass("btn-lg");
+	if($(this).val() == "Like it!") {
+	$(this).val("Unlike");
+	}
+	else {
+		$(this).val("Like it!");
+	}
+	$(this).toggleClass('btn-lg');
+	$(this).toggleClass('liked');
 });
 </script>
 
