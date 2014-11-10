@@ -367,7 +367,7 @@ def generate_circle(request):
 				if match.distance <= 20:
 					match.percent = match_percentage(request.user, single_user)
 					if match.percent >= 70:
-						i += 1
+				i += 1
 
 				match.save()
 
