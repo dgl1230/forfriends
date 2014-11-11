@@ -51,8 +51,8 @@ def all_questions(request):
 		
 
 		answered.save()
-		questions_all = Question.objects.exclude(useranswer__user=request.user)
-		questions_left = questions_all.count()
+		#questions_all = Question.objects.exclude(useranswer__user=request.user)
+		#questions_left = questions_all.count()
 
 		paginator = Paginator(questions_all, 1)
 		

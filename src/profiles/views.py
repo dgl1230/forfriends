@@ -340,8 +340,8 @@ def all(request):
 def generate_circle(request):
 	location = Address.objects.get(user=request.user)
 	if check_valid_location(location.city, location.state) == False:
-			messages.success(request, "We're sorry but you need to enter a valid location before you can use discover")
-			return HttpResponseRedirect(reverse('home'))
+		messages.success(request, "We're sorry but you need to enter a valid location before you can use discover")
+		return HttpResponseRedirect(reverse('home'))
 
 
 	info = Info.objects.get(user=request.user)
@@ -672,7 +672,7 @@ on the single user page.
 def discover(request):
 	location = Address.objects.get(user=request.user)
 	if check_valid_location(location.city, location.state) == False:
-		messages.success(request, "We're sorry but uou need to enter a valid location before you find a new crowd")
+		messages.success(request, "We're sorry but you need to enter a valid location before you find a new crowd")
 		return HttpResponseRedirect(reverse('home'))
 
 	# first we check to see if a session exists
@@ -1206,11 +1206,9 @@ def make_profile_pic(request, pic_id):
 
 
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
-#@user_passes_test(user_can_reset_icebreaker, login_url=reverse_lazy('home'))
 def ice_breaker(request): 
 	user1 = request.user
-	user1_interests = UserInterestAnswer.objects.filter(user=user1).filter(
-		Q(importance_level="Like") | Q(importance_level="Strongly Like"))
+	user1_interests = UserInterestAnswer.objects.filter(user=user1)
 	if user1_interests.count() == 0:
 		messages.success(request, "We're sorry, but you need to like a few interests first!")
 		return HttpResponseRedirect(reverse('home'))
@@ -1221,7 +1219,6 @@ def ice_breaker(request):
 	while True: 
 		try:
 			random_interest = user1_interests.get(pk=randint(1, max_interest))
-			assert (random_interest.importance_level == "Strongly Like" or random_interest.importance_level == "Like")
 			break
 		except: 
 			pass
@@ -1232,8 +1229,8 @@ def ice_breaker(request):
 			assert (user1 != random_user)
 			#random_info = Info.objects.get(user=random_user)
 			#assert (random_info.is_new_user == False)
-			same_interest = UserInterestAnswer.objects.filter(user=random_user).get(interest=random_interest.interest)
-			assert (same_interest.importance_level == "Strongly Like" or same_interest.importance_level == "Like") 
+			random_user_interests = UserInterestAnswer.objects.filter(user=random_user)
+			assert (random_interest in random_user_interests)
 			break
 		except:
 			pass
@@ -1245,8 +1242,6 @@ def ice_breaker(request):
 		match, created = Match.objects.get_or_create(user1=random_user, user2=request.user)
 		user1 = random_user
 		user2 = request.user
-	match.user1_approved = True
-	match.user2.approved = True
 	if match.user1 == request.user:
 		match.currently_in_icebreaker_user1 = True
 	else:
