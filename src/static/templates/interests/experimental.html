@@ -8,9 +8,9 @@
         <h1>Interests</h1>
 	</div>
 	<div class="col-md-1" id="tertiary_navbar">
-		<a href="/interests/edit/" class="half-nav1">Edit Interests</a>
 		<span class="glyphicon glyphicon-thumbs-up" id="tertiary-icon"></span>
 		<a href="/interests/create/" class="half-nav2">Add Interests</a>
+		<span class="glyphicon glyphicon-thumbs-up" id="tertiary-icon"></span>
 	</div>
 {% if messages %}
 <div class="row">
@@ -96,7 +96,7 @@
 		</div><!--category 1-->
 	</div><!--end games-->
 		
-		<!--=================Sports=====================================-->
+	<!--=================Sports=====================================-->
 		<div class="category">
 			<h2 class="category_name" id="category_name_2">Fitness/Sports</h2>
 		<div class="category_hidden" id="category2">
@@ -168,8 +168,8 @@
 		</form>
 		</div><!--End Interest-->
 		{% endfor %}
-	</div><!--Category 3-->
-</div><!--End Category-->
+		</div><!--End Category-->
+		</div><!--Category 1-->
 	<!--=================Arts and Music===========================-->
 		<div class="category">
 			<h2 class="category_name" id="category_name_4">Performing Arts and Music</h2>
@@ -316,165 +316,7 @@ $('#category1').jscroll({
 });
 </script>
 -->
-<script>
-$( "#category_name_1" ).click(function() {
-$( "#category1" ).slideToggle( "slow")
-});
-$( "#category_name_2" ).click(function() {
-$( "#category2" ).slideToggle( "slow")
-});
-$( "#category_name_3" ).click(function() {
-$( "#category3" ).slideToggle( "slow")
-});
-$( "#category_name_4" ).click(function() {
-$( "#category4" ).slideToggle( "slow")
-});
-$( "#category_name_5" ).click(function() {
-$( "#category5" ).slideToggle( "slow")
-});
-$( "#category_name_6" ).click(function() {
-$( "#category6" ).slideToggle( "slow")
-});
-$( "#category_name_7" ).click(function() {
-$( "#category7" ).slideToggle( "slow")
-});
-$( "#category_name_8" ).click(function() {
-$( "#category8" ).slideToggle( "slow")
-});
-$( "#category_name_9" ).click(function() {
-$( "#category9" ).slideToggle( "slow")
-});
-$( "#subcategory_name_1a" ).click(function() {
-$( "#subcategory_1a" ).slideToggle( "slow")
-});
-$( "#subcategory_name_1b" ).click(function() {
-$( "#subcategory_1b" ).slideToggle( "slow")
-});
-$( "#subcategory_name_1c" ).click(function() {
-$( "#subcategory_1c" ).slideToggle( "slow")
-});
-$( "#subcategory_name_2a" ).click(function() {
-$( "#subcategory_2a" ).slideToggle( "slow")
-});
-$( "#subcategory_name_2b" ).click(function() {
-$( "#subcategory_2b" ).slideToggle( "slow")
-});
-$( "#subcategory_name_2c" ).click(function() {
-$( "#subcategory_2c" ).slideToggle( "slow")
-});
-$( "#subcategory_name_3" ).click(function() {
-$( "#subcategory_3" ).slideToggle( "slow")
-});
-$( "#subcategory_name_3a" ).click(function() {
-$( "#subcategory_3a" ).slideToggle( "slow")
-});
-$( "#subcategory_name_3b" ).click(function() {
-$( "#subcategory_3b" ).slideToggle( "slow")
-});
-$( "#subcategory_name_4a" ).click(function() {
-$( "#subcategory_4a" ).slideToggle( "slow")
-});
-$( "#subcategory_name_4b" ).click(function() {
-$( "#subcategory_4b" ).slideToggle( "slow")
-});
-$( "#subcategory_name_4c" ).click(function() {
-$( "#subcategory_4c" ).slideToggle( "slow")
-});
-$( "#subcategory_name_5a" ).click(function() {
-$( "#subcategory_5a" ).slideToggle( "slow")
-});
-$( "#subcategory_name_5b" ).click(function() {
-$( "#subcategory_5b" ).slideToggle( "slow")
-});
-$( "#subcategory_name_5c" ).click(function() {
-$( "#subcategory_5c" ).slideToggle( "slow")
-});
-$( "#subcategory_name_6a" ).click(function() {
-$( "#subcategory_6a" ).slideToggle( "slow")
-});
-$( "#subcategory_name_6b" ).click(function() {
-$( "#subcategory_6b" ).slideToggle( "slow")
-});
-$( "#subcategory_name_6c" ).click(function() {
-$( "#subcategory_6c" ).slideToggle( "slow")
-});
-$( "#subcategory_name_7a" ).click(function() {
-$( "#subcategory_7a" ).slideToggle( "slow")
-});
-$( "#subcategory_name_7b" ).click(function() {
-$( "#subcategory_7b" ).slideToggle( "slow")
-});
-$( "#subcategory_name_7c" ).click(function() {
-$( "#subcategory_7c" ).slideToggle( "slow")
-});
-$( "#subcategory_name_8a" ).click(function() {
-$( "#subcategory_8a" ).slideToggle( "slow")
-});
-$( "#subcategory_name_8b" ).click(function() {
-$( "#subcategory_8b" ).slideToggle( "slow")
-});
-$( "#subcategory_name_8c" ).click(function() {
-$( "#subcategory_8c" ).slideToggle( "slow")
-});
-$( "#subcategory_name_9a" ).click(function() {
-$( "#subcategory_9a" ).slideToggle( "slow")
-});
-$( "#subcategory_name_9b" ).click(function() {
-$( "#subcategory_9b" ).slideToggle( "slow")
-});
-$( "#subcategory_name_9c" ).click(function() {
-$( "#subcategory_9c" ).slideToggle( "slow")
-});
-</script>
-
-<script>
-$(document).ready(function(){
-$('.interests_form_1').ajaxForm(function() {
-});
-$('.interests_form_1a').ajaxForm(function() {
-});
-$('.interests_form_1b').ajaxForm(function() {
-});
-$('.interests_form_1c').ajaxForm(function() {
-});
-$('.interests_form_2').ajaxForm(function() {
-});
-$('.interests_form_3').ajaxForm(function() {
-});
-$('.interests_form_4').ajaxForm(function() {
-});
-$('.interests_form_5').ajaxForm(function() {
-});
-$('.interests_form_6').ajaxForm(function() {
-});
-$('.interests_form_7').ajaxForm(function() {
-});
-$('.interests_form_8').ajaxForm(function() {
-});
-});
-</script>
-
-<script>
-$('.btn-lg').click(function(){
-	if($(this).val() == "Like it!") {
-	$(this).val("Unlike");
-	}
-	else {
-		$(this).val("Like it!");
-	}
-	$(this).toggleClass('liked');
-	$(this).toggleClass('btn-lg');
-});
-$('.liked').click(function(){
-	if($(this).val() == "Like it!") {
-	$(this).val("Unlike");
-	}
-	else {
-		$(this).val("Like it!");
-	}
-	$(this).toggleClass('btn-lg');
-	$(this).toggleClass('liked');
-});
-</script>
-
+<!-- Interests js -->
+<script src="{{ STATIC_URL }}js/interests/like_button.js" type="text/javascript"></script>
+<script src="{{ STATIC_URL }}js/interests/toggle_category.js" type="text/javascript"></script>
 {% endblock %}
