@@ -18,8 +18,6 @@ from profiles.views import user_not_new
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def all_interests_experimental(request):
 	user_interests = Interest.objects.filter(userinterestanswer__user=request.user)
-	subcategories = ["Video/Computer Games", "Board Games", "Extreme Sports" ,"Dancing"]
-	categories = Category.objects.exclude(title__in=subcategories)
 	video_games = Interest.objects.filter(category__title='Video/Computer Games')
 	card_games = Interest.objects.filter(category__title='Card Games')
 	board_games = Interest.objects.filter(category__title='Board Games')
@@ -29,10 +27,8 @@ def all_interests_experimental(request):
 	games = Interest.objects.filter(category__title='Games')
 	fitness_sports = Interest.objects.filter(category__title='Fitness/Sports')
 	extreme_sports = Interest.objects.filter(category__title='Extreme Sports')
-	print extreme_sports
 	team_sports = Interest.objects.filter(category__title='Team Sports')
 	outdoor_activities = Interest.objects.filter(category__title='Outdoor Activities')
-	print outdoor_activities
 	performing_arts = Interest.objects.filter(category__title='Performing Arts and Music')
 	dancing = Interest.objects.filter(category__title='Dancing')
 	arts_crafts = Interest.objects.filter(category__title='Arts and Crafts')
