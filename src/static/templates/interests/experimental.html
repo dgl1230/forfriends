@@ -134,6 +134,23 @@
 		</div><!--End Interest-->
 		{% endfor %}
 		</div><!--End Subcategory 2b -->
+		<h2 class="category_name" id="subcategory_name_2c">Combat Sports</h2>
+		<div class="subcategory" id="subcategory_2c">
+		{% for interest in combat_sports %}
+		<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest }}</h4>
+		<form class="interests_form_1" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+			{% if interest in user_interests %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='liked' value='Unlike'>
+			{% else %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+			{% endif %}
+		</form>
+		</div><!--End Interest-->
+		{% endfor %}
+		</div><!--End Subcategory 2c -->
 		{% for interest in fitness_sports %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
