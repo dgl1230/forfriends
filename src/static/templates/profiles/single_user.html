@@ -113,9 +113,8 @@
                 <p>Interests</p>
             </div>
             <div class='panel-body' id='occ_body'>
-               {% for interest in interests %}
-			<h3>{{ interest.interest|title }}</h3><p>
-			</div> 
+               {% for interest in interests_all %}
+			<p>{{ interest.interest }},</p>
 				{% endfor %}
             </div>
     	</div>

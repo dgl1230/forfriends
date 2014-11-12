@@ -21,6 +21,9 @@
 #interests_mobile_search{
 	margin:0 auto;
 }
+#occ_body p{
+  display:inline-block;
+}
 #interests_search{
 	padding-left:40px;
 }

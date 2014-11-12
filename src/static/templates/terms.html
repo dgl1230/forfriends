@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
+<head>
+        <link href="{{ STATIC_URL }}css/press.css" rel="stylesheet">
+
+</head>
 <div class="container">
 <h2>
     Frenvu Terms and Conditions of Use
@@ -139,4 +143,35 @@ The information we receive about you
 We are committed to conducting our business in accordance with these principles in order to ensure that the confidentiality of personal information is protected and maintained. 
 </p>    
 </div>
+
+<!--========================Footer======================= -->
+<footer>
+  <div class="footer_1">
+    <a href="/press/"><li>
+      Press
+    </li></a>
+      <a href="/about/"><li>
+      About
+    </li></a>
+    <a href="/jobs/"><li>
+      Jobs
+    </li></a>
+    <a class="active" href="/help/"><li>
+      Help
+    <li></a>
+  </div>
+  <div class="footer_2">
+    <a href="/terms_and_agreement/"><li>
+      Terms and Conditions
+    </li></a>
+    <a href="/cookies/"><li>
+      Cookies
+    </li></a>
+    <a href="/contact/"><li>
+      Contact Us
+    </li></a>
+  </div>
+</footer>
+
+<!--=====================================================-->
 {% endblock %}
