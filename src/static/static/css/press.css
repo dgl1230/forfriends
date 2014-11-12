@@ -80,17 +80,7 @@ h2{
 .press_list li{
   list-style:none;
 }
-.footer{
-  height:60px;
-  text-align:center;
-  padding-top:20px;
-}
-.footer a{
-  width:100px;
-  margin:0 auto;
-  line-height:20px;
-  padding-top:20px;
-}
+
 
 @media(max-width:550px){
   .head_picture{
@@ -110,4 +100,38 @@ h2{
   .head_picture{
     height:300px;
 }
+}
+
+/* Footer */
+footer{
+  height:75px;
+  width:100%;
+  background-color:#515151;
+  padding:25px 0px 25px 0px;
+  text-align: center;
+}
+footer a{
+  color:white;
+  font-weight:bold;
+  font-size:14px;
+}
+footer a:hover, footer a:focus, footer a:active{
+  color:#1fbad6;
+
+}
+footer li{
+  list-style: none;
+  display:inline-block;
+}
+.footer_2{
+  margin-top:30px;
+}
+.footer_1 li{
+  width:20%;
+}
+.footer_2 li{
+  width:30%;
+}
+.active{
+  color:#1fbad6;
 }
