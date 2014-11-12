@@ -12,6 +12,22 @@
 		<a href="/interests/create/" class="half-nav2">Add Interests</a>
 		<span class="glyphicon glyphicon-thumbs-up" id="tertiary-icon"></span>
 	</div>
+	<div class="search_interests">
+<form class="navbar-form navbar-left" role="search" action='{% url "search" %}'>
+<div class="form-group">
+<h5 class="description">{{ interest.description|title }}</h5>
+<button type="submit" class="btn btn-default" id="go_button">Search</button>
+</div>
+</form>
+<form class="navbar-form navbar-left" id="navbar_mobile" role="search" action='{% url "search" %}'>
+<div class="form-mobile" id="interests_mobile_search">
+<input type="text" class="input_mobile" placeholder="Search..." name='q' required>
+<button type="submit" class="btn-mobile" id="go_button"><span class='glyphicon glyphicon-search'></span></button>
+</div>
+</form>
+</div><!--End Search Interests -->
+</div><!--End Search Interests -->
+</div>
 {% if messages %}
 <div class="row">
 <div class="col-md-1" id="tertiary_navbar">
