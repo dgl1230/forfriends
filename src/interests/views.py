@@ -214,9 +214,7 @@ def search_interests(request):
 		q = request.GET.get('q', '')
 	except: 
 		q = False
-	interest_queryset = Interest.objects.filter(
-		Q(interest__icontains=q)
-		)
+	interest_queryset = Interest.objects.filter(interest__icontains=q)
 	results = interest_queryset
 	return render_to_response('interests/search.html', locals(), context_instance=RequestContext(request))
 
