@@ -536,7 +536,7 @@ def first_circle(logged_in_user):
 			if match.distance <= 20:
 				match.percent = match_percentage(logged_in_user, single_user)
 				if match.percent >=70:
-					i += 1
+		i += 1
 
 			match.save()
 
