@@ -23,8 +23,6 @@ class Match(models.Model):
 	currently_in_icebreaker_user2 = models.BooleanField(default=False)
 
 
-
-
 	user1_approved = models.BooleanField(default=False)
 	user2_approved = models.BooleanField(default=False)
 	are_friends = models.BooleanField(default=False)
