@@ -30,14 +30,6 @@ DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': 'profiles.views.custom_show_toolbar',
 }
 
-#def correct_ip(request):
-#  return str(request.META['REMOTE_ADDR'])
-
-#INTERNAL_IPS = (correct_ip(),)
-#INTERNAL_IPS = ()
-#INTERNAL_IPS = ('67.169.73.204',)
-
-#SHOW_TOOLBAR_CALLBACK = True
 
 TEMPLATE_DEBUG = True
 
