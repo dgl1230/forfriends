@@ -1192,8 +1192,20 @@ def search(request):
 
 
 
-def terms_and_agreement(request): 
-	return render_to_response('terms.html', locals(), context_instance=RequestContext(request))
+def about(request): 
+	return render_to_response('home/about.html', locals(), context_instance=RequestContext(request))
+
+def contact(request): 
+	return render_to_response('home/contact.html', locals(), context_instance=RequestContext(request))
+
+def cookies(request): 
+	return render_to_response('home/cookies.html', locals(), context_instance=RequestContext(request))
+
+def help(request): 
+	return render_to_response('home/help.html', locals(), context_instance=RequestContext(request))
+
+def jobs(request): 
+	return render_to_response('home/jobs.html', locals(), context_instance=RequestContext(request))
 
 
 @xframe_options_exempt

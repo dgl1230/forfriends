@@ -81,6 +81,12 @@ urlpatterns = patterns('',
 
     url(r'^sitemap\.xml', 'django.contrib.sitemaps.views.sitemap', {'sitemaps':sitemaps}),
 
+    url(r'^about$', 'profiles.views.about'),
+    url(r'^contact$', 'profiles.views.contact'),
+    url(r'^cookies$', 'profiles.views.cookies'),
+    url(r'^help$', 'profiles.views.help'),
+    url(r'^jobs$', 'profiles.views.jobs'),
+
 )
 
 
