@@ -169,13 +169,13 @@ CACHES = {
 
 LOGIN_URL = reverse_lazy('new_user_info')
 
-    
+"""    
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
 
-DEFAULT_FILE_STORAGE = 'forfriends.s3utils.MediaRootS3BotoStorage'
-STATICFILES_STORAGE = 'forfriends.s3utils.StaticRootS3BotoStorage'
+#DEFAULT_FILE_STORAGE = 'forfriends.s3utils.MediaRootS3BotoStorage'
+#STATICFILES_STORAGE = 'forfriends.s3utils.StaticRootS3BotoStorage'
 
 AWS_PRELOAD_METADATA = True 
 
@@ -239,7 +239,7 @@ def get_cache():
         }
 
 CACHES = get_cache()
-
+"""
 
 
 
