@@ -1,17 +1,13 @@
 
-
 import os
 from django.core.urlresolvers import reverse_lazy
 #from profiles.views import correct_ip
 
-
-
-EMAIL_USE_TLS = False
-EMAIL_HOST = 'localhost'
-EMAIL_HOST_USER = ''
-EMAIL_PORT = 1025
-EMAIL_HOST_PASSWORD = ''
-EMAIL_HOST_USER = "testing@testing.com"
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = os.environ["EMAIL_HOST_USER"]
+EMAIL_PORT = 587
+EMAIL_HOST_PASSWORD = os.environ["EMAIL_HOST_PASSWORD"]
 
 
 
@@ -24,18 +20,27 @@ SECRET_KEY = os.environ["FORFRIENDS_KEY"]
 
 DEBUG = True
 
-#DEBUG_TOOLBAR_PATCH_SETTINGS = False
+
+DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
 #DEBUG_TOOLBAR_CONFIG = {
-#    'SHOW_TOOLBAR_CALLBACK': 'profiles.views.custom_show_toolbar',
+ #   'SHOW_TOOLBAR_CALLBACK': 'profiles.views.custom_show_toolbar',
 #}
 
+
+
+
+
+#INTERNAL_IPS = ('10.0.2.15', '192.168.1.6', '67.169.73.204', '71.165.84.204',)
+#INTERNAL_IPS = (correct_ip(),)
+
+SHOW_TOOLBAR_CALLBACK = True
 
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
- 
+
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,7 +49,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'django.contrib.sitemaps',
     'registration',
     'south',
     'profiles',
@@ -52,8 +56,10 @@ INSTALLED_APPS = (
     'directmessages',
     'matches',
     'questions',
+    'storages',
     'social.apps.django_app.default',
     'debug_toolbar',
+    
 )
 
 TEMPLATE_DIRS = (
@@ -69,7 +75,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
+
+
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -85,9 +92,12 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 AUTHENTICATION_BACKENDS = (
-   'social.backends.facebook.FacebookOAuth2',
-   'social.backends.twitter.TwitterOAuth',
-   'django.contrib.auth.backends.ModelBackend',
+    'social.backends.facebook.FacebookAppOAuth2',
+    'social.backends.facebook.FacebookOAuth2',
+    'social.backends.twitter.TwitterOAuth',
+    'social.backends.google.GoogleOAuth2',
+    'social.backends.google.GooglePlusAuth',
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 ROOT_URLCONF = 'forfriends.urls'
@@ -137,8 +147,8 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
-
-AUTH_PROFILE_MODULE = "userprofile.UserProfile"
+# may want it to be AUTH_PROFILE_MODULE = "profiles.blah"
+AUTH_PROFILE_MODULE = "profiles.Info"
 
 ACCOUNT_ACTIVATION_DAYS = 7
 
@@ -157,15 +167,6 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Allow all host headers, this needs to be more secure soon 
 ALLOWED_HOSTS = ['*']
-
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
-    }
-}
-
-LOGIN_URL = reverse_lazy('new_user_info')
 
     
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
@@ -237,7 +238,6 @@ def get_cache():
         }
 
 CACHES = get_cache()
-
 
 
 
