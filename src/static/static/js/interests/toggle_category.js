@@ -1,4 +1,7 @@
 //Hardcoded Category Toggle, #inefficient
+$( "#category_name_current" ).click(function() {
+$( "#category_current" ).stop(true, false).slideToggle( "slow")
+});
 $( "#category_name_1" ).click(function() {
 $( "#category1" ).stop(true, false).slideToggle( "slow")
 });
@@ -106,4 +109,33 @@ $( "#subcategory_9b" ).stop(true, false).slideToggle( "slow")
 });
 $( "#subcategory_name_9c" ).click(function() {
 $( "#subcategory_9c" ).stop(true, false).slideToggle( "slow")
+});
+
+//Toggle for "various"//
+$( "#subcategory_name_other_1" ).click(function() {
+$( "#subcategory_other_1" ).stop(true, false).slideToggle( "slow")
+});
+$( "#subcategory_name_other_2" ).click(function() {
+$( "#subcategory_other_2" ).stop(true, false).slideToggle( "slow")
+});
+$( "#subcategory_name_other_3" ).click(function() {
+$( "#subcategory_other_3" ).stop(true, false).slideToggle( "slow")
+});
+$( "#subcategory_name_other_4" ).click(function() {
+$( "#subcategory_other_4" ).stop(true, false).slideToggle( "slow")
+});
+$( "#subcategory_name_other_5" ).click(function() {
+$( "#category_other_5" ).stop(true, false).slideToggle( "slow")
+});
+$( "#subcategory_name_other_6" ).click(function() {
+$( "#subcategory_other_6" ).stop(true, false).slideToggle( "slow")
+});
+$( "#subcategory_name_other_7" ).click(function() {
+$( "#subcategory_other_7" ).stop(true, false).slideToggle( "slow")
+});
+$( "#subcategory_name_other_8" ).click(function() {
+$( "#subcategory_other_8" ).stop(true, false).slideToggle( "slow")
+});
+$( "#subcategory_name_other_9" ).click(function() {
+$( "#subcategory_other_9" ).stop(true, false).slideToggle( "slow")
 });
