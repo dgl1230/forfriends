@@ -526,7 +526,7 @@ and (max-width : 1200px){
 }
 /* Footer */
 footer{
-  height:150px;
+  height:120px;
   width:100%;
   background-color:#515151;
   padding:25px 20px 25px 20px;
@@ -534,8 +534,8 @@ footer{
 }
 footer a{
   color:white;
-  font-weight:bold;
-  font-size:14px;
+  font-weight:300;
+  font-size:16px;
 }
 footer a:hover, footer a:focus, footer a:active{
   color:#1fbad6;
@@ -546,7 +546,7 @@ footer li{
   display:inline-block;
 }
 .footer_2{
-  margin-top:30px;
+  margin-top:5px;
 }
 .footer_1 li{
   width:20%;
