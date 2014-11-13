@@ -308,6 +308,7 @@ def all(request):
 			else: 
 				can_they_reset = False
 
+
 			until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
 			icebreaker_hours_until_reset = int((until_next_icebreaker - current_time).total_seconds() / 60 / 60)
 			if icebreaker_hours_until_reset <= 0:
@@ -485,6 +486,7 @@ def generate_circle(request):
 			user_gamification.save()
 			#messages.success(request, "We're sorry, but there aren't many users nearby you right now. We rested your circle as best we could, but you can reset it again if you'd like.")
 	return HttpResponseRedirect(reverse('home'))
+	
 
 
 
@@ -608,7 +610,7 @@ def new_user_info(request):
 		username = username2.translate(None, '"')
 
 		bad_words = ['shit', 'cunt', 'fuck', 'nigger', 'kyke', 'dyke', 'fag', 'ass', 'rape', 
-			'murder', 'kill', 'gook', 'pussy', 'bitch', 'hell', 'whore', 'slut', 
+			'murder', 'kill', 'gook', 'pussy', 'bitch', 'whore', 'slut', 
 			'cum', 'jizz', 'clit', 'anal', 'cock', 'molest', 'necro', 'satan', 'devil', 
 			'pedo', 'negro', 'spic', 'beaner', 'chink', 'coon', 'kike', 'wetback', 'sex', 
 			'kidnap', 'penis', 'vagina', 'boobs', 'titties', 'sodom', 'kkk', 'nazi', 'klux', 
@@ -618,7 +620,7 @@ def new_user_info(request):
 			'donkeypunch', 'fudgepacker', 'gooch', 'gringo', 'jerkoff', 'jigaboo', 'kooch', 
 			'kootch', 'kunt', 'kyke', 'dike', 'minge', 'munging', 'nigga', 'niglet', 'nutsack', 
 			'poon', 'pussies', 'pussy', 'queef', 'queer', 'rimjob', 'erection', 'schlong', 
-			'skeet', 'smeg', 'spick', 'splooge', 'spook', 'retard', 'testicle', 'tit', 'twat', 
+			'skeet', 'smeg', 'spick', 'splooge', 'spook', 'retard', 'testicle', 'twat', 
 			'vajayjay', 'wankjob', 'bimbo', '69', 'fistr', 'fist3r']
 
 		for word in bad_words:
