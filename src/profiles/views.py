@@ -487,7 +487,10 @@ def generate_circle(request):
 			user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 			user_gamification.save()
 			#messages.success(request, "We're sorry, but there aren't many users nearby you right now. We rested your circle as best we could, but you can reset it again if you'd like.")
-	return HttpResponseRedirect(reverse('home'))
+	# *************** For testing only *************
+	#return HttpResponseRedirect(reverse('home'))
+	return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+	# *************** For testing only *************
 
 #@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 #@user_passes_test(user_can_reset_circle, login_url=reverse_lazy('home'))
