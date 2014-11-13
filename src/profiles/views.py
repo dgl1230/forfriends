@@ -307,13 +307,18 @@ def all(request):
 				can_they_reset = True
 			else: 
 				can_they_reset = False
-
+			# *************** For testing only *************
+			can_they_reset = True
+			# *************** For testing only *************
 			until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
 			icebreaker_hours_until_reset = int((until_next_icebreaker - current_time).total_seconds() / 60 / 60)
 			if icebreaker_hours_until_reset <= 0:
 				can_reset_icebreaker = True
 			else:
 				can_reset_icebreaker = False
+			# *************** For testing only *************	
+			can_reset_icebreaker = True
+			# *************** For testing only *************
 			messages_in_inbox = DirectMessage.objects.filter(receiver=request.user)
 			direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
 			request.session['num_of_messages'] = direct_messages
