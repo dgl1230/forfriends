@@ -1191,6 +1191,8 @@ def search(request):
 	return render_to_response('search.html', locals(), context_instance=RequestContext(request))
 
 
+def terms_and_agreement(request): 
+	return render_to_response('terms.html', locals(), context_instance=RequestContext(request))
 
 def about(request): 
 	return render_to_response('home/about.html', locals(), context_instance=RequestContext(request))
