@@ -29,10 +29,7 @@ DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': 'profiles.views.custom_show_toolbar',
 }
 
-def show_toolbar(request):
-    return True
-SHOW_TOOLBAR_CALLBACK = show_toolbar
-#SHOW_TOOLBAR_CALLBACK = True
+SHOW_TOOLBAR_CALLBACK = True
 
 TEMPLATE_DEBUG = True
 
