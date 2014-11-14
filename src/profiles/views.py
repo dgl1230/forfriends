@@ -345,7 +345,7 @@ def all(request):
 #@user_passes_test(user_can_reset_circle, login_url=reverse_lazy('home'))
 def generate_circle(request):
 	# *************** For testing only *************
-	start_time = datetime.datetime.now()
+	start_time = datetime.now()
 	# *************** For testing only *************
 	location = Address.objects.get(user=request.user)
 	if check_valid_location(location.city, location.state) == False:
@@ -493,7 +493,7 @@ def generate_circle(request):
 			#messages.success(request, "We're sorry, but there aren't many users nearby you right now. We rested your circle as best we could, but you can reset it again if you'd like.")
 	# *************** For testing only *************
 	#return HttpResponseRedirect(reverse('home'))
-	end_time = datetime.datetime.now()
+	end_time = datetime.now()
 	time_diff = end_time - start_time
 	print time_diff
 	loggiing.debug('HELP ME DJANGO TOOLBAR, YOU ARE MY ONLY HOPE')
