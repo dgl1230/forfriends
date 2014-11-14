@@ -420,6 +420,7 @@ def generate_circle(request):
 		#these variables are for keeping track of users that live within certain miles, ie num_10m is 
 		# for users that live within 10 miles
 		users = User.objects.filter(is_active=True).exclude(username=request.user.username)
+		time1 = datetime.now()
 		for user in users: 
 			if user != request.user:
 				try: 
@@ -431,15 +432,25 @@ def generate_circle(request):
 				except:
 					match.distance = 10000000
 				match.save()
+		time2 = datetime.now()
+		logging.debug('For user in users time is: ' + str(time2 - time1))
 		# these blocks can lead to a lot of unnecessary querying evaluations
 		if circle_distance(request.user, preferred_distance) == 1:
 			pass
+		time3 = datetime.now()	
+		logging.debug('If to else if time is: ' + str(time3 - time2))
 		elif circle_distance(request.user, unicode(int(preferred_distance) + 10)) == 1:
 			pass
+		time4 = datetime.now()
+		logging.debug('Elif preferred_distance + 10: ' + str(time4 - time3))
 		elif circle_distance(request.user, unicode(int(preferred_distance) + 20)) == 1:
 			pass
+		time5 = datetime.now()
+		logging.debug('Elif preferred_distance + 20: ' + str(time5 - time4))
 		elif circle_distance(request.user, unicode(int(preferred_distance) + 30)) == 1:
 			pass
+		time6 = datetime.now()
+		logging.debug('Elif preferred_distance + 30: ' + str(time6 - time5))
 		else: 
 			# otherwise, there are not very many users who live close by, so we default to 
 			# adding to their circle randomly
@@ -495,7 +506,7 @@ def generate_circle(request):
 	#return HttpResponseRedirect(reverse('home'))
 	end_time = datetime.now()
 	time_diff = end_time - start_time
-	print time_diff
+	logging.debug('Last big else with random users time is: ' + str(end_time - time6))
 	logging.debug('HELP ME DJANGO TOOLBAR, YOU ARE MY ONLY HOPE ' + str(time_diff))
 	return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 	# *************** For testing only *************
