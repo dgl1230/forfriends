@@ -496,7 +496,7 @@ def generate_circle(request):
 	end_time = datetime.now()
 	time_diff = end_time - start_time
 	print time_diff
-	logging.debug('HELP ME DJANGO TOOLBAR, YOU ARE MY ONLY HOPE ' + time_diff)
+	logging.debug('HELP ME DJANGO TOOLBAR, YOU ARE MY ONLY HOPE ' + str(time_diff))
 	return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 	# *************** For testing only *************
 
