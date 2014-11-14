@@ -17,6 +17,7 @@ from profiles.views import user_not_new
 
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def all_interests(request):
+	num_of_interests = Interest.objects.filter(userinterestanswer__user=request.user).count()
 	user_interests = Interest.objects.filter(userinterestanswer__user=request.user)
 	video_games = Interest.objects.filter(category__title='Video/Computer Games')
 	card_games = Interest.objects.filter(category__title='Card Games')
