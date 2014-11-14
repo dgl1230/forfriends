@@ -43,12 +43,12 @@ def all_interests(request):
 def save_interest(request, interest_id):
 	interest = Interest.objects.get(id=interest_id)
 	num_of_interests = Interest.objects.filter(userinterestanswer__user=request.user).count()
-	if num_of_interests >= 10:
-		return HttpResponseRedirect(reverse('interests'))
 	try: 
 		answered = UserInterestAnswer.objects.get(user=request.user, interest=interest)
 		answered.delete()
 	except: 
+		if num_of_interests >= 10:
+			return HttpResponseRedirect(reverse('interests'))
 		answered = UserInterestAnswer.objects.create(user=request.user, interest=interest)
 		answered.save()
 	return HttpResponseRedirect(reverse('interests'))
