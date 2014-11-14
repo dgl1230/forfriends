@@ -342,7 +342,6 @@ def all(request):
 
 
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
-#@user_passes_test(user_can_reset_circle, login_url=reverse_lazy('home'))
 def generate_circle(request):
 	# *************** For testing only *************
 	start_time = datetime.now()
@@ -357,12 +356,14 @@ def generate_circle(request):
 	if info.is_new_user:
 		info.is_new_user = False
 		info.save()
-		user_gamification = Gamification.objects.create(user=request.user)
-
+	num_of_matches = matches = Match.objects.filter(
+			Q(user1=request.user) | Q(user2=request.user)
+			).count()
+	if num_of_matches < 7:
 		users = User.objects.filter(is_active=True).exclude(username=request.user.username)
 		i = 0
 		for user in users: 
-			if i > 7:
+			if i == 7:
 				break
 			if user != request.user:
 				try: 
@@ -373,47 +374,51 @@ def generate_circle(request):
 					match.distance = round(calc_distance(request.user, user))
 				except:
 					match.distance = 10000000
-				if match.distance <= 20:
-					match.percent = match_percentage(request.user, single_user)
-					if match.percent >= 70:
-						i += 1
-
 				match.save()
+				i = i + 1
+
+	preferred_distance = 10
+	#these variables are for keeping track of users that live within certain miles, ie num_10m is 
+	# for users that live within 10 miles
+	'''
+	users = User.objects.filter(is_active=True).exclude(username=request.user.username)
+	
+	for user in users: 
+		if user != request.user:
+			try: 
+				match = Match.objects.get(user1=request.user, user2=user)
+			except: 
+				match, created = Match.objects.get_or_create(user1=user, user2=request.user)
+			try:
+				match.distance = round(calc_distance(request.user, user))
+			except:
+				match.distance = 10000000
+			match.save()
+	'''
+	# these blocks can lead to a lot of unnecessary querying evaluations
+	if circle_distance(request.user, preferred_distance) == 1:
+		return HttpResponseRedirect(reverse('home'))
+	elif circle_distance(request.user, unicode(int(preferred_distance) + 10)) == 1:
+		return HttpResponseRedirect(reverse('home'))
+	elif circle_distance(request.user, unicode(int(preferred_distance) + 20)) == 1:
+		return HttpResponseRedirect(reverse('home'))
+	elif circle_distance(request.user, unicode(int(preferred_distance) + 30)) == 1:
+		return HttpResponseRedirect(reverse('home'))
+	else: 
+		# otherwise, there are not very many users who live close by, so we default to 
+		# adding to their circle randomly
+		user_gamification = Gamification.objects.get(user=request.user)
+		current_circle = list(user_gamification.circle.all())
+		#requested_users = list(Match.objects.filter(Q(user1=request.user) | Q(user1_approved=True)).filter(Q(user2=request.user) | Q(user2_approved=True)))
+		# for now are_friends=True is excluded from other queries because in theory all friends should be in requested users
+		requested_users = list(Match.objects.filter(Q(user1=request.user, user1_approved=True) | Q(user2=request.user, user2_approved=True )))
+		excluded_users = current_circle + requested_users
 
 		matches = Match.objects.filter(
 			Q(user1=request.user) | Q(user2=request.user)
-			).exclude(are_friends=True).filter(percent__gte=70)
-		num_matches = matches.count()
-		if num_matches >= 7:
-			matches_new = matches.order_by('?')[:8]
-			i = 0
-			for match in matches:
-				if match.user1 == request.user and match.user2 == request.user:
-					pass
-				else:
-					i += 1
-					user_gamification.circle.add(match)
-					if i == 7:
-						break
-		else:
-			matches = Match.objects.filter(
-				Q(user1=request.user) | Q(user2=request.user)
-				).exclude(are_friends=True)
-			matches_new = matches.order_by('?')[:8]
-			i = 0
-			for match in matches_new:
-				if match.user1 == request.user and match.user2 == request.user:
-					pass
-				else:
-					i += 1
-					user_gamification.circle.add(match)
-					if i == 7:
-						break
-		
-		user_gamification.circle_time_until_reset = datetime.now()
-		user_gamification.icebreaker_until_reset = datetime.now()
-		user_gamification.save()
-		return HttpResponseRedirect(reverse('home'))
+			).exclude(user1=request.user, user2=request.user).exclude(id__in=[o.id for o in excluded_users]).filter(percent__gte=70)
+		user_gamification = Gamification.objects.get(user=request.user)
+		count = matches.count()
 
 	else: 
 		preferred_distance = 10
@@ -467,43 +472,40 @@ def generate_circle(request):
 			requested_users = list(Match.objects.filter(Q(user1=request.user, user1_approved=True) | Q(user2=request.user, user2_approved=True )))
 			excluded_users = current_circle + requested_users
 
+		try:
+			max_match = matches.latest('id').id
+		except: 
 			matches = Match.objects.filter(
 				Q(user1=request.user) | Q(user2=request.user)
-				).exclude(user1=request.user, user2=request.user).exclude(id__in=[o.id for o in excluded_users]).filter(percent__gte=70)
-			user_gamification = Gamification.objects.get(user=request.user)
-			count = matches.count()
+				).exclude(user1=request.user, user2=request.user).exclude(id__in=[o.id for o in current_circle])	
+		if count < 6:
+			matches = Match.objects.filter(
+				Q(user1=request.user) | Q(user2=request.user)
+				).exclude(user1=request.user, user2=request.user).exclude(id__in=[o.id for o in current_circle])
+			max_match = matches.latest('id').id
 
+		# so we dont have more than 6-7 users in a circle at a time
 
+		user_gamification.circle.clear()
+		j = 0
+		already_chosen = {}
+		while j < 6:
 			try:
-				max_match = matches.latest('id').id
-			except: 
-				matches = Match.objects.filter(
-					Q(user1=request.user) | Q(user2=request.user)
-					).exclude(user1=request.user, user2=request.user).exclude(id__in=[o.id for o in current_circle])	
-			if count < 6:
-				matches = Match.objects.filter(
-					Q(user1=request.user) | Q(user2=request.user)
-					).exclude(user1=request.user, user2=request.user).exclude(id__in=[o.id for o in current_circle])
-				max_match = matches.latest('id').id
+				random_index = randint(0, max_match - 1)
+				if random_index not in already_chosen:
+					random_match = matches[random_index]
+					user_gamification.circle.add(random_match)
+					already_chosen[random_index] = random_index
+					j += 1
+			except:
+				pass
 
+		user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
+		user_gamification.save()
+		#messages.success(request, "We're sorry, but there aren't many users nearby you right now. We rested your circle as best we could, but you can reset it again if you'd like.")
+	return HttpResponseRedirect(reverse('home'))
+	
 
-
-
-			# so we dont have more than 6-7 users in a circle at a time
-
-			user_gamification.circle.clear()
-			j = 0
-			already_chosen = {}
-			while j < 6:
-				try:
-					random_index = randint(0, max_match - 1)
-					if random_index not in already_chosen:
-						random_match = matches[random_index]
-						user_gamification.circle.add(random_match)
-						already_chosen[random_index] = random_index
-						j += 1
-				except:
-					pass
 
 			user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 			user_gamification.save()
@@ -518,8 +520,7 @@ def generate_circle(request):
 	return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 	# *************** For testing only *************
 
-#@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
-#@user_passes_test(user_can_reset_circle, login_url=reverse_lazy('home'))
+
 def circle_distance(logged_in_user, preferred_distance):
 	start_time = datetime.now()
 	user_gamification = Gamification.objects.get(user=logged_in_user)
@@ -554,6 +555,66 @@ def circle_distance(logged_in_user, preferred_distance):
 	return 1
 
 
+def first_circle(logged_in_user):
+	user_gamification = Gamification.objects.create(user=logged_in_user)
+	users = User.objects.filter(is_active=True).exclude(username=logged_in_user.username)
+	i = 0
+	for user in users: 
+		if i > 7:
+			break
+		if user != logged_in_user:
+			try: 
+				match = Match.objects.get(user1=logged_in_user, user2=user)
+			except: 
+				match, created = Match.objects.get_or_create(user1=user, user2=logged_in_user)
+			try:
+				match.distance = round(calc_distance(logged_in_user, user))
+			except:
+				match.distance = 10000000
+			if match.distance <= 20:
+				match.percent = match_percentage(logged_in_user, single_user)
+				if match.percent >=70:
+					i += 1
+
+			match.save()
+
+		matches = Match.objects.filter(
+			Q(user1=logged_in_user) | Q(user2=logged_in_user)
+			).exclude(are_friends=True).filter(percent__gte=70)
+		num_matches = matches.count()
+		if num_matches >= 7:
+			matches_new = matches.order_by('?')[:8]
+			i = 0
+			for match in matches:
+				if match.user1 == logged_in_user and match.user2 == logged_in_user:
+					pass
+				else:
+					i += 1
+					user_gamification.circle.add(match)
+					if i == 7:
+						break
+		else:
+			matches = Match.objects.filter(
+				Q(user1=logged_in_user) | Q(user2=logged_in_user)
+				).exclude(are_friends=True)
+			matches_new = matches.order_by('?')[:8]
+			i = 0
+			for match in matches_new:
+				if match.user1 == logged_in_user and match.user2 == logged_in_user:
+					pass
+				else:
+					i += 1
+					user_gamification.circle.add(match)
+					if i == 7:
+						break
+		
+		user_gamification.circle_time_until_reset = datetime.now()
+		user_gamification.icebreaker_until_reset = datetime.now()
+		user_gamification.save()
+		return HttpResponseRedirect(reverse('home'))
+
+
+
 	
 @login_required(login_url=reverse_lazy('home'))
 #This is the first/second part of registration for users signing up with FB or GOOGerror(request, "Please double check your username or email address and password")
@@ -585,7 +646,7 @@ def new_user_info(request):
 		username = username2.translate(None, '"')
 
 		bad_words = ['shit', 'cunt', 'fuck', 'nigger', 'kyke', 'dyke', 'fag', 'ass', 'rape', 
-			'murder', 'kill', 'gook', 'pussy', 'bitch', 'hell', 'whore', 'slut', 
+			'murder', 'kill', 'gook', 'pussy', 'bitch', 'whore', 'slut', 
 			'cum', 'jizz', 'clit', 'anal', 'cock', 'molest', 'necro', 'satan', 'devil', 
 			'pedo', 'negro', 'spic', 'beaner', 'chink', 'coon', 'kike', 'wetback', 'sex', 
 			'kidnap', 'penis', 'vagina', 'boobs', 'titties', 'sodom', 'kkk', 'nazi', 'klux', 
@@ -595,7 +656,7 @@ def new_user_info(request):
 			'donkeypunch', 'fudgepacker', 'gooch', 'gringo', 'jerkoff', 'jigaboo', 'kooch', 
 			'kootch', 'kunt', 'kyke', 'dike', 'minge', 'munging', 'nigga', 'niglet', 'nutsack', 
 			'poon', 'pussies', 'pussy', 'queef', 'queer', 'rimjob', 'erection', 'schlong', 
-			'skeet', 'smeg', 'spick', 'splooge', 'spook', 'retard', 'testicle', 'tit', 'twat', 
+			'skeet', 'smeg', 'spick', 'splooge', 'spook', 'retard', 'testicle', 'twat', 
 			'vajayjay', 'wankjob', 'bimbo', '69', 'fistr', 'fist3r']
 
 		for word in bad_words:
@@ -1168,9 +1229,23 @@ def search(request):
 	return render_to_response('search.html', locals(), context_instance=RequestContext(request))
 
 
-
 def terms_and_agreement(request): 
 	return render_to_response('terms.html', locals(), context_instance=RequestContext(request))
+
+def about(request): 
+	return render_to_response('home/about.html', locals(), context_instance=RequestContext(request))
+
+def contact(request): 
+	return render_to_response('home/contact.html', locals(), context_instance=RequestContext(request))
+
+def cookies(request): 
+	return render_to_response('home/cookies.html', locals(), context_instance=RequestContext(request))
+
+def help(request): 
+	return render_to_response('home/help.html', locals(), context_instance=RequestContext(request))
+
+def jobs(request): 
+	return render_to_response('home/jobs.html', locals(), context_instance=RequestContext(request))
 
 
 @xframe_options_exempt

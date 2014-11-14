@@ -47,6 +47,8 @@ textarea:active, input:active{
 }
 #home-only .col-sm-4{
 	min-width:175px;
+	width:33%;
+	display:inline-block;
 }
 
 .row{
@@ -245,6 +247,11 @@ a:hover{
 	#compose_button_container{
 		width:120px!important;
 	}	
+	#home-only .col-sm-4{
+	min-width:175px;
+	width:100%;
+	display:block;
+}
 }
 
 @media (max-width: 586px) {

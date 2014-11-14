@@ -19,6 +19,9 @@
 #like{
 	width:100px!important;
 }
+#tertiary_head{
+	color:#1fbad6;
+}
 .liked{
 	width:100px!important;
 	background-color:#5ad75a!important;
@@ -53,6 +56,22 @@
 }
 .category_hidden .category_name{
 	margin-left:100px;
+	border-bottom: none;
+}
+.subcategory{
+	display:none;
+	margin-left:100px;
+}
+
+@media(max-width:450px){
+	.subcategory{
+	display:none;
+	margin-left:50px;
+	}
+	.category_hidden .category_name{
+	margin-left:50px;
+	border-bottom: none;
+	}
 }
 
 /* Questions */
@@ -68,9 +87,4 @@
 }
 #one input{
 	visibility: hidden;
-}
-.subcategory{
-	border-bottom:1px solid #1fbad6;
-	display:none;
-	margin-left:100px!important;
 }

@@ -1,13 +1,4 @@
 {% extends 'base.html' %}
-
-
-{% block jquery %}
-$('#myTab a').click(function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-})
-{% endblock %}
-
 {% block content %}
 <div class="row">
   <div  id="secondary_navbar">
@@ -104,41 +95,6 @@ $('#myTab a').click(function (e) {
 </div>
 </div>
 </div>
-</div>
 
-<script>
-$('#username_form').alphanum();
-</script>
-
-<script>
-$('#first_name_form').alpha();
-</script>
-
-<script>
-$('#last_name_form').alphanum({
-  allow : " -'",
-  disallow:'0123456789'
-});
-</script>
-
-<script>
-$(document).ready(function(){
-$('#info_form').ajaxForm(function() {
-  $("#info_change").show();
-  $("#job_change").hide();
-  $("#location_change").hide();
-})
-$('#location_form').ajaxForm(function() {
-  $("#location_change").show();
-  $("#job_change").hide();
-  $("#info_change").hide();
-})
-$('#job_form').ajaxForm(function() {
-  $("#job_change").show();
-  $("#location_change").hide();
-  $("#info_change").hide();
-})
-});
-</script>
-
+ <script src="{{ STATIC_URL }}js/profile/edit.js" type="text/javascript"></script>
 {% endblock %}

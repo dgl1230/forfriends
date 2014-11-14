@@ -8,10 +8,14 @@
         <h1>Interests</h1>
 	</div>
 	<div class="col-md-1" id="tertiary_navbar">
-		<a href="/interests/edit/" class="half-nav1">Edit Interests</a>
-		<span class="glyphicon glyphicon-thumbs-up" id="tertiary-icon"></span>
-		<a href="/interests/create/" class="half-nav2">Add Interests</a>
+		<p id="tertiary_head">You can only have 10 interests, so choose carefully!</p>
 	</div>
+	<div class="col-md-1" id="tertiary_navbar">
+		<span class="glyphicon glyphicon-thumbs-up" id="tertiary-icon"></span>
+		<a href="/interests/create/" class="half-nav2">Create Interests</a>
+		<span class="glyphicon glyphicon-thumbs-up" id="tertiary-icon"></span>
+	</div>
+
 {% if messages %}
 <div class="row">
 <div class="col-md-1" id="tertiary_navbar">
@@ -22,6 +26,26 @@
 </div>
 {% endif %}
 	<div class='row' id="interests-wrapper">
+<!--========================CURRENT INTERESTS==============-->
+	<div class="category">
+			<h2 class="category_name" id="category_name_current">My Interests</h2>
+			<div class="category_hidden" id="category_current">
+			{% for interest in user_interests %}
+			<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest }}</h4>
+				<form class="interests_form_1" method='POST' action='{% url "save_interest" interest.id %}'>{% csrf_token %}
+				{% if interest in user_interests %}
+				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+				<input type='submit' id="like" class='liked' value='Unlike'>
+				{% else %}
+				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+				<input type='submit' id="like" class='btn-lg' value='Like it!'>
+				{% endif %}	
+				</form>
+			</div><!--End Interest-->
+			{% endfor %}
+			</div><!--End Subcategory 1a -->
+			</div><!--End Category -->
 <!--=============Games=====================================-->
 		<div class="category">
 			<h2 class="category_name" id="category_name_1">Games</h2>
@@ -31,7 +55,7 @@
 			{% for interest in board_games %}
 			<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-				<form class="interests_form_1a" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+				<form class="interests_form_1" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 				{% if interest in user_interests %}
 				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 				<input type='submit' id="like" class='liked' value='Unlike'>
@@ -48,7 +72,7 @@
 			{% for interest in card_games %}
 			<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-				<form class="interests_form_1b" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+				<form class="interests_form_1" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 				{% if interest in user_interests %}
 				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 				<input type='submit' id="like" class='liked' value='Unlike'>
@@ -65,7 +89,7 @@
 		{% for interest in video_games %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-			<form class="interests_form_1c" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+			<form class="interests_form_1" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			{% if interest in user_interests %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='liked' value='Unlike'>
@@ -77,26 +101,26 @@
 		</div><!--End Interest-->
 		{% endfor %}
 		</div><!--End sub category -->
-		<div>
-		{% for interest in games %}
+			<h2 class="category_name" id="subcategory_name_other_1">Various</h2>
+			<div class="subcategory" id="subcategory_other_1">
+			{% for interest in games %}
 			<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-			<form class="interests_form_1" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
-			{% if interest in user_interests %}
-			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
-			<input type='submit' id="like" class='liked' value='Unlike'>
-			{% else %}
-			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
-			<input type='submit' id="like" class='btn-lg' value='Like it!'>
-			{% endif %}
-			</form>
-			</div><!--Interest-->
-		{% endfor %}
-		</div>
-		</div><!--category 1-->
+				<form class="interests_form_1" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+				{% if interest in user_interests %}
+				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+				<input type='submit' id="like" class='liked' value='Unlike'>
+				{% else %}
+				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+				<input type='submit' id="like" class='btn-lg' value='Like it!'>
+				{% endif %}
+				</form>
+			</div><!--End Interest-->
+			{% endfor %}
+			</div><!--End Subcategory other-->
 	</div><!--end games-->
 		
-		<!--=================Sports=====================================-->
+	<!--=================Sports=====================================-->
 		<div class="category">
 			<h2 class="category_name" id="category_name_2">Fitness/Sports</h2>
 		<div class="category_hidden" id="category2">
@@ -134,10 +158,12 @@
 		</div><!--End Interest-->
 		{% endfor %}
 		</div><!--End Subcategory 2b -->
-		{% for interest in fitness_sports %}
+		<h2 class="category_name" id="subcategory_name_2c">Combat Sports</h2>
+		<div class="subcategory" id="subcategory_2c">
+		{% for interest in combat_sports %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-		<form class="interests_form_2" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+		<form class="interests_form_1" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			{% if interest in user_interests %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='liked' value='Unlike'>
@@ -148,7 +174,24 @@
 		</form>
 		</div><!--End Interest-->
 		{% endfor %}
-	</div><!--Category 2-->
+		</div><!--End Subcategory 2c -->
+		<h2 class="category_name" id="subcategory_name_other_2">Various</h2>
+			<div class="subcategory" id="subcategory_other_2">
+			{% for interest in fitness_sports %}
+			<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest }}</h4>
+				<form class="interests_form_1" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+				{% if interest in user_interests %}
+				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+				<input type='submit' id="like" class='liked' value='Unlike'>
+				{% else %}
+				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+				<input type='submit' id="like" class='btn-lg' value='Like it!'>
+				{% endif %}
+				</form>
+			</div><!--End Interest-->
+			{% endfor %}
+			</div><!--End Subcategory other-->
 		</div><!--End sports-->
 	<!--=================Outdoor Activities======================-->
 		<div class="category">
@@ -157,7 +200,7 @@
 		{% for interest in outdoor_activities %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-		<form method='POST' class="interests_form_3" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+		<form method='POST' class="interests_form_1" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			{% if interest in user_interests %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='liked' value='Unlike'>
@@ -168,8 +211,8 @@
 		</form>
 		</div><!--End Interest-->
 		{% endfor %}
-	</div><!--Category 3-->
-</div><!--End Category-->
+		</div><!--End Category-->
+		</div><!--Category 1-->
 	<!--=================Arts and Music===========================-->
 		<div class="category">
 			<h2 class="category_name" id="category_name_4">Performing Arts and Music</h2>
@@ -191,22 +234,26 @@
 		</div><!--End Interest-->
 		{% endfor %}
 		</div><!--End Subcategory 4a -->
-		{% for interest in performing_arts %}
-		<div class='col-sm-4' id="interest">
+
+		<h2 class="category_name" id="subcategory_name_other_4">Various</h2>
+			<div class="subcategory" id="subcategory_other_4">
+			{% for interest in performing_arts %}
+			<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-		<form method='POST' class="interests_form_4" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
-			{% if interest in user_interests %}
-			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
-			<input type='submit' id="like" class='liked' value='Unlike'>
-			{% else %}
-			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
-			<input type='submit' id="like" class='btn-lg' value='Like it!'>
-			{% endif %}
-		</form>
-		</div><!--End Interest-->
-		{% endfor %}
-		</div><!--End Category-->
-		</div><!--Category 1-->
+				<form class="interests_form_1" method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+				{% if interest in user_interests %}
+				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+				<input type='submit' id="like" class='liked' value='Unlike'>
+				{% else %}
+				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+				<input type='submit' id="like" class='btn-lg' value='Like it!'>
+				{% endif %}
+				</form>
+			</div><!--End Interest-->
+			{% endfor %}
+			</div><!--End Subcategory other-->
+			</div>
+		</div><!-- End arts and music -->
 		<!--=================Arts and Crafts======================-->
 		<div class="category">
 			<h2 class="category_name" id="category_name_5">Arts and Crafts</h2>
@@ -214,7 +261,7 @@
 		{% for interest in arts_crafts %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-		<form method='POST' class="interests_form_5" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+		<form method='POST' class="interests_form_1" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			{% if interest in user_interests %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='liked' value='Unlike'>
@@ -229,12 +276,12 @@
 		</div><!--Category 1-->
 		<!--=================Spiritual/Mental Health==============-->
 		<div class="category">
-			<h2 class="category_name" id="category_name_6">Spiritual/Mental Health</h2>
+			<h2 class="category_name" id="category_name_6">Spirituality</h2>
 		<div class="category_hidden" id="category6">
 		{% for interest in spiritual %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-		<form method='POST' class="interests_form_6" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+		<form method='POST' class="interests_form_1" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			{% if interest in user_interests %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='liked' value='Unlike'>
@@ -254,7 +301,7 @@
 		{% for interest in food %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-		<form method='POST' class="interests_form_7" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+		<form method='POST' class="interests_form_1" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			{% if interest in user_interests %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='liked' value='Unlike'>
@@ -274,13 +321,13 @@
 		{% for interest in news %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-		<form method='POST' class="interests_form_8" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+		<form method='POST' class="interests_form_1" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			{% if interest in user_interests %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='liked' value='Unlike'>
 			{% else %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
-			<input type='submit' id="like" class='btn-lg' value='Unlike'>
+			<input type='submit' id="like" class='btn-lg' value='Like it!'>
 			{% endif %}
 		</form>
 		</div><!--End Interest-->
@@ -294,7 +341,7 @@
 		{% for interest in indoor %}
 		<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
-		<form method='POST' action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+		<form method='POST' class="interests_form_1" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
 			{% if interest in user_interests %}
 			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 			<input type='submit' id="like" class='liked' value='Unlike'>
@@ -307,6 +354,25 @@
 		{% endfor %}
 		</div><!--End category-->
 		</div><!--End category-->
+<!--==================== Search Bar ====================-->
+<!--
+<div class="search_interests">
+<form class="navbar-form navbar-left" role="search" action='{% url "search_interests" %}'>
+<div class="form-group">
+<h5 class="description">{{ interest.interest }}</h5>
+<button type="submit" class="btn btn-default" id="go_button">Search</button>
+<input type="text" class="input_mobile" placeholder="Search..." name='q' required>
+</div>
+</form>
+<form class="navbar-form navbar-left" id="navbar_mobile" role="search" action='{% url "search" %}'>
+<div class="form-mobile" id="interests_mobile_search">
+<input type="text" class="input_mobile" placeholder="Search..." name='q' required>
+<button type="submit" class="btn-mobile" id="go_button"><span class='glyphicon glyphicon-search'></span></button>
+</div>
+</form>
+</div>--><!--End Search Interests -->
+</div><!--End Search Interests -->
+</div>
 	</div><!--End wrapper-->
 </div><!--End big Wrapper-->
 <!--
@@ -316,165 +382,55 @@ $('#category1').jscroll({
 });
 </script>
 -->
-<script>
-$( "#category_name_1" ).click(function() {
-$( "#category1" ).slideToggle( "slow")
-});
-$( "#category_name_2" ).click(function() {
-$( "#category2" ).slideToggle( "slow")
-});
-$( "#category_name_3" ).click(function() {
-$( "#category3" ).slideToggle( "slow")
-});
-$( "#category_name_4" ).click(function() {
-$( "#category4" ).slideToggle( "slow")
-});
-$( "#category_name_5" ).click(function() {
-$( "#category5" ).slideToggle( "slow")
-});
-$( "#category_name_6" ).click(function() {
-$( "#category6" ).slideToggle( "slow")
-});
-$( "#category_name_7" ).click(function() {
-$( "#category7" ).slideToggle( "slow")
-});
-$( "#category_name_8" ).click(function() {
-$( "#category8" ).slideToggle( "slow")
-});
-$( "#category_name_9" ).click(function() {
-$( "#category9" ).slideToggle( "slow")
-});
-$( "#subcategory_name_1a" ).click(function() {
-$( "#subcategory_1a" ).slideToggle( "slow")
-});
-$( "#subcategory_name_1b" ).click(function() {
-$( "#subcategory_1b" ).slideToggle( "slow")
-});
-$( "#subcategory_name_1c" ).click(function() {
-$( "#subcategory_1c" ).slideToggle( "slow")
-});
-$( "#subcategory_name_2a" ).click(function() {
-$( "#subcategory_2a" ).slideToggle( "slow")
-});
-$( "#subcategory_name_2b" ).click(function() {
-$( "#subcategory_2b" ).slideToggle( "slow")
-});
-$( "#subcategory_name_2c" ).click(function() {
-$( "#subcategory_2c" ).slideToggle( "slow")
-});
-$( "#subcategory_name_3" ).click(function() {
-$( "#subcategory_3" ).slideToggle( "slow")
-});
-$( "#subcategory_name_3a" ).click(function() {
-$( "#subcategory_3a" ).slideToggle( "slow")
-});
-$( "#subcategory_name_3b" ).click(function() {
-$( "#subcategory_3b" ).slideToggle( "slow")
-});
-$( "#subcategory_name_4a" ).click(function() {
-$( "#subcategory_4a" ).slideToggle( "slow")
-});
-$( "#subcategory_name_4b" ).click(function() {
-$( "#subcategory_4b" ).slideToggle( "slow")
-});
-$( "#subcategory_name_4c" ).click(function() {
-$( "#subcategory_4c" ).slideToggle( "slow")
-});
-$( "#subcategory_name_5a" ).click(function() {
-$( "#subcategory_5a" ).slideToggle( "slow")
-});
-$( "#subcategory_name_5b" ).click(function() {
-$( "#subcategory_5b" ).slideToggle( "slow")
-});
-$( "#subcategory_name_5c" ).click(function() {
-$( "#subcategory_5c" ).slideToggle( "slow")
-});
-$( "#subcategory_name_6a" ).click(function() {
-$( "#subcategory_6a" ).slideToggle( "slow")
-});
-$( "#subcategory_name_6b" ).click(function() {
-$( "#subcategory_6b" ).slideToggle( "slow")
-});
-$( "#subcategory_name_6c" ).click(function() {
-$( "#subcategory_6c" ).slideToggle( "slow")
-});
-$( "#subcategory_name_7a" ).click(function() {
-$( "#subcategory_7a" ).slideToggle( "slow")
-});
-$( "#subcategory_name_7b" ).click(function() {
-$( "#subcategory_7b" ).slideToggle( "slow")
-});
-$( "#subcategory_name_7c" ).click(function() {
-$( "#subcategory_7c" ).slideToggle( "slow")
-});
-$( "#subcategory_name_8a" ).click(function() {
-$( "#subcategory_8a" ).slideToggle( "slow")
-});
-$( "#subcategory_name_8b" ).click(function() {
-$( "#subcategory_8b" ).slideToggle( "slow")
-});
-$( "#subcategory_name_8c" ).click(function() {
-$( "#subcategory_8c" ).slideToggle( "slow")
-});
-$( "#subcategory_name_9a" ).click(function() {
-$( "#subcategory_9a" ).slideToggle( "slow")
-});
-$( "#subcategory_name_9b" ).click(function() {
-$( "#subcategory_9b" ).slideToggle( "slow")
-});
-$( "#subcategory_name_9c" ).click(function() {
-$( "#subcategory_9c" ).slideToggle( "slow")
-});
-</script>
+<!-- Interests js -->
 
+{% if num_of_interests = 0 %}
 <script>
-$(document).ready(function(){
-$('.interests_form_1').ajaxForm(function() {
-});
-$('.interests_form_1a').ajaxForm(function() {
-});
-$('.interests_form_1b').ajaxForm(function() {
-});
-$('.interests_form_1c').ajaxForm(function() {
-});
-$('.interests_form_2').ajaxForm(function() {
-});
-$('.interests_form_3').ajaxForm(function() {
-});
-$('.interests_form_4').ajaxForm(function() {
-});
-$('.interests_form_5').ajaxForm(function() {
-});
-$('.interests_form_6').ajaxForm(function() {
-});
-$('.interests_form_7').ajaxForm(function() {
-});
-$('.interests_form_8').ajaxForm(function() {
-});
-});
+var liked = 0;
 </script>
-
+{% elif num_of_interests = 1 %}
 <script>
-$('.btn-lg').click(function(){
-	if($(this).val() == "Like it!") {
-	$(this).val("Unlike");
-	}
-	else {
-		$(this).val("Like it!");
-	}
-	$(this).toggleClass('liked');
-	$(this).toggleClass('btn-lg');
-});
-$('.liked').click(function(){
-	if($(this).val() == "Like it!") {
-	$(this).val("Unlike");
-	}
-	else {
-		$(this).val("Like it!");
-	}
-	$(this).toggleClass('btn-lg');
-	$(this).toggleClass('liked');
-});
+var liked = 1;
 </script>
+{% elif num_of_interests = 2 %}
+<script>
+var liked = 2;
+</script>
+{% elif num_of_interests = 3 %}
+<script>
+var liked = 3;
+</script>
+{% elif num_of_interests = 4 %}
+<script>
+var liked = 4;
+</script>
+{% elif num_of_interests = 5 %}
+<script>
+var liked = 5;
+</script>
+{% elif num_of_interests = 6 %}
+<script>
+var liked = 6;
+</script>
+{% elif num_of_interests = 7 %}
+<script>
+var liked = 7;
+</script>
+{% elif num_of_interests = 8 %}
+<script>
+var liked = 8;
+</script>
+{% elif num_of_interests = 9 %}
+<script>
+var liked = 9;
+</script>
+{% elif num_of_interests = 10 %}
+<script>
+var liked = 10;
+$('.btn-lg').attr('disabled','disabled')
+</script>
+{% endif %}
+<script src="{{ STATIC_URL }}js/interests/like_button.js" type="text/javascript"></script>
 
+<script src="{{ STATIC_URL }}js/interests/toggle_category.js" type="text/javascript"></script>
 {% endblock %}

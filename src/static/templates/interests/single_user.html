@@ -23,90 +23,11 @@
 </div>
 {% endif %}
 	
-	<div class='row' id="interests-wrapper">
-			<div class="main_interests">
-			<div class="interests-title">
+	<div class="category" id="category_current">
 			{% for interest in interests %}
-				<h3>{{ interest.interest|title }}</h3><p>
-			</div>	
-				{% if interest.description %}
-					<h5 class="description">{{ interest.description|title }}</h5>
-				{% endif %}
-
-		<form method='POST' action=''> {% csrf_token %}
-				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
-			<div class="interest_ranking">
-			
-			<span class="star-rating2">
-				{% for imp in importance_levels %}
-				<input type="radio" name="rating" value='{{ imp }}' id='{{ imp }}' class="star" {% for abc in interest.userinterestanswer_set.all %} {% if abc.importance_level == imp and abc.user == single_user %} checked="checked" {% else %} disabled="disabled" {% endif %} {% endfor %}><i></i>
-				{% endfor %}
-			</span>
-			<br/>
-			
-		{% endfor %}
-		
-			</div>
-			</form>
-		</div>
-		</div>
-		
-	<div class="pagination">
-	<span class="step-links">
-		<ul class="pager">
-			<div class="directions">
-				{% if interests.has_previous %}
-				<li class="previous"><a href="?page={{ interests.previous_page_number }}">&larr; Previous</a></li>
-				{% endif %}
-				{% if interests.has_next %}
-				<li class="next"><a href="?page={{ interests.next_page_number }}">Next &rarr;</a></li>
-			</div>
-				{% endif %}			
-		</ul>
-	</span>
-</div>
-</div>
-</div>
-<script>
-$(':radio').change(
-  function(){
-    $('.choice').text( this.value);
-    this.name = "importance_level";
-
-  } 
-)
-</script>
-{% if interests.has_previous %}
-<script>
-
-$(document).keydown(function(e) {
-    switch(e.which) {
-        case 37: // left
-        
-        window.location = "?page={{ interests.previous_page_number }}";
-        break;
-
-        default: return; // exit this handler for other keys
-    }
-    e.preventDefault(); // prevent the default action (scroll / move caret)
-});
-</script>
-
-{% endif %}
-{% if interests.has_next %}
-
-<script>
-	$(document).keydown(function(e) {
-    switch(e.which) {
-        case 39: // right
-        window.location = "?page={{ interests.next_page_number }}";
-        break;
-
-        default: return; // exit this handler for other keys
-    }
-    e.preventDefault(); // prevent the default action (scroll / move caret)
-});
-</script>
-
-{% endif %}
+			<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest }}</h4>
+			</div><!--End Interest-->
+			{% endfor %}
+			</div><!--End Subcategory 1a -->
 {% endblock %}
