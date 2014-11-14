@@ -343,6 +343,9 @@ def all(request):
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 #@user_passes_test(user_can_reset_circle, login_url=reverse_lazy('home'))
 def generate_circle(request):
+	# *************** For testing only *************
+	start_time = datetime.datetime.now()
+	# *************** For testing only *************
 	location = Address.objects.get(user=request.user)
 	if check_valid_location(location.city, location.state) == False:
 		messages.success(request, "We're sorry but you need to enter a valid location before you can use discover")
@@ -489,6 +492,9 @@ def generate_circle(request):
 			#messages.success(request, "We're sorry, but there aren't many users nearby you right now. We rested your circle as best we could, but you can reset it again if you'd like.")
 	# *************** For testing only *************
 	#return HttpResponseRedirect(reverse('home'))
+	end_time = datetime.datetime.now()
+	time_diff = end_time - start_time
+	print time_diff
 	return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 	# *************** For testing only *************
 
