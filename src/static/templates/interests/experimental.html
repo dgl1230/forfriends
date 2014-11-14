@@ -354,8 +354,6 @@
 		{% endfor %}
 		</div><!--End category-->
 		</div><!--End category-->
-<!--==================== Search Bar ====================-->
-<!--
 <div class="search_interests">
 <form class="navbar-form navbar-left" role="search" action='{% url "search_interests" %}'>
 <div class="form-group">
@@ -364,13 +362,13 @@
 <input type="text" class="input_mobile" placeholder="Search..." name='q' required>
 </div>
 </form>
-<form class="navbar-form navbar-left" id="navbar_mobile" role="search" action='{% url "search" %}'>
+<form class="navbar-form navbar-left" id="navbar_mobile" role="search" action='{% url "search_interests" %}'>
 <div class="form-mobile" id="interests_mobile_search">
 <input type="text" class="input_mobile" placeholder="Search..." name='q' required>
 <button type="submit" class="btn-mobile" id="go_button"><span class='glyphicon glyphicon-search'></span></button>
 </div>
 </form>
-</div>--><!--End Search Interests -->
+</div><!--End Search Interests -->
 </div><!--End Search Interests -->
 </div>
 	</div><!--End wrapper-->
@@ -383,7 +381,6 @@ $('#category1').jscroll({
 </script>
 -->
 <!-- Interests js -->
-
 {% if num_of_interests = 0 %}
 <script>
 var liked = 0;

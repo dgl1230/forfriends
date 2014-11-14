@@ -251,7 +251,7 @@ a:hover{
 	min-width:175px;
 	width:100%;
 	display:block;
-}
+	}
 }
 
 @media (max-width: 586px) {
