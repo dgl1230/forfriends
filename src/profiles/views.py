@@ -433,7 +433,7 @@ def generate_circle(request):
 					logging.debug('Get Match time is: ' + str(match_end_time - match_time))
 				except: 
 					match_create_time = datetime.now()
-					match, created = Match.objects.get_or_create(user1=user, user2=request.user)
+					match = Match.objects.get(user1=user, user2=request.user)
 					match_create_end_time = datetime.now()
 					logging.debug('Create Match time is: ' + str(match_create_end_time - match_create_time))
 				try:
