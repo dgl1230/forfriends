@@ -2,6 +2,7 @@
 import operator 
 import datetime
 from datetime import date, datetime, timedelta
+import logging
 from random import randint
 
 from django.shortcuts import render
@@ -495,6 +496,7 @@ def generate_circle(request):
 	end_time = datetime.datetime.now()
 	time_diff = end_time - start_time
 	print time_diff
+	loggiing.debug('HELP ME DJANGO TOOLBAR, YOU ARE MY ONLY HOPE')
 	return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 	# *************** For testing only *************
 
