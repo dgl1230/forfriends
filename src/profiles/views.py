@@ -421,7 +421,10 @@ def generate_circle(request):
 		# for users that live within 10 miles
 		users = User.objects.filter(is_active=True).exclude(username=request.user.username)
 		time1 = datetime.now()
+		placeholder = 0
 		for user in users: 
+			if (placeholder == 7):
+				break
 			if user != request.user:
 				try: 
 					match_time = datetime.now()
@@ -441,6 +444,7 @@ def generate_circle(request):
 				except:
 					match.distance = 10000000
 				match.save()
+				placeholder = placeholder + 1
 		time2 = datetime.now()
 		logging.debug('For user in users time is: ' + str(time2 - time1))
 		# these blocks can lead to a lot of unnecessary querying evaluations
