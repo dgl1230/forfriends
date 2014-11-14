@@ -437,21 +437,14 @@ def generate_circle(request):
 		# these blocks can lead to a lot of unnecessary querying evaluations
 		if circle_distance(request.user, preferred_distance) == 1:
 			pass
-		time3 = datetime.now()	
-		logging.debug('If to else if time is: ' + str(time3 - time2))
 		elif circle_distance(request.user, unicode(int(preferred_distance) + 10)) == 1:
 			pass
-		time4 = datetime.now()
-		logging.debug('Elif preferred_distance + 10: ' + str(time4 - time3))
 		elif circle_distance(request.user, unicode(int(preferred_distance) + 20)) == 1:
 			pass
-		time5 = datetime.now()
-		logging.debug('Elif preferred_distance + 20: ' + str(time5 - time4))
 		elif circle_distance(request.user, unicode(int(preferred_distance) + 30)) == 1:
 			pass
-		time6 = datetime.now()
-		logging.debug('Elif preferred_distance + 30: ' + str(time6 - time5))
 		else: 
+			time6 = datetime.now()
 			# otherwise, there are not very many users who live close by, so we default to 
 			# adding to their circle randomly
 			user_gamification = Gamification.objects.get(user=request.user)
@@ -501,12 +494,13 @@ def generate_circle(request):
 
 			user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 			user_gamification.save()
+			time7 = datetime.now()
+			logging.debug('Last big else with random users time is: ' + str(time7 -time6))
 			#messages.success(request, "We're sorry, but there aren't many users nearby you right now. We rested your circle as best we could, but you can reset it again if you'd like.")
 	# *************** For testing only *************
 	#return HttpResponseRedirect(reverse('home'))
 	end_time = datetime.now()
 	time_diff = end_time - start_time
-	logging.debug('Last big else with random users time is: ' + str(end_time - time6))
 	logging.debug('HELP ME DJANGO TOOLBAR, YOU ARE MY ONLY HOPE ' + str(time_diff))
 	return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 	# *************** For testing only *************
@@ -514,6 +508,7 @@ def generate_circle(request):
 #@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 #@user_passes_test(user_can_reset_circle, login_url=reverse_lazy('home'))
 def circle_distance(logged_in_user, preferred_distance):
+	start_time = datetime.now()
 	user_gamification = Gamification.objects.get(user=logged_in_user)
 	current_circle = list(user_gamification.circle.all())
 	matches = Match.objects.filter(
@@ -521,6 +516,8 @@ def circle_distance(logged_in_user, preferred_distance):
 		).exclude(user1=logged_in_user, user2=logged_in_user).exclude(are_friends=True).filter(percent__gte=70).exclude(id__in=[o.id for o in current_circle]).filter(distance__lte=preferred_distance)
 	count = matches.count()
 	if matches.count() < 7:
+		end_time = datetime.now()
+		logging.debug('Circle Distance with preferred distance ' + str(preferred_distance) + ' time is: ' + str(end_time - start_time) + 'matches.count() < 7')
 		return 0
 	i = 0
 	already_chosen = {}
@@ -539,6 +536,8 @@ def circle_distance(logged_in_user, preferred_distance):
 	user_gamification.circle_reset_started = datetime.now()
 	user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 	user_gamification.save()
+	end_time = datetime.now()
+	logging.debug('Circle Distance with preferred distance ' + str(preferred_distance) + ' time is: ' + str(end_time - start_time))
 	return 1
 
 
