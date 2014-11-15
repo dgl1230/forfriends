@@ -1236,6 +1236,17 @@ def ice_breaker(request):
 	if user1_interests.count() == 0:
 		messages.success(request, "We're sorry, but you need to like a few interests first!")
 		return HttpResponseRedirect(reverse('home'))
+
+	user_interests = Interest.objects.filter(userinterestanswer__user=request.user)
+	users_with_same_interests = User.objects.filter(userinterestanswer__in=user_interests)
+	random_user = random.choice(users_with_same_interests)
+	random_user_interests = Interest.objects.filter(userinterestanswer__user=random_user)
+	common_interests = []
+	for interest in user_interests:
+		if interest in random_user_interests:
+			common_interests.append(interest)
+	interest = random.choice(common_interests)
+	'''	
 	max_interest = user1_interests.latest('id').id
 	max_user = User.objects.latest('id').id
 
@@ -1258,6 +1269,7 @@ def ice_breaker(request):
 			break
 		except:
 			pass
+	'''
 	try: 
 		match = Match.objects.get(user1=request.user, user2=random_user)
 		user1 = request.user
