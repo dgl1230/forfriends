@@ -142,6 +142,7 @@ def all_interests(request):
 
 @user_passes_test(user_not_new)
 def search_interests(request):
+	num_of_interests = Interest.objects.filter(userinterestanswer__user=request.user).count()
 	try:
 		q = request.GET.get('q', '')
 	except: 
