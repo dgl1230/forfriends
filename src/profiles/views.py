@@ -2,6 +2,7 @@
 import operator 
 import datetime
 from datetime import date, datetime, timedelta
+import logging
 from random import randint
 
 from django.shortcuts import render
@@ -430,6 +431,7 @@ def generate_circle(request):
 		user_gamification.circle.clear()
 		j = 0
 		already_chosen = {}
+		start_time = datetime.now(0)
 		while j < 6:
 			try:
 				random_index = randint(0, max_match - 1)
@@ -440,6 +442,8 @@ def generate_circle(request):
 					j += 1
 			except:
 				pass
+		end_time = datetime.now()
+		logging.debug('Time for the whille j < 6 loop is: ' + str(end_time - start_time))
 
 		user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 		user_gamification.save()
@@ -462,6 +466,7 @@ def circle_distance(logged_in_user, preferred_distance):
 	already_chosen = {}
 	user_gamification.circle.clear()
 	max_match = matches.latest('id').id
+	start_time = datetime.now()
 	while i < 6:
 		try:
 			random_index = randint(0, max_match - 1)
@@ -472,6 +477,8 @@ def circle_distance(logged_in_user, preferred_distance):
 				i += 1
 		except:
 			pass
+	end_time = datetime.now()
+	logigng.debug('Circle_Distance while loop takes : ' + str(end_time - start_time))
 	user_gamification.circle_reset_started = datetime.now()
 	user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 	user_gamification.save()
