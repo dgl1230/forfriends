@@ -413,7 +413,7 @@ def generate_circle(request):
 		'''
 
 		# so we dont have more than 6-7 users in a circle at a time
-
+		max_match = matches.latest('id').id
 		user_gamification.circle.clear()
 		j = 0
 		already_chosen = {}
