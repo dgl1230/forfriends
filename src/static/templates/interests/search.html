@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
-<head><link href="{{ STATIC_URL }}css/interests.css" rel="stylesheet"></head>
+<head>
+	<link href="{{ STATIC_URL }}css/interests.css" rel="stylesheet">
+	
+</head>
 
 
 {% block content %}
@@ -28,11 +31,11 @@
 	<div class='row' id="interests-wrapper">
 <!--========================CURRENT INTERESTS==============-->
 	<div class="category">
-			{% for interest in interests %}
+			{% for interest in results %}
 			<div class='col-sm-4' id="interest">
 			<h4>{{ interest.interest }}</h4>
 				<form class="interests_form_1" method='POST' action='{% url "save_interest" interest.id %}'>{% csrf_token %}
-				{% if interest in interests %}
+				{% if interest in user_interests %}
 				<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
 				<input type='submit' id="like" class='liked' value='Unlike'>
 				{% else %}
@@ -56,10 +59,15 @@
 <button type="submit" class="btn-mobile" id="go_button"><span class='glyphicon glyphicon-search'></span></button>
 </div>
 </form>
+
 </div><!--End Search Interests -->
 </div><!--End Search Interests -->
 </div>
 	</div><!--End wrapper-->
+	<form class="form-wrapper cf" role="search" action='{% url "search_interests" %}'>
+        <input type="text" placeholder="Search interests..." required>
+        <button type="submit">Search</button>
+    </form> 
 </div><!--End big Wrapper-->
 <!-- Interests js -->
 
