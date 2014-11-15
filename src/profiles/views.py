@@ -372,21 +372,7 @@ def generate_circle(request):
 	preferred_distance = 10
 	#these variables are for keeping track of users that live within certain miles, ie num_10m is 
 	# for users that live within 10 miles
-	'''
-	users = User.objects.filter(is_active=True).exclude(username=request.user.username)
-	
-	for user in users: 
-		if user != request.user:
-			try: 
-				match = Match.objects.get(user1=request.user, user2=user)
-			except: 
-				match, created = Match.objects.get_or_create(user1=user, user2=request.user)
-			try:
-				match.distance = round(calc_distance(request.user, user))
-			except:
-				match.distance = 10000000
-			match.save()
-	'''
+
 	# these blocks can lead to a lot of unnecessary querying evaluations
 	if circle_distance(request.user, preferred_distance) == 1:
 		return HttpResponseRedirect(reverse('home'))
@@ -408,11 +394,11 @@ def generate_circle(request):
 
 		matches = Match.objects.filter(
 			Q(user1=request.user) | Q(user2=request.user)
-			).exclude(user1=request.user, user2=request.user).exclude(id__in=[o.id for o in excluded_users]).filter(percent__gte=70)
+			).exclude(user1=request.user, user2=request.user).exclude(id__in=[o.id for o in excluded_users])
 		user_gamification = Gamification.objects.get(user=request.user)
 		count = matches.count()
 
-
+		'''
 		try:
 			max_match = matches.latest('id').id
 		except: 
@@ -424,6 +410,7 @@ def generate_circle(request):
 				Q(user1=request.user) | Q(user2=request.user)
 				).exclude(user1=request.user, user2=request.user).exclude(id__in=[o.id for o in current_circle])
 			max_match = matches.latest('id').id
+		'''
 
 		# so we dont have more than 6-7 users in a circle at a time
 
