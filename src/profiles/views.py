@@ -343,7 +343,7 @@ def generate_circle(request):
 		messages.success(request, "We're sorry but you need to enter a valid location before you can use discover")
 		return HttpResponseRedirect(reverse('home'))
 
-
+	#change
 	info = Info.objects.get(user=request.user)
 	if info.is_new_user:
 		info.is_new_user = False
