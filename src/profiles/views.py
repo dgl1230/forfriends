@@ -1240,6 +1240,9 @@ def ice_breaker(request):
 
 	user_interests = Interest.objects.filter(userinterestanswer__user=request.user)
 	users_with_same_interests = User.objects.filter(userinterestanswer__in=user_interests)
+	if users_with_same_interests.count() == 0:
+		messages.success(request, "We're sorry, but no one likes your interests")
+		return HttpResponseRedirect(reverse('home'))
 	random_user = random.choice(users_with_same_interests)
 	random_user_interests = Interest.objects.filter(userinterestanswer__user=random_user)
 	common_interests = []
