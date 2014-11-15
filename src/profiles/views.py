@@ -308,6 +308,7 @@ def all(request):
 				can_they_reset = True
 			else: 
 				can_they_reset = False
+			can_they_reset = True
 
 
 			until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
@@ -316,6 +317,7 @@ def all(request):
 				can_reset_icebreaker = True
 			else:
 				can_reset_icebreaker = False
+			can_reset_icebreaker = True
 			messages_in_inbox = DirectMessage.objects.filter(receiver=request.user)
 			direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
 			request.session['num_of_messages'] = direct_messages
@@ -431,7 +433,7 @@ def generate_circle(request):
 		user_gamification.circle.clear()
 		j = 0
 		already_chosen = {}
-		start_time = datetime.now(0)
+		start_time = datetime.now()
 		while j < 6:
 			try:
 				random_index = randint(0, max_match - 1)
@@ -448,7 +450,8 @@ def generate_circle(request):
 		user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 		user_gamification.save()
 		#messages.success(request, "We're sorry, but there aren't many users nearby you right now. We rested your circle as best we could, but you can reset it again if you'd like.")
-	return HttpResponseRedirect(reverse('home'))
+	#return HttpResponseRedirect(reverse('home'))
+	return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 	
 
 
