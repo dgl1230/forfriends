@@ -687,6 +687,18 @@ def discover(request):
 		messages.success(request, "We're sorry but you need to enter a valid location before you find a new crowd")
 		return HttpResponseRedirect(reverse('home'))
 	'''
+	users = User.objects.filter(is_active=True).exclude(username=request.user.username)
+	for user in users: 
+		try: 
+			match = Match.objects.get(user1=request.user, user2=user)
+		except: 
+			match, created = Match.objects.get_or_create(user1=user, user2=request.user)
+		try:
+			match.distance = round(calc_distance(request.user, user))
+		except:
+			match.distance = 10000000
+		match.save()
+
 
 	# first we check to see if a session exists
 	if not request.session.get('random_exp'):
