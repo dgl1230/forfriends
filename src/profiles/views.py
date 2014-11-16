@@ -695,13 +695,12 @@ def discover(request):
 	users_all = cache.get('random_exp_%d' % request.session['random_exp'])
 	if not users_all:
 		# if not, we create a new one
-		'''
+
 		users_all = User.objects.filter(is_active=True)
 		num_of_users = users_all.count() + 1
 		ran_num = randint(0, num_of_users - 20)
 		users_all = list(User.objects.filter(is_active=True)[ran_num:ran_num+20])
-		'''
-		users_all = list(User.objects.filter(is_active=True).order_by('?'))
+		#users_all = list(User.objects.filter(is_active=True).order_by('?'))
 		cache.set('random_exp_%d' % request.session['random_exp'], users_all, 500)
 	paginator = Paginator(users_all, 1)
 	
@@ -1081,7 +1080,7 @@ def single_user(request, username):
 	except:
 		raise Http404
 	try:
-		profile_pic = UserPicture.objects.get(user=request.user, is_profile_pic=True)
+		profile_pic = UserPicture.objects.get(user=single_user, is_profile_pic=True)
 	except: 
 		pass
 	 
