@@ -1239,7 +1239,7 @@ def ice_breaker(request):
 		return HttpResponseRedirect(reverse('home'))
 
 	user_interests = list(Interest.objects.filter(userinterestanswer__user=request.user))
-	users_with_same_interests = User.objects.filter(userinterestanswer__interest__in=user_interests)
+	users_with_same_interests = User.objects.filter(userinterestanswer__interest__in=user_interests).exclude(user=request.user)
 	if users_with_same_interests.count() == 0:
 		messages.success(request, "We're sorry, but no one likes your interests")
 		return HttpResponseRedirect(reverse('home'))
