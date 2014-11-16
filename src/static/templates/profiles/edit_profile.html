@@ -66,8 +66,8 @@
             <p>
               <label for "#gender_form">Gender:</label>
               <select id="gender_form" name="gender_form"> 
-                <option>Male</option>
-                <option>Female</option>
+                <option value="m">Male</option>
+                <option value="f">Female</option>
               </select>
             </p>
             <p><label for "#bio_form" id='bio_label'>Me in a sentence:</label><input id="bio_form" name="bio_form" type="text" value="{% if info.bio %}{{ info.bio }}{% endif %}"></p>

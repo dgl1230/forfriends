@@ -47,7 +47,7 @@ h1, h2, h3, h5, a{
 }
 h1{
 	color: #404040!important;
-	letter-spacing:.05em;
+	letter-spacing:.01em;
     font-weight: 100!important;
 }
 

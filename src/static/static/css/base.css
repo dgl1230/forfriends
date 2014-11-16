@@ -192,7 +192,13 @@ a:hover{
 	outline:0;
 }
 /* Mobile Media Query */
-
+@media(max-width:990px){
+	#home-only .col-sm-4{
+	min-width:175px;
+	width:49%;
+	display:inline-block;
+	}
+}
 /* Profile */
 @media (max-width: 450px) {
 	#single_user_body{
