@@ -1089,9 +1089,8 @@ def single_user(request, username):
 			single_user = user
 	except:
 		raise Http404
-	user = User.objects.get(username=username)
 	try:
-		profile_pic = UserPicture.objects.get(user=user, is_profile_pic=True)
+		profile_pic = UserPicture.objects.get(user=request.user, is_profile_pic=True)
 	except: 
 		pass
 	 
@@ -1113,6 +1112,11 @@ def single_user(request, username):
 			single_user_is_new = su_info.is_new_user
 		except: 
 			single_user_is_new = False
+		if (match.user1 == single_user and match.user1_approved == True and match.user2_approved == False) or 
+		(match.user2 == single_user and match.user2_approved == True and match.user1_approved == False):
+			respond_to_request = True
+
+
 
 	
 	messages_in_inbox = DirectMessage.objects.filter(receiver=request.user)
