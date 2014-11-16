@@ -687,19 +687,7 @@ def discover(request):
 		messages.success(request, "We're sorry but you need to enter a valid location before you find a new crowd")
 		return HttpResponseRedirect(reverse('home'))
 	'''
-	users = User.objects.filter(is_active=True).exclude(username=request.user.username)
-	for user in users: 
-		try: 
-			match = Match.objects.get(user1=request.user, user2=user)
-		except: 
-			match, created = Match.objects.get_or_create(user1=user, user2=request.user)
-		try:
-			match.distance = round(calc_distance(request.user, user))
-		except:
-			match.distance = 10000000
-		match.save()
-
-
+	
 	# first we check to see if a session exists
 	if not request.session.get('random_exp'):
 		request.session['random_exp']=1
@@ -707,7 +695,11 @@ def discover(request):
 	users_all = cache.get('random_exp_%d' % request.session['random_exp'])
 	if not users_all:
 		# if not, we create a new one
-		users_all = list(User.objects.filter(is_active=True).order_by('?'))
+		users_all = User.objects.filter(is_active=True)
+		num_of_users = users_all.count() + 1
+		ran_num = randint(0, num_of_users - 20)
+
+		users_all = list(User.objects.filter(is_active=True)[ran_num:ran_num+20].order_by('?'))
 		cache.set('random_exp_%d' % request.session['random_exp'], users_all, 500)
 	paginator = Paginator(users_all, 1)
 	
@@ -752,21 +744,6 @@ def discover(request):
 				profile_pic = UserPicture.objects.get(user=user, is_profile_pic=True)
 			except: 
 				pass
-
-			'''
-			try: 
-				assert (match.are_friends == False)
-				if match.user1 == request.user: 
-					assert (match.user1_approved == False)
-				if match.user2 == request.user:
-					assert (match.user2_approved == False)
-			except: 
-				page_int = int(page)
-				new_page = page_int + 1
-				new_page_u = unicode(new_page)
-				users = paginator.page(new_page_u)
-				user = users.object_list[0]
-			'''
 
 
 	except PageNotAnInteger:
