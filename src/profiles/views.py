@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import operator 
 import datetime
+import random
 from datetime import date, datetime, timedelta
 import logging
 from random import randint
@@ -690,11 +691,13 @@ on the single user page.
 
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def discover(request):
+	'''
 	location = Address.objects.get(user=request.user)
 	if check_valid_location(location.city, location.state) == False:
 		messages.success(request, "We're sorry but you need to enter a valid location before you find a new crowd")
 		return HttpResponseRedirect(reverse('home'))
-
+	'''
+	
 	# first we check to see if a session exists
 	if not request.session.get('random_exp'):
 		request.session['random_exp']=1
@@ -702,6 +705,12 @@ def discover(request):
 	users_all = cache.get('random_exp_%d' % request.session['random_exp'])
 	if not users_all:
 		# if not, we create a new one
+		'''
+		users_all = User.objects.filter(is_active=True)
+		num_of_users = users_all.count() + 1
+		ran_num = randint(0, num_of_users - 20)
+		users_all = list(User.objects.filter(is_active=True)[ran_num:ran_num+20])
+		'''
 		users_all = list(User.objects.filter(is_active=True).order_by('?'))
 		cache.set('random_exp_%d' % request.session['random_exp'], users_all, 500)
 	paginator = Paginator(users_all, 1)
@@ -747,21 +756,6 @@ def discover(request):
 				profile_pic = UserPicture.objects.get(user=user, is_profile_pic=True)
 			except: 
 				pass
-
-			'''
-			try: 
-				assert (match.are_friends == False)
-				if match.user1 == request.user: 
-					assert (match.user1_approved == False)
-				if match.user2 == request.user:
-					assert (match.user2_approved == False)
-			except: 
-				page_int = int(page)
-				new_page = page_int + 1
-				new_page_u = unicode(new_page)
-				users = paginator.page(new_page_u)
-				user = users.object_list[0]
-			'''
 
 
 	except PageNotAnInteger:
@@ -1096,9 +1090,8 @@ def single_user(request, username):
 			single_user = user
 	except:
 		raise Http404
-	user = User.objects.get(username=username)
 	try:
-		profile_pic = UserPicture.objects.get(user=user, is_profile_pic=True)
+		profile_pic = UserPicture.objects.get(user=request.user, is_profile_pic=True)
 	except: 
 		pass
 	 
@@ -1120,6 +1113,10 @@ def single_user(request, username):
 			single_user_is_new = su_info.is_new_user
 		except: 
 			single_user_is_new = False
+		if (match.user1 == single_user and match.user1_approved == True and match.user2_approved == False) or (match.user2 == single_user and match.user2_approved == True and match.user1_approved == False):
+			respond_to_request = True
+
+
 
 	
 	messages_in_inbox = DirectMessage.objects.filter(receiver=request.user)
@@ -1246,6 +1243,20 @@ def ice_breaker(request):
 	if user1_interests.count() == 0:
 		messages.success(request, "We're sorry, but you need to like a few interests first!")
 		return HttpResponseRedirect(reverse('home'))
+
+	user_interests = list(Interest.objects.filter(userinterestanswer__user=request.user))
+	users_with_same_interests = User.objects.filter(userinterestanswer__interest__in=user_interests).exclude(userinterestanswer__user=request.user)
+	if users_with_same_interests.count() == 0:
+		messages.success(request, "We're sorry, but no one likes your interests")
+		return HttpResponseRedirect(reverse('home'))
+	random_user = random.choice(users_with_same_interests)
+	random_user_interests = Interest.objects.filter(userinterestanswer__user=random_user)
+	common_interests = []
+	for interest in user_interests:
+		if interest in random_user_interests:
+			common_interests.append(interest)
+	random_interest = random.choice(common_interests)
+	'''	
 	max_interest = user1_interests.latest('id').id
 	max_user = User.objects.latest('id').id
 
@@ -1268,6 +1279,7 @@ def ice_breaker(request):
 			break
 		except:
 			pass
+	'''
 	try: 
 		match = Match.objects.get(user1=request.user, user2=random_user)
 		user1 = request.user
