@@ -681,10 +681,12 @@ on the single user page.
 
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def discover(request):
+	'''
 	location = Address.objects.get(user=request.user)
 	if check_valid_location(location.city, location.state) == False:
 		messages.success(request, "We're sorry but you need to enter a valid location before you find a new crowd")
 		return HttpResponseRedirect(reverse('home'))
+	'''
 
 	# first we check to see if a session exists
 	if not request.session.get('random_exp'):
