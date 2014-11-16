@@ -92,7 +92,7 @@
 			<a class='hidden' id='view_buttons'>Hide Info</a>
 			<a class='btn-success' id='view_info'>View Info</a>
 		<div id="information">
-			<div class='panel panel-default'><div class='panel-heading' id='bio_panel'><p>Bio</p><span class='glyphicon glyphicon-chevron-down'></span><p id='info_edit'></p></div><div class='panel-body' id='bio_body'>{% for item in single_user.info_set.all %}{% if forloop.first %}{{item.bio}}{% endif %}{% endfor %}</div></div><div class='panel panel-default'><div class='panel-heading' id='occ_panel'><p>Occupation</p><span class='glyphicon glyphicon-chevron-down'></span><p id='info_edit'></p></div><div class='panel-body' id='occ_body'>{% for item in single_user.job_set.all %}{{item.position|title}}at{{item.employer|title}}{% endfor %}</div></div></div></div>
+			<div class='panel panel-default'><div class='panel-heading' id='bio_panel'><p>Bio</p><span class='glyphicon glyphicon-chevron-down'></span><p id='info_edit'></p></div><div class='panel-body' id='bio_body'>{% for item in single_user.info_set.all %}{% if forloop.first %}{{item.bio}}{% endif %}{% endfor %}</div></div><div class='panel panel-default'><div class='panel-heading' id='occ_panel'><p>Occupation</p><span class='glyphicon glyphicon-chevron-down'></span><p id='info_edit'></p></div><div class='panel-body' id='occ_body'>{% for item in single_user.job_set.all %}{{item.position|title}} at {{item.employer|title}}{% endfor %}</div></div></div></div>
 		</div>
 		</div>
 	</div>

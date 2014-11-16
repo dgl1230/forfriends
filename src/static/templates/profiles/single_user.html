@@ -124,14 +124,14 @@
 $('#view_info').click(function(){
 	$(this).addClass("hidden");
 	$('#view_buttons').removeClass("hidden");
-	$('#information').fadeIn();
+	$('#information').stop(true, false).fadeIn();
 });
 
 var close_event = new CustomEvent('close')
 $('#view_buttons').click(function(){
 	$(this).addClass("hidden");
 	$('#view_info').removeClass("hidden")
-	$('#information').fadeOut();
+	$('#information').stop(true, false).fadeOut();
 });
 </script>
 

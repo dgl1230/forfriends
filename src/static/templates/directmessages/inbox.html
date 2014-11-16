@@ -58,7 +58,7 @@ $('#myTab a').click(function (e) {
 	                		<img src='{{ MEDIA_URL }}{{ pic }}' alt="Owl Image" id="delete_message" name="{{ pic.id }}"></div>
 	                		{% endif %}
 	                	{% endfor %}
-	                	{% if item.sender.username == team_frenvu %}
+	                {% if item.sender.username == team_frenvu %}
 	                </a><p>{{ item.sender|truncatechars:"15" }}</p>
 	                	{% else %}
 						{{ item.sender|truncatechars:"15" }}</a>
