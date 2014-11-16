@@ -1,4 +1,6 @@
 from decimal import *
+from datetime import date, datetime, timedelta
+import logging
 
 from django.contrib.auth.models import User
 
@@ -81,6 +83,27 @@ def interest_points(user1, user2):
 		percentage = 0
 	return percentage
 
+def find_same_interests(user1, user2):
+	start_time = datetime.now()
+	logged_in_user_interests = UserInterestAnswer.objects.filter(user=user1)
+	viewed_user_interests = UserInterestAnswer.objects.filter(user=user2)
+	number_in_common = 0
+	common_interest_list = []
+	for i in logged_in_user_interests:
+		user1_list.append(i.interest)
+	for i in viewed_user_interests:
+		user2_dict[i.interest] = "irrelephant"
+	for i in range(len(user1_list)):
+		user1_interest = user1_list[i]
+		user2_interest = user2_dict.pop(user1_interest, "false")
+		if user2_interest != "false":
+			common_interest_list.append(user1_interest)
+			number_in_common = number_in_common + 1
+	end_time = datetime.now()
+	logging.debug("Dictionary time is: " + str(end_time - start_time))
+	return common_interest_list
+
+
 #********** Methods used for calculating compatibility based on QUESTIONS **********#
 """ 
 	Answer Types:
@@ -157,6 +180,8 @@ def match_percentage(user1, user2):
 	overall_score = 0.0
 	question_score = question_points(user1, user2) #question compatibility score
 	interest_score = interest_points(user1, user2) #interest compatibility score
+	debugging_list = []
+	debugging_list = find_same_interests(user1, user2)
 	if(interest_score == 0 and question_score == 0):
 		overall_score = 0
 	elif(interest_score == 0):
