@@ -88,6 +88,8 @@ def find_same_interests(user1, user2):
 	logged_in_user_interests = UserInterestAnswer.objects.filter(user=user1)
 	viewed_user_interests = UserInterestAnswer.objects.filter(user=user2)
 	number_in_common = 0
+	user1_list = []
+	user2_dict = {}
 	common_interest_list = []
 	for i in logged_in_user_interests:
 		user1_list.append(i.interest)
