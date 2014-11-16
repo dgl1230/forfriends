@@ -1084,6 +1084,7 @@ def register_new_user(request):
 #Displays the profile page of a specific user and their match % against the logged in user
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def single_user(request, username):
+	start_time = datetime.now()
 	try:
 		user = User.objects.get(username=username)
 		if user.is_active:
@@ -1123,7 +1124,8 @@ def single_user(request, username):
 	direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
 	request.session['num_of_messages'] = direct_messages
 
-	
+	end_time = datetime.now()
+	logging.debug("single_user run time is: " + str(end_time - start_time))
 	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))	
 
 
