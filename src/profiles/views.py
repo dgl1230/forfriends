@@ -698,8 +698,8 @@ def discover(request):
 		users_all = User.objects.filter(is_active=True)
 		num_of_users = users_all.count() + 1
 		ran_num = randint(0, num_of_users - 20)
-
-		users_all = list(User.objects.filter(is_active=True)[ran_num:ran_num+20].order_by('?'))
+		users_all = list(User.objects.filter(is_active=True)[ran_num:ran_num+20])
+		#users_all = list(User.objects.filter(is_active=True).order_by('?'))
 		cache.set('random_exp_%d' % request.session['random_exp'], users_all, 500)
 	paginator = Paginator(users_all, 1)
 	
