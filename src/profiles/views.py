@@ -1112,8 +1112,7 @@ def single_user(request, username):
 			single_user_is_new = su_info.is_new_user
 		except: 
 			single_user_is_new = False
-		if (match.user1 == single_user and match.user1_approved == True and match.user2_approved == False) or 
-		(match.user2 == single_user and match.user2_approved == True and match.user1_approved == False):
+		if (match.user1 == single_user and match.user1_approved == True and match.user2_approved == False) or (match.user2 == single_user and match.user2_approved == True and match.user1_approved == False):
 			respond_to_request = True
 
 
