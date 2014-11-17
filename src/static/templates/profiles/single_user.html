@@ -44,8 +44,8 @@
 			{% if single_user_is_new %}
 			<h4 id="average">New User</h4>
 			{% elif match.percent >= 90 %}
-			<h4 id="very_good">Excellent Match</h4>
-			{% elif match.percent >= 80 %}
+			<h4 id="average">Excellent Match</h4>
+			{% elif match.percent >= 75 %}
 			<h4 id="good">Very Good Match</h4>
 			{% elif match.percent >= 60 %}
 			<h4 id="average">Good Match</h4>
@@ -83,11 +83,6 @@
 				<a class="btn btn-default btn" id="pictures_button" href="/members/{{ single_user.username}}/pictures/"><p>Browse Pictures</p></a>
 			{% endif %}
 			</div>
-			
-			<div class='col-lg-6' id='single_user_body'>
-				<a class='hidden' id='view_buttons'>Hide Info</a>
-				<a class='btn-success' id='view_info'>View Info</a>
-			</div>
     <div id="information">
         <div class='panel panel-default'>
             <div class='panel-heading' id='bio_panel'>
@@ -117,23 +112,9 @@
 			<p>{{ interest.interest }},</p>
 				{% endfor %}
             </div>
-    	</div>
-	</div>	
+    	</div><!--End Panel -->
+	</div><!--End info-->
 </div>
-<script>
-$('#view_info').click(function(){
-	$(this).addClass("hidden");
-	$('#view_buttons').removeClass("hidden");
-	$('#information').fadeIn();
-});
-
-var close_event = new CustomEvent('close')
-$('#view_buttons').click(function(){
-	$(this).addClass("hidden");
-	$('#view_info').removeClass("hidden")
-	$('#information').fadeOut();
-});
-</script>
 
 <script>
 $('#friend_button').click(function(){

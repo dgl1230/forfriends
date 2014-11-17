@@ -368,10 +368,6 @@ form.navbar-form.navbar-left{
 	.form-control{
 		width:40%;
 	}
-	.form-group{
-		width:70%;
-		display:none!important;
-	}
 	#go_button{
 		width:15%;
 		text-align: center!important;
@@ -391,7 +387,7 @@ form.navbar-form.navbar-left{
 		margin-top:5px;
 	}
 	.input_mobile{
-		width:100px!important;
+		width:70%!important;
 	}
 	.btn-mobile{
 		width:30px!important;
@@ -416,9 +412,6 @@ form.navbar-form.navbar-left{
 		width:115px!important;
 		margin-top:5px;
 	}
-	.input_mobile{
-		width:80px!important;
-	}
 	#messages_sidebar{
 		width:20px;
 		height:10px;
@@ -427,6 +420,7 @@ form.navbar-form.navbar-left{
 	.login a{
 		padding-right:0px;
 	}
+	
 }	
 
 }

@@ -25,6 +25,7 @@ input#image_file{
 #make_profile a{
     color:white;
     display:block;
+    width:190px;
 }
 #make_profile span{
     display:block;
@@ -207,5 +208,9 @@ margin-left: 80px;
     }
     #make_profile{
         padding-right:50px!important;
+    }
+    #make_profile a{
+    width:140px;
+    margin-left:-90px;
     }
 }
