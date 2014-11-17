@@ -26,7 +26,7 @@ from django.views.decorators.clickjacking import xframe_options_exempt
 
 
 from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG, MEDIA_URL
-from forfriends.matching import match_percentage
+from forfriends.matching import match_percentage, find_same_interests
 from forfriends.distance import calc_distance, check_valid_location
 from forfriends.s3utils import delete_s3_pic
 from matches.models import Match
@@ -1120,6 +1120,7 @@ def single_user(request, username):
 			single_user_is_new = False
 		if (match.user1 == single_user and match.user1_approved == True and match.user2_approved == False) or (match.user2 == single_user and match.user2_approved == True and match.user1_approved == False):
 			respond_to_request = True
+		interests = find_same_interests(request.user, single_user)
 
 
 

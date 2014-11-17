@@ -84,7 +84,7 @@ def interest_points(user1, user2):
 
 # Method that returns a list of shared interests between two users
 def find_same_interests(user1, user2):
-	start_time = datetime.now()
+	#start_time = datetime.now()
 	logged_in_user_interests = UserInterestAnswer.objects.filter(user=user1)
 	viewed_user_interests = UserInterestAnswer.objects.filter(user=user2)
 	number_in_common = 0
@@ -101,8 +101,8 @@ def find_same_interests(user1, user2):
 		if user2_interest != "false":
 			common_interest_list.append(user1_interest)
 			number_in_common = number_in_common + 1
-	end_time = datetime.now()
-	logging.debug("Dictionary time is: " + str(end_time - start_time))
+	#end_time = datetime.now()
+	#logging.debug("Dictionary time is: " + str(end_time - start_time))
 	return common_interest_list
 
 
