@@ -12,7 +12,7 @@
 <h1>My Crowd</h1>
 </div>
 {% if is_new_user == True %}
-<h3 id="no_pictures">This is where you'll be able to find your crowd. Your crowd is comprised of people near you. Just answer 5 interests and 10 personality questions so you can start meeting people!
+<h3 id="no_pictures">This is where you'll be able to find your crowd. Your crowd is comprised of people near you. Just answer <a href='{% url "interests" %}'>5</a> interests and <a href='{% url "questions" %}'>10</a> personality questions so you can start meeting people!
 </h3>
 {% else %}
 <script>
