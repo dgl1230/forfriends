@@ -148,7 +148,7 @@ $('#occ_panel').click(function() {
 
 <script>
 $(function() {
-    $("#myfriend").swipe({
+    $("#myfriend").swipeLeft({
         swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
             window.location.href =
                 "?page={{ users.next_page_number }}";
@@ -158,16 +158,7 @@ $(function() {
 
 </script>
 {% endif %}
-<script>
-$(function(){
-	$("#myfriend").swipe({
-		swipe:function(event, direction, distance, duration, fingerCount,fingerData){
-			window.location.href = "";
-		}
-	});
-});
 
-</script>
 
 <script>
 $('#friend_button').click(function(){
