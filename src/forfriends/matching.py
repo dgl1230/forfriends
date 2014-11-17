@@ -128,6 +128,7 @@ def find_same_interests(user1, user2):
 	Returns:	A list with 2 attributes, the first being user1_points and the 
 				second being user2_points: [user1_points, user2_points] '''
 def answer_points(user1_answer, user2_answer, weight):
+	start_time = datetime.now()
 	temp_list = []
 	user1_score, user2_score = 0, 0
 	#Find score for user1
@@ -144,6 +145,8 @@ def answer_points(user1_answer, user2_answer, weight):
 
 	temp_list.append(user1_score)
 	temp_list.append(user2_score)
+	end_time = datetime.now()
+	logging.debug("Answer_Points method takes: " + str(end_time - start_time))
 	return temp_list
 
 '''	Purpose:	Awards points to user1 and user2 based on their answers to the question
@@ -181,7 +184,6 @@ def question_points(user1, user2):
 		percentage = 0
 	end_time = datetime.now()
 	logging.debug("Question_Points time is: " + str(end_time - start_time))
-	logging.debug("HEY, SHOW UP")
 	return percentage
 
 def match_percentage(user1, user2):
