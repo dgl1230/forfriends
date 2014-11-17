@@ -183,6 +183,7 @@ def match_percentage(user1, user2):
 	start_time = datetime.now()
 	overall_score = 0.0
 	question_score = question_points(user1, user2) #question compatibility score
+	"""
 	interest_score = interest_points(user1, user2) #interest compatibility score
 	if(interest_score == 0 and question_score == 0):
 		overall_score = 0
@@ -192,6 +193,8 @@ def match_percentage(user1, user2):
 		overall_score = interest_score
 	else:
 		overall_score = (.8 * question_score) + (.2 * interest_score)
+	"""
+	overall_score = question_score
 	end_time = datetime.now()
 	logging.debug("Match percentage time is: " + str(end_time - start_time))
 	logging.debug("Overall match percentage is: " + str(int(round(overall_score))))
