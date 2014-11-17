@@ -756,6 +756,7 @@ def discover(request):
 				profile_pic = UserPicture.objects.get(user=user, is_profile_pic=True)
 			except: 
 				pass
+			interests = find_same_interests(request.user, single_user)
 
 
 	except PageNotAnInteger:
