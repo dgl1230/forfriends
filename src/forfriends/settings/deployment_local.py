@@ -18,7 +18,6 @@ EMAIL_HOST_USER = "testing@testing.com"
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
-
 SECRET_KEY = os.environ["FORFRIENDS_KEY"]
 
 
@@ -30,7 +29,6 @@ DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': 'profiles.views.custom_show_toolbar',
 }
 
-
 SHOW_TOOLBAR_CALLBACK = True
 
 TEMPLATE_DEBUG = True
@@ -38,6 +36,7 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+COLLECTSTATIC_KEEP_NEWER = True
  
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -57,6 +56,7 @@ INSTALLED_APPS = (
     'questions',
     'social.apps.django_app.default',
     'debug_toolbar',
+    'collectfast',
 )
 
 TEMPLATE_DIRS = (
@@ -169,6 +169,80 @@ CACHES = {
 }
 
 LOGIN_URL = reverse_lazy('new_user_info')
+
+
+"""  
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+
+#DEFAULT_FILE_STORAGE = 'forfriends.s3utils.MediaRootS3BotoStorage'
+#STATICFILES_STORAGE = 'forfriends.s3utils.StaticRootS3BotoStorage'
+
+AWS_PRELOAD_METADATA = True 
+
+S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+STATIC_URL = S3_URL + 'static/'
+MEDIA_URL = S3_URL + 'media/'
+ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
+
+DMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
+
+#Facebook social authentication info for Frenvu-Staging app 
+SOCIAL_AUTH_FACEBOOK_KEY = '705757932842907' 
+SOCIAL_AUTH_FACEBOOK_SECRET = '180f498d374ab9d421534418751d0564' 
+
+SOCIAL_AUTH_FACEBOOK_SCOPE = [
+    'email',
+]
+
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'forfriends.pipeline.get_username',
+    'forfriends.pipeline.associate_user_by_email',
+    #'social.pipeline.user.get_username',
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    #'forfriends.pipeline.save_profile_picture',
+    #'forfriends.pipeline.user_details',
+)
+
+#Google soical authentication info 
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "406119441085-n7d7srjnlsj0eqg8d0jomai2o56o8f5e.apps.googleusercontent.com"
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "rr6yAYsfLim6aikBZCArDW9M"
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [ 
+    'email',
+]
+
+#Caching with heroku 
+def get_cache():
+    try:
+        os.environ['MEMCACHE_SERVERS'] = os.environ['MEMCACHIER_SERVERS'].replace(',', ';')
+        os.environ['MEMCACHE_USERNAME'] = os.environ['MEMCACHIER_USERNAME']
+        os.environ['MEMCACHE_PASSWORD'] = os.environ['MEMCACHIER_PASSWORD']
+        return {
+          'default': {
+            'BACKEND': 'django_pylibmc.memcached.PyLibMCCache',
+            'TIMEOUT': 500,
+            'BINARY': True,
+            'OPTIONS': { 'tcp_nodelay': True }
+          }
+        }
+    except:
+        return {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'
+            }
+        }
+
+CACHES = get_cache()
+"""
+
 
 
 

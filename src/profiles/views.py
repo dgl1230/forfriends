@@ -3,6 +3,7 @@ import operator
 import datetime
 import random
 from datetime import date, datetime, timedelta
+import logging
 from random import randint
 
 from django.shortcuts import render
@@ -25,7 +26,7 @@ from django.views.decorators.clickjacking import xframe_options_exempt
 
 
 from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG, MEDIA_URL
-from forfriends.matching import match_percentage
+from forfriends.matching import match_percentage, find_same_interests
 from forfriends.distance import calc_distance, check_valid_location
 from forfriends.s3utils import delete_s3_pic
 from matches.models import Match
@@ -308,6 +309,7 @@ def all(request):
 				can_they_reset = True
 			else: 
 				can_they_reset = False
+			can_they_reset = True
 
 
 			until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
@@ -316,6 +318,7 @@ def all(request):
 				can_reset_icebreaker = True
 			else:
 				can_reset_icebreaker = False
+			can_reset_icebreaker = True
 			messages_in_inbox = DirectMessage.objects.filter(receiver=request.user)
 			direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
 			request.session['num_of_messages'] = direct_messages
@@ -418,6 +421,7 @@ def generate_circle(request):
 		user_gamification.circle.clear()
 		j = 0
 		already_chosen = {}
+		start_time = datetime.now()
 		while j < 6:
 			try:
 				random_index = randint(0, max_match - 1)
@@ -428,11 +432,14 @@ def generate_circle(request):
 					j += 1
 			except:
 				pass
+		end_time = datetime.now()
+		logging.debug('Time for the whille j < 6 loop is: ' + str(end_time - start_time))
 
 		user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 		user_gamification.save()
 		#messages.success(request, "We're sorry, but there aren't many users nearby you right now. We rested your circle as best we could, but you can reset it again if you'd like.")
-	return HttpResponseRedirect(reverse('home'))
+	#return HttpResponseRedirect(reverse('home'))
+	return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 	
 
 
@@ -450,6 +457,7 @@ def circle_distance(logged_in_user, preferred_distance):
 	already_chosen = {}
 	user_gamification.circle.clear()
 	max_match = matches.latest('id').id
+	start_time = datetime.now()
 	while i < 6:
 		try:
 			random_index = randint(0, max_match - 1)
@@ -460,6 +468,8 @@ def circle_distance(logged_in_user, preferred_distance):
 				i += 1
 		except:
 			pass
+	end_time = datetime.now()
+	logigng.debug('Circle_Distance while loop takes : ' + str(end_time - start_time))
 	user_gamification.circle_reset_started = datetime.now()
 	user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 	user_gamification.save()
@@ -1078,6 +1088,7 @@ def register_new_user(request):
 #Displays the profile page of a specific user and their match % against the logged in user
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def single_user(request, username):
+	start_time = datetime.now()
 	try:
 		user = User.objects.get(username=username)
 		if user.is_active:
@@ -1109,6 +1120,7 @@ def single_user(request, username):
 			single_user_is_new = False
 		if (match.user1 == single_user and match.user1_approved == True and match.user2_approved == False) or (match.user2 == single_user and match.user2_approved == True and match.user1_approved == False):
 			respond_to_request = True
+		interests = find_same_interests(request.user, single_user)
 
 
 
@@ -1117,7 +1129,8 @@ def single_user(request, username):
 	direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
 	request.session['num_of_messages'] = direct_messages
 
-	
+	end_time = datetime.now()
+	logging.debug("single_user run time is: " + str(end_time - start_time))
 	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))	
 
 
@@ -1308,11 +1321,4 @@ def ice_breaker(request):
 	user_gamification.save()
 	messages.success(request, "Please check your inbox, we've found a user that you have an interest in common with!")
 	return HttpResponseRedirect(reverse('home'))
-
-
-
-
-
-
-
 
