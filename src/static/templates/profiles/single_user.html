@@ -108,8 +108,8 @@
                 <p>Interests</p>
             </div>
             <div class='panel-body' id='occ_body'>
-               {% for interest in interests_all %}
-			<p>{{ interest.interest }},</p>
+               {% for interest in interests %}
+			<p class="common_interest">{{ interest }}</p>
 				{% endfor %}
             </div>
     	</div><!--End Panel -->

@@ -22,7 +22,11 @@
 #bio_body, #occ_body{
 	text-align:left;
 }
-
+.common_interest{
+	border: 3px solid #1fbad6;
+	border-radius: 50%;
+	padding: 2px 5px 2px 5px;
+}
 #information{
 	margin-top:25px;
 	margin-bottom:25px;
