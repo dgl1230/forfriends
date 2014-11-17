@@ -914,6 +914,11 @@ def edit_profile(request):
 	addresses = Address.objects.filter(user=user)
 	jobs = Job.objects.filter(user=user)
 	info = Info.objects.get(user=user)
+	gender = info.gender
+	if gender == 'Male':
+		is_male = True
+	else:
+		is_female = True
 	messages_in_inbox = DirectMessage.objects.filter(receiver=request.user)
 	direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
 	request.session['num_of_messages'] = direct_messages
