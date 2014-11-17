@@ -49,6 +49,7 @@ from questions.models import Question, Answer, UserAnswer
 #Returns a tuple, where the first element is the # of categories shared and the second
 #element is the number of interests shared
 def interest_points(user1, user2):
+	start_time = datetime.now()
 	logged_in_user_interests = UserInterestAnswer.objects.filter(user=user1)
 	viewed_user_interests = UserInterestAnswer.objects.filter(user=user2)
 	categories_shared = 0
@@ -70,7 +71,6 @@ def interest_points(user1, user2):
 		category_count2 = category_count2 + 1
 	for i in range(len(user1_list)):
 		user1_category = user1_list[i]
-		#check to see if both share the same category: if so, increment categories_shared
 		if user1_category in user2_dict:
 			categories_shared = categories_shared + 1
 	if categories_shared != 0:
@@ -80,6 +80,8 @@ def interest_points(user1, user2):
 				interests_shared = interests_shared + 1
 	total_categories = category_count1 + category_count2
 	return_tuple = (categories_shared, interests_shared, total_categories)
+	end_time = datetime.now()
+	logging.debug("Interest_points time is: " + str(end_time - start_time))
 	return return_tuple
 
 # Method that returns a list of shared interests between two users
@@ -149,6 +151,7 @@ def answer_points(user1_answer, user2_answer, weight):
 	Returns:	A list with 2 attributes, the first being user1_points and the 
 				second being user2_points: [user1_points, user2_points] '''
 def question_points(user1, user2):
+	start_time = datetime.now()
 	user1_answers = UserAnswer.objects.filter(user=user1)
 	user2_answers = UserAnswer.objects.filter(user=user2)
 	points_possible = 0
@@ -176,6 +179,8 @@ def question_points(user1, user2):
 		percentage = (points_possible - abs(user1_points - user2_points)) * 100 / points_possible
 	else:
 		percentage = 0
+	end_time = datetime.now()
+	logging.debug("Question_Points time is: " + str(end_time - start_time))
 	return percentage
 
 def match_percentage(user1, user2):
