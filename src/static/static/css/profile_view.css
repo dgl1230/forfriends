@@ -28,9 +28,12 @@
 	margin-bottom:25px;
 	min-height:200px;
 }
-
-#information{
-	display:none;
+.panel-heading{
+	text-align: center;
+}
+.panel-heading p{
+	font-family: 'Roboto', sans-serif;
+	font-weight:300!important;
 }
 
 .previous_user{

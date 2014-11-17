@@ -415,6 +415,11 @@ footer{
   width:100%!important;
   }
   .answers_all #one{
+    padding-top: 10px!important;
+  }
+  .answers_all{
+    padding-left:10px;
+    padding-right:10px;
   }
 }
 
