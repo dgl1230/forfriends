@@ -88,16 +88,17 @@
 		
 		{% endif %}
 		<div id="information">
-        <div class='panel panel-default'>
-            <div class='panel-heading' id='bio_panel'>
-                <p>{% if not request.user == single_user %} {{ single_user.username }} in a sentence {% else %} Me in a
-                sentence {% endif %}</p>
-                <p id='info_edit'></p>
+        {% if single_user.job_set.all %}
+         <div class='panel panel-default'>
+            <div class='panel-heading' id='occ_panel'>
+                <p>Occupation</p>
             </div>
-            <div class='panel-body' id='bio_body'>
-                {% for item in single_user.info_set.all %}{% if forloop.first %}{{item.bio}}{% endif %}{% endfor %}
+            <div class='panel-body' id='occ_body'>
+            {% for item in single_user.job_set.all %}{{item.position|title}} at
+            {{item.employer|title}}{% endfor %}
             </div>
-        </div>
+            {% else %}
+        {% endif %}
          <div class='panel panel-default'>
             <div class='panel-heading' id='occ_panel'>
                 <p>Occupation</p>

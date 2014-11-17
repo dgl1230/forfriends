@@ -94,15 +94,19 @@
                 {% for item in single_user.info_set.all %}{% if forloop.first %}{{item.bio}}{% endif %}{% endfor %}
             </div>
         </div>
+        {% if single_user.job_set.all %}
          <div class='panel panel-default'>
             <div class='panel-heading' id='occ_panel'>
                 <p>Occupation</p>
             </div>
             <div class='panel-body' id='occ_body'>
-                {% for item in single_user.job_set.all %}{{item.position|title}} at
+            {% for item in single_user.job_set.all %}{{item.position|title}} at
             {{item.employer|title}}{% endfor %}
             </div>
+            {% else %}
+        {% endif %}
         </div>
+        {% if not request.user == single_user %}
         <div class='panel panel-default'>
             <div class='panel-heading' id='occ_panel'>
                 <p>Interests</p>
@@ -113,6 +117,7 @@
 				{% endfor %}
             </div>
     	</div><!--End Panel -->
+    	{% endif %}
 	</div><!--End info-->
 </div>
 
