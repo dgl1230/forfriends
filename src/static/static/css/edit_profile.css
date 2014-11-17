@@ -49,6 +49,7 @@
 	padding:5px 5px 5px 5px;
 	border-color:black;
 	background-color:white;
+	min-width: 185px;
 }
 #form_container a{
 	color: #084c8d;
@@ -166,7 +167,7 @@ p label{
 }
 
 #bio_label{
-	width:25px;
+	width:100px;
 }
 
 #myTab li a{

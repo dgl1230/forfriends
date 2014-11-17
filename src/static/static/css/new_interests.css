@@ -16,6 +16,9 @@
 	height:120px;
 	min-width:200px;
 }
+#no_interests{
+	padding:0px 10px 0px 10px;
+}
 #like{
 	width:100px!important;
 }
@@ -62,6 +65,10 @@
 	display:none;
 	margin-left:100px;
 }
+#like, .liked, .btn-lg{
+	font-family: 'Roboto', sans-serif;
+	font-weight:300;
+	}
 
 @media(max-width:450px){
 	.subcategory{
@@ -72,8 +79,38 @@
 	margin-left:50px;
 	border-bottom: none;
 	}
+	#interest.col-sm-4{
+	width:100%!important;
+	height:180px;
+	}
+	#interest.col-sm-4 h4{
+	font-size:24px;
+	margin-bottom: 0px;
+	}
+	#like, .liked, .btn-lg{
+	width:200px!important;
+	height:75px;
+	font-size:24px;
+	font-family: 'Roboto', sans-serif!important;
+	}
+	.category_name{
+		font-size: 32px!important;
+		padding-left:2px;
+		padding-right: 2px;
+	}
+	.form-wrapper{
+		margin-top:50px!important;
+	}
 }
-
+/* Interests 2 a row */
+@media(max-width:810px){
+	#interest.col-sm-4{
+	display:inline-block;
+	width:49%;
+	height:120px;
+	min-width:200px;
+	}	
+}
 /* Questions */
 
 #big_wrapper{

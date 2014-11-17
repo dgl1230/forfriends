@@ -182,7 +182,6 @@ footer{
 
 /* Create */
 #interests-wrapper form {
-	width: 100%;
 	margin: 0 auto;
 }
 
@@ -369,7 +368,7 @@ footer{
 	width:100%;
 }
 .search_interests .form-group{
-	width:80%;
+	width:100%;
 }
 .search_interests .form-control{
 	width:80%;
@@ -416,6 +415,11 @@ footer{
   width:100%!important;
   }
   .answers_all #one{
+    padding-top: 10px!important;
+  }
+  .answers_all{
+    padding-left:10px;
+    padding-right:10px;
   }
 }
 

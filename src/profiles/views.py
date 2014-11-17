@@ -705,13 +705,12 @@ def discover(request):
 	users_all = cache.get('random_exp_%d' % request.session['random_exp'])
 	if not users_all:
 		# if not, we create a new one
-		'''
+
 		users_all = User.objects.filter(is_active=True)
 		num_of_users = users_all.count() + 1
 		ran_num = randint(0, num_of_users - 20)
 		users_all = list(User.objects.filter(is_active=True)[ran_num:ran_num+20])
-		'''
-		users_all = list(User.objects.filter(is_active=True).order_by('?'))
+		#users_all = list(User.objects.filter(is_active=True).order_by('?'))
 		cache.set('random_exp_%d' % request.session['random_exp'], users_all, 500)
 	paginator = Paginator(users_all, 1)
 	
@@ -925,6 +924,11 @@ def edit_profile(request):
 	addresses = Address.objects.filter(user=user)
 	jobs = Job.objects.filter(user=user)
 	info = Info.objects.get(user=user)
+	gender = info.gender
+	if gender == 'Male':
+		is_male = True
+	else:
+		is_female = True
 	messages_in_inbox = DirectMessage.objects.filter(receiver=request.user)
 	direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
 	request.session['num_of_messages'] = direct_messages
@@ -1092,7 +1096,7 @@ def single_user(request, username):
 	except:
 		raise Http404
 	try:
-		profile_pic = UserPicture.objects.get(user=request.user, is_profile_pic=True)
+		profile_pic = UserPicture.objects.get(user=single_user, is_profile_pic=True)
 	except: 
 		pass
 	 
