@@ -46,42 +46,41 @@ from questions.models import Question, Answer, UserAnswer
 	return return_tuple'''
 
 
-''' Purpose:	Calculates the percentage compatibility between 2 users based solely
-				on their interests. Uses calc_interest_importance
-	Returns: 	Compatibility percentage based solely off of interest
-'''
+#Returns a tuple, where the first element is the # of categories shared and the second
+#element is the number of interests shared
 def interest_points(user1, user2):
 	logged_in_user_interests = UserInterestAnswer.objects.filter(user=user1)
 	viewed_user_interests = UserInterestAnswer.objects.filter(user=user2)
-	#user1_points = 0
-	#user2_points = 0
-	number_in_common = 0
-	user_score_tuple = []
-	percentage = 0
+	categories_shared = 0
+	interests_shared = 0
 	user1_list = []
+	user1_interest_list = []
 	user2_dict = {}
+	user2_interest_dict = {}
+	category_count1 = 0
+	category_count2 = 0
 	#could move this for loop into range(len(user1_list)) possibly
 	for i in logged_in_user_interests:
-		user1_list.append(i.interest)
+		user1_list.append(i.interest.category)
+		user1_interest_list.append(i.interest)
+		category_count1 = category_count1 + 1
 	for i in viewed_user_interests:
-		user2_dict[i.interest] = "irrelephant"
+		user2_dict[i.interest.category] = i.interest
+		user2_interest_dict[i.interest] = "x"
+		category_count2 = category_count2 + 1
 	for i in range(len(user1_list)):
-		user1_interest = user1_list[i]
-		#check to see if both share the same interest: if so, increment number_in_common
-		user2_interest = user2_dict.pop(user1_interest, "false")
-		if user2_interest != "false": #key was found, interests were shared, calculate difference in importance
-			#points_possible += 75
-			#user_score_tuple = calc_interest_importance(user1_importance, user2_importance)
-			#user1_points += user_score_tuple[0]
-			#user2_points += user_score_tuple[1]
-			number_in_common = number_in_common + 1
-	if number_in_common >= 1:
-		#percentage = (points_possible - abs(user1_points - user2_points)) * 100 / points_possible
-		#Need to figure out what we want to do in this case
-		percentage = 0
-	else:
-		percentage = 0
-	return percentage
+		user1_category = user1_list[i]
+		#check to see if both share the same category: if so, increment categories_shared
+		if user1_category in user2_dict:
+			categories_shared = categories_shared + 1
+	if categories_shared != 0:
+		for i in range(len(user1_interest_list)):
+			user1_interest = user1_interest_list[i]
+			if user1_interest in user2_interest_dict:
+				interests_shared = interests_shared + 1
+	total_categories = category_count1 + category_count2
+	return_tuple = (categories_shared, interests_shared, total_categories)
+	return return_tuple
 
 # Method that returns a list of shared interests between two users
 def find_same_interests(user1, user2):
@@ -182,20 +181,24 @@ def question_points(user1, user2):
 def match_percentage(user1, user2):
 	start_time = datetime.now()
 	overall_score = 0.0
-	question_score = question_points(user1, user2) #question compatibility score
-	"""
-	interest_score = interest_points(user1, user2) #interest compatibility score
-	if(interest_score == 0 and question_score == 0):
-		overall_score = 0
-	elif(interest_score == 0):
-		overall_score = question_score
-	elif(question_score == 0):
-		overall_score = interest_score
+	question_score = int(round(question_points(user1, user2))) #question compatibility score
+	score_difference = 100 - question_score
+	multiplier = 0.0
+
+	#number of shared categories, and number of shared interests
+	interest_tuple = interest_points(user1, user2) 
+	shared_categories = interest_tuple[0]
+	shared_interests = interest_tuple[1]
+	total_categories = interest_tuple[2]
+	if (shared_interests != 0):
+		multiplier = float(shared_interests) / float(shared_categories)
 	else:
-		overall_score = (.8 * question_score) + (.2 * interest_score)
-	"""
-	overall_score = question_score
+		multiplier = float(shared_categories) / float(total_categories)
+	interest_score = multiplier * score_difference
+	
+	
+	overall_score = int(round(question_score + interest_score))
 	end_time = datetime.now()
 	logging.debug("Match percentage time is: " + str(end_time - start_time))
 	logging.debug("Overall match percentage is: " + str(int(round(overall_score))))
-	return int(round(overall_score))
+	return overall_score
