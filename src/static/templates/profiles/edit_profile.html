@@ -65,15 +65,15 @@
             <p><label for "#last_name_form">Last Name:</label><input maxlength="50"  id="last_name_form" name="last_name_form" type="text" value="{% if user.last_name %}{{ user.last_name }}{% endif %}" required></p>
             <p>
               <label for "#gender_form">Gender:</label>
-              <select class="select-style gender" id="gender_form" name="gender_form" name="gender">
-              {% if info.gender == male %} 
-                <option selected="selected" value="m">Male</option>
-                <option value="f">Female</option>
-              {% else %}
-                <option value="m">Male</option>
-                <option selected="selected" value="f">Female</option>
-              {% endif %}
-              </select>
+            <select class="select-style gender" tabindex="1" name="gender_form" id="gender_form" required>
+            {% if is_male %}
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            {% else %}
+            <option value="Male">Male</option>
+            <option value="Female" selected>Female</option>
+            {% endif %}
+            </select><br>
             </p>
             <p><label for "#bio_form" id='bio_label'>About Me:</label><input id="bio_form" name="bio_form" type="text" value="{% if info.bio %}{{ info.bio }}{% endif %}"></p>
             <input class='btn btn-success' type='submit' value='Update'/>
