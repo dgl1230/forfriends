@@ -181,6 +181,7 @@ def question_points(user1, user2):
 		percentage = 0
 	end_time = datetime.now()
 	logging.debug("Question_Points time is: " + str(end_time - start_time))
+	logging.debug("HEY, SHOW UP")
 	return percentage
 
 def match_percentage(user1, user2):
