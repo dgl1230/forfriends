@@ -36,6 +36,7 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 	margin-top:-15px;
 	z-index:1000;
 
+
 }
 .navbar-nav > li > a {
 	padding-bottom:25px;
@@ -323,6 +324,7 @@ form.navbar-form.navbar-left{
 	#menu_icon{
 		height:25px;
 		width:25px;
+		margin-left:25px;
 	}
 	.navbar-inverse .navbar-toggle{
 		margin-top: 7px;
@@ -406,7 +408,6 @@ form.navbar-form.navbar-left{
 		display:inline-block!important;
 		float:left;
 		width:120px;
-		margin-left:-50px;
 	}
 	.form-mobile{
 		width:115px!important;

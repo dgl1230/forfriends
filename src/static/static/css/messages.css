@@ -205,6 +205,9 @@ label[for=id_body]{
 	margin-left:80px;
 	min-width:200px;
 }
+#go_button{
+	border-radius: 10px!important;
+}
 
 #compose_message_container label{
 	min-width:50px;
@@ -220,8 +223,9 @@ textarea{
 	border:1px solid black;
 }
 input{
-	border: 1px solid black;
+	border: 1px solid #95a5a6;
 	padding: 1px 5px 1px 5px;
+	border-radius: 10px;
 }
 /* Media Queries */
 

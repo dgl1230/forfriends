@@ -15,6 +15,7 @@
 	width:33%;
 	height:120px;
 	min-width:200px;
+	line-height: .2;
 }
 #no_interests{
 	padding:0px 10px 0px 10px;
@@ -69,8 +70,11 @@
 	font-family: 'Roboto', sans-serif;
 	font-weight:300;
 	}
-
-@media(max-width:450px){
+.search_interests{
+	padding-left: 10px;
+	padding-right:10px;
+}
+@media(max-width:500px){
 	.subcategory{
 	display:none;
 	margin-left:50px;
@@ -107,7 +111,7 @@
 	#interest.col-sm-4{
 	display:inline-block;
 	width:49%;
-	height:120px;
+	height:200px;
 	min-width:200px;
 	}	
 }
