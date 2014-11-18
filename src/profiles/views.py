@@ -342,6 +342,7 @@ def all(request):
 
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def generate_circle(request):
+	start_time = datetime.now()
 	location = Address.objects.get(user=request.user)
 	if check_valid_location(location.city, location.state) == False:
 		messages.success(request, "We're sorry but you need to enter a valid location before you can use discover")
@@ -355,6 +356,7 @@ def generate_circle(request):
 	num_of_matches = matches = Match.objects.filter(
 			Q(user1=request.user) | Q(user2=request.user)
 			).count()
+	time1 = datetime.now()
 	if num_of_matches < 7:
 		users = User.objects.filter(is_active=True).exclude(username=request.user.username).order_by('?')
 		i = 0
@@ -372,6 +374,8 @@ def generate_circle(request):
 					match.distance = 10000000
 				match.save()
 				i = i + 1
+	time2 = datetime.now()
+	logging.debug("Generate_Circle, num_of_matches < 7, time is: " + str(time2 - time1))
 
 	preferred_distance = 15
 	#these variables are for keeping track of users that live within certain miles, ie num_10m is 
@@ -426,7 +430,7 @@ def generate_circle(request):
 	user_gamification.circle.clear()
 	j = 0
 	already_chosen = {}
-	start_time = datetime.now()
+	time3 = datetime.now()
 	while j < 6:
 		try:
 			random_index = randint(0, max_match - 1)
@@ -437,10 +441,12 @@ def generate_circle(request):
 				j += 1
 		except:
 			pass
-
+	time4 = datetime.now()
+	logging.debug("While loop for less than 6-7 users time is: " + str(time4 - time3))
 	user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 	user_gamification.save()
 	#messages.success(request, "We're sorry, but there aren't many users nearby you right now. We rested your circle as best we could, but you can reset it again if you'd like.")
+	logging.debug("Total run time of generate_circle is: " + str(end_time - start_time))
 	return HttpResponseRedirect(reverse('home'))
 	#return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 	
@@ -448,6 +454,7 @@ def generate_circle(request):
 
 
 def circle_distance(logged_in_user, preferred_distance):
+	start_time = datetime.now()
 	user_gamification = Gamification.objects.get(user=logged_in_user)
 	current_circle = list(user_gamification.circle.all())
 	matches = Match.objects.filter(
@@ -455,6 +462,8 @@ def circle_distance(logged_in_user, preferred_distance):
 		).exclude(user1=logged_in_user, user2=logged_in_user).exclude(are_friends=True).filter(percent__gte=70).exclude(id__in=[o.id for o in current_circle]).filter(distance__lte=preferred_distance)
 	count = matches.count()
 	if matches.count() < 7:
+		end_time = datetime.now()
+		logging.debug("Circle_Distance, matches.count() < 7, time is: " + str(end_time - start_time))
 		return 0
 	i = 0
 	already_chosen = {}
@@ -471,10 +480,11 @@ def circle_distance(logged_in_user, preferred_distance):
 				i += 1
 		except:
 			pass
-	end_time = datetime.now()
 	user_gamification.circle_reset_started = datetime.now()
 	user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 	user_gamification.save()
+	end_time = datetime.now()
+	logging.debug("Circle_Distance, runs all the way through, time is: " + str(end_time - start_time))
 	return 1
 
 
