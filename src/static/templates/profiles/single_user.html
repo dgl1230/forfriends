@@ -84,8 +84,7 @@
 			{% endif %}
 			</div>
     <div id="information">
-    	{% if single_user.info.bio %}
-    	
+    	{% if info.bio %}
         <div class='panel panel-default'>
             <div class='panel-heading' id='bio_panel'>
                 <p>{% if not request.user == single_user %} {{ single_user.username }} in a sentence {% else %} Me in a
@@ -98,7 +97,7 @@
         </div>
         {% else %}
         {% endif %}
-        {% if single_user.job_set.all %}
+        {% if info.job %}
          <div class='panel panel-default'>
             <div class='panel-heading' id='occ_panel'>
                 <p>Occupation</p>

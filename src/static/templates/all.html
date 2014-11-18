@@ -126,7 +126,7 @@ lightBoxSlideShowDelay:4000
 <!--Buttons -->
 <div class="col-md-1" id="button_navbar">
 {% if can_they_reset == True %}
-    <a id="generate_button" class="login_button">Find a new Crowd!</a>
+    <a id="generate_button" class="login_button" href='{% url "generate_circle" %}'>Find a new Crowd!</a>
     {% else %}
     <p class="reset_button"> {{ hours_until_reset }} hours </p>
     {% endif %}
@@ -332,11 +332,12 @@ data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="20"><a hr
 
 
 <script>
-
-$('#ice_breaker_button').click(function(){
-$(this).text("Ice Breaker Completed! Check your messages to see your match.");
-$(this).attr('class', 'not_a_button');
-$.get('{% url "ice_breaker" %}');
+$('#ice_breaker_button').click(function() {
+    $(this).text(
+        "Ice Breaker Completed! Check your messages to see your match."
+    );
+    $(this).attr('class', 'not_a_button');
+    $.get('{% url "ice_breaker" %}');
 });
 </script>
 
