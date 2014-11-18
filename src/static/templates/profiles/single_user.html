@@ -110,6 +110,7 @@
         {% endif %}
         </div>
         {% if not request.user == single_user %}
+        {% if interests %}
         <div class='panel panel-default'>
             <div class='panel-heading' id='occ_panel'>
                 <p>Interests</p>
@@ -120,6 +121,8 @@
 				{% endfor %}
             </div>
     	</div><!--End Panel -->
+    	{% else %}
+    	{% endif %}
     	{% endif %}
 	</div><!--End info-->
 </div>
