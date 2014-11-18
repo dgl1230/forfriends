@@ -176,7 +176,7 @@ def question_points(user1, user2):
 		user1_answer = user1_list[i][2]
 		user2_answer = user2_dict.pop(user1_question, "false")
 		if user2_answer != "false":
-			points_possible += 100
+			points_possible += (50 * importance_multiplier)
 			user_list = []
 			user_list = answer_points(user1_answer, user2_answer, importance_multiplier)
 			user1_points += user_list[0]
