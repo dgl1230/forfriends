@@ -58,8 +58,10 @@ def interest_points(user1, user2):
 	user1_interest_list = []
 	user2_dict = {}
 	user2_interest_dict = {}
+	repeated_dict = {}
 	category_count1 = 0
 	category_count2 = 0
+	less_interests = 0
 	#could move this for loop into range(len(user1_list)) possibly
 	for i in logged_in_user_interests:
 		user1_list.append(i.interest.category)
@@ -71,15 +73,23 @@ def interest_points(user1, user2):
 		category_count2 = category_count2 + 1
 	for i in range(len(user1_list)):
 		user1_category = user1_list[i]
-		if user1_category in user2_dict:
-			categories_shared = categories_shared + 1
+		if user1_category not in repeated_dict:
+			repeated_dict[user1_category] = "appeared_once"
+			if user1_category in user2_dict:
+				categories_shared = categories_shared + 1
+		else:
+			continue	
 	if categories_shared != 0:
 		for i in range(len(user1_interest_list)):
 			user1_interest = user1_interest_list[i]
 			if user1_interest in user2_interest_dict:
 				interests_shared = interests_shared + 1
 	total_categories = category_count1 + category_count2
-	return_tuple = (categories_shared, interests_shared, total_categories)
+	if category_count1 <= category_count2:
+		less_interests = category_count1
+	else:
+		less_interests = category_count2
+	return_tuple = (categories_shared, interests_shared, total_categories, less_interests)
 	end_time = datetime.now()
 	logging.debug("Interest_points time is: " + str(end_time - start_time))
 	return return_tuple
@@ -202,10 +212,11 @@ def match_percentage(user1, user2):
 	shared_categories = interest_tuple[0]
 	shared_interests = interest_tuple[1]
 	total_categories = interest_tuple[2]
+	less_interests = interest_tuple[3]
 	if (shared_interests != 0):
-		multiplier = float(shared_interests) / float(shared_categories)
+		multiplier = float(shared_interests) / float(less_interests) #highest can be 100%
 	else:
-		multiplier = float(shared_categories) / float(total_categories)
+		multiplier = float(shared_categories) / float(total_categories) #highest can be 50%, lowest can be 0% and 5% if one shared
 	interest_score = multiplier * score_difference
 	
 	
