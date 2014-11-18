@@ -98,7 +98,7 @@
         {% else %}
         {% endif %}
         {% if job %}
-         <div class='panel panel-default'>
+        <div class='panel panel-default'>
             <div class='panel-heading' id='occ_panel'>
                 <p>Occupation</p>
             </div>
@@ -106,9 +106,9 @@
             {% for item in single_user.job_set.all %}{{item.position|title}} at
             {{item.employer|title}}{% endfor %}
             </div>
+        </div>
         {% else %}
         {% endif %}
-        </div>
         {% if not request.user == single_user %}
         {% if interests %}
         <div class='panel panel-default'>

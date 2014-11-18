@@ -88,8 +88,21 @@
 		
 		{% endif %}
 		<div id="information">
-        {% if single_user.job_set.all %}
-         <div class='panel panel-default'>
+        {% if info.bio %}
+        <div class='panel panel-default'>
+            <div class='panel-heading' id='bio_panel'>
+                <p>{% if not request.user == single_user %} {{ single_user.username }} in a sentence {% else %} Me in a
+                sentence {% endif %}</p>
+                <p id='info_edit'></p>
+            </div>
+            <div class='panel-body' id='bio_body'>
+                {% for item in single_user.info_set.all %}{% if forloop.first %}{{item.bio}}{% endif %}{% endfor %}
+            </div>
+        </div>
+        {% else %}
+        {% endif %}
+        {% if job %}
+        <div class='panel panel-default'>
             <div class='panel-heading' id='occ_panel'>
                 <p>Occupation</p>
             </div>
@@ -97,27 +110,24 @@
             {% for item in single_user.job_set.all %}{{item.position|title}} at
             {{item.employer|title}}{% endfor %}
             </div>
-            {% else %}
-        {% endif %}
-         <div class='panel panel-default'>
-            <div class='panel-heading' id='occ_panel'>
-                <p>Occupation</p>
-            </div>
-            <div class='panel-body' id='occ_body'>
-                {% for item in single_user.job_set.all %}{{item.position|title}} at
-            {{item.employer|title}}{% endfor %}
-            </div>
         </div>
+        {% else %}
+        {% endif %}
+        {% if not request.user == single_user %}
+        {% if interests %}
         <div class='panel panel-default'>
             <div class='panel-heading' id='occ_panel'>
                 <p>Interests</p>
             </div>
             <div class='panel-body' id='occ_body'>
-               {% for interest in interests_all %}
-			<p>{{ interest.interest }},</p>
+               {% for interest in interests %}
+			<p class="common_interest">{{ interest }}</p>
 				{% endfor %}
             </div>
     	</div><!--End Panel -->
+    	{% else %}
+    	{% endif %}
+    	{% endif %}
 	</div><!--End info-->
 		</div>
 	</div>
