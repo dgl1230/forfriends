@@ -382,11 +382,11 @@ def generate_circle(request):
 		return HttpResponseRedirect(reverse('home'))
 	'''
 	elif circle_distance(request.user, unicode(int(preferred_distance) + 10)) == 1:
-		return HttpResponseRedirect(reverse('home'))
+	return HttpResponseRedirect(reverse('home'))
 	elif circle_distance(request.user, unicode(int(preferred_distance) + 20)) == 1:
-		return HttpResponseRedirect(reverse('home'))
+	return HttpResponseRedirect(reverse('home'))
 	elif circle_distance(request.user, unicode(int(preferred_distance) + 30)) == 1:
-		return HttpResponseRedirect(reverse('home'))
+	return HttpResponseRedirect(reverse('home'))
 	'''
 	else: 
 		# otherwise, there are not very many users who live close by, so we default to 
