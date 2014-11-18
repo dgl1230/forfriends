@@ -388,59 +388,59 @@ def generate_circle(request):
 	elif circle_distance(request.user, unicode(int(preferred_distance) + 30)) == 1:
 	return HttpResponseRedirect(reverse('home'))
 	'''
-	else: 
-		# otherwise, there are not very many users who live close by, so we default to 
-		# adding to their circle randomly
-		user_gamification = Gamification.objects.get(user=request.user)
-		current_circle = list(user_gamification.circle.all())
-		#requested_users = list(Match.objects.filter(Q(user1=request.user) | Q(user1_approved=True)).filter(Q(user2=request.user) | Q(user2_approved=True)))
-		# for now are_friends=True is excluded from other queries because in theory all friends should be in requested users
-		#requested_users = list(Match.objects.filter(Q(user1=request.user, user1_approved=True) | Q(user2=request.user, user2_approved=True )))
-		#excluded_users = current_circle + requested_users
-		'''
-		matches = Match.objects.filter(
-			Q(user1=request.user) | Q(user2=request.user)
-			).exclude(user1=request.user, user2=request.user).exclude(id__in=[o.id for o in excluded_users])
-		'''
-		matches = Match.objects.filter(
-			Q(user1=request.user) | Q(user2=request.user)
-			).exclude(user1=request.user, user2=request.user)
-		count = matches.count()
+	
+	# otherwise, there are not very many users who live close by, so we default to 
+	# adding to their circle randomly
+	user_gamification = Gamification.objects.get(user=request.user)
+	current_circle = list(user_gamification.circle.all())
+	#requested_users = list(Match.objects.filter(Q(user1=request.user) | Q(user1_approved=True)).filter(Q(user2=request.user) | Q(user2_approved=True)))
+	# for now are_friends=True is excluded from other queries because in theory all friends should be in requested users
+	#requested_users = list(Match.objects.filter(Q(user1=request.user, user1_approved=True) | Q(user2=request.user, user2_approved=True )))
+	#excluded_users = current_circle + requested_users
+	'''
+	matches = Match.objects.filter(
+		Q(user1=request.user) | Q(user2=request.user)
+		).exclude(user1=request.user, user2=request.user).exclude(id__in=[o.id for o in excluded_users])
+	'''
+	matches = Match.objects.filter(
+		Q(user1=request.user) | Q(user2=request.user)
+		).exclude(user1=request.user, user2=request.user)
+	count = matches.count()
 
-		'''
-		try:
-			max_match = matches.latest('id').id
-		except: 
-			matches = Match.objects.filter(
-				Q(user1=request.user) | Q(user2=request.user)
-				).exclude(user1=request.user, user2=request.user).exclude(id__in=[o.id for o in current_circle])	
-		if count < 6:
-			matches = Match.objects.filter(
-				Q(user1=request.user) | Q(user2=request.user)
-				).exclude(user1=request.user, user2=request.user).exclude(id__in=[o.id for o in current_circle])
-			max_match = matches.latest('id').id
-		'''
-
-		# so we dont have more than 6-7 users in a circle at a time
+	'''
+	try:
 		max_match = matches.latest('id').id
-		user_gamification.circle.clear()
-		j = 0
-		already_chosen = {}
-		start_time = datetime.now()
-		while j < 6:
-			try:
-				random_index = randint(0, max_match - 1)
-				if random_index not in already_chosen:
-					random_match = matches[random_index]
-					user_gamification.circle.add(random_match)
-					already_chosen[random_index] = random_index
-					j += 1
-			except:
-				pass
+	except: 
+		matches = Match.objects.filter(
+			Q(user1=request.user) | Q(user2=request.user)
+			).exclude(user1=request.user, user2=request.user).exclude(id__in=[o.id for o in current_circle])	
+	if count < 6:
+		matches = Match.objects.filter(
+			Q(user1=request.user) | Q(user2=request.user)
+			).exclude(user1=request.user, user2=request.user).exclude(id__in=[o.id for o in current_circle])
+		max_match = matches.latest('id').id
+	'''
 
-		user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
-		user_gamification.save()
-		#messages.success(request, "We're sorry, but there aren't many users nearby you right now. We rested your circle as best we could, but you can reset it again if you'd like.")
+	# so we dont have more than 6-7 users in a circle at a time
+	max_match = matches.latest('id').id
+	user_gamification.circle.clear()
+	j = 0
+	already_chosen = {}
+	start_time = datetime.now()
+	while j < 6:
+		try:
+			random_index = randint(0, max_match - 1)
+			if random_index not in already_chosen:
+				random_match = matches[random_index]
+				user_gamification.circle.add(random_match)
+				already_chosen[random_index] = random_index
+				j += 1
+		except:
+			pass
+
+	user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
+	user_gamification.save()
+	#messages.success(request, "We're sorry, but there aren't many users nearby you right now. We rested your circle as best we could, but you can reset it again if you'd like.")
 	return HttpResponseRedirect(reverse('home'))
 	#return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 	
