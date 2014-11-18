@@ -428,6 +428,7 @@ def generate_circle(request):
 	# so we dont have more than 6-7 users in a circle at a time
 	max_match = matches.latest('id').id
 	user_gamification.circle.clear()
+	"""
 	j = 0
 	already_chosen = {}
 	time3 = datetime.now()
@@ -442,13 +443,13 @@ def generate_circle(request):
 		except:
 			pass
 	"""
+	time3 = datetime.now()
 	temp_list = []
 	for i in range(max_match - 1):
 		temp_list.append(i)
 	for i in range(6):
 		random_match = matches[choose_and_remove(temp_list)]
 		user_gamificiation.circle.add(random_match)
-	"""
 	time4 = datetime.now()
 	logging.debug("While loop for less than 6-7 users time is: " + str(time4 - time3))
 	user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
