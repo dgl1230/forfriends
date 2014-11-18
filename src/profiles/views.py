@@ -356,7 +356,7 @@ def generate_circle(request):
 			Q(user1=request.user) | Q(user2=request.user)
 			).count()
 	if num_of_matches < 7:
-		users = User.objects.filter(is_active=True).exclude(username=request.user.username)
+		users = User.objects.filter(is_active=True).exclude(username=request.user.username).order_by('?')
 		i = 0
 		for user in users: 
 			if i == 7:
