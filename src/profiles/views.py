@@ -445,10 +445,11 @@ def generate_circle(request):
 	"""
 	time3 = datetime.now()
 	temp_list = []
-	for i in range(max_match - 1):
+	for i in range(matches.count() - 1):
 		temp_list.append(i)
 	for i in range(6):
-		random_match = matches[choose_and_remove(temp_list)]
+		index = choose_and_remove(temp_list)
+		random_match = matches[index]
 		user_gamificiation.circle.add(random_match)
 	time4 = datetime.now()
 	logging.debug("While loop for less than 6-7 users time is: " + str(time4 - time3))
