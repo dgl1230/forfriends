@@ -433,12 +433,17 @@ def generate_circle(request):
 	time3 = datetime.now()
 	while j < 6:
 		try:
+			rand1_time = datetime.now()
 			random_index = randint(0, max_match - 1)
+			rand2_time = datetime.now()
+			logging.debug("Time to make a random index is: " + str(rand2_time - rand1_time))
 			if random_index not in already_chosen:
 				random_match = matches[random_index]
 				user_gamification.circle.add(random_match)
 				already_chosen[random_index] = random_index
 				j += 1
+			rand3_time = datetime.now()
+			logging.debug("Time to go through the if statements is: " + str(rand3_time - rand2_time))
 		except:
 			pass
 	time4 = datetime.now()
