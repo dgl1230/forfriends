@@ -373,19 +373,21 @@ def generate_circle(request):
 				match.save()
 				i = i + 1
 
-	preferred_distance = 10
+	preferred_distance = 15
 	#these variables are for keeping track of users that live within certain miles, ie num_10m is 
 	# for users that live within 10 miles
 
 	# these blocks can lead to a lot of unnecessary querying evaluations
 	if circle_distance(request.user, preferred_distance) == 1:
 		return HttpResponseRedirect(reverse('home'))
+	'''
 	elif circle_distance(request.user, unicode(int(preferred_distance) + 10)) == 1:
 		return HttpResponseRedirect(reverse('home'))
 	elif circle_distance(request.user, unicode(int(preferred_distance) + 20)) == 1:
 		return HttpResponseRedirect(reverse('home'))
 	elif circle_distance(request.user, unicode(int(preferred_distance) + 30)) == 1:
 		return HttpResponseRedirect(reverse('home'))
+	'''
 	else: 
 		# otherwise, there are not very many users who live close by, so we default to 
 		# adding to their circle randomly
@@ -393,13 +395,16 @@ def generate_circle(request):
 		current_circle = list(user_gamification.circle.all())
 		#requested_users = list(Match.objects.filter(Q(user1=request.user) | Q(user1_approved=True)).filter(Q(user2=request.user) | Q(user2_approved=True)))
 		# for now are_friends=True is excluded from other queries because in theory all friends should be in requested users
-		requested_users = list(Match.objects.filter(Q(user1=request.user, user1_approved=True) | Q(user2=request.user, user2_approved=True )))
-		excluded_users = current_circle + requested_users
-
+		#requested_users = list(Match.objects.filter(Q(user1=request.user, user1_approved=True) | Q(user2=request.user, user2_approved=True )))
+		#excluded_users = current_circle + requested_users
+		'''
 		matches = Match.objects.filter(
 			Q(user1=request.user) | Q(user2=request.user)
 			).exclude(user1=request.user, user2=request.user).exclude(id__in=[o.id for o in excluded_users])
-		user_gamification = Gamification.objects.get(user=request.user)
+		'''
+		matches = Match.objects.filter(
+			Q(user1=request.user) | Q(user2=request.user)
+			).exclude(user1=request.user, user2=request.user)
 		count = matches.count()
 
 		'''
@@ -432,14 +437,12 @@ def generate_circle(request):
 					j += 1
 			except:
 				pass
-		end_time = datetime.now()
-		logging.debug('Time for the whille j < 6 loop is: ' + str(end_time - start_time))
 
 		user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 		user_gamification.save()
 		#messages.success(request, "We're sorry, but there aren't many users nearby you right now. We rested your circle as best we could, but you can reset it again if you'd like.")
-	#return HttpResponseRedirect(reverse('home'))
-	return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+	return HttpResponseRedirect(reverse('home'))
+	#return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 	
 
 
@@ -469,7 +472,6 @@ def circle_distance(logged_in_user, preferred_distance):
 		except:
 			pass
 	end_time = datetime.now()
-	logigng.debug('Circle_Distance while loop takes : ' + str(end_time - start_time))
 	user_gamification.circle_reset_started = datetime.now()
 	user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 	user_gamification.save()
@@ -1116,7 +1118,7 @@ def single_user(request, username):
 		interests_all = Interest.objects.filter(userinterestanswer__user=single_user)
 		pictures = UserPicture.objects.filter(user=single_user)
 		info = Info.objects.get(user=single_user)
-		job = Job.objcets.get(user=single_user)
+		job = Job.objects.get(user=single_user)
 		try:
 			su_info = Info.objects.get(user=single_user)
 			single_user_is_new = su_info.is_new_user
