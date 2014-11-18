@@ -220,7 +220,8 @@ def match_percentage(user1, user2):
 	interest_score = multiplier * score_difference
 	
 	
-	overall_score = int(round(question_score + interest_score))
+	#overall_score = int(round(question_score + interest_score))
+	overall_score = int(round(question_score))
 	end_time = datetime.now()
 	logging.debug("Match percentage time is: " + str(end_time - start_time))
 	logging.debug("Overall match percentage is: " + str(int(round(overall_score))))
