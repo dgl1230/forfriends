@@ -84,6 +84,8 @@
 			{% endif %}
 			</div>
     <div id="information">
+    	{% if single_user.info.bio %}
+    	
         <div class='panel panel-default'>
             <div class='panel-heading' id='bio_panel'>
                 <p>{% if not request.user == single_user %} {{ single_user.username }} in a sentence {% else %} Me in a
@@ -94,6 +96,8 @@
                 {% for item in single_user.info_set.all %}{% if forloop.first %}{{item.bio}}{% endif %}{% endfor %}
             </div>
         </div>
+        {% else %}
+        {% endif %}
         {% if single_user.job_set.all %}
          <div class='panel panel-default'>
             <div class='panel-heading' id='occ_panel'>
@@ -103,7 +107,7 @@
             {% for item in single_user.job_set.all %}{{item.position|title}} at
             {{item.employer|title}}{% endfor %}
             </div>
-            {% else %}
+        {% else %}
         {% endif %}
         </div>
         {% if not request.user == single_user %}
