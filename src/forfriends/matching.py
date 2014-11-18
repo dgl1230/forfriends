@@ -141,16 +141,12 @@ def find_same_interests(user1, user2):
 def answer_points(user1_answer, user2_answer, weight):
 	temp_list = []
 	user1_score, user2_score = 0, 0
-	#Find score for user1
-	if user1_answer == 1:
-		user1_score = 25  * weight
-	else:
-		user1_score = -25  * weight
-
-	#Find score for user2
-	if user2_answer == 1:
+	#If their answers are the same, both get same points. Otherwise, create a difference of at least 50
+	if user1_answer == user2_answer:
+		user1_score = 25 * weight
 		user2_score = 25 * weight
 	else:
+		user1_score = 25  * weight
 		user2_score = -25 * weight
 
 	temp_list.append(user1_score)
@@ -191,7 +187,7 @@ def question_points(user1, user2):
 			user_list = answer_points(user1_answer, user2_answer, importance_multiplier)
 			user1_points += user_list[0]
 			user2_points += user_list[1]
-	if points_possible >= 100:
+	if points_possible != 0:
 		percentage = (points_possible - abs(user1_points - user2_points)) * 100 / points_possible
 	else:
 		percentage = 0
