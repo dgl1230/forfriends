@@ -709,20 +709,28 @@ def discover(request):
 	'''
 	
 	# first we check to see if a session exists
+	#trying cache for each user
+	'''
 	if not request.session.get('random_exp'):
-		request.session['random_exp']=1
+	request.session['random_exp']=1
+	'''
+	if not request.session.get('%s' % request.user.username):
+		request.session['%s' % request.user.username]=request.user.username
 	# we see if a cache exists
-	users_all = cache.get('random_exp_%d' % request.session['random_exp'])
+	users_all = cache.get('cache_for_%s' % request.session['%s' % request.user.username])
 	if not users_all:
 		# if not, we create a new one
-		'''
+		
 		users_all = User.objects.filter(is_active=True)
 		num_of_users = users_all.count() + 1
 		ran_num = randint(0, num_of_users - 20)
 		users_all = list(User.objects.filter(is_active=True)[ran_num:ran_num+20])
+		cache.set('cache_for_%s' % request.session['%s' % request.user.username], users_all, 120)
+		
 		'''
 		users_all = list(User.objects.filter(is_active=True).order_by('?'))
 		cache.set('random_exp_%d' % request.session['random_exp'], users_all, 500)
+		'''
 	paginator = Paginator(users_all, 1)
 	
 	page = request.GET.get('page')
