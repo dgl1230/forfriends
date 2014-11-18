@@ -1104,6 +1104,14 @@ def single_user(request, username):
 	except: 
 		pass
 	 
+	try:
+		info = Info.objects.get(user=single_user)
+	except:
+		pass
+	try:
+		job = Job.objects.get(user=single_user)
+	except:
+		pass
 	if single_user != request.user:
 		try: 
 			match = Match.objects.get(user1=request.user, user2=single_user)
@@ -1117,14 +1125,7 @@ def single_user(request, username):
 		match.save()
 		interests_all = Interest.objects.filter(userinterestanswer__user=single_user)
 		pictures = UserPicture.objects.filter(user=single_user)
-		try:
-			info = Info.objects.get(user=single_user)
-		except:
-			pass
-		try:
-			job = Job.objects.get(user=single_user)
-		except:
-			pass
+
 		try:
 			su_info = Info.objects.get(user=single_user)
 			single_user_is_new = su_info.is_new_user
