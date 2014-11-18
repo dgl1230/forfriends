@@ -433,19 +433,22 @@ def generate_circle(request):
 	time3 = datetime.now()
 	while j < 6:
 		try:
-			rand1_time = datetime.now()
 			random_index = randint(0, max_match - 1)
-			rand2_time = datetime.now()
-			logging.debug("Time to make a random index is: " + str(rand2_time - rand1_time))
 			if random_index not in already_chosen:
 				random_match = matches[random_index]
 				user_gamification.circle.add(random_match)
 				already_chosen[random_index] = random_index
 				j += 1
-			rand3_time = datetime.now()
-			logging.debug("Time to go through the if statements is: " + str(rand3_time - rand2_time))
 		except:
 			pass
+	"""
+	temp_list = []
+	for i in range(max_match - 1):
+		temp_list.append(i)
+	for i in range(6):
+		random_match = matches[choose_and_remove(temp_list)]
+		user_gamificiation.circle.add(random_match)
+	"""
 	time4 = datetime.now()
 	logging.debug("While loop for less than 6-7 users time is: " + str(time4 - time3))
 	user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
@@ -455,6 +458,12 @@ def generate_circle(request):
 	logging.debug("Total run time of generate_circle is: " + str(end_time - start_time))
 	#return HttpResponseRedirect(reverse('home'))
 	return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+
+def choose_and_remove(items):
+	if items:
+		index = random.randrange(len(items))
+		return items.pop(index)
+	return None
 	
 
 
