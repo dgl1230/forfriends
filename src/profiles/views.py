@@ -374,8 +374,7 @@ def generate_circle(request):
 					match.distance = 10000000
 				match.save()
 				i = i + 1
-	time2 = datetime.now()
-	logging.debug("Generate_Circle, num_of_matches < 7, time is: " + str(time2 - time1))
+	
 
 	preferred_distance = 15
 	#these variables are for keeping track of users that live within certain miles, ie num_10m is 
@@ -441,12 +440,11 @@ def generate_circle(request):
 				j += 1
 		except:
 			pass
-	time4 = datetime.now()
-	logging.debug("While loop for less than 6-7 users time is: " + str(time4 - time3))
+	
 	user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 	user_gamification.save()
 	#messages.success(request, "We're sorry, but there aren't many users nearby you right now. We rested your circle as best we could, but you can reset it again if you'd like.")
-	logging.debug("Total run time of generate_circle is: " + str(end_time - start_time))
+	
 	return HttpResponseRedirect(reverse('home'))
 	#return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 	
@@ -1152,8 +1150,7 @@ def single_user(request, username):
 	direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
 	request.session['num_of_messages'] = direct_messages
 
-	end_time = datetime.now()
-	logging.debug("single_user run time is: " + str(end_time - start_time))
+	
 	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))	
 
 
