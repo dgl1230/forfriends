@@ -309,7 +309,7 @@ def all(request):
 				can_they_reset = True
 			else: 
 				can_they_reset = False
-			can_they_reset = True
+			
 
 
 			until_next_icebreaker = user_gamification.icebreaker_until_reset.replace(tzinfo=None)
@@ -318,7 +318,7 @@ def all(request):
 				can_reset_icebreaker = True
 			else:
 				can_reset_icebreaker = False
-			can_reset_icebreaker = True
+			
 			messages_in_inbox = DirectMessage.objects.filter(receiver=request.user)
 			direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
 			request.session['num_of_messages'] = direct_messages
@@ -356,7 +356,7 @@ def generate_circle(request):
 			Q(user1=request.user) | Q(user2=request.user)
 			).count()
 	if num_of_matches < 7:
-		users = User.objects.filter(is_active=True).exclude(username=request.user.username)
+		users = User.objects.filter(is_active=True).exclude(username=request.user.username).order_by('?')
 		i = 0
 		for user in users: 
 			if i == 7:
@@ -705,12 +705,13 @@ def discover(request):
 	users_all = cache.get('random_exp_%d' % request.session['random_exp'])
 	if not users_all:
 		# if not, we create a new one
-
+		'''
 		users_all = User.objects.filter(is_active=True)
 		num_of_users = users_all.count() + 1
 		ran_num = randint(0, num_of_users - 20)
 		users_all = list(User.objects.filter(is_active=True)[ran_num:ran_num+20])
-		#users_all = list(User.objects.filter(is_active=True).order_by('?'))
+		'''
+		users_all = list(User.objects.filter(is_active=True).order_by('?'))
 		cache.set('random_exp_%d' % request.session['random_exp'], users_all, 500)
 	paginator = Paginator(users_all, 1)
 	
@@ -755,6 +756,7 @@ def discover(request):
 				profile_pic = UserPicture.objects.get(user=user, is_profile_pic=True)
 			except: 
 				pass
+			interests = find_same_interests(request.user, single_user)
 
 
 	except PageNotAnInteger:
@@ -1113,6 +1115,8 @@ def single_user(request, username):
 		match.save()
 		interests_all = Interest.objects.filter(userinterestanswer__user=single_user)
 		pictures = UserPicture.objects.filter(user=single_user)
+		info = Info.objects.get(user=single_user)
+		job = Job.objcets.get(user=single_user)
 		try:
 			su_info = Info.objects.get(user=single_user)
 			single_user_is_new = su_info.is_new_user

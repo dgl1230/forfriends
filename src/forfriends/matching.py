@@ -49,6 +49,7 @@ from questions.models import Question, Answer, UserAnswer
 #Returns a tuple, where the first element is the # of categories shared and the second
 #element is the number of interests shared
 def interest_points(user1, user2):
+	start_time = datetime.now()
 	logged_in_user_interests = UserInterestAnswer.objects.filter(user=user1)
 	viewed_user_interests = UserInterestAnswer.objects.filter(user=user2)
 	categories_shared = 0
@@ -57,8 +58,10 @@ def interest_points(user1, user2):
 	user1_interest_list = []
 	user2_dict = {}
 	user2_interest_dict = {}
+	repeated_dict = {}
 	category_count1 = 0
 	category_count2 = 0
+	less_interests = 0
 	#could move this for loop into range(len(user1_list)) possibly
 	for i in logged_in_user_interests:
 		user1_list.append(i.interest.category)
@@ -70,16 +73,25 @@ def interest_points(user1, user2):
 		category_count2 = category_count2 + 1
 	for i in range(len(user1_list)):
 		user1_category = user1_list[i]
-		#check to see if both share the same category: if so, increment categories_shared
-		if user1_category in user2_dict:
-			categories_shared = categories_shared + 1
+		if user1_category not in repeated_dict:
+			repeated_dict[user1_category] = "appeared_once"
+			if user1_category in user2_dict:
+				categories_shared = categories_shared + 1
+		else:
+			continue	
 	if categories_shared != 0:
 		for i in range(len(user1_interest_list)):
 			user1_interest = user1_interest_list[i]
 			if user1_interest in user2_interest_dict:
 				interests_shared = interests_shared + 1
 	total_categories = category_count1 + category_count2
-	return_tuple = (categories_shared, interests_shared, total_categories)
+	if category_count1 <= category_count2:
+		less_interests = category_count1
+	else:
+		less_interests = category_count2
+	return_tuple = (categories_shared, interests_shared, total_categories, less_interests)
+	end_time = datetime.now()
+	logging.debug("Interest_points time is: " + str(end_time - start_time))
 	return return_tuple
 
 # Method that returns a list of shared interests between two users
@@ -125,19 +137,16 @@ def find_same_interests(user1, user2):
 				and the multiplier of importance.
 	Returns:	A list with 2 attributes, the first being user1_points and the 
 				second being user2_points: [user1_points, user2_points] '''
+#fast run time
 def answer_points(user1_answer, user2_answer, weight):
 	temp_list = []
 	user1_score, user2_score = 0, 0
-	#Find score for user1
-	if user1_answer == 1:
-		user1_score = 25  * weight
-	else:
-		user1_score = -25  * weight
-
-	#Find score for user2
-	if user2_answer == 1:
+	#If their answers are the same, both get same points. Otherwise, create a difference of at least 50
+	if user1_answer == user2_answer:
+		user1_score = 25 * weight
 		user2_score = 25 * weight
 	else:
+		user1_score = 25  * weight
 		user2_score = -25 * weight
 
 	temp_list.append(user1_score)
@@ -149,6 +158,7 @@ def answer_points(user1_answer, user2_answer, weight):
 	Returns:	A list with 2 attributes, the first being user1_points and the 
 				second being user2_points: [user1_points, user2_points] '''
 def question_points(user1, user2):
+	start_time = datetime.now()
 	user1_answers = UserAnswer.objects.filter(user=user1)
 	user2_answers = UserAnswer.objects.filter(user=user2)
 	points_possible = 0
@@ -157,25 +167,33 @@ def question_points(user1, user2):
 	percentage = 0
 	user1_list = []
 	user2_dict = {}
+	time1 = datetime.now()
 	for ans in user1_answers:
 		user1_list.append([ans.question, ans.question.weight, ans.answer.value])
+	time2 = datetime.now()
+	logging.debug("Time to fill user1_list is: " + str(time2 - time1))
 	for ans in user2_answers:
 		user2_dict[ans.question] = ans.answer.value
+	time3 = datetime.now()
+	logging.debug("Time to fill user2_dict is: " + str(time3 - time2))
 	for i in range(len(user1_list)):
 		user1_question = user1_list[i][0]
 		importance_multiplier = user1_list[i][1]
 		user1_answer = user1_list[i][2]
 		user2_answer = user2_dict.pop(user1_question, "false")
 		if user2_answer != "false":
-			points_possible += 100
+			points_possible += (50 * importance_multiplier)
 			user_list = []
 			user_list = answer_points(user1_answer, user2_answer, importance_multiplier)
 			user1_points += user_list[0]
 			user2_points += user_list[1]
-	if points_possible >= 100:
+	if points_possible != 0:
 		percentage = (points_possible - abs(user1_points - user2_points)) * 100 / points_possible
 	else:
 		percentage = 0
+	end_time = datetime.now()
+	logging.debug("Time to calculate total question_points is: " + str(end_time - time3))
+	logging.debug("Question_Points time is: " + str(end_time - start_time))
 	return percentage
 
 def match_percentage(user1, user2):
@@ -190,14 +208,16 @@ def match_percentage(user1, user2):
 	shared_categories = interest_tuple[0]
 	shared_interests = interest_tuple[1]
 	total_categories = interest_tuple[2]
+	less_interests = interest_tuple[3]
 	if (shared_interests != 0):
-		multiplier = float(shared_interests) / float(shared_categories)
+		multiplier = float(shared_interests) / float(less_interests) #highest can be 100%
 	else:
-		multiplier = float(shared_categories) / float(total_categories)
+		multiplier = float(shared_categories) / float(total_categories) #highest can be 50%, lowest can be 0% and 5% if one shared
 	interest_score = multiplier * score_difference
 	
 	
 	overall_score = int(round(question_score + interest_score))
+	#overall_score = int(round(question_score))
 	end_time = datetime.now()
 	logging.debug("Match percentage time is: " + str(end_time - start_time))
 	logging.debug("Overall match percentage is: " + str(int(round(overall_score))))
