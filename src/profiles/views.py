@@ -446,9 +446,10 @@ def generate_circle(request):
 	user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 	user_gamification.save()
 	#messages.success(request, "We're sorry, but there aren't many users nearby you right now. We rested your circle as best we could, but you can reset it again if you'd like.")
+	end_time = datetime.now()
 	logging.debug("Total run time of generate_circle is: " + str(end_time - start_time))
-	return HttpResponseRedirect(reverse('home'))
-	#return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+	#return HttpResponseRedirect(reverse('home'))
+	return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 	
 
 
