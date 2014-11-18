@@ -209,7 +209,9 @@ def match_percentage(user1, user2):
 	shared_interests = interest_tuple[1]
 	total_categories = interest_tuple[2]
 	less_interests = interest_tuple[3]
-	if (shared_interests != 0):
+	if (less_interests == 0):
+		multiplier = 0
+	elif (shared_interests != 0):
 		multiplier = float(shared_interests) / float(less_interests) #highest can be 100%
 	else:
 		multiplier = float(shared_categories) / float(total_categories) #highest can be 50%, lowest can be 0% and 5% if one shared
