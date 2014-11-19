@@ -19,7 +19,7 @@ from profiles.views import user_not_new
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def all_questions(request):
 	
-	questions_all = Question.objects.exclude(useranswer__user=request.user)
+	questions_all = Question.objects.exclude(useranswer__user=request.user).order_by('-weight')
 
 	paginator = Paginator(questions_all, 1)
 	#importance_levels = ['Very Important', 'Somewhat Important', 'Not Important']

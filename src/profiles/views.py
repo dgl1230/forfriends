@@ -342,6 +342,7 @@ def all(request):
 
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def generate_circle(request):
+	#start_time = datetime.now()
 	location = Address.objects.get(user=request.user)
 	if check_valid_location(location.city, location.state) == False:
 		messages.success(request, "We're sorry but you need to enter a valid location before you can use discover")
@@ -355,6 +356,7 @@ def generate_circle(request):
 	num_of_matches = matches = Match.objects.filter(
 			Q(user1=request.user) | Q(user2=request.user)
 			).count()
+	#time1 = datetime.now()
 	if num_of_matches < 7:
 		users = User.objects.filter(is_active=True).exclude(username=request.user.username).order_by('?')
 		i = 0
@@ -372,6 +374,7 @@ def generate_circle(request):
 					match.distance = 10000000
 				match.save()
 				i = i + 1
+
 
 	preferred_distance = 15
 	#these variables are for keeping track of users that live within certain miles, ie num_10m is 
@@ -395,9 +398,9 @@ def generate_circle(request):
 	current_circle = list(user_gamification.circle.all())
 	#requested_users = list(Match.objects.filter(Q(user1=request.user) | Q(user1_approved=True)).filter(Q(user2=request.user) | Q(user2_approved=True)))
 	# for now are_friends=True is excluded from other queries because in theory all friends should be in requested users
-	#requested_users = list(Match.objects.filter(Q(user1=request.user, user1_approved=True) | Q(user2=request.user, user2_approved=True )))
-	#excluded_users = current_circle + requested_users
-	'''
+	requested_users = list(Match.objects.filter(Q(user1=request.user, user1_approved=True) | Q(user2=request.user, user2_approved=True )))
+	excluded_users = current_circle + requested_users
+	
 	matches = Match.objects.filter(
 		Q(user1=request.user) | Q(user2=request.user)
 		).exclude(user1=request.user, user2=request.user).exclude(id__in=[o.id for o in excluded_users])
@@ -405,6 +408,7 @@ def generate_circle(request):
 	matches = Match.objects.filter(
 		Q(user1=request.user) | Q(user2=request.user)
 		).exclude(user1=request.user, user2=request.user)
+	'''
 	count = matches.count()
 
 	'''
@@ -424,9 +428,10 @@ def generate_circle(request):
 	# so we dont have more than 6-7 users in a circle at a time
 	max_match = matches.latest('id').id
 	user_gamification.circle.clear()
+	"""
 	j = 0
 	already_chosen = {}
-	start_time = datetime.now()
+	time3 = datetime.now()
 	while j < 6:
 		try:
 			random_index = randint(0, max_match - 1)
@@ -438,16 +443,37 @@ def generate_circle(request):
 		except:
 			pass
 
+	"""
+	#time3 = datetime.now()
+	temp_list = []
+	for i in range(matches.count()):
+		temp_list.append(i)
+	for i in range(6):
+		index = choose_and_remove(temp_list)
+		random_match = matches[index]
+		user_gamification.circle.add(random_match)
+	#time4 = datetime.now()
+	#logging.debug("While loop for less than 6-7 users time is: " + str(time4 - time3))
 	user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 	user_gamification.save()
 	#messages.success(request, "We're sorry, but there aren't many users nearby you right now. We rested your circle as best we could, but you can reset it again if you'd like.")
+	#end_time = datetime.now()
+	#logging.debug("Total run time of generate_circle is: " + str(end_time - start_time))
 	return HttpResponseRedirect(reverse('home'))
 	#return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+
+def choose_and_remove(items):
+	if items:
+		index = random.randrange(len(items))
+		return items.pop(index)
+	return None
+
 	
 
 
 
 def circle_distance(logged_in_user, preferred_distance):
+	start_time = datetime.now()
 	user_gamification = Gamification.objects.get(user=logged_in_user)
 	current_circle = list(user_gamification.circle.all())
 	matches = Match.objects.filter(
@@ -455,6 +481,8 @@ def circle_distance(logged_in_user, preferred_distance):
 		).exclude(user1=logged_in_user, user2=logged_in_user).exclude(are_friends=True).filter(percent__gte=70).exclude(id__in=[o.id for o in current_circle]).filter(distance__lte=preferred_distance)
 	count = matches.count()
 	if matches.count() < 7:
+		end_time = datetime.now()
+		logging.debug("Circle_Distance, matches.count() < 7, time is: " + str(end_time - start_time))
 		return 0
 	i = 0
 	already_chosen = {}
@@ -471,10 +499,11 @@ def circle_distance(logged_in_user, preferred_distance):
 				i += 1
 		except:
 			pass
-	end_time = datetime.now()
 	user_gamification.circle_reset_started = datetime.now()
 	user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 	user_gamification.save()
+	end_time = datetime.now()
+	logging.debug("Circle_Distance, runs all the way through, time is: " + str(end_time - start_time))
 	return 1
 
 
@@ -684,6 +713,16 @@ def user_not_new(user):
 	return user.is_authenticated() and user_info.signed_up_with_fb_or_goog == False
 
 
+def reset_discover(request):
+	request.session['%s' % request.user.username]=request.user.username	
+	users_all = User.objects.filter(is_active=True)
+	num_of_users = users_all.count() + 1
+	ran_num = randint(0, num_of_users - 20)
+	users_all = list(User.objects.filter(is_active=True)[ran_num:ran_num+20])
+	cache.set('cache_for_%s' % request.session['%s' % request.user.username], users_all, 120)
+	return HttpResponseRedirect(reverse('discover'))
+
+
 '''
 The Discover function creates functionality similar to tinder. Users can swipe or use arrow keys or press 
 arrows through multiple users. We display their match percentage and all other functionality displayed
@@ -701,20 +740,28 @@ def discover(request):
 	'''
 	
 	# first we check to see if a session exists
+	#trying cache for each user
+	'''
 	if not request.session.get('random_exp'):
-		request.session['random_exp']=1
+	request.session['random_exp']=1
+	'''
+	if not request.session.get('%s' % request.user.username):
+		request.session['%s' % request.user.username]=request.user.username
 	# we see if a cache exists
-	users_all = cache.get('random_exp_%d' % request.session['random_exp'])
+	users_all = cache.get('cache_for_%s' % request.session['%s' % request.user.username])
 	if not users_all:
 		# if not, we create a new one
-		'''
+		
 		users_all = User.objects.filter(is_active=True)
 		num_of_users = users_all.count() + 1
 		ran_num = randint(0, num_of_users - 20)
 		users_all = list(User.objects.filter(is_active=True)[ran_num:ran_num+20])
+		cache.set('cache_for_%s' % request.session['%s' % request.user.username], users_all, 120)
+		
 		'''
 		users_all = list(User.objects.filter(is_active=True).order_by('?'))
 		cache.set('random_exp_%d' % request.session['random_exp'], users_all, 500)
+		'''
 	paginator = Paginator(users_all, 1)
 	
 	page = request.GET.get('page')
@@ -1142,8 +1189,7 @@ def single_user(request, username):
 	direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
 	request.session['num_of_messages'] = direct_messages
 
-	end_time = datetime.now()
-	logging.debug("single_user run time is: " + str(end_time - start_time))
+	
 	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))	
 
 

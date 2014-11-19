@@ -74,6 +74,7 @@ urlpatterns = patterns('',
     url(r'^ice_breaker/$', 'profiles.views.ice_breaker', name='ice_breaker'),
     url(r'^new_user_info/$', 'profiles.views.new_user_info', name='new_user_info'),
     url(r'^discover/$', 'profiles.views.discover', name='discover'),
+    url(r'^reset_discover/$', 'profiles.views.reset_discover', name='reset_discover'),
     url(r'^friends/$', 'profiles.views.friends', name='friends'),
 
 
