@@ -1243,7 +1243,7 @@ def meet_people(request):
 	return render_to_response('home/meet_people.html', locals(), context_instance=RequestContext(request))
 
 def meet_people_online(request): 
-	return render_to_response('home/meet_people_onlines.html', locals(), context_instance=RequestContext(request))
+	return render_to_response('home/meet_people_online.html', locals(), context_instance=RequestContext(request))
 
 
 @xframe_options_exempt
