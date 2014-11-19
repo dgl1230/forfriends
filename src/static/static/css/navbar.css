@@ -421,9 +421,12 @@ form.navbar-form.navbar-left{
 	.login a{
 		padding-right:0px;
 	}
+	#go_button{
+	padding-right:5px;
+	position:absolute;
+	padding-left:5px;
+	}
 	
-}	
-
 }
 .glyphicon.glyphicon-search{
 	margin:0 auto!important;
