@@ -398,9 +398,9 @@ def generate_circle(request):
 	current_circle = list(user_gamification.circle.all())
 	#requested_users = list(Match.objects.filter(Q(user1=request.user) | Q(user1_approved=True)).filter(Q(user2=request.user) | Q(user2_approved=True)))
 	# for now are_friends=True is excluded from other queries because in theory all friends should be in requested users
-	#requested_users = list(Match.objects.filter(Q(user1=request.user, user1_approved=True) | Q(user2=request.user, user2_approved=True )))
-	#excluded_users = current_circle + requested_users
-	'''
+	requested_users = list(Match.objects.filter(Q(user1=request.user, user1_approved=True) | Q(user2=request.user, user2_approved=True )))
+	excluded_users = current_circle + requested_users
+	
 	matches = Match.objects.filter(
 		Q(user1=request.user) | Q(user2=request.user)
 		).exclude(user1=request.user, user2=request.user).exclude(id__in=[o.id for o in excluded_users])
@@ -408,6 +408,7 @@ def generate_circle(request):
 	matches = Match.objects.filter(
 		Q(user1=request.user) | Q(user2=request.user)
 		).exclude(user1=request.user, user2=request.user)
+	'''
 	count = matches.count()
 
 	'''
