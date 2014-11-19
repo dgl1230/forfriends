@@ -342,7 +342,7 @@ def all(request):
 
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def generate_circle(request):
-	start_time = datetime.now()
+	#start_time = datetime.now()
 	location = Address.objects.get(user=request.user)
 	if check_valid_location(location.city, location.state) == False:
 		messages.success(request, "We're sorry but you need to enter a valid location before you can use discover")
@@ -356,7 +356,7 @@ def generate_circle(request):
 	num_of_matches = matches = Match.objects.filter(
 			Q(user1=request.user) | Q(user2=request.user)
 			).count()
-	time1 = datetime.now()
+	#time1 = datetime.now()
 	if num_of_matches < 7:
 		users = User.objects.filter(is_active=True).exclude(username=request.user.username).order_by('?')
 		i = 0
@@ -374,8 +374,8 @@ def generate_circle(request):
 					match.distance = 10000000
 				match.save()
 				i = i + 1
-	time2 = datetime.now()
-	logging.debug("Generate_Circle, num_of_matches < 7, time is: " + str(time2 - time1))
+	#time2 = datetime.now()
+	#logging.debug("Generate_Circle, num_of_matches < 7, time is: " + str(time2 - time1))
 
 	preferred_distance = 15
 	#these variables are for keeping track of users that live within certain miles, ie num_10m is 
@@ -443,22 +443,21 @@ def generate_circle(request):
 		except:
 			pass
 	"""
-	time3 = datetime.now()
+	#time3 = datetime.now()
 	temp_list = []
 	for i in range(matches.count()):
 		temp_list.append(i)
-	logging.debug("Match id's are : " + str(temp_list))
 	for i in range(6):
 		index = choose_and_remove(temp_list)
 		random_match = matches[index]
 		user_gamification.circle.add(random_match)
-	time4 = datetime.now()
-	logging.debug("While loop for less than 6-7 users time is: " + str(time4 - time3))
+	#time4 = datetime.now()
+	#logging.debug("While loop for less than 6-7 users time is: " + str(time4 - time3))
 	user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 	user_gamification.save()
 	#messages.success(request, "We're sorry, but there aren't many users nearby you right now. We rested your circle as best we could, but you can reset it again if you'd like.")
-	end_time = datetime.now()
-	logging.debug("Total run time of generate_circle is: " + str(end_time - start_time))
+	#end_time = datetime.now()
+	#logging.debug("Total run time of generate_circle is: " + str(end_time - start_time))
 	#return HttpResponseRedirect(reverse('home'))
 	return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 
