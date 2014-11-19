@@ -223,6 +223,16 @@ $(document).keydown(function(e) {
     e.preventDefault(); // prevent the default action (scroll / move caret)
 });
 </script>
+<script>
+$(function() {
+    $("#myfriend").swipe({
+        swipeLeft:function(event, direction, distance, duration, fingerCount, fingerData) {
+            window.location.href =
+                "?page={{ questions.next_page_number }}";
+        }
+    });
+});
+</script>
 
 {% endif %}
 {% if questions.has_next %}
@@ -237,6 +247,16 @@ $(document).keydown(function(e) {
         default: return; // exit this handler for other keys
     }
     e.preventDefault(); // prevent the default action (scroll / move caret)
+});
+</script>
+<script>
+$(function() {
+    $("#myfriend").swipe({
+        swipeLeft:function(event, direction, distance, duration, fingerCount, fingerData) {
+            window.location.href =
+                "?page={{ questions.next_page_number }}";
+        }
+    });
 });
 </script>
 {% endif %}

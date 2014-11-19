@@ -33,7 +33,7 @@
 		{% endif %}
 	</div>	
 
-	{% if users.has_previous %}
+		{% if users.has_previous %}
 			<div class="previous_user"><a href="?page={{ users.previous_page_number }}"><span class='glyphicon glyphicon-arrow-left'></span></a></div>
 		{% else %}
 			<div class="previous_user_hidden"><a href=""><span class='glyphicon glyphicon-arrow-left'></span></a></div>
@@ -42,7 +42,7 @@
 			<div class="next_user" id="next_user"><a href="?page={{ users.next_page_number }}"><span class='glyphicon glyphicon-arrow-right'></span></a>
 			</div>
 		{% else %}
-			<div class="next_user_hidden"><a href=""><span class='glyphicon glyphicon-arrow-right'></a></span></div>
+			<div class="next_user" id="next_user"><a href="{{ reset_discover }}"><span class='glyphicon glyphicon-arrow-right'></span></a>
 		{% endif %}
 		{% if not request.user == single_user %}
 			{% if single_user_is_new %}
@@ -59,7 +59,8 @@
 			<h4 id="very_weak">Weak Match</h4>
 			{% endif %}
 	{% endif %}
-	<h4 id="location">{% for item in single_user.address_set.all %}
+	<h4 id="location">
+		{% for item in single_user.address_set.all %}
 		{{ item.city|title }}, {% if item.state|length == 2 %} {{ item.state|upper }} {% else %} {{ item.state|capfirst }} {% endif %}
 		{% endfor %}
 		{% ifnotequal match.distance 10000000 %}
@@ -163,6 +164,18 @@ $(function() {
         swipeLeft:function(event, direction, distance, duration, fingerCount, fingerData) {
             window.location.href =
                 "?page={{ users.next_page_number }}";
+        }
+    });
+});
+
+</script>
+{% else %}
+<script>
+$(function() {
+    $("#myfriend").swipe({
+        swipeLeft:function(event, direction, distance, duration, fingerCount, fingerData) {
+            window.location.href =
+                "{{ reset_discover }}";
         }
     });
 });
