@@ -8,7 +8,7 @@ from random import randint
 
 from django.shortcuts import render
 from django.contrib import messages
-from django.shortcuts import render_to_response, RequestContext, Http404, HttpResponseRedirect
+from django.shortcuts import render_to_response, RequestContext, Http404, HttpResponseRedirect, redirect
 from django.contrib.auth.models import User
 from django.forms.models import modelformset_factory
 from django.db.models import Q, Max
