@@ -720,7 +720,8 @@ def reset_discover(request):
 	ran_num = randint(0, num_of_users - 20)
 	users_all = list(User.objects.filter(is_active=True)[ran_num:ran_num+20])
 	cache.set('cache_for_%s' % request.session['%s' % request.user.username], users_all, 120)
-	return HttpResponseRedirect(reverse('discover'))
+	#return HttpResponseRedirect(reverse('discover'))
+	return redirect('http://www.frenvu.com/discover/?page=1')
 
 
 '''
