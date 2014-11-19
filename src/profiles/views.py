@@ -1230,6 +1230,21 @@ def help(request):
 def jobs(request): 
 	return render_to_response('home/jobs.html', locals(), context_instance=RequestContext(request))
 
+def find_friends(request): 
+	return render_to_response('home/find_friends.html', locals(), context_instance=RequestContext(request))
+
+def make_friends(request): 
+	return render_to_response('home/make_friends.html', locals(), context_instance=RequestContext(request))
+
+def make_friends_online(request): 
+	return render_to_response('home/make_friends_online.html', locals(), context_instance=RequestContext(request))
+
+def meet_people(request): 
+	return render_to_response('home/meet_people.html', locals(), context_instance=RequestContext(request))
+
+def meet_people_online(request): 
+	return render_to_response('home/meet_people_onlines.html', locals(), context_instance=RequestContext(request))
+
 
 @xframe_options_exempt
 def press(request): 

@@ -86,6 +86,11 @@ urlpatterns = patterns('',
     url(r'^contact$', 'profiles.views.contact'),
     url(r'^cookies$', 'profiles.views.cookies'),
     url(r'^help$', 'profiles.views.help'),
+    url(r'^make_friends$', 'profiles.views.make_friends'),
+    url(r'^make_friends_online$', 'profiles.views.make_friends_online'),
+    url(r'^meet_people$', 'profiles.views.meet_people'),
+    url(r'^meet_people_online$', 'profiles.views.meet_people_online'),
+    url(r'^find_friends$', 'profiles.views.find_friends'),
     url(r'^jobs$', 'profiles.views.jobs'),
 
 )
