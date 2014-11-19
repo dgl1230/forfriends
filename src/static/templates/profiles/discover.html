@@ -42,7 +42,8 @@
 			<div class="next_user" id="next_user"><a href="?page={{ users.next_page_number }}"><span class='glyphicon glyphicon-arrow-right'></span></a>
 			</div>
 		{% else %}
-			<div class="next_user" id="next_user"><a href="{{ reset_discover }}"><span class='glyphicon glyphicon-arrow-right'></span></a>
+			<div class="next_user" id="next_user"><a href='{% url "reset_discover" %}'><span class='glyphicon glyphicon-arrow-right'></span></a>
+			</div>
 		{% endif %}
 		{% if not request.user == single_user %}
 			{% if single_user_is_new %}
@@ -175,7 +176,7 @@ $(function() {
     $("#myfriend").swipe({
         swipeLeft:function(event, direction, distance, duration, fingerCount, fingerData) {
             window.location.href =
-                "{{ reset_discover }}";
+                '{% url "reset_discover" %}';
         }
     });
 });

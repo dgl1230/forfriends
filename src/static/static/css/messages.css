@@ -207,6 +207,7 @@ label[for=id_body]{
 }
 #go_button{
 	border-radius: 10px!important;
+	position:absolute;
 }
 
 #compose_message_container label{
