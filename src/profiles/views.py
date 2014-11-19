@@ -713,6 +713,16 @@ def user_not_new(user):
 	return user.is_authenticated() and user_info.signed_up_with_fb_or_goog == False
 
 
+def reset_discover(request):
+	request.session['%s' % request.user.username]=request.user.username	
+	users_all = User.objects.filter(is_active=True)
+	num_of_users = users_all.count() + 1
+	ran_num = randint(0, num_of_users - 20)
+	users_all = list(User.objects.filter(is_active=True)[ran_num:ran_num+20])
+	cache.set('cache_for_%s' % request.session['%s' % request.user.username], users_all, 120)
+	return HttpResponseRedirect(reverse('discover'))
+
+
 '''
 The Discover function creates functionality similar to tinder. Users can swipe or use arrow keys or press 
 arrows through multiple users. We display their match percentage and all other functionality displayed
