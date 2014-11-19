@@ -24,9 +24,11 @@
 	padding-top:200px;
 	padding-left:5px;
 	padding-right:5px;
+	font-size:40px;
 }
 .post h1{
 	color: white;
+	font-size:48px;
 }
 
 .login_button{

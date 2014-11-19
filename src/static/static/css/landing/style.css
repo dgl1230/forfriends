@@ -220,7 +220,7 @@ select{
     min-height:300px;
   }
   .parallax2{
-    background-image: url(/static/img/landing/people_car_compressed_dark.jpg);
+    background-image: url(/static/img/landing/eco-data.jpg);
     min-height:500px;
     background-attachment: fixed;
     background-position: center;
@@ -433,7 +433,7 @@ input[type=submit]:hover{
   background-position: center;
   }
   .parallax2{
-    background-image: url(/static/img/landing/people_car_mobile.jpg);
+    background-image: url(/static/img/landing/eco-data-mobile.jpg);
     min-height:500px;
     background-size: cover;
     -webkit-background-size:cover!important;
@@ -484,7 +484,7 @@ and (max-width : 1200px){
   background-position: center;
   }
   .parallax2{
-    background-image: url(/static/img/landing/people_car_compressed_dark_medium.jpg);
+    background-image: url(/static/img/landing/eco-data-medium.jpg);
     min-height:500px;
     background-size: cover;
     -webkit-background-size:cover!important;
