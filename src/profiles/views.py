@@ -445,8 +445,8 @@ def generate_circle(request):
 	"""
 	time3 = datetime.now()
 	temp_list = []
-	for i in matches:
-		temp_list.append(i.id)
+	for i in range(matches.count() - 1):
+		temp_list.append(i))
 	logging.debug("Match id's are : " + str(temp_list))
 	for i in range(6):
 		index = choose_and_remove(temp_list)
