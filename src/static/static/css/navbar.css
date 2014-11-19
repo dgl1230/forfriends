@@ -422,7 +422,9 @@ form.navbar-form.navbar-left{
 		padding-right:0px;
 	}
 	#go_button{
+	padding-right:5px;
 	position:absolute;
+	padding-left:5px;
 	}
 	
 }
