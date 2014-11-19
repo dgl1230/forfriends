@@ -447,6 +447,7 @@ def generate_circle(request):
 	temp_list = []
 	for i in matches:
 		temp_list.append(i.id)
+	logging.debug("Match id's are : " + str(temp_list))
 	for i in range(6):
 		index = choose_and_remove(temp_list)
 		random_match = matches[index]
