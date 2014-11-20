@@ -686,7 +686,7 @@ def new_user_info(request):
 				line6 = " - The Team at Frenvu "
 				body = line1 + line2 + line3 + line4 + line5 + line6
 				sender = User.objects.get(username="TeamFrenvu")
-				new_user_welcome_message = DirectMessage.objects.create(subject=subject, body=body, receiver=request.user, sender=sender)
+				new_user_welcome_message = DirectMessage.objects.create(subject=subject, body=body, receiver=request.user, sender=sender, sent=datetime.now())
 				new_user_welcome_message.save()
 
 				email = request.user.email
