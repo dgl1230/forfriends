@@ -4,7 +4,30 @@
 </head>
 
 {% block content %}
-
+<style>
+#vis_modal{
+display: block;
+position: fixed;
+top: 300px;
+right: 0px;
+bottom: 0px;
+left: 0px;
+z-index: 1050;
+overflow: visible;
+outline: 0px none;
+opacity:1;
+}
+#vis_modal a{
+	background-color:white!important;
+}
+#vis_modal a:hover{
+	background-color:white!important;
+}
+#vis_modal #message_button{
+	background-color:white!important;
+	border-color: #1fbad6;
+}
+</style>
 <div class="row" id="annoying_row">
 	<div class="col-md-1" id="secondary_navbar">
         <h1></h1>
@@ -130,12 +153,39 @@
 	</div><!--End info-->
 </div>
 
+
+<div class="modal fade" id="vis_modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Found a match!</h4>
+      </div>
+      <div class="modal-body">
+        <p>Hi {{ request.user.username }}, it looks like you and {{ single_user.username }} have <a href="">{% for interest in interests %}
+			{{ interest }}
+				{% endfor %}</a> in common. What is it you like about {% for interest in interests %}
+			{{ interest }}
+				{% endfor %}? Let {{ single_user.username }} know!
+      </div>
+      <div class="modal-footer">
+      	<button type="button" id="message_button" data-dismiss="modal">Ok</button>
+        <div class="modal-footer">
+      </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
 <script>
 $('#friend_button').click(function(){
 	$('#add_me').text("Request Sent");
 	$.get('{% url "add_friend" single_user.username %}');	
 });
 </script>
+
+
 
 
 
