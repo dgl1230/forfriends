@@ -13,6 +13,9 @@ textarea:focus, input:focus{
 	outline:0;
 	outline:none;
 }
+.invisibile{
+	visibility: hidden;
+}
 
 #name_of_user{
 	font-size:3.2rem!important;

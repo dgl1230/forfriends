@@ -21,12 +21,14 @@
 	margin:0px auto;
 	color: white!important;
 	vertical-align: middle;
-	padding-top:200px;
+	padding-top:120px;
 	padding-left:5px;
 	padding-right:5px;
+	font-size:40px;
 }
 .post h1{
 	color: white;
+	font-size:48px;
 }
 
 .login_button{

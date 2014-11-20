@@ -45,7 +45,7 @@
 			<h4 id="average">New User</h4>
 			{% elif match.percent >= 90 %}
 			<h4 id="average">Excellent Match</h4>
-			{% elif match.percent >= 75 %}
+			{% elif match.percent >= 80 %}
 			<h4 id="good">Very Good Match</h4>
 			{% elif match.percent >= 60 %}
 			<h4 id="average">Good Match</h4>
@@ -85,6 +85,7 @@
 			</div>
     <div id="information">
     	{% if info.bio %}
+    	{% if not info.bio == "None" %}
         <div class='panel panel-default'>
             <div class='panel-heading' id='bio_panel'>
                 <p>{% if not request.user == single_user %} {{ single_user.username }} in a sentence {% else %} Me in a
@@ -97,8 +98,10 @@
         </div>
         {% else %}
         {% endif %}
+        {% else %}
+        {% endif %}
         {% if job %}
-         <div class='panel panel-default'>
+        <div class='panel panel-default'>
             <div class='panel-heading' id='occ_panel'>
                 <p>Occupation</p>
             </div>
@@ -106,10 +109,11 @@
             {% for item in single_user.job_set.all %}{{item.position|title}} at
             {{item.employer|title}}{% endfor %}
             </div>
+        </div>
         {% else %}
         {% endif %}
-        </div>
         {% if not request.user == single_user %}
+        {% if interests %}
         <div class='panel panel-default'>
             <div class='panel-heading' id='occ_panel'>
                 <p>Interests</p>
@@ -120,6 +124,8 @@
 				{% endfor %}
             </div>
     	</div><!--End Panel -->
+    	{% else %}
+    	{% endif %}
     	{% endif %}
 	</div><!--End info-->
 </div>

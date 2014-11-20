@@ -33,7 +33,7 @@
 		{% endif %}
 	</div>	
 
-	{% if users.has_previous %}
+		{% if users.has_previous %}
 			<div class="previous_user"><a href="?page={{ users.previous_page_number }}"><span class='glyphicon glyphicon-arrow-left'></span></a></div>
 		{% else %}
 			<div class="previous_user_hidden"><a href=""><span class='glyphicon glyphicon-arrow-left'></span></a></div>
@@ -42,7 +42,8 @@
 			<div class="next_user" id="next_user"><a href="?page={{ users.next_page_number }}"><span class='glyphicon glyphicon-arrow-right'></span></a>
 			</div>
 		{% else %}
-			<div class="next_user_hidden"><a href=""><span class='glyphicon glyphicon-arrow-right'></a></span></div>
+			<div class="next_user" id="next_user"><a href='{% url "reset_discover" %}'><span class='glyphicon glyphicon-arrow-right'></span></a>
+			</div>
 		{% endif %}
 		{% if not request.user == single_user %}
 			{% if single_user_is_new %}
@@ -59,7 +60,8 @@
 			<h4 id="very_weak">Weak Match</h4>
 			{% endif %}
 	{% endif %}
-	<h4 id="location">{% for item in single_user.address_set.all %}
+	<h4 id="location">
+		{% for item in single_user.address_set.all %}
 		{{ item.city|title }}, {% if item.state|length == 2 %} {{ item.state|upper }} {% else %} {{ item.state|capfirst }} {% endif %}
 		{% endfor %}
 		{% ifnotequal match.distance 10000000 %}
@@ -88,8 +90,21 @@
 		
 		{% endif %}
 		<div id="information">
-        {% if single_user.job_set.all %}
-         <div class='panel panel-default'>
+        {% if info.bio %}
+        <div class='panel panel-default'>
+            <div class='panel-heading' id='bio_panel'>
+                <p>{% if not request.user == single_user %} {{ single_user.username }} in a sentence {% else %} Me in a
+                sentence {% endif %}</p>
+                <p id='info_edit'></p>
+            </div>
+            <div class='panel-body' id='bio_body'>
+                {% for item in single_user.info_set.all %}{% if forloop.first %}{{item.bio}}{% endif %}{% endfor %}
+            </div>
+        </div>
+        {% else %}
+        {% endif %}
+        {% if job %}
+        <div class='panel panel-default'>
             <div class='panel-heading' id='occ_panel'>
                 <p>Occupation</p>
             </div>
@@ -97,27 +112,24 @@
             {% for item in single_user.job_set.all %}{{item.position|title}} at
             {{item.employer|title}}{% endfor %}
             </div>
-            {% else %}
-        {% endif %}
-         <div class='panel panel-default'>
-            <div class='panel-heading' id='occ_panel'>
-                <p>Occupation</p>
-            </div>
-            <div class='panel-body' id='occ_body'>
-                {% for item in single_user.job_set.all %}{{item.position|title}} at
-            {{item.employer|title}}{% endfor %}
-            </div>
         </div>
+        {% else %}
+        {% endif %}
+        {% if not request.user == single_user %}
+        {% if interests %}
         <div class='panel panel-default'>
             <div class='panel-heading' id='occ_panel'>
                 <p>Interests</p>
             </div>
             <div class='panel-body' id='occ_body'>
-               {% for interest in interests_all %}
-			<p>{{ interest.interest }},</p>
+               {% for interest in interests %}
+			<p class="common_interest">{{ interest }}</p>
 				{% endfor %}
             </div>
     	</div><!--End Panel -->
+    	{% else %}
+    	{% endif %}
+    	{% endif %}
 	</div><!--End info-->
 		</div>
 	</div>
@@ -158,9 +170,18 @@ $(function() {
 });
 
 </script>
+{% else %}
+<script>
+$(function() {
+    $("#myfriend").swipe({
+        swipeLeft:function(event, direction, distance, duration, fingerCount, fingerData) {
+            window.location.href =
+                '{% url "reset_discover" %}';
+        }
+    });
+});
+</script>
 {% endif %}
-
-
 <script>
 $('#friend_button').click(function(){
 	$('#add_me').text("Request Sent");

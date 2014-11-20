@@ -74,6 +74,7 @@ urlpatterns = patterns('',
     url(r'^ice_breaker/$', 'profiles.views.ice_breaker', name='ice_breaker'),
     url(r'^new_user_info/$', 'profiles.views.new_user_info', name='new_user_info'),
     url(r'^discover/$', 'profiles.views.discover', name='discover'),
+    url(r'^reset_discover/$', 'profiles.views.reset_discover', name='reset_discover'),
     url(r'^friends/$', 'profiles.views.friends', name='friends'),
 
 
@@ -85,6 +86,11 @@ urlpatterns = patterns('',
     url(r'^contact$', 'profiles.views.contact'),
     url(r'^cookies$', 'profiles.views.cookies'),
     url(r'^help$', 'profiles.views.help'),
+    url(r'^make_friends$', 'profiles.views.make_friends'),
+    url(r'^make_friends_online$', 'profiles.views.make_friends_online'),
+    url(r'^meet_people$', 'profiles.views.meet_people'),
+    url(r'^meet_people_online$', 'profiles.views.meet_people_online'),
+    url(r'^find_friends$', 'profiles.views.find_friends'),
     url(r'^jobs$', 'profiles.views.jobs'),
 
 )

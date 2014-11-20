@@ -24,9 +24,22 @@
   </div>
 
 <div class="wrapper">
-  <div class="header">
-  <h1>This page is under construction! Please check back tomorrow.
-  </h1> 
+  <div class='contact_form_wrapper'>
+<div id="form-main">
+  <div id="form-div">
+    <form class="form" id="form1" action='' method='POST'>
+      {% csrf_token %}
+      <p class="text">
+        <textarea name="message" class="validate[required,length[6,300]] feedback-input" id="comment"></textarea>
+      </p>
+      <div class="submit">
+        <input type="submit" value="Contact Us" id="button-blue"/>
+        <div class="ease"></div>
+      </div>
+    </form>
+  </div><!--Form Div-->
+</div><!--Form Main-->
+</div>
   </div><!--wrapper-->
 </div>
 <!--========================Footer======================= -->
@@ -50,7 +63,7 @@
     <a href="/terms_and_agreement"><li>
       Terms and Conditions
     </li></a>
-    <a href="/cookies/"><li>
+    <a href="/cookies"><li>
       Cookies
     </li></a>
     <a class="active" href="/contact"><li>

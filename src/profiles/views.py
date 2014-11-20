@@ -8,7 +8,7 @@ from random import randint
 
 from django.shortcuts import render
 from django.contrib import messages
-from django.shortcuts import render_to_response, RequestContext, Http404, HttpResponseRedirect
+from django.shortcuts import render_to_response, RequestContext, Http404, HttpResponseRedirect, redirect
 from django.contrib.auth.models import User
 from django.forms.models import modelformset_factory
 from django.db.models import Q, Max
@@ -374,8 +374,7 @@ def generate_circle(request):
 					match.distance = 10000000
 				match.save()
 				i = i + 1
-	#time2 = datetime.now()
-	#logging.debug("Generate_Circle, num_of_matches < 7, time is: " + str(time2 - time1))
+
 
 	preferred_distance = 15
 	#these variables are for keeping track of users that live within certain miles, ie num_10m is 
@@ -399,9 +398,9 @@ def generate_circle(request):
 	current_circle = list(user_gamification.circle.all())
 	#requested_users = list(Match.objects.filter(Q(user1=request.user) | Q(user1_approved=True)).filter(Q(user2=request.user) | Q(user2_approved=True)))
 	# for now are_friends=True is excluded from other queries because in theory all friends should be in requested users
-	#requested_users = list(Match.objects.filter(Q(user1=request.user, user1_approved=True) | Q(user2=request.user, user2_approved=True )))
-	#excluded_users = current_circle + requested_users
-	'''
+	requested_users = list(Match.objects.filter(Q(user1=request.user, user1_approved=True) | Q(user2=request.user, user2_approved=True )))
+	excluded_users = current_circle + requested_users
+	
 	matches = Match.objects.filter(
 		Q(user1=request.user) | Q(user2=request.user)
 		).exclude(user1=request.user, user2=request.user).exclude(id__in=[o.id for o in excluded_users])
@@ -409,6 +408,7 @@ def generate_circle(request):
 	matches = Match.objects.filter(
 		Q(user1=request.user) | Q(user2=request.user)
 		).exclude(user1=request.user, user2=request.user)
+	'''
 	count = matches.count()
 
 	'''
@@ -442,6 +442,7 @@ def generate_circle(request):
 				j += 1
 		except:
 			pass
+
 	"""
 	#time3 = datetime.now()
 	temp_list = []
@@ -458,14 +459,15 @@ def generate_circle(request):
 	#messages.success(request, "We're sorry, but there aren't many users nearby you right now. We rested your circle as best we could, but you can reset it again if you'd like.")
 	#end_time = datetime.now()
 	#logging.debug("Total run time of generate_circle is: " + str(end_time - start_time))
-	#return HttpResponseRedirect(reverse('home'))
-	return render_to_response('all.html', locals(), context_instance=RequestContext(request))
+	return HttpResponseRedirect(reverse('home'))
+	#return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 
 def choose_and_remove(items):
 	if items:
 		index = random.randrange(len(items))
 		return items.pop(index)
 	return None
+
 	
 
 
@@ -684,7 +686,7 @@ def new_user_info(request):
 				line6 = " - The Team at Frenvu "
 				body = line1 + line2 + line3 + line4 + line5 + line6
 				sender = User.objects.get(username="TeamFrenvu")
-				new_user_welcome_message = DirectMessage.objects.create(subject=subject, body=body, receiver=request.user, sender=sender)
+				new_user_welcome_message = DirectMessage.objects.create(subject=subject, body=body, receiver=request.user, sender=sender, sent=datetime.now())
 				new_user_welcome_message.save()
 
 				email = request.user.email
@@ -711,6 +713,17 @@ def user_not_new(user):
 	return user.is_authenticated() and user_info.signed_up_with_fb_or_goog == False
 
 
+def reset_discover(request):
+	request.session['%s' % request.user.username]=request.user.username	
+	users_all = User.objects.filter(is_active=True)
+	num_of_users = users_all.count() + 1
+	ran_num = randint(0, num_of_users - 20)
+	users_all = list(User.objects.filter(is_active=True)[ran_num:ran_num+20])
+	cache.set('cache_for_%s' % request.session['%s' % request.user.username], users_all, 120)
+	#return HttpResponseRedirect(reverse('discover'))
+	return redirect('http://www.frenvu.com/discover/?page=1')
+
+
 '''
 The Discover function creates functionality similar to tinder. Users can swipe or use arrow keys or press 
 arrows through multiple users. We display their match percentage and all other functionality displayed
@@ -728,20 +741,28 @@ def discover(request):
 	'''
 	
 	# first we check to see if a session exists
+	#trying cache for each user
+	'''
 	if not request.session.get('random_exp'):
-		request.session['random_exp']=1
+	request.session['random_exp']=1
+	'''
+	if not request.session.get('%s' % request.user.username):
+		request.session['%s' % request.user.username]=request.user.username
 	# we see if a cache exists
-	users_all = cache.get('random_exp_%d' % request.session['random_exp'])
+	users_all = cache.get('cache_for_%s' % request.session['%s' % request.user.username])
 	if not users_all:
 		# if not, we create a new one
-		'''
+		
 		users_all = User.objects.filter(is_active=True)
 		num_of_users = users_all.count() + 1
 		ran_num = randint(0, num_of_users - 20)
 		users_all = list(User.objects.filter(is_active=True)[ran_num:ran_num+20])
+		cache.set('cache_for_%s' % request.session['%s' % request.user.username], users_all, 120)
+		
 		'''
 		users_all = list(User.objects.filter(is_active=True).order_by('?'))
 		cache.set('random_exp_%d' % request.session['random_exp'], users_all, 500)
+		'''
 	paginator = Paginator(users_all, 1)
 	
 	page = request.GET.get('page')
@@ -1169,8 +1190,7 @@ def single_user(request, username):
 	direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
 	request.session['num_of_messages'] = direct_messages
 
-	end_time = datetime.now()
-	logging.debug("single_user run time is: " + str(end_time - start_time))
+	
 	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))	
 
 
@@ -1210,6 +1230,21 @@ def help(request):
 
 def jobs(request): 
 	return render_to_response('home/jobs.html', locals(), context_instance=RequestContext(request))
+
+def find_friends(request): 
+	return render_to_response('home/find_friends.html', locals(), context_instance=RequestContext(request))
+
+def make_friends(request): 
+	return render_to_response('home/make_friends.html', locals(), context_instance=RequestContext(request))
+
+def make_friends_online(request): 
+	return render_to_response('home/make_friends_online.html', locals(), context_instance=RequestContext(request))
+
+def meet_people(request): 
+	return render_to_response('home/meet_people.html', locals(), context_instance=RequestContext(request))
+
+def meet_people_online(request): 
+	return render_to_response('home/meet_people_online.html', locals(), context_instance=RequestContext(request))
 
 
 @xframe_options_exempt
