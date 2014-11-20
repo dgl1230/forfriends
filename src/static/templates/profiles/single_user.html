@@ -85,6 +85,7 @@
 			</div>
     <div id="information">
     	{% if info.bio %}
+    	{% if not info.bio == "None" %}
         <div class='panel panel-default'>
             <div class='panel-heading' id='bio_panel'>
                 <p>{% if not request.user == single_user %} {{ single_user.username }} in a sentence {% else %} Me in a
@@ -95,6 +96,8 @@
                 {% for item in single_user.info_set.all %}{% if forloop.first %}{{item.bio}}{% endif %}{% endfor %}
             </div>
         </div>
+        {% else %}
+        {% endif %}
         {% else %}
         {% endif %}
         {% if job %}
