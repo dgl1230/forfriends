@@ -4,14 +4,24 @@
 {% if questions.has_next %}
 {% endif %}
 
-<div id="big_wrapper">
+<div class="personality_all_wrapper" id="big_wrapper">
 	<div class="col-md-1" id="secondary_navbar">
         <h1>Personality</h1>
 	</div>
 	<div class="col-md-1" id="tertiary_navbar">
-		<span class="glyphicon glyphicon-question-sign" id="tertiary-icon"></span>
+        {% if questions.has_previous %}
+		<a id="arrow" href="?page={{ questions.previous_page_number }}"><span class="glyphicon glyphicon-circle-arrow-left" id="tertiary-icon"></span></a>
+        {% else %}
+        <a id="arrow" class="invisible" href=""><span checklass="glyphicon glyphicon-circle-arrow-left" id="tertiary-icon"></span></a>
+        {% endif %}
+        
      	<a href="/questions/edit/">Edit Answers</a>
-     	<span class="glyphicon glyphicon-question-sign" id="tertiary-icon"></span>
+
+        {% if questions.has_next %}
+     	<a id="arrow" href="?page={{ questions.next_page_number }}"><span class="glyphicon glyphicon-circle-arrow-right" id="tertiary-icon"></span></a>
+        {% else %}
+        <a id="arrow" class="invisibile" href=""><span class="glyphicon glyphicon-circle-arrow-right" id="tertiary-icon"></span></a>
+        {% endif %}
 	</div>
 {% if questions_left == 0%}
 	<h3 id="no_pictures">You've answered all of the questions available right now! <a href="/discover/?page=1" id="upload_more_pictures"> Now check out how you match up with other users!</a></h3>
@@ -26,23 +36,6 @@
 </div>
 </div>
 {% endif %}
-
-<div class="pagination">
-	<span class="step-links">
-		<ul class="pager">
-			<div class="directions">
-				{% if questions.has_previous %}
-					<li class="previous"><a href="?page={{ questions.previous_page_number }}">&larr;</a></li>
-				{% endif %}
-
-				{% if questions.has_next %}
-					<li class="next" id="next" ontouchstart="touchStart(event,'main_interests');" ontouchend="touchEnd(event);" ontouchmove="touchMove(event);" ontouchcancel="touchCancel(event);"><a href="?page={{ questions.next_page_number }}">&rarr;</a></li>
-				{% endif %}
-			</div>
-		</ul>
-	</span>
-</div>
-
 
 <div class='row' id="question-wrapper">
 	{% for question in questions %}
