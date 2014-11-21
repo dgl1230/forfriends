@@ -15,7 +15,16 @@
 	min-height:300px;
 	vertical-align: middle;
 }
-
+.call_link{
+  margin-top:50px;
+  color:white;
+}
+.call_link a{
+	color:#1fbad6;
+}
+.call_link a:hover{
+	opacity: .8;
+}
 .post h2{
 	width:50%;
 	margin:0px auto;
