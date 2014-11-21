@@ -454,7 +454,17 @@ form.navbar-form.navbar-left{
 .private{
 	padding-left:40px;
 	padding-right:40px;
+	text-align: center;
 }
 .private a{
   color:#1fbad6;
+}
+.private a:hover{
+  opacity:.8;
+}
+
+@media (max-width: 420px){
+	.private a{
+  	font-size:14px;
+	}
 }
