@@ -449,9 +449,12 @@ def generate_circle(request):
 	for i in range(matches.count()):
 		temp_list.append(i)
 	for i in range(6):
-		index = choose_and_remove(temp_list)
-		random_match = matches[index]
-		user_gamification.circle.add(random_match)
+		try:
+			index = choose_and_remove(temp_list)
+			random_match = matches[index]
+			user_gamification.circle.add(random_match)
+		except:
+			pass
 	#time4 = datetime.now()
 	#logging.debug("While loop for less than 6-7 users time is: " + str(time4 - time3))
 	user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
