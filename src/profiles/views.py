@@ -403,7 +403,7 @@ def generate_circle(request):
 	
 	matches = Match.objects.filter(
 		Q(user1=request.user) | Q(user2=request.user)
-		).exclude(user1=request.user, user2=request.user).exclude(id__in=[o.id for o in excluded_users])
+		).exclude(user1=request.user, user2=request.user)
 	'''
 	matches = Match.objects.filter(
 		Q(user1=request.user) | Q(user2=request.user)
