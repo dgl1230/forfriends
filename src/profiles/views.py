@@ -8,7 +8,7 @@ from random import randint
 
 from django.shortcuts import render
 from django.contrib import messages
-from django.shortcuts import render_to_response, RequestContext, Http404, HttpResponseRedirect
+from django.shortcuts import render_to_response, RequestContext, Http404, HttpResponseRedirect, redirect
 from django.contrib.auth.models import User
 from django.forms.models import modelformset_factory
 from django.db.models import Q, Max
@@ -403,7 +403,7 @@ def generate_circle(request):
 	
 	matches = Match.objects.filter(
 		Q(user1=request.user) | Q(user2=request.user)
-		).exclude(user1=request.user, user2=request.user).exclude(id__in=[o.id for o in excluded_users])
+		).exclude(user1=request.user, user2=request.user)
 	'''
 	matches = Match.objects.filter(
 		Q(user1=request.user) | Q(user2=request.user)
@@ -686,7 +686,7 @@ def new_user_info(request):
 				line6 = " - The Team at Frenvu "
 				body = line1 + line2 + line3 + line4 + line5 + line6
 				sender = User.objects.get(username="TeamFrenvu")
-				new_user_welcome_message = DirectMessage.objects.create(subject=subject, body=body, receiver=request.user, sender=sender)
+				new_user_welcome_message = DirectMessage.objects.create(subject=subject, body=body, receiver=request.user, sender=sender, sent=datetime.now())
 				new_user_welcome_message.save()
 
 				email = request.user.email
@@ -720,7 +720,8 @@ def reset_discover(request):
 	ran_num = randint(0, num_of_users - 20)
 	users_all = list(User.objects.filter(is_active=True)[ran_num:ran_num+20])
 	cache.set('cache_for_%s' % request.session['%s' % request.user.username], users_all, 120)
-	return HttpResponseRedirect(reverse('discover'))
+	#return HttpResponseRedirect(reverse('discover'))
+	return redirect('http://www.frenvu.com/discover/?page=1')
 
 
 '''
@@ -1137,60 +1138,79 @@ def register_new_user(request):
 
 
 #Displays the profile page of a specific user and their match % against the logged in user
-@user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
+
 def single_user(request, username):
-	start_time = datetime.now()
-	try:
-		user = User.objects.get(username=username)
-		if user.is_active:
-			single_user = user
-	except:
-		raise Http404
-	try:
-		profile_pic = UserPicture.objects.get(user=single_user, is_profile_pic=True)
-	except: 
-		pass
-	 
-	try:
-		info = Info.objects.get(user=single_user)
-	except:
-		pass
-	try:
-		job = Job.objects.get(user=single_user)
-	except:
-		pass
-	if single_user != request.user:
-		try: 
-			match = Match.objects.get(user1=request.user, user2=single_user)
-		except: 
-			match, created = Match.objects.get_or_create(user1=single_user, user2=request.user)
-		match.percent = match_percentage(request.user, single_user)
+	if request.user.is_authenticated():
+	
 		try:
-			match.distance = round(calc_distance(request.user, user))
+			user = User.objects.get(username=username)
+			if user.is_active:
+				single_user = user
 		except:
-			match.distance = 10000000
-		match.save()
-		interests_all = Interest.objects.filter(userinterestanswer__user=single_user)
-		pictures = UserPicture.objects.filter(user=single_user)
-
+			raise Http404
 		try:
-			su_info = Info.objects.get(user=single_user)
-			single_user_is_new = su_info.is_new_user
+			profile_pic = UserPicture.objects.get(user=single_user, is_profile_pic=True)
 		except: 
-			single_user_is_new = False
-		if (match.user1 == single_user and match.user1_approved == True and match.user2_approved == False) or (match.user2 == single_user and match.user2_approved == True and match.user1_approved == False):
-			respond_to_request = True
-		interests = find_same_interests(request.user, single_user)
+			pass
+		 
+		try:
+			info = Info.objects.get(user=single_user)
+		except:
+			pass
+		try:
+			job = Job.objects.get(user=single_user)
+		except:
+			pass
+		if single_user != request.user:
+			try: 
+				match = Match.objects.get(user1=request.user, user2=single_user)
+			except: 
+				match, created = Match.objects.get_or_create(user1=single_user, user2=request.user)
+			match.percent = match_percentage(request.user, single_user)
+			try:
+				match.distance = round(calc_distance(request.user, user))
+			except:
+				match.distance = 10000000
+			match.save()
+			interests_all = Interest.objects.filter(userinterestanswer__user=single_user)
+			pictures = UserPicture.objects.filter(user=single_user)
+
+			try:
+				su_info = Info.objects.get(user=single_user)
+				single_user_is_new = su_info.is_new_user
+			except: 
+				single_user_is_new = False
+			if (match.user1 == single_user and match.user1_approved == True and match.user2_approved == False) or (match.user2 == single_user and match.user2_approved == True and match.user1_approved == False):
+				respond_to_request = True
+			interests = find_same_interests(request.user, single_user)
 
 
 
-	
-	messages_in_inbox = DirectMessage.objects.filter(receiver=request.user)
-	direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
-	request.session['num_of_messages'] = direct_messages
-
-	
-	return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))	
+		
+		messages_in_inbox = DirectMessage.objects.filter(receiver=request.user)
+		direct_messages = DirectMessage.objects.get_num_unread_messages(request.user)
+		request.session['num_of_messages'] = direct_messages
+		return render_to_response('profiles/single_user.html', locals(), context_instance=RequestContext(request))
+	else:
+		try:
+			user = User.objects.get(username=username)
+			if user.is_active:
+				single_user = user
+		except:
+			raise Http404
+		try:
+			profile_pic = UserPicture.objects.get(user=single_user, is_profile_pic=True)
+		except: 
+			pass
+		try:
+			info = Info.objects.get(user=single_user)
+		except:
+			pass
+		try:
+			job = Job.objects.get(user=single_user)
+		except:
+			pass
+		return render_to_response('profiles/single_user_logged_out.html', locals(), context_instance=RequestContext(request))	
 
 
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
@@ -1229,6 +1249,21 @@ def help(request):
 
 def jobs(request): 
 	return render_to_response('home/jobs.html', locals(), context_instance=RequestContext(request))
+
+def find_friends(request): 
+	return render_to_response('home/find_friends.html', locals(), context_instance=RequestContext(request))
+
+def make_friends(request): 
+	return render_to_response('home/make_friends.html', locals(), context_instance=RequestContext(request))
+
+def make_friends_online(request): 
+	return render_to_response('home/make_friends_online.html', locals(), context_instance=RequestContext(request))
+
+def meet_people(request): 
+	return render_to_response('home/meet_people.html', locals(), context_instance=RequestContext(request))
+
+def meet_people_online(request): 
+	return render_to_response('home/meet_people_online.html', locals(), context_instance=RequestContext(request))
 
 
 @xframe_options_exempt
