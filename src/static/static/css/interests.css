@@ -377,9 +377,9 @@ footer{
 /* Question Format */
 
 #one{
-  background-color:#1fbad6;
+  background-color: #fff;
   border:5px solid #1fbad6;
-  color:white;
+  color:#1fbad6;
   width:40%;
   height:300px;
   font-size:4rem!important;
@@ -387,6 +387,7 @@ footer{
   cursor:pointer;
   display:inline-block;
   max-width:600px;
+  overflow:hidden;
 
 }
 .answers_all #one{
