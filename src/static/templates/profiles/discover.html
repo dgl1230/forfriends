@@ -50,11 +50,11 @@
 			<h4 id="average">New User</h4>
 			{% elif match.percent >= 90 %}
 			<h4 id="average">Excellent Match</h4>
-			{% elif match.percent >= 75 %}
+			{% elif match.percent >= 80 %}
 			<h4 id="good">Very Good Match</h4>
-			{% elif match.percent >= 60 %}
+			{% elif match.percent >= 70 %}
 			<h4 id="average">Good Match</h4>
-			{% elif match.percent >= 45 %}
+			{% elif match.percent >= 55 %}
 			<h4 id="weak">Average Match</h4>
 			{% else %}
 			<h4 id="very_weak">Weak Match</h4>
@@ -69,6 +69,7 @@
 		{% endifnotequal %}
 	</h4>
 	<br>
+	<div class="invisible" id="swipe_left">Swipe for your next match!</div>
 	{% if not request.user == single_user %}
 	<div class="row" id="buttons_row">
 		<div class="buttons">	
@@ -187,6 +188,12 @@ $('#friend_button').click(function(){
 	$('#add_me').text("Request Sent");
 	$.get('{% url "add_friend" single_user.username %}');	
 });
+</script>
+
+<script>
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+	$('#swipe_left').addClass('animated lightSpeedIn'); 	
+};
 </script>
 
 {% endblock %}
