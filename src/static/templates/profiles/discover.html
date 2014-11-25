@@ -69,6 +69,7 @@
 		{% endifnotequal %}
 	</h4>
 	<br>
+	<div class="invisible" id="swipe_left">Swipe for your next match!</div>
 	{% if not request.user == single_user %}
 	<div class="row" id="buttons_row">
 		<div class="buttons">	
@@ -187,6 +188,12 @@ $('#friend_button').click(function(){
 	$('#add_me').text("Request Sent");
 	$.get('{% url "add_friend" single_user.username %}');	
 });
+</script>
+
+<script>
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+	$('#swipe_left').addClass('animated lightSpeedIn'); 	
+};
 </script>
 
 {% endblock %}
