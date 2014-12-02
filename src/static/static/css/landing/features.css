@@ -72,6 +72,12 @@
 	padding-bottom:50px;
 	padding-top:100px;
 }
+#reasons h2{
+	padding-top:40px!important;
+	color:#1fbad6!important;
+	font-size:32px!important;
+	width:100%!important;
+}
 @media only screen and (max-width:450px){
 	.post h2{
 		width:100%;

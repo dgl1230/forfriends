@@ -44,11 +44,13 @@
     <link href="{{ STATIC_URL }}css/sidebar.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/about_us.css">
     <link href="{{ STATIC_URL }}css/new_search.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/card.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/fonts.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/match_colors.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/new_interests.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/radio_buttons.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/buttons.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/steps.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/jquery-ui-1.10.4.custom.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/interests.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/friends.css" rel="stylesheet">
@@ -77,10 +79,8 @@
     {% include 'navbar.html' %}
     {% include 'sidebar.html' %}
     {% block content %} {% endblock %}
-        </div>
+    
       <hr>
-    </div>
-    </div> <!-- /container -->
         {% include 'footer.html' %}
 
 

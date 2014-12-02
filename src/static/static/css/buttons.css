@@ -60,6 +60,12 @@
 
 }
 
+.btn-lg a{
+	color:white;
+}
+.btn-lg a:hover{
+	color:white;
+}
 #view_info, #view_buttons{
 	font-size:14px;
 	width:100px;
@@ -215,5 +221,8 @@
 		padding:10px 0px 10px 0px;
 		width:100%;
 		font-size:1.5rem;
+	}
+	#add_me{
+		font-size:24px!important;
 	}
 }
