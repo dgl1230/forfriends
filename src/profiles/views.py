@@ -1104,6 +1104,7 @@ def register_new_user(request):
 		messages.success(request, 'Please provide a valid email address')
 		return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
+	email_as_username = email.split('@')[0]
 	email_as_username = email.translate(None, " '?.!/;:@#$%^&(),[]{}`~-_=+*|<>")
 	if len(email_as_username) == 0:
 		messages.error("Please provide a valid email")
