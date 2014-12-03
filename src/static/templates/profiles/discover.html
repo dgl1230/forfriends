@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+ 	{% extends 'base.html' %}
 {% block content %}
 
 <div class="row">
@@ -13,38 +13,23 @@
 	</div>
 </div>
 {% endif %}
-<div class='row' id="interests-wrapper">
-	<div class="main_interests" id="main_interests">
+	<div class="user_card">
 	<h2 id="name_of_user">{{ single_user.username }}</h2>
-	<div id="new_user_body">    
-		{% if profile_pic %}
-				<img src='{{ MEDIA_URL }}{{ profile_pic }}' class='img' id="myfriend"/>		
+		<div id="new_user_body">    
+			{% if profile_pic %}
+					<img src='{{ MEDIA_URL }}{{ profile_pic }}' class='img' id="myfriend"/>		
 
-		{% elif single_user.userpicture_set.all %}
-			{% for pic in single_user.userpicture_set.all %}
-					{% if forloop.first %}
-						<img src='{{ MEDIA_URL }}{{ pic }}' class='img' id="myfriend"/>
-					{% endif %}
-			{% endfor %}
+			{% elif single_user.userpicture_set.all %}
+				{% for pic in single_user.userpicture_set.all %}
+						{% if forloop.first %}
+							<img src='{{ MEDIA_URL }}{{ pic }}' class='img' id="myfriend"/>
+						{% endif %}
+				{% endfor %}
+			{% else %}
 
-		{% else %}
-
-		<img src='{{ STATIC_URL }}img/avatar.png' class='img' id="myfriend"/>
-		{% endif %}
-	</div>	
-
-		{% if users.has_previous %}
-			<div class="previous_user"><a href="?page={{ users.previous_page_number }}"><span class='glyphicon glyphicon-arrow-left'></span></a></div>
-		{% else %}
-			<div class="previous_user_hidden"><a href=""><span class='glyphicon glyphicon-arrow-left'></span></a></div>
-		{% endif %}
-		{% if users.has_next %}
-			<div class="next_user" id="next_user"><a href="?page={{ users.next_page_number }}"><span class='glyphicon glyphicon-arrow-right'></span></a>
-			</div>
-		{% else %}
-			<div class="next_user" id="next_user"><a href='{% url "reset_discover" %}'><span class='glyphicon glyphicon-arrow-right'></span></a>
-			</div>
-		{% endif %}
+			<img src='{{ STATIC_URL }}img/avatar.png' class='img' id="myfriend"/>
+			{% endif %}
+		</div>	
 		{% if not request.user == single_user %}
 			{% if single_user_is_new %}
 			<h4 id="average">New User</h4>
@@ -59,82 +44,64 @@
 			{% else %}
 			<h4 id="very_weak">Weak Match</h4>
 			{% endif %}
-	{% endif %}
-	<h4 id="location">
-		{% for item in single_user.address_set.all %}
-		{{ item.city|title }}, {% if item.state|length == 2 %} {{ item.state|upper }} {% else %} {{ item.state|capfirst }} {% endif %}
-		{% endfor %}
-		{% ifnotequal match.distance 10000000 %}
-		({{ match.distance|floatformat:"0" }} miles away)
-		{% endifnotequal %}
-	</h4>
-	<br>
-	<div class="invisible" id="swipe_left">Swipe for your next match!</div>
-	{% if not request.user == single_user %}
-	<div class="row" id="buttons_row">
-		<div class="buttons">	
-			{% if match.user1_approved == True and match.user2_approved == True %}
-			<a  class="btn btn-default btn" id="friend_button" title="You are friends!"><p>Friends</p></a>
-			<a class="btn btn-default btn" id="message_button" data-toggle="tooltip" data-placement="top" href='{% url "su_compose" match.user1.username %}'><p>Send Message</p></a>
-			{% elif match.user1_approved == True and match.user1 == request.user %}
-			<a class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
-			<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message<br>(Must be friends)</p></a>
-			{% elif match.user2_approved == True and match.user2 == request.user %}
-			<a class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
-			<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message<br>(Must be friends)</p></a>
-			{% else %}
-			<a class="btn btn-default btn" id="friend_button"><p id="add_me">Add Friend</p></a>
-			<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message<br>(Must be friends)</p></a>
-			{% endif %}
-			<a class="btn btn-default btn" id="pictures_button" href="/members/{{ single_user.username}}/pictures/"><p>Browse Pictures</p></a>
-		</div>
-		
 		{% endif %}
+		<h4 id="location">
+			{% for item in single_user.address_set.all %}
+			{{ item.city|title }}, {% if item.state|length == 2 %} {{ item.state|upper }} {% else %} {{ item.state|capfirst }} {% endif %}
+			{% endfor %}
+			{% ifnotequal match.distance 10000000 %}
+			({{ match.distance|floatformat:"0" }} miles away)
+			{% endifnotequal %}
+		</h4>
 		<div id="information">
-        {% if info.bio %}
-        <div class='panel panel-default'>
-            <div class='panel-heading' id='bio_panel'>
-                <p>{% if not request.user == single_user %} {{ single_user.username }} in a sentence {% else %} Me in a
-                sentence {% endif %}</p>
-                <p id='info_edit'></p>
-            </div>
-            <div class='panel-body' id='bio_body'>
-                {% for item in single_user.info_set.all %}{% if forloop.first %}{{item.bio}}{% endif %}{% endfor %}
-            </div>
-        </div>
-        {% else %}
-        {% endif %}
-        {% if job %}
-        <div class='panel panel-default'>
-            <div class='panel-heading' id='occ_panel'>
-                <p>Occupation</p>
-            </div>
-            <div class='panel-body' id='occ_body'>
-            {% for item in single_user.job_set.all %}{{item.position|title}} at
-            {{item.employer|title}}{% endfor %}
-            </div>
-        </div>
-        {% else %}
-        {% endif %}
-        {% if not request.user == single_user %}
-        {% if interests %}
-        <div class='panel panel-default'>
-            <div class='panel-heading' id='occ_panel'>
-                <p>Interests in Common</p>
-            </div>
-            <div class='panel-body' id='occ_body'>
-               {% for interest in interests %}
-			<p class="common_interest">{{ interest }}</p>
+	        {% if info.bio %} 
+		        <span> {% for item in single_user.info_set.all %}{% if forloop.first %}{{item.bio}}{% endif %}{% endfor %}</span>
+		        {% else %}
+		        {% endif %}
+
+		        {% if not request.user == single_user %}
+		        <br>
+		        <!--Interests-->
+		        {% if interests %}
+		        <span class="common_interests">
+		        {% for interest in interests %} Likes  {{ interest }} |
 				{% endfor %}
-            </div>
-    	</div><!--End Panel -->
-    	{% else %}
-    	{% endif %}
-    	{% endif %}
-	</div><!--End info-->
+				</span>
+	    	{% else %}
+	    	{% endif %}
+	    	<!--End Interests-->
+	    	{% endif %}
+		</div><!--End info-->
+		{% if not request.user == single_user %}
+		<div class="row" id="buttons_row">
+			<div class="buttons">	
+				{% if match.user1_approved == True and match.user2_approved == True %}
+				<a  class="btn btn-default btn" id="friend_button" title="You are friends!"><p>Friends!</p></a>
+				{% elif match.user1_approved == True and match.user1 == request.user %}
+				<a class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
+				{% elif match.user2_approved == True and match.user2 == request.user %}
+				<a class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
+				{% else %}
+				<span id="outer_button">
+				<a class="btn btn-default btn" id="friend_button"><p id="add_me">Add Friend</p></a>
+				</span>
+				{% endif %}
+				<div id="outer_button">
+				<a class="btn btn-default btn" id="pictures_button" href="/members/{{ single_user.username}}/pictures/"><p>Pictures</p></a>
+				</div>
+			</div>
+		</div><!--End Buttons Row-->
+	</div><!--End Card-->
+	<div class="invisible" id="swipe_left">Swipe for your next match!</div>
+		{% endif %}
+		{% if users.has_next %}
+			<a class="btn-lg" id="discover_next" href="?page={{ users.next_page_number }}">Next</a>
+			
+		{% else %}
+			<a class="btn-lg" id="discover_next" href="{% url 'reset_discover' %}">Next</a>
+		{% endif %}
 		</div>
 	</div>
-
 <script>
 $('#bio_panel').click(function() {
 	$('#bio_body').slideToggle("fast");
@@ -157,7 +124,7 @@ $('#occ_panel').click(function() {
         default: return; // exit this handler for other keys
     }
     e.preventDefault(); // prevent the default action (scroll / move caret)
-});
+	});
 </script>
 
 <script>

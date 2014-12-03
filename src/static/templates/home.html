@@ -57,7 +57,7 @@
             <div class="parallax">
             <h2 id="title">Frenvu</h2>
             <br>
-            <h1 class="subheading">The new place to meet people</h1>
+            <h1 class="subheading">The new way to meet people</h1>
           <div class="button_holder">
             <button class='login_button' data-toggle="modal" data-target="#login_modal">Login</button>
             <button class='login_button' data-toggle="modal" data-target="#new_user_modal">Sign up</button>
@@ -68,39 +68,30 @@
         </header> <!-- End Header --> 
       </div><!-- End Container --> 
     <div id="features">
-        <div class="post">
-          <div class="parallax2">
-            <div class="postwords">
-              <h2 id="first_h2"> What is Frenvu? </h2><br><h2 id="second_h2"> Frenvu is revolutionizing the process of making real world friends, online. </h2>
-            </div>
-          </div>
-        </div>
-        <div class="post">
+        <div class="post" id="reasons_post">
           <div class="parallax3">
-            <div class="postwords">
-              <h2> All you need to do is say what you're interested in </h2>
+            <div class="postwords" id="reasons">
+              <h2>Find cool people near you!</h2>
+              <p>Frenvu connects you to people with similar interests that you'd be compatible with.</p>
             </div>
           </div>
-        </div>
-        <div class="post">
-          <div class="parallax4">
-            <div class="postwords">
-              <h2> Answer some questions about yourself </h2>
-            </div>
-          </div>
-        </div>
+        </div>  
         <div class="post">
           <div class="parallax5">
             <div class="postwords">
-              <h2> And get introduced to awesome people.</h2>
+              <h2>We put you in a group of people we think you'd get along with, and we even break the ice for you.</h2>
             </div>
           </div>
         </div>
       <div class="post" id="sign_up_now">
         <div class="parallax6">
-          <div class="postwords">
+          <div id="final_words">
             <h2>Moving to a new city and don't know anyone? A couple clicks and you will.</h2>
-            <p class="call_link">Still not convinced? Check out how other people are <a href="/meet_people_online">making friends online</a> with Frenvu.
+            <div class="button_holder" id="bottom_buttons">
+            <button class='login_button' data-toggle="modal" data-target="#login_modal">Login</button>
+            <button class='login_button' data-toggle="modal" data-target="#new_user_modal">Sign up</button>
+          </div><!-- End Buttons -->
+            <p class="call_link">Check out how other people are <a href="/meet_people_online">making friends online</a> with Frenvu.
           </div>
         </div>
       </div>
@@ -123,7 +114,7 @@
   </div>
   <div class="footer_2">
     <a href="/terms_and_agreement"><li>
-      Terms and Conditions
+      Terms
     </li></a>
     <a href="/cookies"><li>
       Cookies
@@ -200,7 +191,7 @@
               </div>
                   <div class="col-xs-6" id="login">
                       <div class="login">
-                        <h2 data-toggle="modal" data-target="#login_modal">Login with Email</h2>
+                        <h1 data-toggle="modal" data-target="#login_modal">Login with Email</h1>
                       <form method="post" action='{% url "login_user" %}'>{% csrf_token %}
                       <p><input type="text" id="un" name="email" maxlength="40" value="" placeholder="Email" required></p>
                       <p><input type="password" name="password" value="" placeholder="Password" required></p><br>
@@ -237,6 +228,13 @@
 <script>
     jQuery('.postwords').addClass("hidden2").viewportChecker({
       classToAdd:'visible animated fadeIn',
+      offset: 300
+    });
+</script>
+
+<script>
+    jQuery('#bottom_buttons').addClass("hidden2").viewportChecker({
+      classToAdd:'visible animated fadeInUp',
       offset: 300
     });
 </script>
