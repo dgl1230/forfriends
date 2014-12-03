@@ -1122,6 +1122,7 @@ def single_user(request, username):
 			match.save()
 			interests_all = Interest.objects.filter(userinterestanswer__user=single_user)
 			pictures = UserPicture.objects.filter(user=single_user)
+			num_of_pics = pictures.count()
 
 			try:
 				su_info = Info.objects.get(user=single_user)
