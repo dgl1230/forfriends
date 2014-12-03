@@ -688,19 +688,12 @@ on the single user page.
 
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def discover(request):
-	'''
-	location = Address.objects.get(user=request.user)
-	if check_valid_location(location.city, location.state) == False:
-		messages.success(request, "We're sorry but you need to enter a valid location before you find a new crowd")
-		return HttpResponseRedirect(reverse('home'))
-	'''
 	
+	
+
 	# first we check to see if a session exists
 	#trying cache for each user
-	'''
-	if not request.session.get('random_exp'):
-	request.session['random_exp']=1
-	'''
+	
 	if not request.session.get('%s' % request.user.username):
 		request.session['%s' % request.user.username]=request.user.username
 	# we see if a cache exists
@@ -725,15 +718,23 @@ def discover(request):
 		if page != False:
 			users = paginator.page(page)
 			single_user = users.object_list[0]
-			try: 
-				assert (single_user != request.user)
-			except: 
+
+			if single_user == request.user:
 				# if the user would go to themselves on pagination, we have them skip a page
 				page_int = int(page)
 				new_page = page_int + 1
 				new_page_u = unicode(new_page)
 				users = paginator.page(new_page_u)
 				single_user = users.object_list[0]
+
+			match_distance = round(calc_distance(request.user, single_user))
+			while match_distance > 20:
+				page_int = int(page)
+				new_page = page_int + 1
+				new_page_u = unicode(new_page)
+				users = paginator.page(new_page_u)
+				single_user = users.object_list[0]
+				match_distance = round(calc_distance(request.user, single_user))
 
 			try: 
 				match = Match.objects.get(user1=request.user, user2=single_user)
