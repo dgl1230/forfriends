@@ -13,7 +13,7 @@
 	</div>
 </div>
 {% endif %}
-	<div class="user_card">
+	<div class="user_card" id="user_card">
 	<h2 id="name_of_user">{{ single_user.username }}</h2>
 		<div id="new_user_body">    
 			{% if profile_pic %}
@@ -129,7 +129,7 @@ $('#occ_panel').click(function() {
 
 <script>
 $(function() {
-    $("#myfriend").swipe({
+    $("#user_card").swipe({
         swipeLeft:function(event, direction, distance, duration, fingerCount, fingerData) {
             window.location.href =
                 "?page={{ users.next_page_number }}";
@@ -141,7 +141,7 @@ $(function() {
 {% else %}
 <script>
 $(function() {
-    $("#myfriend").swipe({
+    $("#user_card").swipe({
         swipeLeft:function(event, direction, distance, duration, fingerCount, fingerData) {
             window.location.href =
                 '{% url "reset_discover" %}';
