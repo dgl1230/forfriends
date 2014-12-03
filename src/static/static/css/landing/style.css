@@ -425,7 +425,7 @@ input[type=submit]:hover{
   }
   .parallax6{
     background-color: #fff;
-    height:300px;
+    height:350px;
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
@@ -482,7 +482,7 @@ input[type=submit]:hover{
   }
   .parallax6{
     background-color:white;
-    height:300px; 
+    height:350px; 
     background-size: cover;
     -webkit-background-size:cover!important;
     z-index:100;
@@ -542,7 +542,7 @@ and (max-width : 1200px){
   }
   .parallax6{
     background-color:white;
-    height:300px; 
+    height:350px; 
     background-size: cover;
     -webkit-background-size:cover!important;
     z-index:100;
