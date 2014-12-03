@@ -22,6 +22,14 @@
 	display:inline-block;
 }
 
+#first_h2{
+	padding-top: 20px!important;
+}
+
+#second_h2{
+	padding-top: 60px;
+}
+
 #google_icon{
 	background-image: url(/static/img/social_icons/Google-plus-icon.png);
 	width:75px;

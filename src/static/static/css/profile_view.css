@@ -228,9 +228,6 @@ h4{
 #message_button a, #interests_button a, #friend_button a, #pictures_button a, #buttons_row #message_button_not_friends a{
 	font-size: 1.25em;
 }
-#message_button, #interests_button, #friend_button, #pictures_button, #buttons_row #message_button_not_friends{
-	width: 24%;	
-}
 
 .buttons a{
 	color: white;
@@ -262,27 +259,7 @@ h4{
 	background-color: white!important;
 }
 
-@media(max-width: 1000px){
-	#delete_message_button, #message_button, #interests_button, #friend_button, #pictures_button, #message_button_not_friends{
-	width: 23.5%;	
-	}
-}
-
-@media(max-width: 480px){
-
-	.panel-heading p{
-		font-size:1.25em;
-	}
-	.panel-heading .glyphicon.glyphicon-chevron-down{
-		margin-top:0px;
-	}
-}
-
-@media(max-width: 400px){
-	#myfriend{
-	width:100%;
-	height:auto;
-	}
+@media(max-width: 400px){	
 	.previous_user{
 		padding-top:10px;
 	}
@@ -305,9 +282,6 @@ h4{
 } 
 
 @media(max-width: 670px){
-	#delete_message_button, #message_button, #interests_button, #friend_button, #pictures_button, #buttons_row #message_button_not_friends{
-		width: 49%;	
-	}
 	#single_user_body{
 		padding-left:0px!important;
 		padding-right:0px!important;
@@ -463,10 +437,6 @@ h4{
 }
 
 @media(max-width: 560px){
-	#message_button, #interests_button, #friend_button, #pictures_button, #buttons_row #message_button_not_friends{
-		width:100%;
-		font-size:1.25em;
-	}
 	#message_button a, #interests_button a, #friend_button a, #pictures_button a, #buttons_row #message_button_not_friends a{
 	font-size: 2em;
 	}

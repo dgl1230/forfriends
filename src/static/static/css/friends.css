@@ -8,11 +8,28 @@
 #friend p{
 	margin:0px 0px 0px;
 }
+#home-only .col-sm-4{
+	box-shadow: 0 0 20px 1px rgba(0,0,0,0.2);
+	margin-bottom:50px;
+	padding-top:20px;
+	padding-bottom:20px;
+	}
 @media (max-width: 450px){
 	#friend h2{
 		margin-top:0px;
 	}
+	#home-only .col-sm-4{
+	min-width:175px;
+	width:100%;
+	display:block;
+	height:400px;
+	box-shadow: 0 0 20px 1px rgba(0,0,0,0.2);
+	margin-bottom:50px;
+	padding-top:20px;
+	padding-bottom:20px;
+	}
 }
+
 
 
 

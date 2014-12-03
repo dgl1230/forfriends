@@ -29,15 +29,12 @@
 		</thead>
 		<tbody>
 			<td>
-				
 	                {% if message.sender.username == team_frenvu %}
 	                </a><p>{{ message.sender|truncatechars:"15" }}</p>
 	                	{% else %}
 						{{ message.sender|truncatechars:"15" }}</a>
 					
 					{% endif %}
-					
-				
 			</td>
 			<td>{{ message.body }}</td>
 			<td>
@@ -52,7 +49,10 @@
 		</div>
 		<br>
 		<div class="button_container">
+		{% if message.sender.username == team_frenvu %}
+		{% else %}
 		<a class='btn btn-success' href="{% url 'reply' message.id %}">Reply</a>
+		{% endif %}
 	</div>
 	</div>
 </div>

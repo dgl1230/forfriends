@@ -1,8 +1,10 @@
+{% if request.user.is_authenticated %}
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div id="navbar-container">
     <div class="navbar-header">
+      
       <a class="navbar-brand"  data-variation=".left"><img id="menu_icon" src="{{ STATIC_URL }}img/menu_icon.png"></a>
-      {% if request.user.is_authenticated %}
+      
       <form class="navbar-form navbar-left" role="search" action='{% url "search" %}'>
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search users..." name='q' required>
@@ -29,12 +31,16 @@
         </li> 
 
       {% else %}
-            <ul class='nav navbar-nav pull-right'>
-              <li class='profiles'>
-                <a href="/">Back to Frenvu</a>
-              </li>
-            </ul>  
-        </ul>
+      <style>
+      body{
+        padding-top:0px!important;
+      }
+      </style>
+        <div class="press_navbar">
+        <div class="press_brand">
+           <span>Frenvu</span>
+        </div>
+        </div>
       {% endif %}
   </div>
 </div>  

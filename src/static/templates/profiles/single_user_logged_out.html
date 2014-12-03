@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+<head>
+	<link rel="stylesheet" href="{{ STATIC_URL }}css/profile_view.css">
+</head>
+
+{% block content %}
+
+<div class="row" id="annoying_row">
+	<div class="col-md-1" id="secondary_navbar">
+        <h1></h1>
+	</div>
+</div>
+<div class="container" id="single_user_container">
+{% if messages %}
+<div class='row'>
+    <div class="col-md-1" id="tertiary_navbar">
+      {% for message in messages %}
+        <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+      {% endfor %}
+    </div>
+</div>
+{% endif %}
+	<div class = 'row' id="picture_row">
+		<div class='col col-sm-12'>
+			<h1 id="name_of_user">{{ single_user.username }}</h1>
+
+			{% if profile_pic %}
+				<img src='{{ MEDIA_URL }}{{ profile_pic }}' class='img' id="myfriend"/>		
+
+			{% elif single_user.userpicture_set.all %}
+			{% for pic in single_user.userpicture_set.all %}
+					{% if forloop.first %}
+						<img src='{{ MEDIA_URL }}{{ pic }}' class='img' id="myfriend"/>
+					{% endif %}
+			{% endfor %}
+
+
+			{% else %}
+				<img src='{{ STATIC_URL }}img/avatar.png' class='img' id="myfriend" />
+			{% endif %}
+		</div>
+	</div>
+		<h4 id="location">{% for item in user.address_set.all %}
+			{{ item.city|title }}, {% if item.state|length == 2 %} {{ item.state|upper }} {% else %} {{ item.state|capfirst }} {% endif %}
+			{% endfor %}
+		</h4>
+	</div>
+	<div class="private">
+		<h2><a href="/">Login/Signup to see more of {{ single_user.username }}'s profile or meet new people!</a></h2>
+	</div>
+
+{% endblock %}

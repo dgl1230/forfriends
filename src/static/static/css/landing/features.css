@@ -9,13 +9,29 @@
 	opacity:1;
 }
 
+#bottom_buttons{
+	padding-top:25px!important;
+	padding-bottom:25px!important;
+	height:150px!important;
+}
+
 .post{
 	text-align: center;
 	width:100%;
 	min-height:300px;
 	vertical-align: middle;
 }
-
+.call_link{
+  margin-top:50px;
+  color:white;
+  font-size: 18px;
+}
+.call_link a{
+	color:#1fbad6;
+}
+.call_link a:hover{
+	opacity: .8;
+}
 .post h2{
 	width:50%;
 	margin:0px auto;
@@ -60,10 +76,53 @@
 	height:400px;
 	text-align: center;
 	padding-bottom:50px;
-	padding-top:100px;
+	padding-top:50px;
 }
+#reasons h2{
+	padding-top:60px!important;
+	color:#1fbad6!important;
+	font-size:32px!important;
+	width:100%!important;
+}
+#reasons p{
+	font-size:18px;
+	margin-top:50px;
+}
+#final_words h2{
+	color:black!important;
+	width:80%!important;
+	padding-top:20px!important;
+}
+#final_words p{
+	color:black!important;
+}
+#final_words .call_link{
+	margin-top:0px!important;
+	margin-bottom:50px!important;
+}
+
 @media only screen and (max-width:450px){
 	.post h2{
 		width:100%;
+	}
+	#bottom_buttons .login_button{
+	width:120px!important;
+
+	}
+}
+
+@media only screen and (max-width:560px){
+	.post h2 {
+		font-size:24px!important;
+		width: 80%;
+	}
+	#bottom_buttons{
+		height: 120px!important;
+	}
+}
+
+@media only screen and (max-width:750px){
+	.post h2{
+		width:80%;
 	}
 }

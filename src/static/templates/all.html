@@ -169,21 +169,6 @@ data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="20"><a hr
 ({{ match.distance }} miles away)
 </p>
 {% endifnotequal %}
-<p class="smallLabel2" id="match_label">
-{% if not request.user == single_user %}
-		{% if match.percent >= 90 %}
-		<p id="very_good">Excellent Match</p>
-		{% elif match.percent >= 80 %}
-		<p id="good">Very Good Match</p>
-		{% elif match.percent >= 60 %}
-		<p id="average">Good Match</p>
-		{% elif match.percent >= 45 %}
-		<p id="weak">Average Match</p>
-		{% else %}
-		<p id="very_weak">Weak Match</p>
-		{% endif %}
-{% endif %}
-</p>
 {% endif %}
 {% endfor %}
 {% if not match.user1.userpicture_set.all %}
@@ -212,21 +197,6 @@ data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="20"><a hr
 {% ifnotequal match.distance 10000000 %}
 ({{ match.distance }} miles away)</p>
 {% endifnotequal %}
-<p class="smallLabel2" id="match_label">
-{% if not request.user == single_user %}
-		{% if match.percent >= 90 %}
-		<p id="very_good">Excellent Match</p>
-		{% elif match.percent >= 80 %}
-		<p id="good">Very Good Match</p>
-		{% elif match.percent >= 60 %}
-		<p id="average">Good Match</p>
-		{% elif match.percent >= 45 %}
-		<p id="weak">Average Match</p>
-		{% else %}
-		<p id="very_weak">Weak Match</p>
-		{% endif %}
-{% endif %}
-</p>
 {% endif %}
 <p class="mediaDescriptionHeader">{{ pic.caption }}</p>
 </li>
@@ -250,21 +220,6 @@ data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="20"><a hr
 ({{ match.distance }} miles away)
 </p>
 {% endifnotequal %}
-<p class="smallLabel2" id="match_label">
-{% if not request.user == single_user %}
-		{% if match.percent >= 90 %}
-		<p id="very_good">Excellent Match</p>
-		{% elif match.percent >= 80 %}
-		<p id="good">Very Good Match</p>
-		{% elif match.percent >= 60 %}
-		<p id="average">Good Match</p>
-		{% elif match.percent >= 45 %}
-		<p id="weak">Average Match</p>
-		{% else %}
-		<p id="very_weak">Weak Match</p>
-		{% endif %}
-{% endif %}
-</p>
 {% endif %}
 {% endfor %}
 {% if not match.user2.userpicture_set.all %}
@@ -281,21 +236,6 @@ data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="20"><a hr
 {% ifnotequal match.distance 10000000 %}
 ({{ match.distance }} miles away)</p>
 {% endifnotequal %}
-<p class="smallLabel2" id="match_label">
-{% if not request.user == single_user %}
-		{% if match.percent >= 90 %}
-		<p id="very_good">Excellent Match</p>
-		{% elif match.percent >= 80 %}
-		<p id="good">Very Good Match</p>
-		{% elif match.percent >= 60 %}
-		<p id="average">Good Match</p>
-		{% elif match.percent >= 45 %}
-		<p id="weak">Average Match</p>
-		{% else %}
-		<p id="very_weak">Weak Match</p>
-		{% endif %}
-{% endif %}
-</p>
 {% endif %}
 <p class="smallLabel2"></p>
 <p class="mediaDescriptionHeader">{{ pic.caption }}</p>
@@ -312,8 +252,6 @@ data-thumbnail-text-offset-top="10" data-thumbnail-text-offset-bottom="20"><a hr
 <script src="{{ STATIC_URL }}js/cookie.js" type="text/javascript"></script>
 <script src="{{ STATIC_URL }}js/new_user_tutorial.js" type="text/javascript"></script>
 <script src="{{ STATIC_URL }}js/profile_view.js"></script>
-
-
 <script>
 $('#ice_breaker_button').click(function() {
     $(this).text(

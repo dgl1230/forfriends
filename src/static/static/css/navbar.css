@@ -431,3 +431,40 @@ form.navbar-form.navbar-left{
 .glyphicon.glyphicon-search{
 	margin:0 auto!important;
 }
+
+/* Not Logged in */
+
+.press_navbar{
+  width:100%;
+  height:60px;
+  border-bottom:1px solid #1fbad6;
+  text-align:center;
+  margin-bottom:20px;
+  background-color:#fff;
+  position:fixed;
+  z-index:1030;
+}
+
+.press_brand span{
+  font-size:3.2rem;
+  font-family: Roboto, sans-serif;
+  letter-spacing:2px;
+  color:#1fbad6;
+}
+.private{
+	padding-left:40px;
+	padding-right:40px;
+	text-align: center;
+}
+.private a{
+  color:#1fbad6;
+}
+.private a:hover{
+  opacity:.8;
+}
+
+@media (max-width: 420px){
+	.private a{
+  	font-size:14px;
+	}
+}

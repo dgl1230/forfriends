@@ -60,6 +60,12 @@
 
 }
 
+.btn-lg a{
+	color:white;
+}
+.btn-lg a:hover{
+	color:white;
+}
 #view_info, #view_buttons{
 	font-size:14px;
 	width:100px;
@@ -167,45 +173,90 @@
 #buttons_row #friend_button{
 	background: url(/static/img/profile/bar_friends_dark.jpg);
 	background-size:cover;
-	height:100px;
+	height:150px;
+	border-radius:50%;
+	float:left;
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+	transition: all 1s ease;
+}
+#buttons_row #friend_button:hover{
+	-webkit-transform:scale(1.05);
+	-moz-transform:scale(1.05);
+	-ms-transform:scale(1.05);
+	-o-transform:scale(1.05);
+	transform:scale(1.05);
+}
+.buttons a p{
+	line-height: 135px!important;
+	margin-top:0px!important;
 }
 
-#buttons_row #interests_button{
-	background: url(/static/img/profile/yoga_dark.png);
-	background-size:cover;
-	height:100px;
-}
 
 #buttons_row #pictures_button{
 	background: url(/static/img/profile/camera_stock_dark.png);
 	background-size:cover;
-	height:100px;
+	height:150px;
+	border-radius:50%;
+	float:right;
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+	transition: all 1s ease;
+	margin-right:10px;
+}
+
+#buttons_row #pictures_button:hover{
+	-webkit-transform:scale(1.05);
+	-moz-transform:scale(1.05);
+	-ms-transform:scale(1.05);
+	-o-transform:scale(1.05);
+	transform:scale(1.05);
 }
 
 #buttons_row #message_button, #buttons_row #message_button_not_friends{
 	background: url(/static/img/profile/iphone_dark.png);
 	background-size:cover;
-	height:100px;
+	height:150px;
+	border-radius:50%;
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+	transition: all 1s ease;
+}
+
+#buttons_row #message_button:hover, #buttons_row #message_button_not_friends:hover{
+	-webkit-transform:scale(1.05);
+	-moz-transform:scale(1.05);
+	-ms-transform:scale(1.05);
+	-o-transform:scale(1.05);
+	transform:scale(1.05);
 }
 
 .user_profile_buttons{
 	margin-top:20px;
 }
 
+#message_button, #friend_button, #pictures_button, #buttons_row #message_button_not_friends{
+	width: 150px;	
+}
+
+@media(max-width: 560px){
+	.user_profile_buttons #message_button,.user_profile_buttons #friend_button,.user_profile_buttons #pictures_button,.user_profile_buttons #message_button_not_friends{
+		width:120px;
+		height:120px!important;
+	}
+	.buttons{
+		margin-left:0%!important;
+	}
+	.user_profile_buttons .buttons a p{
+		line-height:100px!important;
+	}
+}
+
 
 @media (max-width: 450px) {
-	#friend_button{
-		width:100%;
-	}
-	#messages_button{
-		width:100%;
-	}
-	#pictures_button{
-		width:100%;
-	}
-	#interests_button{
-		width:100%;
-	}
 	#view_info{
 		padding:10px 0px 10px 0px;
 		width:100%;
@@ -217,3 +268,21 @@
 		font-size:1.5rem;
 	}
 }
+
+@media(max-width: 420px){
+	.user_profile_buttons #message_button,.user_profile_buttons #friend_button,.user_profile_buttons #pictures_button,.user_profile_buttons #message_button_not_friends{
+		margin:0 auto;
+		float:none!important;
+	}
+}
+
+@media(max-width: 355px){
+	#message_button, #friend_button, #pictures_button, #message_button_not_friends{
+		width:120px!important;
+		height:120px!important;
+	}
+	.buttons a p{
+		line-height:100px!important;
+	}
+}
+

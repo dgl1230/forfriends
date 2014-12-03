@@ -4,18 +4,18 @@
     <title>Frenvu - Make Friends Online{% block title %}{% endblock %}</title>
     <meta name="google-site-verification" content="Ra4Fz1CLVqfxY0Q_NdungzTTevkn5tbNZxtIy3dCkTI" />
     <!-- Basic Meta tags-->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">   
-    <meta name="keywords" content="Friends, relationships, make, friend, online, meet, cool, people, website, for, making, friendships, platonic">
-    <meta name="Frenvu" content="">
-    <meta name="description" content="Make friends with cool people near you, without leaving your computer.">
+    <meta name="description" content="Frenvu helps you meet cool people online.">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="msvalidate.01" content="8E9C82F48373033DDB4FFACCDCA6E4DE" />
+    <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">  
     <meta property="og:title" content="Frenvu. The place to meet people." />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="http://www.logomaker.com/logo-images/0766a28f4ca4192e.gif" />
     <meta property="og:url" content="http://www.frenvu.com/" />
     <meta property="og:site_name" content="Frenvu" />
-    <meta property="fb:admins" content="nick.kebback.5" />  
+    <meta property="fb:admins" content="nick.kebback.5" />
+    <link rel="icon" href="http://www.logomaker.com/logo-images/0766a28f4ca4192e.gif">
     <link rel="apple-touch-icon" href="/static/img/frenvu_logo-2circles.png">
       
     <!-- Libs CSS -->
@@ -55,9 +55,9 @@
         <header id="header"> 
           <div class="opening">
             <div class="parallax">
-            <h1 id="title">Frenvu</h1>
+            <h2 id="title">Frenvu</h2>
             <br>
-            <h3 class="subheading">The new place to meet people</h3>
+            <h1 class="subheading">The new way to meet people</h1>
           <div class="button_holder">
             <button class='login_button' data-toggle="modal" data-target="#login_modal">Login</button>
             <button class='login_button' data-toggle="modal" data-target="#new_user_modal">Sign up</button>
@@ -68,38 +68,30 @@
         </header> <!-- End Header --> 
       </div><!-- End Container --> 
     <div id="features">
-        <div class="post">
-          <div class="parallax2">
-            <div class="postwords">
-              <h1> What is Frenvu? </h1><br><h2> Frenvu is revolutionizing the process of making real world friends, online. </h2>
-            </div>
-          </div>
-        </div>
-        <div class="post">
+        <div class="post" id="reasons_post">
           <div class="parallax3">
-            <div class="postwords">
-              <h2> All you need to do is say what you're interested in </h2>
+            <div class="postwords" id="reasons">
+              <h2>Find cool people near you!</h2>
+              <p>Frenvu connects you to people with similar interests that you'd be compatible with.</p>
             </div>
           </div>
-        </div>
-        <div class="post">
-          <div class="parallax4">
-            <div class="postwords">
-              <h2> Answer some questions about yourself </h2>
-            </div>
-          </div>
-        </div>
+        </div>  
         <div class="post">
           <div class="parallax5">
             <div class="postwords">
-              <h2> And get introduced to awesome people.</h2>
+              <h2>We put you in a group of people we think you'd get along with, and we even break the ice for you.</h2>
             </div>
           </div>
         </div>
       <div class="post" id="sign_up_now">
         <div class="parallax6">
-          <div class="postwords">
+          <div id="final_words">
             <h2>Moving to a new city and don't know anyone? A couple clicks and you will.</h2>
+            <div class="button_holder" id="bottom_buttons">
+            <button class='login_button' data-toggle="modal" data-target="#login_modal">Login</button>
+            <button class='login_button' data-toggle="modal" data-target="#new_user_modal">Sign up</button>
+          </div><!-- End Buttons -->
+            <p class="call_link">Check out how other people are <a href="/meet_people_online">making friends online</a> with Frenvu.
           </div>
         </div>
       </div>
@@ -122,7 +114,7 @@
   </div>
   <div class="footer_2">
     <a href="/terms_and_agreement"><li>
-      Terms and Conditions
+      Terms
     </li></a>
     <a href="/cookies"><li>
       Cookies
@@ -236,6 +228,13 @@
 <script>
     jQuery('.postwords').addClass("hidden2").viewportChecker({
       classToAdd:'visible animated fadeIn',
+      offset: 300
+    });
+</script>
+
+<script>
+    jQuery('#bottom_buttons').addClass("hidden2").viewportChecker({
+      classToAdd:'visible animated fadeInUp',
       offset: 300
     });
 </script>

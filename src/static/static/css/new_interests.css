@@ -129,12 +129,6 @@
 #one input{
 	visibility: hidden;
 }
-
-.personality_all_wrapper #one:active{
-	background-color:#5ad75a;
-	border-color:#5ad75a;
-} 
-
 #arrow span{
 	font-size: 24px;
 }

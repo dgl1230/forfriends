@@ -17,6 +17,7 @@ hr{
   padding-left:20px;
   padding-right:20px;
 }
+
 .head_picture{
   height:440px;
   background: url('/static/img/frenvu_peeps.png') no-repeat;
@@ -83,7 +84,9 @@ h2{
 .press_list li{
   list-style:none;
 }
-
+.part_4{
+  text-align: center;
+}
 
 @media(max-width:550px){
   .head_picture{
@@ -137,3 +140,4 @@ footer li{
 .active{
   color:#1fbad6;
 }
+
