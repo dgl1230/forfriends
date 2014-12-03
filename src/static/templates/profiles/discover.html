@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+ 	{% extends 'base.html' %}
 {% block content %}
 
 <div class="row">
@@ -64,14 +64,14 @@
 		        <!--Interests-->
 		        {% if interests %}
 		        <span class="common_interests">
-		        {% for interest in interests %} Things you have in common:  {{ interest }} |
+		        {% for interest in interests %} Likes  {{ interest }} |
 				{% endfor %}
 				</span>
 	    	{% else %}
 	    	{% endif %}
 	    	<!--End Interests-->
 	    	{% endif %}
-			</div><!--End info-->
+		</div><!--End info-->
 		{% if not request.user == single_user %}
 		<div class="row" id="buttons_row">
 			<div class="buttons">	
@@ -82,9 +82,13 @@
 				{% elif match.user2_approved == True and match.user2 == request.user %}
 				<a class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
 				{% else %}
+				<span id="outer_button">
 				<a class="btn btn-default btn" id="friend_button"><p id="add_me">Add Friend</p></a>
+				</span>
 				{% endif %}
+				<div id="outer_button">
 				<a class="btn btn-default btn" id="pictures_button" href="/members/{{ single_user.username}}/pictures/"><p>Browse Pictures</p></a>
+				</div>
 			</div>
 		</div><!--End Buttons Row-->
 	</div><!--End Card-->

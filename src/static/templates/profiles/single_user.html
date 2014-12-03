@@ -20,8 +20,7 @@
     </div>
 </div>
 {% endif %}
-	<div class = 'row' id="picture_row">
-		<div class='col col-sm-12'>
+	<div class="user_card">
 			<h1 id="name_of_user">{{ single_user.username }}</h1>
 
 			{% if profile_pic %}
@@ -38,8 +37,7 @@
 			{% else %}
 				<img src='{{ STATIC_URL }}img/avatar.png' class='img' id="myfriend" />
 			{% endif %}
-		</div>
-	</div>
+		
 	{% if not request.user == single_user %}
 			{% if single_user_is_new %}
 			<h4 id="average">New User</h4>
@@ -83,51 +81,26 @@
 				<a class="btn btn-default btn" id="pictures_button" href="/members/{{ single_user.username}}/pictures/"><p>Browse Pictures</p></a>
 			{% endif %}
 			</div>
-    <div id="information">
-    	{% if info.bio %}
-    	{% if not info.bio == "None" %}
-        <div class='panel panel-default'>
-            <div class='panel-heading' id='bio_panel'>
-                <p>{% if not request.user == single_user %} {{ single_user.username }} in a sentence {% else %} Me in a
-                sentence {% endif %}</p>
-                <p id='info_edit'></p>
-            </div>
-            <div class='panel-body' id='bio_body'>
-                {% for item in single_user.info_set.all %}{% if forloop.first %}{{item.bio}}{% endif %}{% endfor %}
-            </div>
-        </div>
-        {% else %}
-        {% endif %}
-        {% else %}
-        {% endif %}
-        {% if job %}
-        <div class='panel panel-default'>
-            <div class='panel-heading' id='occ_panel'>
-                <p>Occupation</p>
-            </div>
-            <div class='panel-body' id='occ_body'>
-            {% for item in single_user.job_set.all %}{{item.position|title}} at
-            {{item.employer|title}}{% endfor %}
-            </div>
-        </div>
-        {% else %}
-        {% endif %}
-        {% if not request.user == single_user %}
-        {% if interests %}
-        <div class='panel panel-default'>
-            <div class='panel-heading' id='occ_panel'>
-                <p>Interests in Common</p>
-            </div>
-            <div class='panel-body' id='occ_body'>
-               {% for interest in interests %}
-			<p class="common_interest">{{ interest }}</p>
+    	<div id="information">
+	        {% if info.bio %} 
+		        <span> {% for item in single_user.info_set.all %}{% if forloop.first %}{{item.bio}}{% endif %}{% endfor %}</span>
+		        {% else %}
+		        {% endif %}
+
+		        {% if not request.user == single_user %}
+		        <br>
+		        <!--Interests-->
+		        {% if interests %}
+		        <span class="common_interests">
+		        {% for interest in interests %} Likes  {{ interest }} |
 				{% endfor %}
-            </div>
-    	</div><!--End Panel -->
-    	{% else %}
-    	{% endif %}
-    	{% endif %}
-	</div><!--End info-->
+				</span>
+	    	{% else %}
+	    	{% endif %}
+	    	<!--End Interests-->
+	    	{% endif %}
+		</div><!--End info-->
+	</div>
 </div>
 
 <script>

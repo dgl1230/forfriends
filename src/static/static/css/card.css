@@ -6,7 +6,10 @@
 	padding-top:20px;
 	padding-bottom:50px;
 }
-
+#myfriend{
+	width: auto;
+	height:250px;
+	}
 #information span{
 	font-size:24px;
 	color: #979797;
@@ -34,6 +37,15 @@
 	box-shadow: 0 0 20px 1px rgba(0,0,0,0.2);
 	padding-top:20px;
 	padding-bottom:20px;
+	}
 }
 
+@media (max-width:560px) {
+	#myfriend{
+	width: auto;
+	height:200px;
+	}
+	#discover_next{
+		padding:25px 5px;
+	}
 }
