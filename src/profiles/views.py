@@ -1122,7 +1122,7 @@ def single_user(request, username):
 			match.save()
 			interests_all = Interest.objects.filter(userinterestanswer__user=single_user)
 			pictures = UserPicture.objects.filter(user=single_user)
-			num_of_pics = pictures.count()
+
 
 			try:
 				su_info = Info.objects.get(user=single_user)
@@ -1165,6 +1165,7 @@ def single_user(request, username):
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def single_user_pictures(request, username):
 	pictures = UserPicture.objects.filter(user__username=username)
+	num_of_pics = pictures.count()
 	return render_to_response('profiles/single_user_pictures.html', locals(), context_instance=RequestContext(request))
 
 
