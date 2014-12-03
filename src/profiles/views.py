@@ -727,15 +727,6 @@ def discover(request):
 				users = paginator.page(new_page_u)
 				single_user = users.object_list[0]
 
-			match_distance = round(calc_distance(request.user, single_user))
-			while match_distance > 20:
-				page_int = int(page)
-				new_page = page_int + 1
-				new_page_u = unicode(new_page)
-				users = paginator.page(new_page_u)
-				single_user = users.object_list[0]
-				match_distance = round(calc_distance(request.user, single_user))
-
 			try: 
 				match = Match.objects.get(user1=request.user, user2=single_user)
 			except: 
