@@ -18,7 +18,7 @@ class ComposeForm(forms.ModelForm):
 class FriendForm(forms.ModelForm):
 	class Meta:
 		model = DirectMessage
-		fields = ('subject', 'body', )
+		fields = ( 'body', )
 		widgets = {
 			'body': forms.Textarea(attrs={'cols': 80, 'rows': 20}),
 		}
