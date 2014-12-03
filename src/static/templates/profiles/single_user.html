@@ -62,26 +62,7 @@
 			{% endif %}
 			{% endifnotequal %}
 		</h4>
-		<div class="user_profile_buttons" id="buttons_row">
-		{% if not request.user == single_user %}
-			<div class="buttons">
-				{% if match.user1_approved == True and match.user2_approved == True %}
-				<a  class="btn btn-default btn" id="friend_button" title="You are friends!"><p>Friends</p></a>
-				<a class="btn btn-default btn" id="message_button" data-toggle="tooltip" data-placement="top" href='{% url "su_compose" single_user.username %}'><p>Send Message</p></a>
-				{% elif match.user1_approved == True and match.user1 == request.user %}
-				<a  class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
-				<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message<br>(Must be friends)</p></a>
-				{% elif match.user2_approved == True and match.user2 == request.user %}
-				<a class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
-				<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message<br>(Must be friends)</p></a>
-				{% else %}
-				<a class="btn btn-default btn" id="friend_button"><p id="add_me">Add Friend</p></a>
-				<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message<br>(Must be friends)</p></a>
-				{% endif %}
-				<a class="btn btn-default btn" id="pictures_button" href="/members/{{ single_user.username}}/pictures/"><p>Browse Pictures</p></a>
-			{% endif %}
-			</div>
-    	<div id="information">
+		<div id="information">
 	        {% if info.bio %} 
 		        <span> {% for item in single_user.info_set.all %}{% if forloop.first %}{{item.bio}}{% endif %}{% endfor %}</span>
 		        {% else %}
@@ -100,6 +81,26 @@
 	    	<!--End Interests-->
 	    	{% endif %}
 		</div><!--End info-->
+		<div class="user_profile_buttons" id="buttons_row">
+		{% if not request.user == single_user %}
+			<div class="buttons">
+				{% if match.user1_approved == True and match.user2_approved == True %}
+				<a class="btn btn-default btn" id="friend_button" title="You are friends!"><p>Friends!</p></a>
+				<a class="btn btn-default btn" id="message_button" data-toggle="tooltip" data-placement="top" href='{% url "su_compose" single_user.username %}'><p>Send Message</p></a>
+				{% elif match.user1_approved == True and match.user1 == request.user %}
+				<a  class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
+				<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message<br>(Must be friends)</p></a>
+				{% elif match.user2_approved == True and match.user2 == request.user %}
+				<a class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
+				<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message<br>(Must be friends)</p></a>
+				{% else %}
+				<a class="btn btn-default btn" id="friend_button"><p id="add_me">Add Friend</p></a>
+				<a class="btn btn-default btn" id="message_button_not_friends" data-toggle="tooltip" data-placement="top" title="Sorry but you have to be friends first!"><p>Send Message<br>(Must be friends)</p></a>
+				{% endif %}
+				<a class="btn btn-default btn" id="pictures_button" href="/members/{{ single_user.username}}/pictures/"><p>Pictures</p></a>
+			{% endif %}
+			</div>
+    	
 	</div>
 </div>
 

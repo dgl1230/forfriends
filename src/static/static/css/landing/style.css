@@ -127,7 +127,7 @@ ul {
 	font-size: 7em;
 	font-family: "Roboto", sans-serif;
 	color: black;
-	letter-spacing: .1em;
+	letter-spacing: .2px!important;
 	text-align: center;
 }
 
@@ -403,7 +403,7 @@ input[type=submit]:hover{
     -webkit-background-size:cover!important;
     z-index:100;
     background-color:#fefefe;
-    box-shadow: inset 0 2px 2px 1px rgba(0,0,0,0.1);
+    box-shadow: inset 0 0px 10px 2px #1fbad6;
   }
   .parallax4{
     background-image: url(/static/img/landing/classroom_dark.jpg);
@@ -424,13 +424,14 @@ input[type=submit]:hover{
     z-index:100;
   }
   .parallax6{
-    background-image: url(/static/img/landing/type_away_compressed_dark.jpg);
-    min-height:500px;
+    background-color: #fff;
+    height:300px;
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
     -webkit-background-size:cover!important;
     z-index:100;
+    box-shadow: inset 0 0px 10px 2px #1fbad6;
   }
 }
 /* Mobile Size Images */
@@ -459,7 +460,7 @@ input[type=submit]:hover{
     background-position: center;
     background-attachment: fixed;
     background-color:#fefefe;
-    box-shadow: inset 0 2px 2px 1px rgba(0,0,0,0.1);
+    box-shadow: inset 0 0px 10px 2px #1fbad6;
   }
   .parallax4{
     background-image: url(/static/img/landing/classroom_mobile.jpg);
@@ -480,13 +481,14 @@ input[type=submit]:hover{
     background-attachment: fixed;
   }
   .parallax6{
-    background-image: url(/static/img/landing/typing_mobile.jpg);
-    min-height:500px; 
+    background-color:white;
+    height:300px; 
     background-size: cover;
     -webkit-background-size:cover!important;
     z-index:100;
     background-position: center;
     background-attachment: fixed;
+    box-shadow: inset 0 0px 10px 2px #1fbad6;
   }
 }
 /* Mid Sized Images (Small Laptops etc.)*/
@@ -517,7 +519,7 @@ and (max-width : 1200px){
     background-position: center;
     background-attachment: fixed;
     background-color:#fefefe;
-    box-shadow: inset 0 2px 2px 1px rgba(0,0,0,0.1);
+    box-shadow: inset 0 0px 10px 2px #1fbad6;
 
   }
   .parallax4{
@@ -540,18 +542,18 @@ and (max-width : 1200px){
   }
   .parallax6{
     background-color:white;
-    min-height:500px; 
+    height:300px; 
     background-size: cover;
     -webkit-background-size:cover!important;
     z-index:100;
     background-position: center;
     background-attachment: fixed;
-    box-shadow: inset 0 2px 2px 1px rgba(0,0,0,0.1);
+    box-shadow: inset 0 0px 10px 2px #1fbad6;
   }
 }
 /* Footer */
 footer{
-  height:120px;
+  height:150px;
   width:100%;
   background-color:#515151;
   padding:25px 20px 25px 20px;
@@ -569,6 +571,9 @@ footer a:hover, footer a:focus, footer a:active{
 footer li{
   list-style: none;
   display:inline-block;
+}
+.footer_1{
+  line-height: 30px;
 }
 .footer_2{
   margin-top:5px;

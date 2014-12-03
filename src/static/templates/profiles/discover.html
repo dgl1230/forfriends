@@ -76,7 +76,7 @@
 		<div class="row" id="buttons_row">
 			<div class="buttons">	
 				{% if match.user1_approved == True and match.user2_approved == True %}
-				<a  class="btn btn-default btn" id="friend_button" title="You are friends!"><p>Friends</p></a>
+				<a  class="btn btn-default btn" id="friend_button" title="You are friends!"><p>Friends!</p></a>
 				{% elif match.user1_approved == True and match.user1 == request.user %}
 				<a class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
 				{% elif match.user2_approved == True and match.user2 == request.user %}
@@ -87,7 +87,7 @@
 				</span>
 				{% endif %}
 				<div id="outer_button">
-				<a class="btn btn-default btn" id="pictures_button" href="/members/{{ single_user.username}}/pictures/"><p>Browse Pictures</p></a>
+				<a class="btn btn-default btn" id="pictures_button" href="/members/{{ single_user.username}}/pictures/"><p>Pictures</p></a>
 				</div>
 			</div>
 		</div><!--End Buttons Row-->
