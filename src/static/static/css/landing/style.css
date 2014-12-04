@@ -416,7 +416,7 @@ input[type=submit]:hover{
   }
   .parallax5{
     background-image: url(/static/img/landing/concert.jpg);
-    min-height:500px;
+    min-height:800px;
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
@@ -473,7 +473,7 @@ input[type=submit]:hover{
   }
   .parallax5{
     background-image: url(/static/img/landing/concert_mobile.jpg);
-    min-height:500px;
+    min-height:800px;
     background-size: cover;
     -webkit-background-size:cover!important;
     z-index:100;
@@ -533,7 +533,7 @@ and (max-width : 1200px){
   }
   .parallax5{
     background-image: url(/static/img/landing/concert_medium.jpg);
-    min-height:500px;
+    min-height:800px;
     background-size: cover;
     -webkit-background-size:cover!important;
     z-index:100;
