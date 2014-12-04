@@ -39,7 +39,10 @@ def save_profile_picture(strategy, user, response, details, is_new=False,*args,*
 def facebook_basic_data(user, response, *args, **kwargs):
     email = kwargs['details']['email']
     user = User.objects.get(email=email)
-    info = Info.objects.create(user=user)
+    try:
+        info = Info.objects.get(user=user)
+    except:
+        info = Info.objects.create(user=user)
     info.gender = response['gender']
     info.save()
     return
