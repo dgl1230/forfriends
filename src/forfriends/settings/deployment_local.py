@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 SECRET_KEY = os.environ["FORFRIENDS_KEY"]
 
 
-DEBUG = True
+DEBUG = False
 
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
