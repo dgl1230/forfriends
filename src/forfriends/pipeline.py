@@ -36,43 +36,12 @@ def save_profile_picture(strategy, user, response, details, is_new=False,*args,*
     return
 
 
-'''
-def user_details(strategy, details, response, user=None, *args, **kwargs):
-    """Update user details using data from provider."""
-    if is_new and strategy.backend.name == 'facebook':
-    
-        
-        fb_data = {
-            
-            'gender': response['gender'],
-            
-        }
-        attrs = dict(attrs.items() + fb_data.items())
-    Info.objects.create(
-        **attrs
-    )
-'''
-
-'''
-
-# User details pipeline
-def user_details(strategy, details, response, user=None, *args, **kwargs):
-    """Update user details using data from provider."""
-    if user:
-        if kwargs['is_new']:
-            attrs = {'user': user}
-           #if facebook
-            if strategy.backend.__class__.__name__ == 'FacebookOAuth2':
-                fb_data = {
-                    
-                    'gender': response['gender'],
-                    
-                }
-                attrs = dict(attrs.items() + fb_data.items())
-            Info.objects.create(
-                **attrs
-            )
-'''
+def facebook_basic_data(user, response, *args, **kwargs):
+    email = kwargs['details']['email']
+    user = User.objects.get(email=email)
+    user.gender = response['gender']
+    user.save()
+    return
 
 
 def associate_user_by_email(**kwargs):
