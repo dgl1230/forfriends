@@ -43,7 +43,7 @@ def facebook_basic_data(user, response, *args, **kwargs):
         info = Info.objects.get(user=user)
     except:
         info = Info.objects.create(user=user)
-    info.gender = response['gender']
+    info.gender = response.get('gender')
     info.save()
     return
 
