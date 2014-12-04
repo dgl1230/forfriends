@@ -416,11 +416,6 @@ h4{
 	}
 }
 
-@media(min-width: 1400px){
-	#message_button_not_friends p{
-		margin-top:50px!important;
-	}
-}
 
 @media(min-width: 450px){
 	.col-lg-10.col-12{
