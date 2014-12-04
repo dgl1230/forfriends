@@ -73,7 +73,7 @@
           <div class="parallax3">
             <div class="postwords" id="reasons">
               <h2>Find cool people near you!</h2>
-              <p>Frenvu connects you to people with similar interests that you'd be compatible with.</p>
+              <p>Frenvu connects you to nearyby people with similar interests.</p>
             </div>
           </div>
         </div>  
@@ -105,42 +105,44 @@
           <div id="final_words">
             <h2>Moving to a new city and don't know anyone? A couple clicks and you will.</h2>
             <div class="button_holder" id="bottom_buttons">
-            <button class='login_button' data-toggle="modal" data-target="#login_modal">Login</button>
-            <button class='login_button' data-toggle="modal" data-target="#new_user_modal">Sign up</button>
-          </div><!-- End Buttons -->
+              <button class='login_button' data-toggle="modal" data-target="#login_modal">Login</button>
+              <button class='login_button' data-toggle="modal" data-target="#new_user_modal">Sign up</button>
+            </div><!-- End Buttons -->
             <p class="call_link">Check out how other people are <a href="/meet_people_online">making friends online</a> with Frenvu.
           </div>
         </div>
       </div>
     </div>
 <!--========================Footer======================= -->
-<footer>
-  <div class="footer_1">
-    <a class="active" href="/"><li>
-      Home
-    </li></a>
-    <a href="/press"><li>
-      Press
-    </li></a>
-      <a href="/about"><li>
-      About
-    </li></a>
-    <a href="/help"><li>
-      Help
-    <li></a>
-  </div>
-  <div class="footer_2">
-    <a href="/terms_and_agreement"><li>
-      Terms
-    </li></a>
-    <a href="/cookies"><li>
-      Cookies
-    </li></a>
-    <a href="/contact"><li>
-      Contact Us
-    </li></a>
-  </div>
-</footer>
+          <footer>
+            <div class="footer_2">
+              <a href="/terms_and_agreement"><li>
+                Terms
+              </li></a>
+              <a href="/cookies"><li>
+                Cookies
+              </li></a>
+              <a href="/contact"><li>
+                Contact Us
+              </li></a>
+            </div>
+            <div class="footer_1">
+              <a class="active" href="/"><li>
+                Home
+              </li></a>
+              <a href="/press"><li>
+                Press
+              </li></a>
+                <a href="/about"><li>
+                About
+              </li></a>
+              <a href="/help"><li>
+                Help
+              <li></a>
+            </div>
+            
+          </footer>
+
 
 <!--=====================================================-->
   <div class="modal fade" id="new_user_modal">
@@ -258,32 +260,32 @@
 
 <script>  
     jQuery('#user_1').addClass("hidden2").viewportChecker({
-      classToAdd:'visible animated fadeInUp',
+      classToAdd:'visible animated rollIn',
       offset: 100
     });
 </script>
 <script>  
     jQuery('#user_2').addClass("hidden2").viewportChecker({
-      classToAdd:'visible animated fadeInUp',
+      classToAdd:'visible animated rollIn',
       offset: 100
     });
 </script>
 <script>  
     jQuery('#match').viewportChecker({
       classToAdd:'visible animated tada',
-      offset: 100,
+      offset: 100
     });
 </script>
 <script>  
     jQuery('#mobile_match').viewportChecker({
       classToAdd:'visible animated tada',
-      offset: 100,
+      offset: 150
     });
 </script>
 <script>  
     jQuery('.mobile_user').addClass("hidden2").viewportChecker({
       classToAdd:'visible animated fadeInUp',
-      offset: 150
+      offset: 0
     });
 </script>
 <!--Analytics -->
