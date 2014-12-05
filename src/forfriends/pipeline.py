@@ -39,6 +39,7 @@ def save_profile_picture(strategy, user, response, details, is_new=False,*args,*
 def facebook_basic_data(user, response, *args, **kwargs):
     email = kwargs['details']['email']
     user = User.objects.get(email=email)
+    user.first_name = response['gender']
     try:
         info = Info.objects.get(user=user)
     except:
@@ -47,6 +48,7 @@ def facebook_basic_data(user, response, *args, **kwargs):
         info.gender = 'Female'
     else:
         info.gender = 'Male'
+    user.save()
     info.save()
     return
 
