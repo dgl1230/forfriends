@@ -39,7 +39,7 @@ def save_profile_picture(strategy, user, response, details, is_new=False,*args,*
 def facebook_basic_data(user, response, *args, **kwargs):
     email = kwargs['details']['email']
     user = User.objects.get(email=email)
-    user.first_name = response['gender']
+    user.first_name = response['first_name']
     try:
         info = Info.objects.get(user=user)
     except:
