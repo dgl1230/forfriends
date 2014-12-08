@@ -34,6 +34,26 @@
       <h2 class="fs-title">Enter some basic information</h2>
       <input id="username" name="username" placeholder="Username" required tabindex="1" type="text" maxlength="20">
       <br>
+      <label>Date of Birth</label> <br>
+      <select class="select-style" name="BirthMonth" tabindex="1" required>
+        <option selected="selected" disabled="disabled" value="">Month</option>
+          <option value="01">January</option>
+          <option value="02">February</option>
+          <option value="03">March</option>
+          <option value="04">April</option>
+          <option value="05">May</option>
+          <option value="06">June</option>
+          <option value="07">July</option>
+          <option value="08">August</option>
+          <option value="09">September</option>
+          <option value="10">October</option>
+          <option value="11">November</option>
+          <option value="12">December</option>
+      </select>
+      <br>
+      <input type="text" id="birthday_day" class="birthday" maxlength="2" name="BirthDay" tabindex="1"  placeholder="Day" required>
+      <input type="text" id="birthday_year" class="birthyear" maxlength="4" name="BirthYear" tabindex="1" placeholder="Year" required>
+      <br>
       Country:<select id="country" name ="country" required></select>
         State: <select name ="state" id ="state" required></select>
             <script language="javascript">
