@@ -139,29 +139,6 @@ $(function() {
 
 </script>
 {% else %}
-<script>
-$(function() {
-    $("#user_card").swipe({
-        swipeLeft:function(event, direction, distance, duration, fingerCount, fingerData) {
-            window.location.href =
-                '{% url "reset_discover" %}';
-        }
-    });
-});
-</script>
-
-<script>
-	$(document).keydown(function(e) {
-    switch(e.which) {
-        case 39: // right
-        window.location = '{% url "reset_discover" %}';
-        break;
-
-        default: return; // exit this handler for other keys
-    }
-    e.preventDefault(); // prevent the default action (scroll / move caret)
-	});
-</script>
 {% endif %}
 <script>
 $('#friend_button').click(function(){
