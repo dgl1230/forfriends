@@ -579,7 +579,7 @@ def new_user_info(request):
 		year = request.POST['BirthYear']
 		country = request.POST['country']
 		state = request.POST['state']
-		city = request.POST['city']
+		city = request.POST['city'].title()
 		datestr = str(year) + '-' + str(month) + '-' + str(day)
 		birthday = datetime.strptime(datestr, '%Y-%m-%d').date()
 		user_age = calculate_age(birthday)
@@ -668,6 +668,49 @@ def user_not_new(user):
 	return user.is_authenticated() and user_info.signed_up_with_fb_or_goog == False
 
 
+
+def create_user_list(logged_in_user):
+	user_gamification = Gamification.objects.get(user=logged_in_user)
+	users_all = User.objects.filter(is_active=True)
+	current_location = Address.objects.get(user=logged_in_user)
+	current_state = current_location.state
+	current_city = current_location.city
+	close_by_users = User.objects.filter(address__state=current_state).filter(address__city=current_city).exclude(username=logged_in_user.username)
+	user_gamification.discover_list = close_by_users
+	user_gamification.save()
+
+
+def redo_user_list(logged_in_user):
+	#find user list
+	matches = Match.objects.filter(
+		Q(user1=logged_in_user) | Q(user2=logged_in_user)
+		)
+	for match in matches:
+		if match.user1 != logged_in_user:
+			user_list.append(match.user1)
+		else:
+			user_list.append(match.user2)
+	#save user list
+
+
+
+def update_user_list(logged_in_user):
+	#find user list
+	last_user_id = user_list.latest('id').id
+	new_users = User.objects.filter(is_active=True).filter(id__gte=last_user_id)
+	new_close_users = new_users.filter(address__state=current_state).filter(address__city=current_city)
+	new_list = user_list + new_close_users
+	#save user list as new list
+
+
+def pop_user(logged_in_user, single_user):
+	#find user list
+	user_list.remove(single_user)
+	#save user list
+
+
+
+
 def reset_discover(request):
 	request.session['%s' % request.user.username]=request.user.username	
 	users_all = User.objects.filter(is_active=True)
@@ -689,43 +732,21 @@ on the single user page.
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def discover(request):
 	
-	
-
 	# first we check to see if a session exists
-	#trying cache for each user
-	
-	if not request.session.get('%s' % request.user.username):
-		request.session['%s' % request.user.username]=request.user.username
-	# we see if a cache exists
-	users_all = cache.get('cache_for_%s' % request.session['%s' % request.user.username])
-	if not users_all:
-		# if not, we create a new one
-		
-		users_all = User.objects.filter(is_active=True)
-		num_of_users = users_all.count() + 1
-		ran_num = randint(0, num_of_users - 20)
-		users_all = list(User.objects.filter(is_active=True)[ran_num:ran_num+20])
-		cache.set('cache_for_%s' % request.session['%s' % request.user.username], users_all, 120)
-		
-		'''
-		users_all = list(User.objects.filter(is_active=True).order_by('?'))
-		cache.set('random_exp_%d' % request.session['random_exp'], users_all, 500)
-		'''
-	paginator = Paginator(users_all, 1)
-	
+	# trying cache for each user
+	user_gamification = Gamification.objects.get(user=request.user)
+	try: 
+		user_list = list(user_gamification.discover_list.all())
+	except: 
+		create_user_list(request.user)
+		user_list = list(user_gamification.discover_list.all())
+
+	paginator = Paginator(user_list, 1)
 	page = request.GET.get('page')
 	try:
 		if page != False:
 			users = paginator.page(page)
 			single_user = users.object_list[0]
-
-			if single_user == request.user:
-				# if the user would go to themselves on pagination, we have them skip a page
-				page_int = int(page)
-				new_page = page_int + 1
-				new_page_u = unicode(new_page)
-				users = paginator.page(new_page_u)
-				single_user = users.object_list[0]
 
 			try: 
 				match = Match.objects.get(user1=request.user, user2=single_user)
@@ -756,14 +777,16 @@ def discover(request):
 			interests = find_same_interests(request.user, single_user)
 
 
+
 	except PageNotAnInteger:
 		#If page is not an integer, deliver first page.
 		users = paginator.page(1)
 
 	except EmptyPage:
 		#If page is out of range, deliver last page of results
-		interests = paginator.page(paginator.num_pages)
- 
+		users = paginator.page(paginator.num_pages)
+
+
 	return render_to_response('profiles/discover.html', locals(), context_instance=RequestContext(request))
 
 
@@ -1307,30 +1330,6 @@ def ice_breaker(request):
 		if interest in random_user_interests:
 			common_interests.append(interest)
 	random_interest = random.choice(common_interests)
-	'''	
-	max_interest = user1_interests.latest('id').id
-	max_user = User.objects.latest('id').id
-
-	#we keep iterating through until we find an interest that the logged in user either liked or strongly liked
-	while True: 
-		try:
-			random_interest = user1_interests.get(pk=randint(1, max_interest))
-			break
-		except: 
-			pass
-	# we keep iterating until we find a user that either liked or strongly liked the interested we found in previous loop
-	while True: 
-		try: 
-			random_user = User.objects.get(pk=randint(1, max_user))
-			assert (user1 != random_user)
-			#random_info = Info.objects.get(user=random_user)
-			#assert (random_info.is_new_user == False)
-			random_user_interests = UserInterestAnswer.objects.filter(user=random_user)
-			assert (random_interest in random_user_interests)
-			break
-		except:
-			pass
-	'''
 	try: 
 		match = Match.objects.get(user1=request.user, user2=random_user)
 		user1 = request.user

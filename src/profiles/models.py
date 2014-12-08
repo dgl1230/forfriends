@@ -35,6 +35,7 @@ class Gamification(models.Model):
 	user = models.ForeignKey(User, related_name="logged_in_user")
 	circle = models.ManyToManyField(Match)
 	friends_list = models.ManyToManyField(User, related_name="friends_list", null=True, blank=True)
+	discover_list = models.ManyToManyField(User, related_name="discover_list", null=True, blank=True)
 
 	circle_time_until_reset = models.DateTimeField(null=True, blank=True)
 	icebreaker_until_reset = models.DateTimeField(null=True, blank=True)

@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 SECRET_KEY = os.environ["FORFRIENDS_KEY"]
 
 
-DEBUG = False
+DEBUG = True
 
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
@@ -57,6 +57,7 @@ INSTALLED_APPS = (
     'social.apps.django_app.default',
     'debug_toolbar',
     'collectfast',
+    'djcelery',
 )
 
 TEMPLATE_DIRS = (
@@ -242,6 +243,7 @@ def get_cache():
 
 CACHES = get_cache()
 """
+
 
 
 
