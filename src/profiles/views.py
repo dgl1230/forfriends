@@ -591,6 +591,7 @@ def new_user_fb_or_goog(request):
 			except:
 				pass
 			request.user.username = username
+			request.user.is_active = True
 			request.user.save()
 			user = authenticate(username=request.user.username, password=request.user.password)
 			request.user.save()
@@ -734,6 +735,7 @@ def new_user_info(request):
 			except:
 				pass
 			request.user.username = username
+			request.user.is_active = True
 			request.user.save()
 			user = authenticate(username=request.user.username, password=request.user.password)
 			request.user.save()
@@ -1204,7 +1206,7 @@ def login_user(request):
 				email = request.user.email
 				subject = 'A user is reactivating their account.'
 				message = '%s wants to reactivate their account.' % (username,)
-				msg = EmailMultiAlternatives(subject, message, EMAIL_HOST_USER, [email])
+				msg = EmailMultiAlternatives(subject, message, EMAIL_HOST_USER, [EMAIL_HOST_USER])
 				msg.content_subtype = "html"
 				msg.send()
 			messages.succes(request, "We missed you!")
@@ -1265,6 +1267,7 @@ def register_new_user(request):
 				new_user = User.objects.create(username=email_as_username, password=password)
 				new_user.set_password(password)
 				new_user.email = email
+				new_user.is_active = False
 				
 				new_user.save()
 				new_user = authenticate(username=email_as_username, password=password)

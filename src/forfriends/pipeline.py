@@ -39,6 +39,7 @@ def save_profile_picture(strategy, user, response, details, is_new=False,*args,*
 def facebook_basic_data(user, response, *args, **kwargs):
     email = kwargs['details']['email']
     user = User.objects.get(email=email)
+    user.is_active = False
     user.first_name = response['first_name']
     user.last_name = response['last_name']
     try:

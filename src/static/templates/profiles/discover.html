@@ -3,7 +3,7 @@
 {% if no_users %}
 <h3 id="no_pictures">There are no users close to you right now, but check back soon!</h3>
 {% else %}
-{% endif %}
+
 <div class="row" id="discover_row">
     <div class="container" id="single_user_container">
 	{% if messages %}
@@ -150,5 +150,5 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 	$('#swipe_left').addClass('animated lightSpeedIn'); 	
 };
 </script>
-
+{% endif %}
 {% endblock %}
