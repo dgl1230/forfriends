@@ -742,7 +742,6 @@ def discover(request):
 
 	try: 
 		user_gamification = Gamification.objects.get(user=request.user)
-
 	except:
 		user_gamification = Gamification.objects.create(user=request.user)
 		create_user_list(request.user)
@@ -753,6 +752,10 @@ def discover(request):
 	print "creating new user list"
 	'''
 	update_user_list(request.user)
+	if user_gamification.discover_list.count() == 0:
+		no_users = True
+	else:
+		no_users = False
 	
 	user_list = list(user_gamification.discover_list.all())
 	
