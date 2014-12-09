@@ -787,6 +787,7 @@ def discover(request):
 			except: 
 				pass
 			interests = find_same_interests(request.user, single_user)
+			pop_user(request.user, single_user)
 
 
 
