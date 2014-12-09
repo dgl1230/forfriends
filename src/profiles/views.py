@@ -696,18 +696,22 @@ def redo_user_list(logged_in_user):
 
 def update_user_list(logged_in_user):
 	user_gamification = Gamification.objects.get(user=logged_in_user)
+	user_list = user_gamification.discover_list
 	last_user_id = user_list.latest('id').id
 	new_users = User.objects.filter(is_active=True).filter(id__gte=last_user_id)
+	current_location = Address.objects.get(user=logged_in_user)
+	current_state = current_location.state
+	current_city = current_location.city
 	new_close_users = new_users.filter(address__state=current_state).filter(address__city=current_city)
-	new_list = user_list + new_close_users
-	user_gamification.discover_list = new_list
+	user_gamification.discover_list.add(*new_close_users)
 	user_gamification.save()
 
 
 def pop_user(logged_in_user, single_user):
-	#find user list
+	user_gamification = Gamification.objects.get(user=logged_in_user)
+	user_list = user_gamification.discover_list
 	user_list.remove(single_user)
-	#save user list
+	user_gamification.save()
 
 
 
@@ -721,6 +725,7 @@ def reset_discover(request):
 	cache.set('cache_for_%s' % request.session['%s' % request.user.username], users_all, 120)
 	#return HttpResponseRedirect(reverse('discover'))
 	return redirect('http://www.frenvu.com/discover/?page=1')
+
 
 
 '''
