@@ -287,7 +287,7 @@ def all(request):
 				user_gamification = Gamification.objects.get(user=request.user)
 			except: 
 				#user does not have a circle
-				pass
+				
 				user_gamification = Gamification.objects.create(user=request.user)
 				user_gamification.circle_time_until_reset = datetime.now()
 				user_gamification.icebreaker_until_reset = datetime.now()
@@ -579,7 +579,7 @@ def new_user_info(request):
 		year = request.POST['BirthYear']
 		country = request.POST['country']
 		state = request.POST['state']
-		city = request.POST['city']
+		city = request.POST['city'].title()
 		datestr = str(year) + '-' + str(month) + '-' + str(day)
 		birthday = datetime.strptime(datestr, '%Y-%m-%d').date()
 		user_age = calculate_age(birthday)
@@ -668,6 +668,54 @@ def user_not_new(user):
 	return user.is_authenticated() and user_info.signed_up_with_fb_or_goog == False
 
 
+
+def create_user_list(logged_in_user):
+	user_gamification = Gamification.objects.get(user=logged_in_user)
+	users_all = User.objects.filter(is_active=True)
+	current_location = Address.objects.get(user=logged_in_user)
+	current_state = current_location.state
+	current_city = current_location.city
+	close_by_users = User.objects.filter(address__state=current_state).filter(address__city=current_city).exclude(username=logged_in_user.username)
+	user_gamification.discover_list = close_by_users
+	user_gamification.save()
+
+
+def redo_user_list(logged_in_user):
+	#find user list
+	matches = Match.objects.filter(
+		Q(user1=logged_in_user) | Q(user2=logged_in_user)
+		)
+	for match in matches:
+		if match.user1 != logged_in_user:
+			user_list.append(match.user1)
+		else:
+			user_list.append(match.user2)
+	#save user list
+
+
+
+def update_user_list(logged_in_user):
+	user_gamification = Gamification.objects.get(user=logged_in_user)
+	user_list = user_gamification.discover_list
+	last_user_id = user_list.latest('id').id
+	new_users = User.objects.filter(is_active=True).filter(id__gte=last_user_id)
+	current_location = Address.objects.get(user=logged_in_user)
+	current_state = current_location.state
+	current_city = current_location.city
+	new_close_users = new_users.filter(address__state=current_state).filter(address__city=current_city)
+	user_gamification.discover_list.add(*new_close_users)
+	user_gamification.save()
+
+
+def pop_user(logged_in_user, single_user):
+	user_gamification = Gamification.objects.get(user=logged_in_user)
+	user_list = user_gamification.discover_list
+	user_list.remove(single_user)
+	user_gamification.save()
+
+
+
+
 def reset_discover(request):
 	request.session['%s' % request.user.username]=request.user.username	
 	users_all = User.objects.filter(is_active=True)
@@ -677,6 +725,7 @@ def reset_discover(request):
 	cache.set('cache_for_%s' % request.session['%s' % request.user.username], users_all, 120)
 	#return HttpResponseRedirect(reverse('discover'))
 	return redirect('http://www.frenvu.com/discover/?page=1')
+
 
 
 '''
@@ -689,43 +738,27 @@ on the single user page.
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def discover(request):
 	
+
+	try: 
+		user_gamification = Gamification.objects.get(user=request.user)
+	except:
+		user_gamification = Gamification.objects.create(user=request.user)
+	 
+	user_list_num = user_gamification.discover_list.count()
+	if user_list_num == 0:
+		create_user_list(request.user)
+		print "creating new user list"
+	update_user_list(request.user)
+	user_list = list(user_gamification.discover_list.all())
 	
 
-	# first we check to see if a session exists
-	#trying cache for each user
-	
-	if not request.session.get('%s' % request.user.username):
-		request.session['%s' % request.user.username]=request.user.username
-	# we see if a cache exists
-	users_all = cache.get('cache_for_%s' % request.session['%s' % request.user.username])
-	if not users_all:
-		# if not, we create a new one
-		
-		users_all = User.objects.filter(is_active=True)
-		num_of_users = users_all.count() + 1
-		ran_num = randint(0, num_of_users - 20)
-		users_all = list(User.objects.filter(is_active=True)[ran_num:ran_num+20])
-		cache.set('cache_for_%s' % request.session['%s' % request.user.username], users_all, 120)
-		
-		'''
-		users_all = list(User.objects.filter(is_active=True).order_by('?'))
-		cache.set('random_exp_%d' % request.session['random_exp'], users_all, 500)
-		'''
-	paginator = Paginator(users_all, 1)
-	
+
+	paginator = Paginator(user_list, 1)
 	page = request.GET.get('page')
 	try:
 		if page != False:
 			users = paginator.page(page)
 			single_user = users.object_list[0]
-
-			if single_user == request.user:
-				# if the user would go to themselves on pagination, we have them skip a page
-				page_int = int(page)
-				new_page = page_int + 1
-				new_page_u = unicode(new_page)
-				users = paginator.page(new_page_u)
-				single_user = users.object_list[0]
 
 			try: 
 				match = Match.objects.get(user1=request.user, user2=single_user)
@@ -754,6 +787,8 @@ def discover(request):
 			except: 
 				pass
 			interests = find_same_interests(request.user, single_user)
+			pop_user(request.user, single_user)
+
 
 
 	except PageNotAnInteger:
@@ -762,8 +797,9 @@ def discover(request):
 
 	except EmptyPage:
 		#If page is out of range, deliver last page of results
-		interests = paginator.page(paginator.num_pages)
- 
+		users = paginator.page(paginator.num_pages)
+
+
 	return render_to_response('profiles/discover.html', locals(), context_instance=RequestContext(request))
 
 
@@ -1122,7 +1158,7 @@ def single_user(request, username):
 			match.save()
 			interests_all = Interest.objects.filter(userinterestanswer__user=single_user)
 			pictures = UserPicture.objects.filter(user=single_user)
-			num_of_pics = pictures.count()
+
 
 			try:
 				su_info = Info.objects.get(user=single_user)
@@ -1165,6 +1201,7 @@ def single_user(request, username):
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def single_user_pictures(request, username):
 	pictures = UserPicture.objects.filter(user__username=username)
+	num_of_pics = pictures.count()
 	return render_to_response('profiles/single_user_pictures.html', locals(), context_instance=RequestContext(request))
 
 
@@ -1306,30 +1343,6 @@ def ice_breaker(request):
 		if interest in random_user_interests:
 			common_interests.append(interest)
 	random_interest = random.choice(common_interests)
-	'''	
-	max_interest = user1_interests.latest('id').id
-	max_user = User.objects.latest('id').id
-
-	#we keep iterating through until we find an interest that the logged in user either liked or strongly liked
-	while True: 
-		try:
-			random_interest = user1_interests.get(pk=randint(1, max_interest))
-			break
-		except: 
-			pass
-	# we keep iterating until we find a user that either liked or strongly liked the interested we found in previous loop
-	while True: 
-		try: 
-			random_user = User.objects.get(pk=randint(1, max_user))
-			assert (user1 != random_user)
-			#random_info = Info.objects.get(user=random_user)
-			#assert (random_info.is_new_user == False)
-			random_user_interests = UserInterestAnswer.objects.filter(user=random_user)
-			assert (random_interest in random_user_interests)
-			break
-		except:
-			pass
-	'''
 	try: 
 		match = Match.objects.get(user1=request.user, user2=random_user)
 		user1 = request.user

@@ -5,6 +5,10 @@
 #friend #match{
 	margin:0px 0px 0px;
 }
+
+#friend{
+	float:left;
+}
 #friend p{
 	margin:0px 0px 0px;
 }
