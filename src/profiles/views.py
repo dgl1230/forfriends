@@ -893,6 +893,7 @@ def discover(request):
 	if user_gamification.discover_list.count() == 0:
 		no_users = True
 		return render_to_response('profiles/discover.html', locals(), context_instance=RequestContext(request))
+		#return HttpResponseRedirect(reverse('home'))
 	else:
 		no_users = False
 	
