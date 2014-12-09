@@ -630,6 +630,7 @@ def new_user_info(request):
 			user = authenticate(username=request.user.username, password=request.user.password)
 			request.user.save()
 
+
 			if not CURRENTLY_LOCALLY_TESTING:
 
 				subject = "Welcome to Frenvu!"
@@ -741,14 +742,18 @@ def discover(request):
 
 	try: 
 		user_gamification = Gamification.objects.get(user=request.user)
+
 	except:
 		user_gamification = Gamification.objects.create(user=request.user)
-	 
+		create_user_list(request.user)
+	'''
 	user_list_num = user_gamification.discover_list.count()
 	if user_list_num == 0:
-		create_user_list(request.user)
-		print "creating new user list"
+	create_user_list(request.user)
+	print "creating new user list"
+	'''
 	update_user_list(request.user)
+	
 	user_list = list(user_gamification.discover_list.all())
 	
 
