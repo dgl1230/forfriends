@@ -742,6 +742,7 @@ def discover(request):
 	if user_list_num == 0:
 		create_user_list(request.user)
 		print "creating new user list"
+	update_user_list(request.user)
 	user_list = list(user_gamification.discover_list.all())
 	
 
