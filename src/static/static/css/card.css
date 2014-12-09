@@ -1,3 +1,6 @@
+#discover_row{
+	margin-top:20px;
+}
 .user_card{
 	width: 700px;
 	text-align: center;
@@ -47,5 +50,11 @@
 	}
 	#discover_next{
 		padding:25px 5px;
+	}
+	#discover_row{
+	margin-top:0px;
+	}
+	.user_card{
+		padding-top: 5px;
 	}
 }
