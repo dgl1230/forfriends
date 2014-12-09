@@ -287,7 +287,7 @@ def all(request):
 				user_gamification = Gamification.objects.get(user=request.user)
 			except: 
 				#user does not have a circle
-				pass
+				
 				user_gamification = Gamification.objects.create(user=request.user)
 				user_gamification.circle_time_until_reset = datetime.now()
 				user_gamification.icebreaker_until_reset = datetime.now()
@@ -732,14 +732,19 @@ on the single user page.
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def discover(request):
 	
-	# first we check to see if a session exists
-	# trying cache for each user
-	user_gamification = Gamification.objects.get(user=request.user)
+
 	try: 
-		user_list = list(user_gamification.discover_list.all())
-	except: 
+		user_gamification = Gamification.objects.get(user=request.user)
+	except:
+		user_gamification = Gamification.objects.create(user=request.user)
+	 
+	user_list_num = user_gamification.discover_list.count()
+	if user_list_num == 0:
 		create_user_list(request.user)
-		user_list = list(user_gamification.discover_list.all())
+		print "creating new user list"
+	user_list = list(user_gamification.discover_list.all())
+	
+
 
 	paginator = Paginator(user_list, 1)
 	page = request.GET.get('page')
