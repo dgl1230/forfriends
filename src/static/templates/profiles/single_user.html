@@ -40,7 +40,7 @@
 		
 	{% if not request.user == single_user %}
 			{% if single_user_is_new %}
-			<h4 id="average">New User</h4>
+			<h4 id="average"></h4>
 			{% elif match.percent >= 90 %}
 			<h4 id="average">Excellent Match</h4>
 			{% elif match.percent >= 80 %}

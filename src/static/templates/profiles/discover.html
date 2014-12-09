@@ -1,6 +1,9 @@
- 	{% extends 'base.html' %}
+{% extends 'base.html' %}
 {% block content %}
-
+{% if no_users %}
+<h3 id="no_pictures">There are no users close to you right now, but check back soon!</h3>
+{% else %}
+{% endif %}
 <div class="row" id="discover_row">
     <div class="container" id="single_user_container">
 	{% if messages %}
@@ -32,7 +35,7 @@
 		</div>	
 		{% if not request.user == single_user %}
 			{% if single_user_is_new %}
-			<h4 id="average">New User</h4>
+			<h4 id="average"></h4>
 			{% elif match.percent >= 90 %}
 			<h4 id="average">Excellent Match</h4>
 			{% elif match.percent >= 80 %}
