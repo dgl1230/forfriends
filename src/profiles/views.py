@@ -841,7 +841,7 @@ def update_user_list(logged_in_user):
 		else:
 			excluded_users.append(match.user2)
 	new_users = [x for x in new_close_users if x not in excluded_users]
-	user_gamification.discover_list = new_users
+	user_gamification.discover_list.add(*new_users)
 	user_gamification.save()
 
 
@@ -884,27 +884,39 @@ def discover(request):
 		user_gamification = Gamification.objects.get(user=request.user)
 	except:
 		user_gamification = Gamification.objects.create(user=request.user)
+	
+	info = Info.objects.get(user=request.user)
+	if info.new_to_discover == True:
 		create_user_list(request.user)
-	'''
-	user_list_num = user_gamification.discover_list.count()
-	if user_list_num == 0:
-	create_user_list(request.user)
-	print "creating new user list"
-	'''
-	update_user_list(request.user)
+		info.new_to_discover = False
+		info.save()
+	else:
+
+		update_user_list(request.user)
 	if user_gamification.discover_list.count() == 0:
 		no_users = True
 		return render_to_response('profiles/discover.html', locals(), context_instance=RequestContext(request))
 		#return HttpResponseRedirect(reverse('home'))
 	else:
 		no_users = False
-	
-	user_list = list(user_gamification.discover_list.all())
-	
 
-
-	paginator = Paginator(user_list, 1)
 	page = request.GET.get('page')
+	page_int = int(page)
+
+	user_list = list(user_gamification.discover_list.all())
+	paginator = Paginator(user_list, 1)
+	
+	
+	
+	if page_int == 1:
+		update_user_list(request.user)
+	if user_gamification.discover_list.count() == 0:
+		no_users = True
+		return render_to_response('profiles/discover.html', locals(), context_instance=RequestContext(request))
+		#return HttpResponseRedirect(reverse('home'))
+	else:
+		no_users = False
+
 	try:
 		if page != False:
 			users = paginator.page(page)
