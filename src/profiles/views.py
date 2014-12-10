@@ -794,7 +794,7 @@ def create_user_list(logged_in_user):
 	for match in matches:
 		if match.user1 != logged_in_user:
 			excluded_users.append(match.user1)
-		else:
+		if match.user2 != logged_in_user:
 			excluded_users.append(match.user2)
 
 	new_users = [x for x in close_by_users if x not in excluded_users]
