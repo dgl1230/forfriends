@@ -40,8 +40,7 @@ from questions.models import Question, UserAnswer
 
 
 CURRENTLY_LOCALLY_TESTING = False
-#print("IP Address for debug-toolbar: " + request.META['REMOTE_ADDR'])
-#ip_variable = request.META['REMOTE_ADDR']
+
 def custom_show_toolbar(request):
 	return True
 
@@ -52,7 +51,7 @@ def user_not_new(user):
 		user_info = Info.objects.get(user=user)
 	except:
 		return False
-	return user.is_authenticated() and user_info.signed_up_with_fb_or_goog == False
+	return user.is_authenticated() and user_info.signed_up_with_fb_or_goog == False and user_info.is_new_user == False
 
 '''
 def user_can_reset_circle(user):
@@ -166,24 +165,28 @@ def add_friend_discovery(request, username, page):
 		match.user2_approved = True
 
 	if (match.user1 == request.user and match.user1_approved == True and match.user2_approved == False):
+		'''
 		if not CURRENTLY_LOCALLY_TESTING: 
-			sender = User.objects.get(username="TeamFrenvu")
+		sender = User.objects.get(username="TeamFrenvu")
 		else: 	
-			sender = request.user
+		sender = request.user
 		requester = request.user
 		requested= match.user2
 		subject = "Someone wants to be your friend!"
 		body = "Hey %s, I think we could be pretty good friends! Why don't you check out my profile and see if you think we'd get along?" %(requested)
 		message = DirectMessage.objects.create(subject=subject, body=body, sender=sender, receiver=requested)
-		match.save()
 		message.save()
+		'''
+		match.save()
+		
 
 
 	if (match.user2 == request.user and match.user2_approved == True and match.user1_approved == False):
+		'''
 		if not CURRENTLY_LOCALLY_TESTING: 
-			sender = User.objects.get(username="TeamFrenvu")
+		sender = User.objects.get(username="TeamFrenvu")
 		else: 	
-			sender = request.user
+		sender = request.user
 		requester = request.user
 		requested= match.user1
 		subject = "Someone wants to be your friend!"
@@ -191,6 +194,8 @@ def add_friend_discovery(request, username, page):
 		message = DirectMessage.objects.create(subject=subject, body=body, sender=sender,receiver=requested)
 		match.save()
 		message.save()
+		'''
+		match.save()
 
 
 
