@@ -28,7 +28,7 @@
             </div>
           {% endif %}
   <!-- multistep form -->
-  <form id="msform" method='POST' action='{% url "new_user_registration_2" %}'>{% csrf_token %}
+  <form id="msform" method='POST' action='{% url "new_user_info" %}'>{% csrf_token %}
     <!-- fieldsets -->
     <fieldset>
       <h2 class="fs-title">Enter some basic information</h2>
@@ -69,10 +69,66 @@
 </div>
 <script src="{{ STATIC_URL }}js/new_user.js" type="text/javascript"></script>
 <script>
+$('#username').alphanum({
+  allow : " -_'"
+});
+</script>
+<script>
 $('#name').alphanum({
-  allow : " _-'",
+  allow : " -'",
   disallow:'0123456789'
 });
 </script>
+<script>
+$('#city').alphanum({
+  allow : " -'",
+  disallow:'0123456789'
+});
+</script>
+
+<script>
+checkPwd = function () {
+    var str = document.getElementById('password').value;
+    if (str.length < 6) {
+        alert("Please enter a password that is at least 8 characters.");
+        return ("too_short");
+    }
+}
+</script>
+
+<script>
+$('#first_name, #last_name, #username, #birthday_day, #birthday_year, #state, #country, #city').bind('keyup', function() {
+    if(allFilled()) $('#new_sign_up').removeAttr('disabled'),
+      $('#new_sign_up').val('Sign Me Up');
+});
+
+function allFilled() {
+    var filled = true;
+    $('#first_name').each(function() {
+        if($(this).val().length < 1) filled = false;
+    });
+    $('#last_name').each(function() {
+        if($(this).val().length < 1) filled = false;
+    });
+    $('#username').each(function() {
+        if($(this).val().length < 1) filled = false;
+    });
+    $('#birthday_day').each(function() {
+        if($(this).val().length < 1) filled = false;
+    });
+    $('#birthday_year').each(function() {
+        if($(this).val().length < 1) filled = false;
+    });
+    $('#country').each(function() {
+        if($(this).val().length < 1) filled = false;
+    });
+    $('#state').each(function() {
+        if($(this).val().length < 1) filled = false;
+    });
+    $('#city').each(function() {
+        if($(this).val().length < 1) filled = false;
+    });
+    return filled;
+}
 </body>
 </html>
