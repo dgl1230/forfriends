@@ -957,9 +957,11 @@ def discover(request):
 				pass
 			else:	
 				match.percent = match_percentage(match.user1, match.user2)
+				if match.percent == 0:
+					single_user_new = True
 			try:
 				su_info = Info.objects.get(user=single_user)
-				if su_info.is_new_user == True or is_new_user:
+				if su_info.is_new_user == True:
 					single_user_new = True
 			except: 
 				single_user_new = False
