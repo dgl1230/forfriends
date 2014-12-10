@@ -959,9 +959,10 @@ def discover(request):
 				match.percent = match_percentage(match.user1, match.user2)
 			try:
 				su_info = Info.objects.get(user=single_user)
-				single_user_is_new = su_info.is_new_user
+				if su_info.is_new_user == True or is_new_user:
+					single_user_new = True
 			except: 
-				single_user_is_new = False
+				single_user_new = False
 			match.save()
 			try:
 				profile_pic = UserPicture.objects.get(user=user, is_profile_pic=True)
