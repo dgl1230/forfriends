@@ -740,13 +740,20 @@ def new_user_info(request):
 				return HttpResponseRedirect(reverse('home'))
 			except:
 				pass
-			request.user.username = username
+			#request.user.username = username
+			#request.user.first_name = first_name
+			#request.user.last_name = last_name
 			
 			
 			
 			request.user.save()
 			user = authenticate(username=request.user.username, password=request.user.password)
-			request.user.save()
+			#user.save()
+			new_user = User.objects.get(username=request.user.username)
+			new_user.username = username
+			new_user.first_name = first_name
+			new_user.last_name = last_name
+			new_user.save()
 
 
 
