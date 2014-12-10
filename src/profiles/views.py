@@ -1214,6 +1214,7 @@ def login_user(request):
 		# if user deactivated their account and logged in, they are no longer deactivated
 		if user.is_active == False:
 			user.is_active = True
+			user.save()
 			if not DEBUG: 
 				email = request.user.email
 				subject = 'A user is reactivating their account.'
