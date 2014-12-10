@@ -1221,7 +1221,7 @@ def login_user(request):
 				msg = EmailMultiAlternatives(subject, message, EMAIL_HOST_USER, [EMAIL_HOST_USER])
 				msg.content_subtype = "html"
 				msg.send()
-			messages.succes(request, "We missed you!")
+			messages.success(request, "We missed you!")
 		login(request, user)
 		return HttpResponseRedirect(reverse('home'))
 	else:
