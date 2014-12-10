@@ -596,7 +596,7 @@ def new_user_fb_or_goog(request):
 			except:
 				pass
 			request.user.username = username
-			request.user.is_active = True
+			#request.user.is_active = True
 			request.user.save()
 			user = authenticate(username=request.user.username, password=request.user.password)
 			request.user.save()
@@ -799,10 +799,11 @@ def create_user_list(logged_in_user):
 	matches = Match.objects.filter(
 		Q(user1=logged_in_user, user1_approved=True) | Q(user2=logged_in_user, user2_approved=True)
 		)
+	excluded_users.append(logged_in_user)
 	for match in matches:
 		if match.user1 != logged_in_user:
 			excluded_users.append(match.user1)
-		if match.user2 != logged_in_user:
+		else:
 			excluded_users.append(match.user2)
 
 	new_users = [x for x in close_by_users if x not in excluded_users]
