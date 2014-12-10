@@ -28,7 +28,7 @@
             </div>
           {% endif %}
   <!-- multistep form -->
-  <form id="msform" method='POST' action='{% url "new_user_registration2" %}'>{% csrf_token %}
+  <form id="msform" method='POST' action='{% url "new_user_registration_2" %}'>{% csrf_token %}
     <!-- fieldsets -->
     <fieldset>
       <h2 class="fs-title">Enter some basic information</h2>
@@ -60,7 +60,6 @@
               populateCountries("country", "state");
             </script> 
             <input id="city" name="city" required="" tabindex="1" type="text" placeholder="City">    
-      <input type="button" name="next" class="next action-button" value="Next" />
       <br>
       <h3 class="fs-subtitle"></h3>
       <p id="terms">By clicking Sign Me Up, you agree to our <a href="/terms_and_agreement/">Terms and Conditions</a> and understand our <a href="/terms_and_agreement/">Privacy Policy.</a></p>
