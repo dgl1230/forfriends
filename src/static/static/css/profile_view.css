@@ -379,7 +379,7 @@ h4{
 }
 
 #discovery_buttons #friend_button{
-	background: none;
+	background: none!important;
 	background-size:cover;
 	height:150px;
 
