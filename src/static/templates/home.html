@@ -26,6 +26,7 @@
     <link href="{{ STATIC_URL }}css/landing/social_login.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/landing/features.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/landing/modals.css" rel="stylesheet"> 
+    <link href="{{ STATIC_URL }}css/landing/cards.css" rel="stylesheet"> 
     <link href="{{ STATIC_URL }}css/landing/animate.css" rel="stylesheet"> 
     <!-- 
     <link href="{{ STATIC_URL }}css/landing/style_compressed.css" rel="stylesheet">  
@@ -72,14 +73,30 @@
           <div class="parallax3">
             <div class="postwords" id="reasons">
               <h2>Find cool people near you!</h2>
-              <p>Frenvu connects you to people with similar interests that you'd be compatible with.</p>
+              <p>Frenvu connects you to nearby people with similar interests.</p>
             </div>
           </div>
         </div>  
         <div class="post">
           <div class="parallax5">
-            <div class="postwords">
-              <h2>We put you in a group of people we think you'd get along with, and we even break the ice for you.</h2>
+            <div class="postwords" id="break_ice">
+              <h2>We find people we think you'd get along with, and we even break the ice for you.</h2>
+              <h3 id="match" class="desktop_match">Match!</h3>
+                <div class="cards">
+                  <section id="user_1" class="desktop_user">
+                    <img src="{{ STATIC_URL }}img/landing/user_jessie.png">
+                  </section>
+                  <section id="user_1" class="mobile_user">
+                    <img src="{{ STATIC_URL }}img/landing/user_jessie_mobile.png">
+                  </section>
+                <h3 id="mobile_match">Match!</h3>
+                  <section id="user_2"  class="desktop_user">
+                    <img src="{{ STATIC_URL }}img/landing/user_denis.png">
+                  </section>
+                  <section id="user_2" class="mobile_user">
+                    <img src="{{ STATIC_URL }}img/landing/user_denis_mobile.png">
+                  </section>
+                </div>
             </div>
           </div>
         </div>
@@ -88,42 +105,44 @@
           <div id="final_words">
             <h2>Moving to a new city and don't know anyone? A couple clicks and you will.</h2>
             <div class="button_holder" id="bottom_buttons">
-            <button class='login_button' data-toggle="modal" data-target="#login_modal">Login</button>
-            <button class='login_button' data-toggle="modal" data-target="#new_user_modal">Sign up</button>
-          </div><!-- End Buttons -->
+              <button class='login_button' data-toggle="modal" data-target="#login_modal">Login</button>
+              <button class='login_button' data-toggle="modal" data-target="#new_user_modal">Sign up</button>
+            </div><!-- End Buttons -->
             <p class="call_link">Check out how other people are <a href="/meet_people_online">making friends online</a> with Frenvu.
           </div>
         </div>
       </div>
     </div>
 <!--========================Footer======================= -->
-<footer>
-  <div class="footer_1">
-    <a class="active" href="/"><li>
-      Home
-    </li></a>
-    <a href="/press"><li>
-      Press
-    </li></a>
-      <a href="/about"><li>
-      About
-    </li></a>
-    <a href="/help"><li>
-      Help
-    <li></a>
-  </div>
-  <div class="footer_2">
-    <a href="/terms_and_agreement"><li>
-      Terms
-    </li></a>
-    <a href="/cookies"><li>
-      Cookies
-    </li></a>
-    <a href="/contact"><li>
-      Contact Us
-    </li></a>
-  </div>
-</footer>
+          <footer>
+            <div class="footer_2">
+              <a href="/terms_and_agreement"><li>
+                Terms
+              </li></a>
+              <a href="/cookies"><li>
+                Cookies
+              </li></a>
+              <a href="/contact"><li>
+                Contact Us
+              </li></a>
+            </div>
+            <div class="footer_1">
+              <a class="active" href="/"><li>
+                Home
+              </li></a>
+              <a href="/press"><li>
+                Press
+              </li></a>
+                <a href="/about"><li>
+                About
+              </li></a>
+              <a href="/help"><li>
+                Help
+              <li></a>
+            </div>
+            
+          </footer>
+
 
 <!--=====================================================-->
   <div class="modal fade" id="new_user_modal">
@@ -232,10 +251,29 @@
     });
 </script>
 
-<script>
+<script>  
     jQuery('#bottom_buttons').addClass("hidden2").viewportChecker({
       classToAdd:'visible animated fadeInUp',
-      offset: 300
+      offset: 100
+    });
+</script>
+
+<script>  
+    jQuery('#user_1').addClass("hidden2").viewportChecker({
+      classToAdd:'visible animated rollIn',
+      offset: 100
+    });
+</script>
+<script>  
+    jQuery('#user_2').addClass("hidden2").viewportChecker({
+      classToAdd:'visible animated rollIn',
+      offset: 100
+    });
+</script>
+<script>  
+    jQuery('#match').viewportChecker({
+      classToAdd:'visible animated tada',
+      offset: 100
     });
 </script>
 <!--Analytics -->

@@ -20,8 +20,7 @@
     </div>
 </div>
 {% endif %}
-	<div class = 'row' id="picture_row">
-		<div class='col col-sm-12'>
+	<div class="user_card">
 			<h1 id="name_of_user">{{ single_user.username }}</h1>
 
 			{% if profile_pic %}
@@ -38,8 +37,12 @@
 			{% else %}
 				<img src='{{ STATIC_URL }}img/avatar.png' class='img' id="myfriend" />
 			{% endif %}
-		</div>
-	</div>
+		<div id="information">
+	        {% if info.bio %} 
+		        <span> {% for item in single_user.info_set.all %}{% if forloop.first %}{{item.bio}}{% endif %}{% endfor %}</span>
+		        {% else %}
+		        {% endif %}
+		</div><!--End info-->
 		<h4 id="location">{% for item in user.address_set.all %}
 			{{ item.city|title }}, {% if item.state|length == 2 %} {{ item.state|upper }} {% else %} {{ item.state|capfirst }} {% endif %}
 			{% endfor %}

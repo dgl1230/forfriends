@@ -57,6 +57,7 @@ INSTALLED_APPS = (
     'social.apps.django_app.default',
     'debug_toolbar',
     'collectfast',
+    'djcelery',
 )
 
 TEMPLATE_DIRS = (
@@ -242,6 +243,7 @@ def get_cache():
 
 CACHES = get_cache()
 """
+
 
 
 

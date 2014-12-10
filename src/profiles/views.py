@@ -241,19 +241,20 @@ def all(request):
 		
 		try: 
 			if info.signed_up_with_fb_or_goog == True:
-				return HttpResponseRedirect(reverse('new_user_info'))
+				return HttpResponseRedirect(reverse('new_user_fb_or_goog'))
 
 			if info.is_new_user == True:
-				is_new_user = True
-				user_interests = UserInterestAnswer.objects.filter(user=request.user)
-				user_questions = UserAnswer.objects.filter(user=request.user)
-				if user_interests.count() >= 5 and user_questions.count() >= 10:
-					can_make_first_crowd = True
-					info.is_new_user = False
-					info.save()
-					is_new_user = False
-				else:
-					can_make_first_crowd = False
+				#is_new_user = True
+				return HttpResponseRedirect(reverse('new_user_info'))
+			user_interests = UserInterestAnswer.objects.filter(user=request.user)
+			user_questions = UserAnswer.objects.filter(user=request.user)
+			if user_interests.count() >= 5 and user_questions.count() >= 10:
+				can_make_first_crowd = True
+				#info.is_new_user = False
+				#info.save()
+				#is_new_user = False
+			else:
+				can_make_first_crowd = False
 				#return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 		except: 
 			pass
@@ -287,7 +288,7 @@ def all(request):
 				user_gamification = Gamification.objects.get(user=request.user)
 			except: 
 				#user does not have a circle
-				pass
+				
 				user_gamification = Gamification.objects.create(user=request.user)
 				user_gamification.circle_time_until_reset = datetime.now()
 				user_gamification.icebreaker_until_reset = datetime.now()
@@ -521,6 +522,112 @@ def first_circle(logged_in_user):
 		return HttpResponseRedirect(reverse('home'))
 
 
+def new_user_fb_or_goog(request):
+	if request.POST:
+		username1 = str(request.POST['username'])
+		username2 = username1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-=+*|<>")
+		username = username2.translate(None, '"')
+		bad_words = ['shit', 'cunt', 'fuck', 'nigger', 'kyke', 'dyke', 'fag', 'ass', 'rape', 
+				'murder', 'kill', 'gook', 'pussy', 'bitch', 'whore', 'slut', 
+				'cum', 'jizz', 'clit', 'anal', 'cock', 'molest', 'necro', 'satan', 'devil', 
+				'pedo', 'negro', 'spic', 'beaner', 'chink', 'coon', 'kike', 'wetback', 'sex', 
+				'kidnap', 'penis', 'vagina', 'boobs', 'titties', 'sodom', 'kkk', 'nazi', 'klux', 
+				'dicksucker', 'rapist', 'anus', 'arse', 'bastard','blowjob', 
+				'boner', 'fister', 'butt', 'cameltoe', 'chink', 'coochie', 'coochy', 'bluewaffle', 
+				'cooter', 'dick', 'dildo', 'doochbag', 'douche', 'fellatio', 'feltch', 'flamer', 
+				'donkeypunch', 'fudgepacker', 'gooch', 'gringo', 'jerkoff', 'jigaboo', 'kooch', 
+				'kootch', 'kunt', 'kyke', 'dike', 'minge', 'munging', 'nigga', 'niglet', 'nutsack', 
+				'poon', 'pussies', 'pussy', 'queef', 'queer', 'rimjob', 'erection', 'schlong', 
+				'skeet', 'smeg', 'spick', 'splooge', 'spook', 'retard', 'testicle', 'twat', 
+				'vajayjay', 'wankjob', 'bimbo', '69', 'fistr', 'fist3r']
+
+		for word in bad_words:
+			if word in username:
+				messages.success(request, "We're really sorry, but some people might find your username offensive. Please pick a different username.")
+				return HttpResponseRedirect(reverse('home'))
+		if len(username) >= 30:
+			messages.error(request, "We're sorry but your username can't be longer than 30 characters")
+			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+		day = request.POST['BirthDay']
+		month = request.POST['BirthMonth']
+		year = request.POST['BirthYear']
+		country = request.POST['country']
+		state = request.POST['state']
+		city = request.POST['city'].title()
+		datestr = str(year) + '-' + str(month) + '-' + str(day)
+		birthday = datetime.strptime(datestr, '%Y-%m-%d').date()
+		user_age = calculate_age(birthday)
+		try:
+			test_year = int(year)
+			test_day = int(day)
+		except:
+			messages.error(request, "Please enter a number for your birthday year and day")
+			return render_to_response('profiles/new_user.html', locals(), context_instance=RequestContext(request))
+
+		if user_age >= 18:
+			#datestr = str(year) + '-' + str(month) + '-' + str(day)
+			birthday = datetime.strptime(datestr, '%Y-%m-%d').date()
+			user_age = calculate_age(birthday)
+			try: 
+				new_info = Info.objects.get(user=request.user)
+			except: 
+				new_info = Info.objects.create(user=request.user)
+			try:
+				new_address = Address.objects.get(user=request.user)
+			except: 
+				new_address = Address.objects.create(user=request.user)
+			new_address.country = country
+			new_address.state = state
+			new_address.city = city
+			new_info.birthday = birthday
+			new_info.signed_up_with_fb_or_goog = False
+			new_info.is_new_user = False
+			new_info.save()
+			new_address.save()
+			try: 
+				user = User.objects.get(username=username)
+				messages.error(request, "We're sorry, but that user name is already taken!")
+				return HttpResponseRedirect(reverse('home'))
+			except:
+				pass
+			request.user.username = username
+			request.user.save()
+			user = authenticate(username=request.user.username, password=request.user.password)
+			request.user.save()
+
+
+			if not CURRENTLY_LOCALLY_TESTING:
+
+				subject = "Welcome to Frenvu!"
+				line1 = "Thanks for signing up %s! Frenvu is a place where you can find your closest friends, someone cool to see a movie with," % (request.user.username)
+				line2 = " or anything in between. After you answer some interests and questions, try creating a crowd to find 6 potential friends who live close by."
+				line3 = " Or you could do an icebreaker, and we'll start a conversation with another user you share an interest with! There's plenty more to do as well,"
+				line4 = " and we are constantly working on additional features. If you have any questions or concerns, please let us know! We want Frenvu to be the most fun"
+				line5 = " and welcoming place for you to meet new people. We hope you enjoy the site!" + '\n' + '\n'
+				line6 = " - The Team at Frenvu "
+				body = line1 + line2 + line3 + line4 + line5 + line6
+				sender = User.objects.get(username="TeamFrenvu")
+				new_user_welcome_message = DirectMessage.objects.create(subject=subject, body=body, receiver=request.user, sender=sender, sent=datetime.now())
+				new_user_welcome_message.save()
+
+				email = request.user.email
+				username = request.user.username
+				subject = 'Thanks for registering with Frenvu!'
+				plaintext = get_template('registration/email.txt')
+				d = Context({ 'username': username })
+				text_content = plaintext.render(d)
+				msg = EmailMultiAlternatives(subject, text_content, EMAIL_HOST_USER, [email])
+				msg.send()
+			return HttpResponseRedirect(reverse('home'))
+		else:
+			messages.error(request, "We're sorry but you must be at least 18 to signup!")
+			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+	else:
+		return render_to_response('new_user_registration_2.html', locals(), context_instance=RequestContext(request))
+
+
+
+
 
 	
 @login_required(login_url=reverse_lazy('home'))
@@ -579,7 +686,7 @@ def new_user_info(request):
 		year = request.POST['BirthYear']
 		country = request.POST['country']
 		state = request.POST['state']
-		city = request.POST['city']
+		city = request.POST['city'].title()
 		datestr = str(year) + '-' + str(month) + '-' + str(day)
 		birthday = datetime.strptime(datestr, '%Y-%m-%d').date()
 		user_age = calculate_age(birthday)
@@ -617,6 +724,7 @@ def new_user_info(request):
 			new_info.gender = gender
 			new_info.birthday = birthday
 			new_info.signed_up_with_fb_or_goog = False
+			new_info.is_new_user = False
 			new_info.save()
 			new_address.save()
 			try: 
@@ -629,6 +737,7 @@ def new_user_info(request):
 			request.user.save()
 			user = authenticate(username=request.user.username, password=request.user.password)
 			request.user.save()
+
 
 			if not CURRENTLY_LOCALLY_TESTING:
 
@@ -668,6 +777,81 @@ def user_not_new(user):
 	return user.is_authenticated() and user_info.signed_up_with_fb_or_goog == False
 
 
+
+def create_user_list(logged_in_user):
+	user_gamification = Gamification.objects.get(user=logged_in_user)
+	users_all = User.objects.filter(is_active=True)
+	current_location = Address.objects.get(user=logged_in_user)
+	current_state = current_location.state
+	current_city = current_location.city
+	close_by_users = list(User.objects.filter(address__state=current_state).filter(address__city=current_city).exclude(username=logged_in_user.username))
+	excluded_users = []
+	matches = Match.objects.filter(
+		Q(user1=logged_in_user, user1_approved=True) | Q(user2=logged_in_user, user2_approved=True)
+		)
+	for match in matches:
+		if match.user1 != logged_in_user:
+			excluded_users.append(match.user1)
+		else:
+			excluded_users.append(match.user2)
+
+	new_users = [x for x in close_by_users if x not in excluded_users]
+	user_gamification.discover_list = new_users
+	user_gamification.save()
+
+
+def redo_user_list(logged_in_user):
+	#find user list
+	matches = Match.objects.filter(
+		Q(user1=logged_in_user) | Q(user2=logged_in_user)
+		)
+	for match in matches:
+		if match.user1 != logged_in_user:
+			user_list.append(match.user1)
+		else:
+			user_list.append(match.user2)
+	#save user list
+
+
+
+def update_user_list(logged_in_user):
+	user_gamification = Gamification.objects.get(user=logged_in_user)
+	user_list = user_gamification.discover_list
+	try:
+		last_user_id = user_list.latest('id').id
+	except: 
+		return 
+	new_users = User.objects.filter(is_active=True).filter(id__gte=last_user_id)
+	current_location = Address.objects.get(user=logged_in_user)
+	current_state = current_location.state
+	current_city = current_location.city
+	#new_close_users = new_users.filter(address__state=current_state).filter(address__city=current_city)
+	#user_gamification.discover_list.add(*new_close_users)
+	#user_gamification.save()
+	new_close_users = list(new_users.filter(address__state=current_state).filter(address__city=current_city))
+	excluded_users = []
+	matches = Match.objects.filter(
+		Q(user1=logged_in_user, user1_approved=True) | Q(user2=logged_in_user, user2_approved=True)
+		)
+	for match in matches:
+		if match.user1 != logged_in_user:
+			excluded_users.append(match.user1)
+		else:
+			excluded_users.append(match.user2)
+	new_users = [x for x in new_close_users if x not in excluded_users]
+	user_gamification.discover_list = new_users
+	user_gamification.save()
+
+
+def pop_user(logged_in_user, single_user):
+	user_gamification = Gamification.objects.get(user=logged_in_user)
+	user_list = user_gamification.discover_list
+	user_list.remove(single_user)
+	user_gamification.save()
+
+
+
+
 def reset_discover(request):
 	request.session['%s' % request.user.username]=request.user.username	
 	users_all = User.objects.filter(is_active=True)
@@ -677,6 +861,10 @@ def reset_discover(request):
 	cache.set('cache_for_%s' % request.session['%s' % request.user.username], users_all, 120)
 	#return HttpResponseRedirect(reverse('discover'))
 	return redirect('http://www.frenvu.com/discover/?page=1')
+
+
+#def check_if_already_friends(user1, user2):
+
 
 
 '''
@@ -689,48 +877,49 @@ on the single user page.
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def discover(request):
 	
+
+	try: 
+		user_gamification = Gamification.objects.get(user=request.user)
+	except:
+		user_gamification = Gamification.objects.create(user=request.user)
+		create_user_list(request.user)
+	'''
+	user_list_num = user_gamification.discover_list.count()
+	if user_list_num == 0:
+	create_user_list(request.user)
+	print "creating new user list"
+	'''
+	update_user_list(request.user)
+	if user_gamification.discover_list.count() == 0:
+		no_users = True
+		return render_to_response('profiles/discover.html', locals(), context_instance=RequestContext(request))
+		#return HttpResponseRedirect(reverse('home'))
+	else:
+		no_users = False
+	
+	user_list = list(user_gamification.discover_list.all())
 	
 
-	# first we check to see if a session exists
-	#trying cache for each user
-	
-	if not request.session.get('%s' % request.user.username):
-		request.session['%s' % request.user.username]=request.user.username
-	# we see if a cache exists
-	users_all = cache.get('cache_for_%s' % request.session['%s' % request.user.username])
-	if not users_all:
-		# if not, we create a new one
-		
-		users_all = User.objects.filter(is_active=True)
-		num_of_users = users_all.count() + 1
-		ran_num = randint(0, num_of_users - 20)
-		users_all = list(User.objects.filter(is_active=True)[ran_num:ran_num+20])
-		cache.set('cache_for_%s' % request.session['%s' % request.user.username], users_all, 120)
-		
-		'''
-		users_all = list(User.objects.filter(is_active=True).order_by('?'))
-		cache.set('random_exp_%d' % request.session['random_exp'], users_all, 500)
-		'''
-	paginator = Paginator(users_all, 1)
-	
+
+	paginator = Paginator(user_list, 1)
 	page = request.GET.get('page')
 	try:
 		if page != False:
 			users = paginator.page(page)
 			single_user = users.object_list[0]
 
-			if single_user == request.user:
-				# if the user would go to themselves on pagination, we have them skip a page
+			try: 
+				match = Match.objects.get(user1=request.user, user2=single_user)
+			except: 
+				match, created = Match.objects.get_or_create(user1=single_user, user2=request.user)
+			#test to see if friend, and if they are friends, skip
+			if (match.user1_approved == True and match.user2_approved == True):
 				page_int = int(page)
 				new_page = page_int + 1
 				new_page_u = unicode(new_page)
 				users = paginator.page(new_page_u)
 				single_user = users.object_list[0]
 
-			try: 
-				match = Match.objects.get(user1=request.user, user2=single_user)
-			except: 
-				match, created = Match.objects.get_or_create(user1=single_user, user2=request.user)
 			try:
 				match.distance = round(calc_distance(request.user, single_user))
 			except:
@@ -754,6 +943,8 @@ def discover(request):
 			except: 
 				pass
 			interests = find_same_interests(request.user, single_user)
+			pop_user(request.user, single_user)
+
 
 
 	except PageNotAnInteger:
@@ -762,8 +953,9 @@ def discover(request):
 
 	except EmptyPage:
 		#If page is out of range, deliver last page of results
-		interests = paginator.page(paginator.num_pages)
- 
+		users = paginator.page(paginator.num_pages)
+
+
 	return render_to_response('profiles/discover.html', locals(), context_instance=RequestContext(request))
 
 
@@ -1122,7 +1314,7 @@ def single_user(request, username):
 			match.save()
 			interests_all = Interest.objects.filter(userinterestanswer__user=single_user)
 			pictures = UserPicture.objects.filter(user=single_user)
-			num_of_pics = pictures.count()
+
 
 			try:
 				su_info = Info.objects.get(user=single_user)
@@ -1165,6 +1357,7 @@ def single_user(request, username):
 @user_passes_test(user_not_new, login_url=reverse_lazy('new_user_info'))
 def single_user_pictures(request, username):
 	pictures = UserPicture.objects.filter(user__username=username)
+	num_of_pics = pictures.count()
 	return render_to_response('profiles/single_user_pictures.html', locals(), context_instance=RequestContext(request))
 
 
@@ -1306,30 +1499,6 @@ def ice_breaker(request):
 		if interest in random_user_interests:
 			common_interests.append(interest)
 	random_interest = random.choice(common_interests)
-	'''	
-	max_interest = user1_interests.latest('id').id
-	max_user = User.objects.latest('id').id
-
-	#we keep iterating through until we find an interest that the logged in user either liked or strongly liked
-	while True: 
-		try:
-			random_interest = user1_interests.get(pk=randint(1, max_interest))
-			break
-		except: 
-			pass
-	# we keep iterating until we find a user that either liked or strongly liked the interested we found in previous loop
-	while True: 
-		try: 
-			random_user = User.objects.get(pk=randint(1, max_user))
-			assert (user1 != random_user)
-			#random_info = Info.objects.get(user=random_user)
-			#assert (random_info.is_new_user == False)
-			random_user_interests = UserInterestAnswer.objects.filter(user=random_user)
-			assert (random_interest in random_user_interests)
-			break
-		except:
-			pass
-	'''
 	try: 
 		match = Match.objects.get(user1=request.user, user2=random_user)
 		user1 = request.user

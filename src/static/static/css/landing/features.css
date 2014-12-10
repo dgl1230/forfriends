@@ -47,6 +47,10 @@
 	font-size:48px;
 }
 
+#reasons p{
+	margin: 0 0 0!important;
+}
+
 .login_button{
 	background-color: white;
 	transition: background-color 0.5s ease 0s;
@@ -63,7 +67,7 @@
 	border-radius: 25px;
 	cursor: pointer;
 	font-size:18px;
-	font-weight:500;
+	font-weight:300;
 }
 
 .login_button:hover{
@@ -83,15 +87,18 @@
 	color:#1fbad6!important;
 	font-size:32px!important;
 	width:100%!important;
+	min-height:150px
 }
 #reasons p{
-	font-size:18px;
+	font-size:24px;
 	margin-top:50px;
+	font-weight:300;
 }
 #final_words h2{
 	color:black!important;
 	width:80%!important;
 	padding-top:20px!important;
+	font-weight:300;
 }
 #final_words p{
 	color:black!important;
@@ -99,6 +106,8 @@
 #final_words .call_link{
 	margin-top:0px!important;
 	margin-bottom:50px!important;
+	font-family: roboto, sans-serif;
+	font-weight: 300;
 }
 
 @media only screen and (max-width:450px){
@@ -107,7 +116,6 @@
 	}
 	#bottom_buttons .login_button{
 	width:120px!important;
-
 	}
 }
 

@@ -13,6 +13,7 @@
   padding-top:50px;
   text-align: center;
   font-size:7em;
+  font-weight:300;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -33,7 +34,7 @@ a {
 }
 
 body{
-  background-color: #515151;
+  background-color: white;
 }
 
 a:hover {
@@ -129,6 +130,7 @@ ul {
 	color: black;
 	letter-spacing: .2px!important;
 	text-align: center;
+  font-weight:300;
 }
 
 select{
@@ -384,7 +386,7 @@ input[type=submit]:hover{
     background-position: center;
     background-size: cover;
     background-image: url(/static/img/landing/huge_city_light_compressed.jpg);
-    min-height:300px;
+    min-height:800px;
   }
   .parallax2{
     background-image: url(/static/img/landing/eco-data.jpg);
@@ -416,7 +418,7 @@ input[type=submit]:hover{
   }
   .parallax5{
     background-image: url(/static/img/landing/concert.jpg);
-    min-height:500px;
+    min-height:800px;
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
@@ -425,13 +427,13 @@ input[type=submit]:hover{
   }
   .parallax6{
     background-color: #fff;
-    height:300px;
+    min-height:350px;
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
     -webkit-background-size:cover!important;
     z-index:100;
-    box-shadow: inset 0 0px 10px 2px #1fbad6;
+    box-shadow: inset 0 10px 10px 1px #1fbad6;
   }
 }
 /* Mobile Size Images */
@@ -441,7 +443,6 @@ input[type=submit]:hover{
   background-image: url(/static/img/landing/huge_city_mobile_compressed.jpg);
   min-height:500px;
   background-position: center;
-  background-attachment: fixed;
   }
   .parallax2{
     background-image: url(/static/img/landing/eco-data-mobile.jpg);
@@ -450,7 +451,6 @@ input[type=submit]:hover{
     -webkit-background-size:cover!important;
     z-index:100;
     background-position: center;
-    background-attachment: fixed;
   }
   .parallax3{
     min-height:300px;
@@ -458,7 +458,6 @@ input[type=submit]:hover{
     -webkit-background-size:cover!important;
     z-index:100;
     background-position: center;
-    background-attachment: fixed;
     background-color:#fefefe;
     box-shadow: inset 0 0px 10px 2px #1fbad6;
   }
@@ -469,26 +468,23 @@ input[type=submit]:hover{
     -webkit-background-size:cover!important;
     z-index:100;
     background-position: center;
-    background-attachment: fixed;
   }
   .parallax5{
     background-image: url(/static/img/landing/concert_mobile.jpg);
-    min-height:500px;
+    min-height:800px;
     background-size: cover;
     -webkit-background-size:cover!important;
     z-index:100;
     background-position: center;
-    background-attachment: fixed;
   }
   .parallax6{
     background-color:white;
-    height:300px; 
+    min-height:350px; 
     background-size: cover;
     -webkit-background-size:cover!important;
     z-index:100;
     background-position: center;
-    background-attachment: fixed;
-    box-shadow: inset 0 0px 10px 2px #1fbad6;
+    box-shadow: inset 0 10px 10px 1px #1fbad6;
   }
 }
 /* Mid Sized Images (Small Laptops etc.)*/
@@ -498,7 +494,7 @@ and (max-width : 1200px){
   .parallax{
   background-size: cover;
   background-image: url(/static/img/landing/huge_city_light_compressed.jpg);
-  min-height:500px;
+  min-height:400px;
   background-position: center;
   background-attachment: fixed;
   }
@@ -533,7 +529,7 @@ and (max-width : 1200px){
   }
   .parallax5{
     background-image: url(/static/img/landing/concert_medium.jpg);
-    min-height:500px;
+    min-height:800px;
     background-size: cover;
     -webkit-background-size:cover!important;
     z-index:100;
@@ -542,41 +538,53 @@ and (max-width : 1200px){
   }
   .parallax6{
     background-color:white;
-    height:300px; 
+    min-height:350px; 
     background-size: cover;
     -webkit-background-size:cover!important;
     z-index:100;
     background-position: center;
     background-attachment: fixed;
-    box-shadow: inset 0 0px 10px 2px #1fbad6;
+    box-shadow: inset 0 10px 10px 1px #1fbad6;
   }
 }
 /* Footer */
 footer{
-  height:150px;
   width:100%;
-  background-color:#515151;
+  background-color:#fff;
   padding:25px 20px 25px 20px;
   text-align: center;
+  box-shadow: inset 0 -10px 10px 1px #1fbad6;
 }
 footer a{
-  color:white;
+  color:#1fbad6;
   font-weight:300;
   font-size:16px;
+  opacity:.8;
+  font-family: 'Roboto', sans-serif;
+}
+
+@media only screen and (min-width : 500px){
+  footer a{
+  font-size:18px;
+  }
 }
 footer a:hover, footer a:focus, footer a:active{
   color:#1fbad6;
+  text-decoration: underline!important;
+  opacity:1;
 
 }
 footer li{
   list-style: none;
   display:inline-block;
+
 }
 .footer_1{
-  line-height: 30px;
+  line-height: 20px;
+padding-top: 20px;
 }
 .footer_2{
-  margin-top:5px;
+   margin-top:20px;
 }
 .footer_1 li{
   width:20%;
