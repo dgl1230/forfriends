@@ -527,7 +527,7 @@ def first_circle(logged_in_user):
 		return HttpResponseRedirect(reverse('home'))
 
 
-def new_user_fb_or_goog(request):
+def new_user_fb_or_goog(request, email):
 	if request.POST:
 		username1 = str(request.POST['username'])
 		username2 = username1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-=+*|<>")
@@ -573,7 +573,7 @@ def new_user_fb_or_goog(request):
 			#datestr = str(year) + '-' + str(month) + '-' + str(day)
 			birthday = datetime.strptime(datestr, '%Y-%m-%d').date()
 			user_age = calculate_age(birthday)
-			new_user = auth.get_user(request)
+			new_user = User.objects.get(email=email)
 			try: 
 				new_info = Info.objects.get(user=new_user)
 			except: 

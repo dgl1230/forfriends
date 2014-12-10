@@ -55,7 +55,7 @@ def facebook_basic_data(strategy, user, response, is_new=False, *args, **kwargs)
             info.gender = 'Male'
         user.save()
         info.save()
-    return HttpResponseRedirect(reverse('new_user_fb_or_goog'))
+    return HttpResponseRedirect(reverse('new_user_fb_or_goog', kwargs={'email': email}))
 
 
 def associate_user_by_email(**kwargs):
