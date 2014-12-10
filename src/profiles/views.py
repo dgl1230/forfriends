@@ -246,7 +246,7 @@ def all(request):
 		
 		try: 
 			if info.signed_up_with_fb_or_goog == True:
-				return HttpResponseRedirect(reverse('new_user_fb_or_goog'))
+				return HttpResponseRedirect(reverse('new_user_info'))
 
 			if info.is_new_user == True:
 				#is_new_user = True
