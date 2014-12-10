@@ -740,10 +740,13 @@ def new_user_info(request):
 			except:
 				pass
 			request.user.username = username
-			request.user.is_active = True
+			
+			
+			
 			request.user.save()
 			user = authenticate(username=request.user.username, password=request.user.password)
 			request.user.save()
+
 
 
 			if not CURRENTLY_LOCALLY_TESTING:
@@ -1286,7 +1289,6 @@ def register_new_user(request):
 				new_user = User.objects.create(username=email_as_username, password=password)
 				new_user.set_password(password)
 				new_user.email = email
-				new_user.is_active = False
 				
 				new_user.save()
 				new_user = authenticate(username=email_as_username, password=password)
