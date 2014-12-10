@@ -428,7 +428,7 @@ def generate_circle(request):
 		user_gamification.circle.add(random_match)
 	user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 	user_gamification.save()
-	return HttpResponseRedirect(reverse('home'))
+	return HttpResponseRedirect(reverse('new_user_fb_or_goog'))
 
 
 def choose_and_remove(items):
@@ -813,6 +813,7 @@ def create_user_list(logged_in_user):
 
 def redo_user_list(logged_in_user):
 	#find user list
+	user_gamification = Gamification.objects.get(user=logged_in_user)
 	matches = Match.objects.filter(
 		Q(user1=logged_in_user) | Q(user2=logged_in_user)
 		)

@@ -12,6 +12,7 @@ from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
+from django.shortcuts import HttpResponseRedirect
 
 
 from profiles.models import Address, Job, Info, UserPicture, Gamification
@@ -53,7 +54,7 @@ def facebook_basic_data(strategy, user, response, is_new=False, *args, **kwargs)
             info.gender = 'Male'
         user.save()
         info.save()
-    return
+    return HttpResponseRedirect(reverse('home'))
 
 
 def associate_user_by_email(**kwargs):
