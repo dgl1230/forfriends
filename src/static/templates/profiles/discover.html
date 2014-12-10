@@ -83,7 +83,7 @@
 				<a class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
 				{% else %}
 				<span id="outer_button">
-				<a class="btn btn-default btn" id="friend_button"><p id="add_me">Add Friend</p></a>
+				<a href='{% url "add_friend" single_user.username %}' class="btn btn-default btn" id="friend_button"><p id="add_me">Add Friend</p></a>
 				</span>
 				{% endif %}
 				<div id="outer_button">
@@ -138,12 +138,6 @@ $(function() {
 </script>
 {% else %}
 {% endif %}
-<script>
-$('#friend_button').click(function(){
-	$('#add_me').text("Request Sent");
-	$.get('{% url "add_friend" single_user.username %}');	
-});
-</script>
 
 <script>
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
