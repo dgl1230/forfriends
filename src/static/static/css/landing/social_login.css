@@ -15,7 +15,7 @@
 	width:100%;
 	text-align: center;
 	padding-bottom:10px;
-	padding-top:10px;
+	padding-top:0px;
 }
 
 #social_logins a{
@@ -30,35 +30,8 @@
 	padding-top: 60px;
 }
 
-#google_icon{
-	background-image: url(/static/img/social_icons/Google-plus-icon.png);
-	width:75px;
-	height:71px;
-	background-size:cover;
-	float:left;
-}
-
-#google_login{
-	width:150px;
-	height:75px;
-	border-radius: 4px;
-	background-color: #1FBAD6;
-	color:white;
-	border-color:white;
-	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
-}
-
-#fb_icon{
-	background-image: url(/static/img/social_icons/facebook_icon.png);
-	width:75px;
-	height:75px;
-	background-size:cover;
-	float:left;
-}
-
 #fb_login{
 	width:150px;
-	height:75px;
 	border-radius: 4px;
 	background-color: #1FBAD6;
 	color:white;
