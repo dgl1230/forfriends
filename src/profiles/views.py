@@ -573,14 +573,15 @@ def new_user_fb_or_goog(request):
 			#datestr = str(year) + '-' + str(month) + '-' + str(day)
 			birthday = datetime.strptime(datestr, '%Y-%m-%d').date()
 			user_age = calculate_age(birthday)
+			new_user = User.objects.get(id=request.user.id)
 			try: 
-				new_info = Info.objects.get(user=request.user)
+				new_info = Info.objects.get(user=new_user)
 			except: 
-				new_info = Info.objects.create(user=request.user)
+				new_info = Info.objects.create(user=new_user)
 			try:
-				new_address = Address.objects.get(user=request.user)
+				new_address = Address.objects.get(user=new_user)
 			except: 
-				new_address = Address.objects.create(user=request.user)
+				new_address = Address.objects.create(user=new_user)
 			new_address.country = country
 			new_address.state = state
 			new_address.city = city
@@ -595,11 +596,11 @@ def new_user_fb_or_goog(request):
 				return HttpResponseRedirect(reverse('home'))
 			except:
 				pass
-			request.user.username = username
+			new_user.username = username
 			#request.user.is_active = True
-			request.user.save()
-			user = authenticate(username=request.user.username, password=request.user.password)
-			request.user.save()
+			new_user.save()
+			user = authenticate(username=new_user.username, password=new_user.password)
+			new_user.save()
 
 
 			if not CURRENTLY_LOCALLY_TESTING:
