@@ -83,7 +83,7 @@
 				<a class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
 				{% else %}
 				<span id="outer_button">
-				<a href='{% url "add_friend_discovery" single_user.username %}' class="btn btn-default btn" id="friend_button"><p id="add_me">Add Friend</p></a>
+				<a href='{% url "add_friend_discovery" single_user.username page %}' class="btn btn-default btn" id="friend_button"><p id="add_me">Add Friend</p></a>
 				</span>
 				{% endif %}
 				<div id="outer_button">

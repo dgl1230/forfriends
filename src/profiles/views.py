@@ -1214,12 +1214,13 @@ def login_user(request):
 		return HttpResponseRedirect(reverse('home'))
 	username = user1.username
 	user = authenticate(username=username, password=password)
+	logged_in_user = User.objects.get(email=email)
 
 	if user is not None:
 		# if user deactivated their account and logged in, they are no longer deactivated
 		if user.is_active == False:
-			user.is_active = True
-			user.save()
+			logged_in_user.is_active = True
+			logged_in_user.save()
 			if not DEBUG: 
 				email = request.user.email
 				subject = 'A user is reactivating their account.'
