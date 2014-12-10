@@ -378,6 +378,13 @@ h4{
 	height:150px;
 }
 
+#discovery_buttons #friend_button{
+	background: none;
+	background-size:cover;
+	height:150px;
+
+}
+
 #buttons_row #interests_button{
 	background: url(/static/img/profile/yoga_dark.png);
 	background-size:cover;
