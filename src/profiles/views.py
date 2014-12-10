@@ -7,7 +7,7 @@ import logging
 from random import randint
 
 from django.shortcuts import render
-from django.contrib import messages
+from django.contrib import messages, auth
 from django.shortcuts import render_to_response, RequestContext, Http404, HttpResponseRedirect, redirect
 from django.contrib.auth.models import User
 from django.forms.models import modelformset_factory
@@ -573,7 +573,7 @@ def new_user_fb_or_goog(request):
 			#datestr = str(year) + '-' + str(month) + '-' + str(day)
 			birthday = datetime.strptime(datestr, '%Y-%m-%d').date()
 			user_age = calculate_age(birthday)
-			new_user = User.objects.get(id=request.user.id)
+			new_user = auth.get_user(request)
 			try: 
 				new_info = Info.objects.get(user=new_user)
 			except: 
