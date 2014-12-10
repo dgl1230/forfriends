@@ -92,7 +92,9 @@
 </div>
 <script src="{{ STATIC_URL }}js/new_user.js" type="text/javascript"></script>
 <script>
-$('#username').alphanum();
+$('#username').alphanum({
+  allow : " -_'"
+});
 </script>
 <script>
 $('#name').alphanum({
