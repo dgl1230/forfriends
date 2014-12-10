@@ -13,6 +13,7 @@ from django.template.defaultfilters import slugify
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 from django.shortcuts import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 
 
 from profiles.models import Address, Job, Info, UserPicture, Gamification
@@ -54,7 +55,7 @@ def facebook_basic_data(strategy, user, response, is_new=False, *args, **kwargs)
             info.gender = 'Male'
         user.save()
         info.save()
-    return HttpResponseRedirect(reverse('home'))
+    return HttpResponseRedirect(reverse('new_user_fb_or_goog'))
 
 
 def associate_user_by_email(**kwargs):
