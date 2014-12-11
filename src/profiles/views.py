@@ -445,6 +445,10 @@ def circle_distance(logged_in_user, preferred_distance):
 	start_time = datetime.now()
 	user_gamification = Gamification.objects.get(user=logged_in_user)
 	current_circle = list(user_gamification.circle.all())
+	#need try catch here
+	team_frenvu = User.objects.get(username="TeamFrenvu")
+	current_circle.append(team_frenvu)
+
 	matches = Match.objects.filter(
 		Q(user1=logged_in_user) | Q(user2=logged_in_user)
 		).exclude(user1=logged_in_user, user2=logged_in_user).exclude(are_friends=True).filter(percent__gte=70).exclude(id__in=[o.id for o in current_circle]).filter(distance__lte=preferred_distance)
