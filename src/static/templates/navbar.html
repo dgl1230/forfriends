@@ -3,12 +3,13 @@
   <div id="navbar-container">
     <div class="navbar-header">
       
-      <a class="navbar-brand"  data-variation=".left"><img id="menu_icon" src="{{ STATIC_URL }}img/menu_icon.png"></a>
+      <a class="navbar-brand" id="menu"  data-variation=".left">
+        Menu</a>
       
       <form class="navbar-form navbar-left" role="search" action='{% url "search" %}'>
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search users..." name='q' required>
-          <button type="submit" class="btn btn-default" id="go_button">Search</button>
+          <button type="submit" class="btn btn-default" id="go_button"><span class='glyphicon glyphicon-search'></span></button>
         </div>
       </form>
       <form class="navbar-form navbar-left" id="navbar_mobile" role="search" action='{% url "search" %}'>
@@ -26,9 +27,7 @@
             {% endif %}
           </a>
         </li>
-      <li class="logout">
-          <a href='{% url "logout_user" %}'>Logout</a>
-        </li> 
+      
 
       {% else %}
       <style>

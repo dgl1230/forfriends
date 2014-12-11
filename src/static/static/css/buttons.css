@@ -2,10 +2,10 @@
 	background-color: white;
 	transition: background-color 0.5s ease 0s;
 	margin: 5px 5px 5px 5px;
-	padding-top: 5px;
+	padding-top: 8px;
 	padding-bottom:10px;
 	line-height: 30px;
-	border: 5px solid #1FBAD6;
+	border: 2px solid #1FBAD6;
 	color: #1FBAD6!important;
 	text-align: center;
 	height: 50px;
@@ -36,7 +36,7 @@
 }
 
 #go_button, #upload_button{
-	width: 80px;
+	width: 40px;
 	background: #1FBAD6!important;
 	font-weight: 300;
 	color: white;

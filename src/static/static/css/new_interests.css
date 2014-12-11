@@ -132,3 +132,10 @@
 #arrow span{
 	font-size: 24px;
 }
+
+#arrow .glyphicon-circle-arrow-right:hover{
+	color:black!important;
+}
+#arrow .glyphicon-circle-arrow-left:hover{
+	color:black!important;
+}

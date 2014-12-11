@@ -9,9 +9,13 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 #tertiary_navbar a:hover{
 	color: #1fBAD6!important;
 }
+#search_new{
+	background-color:white;
+	border:none;
+}
 
 .navbar-brand{
-	width:120px;
+	width:130px;
 	cursor:pointer;
 	z-index:1000;
 }
@@ -35,8 +39,6 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 	height:50px;
 	margin-top:-15px;
 	z-index:1000;
-
-
 }
 .navbar-nav > li > a {
 	padding-bottom:25px;
@@ -61,7 +63,7 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 	border-bottom: none;
 	min-width: 200px!important;
 	height:60px;
-	border-bottom:2px solid black;
+	border-bottom:1px solid black;
 
 }
 .navbar-brand{
@@ -75,8 +77,6 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 
 .navbar a{
 	color: black!important;
-	font-weight:600;
-
 	
 }
 
@@ -315,7 +315,7 @@ form.navbar-form.navbar-left{
 	 	transition: all 500ms ease;
 	 	font-size: 1em;
 	 	margin-left: 0px!important;
-	 	margin-left:-35px!important;
+	 	margin-left:-30px!important;
 	}
 
 	.navbar.navbar-inverse.navbar-fixed-top{
@@ -467,4 +467,8 @@ form.navbar-form.navbar-left{
 	.private a{
   	font-size:14px;
 	}
+}
+.navbar-brand{
+	height:20px!important;
+	font-weight:300;
 }
