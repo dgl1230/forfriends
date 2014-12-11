@@ -442,7 +442,7 @@ def choose_and_remove(items):
 
 
 def circle_distance(logged_in_user, preferred_distance):
-	start_time = datetime.now()
+	#start_time = datetime.now()
 	user_gamification = Gamification.objects.get(user=logged_in_user)
 	current_circle = list(user_gamification.circle.all())
 	#need try catch here
