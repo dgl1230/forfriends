@@ -151,7 +151,7 @@ footer li{
 }
 .footer_1{
   line-height: 20px;
-padding-top: 20px;
+  padding-top: 20px;
 }
 .footer_2{
    margin-top:20px;
@@ -161,4 +161,21 @@ padding-top: 20px;
 }
 .footer_2 li{
   width:30%;
+}
+
+
+/* Header */
+.press_right{
+  display:inline-block;
+  margin-top: 35px;
+}
+.brand{
+  float: left;
+  margin-left: 10%;
+}
+
+@media(max-width:720px){
+  .press_right{
+    display:none;
+  }
 }

@@ -17,12 +17,8 @@
     <link rel="apple-touch-icon" href="/static/img/frenvu_logo-2circles.png">
 </head>
 <body>
-<div class="navbar">
-         <div class="brand">
-           <span>Frenvu</span>
-        </div>
-</div>
-
+{% include 'fb_sdk.html' %}
+{% include 'press_navbar.html' %}
 <div class="wrapper">
   <h1>Cookie Policy for Frenvu</h1>
 
@@ -70,34 +66,7 @@ Email: denis@frenvu.com
 <br><br>
 </div>
 <!--========================Footer======================= -->
-<footer>
-  <div class="footer_1">
-    <a href="/"><li>
-      Home
-    </li></a>
-    <a href="/press"><li>
-      Press
-    </li></a>
-      <a href="/about"><li>
-      About
-    </li></a>
-    <a href="/help"><li>
-      Help
-    <li></a>
-  </div>
-  <div class="footer_2">
-    <a href="/terms_and_agreement"><li>
-      Terms and Conditions
-    </li></a>
-    <a class="active" href="/cookies"><li>
-      Cookies
-    </li></a>
-    <a href="/contact"><li>
-      Contact Us
-    </li></a>
-  </div>
-</footer>
-
+{% include 'press_footer.html' %}
 <!--=====================================================-->
 
   <!--Analytics -->

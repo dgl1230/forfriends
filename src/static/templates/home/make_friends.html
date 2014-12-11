@@ -17,12 +17,8 @@
     <link href="{{ STATIC_URL }}css/press.css" rel="stylesheet">
 </head>
 <body>
-<div class="navbar">
-         <div class="brand">
-           <a href="/"><span>Frenvu</span></a>
-        </div>
-  </div>
-
+{% include 'fb_sdk.html' %}
+{% include 'press_navbar.html' %}
 <div class="wrapper">
   <div class="header">
   <h1>4 Easy ways to make friends and meet people</h1>
@@ -61,33 +57,7 @@
   </div><!--wrapper-->
 </div>
 <!--========================Footer======================= -->
-<footer>
-  <div class="footer_1">
-    <a href="/"><li>
-      Home
-    </li></a>
-    <a href="/press"><li>
-      Press
-    </li></a>
-      <a class="active" href="/about"><li>
-      About
-    </li></a>
-    <a href="/help"><li>
-      Help
-    <li></a>
-  </div>
-  <div class="footer_2">
-    <a href="/terms_and_agreement"><li>
-      Terms and Conditions
-    </li></a>
-    <a href="/cookies"><li>
-      Cookies
-    </li></a>
-    <a href="/contact"><li>
-      Contact Us
-    </li></a>
-  </div>
-</footer>
+{% include 'press_footer.html' %}
 <!--=====================================================-->
 
   <!--Analytics -->
