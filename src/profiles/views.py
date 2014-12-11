@@ -428,7 +428,7 @@ def generate_circle(request):
 		user_gamification.circle.add(random_match)
 	user_gamification.circle_time_until_reset = datetime.now() + timedelta(hours=24)
 	user_gamification.save()
-	return HttpResponseRedirect(reverse('new_user_fb_or_goog'))
+	return HttpResponseRedirect(reverse('home'))
 
 
 def choose_and_remove(items):
