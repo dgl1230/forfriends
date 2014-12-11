@@ -918,7 +918,7 @@ def discover(request):
 	'''
 	#test lines
 	users = list(User.objects.filter(is_active=True))
-	close_users = find_nearby_users(reques.user, 20, users)
+	close_users = find_nearby_users(request.user, 20, users)
 
 	user_gamification.discover_list.add(*close_users)
 	#end test lines
