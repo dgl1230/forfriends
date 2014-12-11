@@ -17,12 +17,8 @@
     <link href="{{ STATIC_URL }}css/press.css" rel="stylesheet">
 </head>
 <body>
-<div class="navbar">
-         <div class="brand">
-           <a href="/"><span>Frenvu</span></a>
-        </div>
-  </div>
-
+{% include 'fb_sdk.html' %}
+{% include 'press_navbar.html' %}
 <div class="wrapper">
   <div class="header">
   <h1>4 Easy ways meet people online</h1>
@@ -38,6 +34,7 @@
 
   <h2>1. Expand your network around you.</h2>
     When it comes to finding friends when you're growing up, the whole process is pretty luck based. Sometimes, you'll end up becoming good friends with awesome people. Other times, you'll be unhappy in your social circle and might not even know it. That's where Frenvu comes in. Frenvu takes the luck out of meeting cool people around you, and does the heaving lifting for you, matching you with other users who share your interests and have compatible personalities.
+
   <h2>2. You just moved to a new place and don't know anyone.</h2>
     In this more dire situation, you've just moved to a new city for work, school, or anything else. If you're still in school, you're probably in okay shape in terms of meeting people. Chances are there will be new people you can meet and make friends with. If not, keep reading because Frenvu can still solve your friend-related problems. Assuming you moved for work, you're going to have a fair amount of your time committed to getting your career off the ground. Thus, you don't really have the resources to allocate toward meeting new people. What if you don't get along with the people you work with at all? Any of these reasons are good enough to warrant trying Frenvu. 
   <h2>3. You're an introvert or haven't had the best luck making friends</h2>
@@ -61,33 +58,7 @@
   </div><!--wrapper-->
 </div>
 <!--========================Footer======================= -->
-<footer>
-  <div class="footer_1">
-    <a href="/"><li>
-      Home
-    </li></a>
-    <a href="/press"><li>
-      Press
-    </li></a>
-      <a class="active" href="/about"><li>
-      About
-    </li></a>
-    <a href="/help"><li>
-      Help
-    <li></a>
-  </div>
-  <div class="footer_2">
-    <a href="/terms_and_agreement"><li>
-      Terms and Conditions
-    </li></a>
-    <a href="/cookies"><li>
-      Cookies
-    </li></a>
-    <a href="/contact"><li>
-      Contact Us
-    </li></a>
-  </div>
-</footer>
+{% include 'press_footer.html' %}
 <!--=====================================================-->
 
   <!--Analytics -->

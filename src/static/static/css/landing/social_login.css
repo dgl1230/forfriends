@@ -88,11 +88,3 @@
 	width:80%!important;
 	}
 }
-
-@media only screen and (max-width:500px){
-	#email_login, #email_login2, #google_login, #fb_login, #twitter_login{
-	background-color: #1fbad6;
-	color:white;
-	border-color:white;
-	}
-}
