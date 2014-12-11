@@ -84,6 +84,7 @@ a:hover{
 	padding: 80px 10% 0px 10%;
 	text-align: center;
 	color:white;
+	font-weight:300;
 }
 /*form styles*/
 #msform {
@@ -103,7 +104,6 @@ a{
 	border-radius: 3px;
 	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
 	padding:20px 30px 20px 30px;
-	
 	box-sizing: border-box;
 	width: 400px;
 	margin: 0 0% 50px;

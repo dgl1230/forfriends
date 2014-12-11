@@ -7,7 +7,7 @@ import logging
 from random import randint
 
 from django.shortcuts import render
-from django.contrib import messages
+from django.contrib import messages, auth
 from django.shortcuts import render_to_response, RequestContext, Http404, HttpResponseRedirect, redirect
 from django.contrib.auth.models import User
 from django.forms.models import modelformset_factory
@@ -40,8 +40,7 @@ from questions.models import Question, UserAnswer
 
 
 CURRENTLY_LOCALLY_TESTING = False
-#print("IP Address for debug-toolbar: " + request.META['REMOTE_ADDR'])
-#ip_variable = request.META['REMOTE_ADDR']
+
 def custom_show_toolbar(request):
 	return True
 
@@ -52,7 +51,7 @@ def user_not_new(user):
 		user_info = Info.objects.get(user=user)
 	except:
 		return False
-	return user.is_authenticated() and user_info.signed_up_with_fb_or_goog == False
+	return user.is_authenticated() and user_info.signed_up_with_fb_or_goog == False and user_info.is_new_user == False
 
 '''
 def user_can_reset_circle(user):
@@ -166,24 +165,28 @@ def add_friend_discovery(request, username, page):
 		match.user2_approved = True
 
 	if (match.user1 == request.user and match.user1_approved == True and match.user2_approved == False):
+		'''
 		if not CURRENTLY_LOCALLY_TESTING: 
-			sender = User.objects.get(username="TeamFrenvu")
+		sender = User.objects.get(username="TeamFrenvu")
 		else: 	
-			sender = request.user
+		sender = request.user
 		requester = request.user
 		requested= match.user2
 		subject = "Someone wants to be your friend!"
 		body = "Hey %s, I think we could be pretty good friends! Why don't you check out my profile and see if you think we'd get along?" %(requested)
 		message = DirectMessage.objects.create(subject=subject, body=body, sender=sender, receiver=requested)
-		match.save()
 		message.save()
+		'''
+		match.save()
+		
 
 
 	if (match.user2 == request.user and match.user2_approved == True and match.user1_approved == False):
+		'''
 		if not CURRENTLY_LOCALLY_TESTING: 
-			sender = User.objects.get(username="TeamFrenvu")
+		sender = User.objects.get(username="TeamFrenvu")
 		else: 	
-			sender = request.user
+		sender = request.user
 		requester = request.user
 		requested= match.user1
 		subject = "Someone wants to be your friend!"
@@ -191,6 +194,8 @@ def add_friend_discovery(request, username, page):
 		message = DirectMessage.objects.create(subject=subject, body=body, sender=sender,receiver=requested)
 		match.save()
 		message.save()
+		'''
+		match.save()
 
 
 
@@ -241,7 +246,7 @@ def all(request):
 		
 		try: 
 			if info.signed_up_with_fb_or_goog == True:
-				return HttpResponseRedirect(reverse('new_user_fb_or_goog'))
+				return HttpResponseRedirect(reverse('new_user_info'))
 
 			if info.is_new_user == True:
 				#is_new_user = True
@@ -522,7 +527,7 @@ def first_circle(logged_in_user):
 		return HttpResponseRedirect(reverse('home'))
 
 
-def new_user_fb_or_goog(request):
+def new_user_fb_or_goog(request, email):
 	if request.POST:
 		username1 = str(request.POST['username'])
 		username2 = username1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-=+*|<>")
@@ -568,14 +573,15 @@ def new_user_fb_or_goog(request):
 			#datestr = str(year) + '-' + str(month) + '-' + str(day)
 			birthday = datetime.strptime(datestr, '%Y-%m-%d').date()
 			user_age = calculate_age(birthday)
+			new_user = User.objects.get(email=email)
 			try: 
-				new_info = Info.objects.get(user=request.user)
+				new_info = Info.objects.get(user=new_user)
 			except: 
-				new_info = Info.objects.create(user=request.user)
+				new_info = Info.objects.create(user=new_user)
 			try:
-				new_address = Address.objects.get(user=request.user)
+				new_address = Address.objects.get(user=new_user)
 			except: 
-				new_address = Address.objects.create(user=request.user)
+				new_address = Address.objects.create(user=new_user)
 			new_address.country = country
 			new_address.state = state
 			new_address.city = city
@@ -590,10 +596,11 @@ def new_user_fb_or_goog(request):
 				return HttpResponseRedirect(reverse('home'))
 			except:
 				pass
-			request.user.username = username
-			request.user.save()
-			user = authenticate(username=request.user.username, password=request.user.password)
-			request.user.save()
+			new_user.username = username
+			#request.user.is_active = True
+			new_user.save()
+			user = authenticate(username=new_user.username, password=new_user.password)
+			new_user.save()
 
 
 			if not CURRENTLY_LOCALLY_TESTING:
@@ -733,10 +740,21 @@ def new_user_info(request):
 				return HttpResponseRedirect(reverse('home'))
 			except:
 				pass
-			request.user.username = username
+			#request.user.username = username
+			#request.user.first_name = first_name
+			#request.user.last_name = last_name
+			
+			
+			
 			request.user.save()
 			user = authenticate(username=request.user.username, password=request.user.password)
-			request.user.save()
+			#user.save()
+			new_user = User.objects.get(username=request.user.username)
+			new_user.username = username
+			new_user.first_name = first_name
+			new_user.last_name = last_name
+			new_user.save()
+
 
 
 			if not CURRENTLY_LOCALLY_TESTING:
@@ -789,6 +807,7 @@ def create_user_list(logged_in_user):
 	matches = Match.objects.filter(
 		Q(user1=logged_in_user, user1_approved=True) | Q(user2=logged_in_user, user2_approved=True)
 		)
+	excluded_users.append(logged_in_user)
 	for match in matches:
 		if match.user1 != logged_in_user:
 			excluded_users.append(match.user1)
@@ -802,6 +821,7 @@ def create_user_list(logged_in_user):
 
 def redo_user_list(logged_in_user):
 	#find user list
+	user_gamification = Gamification.objects.get(user=logged_in_user)
 	matches = Match.objects.filter(
 		Q(user1=logged_in_user) | Q(user2=logged_in_user)
 		)
@@ -839,7 +859,7 @@ def update_user_list(logged_in_user):
 		else:
 			excluded_users.append(match.user2)
 	new_users = [x for x in new_close_users if x not in excluded_users]
-	user_gamification.discover_list = new_users
+	user_gamification.discover_list.add(*new_users)
 	user_gamification.save()
 
 
@@ -882,27 +902,39 @@ def discover(request):
 		user_gamification = Gamification.objects.get(user=request.user)
 	except:
 		user_gamification = Gamification.objects.create(user=request.user)
+	
+	info = Info.objects.get(user=request.user)
+	if info.new_to_discover == True:
 		create_user_list(request.user)
-	'''
-	user_list_num = user_gamification.discover_list.count()
-	if user_list_num == 0:
-	create_user_list(request.user)
-	print "creating new user list"
-	'''
-	update_user_list(request.user)
+		info.new_to_discover = False
+		info.save()
+	else:
+
+		update_user_list(request.user)
 	if user_gamification.discover_list.count() == 0:
 		no_users = True
 		return render_to_response('profiles/discover.html', locals(), context_instance=RequestContext(request))
 		#return HttpResponseRedirect(reverse('home'))
 	else:
 		no_users = False
-	
-	user_list = list(user_gamification.discover_list.all())
-	
 
-
-	paginator = Paginator(user_list, 1)
 	page = request.GET.get('page')
+	page_int = int(page)
+
+	user_list = list(user_gamification.discover_list.all())
+	paginator = Paginator(user_list, 1)
+	
+	
+	
+	if page_int == 1:
+		update_user_list(request.user)
+	if user_gamification.discover_list.count() == 0:
+		no_users = True
+		return render_to_response('profiles/discover.html', locals(), context_instance=RequestContext(request))
+		#return HttpResponseRedirect(reverse('home'))
+	else:
+		no_users = False
+
 	try:
 		if page != False:
 			users = paginator.page(page)
@@ -932,11 +964,14 @@ def discover(request):
 				pass
 			else:	
 				match.percent = match_percentage(match.user1, match.user2)
+				if match.percent == 0:
+					single_user_new = True
 			try:
 				su_info = Info.objects.get(user=single_user)
-				single_user_is_new = su_info.is_new_user
+				if su_info.is_new_user == True:
+					single_user_new = True
 			except: 
-				single_user_is_new = False
+				single_user_new = False
 			match.save()
 			try:
 				profile_pic = UserPicture.objects.get(user=user, is_profile_pic=True)
@@ -1195,19 +1230,21 @@ def login_user(request):
 		return HttpResponseRedirect(reverse('home'))
 	username = user1.username
 	user = authenticate(username=username, password=password)
+	logged_in_user = User.objects.get(email=email)
 
 	if user is not None:
 		# if user deactivated their account and logged in, they are no longer deactivated
 		if user.is_active == False:
-			user.is_active = True
+			logged_in_user.is_active = True
+			logged_in_user.save()
 			if not DEBUG: 
 				email = request.user.email
 				subject = 'A user is reactivating their account.'
 				message = '%s wants to reactivate their account.' % (username,)
-				msg = EmailMultiAlternatives(subject, message, EMAIL_HOST_USER, [email])
+				msg = EmailMultiAlternatives(subject, message, EMAIL_HOST_USER, [EMAIL_HOST_USER])
 				msg.content_subtype = "html"
 				msg.send()
-			messages.succes(request, "We missed you!")
+			messages.success(request, "We missed you!")
 		login(request, user)
 		return HttpResponseRedirect(reverse('home'))
 	else:

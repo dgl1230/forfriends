@@ -19,7 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 SECRET_KEY = os.environ["FORFRIENDS_KEY"]
 
 
-DEBUG = True
+DEBUG = False
 
 
 ALLOWED_HOSTS = []
@@ -189,7 +189,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.associate_user',
     'social.pipeline.social_auth.load_extra_data',
     'forfriends.pipeline.save_profile_picture',
-    'forfriends.pipeline.facebook_basic_data',
+    #'forfriends.pipeline.facebook_basic_data',
     #'forfriends.pipeline.user_details',
 )
 

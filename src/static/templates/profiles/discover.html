@@ -1,10 +1,10 @@
- 	{% extends 'base.html' %}
+{% extends 'base.html' %}
 {% block content %}
+{% if no_users %}
+<h3 id="no_pictures">There are no new users close to you right now, but please check back soon!</h3>
+{% else %}
 
-<div class="row">
-	<div class="col-md-1" id="secondary_navbar">
-	    <h1>Discover</h1>
-	</div>
+<div class="row" id="discover_row">
     <div class="container" id="single_user_container">
 	{% if messages %}
     {% for message in messages %}
@@ -17,22 +17,25 @@
 	<h2 id="name_of_user">{{ single_user.username }}</h2>
 		<div id="new_user_body">    
 			{% if profile_pic %}
-					<img src='{{ MEDIA_URL }}{{ profile_pic }}' class='img' id="myfriend"/>		
-
+					<a href="/members/{{ single_user.username}}/pictures/">
+					<img src='{{ MEDIA_URL }}{{ profile_pic }}' class='img' id="myfriend"/></a>
 			{% elif single_user.userpicture_set.all %}
 				{% for pic in single_user.userpicture_set.all %}
 						{% if forloop.first %}
-							<img src='{{ MEDIA_URL }}{{ pic }}' class='img' id="myfriend"/>
+						<a href="/members/{{ single_user.username}}/pictures/">
+						<img src='{{ MEDIA_URL }}{{ pic }}' class='img' id="myfriend"/>
+						</a>
 						{% endif %}
 				{% endfor %}
 			{% else %}
-
+			<a href="/members/{{ single_user.username}}/pictures/">
 			<img src='{{ STATIC_URL }}img/avatar.png' class='img' id="myfriend"/>
+			</a>
 			{% endif %}
 		</div>	
 		{% if not request.user == single_user %}
 			{% if single_user_is_new %}
-			<h4 id="average">New User</h4>
+			<h4 id="average"></h4>
 			{% elif match.percent >= 90 %}
 			<h4 id="average">Excellent Match</h4>
 			{% elif match.percent >= 80 %}
@@ -41,6 +44,7 @@
 			<h4 id="average">Good Match</h4>
 			{% elif match.percent >= 55 %}
 			<h4 id="weak">Average Match</h4>
+			{% elif match.percent = 0 %}
 			{% else %}
 			<h4 id="very_weak">Weak Match</h4>
 			{% endif %}
@@ -49,9 +53,6 @@
 			{% for item in single_user.address_set.all %}
 			{{ item.city|title }}, {% if item.state|length == 2 %} {{ item.state|upper }} {% else %} {{ item.state|capfirst }} {% endif %}
 			{% endfor %}
-			{% ifnotequal match.distance 10000000 %}
-			({{ match.distance|floatformat:"0" }} miles away)
-			{% endifnotequal %}
 		</h4>
 		<div id="information">
 	        {% if info.bio %} 
@@ -74,7 +75,7 @@
 		</div><!--End info-->
 		{% if not request.user == single_user %}
 		<div class="row" id="buttons_row">
-			<div class="buttons">	
+			<div class="buttons" id="discover_buttons">	
 				{% if match.user1_approved == True and match.user2_approved == True %}
 				<a  class="btn btn-default btn" id="friend_button" title="You are friends!"><p>Friends!</p></a>
 				{% elif match.user1_approved == True and match.user1 == request.user %}
@@ -83,22 +84,20 @@
 				<a class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
 				{% else %}
 				<span id="outer_button">
-				<a class="btn btn-default btn" id="friend_button"><p id="add_me">Add Friend</p></a>
+				<a href='{% url "add_friend_discovery" single_user.username page %}' class="btn btn-default btn" id="friend_button"><p id="add_me">Add Friend</p></a>
 				</span>
 				{% endif %}
 				<div id="outer_button">
-				<a class="btn btn-default btn" id="pictures_button" href="/members/{{ single_user.username}}/pictures/"><p>Pictures</p></a>
+					{% if users.has_next %}
+					<a class="btn btn-default btn" id="skip_button" href="?page={{ users.next_page_number }}"><p>Skip</p></a>
+					{% else %}
+					<a class="btn btn-default btn" id="skip_button" href="{% url 'reset_discover' %}"><p>Skip</p></a>
+					{% endif %}
 				</div>
 			</div>
 		</div><!--End Buttons Row-->
 	</div><!--End Card-->
 	<div class="invisible" id="swipe_left">Swipe for your next match!</div>
-		{% endif %}
-		{% if users.has_next %}
-			<a class="btn-lg" id="discover_next" href="?page={{ users.next_page_number }}">Next</a>
-			
-		{% else %}
-			<a class="btn-lg" id="discover_next" href="{% url 'reset_discover' %}">Next</a>
 		{% endif %}
 		</div>
 	</div>
@@ -140,17 +139,11 @@ $(function() {
 </script>
 {% else %}
 {% endif %}
-<script>
-$('#friend_button').click(function(){
-	$('#add_me').text("Request Sent");
-	$.get('{% url "add_friend" single_user.username %}');	
-});
-</script>
 
 <script>
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 	$('#swipe_left').addClass('animated lightSpeedIn'); 	
 };
 </script>
-
+{% endif %}
 {% endblock %}

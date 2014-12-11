@@ -1,6 +1,5 @@
 #register.col-xs-6{
-	width:50%!important;
-	float:right;
+	width:100%!important;
 }
 
 .modal-header{	
@@ -13,7 +12,7 @@
 .modal_content{
 	width:100%;
 	border-bottom:2px solid black;
-	height:300px;
+	height:370px;
 }
 .sign_up_div input{
 	width:200px!important;
@@ -46,8 +45,7 @@
 }
 
 .modal-body .sign_up_div{
-	width:50%!important;
-	float:left!important;
+	width:100%;
 	border-top:none!important;
 	color: #1FBAD6;
 }
@@ -57,24 +55,6 @@
 #contactform h4{
 	color:black;
 }
-.modal-body #fb_login{
-	margin-bottom:10px;
-	margin-top:15px;
-}
-.modal-body #google_login{
-	margin-top:15px;
-	margin-bottom:10px;
-}
-
-.modal-body #google_icon, .modal-body #fb_icon{
-	width:80px;
-	height:80px;
-}
-
-.modal-body #google_login, .modal-body #fb_login{
-	height:85px;
-}
-
 #social_logins p{
 	margin: 10px 0px 10px!important;
 }
@@ -94,11 +74,11 @@
 #login{
 	text-align: center;
 	margin: 0 auto;
-	width: 50%;
+	width: 100%;
 }
 .login {
   text-align: center;
-  margin: 25px auto;
+  margin: 25px auto 0px;
   padding: 20px 20px 20px;
   width: 100%;
   max-width: 350px;
@@ -113,7 +93,7 @@
 
 .signup {
   text-align: center;
-  margin: 15px auto;
+  margin: 15px auto 0px;
   padding: 1px 20px 0px 20px;
   width: 100%;
   max-width: 350px;
@@ -209,10 +189,6 @@
   vertical-align: middle;
 }
 
- #login_modal #fb_login{
-	margin-bottom:27px;
-	margin-top:15px;
-}
 #login_modal #google_login{
 	margin-top:30px;
 	margin-bottom:15px;
