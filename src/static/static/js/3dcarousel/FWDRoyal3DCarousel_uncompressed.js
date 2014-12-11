@@ -15512,15 +15512,6 @@ var FWDR3DCarSimpleButton = function(nImg, sImg){
 			self.loadWithDelayIdRight = setTimeout(self.loadThumbImageRight, 200);
 		};
 
-		this.onImageLoadErrorHandler = function(e)
-		{
-			if (!self || !self.data)
-				return;
-
-			var message = "Thumb can't be loaded, probably the path is incorrect <font color='#FFFFFF'>" + self.imagePath + "</font>";
-
-			self.dispatchEvent(FWDR3DCarThumbsManager.LOAD_ERROR, {text : message});
-		};
 		
 		this.loadHtmlContents = function()
 		{
