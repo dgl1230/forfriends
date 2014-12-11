@@ -21,7 +21,9 @@ SECRET_KEY = os.environ["FORFRIENDS_KEY"]
 DEBUG = True
 
 
-DEBUG_TOOLBAR_PATCH_SETTINGS = False
+DEBUG_TOOLBAR_PATCH_SETTINGS = False#Things for Celery, copy-pasterino'ed into the other settings files
+
+
 
 #DEBUG_TOOLBAR_CONFIG = {
  #   'SHOW_TOOLBAR_CALLBACK': 'profiles.views.custom_show_toolbar',
@@ -240,6 +242,11 @@ def get_cache():
 CACHES = get_cache()
 
 
+#Things for Celery, copy-pasterino'ed into the other settings files
+BROKER_URL = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
 
 
 
