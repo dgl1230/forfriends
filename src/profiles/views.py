@@ -27,7 +27,7 @@ from django.views.decorators.clickjacking import xframe_options_exempt
 
 from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG, MEDIA_URL
 from forfriends.matching import match_percentage, find_same_interests
-from forfriends.distance import calc_distance, check_valid_location
+from forfriends.distance import calc_distance, check_valid_location, find_nearby_users
 from forfriends.s3utils import delete_s3_pic
 from matches.models import Match
 from .models import Address, Job, Info, UserPicture, Gamification
@@ -908,12 +908,21 @@ def discover(request):
 		user_gamification = Gamification.objects.create(user=request.user)
 	
 	info = Info.objects.get(user=request.user)
+	'''
 	if info.new_to_discover == True:
 		create_user_list(request.user)
 		info.new_to_discover = False
 		info.save()
 	else:
 		update_user_list(request.user)
+	'''
+	#test lines
+	users = list(User.objects.filter(is_active=True))
+	close_users = find_nearby_users(reques.user, 20, users)
+
+	user_gamification.discover_list.add(*close_users)
+	#end test lines
+
 	if user_gamification.discover_list.count() == 0:
 		no_users = True
 		return render_to_response('profiles/discover.html', locals(), context_instance=RequestContext(request))
