@@ -18,6 +18,13 @@
 	padding-top:0px;
 }
 
+#fb_icon{
+	background-image: url(/static/img/social_icons/fb_logo.png);
+	width:40px;
+	height:40px;
+	background-size:cover;
+	float:left;
+}
 #social_logins a{
 	display:inline-block;
 }
@@ -33,10 +40,10 @@
 #fb_login{
 	width:150px;
 	border-radius: 4px;
-	background-color: #1FBAD6;
+	background-color: #3b5998;
 	color:white;
 	border-color:white;
-	box-shadow: 0 0 0 2px white, 0 0 0 3px #1FBAD6;
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #3b5998;
 }
 
 #twitter_icon{
@@ -87,11 +94,5 @@
 	background-color: #1fbad6;
 	color:white;
 	border-color:white;
-	}
-}
-@media only screen and (min-width:300px) and (max-width:550px){
-#social_logins p{
-	padding-left:20px;
-	padding-right:20px;
 	}
 }
