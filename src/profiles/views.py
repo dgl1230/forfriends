@@ -798,6 +798,7 @@ def user_not_new(user):
 		return False
 	return user.is_authenticated() and user_info.signed_up_with_fb_or_goog == False
 
+#peninsula_cities = ['San Francisco', 'Daly City']
 
 
 def create_user_list(logged_in_user):
@@ -824,7 +825,6 @@ def create_user_list(logged_in_user):
 
 
 def redo_user_list(logged_in_user):
-	#find user list
 	user_gamification = Gamification.objects.get(user=logged_in_user)
 	matches = Match.objects.filter(
 		Q(user1=logged_in_user) | Q(user2=logged_in_user)
@@ -913,7 +913,6 @@ def discover(request):
 		info.new_to_discover = False
 		info.save()
 	else:
-
 		update_user_list(request.user)
 	if user_gamification.discover_list.count() == 0:
 		no_users = True
