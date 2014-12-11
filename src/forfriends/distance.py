@@ -60,9 +60,12 @@ def find_nearby_users(logged_in_user, preferred_distance, user_list):
 	#Iterate through list_of_all_users: if calc_distance(logged_in_user, user_i) <= preferred_distance, then add to list_of_nearby_users
 	for i in range(len(user_list)):
 		temp_user = user_list[i]
-		distance = calc_distance(logged_in_user, temp_user)
-		if distance <= preferred_distance:
-			list_of_nearby_users.append(temp_user)
+		try:
+			distance = calc_distance(logged_in_user, temp_user)
+			if distance <= preferred_distance:
+				list_of_nearby_users.append(temp_user)
+		except: 
+			pass
 	return list_of_nearby_users
 	
 """
