@@ -1,7 +1,8 @@
 
 import os
-from django.core.urlresolvers import reverse_lazy
-#from profiles.views import correct_ip
+
+
+
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
@@ -18,27 +19,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 SECRET_KEY = os.environ["FORFRIENDS_KEY"]
 
 
-DEBUG = True
+DEBUG = False
 
-
-DEBUG_TOOLBAR_PATCH_SETTINGS = False
-
-
-
-#DEBUG_TOOLBAR_CONFIG = {
- #   'SHOW_TOOLBAR_CALLBACK': 'profiles.views.custom_show_toolbar',
-#}
-
-
-
-
-
-#INTERNAL_IPS = ('10.0.2.15', '192.168.1.6', '67.169.73.204', '71.165.84.204',)
-#INTERNAL_IPS = (correct_ip(),)
-
-SHOW_TOOLBAR_CALLBACK = True
-
-TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -51,6 +33,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.sitemaps',
     'registration',
     'south',
     'profiles',
@@ -60,7 +43,6 @@ INSTALLED_APPS = (
     'questions',
     'storages',
     'social.apps.django_app.default',
-    'debug_toolbar',
     
 )
 
@@ -77,7 +59,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
+    
 
 )
 
@@ -150,7 +132,7 @@ STATICFILES_FINDERS = (
 )
 
 # may want it to be AUTH_PROFILE_MODULE = "profiles.blah"
-AUTH_PROFILE_MODULE = "profiles.Info"
+AUTH_PROFILE_MODULE = "profiles.UserPicture"
 
 ACCOUNT_ACTIVATION_DAYS = 7
 
@@ -173,10 +155,10 @@ ALLOWED_HOSTS = ['*']
     
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+AWS_STORAGE_BUCKET_NAME = 'forfriends-staging'
 
-#DEFAULT_FILE_STORAGE = 'forfriends.s3utils.MediaRootS3BotoStorage'
-#STATICFILES_STORAGE = 'forfriends.s3utils.StaticRootS3BotoStorage'
+DEFAULT_FILE_STORAGE = 'forfriends.s3utils.MediaRootS3BotoStorage'
+STATICFILES_STORAGE = 'forfriends.s3utils.StaticRootS3BotoStorage'
 
 AWS_PRELOAD_METADATA = True 
 
@@ -187,12 +169,12 @@ ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
 DMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
-#Facebook social authentication info for Frenvu-Staging app 
-SOCIAL_AUTH_FACEBOOK_KEY = '705757932842907' 
-SOCIAL_AUTH_FACEBOOK_SECRET = '180f498d374ab9d421534418751d0564' 
+#Facebook social authentication info 
+SOCIAL_AUTH_FACEBOOK_KEY = '681686558583378'
+SOCIAL_AUTH_FACEBOOK_SECRET = 'cb9fb330dd5708b5e7ca789b5521d86a'
 
 SOCIAL_AUTH_FACEBOOK_SCOPE = [
-    'email',
+    'email', 
 ]
 
 SOCIAL_AUTH_PIPELINE = (
@@ -206,13 +188,14 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.user.create_user',
     'social.pipeline.social_auth.associate_user',
     'social.pipeline.social_auth.load_extra_data',
-    #'forfriends.pipeline.save_profile_picture',
+    'forfriends.pipeline.save_profile_picture',
+    #'forfriends.pipeline.facebook_basic_data',
     #'forfriends.pipeline.user_details',
 )
 
 #Google soical authentication info 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "406119441085-n7d7srjnlsj0eqg8d0jomai2o56o8f5e.apps.googleusercontent.com"
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "rr6yAYsfLim6aikBZCArDW9M"
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "535327556807-i0uiqqfvleeiah9930rm04brvtjir54o.apps.googleusercontent.com"
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "EG9xWIv2kqalrYBGukZl-eIm"
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [ 
     'email',
@@ -240,7 +223,6 @@ def get_cache():
         }
 
 CACHES = get_cache()
-
 
 
 

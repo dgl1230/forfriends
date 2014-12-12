@@ -751,13 +751,16 @@ def new_user_info(request):
 			
 			
 			request.user.save()
-			user = authenticate(username=request.user.username, password=request.user.password)
+			
 			#user.save()
+			#user = authenticate(username=request.user.username, password=request.user.password)
 			new_user = User.objects.get(username=request.user.username)
 			new_user.username = username
+
 			new_user.first_name = first_name
 			new_user.last_name = last_name
 			new_user.save()
+			user = authenticate(username=request.user.username, password=request.user.password)
 
 
 
