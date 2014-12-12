@@ -17,30 +17,25 @@
     <link rel="apple-touch-icon" href="/static/img/frenvu_logo-2circles.png">
 </head>
 <body>
-<div class="navbar">
-         <div class="brand">
-           <span>Frenvu</span>
-        </div>
-  </div>
-
+{% include 'fb_sdk.html' %}
+{% include 'press_navbar.html' %}
 <div class="wrapper">
-  <div class='contact_form_wrapper'>
-<div id="form-main">
-  <div id="form-div">
-    <form class="form" id="form1" action='' method='POST'>
-      {% csrf_token %}
-      <p class="text">
-        <textarea name="message" class="validate[required,length[6,300]] feedback-input" id="comment"></textarea>
-      </p>
-      <div class="submit">
-        <input type="submit" value="Contact Us" id="button-blue"/>
-        <div class="ease"></div>
-      </div>
-    </form>
-  </div><!--Form Div-->
-</div><!--Form Main-->
-</div>
-  </div><!--wrapper-->
+  <h2 class="help"> Need some help or have any questions? Ask away and we'll get back to you (almost) immediately!</h2>
+  <form name="hongkiat" id="hongkiat-form" method="post" action="#">
+    <div id="wrapping" class="clearfix">  
+        <section id="aligned">  
+          <input type="text" name="name" id="name" placeholder="Your name" autocomplete="off" tabindex="1" class="txtinput">  
+          <input type="email" name="email" id="email" placeholder="Your e-mail address" autocomplete="off" tabindex="2" class="txtinput"> 
+          <br>  
+          <textarea name="message" id="message" placeholder="Leave us a message..." tabindex="5" class="txtblock"></textarea>  
+        </section> 
+      <section id="buttons">  
+        <input type="submit" name="submit" id="submitbtn" class="submitbtn" tabindex="7" value="Submit this!">  
+        <br style="clear:both;">  
+    </section>  
+    </form>  
+    </div><!--wrapping-->
+  </form>
 </div>
 <!--========================Footer======================= -->
 <footer>

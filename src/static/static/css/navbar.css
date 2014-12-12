@@ -13,6 +13,9 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 	background-color:white;
 	border:none;
 }
+#inbox_right{
+	width:70px!important;
+}
 
 .navbar-brand{
 	width:130px;
