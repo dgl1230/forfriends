@@ -17,6 +17,9 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 	width:70px!important;
 	margin-right:30px!important;
 }
+#home_sidebar{
+	margin-top:15px;
+}
 
 .navbar-brand{
 	width:130px;
@@ -476,7 +479,7 @@ form.navbar-form.navbar-left{
 	}
 }
 .navbar-brand{
-	height:40px!important;
+	height:50px!important;
 	font-weight:300;
 }
 
