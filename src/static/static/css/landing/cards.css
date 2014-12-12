@@ -37,7 +37,7 @@
 	-ms-animation-delay: 2s;
 	animation-delay: 2s;
 	animation-iteration-count: 10;
-	margin:0 auto;	
+	font-weight: 300;
 }
 #mobile_match{
 	width:140px;
