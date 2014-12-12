@@ -241,6 +241,12 @@ the user is not logged in, and is shown the landing page.
 
 @xframe_options_exempt
 def all(request):
+	""" ADDED TO TEST, SHOULD NOT STAY HERE """
+	lat1 = 37.744
+	lon1 = -122.475
+	lat_change = find_latitude_range(lat1,lon1, 20)
+	lon_change = find_longitude_range(lat1, lon1, 20)
+	""" ADDED TO TEST, SHOULD NOT STAY HERE """
 	if request.user.is_authenticated():
 		info, created = Info.objects.get_or_create(user=request.user)
 		

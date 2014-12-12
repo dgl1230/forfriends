@@ -18,6 +18,35 @@ def haversine(lon1, lat1, lon2, lat2):
 	miles = km * 0.621371
 	return round(miles)
 
+#Takes an initial latitude, longitude, and specified radius, and returns domain of latitude
+def find_latitude_range(lat1, lon1, radius):
+	lon1, lat1, lon2 = map(radians, [lon1, lat1, lon1])
+	#latitude is changing, not longitude, so dlon = 0
+	#dlon = 0
+	c = radius / 6367 / 0.621363
+	a = (sin(c/2))**2
+	lat2 = (2 * asin(sqrt(a))) + lat1
+	lat_diff = abs(lat2 - lat1)
+	logging.debug("Latitude_diff is: " + str(lat_diff))
+	return lat_diff #latitude + lat_diff = right_border, latitude - lat_diff = left_border
+
+#Takes an initial latitude, longitude, and specified radius, and returns domain of longitude
+def find_longitude_range(lat1, lon1, radius):
+	lon1, lat1, lat2 = map(radians, [lon1, lat1, lat1])
+	dlat = 0
+	c = radius / 6367 / 0.621363
+	a = (sin(c/2))**2
+	lon2 = 2 * asin(sqrt(a / (cos(lat1) * cos(lat2)))) + lon1
+	lon_diff = abs(lon2 - lon1)
+	logging.debug("Longitude_diff is: " + str(lon_diff))
+	return lon_diff
+	#dlat = 0
+	#a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
+	#a = cos(lat1) * cos(lat2) * sin(dlon/2)**2
+	#a / (cos(lat1) * cos(lat2)) = sin(dlon/2)**2
+	#sqrt(a / (cos(lat1) * cos(lat2))) = sin(dlon/2)
+	#2 * asin(sqrt(a / (cos(lat1) * cos(lat2)))) = lon2 - lon1
+	#2 * asin(sqrt(a / (cos(lat1) * cos(lat2)))) + lon1 = lon2
 
 def calc_distance(user1, user2):
 	geolocator = GoogleV3()
