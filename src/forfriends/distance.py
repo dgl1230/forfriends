@@ -2,7 +2,7 @@ from geopy.geocoders import GoogleV3
 from django.contrib.auth.models import User
 from profiles.models import Address
 from math import radians, cos, sin, asin, sqrt
-
+import logging
 
 geolocator = GoogleV3()
 
@@ -23,9 +23,11 @@ def find_latitude_range(lat1, lon1, radius):
 	lon1, lat1, lon2 = map(radians, [lon1, lat1, lon1])
 	#latitude is changing, not longitude, so dlon = 0
 	#dlon = 0
-	c = radius / 6367 / 0.621363
-	a = (sin(c/2))**2
-	lat2 = (2 * asin(sqrt(a))) + lat1
+	c = radius / 6367.0 / 0.621363
+	a = (sin(c/2.0))**2
+	lat2 = (2 * asin(sqrt(a))) + lat1 
+	lat2 = lat2 * 57.2957795 #convert back to degrees from radians
+	lat1 = lat1 * 57.2957795
 	lat_diff = abs(lat2 - lat1)
 	logging.debug("Latitude_diff is: " + str(lat_diff))
 	return lat_diff #latitude + lat_diff = right_border, latitude - lat_diff = left_border
@@ -33,10 +35,11 @@ def find_latitude_range(lat1, lon1, radius):
 #Takes an initial latitude, longitude, and specified radius, and returns domain of longitude
 def find_longitude_range(lat1, lon1, radius):
 	lon1, lat1, lat2 = map(radians, [lon1, lat1, lat1])
-	dlat = 0
-	c = radius / 6367 / 0.621363
-	a = (sin(c/2))**2
+	c = radius / 6367.0 / 0.621363
+	a = (sin(c/2.0))**2
 	lon2 = 2 * asin(sqrt(a / (cos(lat1) * cos(lat2)))) + lon1
+	lon2 = lon2 * 57.2957795 #convert back to degrees from radians
+	lon1 = lon1 * 57.2957795
 	lon_diff = abs(lon2 - lon1)
 	logging.debug("Longitude_diff is: " + str(lon_diff))
 	return lon_diff

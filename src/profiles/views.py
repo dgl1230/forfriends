@@ -27,7 +27,7 @@ from django.views.decorators.clickjacking import xframe_options_exempt
 
 from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG, MEDIA_URL
 from forfriends.matching import match_percentage, find_same_interests
-from forfriends.distance import calc_distance, check_valid_location, find_nearby_users
+from forfriends.distance import calc_distance, check_valid_location, find_nearby_users, find_latitude_range, find_longitude_range
 from forfriends.s3utils import delete_s3_pic
 from matches.models import Match
 from .models import Address, Job, Info, UserPicture, Gamification
@@ -241,12 +241,6 @@ the user is not logged in, and is shown the landing page.
 
 @xframe_options_exempt
 def all(request):
-	""" ADDED TO TEST, SHOULD NOT STAY HERE """
-	lat1 = 37.744
-	lon1 = -122.475
-	lat_change = find_latitude_range(lat1,lon1, 20)
-	lon_change = find_longitude_range(lat1, lon1, 20)
-	""" ADDED TO TEST, SHOULD NOT STAY HERE """
 	if request.user.is_authenticated():
 		info, created = Info.objects.get_or_create(user=request.user)
 		
