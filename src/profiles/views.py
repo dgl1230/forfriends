@@ -165,28 +165,28 @@ def add_friend_discovery(request, username, page):
 		match.user2_approved = True
 
 	if (match.user1 == request.user and match.user1_approved == True and match.user2_approved == False):
-		'''
+		
 		if not CURRENTLY_LOCALLY_TESTING: 
-		sender = User.objects.get(username="TeamFrenvu")
+			sender = User.objects.get(username="TeamFrenvu")
 		else: 	
-		sender = request.user
+			sender = request.user
 		requester = request.user
 		requested= match.user2
 		subject = "Someone wants to be your friend!"
 		body = "Hey %s, I think we could be pretty good friends! Why don't you check out my profile and see if you think we'd get along?" %(requested)
 		message = DirectMessage.objects.create(subject=subject, body=body, sender=sender, receiver=requested)
 		message.save()
-		'''
+		
 		match.save()
 		
 
 
 	if (match.user2 == request.user and match.user2_approved == True and match.user1_approved == False):
-		'''
+		
 		if not CURRENTLY_LOCALLY_TESTING: 
-		sender = User.objects.get(username="TeamFrenvu")
+			sender = User.objects.get(username="TeamFrenvu")
 		else: 	
-		sender = request.user
+			sender = request.user
 		requester = request.user
 		requested= match.user1
 		subject = "Someone wants to be your friend!"
@@ -194,7 +194,7 @@ def add_friend_discovery(request, username, page):
 		message = DirectMessage.objects.create(subject=subject, body=body, sender=sender,receiver=requested)
 		match.save()
 		message.save()
-		'''
+		
 		match.save()
 
 
@@ -798,7 +798,35 @@ def user_not_new(user):
 		return False
 	return user.is_authenticated() and user_info.signed_up_with_fb_or_goog == False
 
-#peninsula_cities = ['San Francisco', 'Daly City']
+
+#san_francico_area = ['San Francisco']
+#south_san_francisco = ['Daly City', 'Brisbane', 'South San Francisco', 
+
+oakland = ['Oakland', 'San Francisco', 'Alameda', 'Emeryville', 'Piedmont', 'Berkeley']
+san_francisco = ['San Francisco', 'Daly City', 'Brisbane']
+daly_city = ['San Francisco', 'South San Francisco', 'Pacifica', 'San Bruno', 'Daly City', 'Brisbane']
+south_san_francisco = ['Daly City', 'South San Francisco', 'Pacifica', 'Millbrae', 'Brisbane']
+pacifica = ['Pacifica', 'Daly City', 'South San Francisco', 'San Bruno']
+san_bruno = ['South San Francisco', 'Brisbane','San Bruno', 'Millbrae']
+#hillsborough and burlingham included with millbrae
+millbrae = ['San Bruno', 'Millbrae', 'Hillsborough', 'Burlingame', 'South San Francisco', 'San Mateo']
+#foster city, highlands-baywood park can be included here
+san_mateo= ['San Mateo', 'Hillsborough', 'Burlingame', 'Foster City', 'Belmont', 'Highlands-Baywood Park']
+#Belmont, San Carlos, Emerald Hills, 'North Fair Oaks, Woodside, Atherton
+redwood_city = ['Redwood City', 'Belmont', 'San Carlos', 'Emerald Hills', 'North Fair Oaks', 'Atherton', 'Menlo Park', 
+					'West Menlo Park', 'Palo Alto', 'Stanford', 'East Palo Alto', 'Portola Valley', 'Woodside']
+#for Palo Alto, Menlo Park, Portola Valley, West Menlo Park, Stanford
+between_redwood_and_mountainview = ['Redwood City', 'Woodside', 'Emerald Hills', 'North Fair Oaks', 'Atherton', 
+				'Menlo Park', 'West Menlo Park', 'Palo Alto', 'Portola Valley', 'Stanford', 'East Palo Alto']
+#covers mountain view, los altos, SunnyVale, Loyola, Cupertino
+mountainview = ['Mountain View', 'Los Altos', 'Sunnyvale', 'Palo Alto', 'Stanford', 'Santa Clara']
+#Includes San Jose, Santa Clara, Campbell, Cupertino, Milpitas, Cambrian Park, Milpitas, East Foothills
+san_jose = ['San Jose', 'Santa Clara', 'Campbell', 'Cupertino', 'Milpitas', 'Cambrian Park', 'Mountain View', 
+			'Los Altos', 'East Foothills']
+
+
+
+
 
 
 def create_user_list(logged_in_user):
@@ -908,7 +936,7 @@ def discover(request):
 		user_gamification = Gamification.objects.create(user=request.user)
 	
 	info = Info.objects.get(user=request.user)
-	'''
+	
 	if info.new_to_discover == True:
 		create_user_list(request.user)
 		info.new_to_discover = False
@@ -922,7 +950,7 @@ def discover(request):
 
 	user_gamification.discover_list.add(*close_users)
 	#end test lines
-
+	'''
 	if user_gamification.discover_list.count() == 0:
 		no_users = True
 		return render_to_response('profiles/discover.html', locals(), context_instance=RequestContext(request))
@@ -1474,6 +1502,7 @@ def delete_account(request):
 	username = request.user.username
 	deactivated_user = User.objects.get(username=username)
 	deactivated_user.is_active = False
+	deactivated_user.save()
 	logout(request)
 	messages.success(request, "Your account has been deactivated. Your account will be deleted in 30 days.")
 	messages.success(request, "We're sorry to see you go, but if you change your mind before then, just log back in to reactivate it!")
