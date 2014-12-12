@@ -59,10 +59,14 @@
 		        <span>
 		        	{% for item in single_user.info_set.all %}
 		        		{% if forloop.first %}
-		        		{% if item.bio == None %}
-		        		{% elif item.bio == none %}
+			        		{% if item.bio == None %}
+			        			<div class="hidden">{{item.bio}}</div>
+			        		{% elif item.bio == none %}
+			        		<div class="hidden">{{item.bio}}</div>
+		        			{% else %}
 		        		{% else %}
 		        		{{item.bio}}
+		        		{% endif %}
 		        		{% endif %}
 		        	{% endfor %}
 		        </span>
