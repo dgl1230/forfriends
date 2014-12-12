@@ -54,6 +54,7 @@ class Info(models.Model):
 	gender = models.CharField(max_length=20, choices=GENDER_CHOICES, null=True, blank=True)
 	is_new_user = models.BooleanField(default=True)
 	signed_up_with_fb_or_goog = models.BooleanField(default=True)
+	new_to_discover = models.BooleanField(default=True)
 
 	def __unicode__(self):
 		return self.user.username

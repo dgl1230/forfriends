@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 {% if no_users %}
-<h3 id="no_pictures">There are no users close to you right now, but check back soon!</h3>
+<h3 id="no_pictures">There are no new users close to you right now, but please check back soon!</h3>
 {% else %}
 
 <div class="row" id="discover_row">
@@ -97,7 +97,7 @@
 				<a class="btn btn-default btn" id="friend_button"><p>Request Sent</p></a>
 				{% else %}
 				<span id="outer_button">
-				<a href='{% url "add_friend_discovery" single_user.username %}' class="btn btn-default btn" id="friend_button"><p id="add_me">Add Friend</p></a>
+				<a href='{% url "add_friend_discovery" single_user.username page %}' class="btn btn-default btn" id="friend_button"><p id="add_me">Add Friend</p></a>
 				</span>
 				{% endif %}
 				<div id="outer_button">

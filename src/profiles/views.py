@@ -7,7 +7,7 @@ import logging
 from random import randint
 
 from django.shortcuts import render
-from django.contrib import messages
+from django.contrib import messages, auth
 from django.shortcuts import render_to_response, RequestContext, Http404, HttpResponseRedirect, redirect
 from django.contrib.auth.models import User
 from django.forms.models import modelformset_factory
@@ -27,7 +27,7 @@ from django.views.decorators.clickjacking import xframe_options_exempt
 
 from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG, MEDIA_URL
 from forfriends.matching import match_percentage, find_same_interests
-from forfriends.distance import calc_distance, check_valid_location
+from forfriends.distance import calc_distance, check_valid_location, find_nearby_users
 from forfriends.s3utils import delete_s3_pic
 from matches.models import Match
 from .models import Address, Job, Info, UserPicture, Gamification
@@ -40,8 +40,7 @@ from questions.models import Question, UserAnswer
 
 
 CURRENTLY_LOCALLY_TESTING = False
-#print("IP Address for debug-toolbar: " + request.META['REMOTE_ADDR'])
-#ip_variable = request.META['REMOTE_ADDR']
+
 def custom_show_toolbar(request):
 	return True
 
@@ -52,7 +51,7 @@ def user_not_new(user):
 		user_info = Info.objects.get(user=user)
 	except:
 		return False
-	return user.is_authenticated() and user_info.signed_up_with_fb_or_goog == False
+	return user.is_authenticated() and user_info.signed_up_with_fb_or_goog == False and user_info.is_new_user == False
 
 '''
 def user_can_reset_circle(user):
@@ -166,6 +165,7 @@ def add_friend_discovery(request, username, page):
 		match.user2_approved = True
 
 	if (match.user1 == request.user and match.user1_approved == True and match.user2_approved == False):
+		
 		if not CURRENTLY_LOCALLY_TESTING: 
 			sender = User.objects.get(username="TeamFrenvu")
 		else: 	
@@ -175,11 +175,14 @@ def add_friend_discovery(request, username, page):
 		subject = "Someone wants to be your friend!"
 		body = "Hey %s, I think we could be pretty good friends! Why don't you check out my profile and see if you think we'd get along?" %(requested)
 		message = DirectMessage.objects.create(subject=subject, body=body, sender=sender, receiver=requested)
-		match.save()
 		message.save()
+		
+		match.save()
+		
 
 
 	if (match.user2 == request.user and match.user2_approved == True and match.user1_approved == False):
+		
 		if not CURRENTLY_LOCALLY_TESTING: 
 			sender = User.objects.get(username="TeamFrenvu")
 		else: 	
@@ -191,6 +194,8 @@ def add_friend_discovery(request, username, page):
 		message = DirectMessage.objects.create(subject=subject, body=body, sender=sender,receiver=requested)
 		match.save()
 		message.save()
+		
+		match.save()
 
 
 
@@ -244,16 +249,17 @@ def all(request):
 				return HttpResponseRedirect(reverse('new_user_info'))
 
 			if info.is_new_user == True:
-				is_new_user = True
-				user_interests = UserInterestAnswer.objects.filter(user=request.user)
-				user_questions = UserAnswer.objects.filter(user=request.user)
-				if user_interests.count() >= 5 and user_questions.count() >= 10:
-					can_make_first_crowd = True
-					info.is_new_user = False
-					info.save()
-					is_new_user = False
-				else:
-					can_make_first_crowd = False
+				#is_new_user = True
+				return HttpResponseRedirect(reverse('new_user_info'))
+			user_interests = UserInterestAnswer.objects.filter(user=request.user)
+			user_questions = UserAnswer.objects.filter(user=request.user)
+			if user_interests.count() >= 5 and user_questions.count() >= 10:
+				can_make_first_crowd = True
+				#info.is_new_user = False
+				#info.save()
+				#is_new_user = False
+			else:
+				can_make_first_crowd = False
 				#return render_to_response('all.html', locals(), context_instance=RequestContext(request))
 		except: 
 			pass
@@ -436,9 +442,13 @@ def choose_and_remove(items):
 
 
 def circle_distance(logged_in_user, preferred_distance):
-	start_time = datetime.now()
+	#start_time = datetime.now()
 	user_gamification = Gamification.objects.get(user=logged_in_user)
 	current_circle = list(user_gamification.circle.all())
+	#need try catch here
+	team_frenvu = User.objects.get(username="TeamFrenvu")
+	current_circle.append(team_frenvu)
+
 	matches = Match.objects.filter(
 		Q(user1=logged_in_user) | Q(user2=logged_in_user)
 		).exclude(user1=logged_in_user, user2=logged_in_user).exclude(are_friends=True).filter(percent__gte=70).exclude(id__in=[o.id for o in current_circle]).filter(distance__lte=preferred_distance)
@@ -519,6 +529,114 @@ def first_circle(logged_in_user):
 		user_gamification.icebreaker_until_reset = datetime.now()
 		user_gamification.save()
 		return HttpResponseRedirect(reverse('home'))
+
+
+def new_user_fb_or_goog(request, email):
+	if request.POST:
+		username1 = str(request.POST['username'])
+		username2 = username1.translate(None, " '?.!/;:@#$%^&(),[]{}`~-=+*|<>")
+		username = username2.translate(None, '"')
+		bad_words = ['shit', 'cunt', 'fuck', 'nigger', 'kyke', 'dyke', 'fag', 'ass', 'rape', 
+				'murder', 'kill', 'gook', 'pussy', 'bitch', 'whore', 'slut', 
+				'cum', 'jizz', 'clit', 'anal', 'cock', 'molest', 'necro', 'satan', 'devil', 
+				'pedo', 'negro', 'spic', 'beaner', 'chink', 'coon', 'kike', 'wetback', 'sex', 
+				'kidnap', 'penis', 'vagina', 'boobs', 'titties', 'sodom', 'kkk', 'nazi', 'klux', 
+				'dicksucker', 'rapist', 'anus', 'arse', 'bastard','blowjob', 
+				'boner', 'fister', 'butt', 'cameltoe', 'chink', 'coochie', 'coochy', 'bluewaffle', 
+				'cooter', 'dick', 'dildo', 'doochbag', 'douche', 'fellatio', 'feltch', 'flamer', 
+				'donkeypunch', 'fudgepacker', 'gooch', 'gringo', 'jerkoff', 'jigaboo', 'kooch', 
+				'kootch', 'kunt', 'kyke', 'dike', 'minge', 'munging', 'nigga', 'niglet', 'nutsack', 
+				'poon', 'pussies', 'pussy', 'queef', 'queer', 'rimjob', 'erection', 'schlong', 
+				'skeet', 'smeg', 'spick', 'splooge', 'spook', 'retard', 'testicle', 'twat', 
+				'vajayjay', 'wankjob', 'bimbo', '69', 'fistr', 'fist3r']
+
+		for word in bad_words:
+			if word in username:
+				messages.success(request, "We're really sorry, but some people might find your username offensive. Please pick a different username.")
+				return HttpResponseRedirect(reverse('home'))
+		if len(username) >= 30:
+			messages.error(request, "We're sorry but your username can't be longer than 30 characters")
+			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+		day = request.POST['BirthDay']
+		month = request.POST['BirthMonth']
+		year = request.POST['BirthYear']
+		country = request.POST['country']
+		state = request.POST['state']
+		city = request.POST['city'].title()
+		datestr = str(year) + '-' + str(month) + '-' + str(day)
+		birthday = datetime.strptime(datestr, '%Y-%m-%d').date()
+		user_age = calculate_age(birthday)
+		try:
+			test_year = int(year)
+			test_day = int(day)
+		except:
+			messages.error(request, "Please enter a number for your birthday year and day")
+			return render_to_response('profiles/new_user.html', locals(), context_instance=RequestContext(request))
+
+		if user_age >= 18:
+			#datestr = str(year) + '-' + str(month) + '-' + str(day)
+			birthday = datetime.strptime(datestr, '%Y-%m-%d').date()
+			user_age = calculate_age(birthday)
+			new_user = User.objects.get(email=email)
+			try: 
+				new_info = Info.objects.get(user=new_user)
+			except: 
+				new_info = Info.objects.create(user=new_user)
+			try:
+				new_address = Address.objects.get(user=new_user)
+			except: 
+				new_address = Address.objects.create(user=new_user)
+			new_address.country = country
+			new_address.state = state
+			new_address.city = city
+			new_info.birthday = birthday
+			new_info.signed_up_with_fb_or_goog = False
+			new_info.is_new_user = False
+			new_info.save()
+			new_address.save()
+			try: 
+				user = User.objects.get(username=username)
+				messages.error(request, "We're sorry, but that user name is already taken!")
+				return HttpResponseRedirect(reverse('home'))
+			except:
+				pass
+			new_user.username = username
+			#request.user.is_active = True
+			new_user.save()
+			user = authenticate(username=new_user.username, password=new_user.password)
+			new_user.save()
+
+
+			if not CURRENTLY_LOCALLY_TESTING:
+
+				subject = "Welcome to Frenvu!"
+				line1 = "Thanks for signing up %s! Frenvu is a place where you can find your closest friends, someone cool to see a movie with," % (request.user.username)
+				line2 = " or anything in between. After you answer some interests and questions, try creating a crowd to find 6 potential friends who live close by."
+				line3 = " Or you could do an icebreaker, and we'll start a conversation with another user you share an interest with! There's plenty more to do as well,"
+				line4 = " and we are constantly working on additional features. If you have any questions or concerns, please let us know! We want Frenvu to be the most fun"
+				line5 = " and welcoming place for you to meet new people. We hope you enjoy the site!" + '\n' + '\n'
+				line6 = " - The Team at Frenvu "
+				body = line1 + line2 + line3 + line4 + line5 + line6
+				sender = User.objects.get(username="TeamFrenvu")
+				new_user_welcome_message = DirectMessage.objects.create(subject=subject, body=body, receiver=request.user, sender=sender, sent=datetime.now())
+				new_user_welcome_message.save()
+
+				email = request.user.email
+				username = request.user.username
+				subject = 'Thanks for registering with Frenvu!'
+				plaintext = get_template('registration/email.txt')
+				d = Context({ 'username': username })
+				text_content = plaintext.render(d)
+				msg = EmailMultiAlternatives(subject, text_content, EMAIL_HOST_USER, [email])
+				msg.send()
+			return HttpResponseRedirect(reverse('home'))
+		else:
+			messages.error(request, "We're sorry but you must be at least 18 to signup!")
+			return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+	else:
+		return render_to_response('new_user_registration_2.html', locals(), context_instance=RequestContext(request))
+
+
 
 
 
@@ -617,6 +735,7 @@ def new_user_info(request):
 			new_info.gender = gender
 			new_info.birthday = birthday
 			new_info.signed_up_with_fb_or_goog = False
+			new_info.is_new_user = False
 			new_info.save()
 			new_address.save()
 			try: 
@@ -625,10 +744,22 @@ def new_user_info(request):
 				return HttpResponseRedirect(reverse('home'))
 			except:
 				pass
-			request.user.username = username
+			#request.user.username = username
+			#request.user.first_name = first_name
+			#request.user.last_name = last_name
+			
+			
+			
 			request.user.save()
 			user = authenticate(username=request.user.username, password=request.user.password)
-			request.user.save()
+			#user.save()
+			new_user = User.objects.get(username=request.user.username)
+			new_user.username = username
+			new_user.first_name = first_name
+			new_user.last_name = last_name
+			new_user.save()
+
+
 
 			if not CURRENTLY_LOCALLY_TESTING:
 
@@ -668,6 +799,35 @@ def user_not_new(user):
 	return user.is_authenticated() and user_info.signed_up_with_fb_or_goog == False
 
 
+#san_francico_area = ['San Francisco']
+#south_san_francisco = ['Daly City', 'Brisbane', 'South San Francisco', 
+
+oakland = ['Oakland', 'San Francisco', 'Alameda', 'Emeryville', 'Piedmont', 'Berkeley']
+san_francisco = ['San Francisco', 'Daly City', 'Brisbane']
+daly_city = ['San Francisco', 'South San Francisco', 'Pacifica', 'San Bruno', 'Daly City', 'Brisbane']
+south_san_francisco = ['Daly City', 'South San Francisco', 'Pacifica', 'Millbrae', 'Brisbane']
+pacifica = ['Pacifica', 'Daly City', 'South San Francisco', 'San Bruno']
+san_bruno = ['South San Francisco', 'Brisbane','San Bruno', 'Millbrae']
+#hillsborough and burlingham included with millbrae
+millbrae = ['San Bruno', 'Millbrae', 'Hillsborough', 'Burlingame', 'South San Francisco', 'San Mateo']
+#foster city, highlands-baywood park can be included here
+san_mateo= ['San Mateo', 'Hillsborough', 'Burlingame', 'Foster City', 'Belmont', 'Highlands-Baywood Park']
+#Belmont, San Carlos, Emerald Hills, 'North Fair Oaks, Woodside, Atherton
+redwood_city = ['Redwood City', 'Belmont', 'San Carlos', 'Emerald Hills', 'North Fair Oaks', 'Atherton', 'Menlo Park', 
+					'West Menlo Park', 'Palo Alto', 'Stanford', 'East Palo Alto', 'Portola Valley', 'Woodside']
+#for Palo Alto, Menlo Park, Portola Valley, West Menlo Park, Stanford
+between_redwood_and_mountainview = ['Redwood City', 'Woodside', 'Emerald Hills', 'North Fair Oaks', 'Atherton', 
+				'Menlo Park', 'West Menlo Park', 'Palo Alto', 'Portola Valley', 'Stanford', 'East Palo Alto']
+#covers mountain view, los altos, SunnyVale, Loyola, Cupertino
+mountainview = ['Mountain View', 'Los Altos', 'Sunnyvale', 'Palo Alto', 'Stanford', 'Santa Clara']
+#Includes San Jose, Santa Clara, Campbell, Cupertino, Milpitas, Cambrian Park, Milpitas, East Foothills
+san_jose = ['San Jose', 'Santa Clara', 'Campbell', 'Cupertino', 'Milpitas', 'Cambrian Park', 'Mountain View', 
+			'Los Altos', 'East Foothills']
+
+
+
+
+
 
 def create_user_list(logged_in_user):
 	user_gamification = Gamification.objects.get(user=logged_in_user)
@@ -675,13 +835,25 @@ def create_user_list(logged_in_user):
 	current_location = Address.objects.get(user=logged_in_user)
 	current_state = current_location.state
 	current_city = current_location.city
-	close_by_users = User.objects.filter(address__state=current_state).filter(address__city=current_city).exclude(username=logged_in_user.username)
-	user_gamification.discover_list = close_by_users
+	close_by_users = list(User.objects.filter(address__state=current_state).filter(address__city=current_city).exclude(username=logged_in_user.username))
+	excluded_users = []
+	matches = Match.objects.filter(
+		Q(user1=logged_in_user, user1_approved=True) | Q(user2=logged_in_user, user2_approved=True)
+		)
+	excluded_users.append(logged_in_user)
+	for match in matches:
+		if match.user1 != logged_in_user:
+			excluded_users.append(match.user1)
+		else:
+			excluded_users.append(match.user2)
+
+	new_users = [x for x in close_by_users if x not in excluded_users]
+	user_gamification.discover_list = new_users
 	user_gamification.save()
 
 
 def redo_user_list(logged_in_user):
-	#find user list
+	user_gamification = Gamification.objects.get(user=logged_in_user)
 	matches = Match.objects.filter(
 		Q(user1=logged_in_user) | Q(user2=logged_in_user)
 		)
@@ -697,13 +869,29 @@ def redo_user_list(logged_in_user):
 def update_user_list(logged_in_user):
 	user_gamification = Gamification.objects.get(user=logged_in_user)
 	user_list = user_gamification.discover_list
-	last_user_id = user_list.latest('id').id
+	try:
+		last_user_id = user_list.latest('id').id
+	except: 
+		return 
 	new_users = User.objects.filter(is_active=True).filter(id__gte=last_user_id)
 	current_location = Address.objects.get(user=logged_in_user)
 	current_state = current_location.state
 	current_city = current_location.city
-	new_close_users = new_users.filter(address__state=current_state).filter(address__city=current_city)
-	user_gamification.discover_list.add(*new_close_users)
+	#new_close_users = new_users.filter(address__state=current_state).filter(address__city=current_city)
+	#user_gamification.discover_list.add(*new_close_users)
+	#user_gamification.save()
+	new_close_users = list(new_users.filter(address__state=current_state).filter(address__city=current_city))
+	excluded_users = []
+	matches = Match.objects.filter(
+		Q(user1=logged_in_user, user1_approved=True) | Q(user2=logged_in_user, user2_approved=True)
+		)
+	for match in matches:
+		if match.user1 != logged_in_user:
+			excluded_users.append(match.user1)
+		else:
+			excluded_users.append(match.user2)
+	new_users = [x for x in new_close_users if x not in excluded_users]
+	user_gamification.discover_list.add(*new_users)
 	user_gamification.save()
 
 
@@ -727,6 +915,9 @@ def reset_discover(request):
 	return redirect('http://www.frenvu.com/discover/?page=1')
 
 
+#def check_if_already_friends(user1, user2):
+
+
 
 '''
 The Discover function creates functionality similar to tinder. Users can swipe or use arrow keys or press 
@@ -743,18 +934,47 @@ def discover(request):
 		user_gamification = Gamification.objects.get(user=request.user)
 	except:
 		user_gamification = Gamification.objects.create(user=request.user)
-	 
-	user_list_num = user_gamification.discover_list.count()
-	if user_list_num == 0:
-		create_user_list(request.user)
-		print "creating new user list"
-	update_user_list(request.user)
-	user_list = list(user_gamification.discover_list.all())
 	
+	info = Info.objects.get(user=request.user)
+	
+	if info.new_to_discover == True:
+		create_user_list(request.user)
+		info.new_to_discover = False
+		info.save()
+	else:
+		update_user_list(request.user)
+	'''
+	#test lines
+	users = list(User.objects.filter(is_active=True))
+	close_users = find_nearby_users(request.user, 20, users)
 
+	user_gamification.discover_list.add(*close_users)
+	#end test lines
+	'''
+	if user_gamification.discover_list.count() == 0:
+		no_users = True
+		return render_to_response('profiles/discover.html', locals(), context_instance=RequestContext(request))
+		#return HttpResponseRedirect(reverse('home'))
+	else:
+		no_users = False
 
-	paginator = Paginator(user_list, 1)
 	page = request.GET.get('page')
+	page_int = int(page)
+
+	user_list = list(user_gamification.discover_list.all())
+	paginator = Paginator(user_list, 1)
+	
+	
+	
+	if page_int == 1:
+		update_user_list(request.user)
+	if user_gamification.discover_list.count() == 0:
+		no_users = True
+		return render_to_response('profiles/discover.html', locals(), context_instance=RequestContext(request))
+		#return HttpResponseRedirect(reverse('home'))
+	else:
+		no_users = False
+
 	try:
 		if page != False:
 			users = paginator.page(page)
@@ -764,6 +984,14 @@ def discover(request):
 				match = Match.objects.get(user1=request.user, user2=single_user)
 			except: 
 				match, created = Match.objects.get_or_create(user1=single_user, user2=request.user)
+			#test to see if friend, and if they are friends, skip
+			if (match.user1_approved == True and match.user2_approved == True):
+				page_int = int(page)
+				new_page = page_int + 1
+				new_page_u = unicode(new_page)
+				users = paginator.page(new_page_u)
+				single_user = users.object_list[0]
+
 			try:
 				match.distance = round(calc_distance(request.user, single_user))
 			except:
@@ -776,11 +1004,14 @@ def discover(request):
 				pass
 			else:	
 				match.percent = match_percentage(match.user1, match.user2)
+				if match.percent == 0:
+					single_user_new = True
 			try:
 				su_info = Info.objects.get(user=single_user)
-				single_user_is_new = su_info.is_new_user
+				if su_info.is_new_user == True:
+					single_user_new = True
 			except: 
-				single_user_is_new = False
+				single_user_new = False
 			match.save()
 			try:
 				profile_pic = UserPicture.objects.get(user=user, is_profile_pic=True)
@@ -1039,19 +1270,21 @@ def login_user(request):
 		return HttpResponseRedirect(reverse('home'))
 	username = user1.username
 	user = authenticate(username=username, password=password)
+	logged_in_user = User.objects.get(email=email)
 
 	if user is not None:
 		# if user deactivated their account and logged in, they are no longer deactivated
 		if user.is_active == False:
-			user.is_active = True
+			logged_in_user.is_active = True
+			logged_in_user.save()
 			if not DEBUG: 
 				email = request.user.email
 				subject = 'A user is reactivating their account.'
 				message = '%s wants to reactivate their account.' % (username,)
-				msg = EmailMultiAlternatives(subject, message, EMAIL_HOST_USER, [email])
+				msg = EmailMultiAlternatives(subject, message, EMAIL_HOST_USER, [EMAIL_HOST_USER])
 				msg.content_subtype = "html"
 				msg.send()
-			messages.succes(request, "We missed you!")
+			messages.success(request, "We missed you!")
 		login(request, user)
 		return HttpResponseRedirect(reverse('home'))
 	else:
@@ -1269,6 +1502,7 @@ def delete_account(request):
 	username = request.user.username
 	deactivated_user = User.objects.get(username=username)
 	deactivated_user.is_active = False
+	deactivated_user.save()
 	logout(request)
 	messages.success(request, "Your account has been deactivated. Your account will be deleted in 30 days.")
 	messages.success(request, "We're sorry to see you go, but if you change your mind before then, just log back in to reactivate it!")

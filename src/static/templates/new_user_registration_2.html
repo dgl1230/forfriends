@@ -28,7 +28,9 @@
             </div>
           {% endif %}
   <!-- multistep form -->
-  <form id="msform" method='POST' action='{% url "new_user_info" %}'>{% csrf_token %}
+
+  <form id="msform" method='POST' action='{% url "new_user_fb_or_goog" %}'>{% csrf_token %}
+
     <!-- fieldsets -->
     <fieldset>
       <h2 class="fs-title">Enter some basic information</h2>

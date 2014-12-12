@@ -12,6 +12,12 @@ class InterestAdmin(admin.ModelAdmin):
 admin.site.register(Interest, InterestAdmin)
 '''
 
+class InterestAdmin(admin.ModelAdmin):
+	class Meta:
+		model = Interest
+
+admin.site.register(Interest, InterestAdmin)
+
 
 
 class InterestInline(admin.TabularInline):	
