@@ -472,3 +472,6 @@ form.navbar-form.navbar-left{
 	height:20px!important;
 	font-weight:300;
 }
+
+#menu:hover{
+	color:#1fbad6!important;

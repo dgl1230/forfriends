@@ -56,7 +56,16 @@
 		</h4>
 		<div id="information">
 	        {% if info.bio %} 
-		        <span> {% for item in single_user.info_set.all %}{% if forloop.first %}{{item.bio}}{% endif %}{% endfor %}</span>
+		        <span>
+		        	{% for item in single_user.info_set.all %}
+		        		{% if forloop.first %}
+		        		{% if item.bio == None %}
+		        		{% elif item.bio == none %}
+		        		{% else %}
+		        		{{item.bio}}
+		        		{% endif %}
+		        	{% endfor %}
+		        </span>
 		        {% else %}
 		        {% endif %}
 
