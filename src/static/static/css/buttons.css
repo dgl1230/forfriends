@@ -35,8 +35,18 @@
 	color:#1FBAD6!important;
 }
 
-#go_button, #upload_button{
+#go_button{
 	width: 40px;
+	background: #1FBAD6!important;
+	font-weight: 300;
+	color: white;
+	border: 0 none;
+	border-radius: 1px;
+	cursor: pointer;
+	z-index:1000;
+}
+#upload_button{
+	width: 100px;
 	background: #1FBAD6!important;
 	font-weight: 300;
 	color: white;

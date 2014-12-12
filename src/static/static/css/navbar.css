@@ -15,6 +15,7 @@ button.navbar-toggle:hover, button.navbar-toggle:active, button.navbar-toggle:fo
 }
 #inbox_right{
 	width:70px!important;
+	margin-right:30px!important;
 }
 
 .navbar-brand{
