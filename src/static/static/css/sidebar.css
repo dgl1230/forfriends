@@ -10,7 +10,7 @@
 span.glyphicon{
   padding-bottom: 0px!important;
 }
-#settings_tool{
+#logout_tool{
   margin-bottom:50px;
 }
 #leftbar-wrapper{
@@ -161,6 +161,9 @@ span.glyphicon{
 @media (max-width:800px) {
   #leftbar-wrapper .sidebar-nav a{
   }
+  #messages_sidebar{
+  padding-top: 15px!important;
+}
 }
 
 .sidebar-nav .pull-right{
@@ -172,14 +175,10 @@ span.glyphicon{
 }
 
 .sidebar-nav .glyphicon{
-  font-size:1.4em;
+  font-size:1.2em;
   padding-bottom: .85em;
   padding-top: 1em;
   width:120px;
-}
-
-.sidebar-nav .glyphicon:hover{
-
 }
 
 #leftbar-wrapper .sidebar-nav{
@@ -243,7 +242,7 @@ span.glyphicon{
   width:100px;
 }
 
-#settings_tool{
+#logout_tool{
   margin-bottom:50px!important;
 }
 
@@ -261,12 +260,4 @@ span.glyphicon{
   .mobile_fix{
     display:none;
   }
-}
-
-.pusher, .pushable{
-  background-color:#fff!important;
-}
-
-#logout_tool{
-  text-indent: 0px!important
 }
