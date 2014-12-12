@@ -56,7 +56,7 @@
 	transition: background-color 0.5s ease 0s;
 	margin: 15px 10px 15px 10px;
 	padding-top: 0px;
-	border: 5px solid #1FBAD6;
+	border: 2px solid #1FBAD6;
 	color: #1FBAD6;
 	text-align: center;
 	height: 60px;
@@ -87,7 +87,8 @@
 	color:#1fbad6!important;
 	font-size:32px!important;
 	width:100%!important;
-	min-height:150px
+	min-height:150px;
+	font-weight:300;
 }
 #reasons p{
 	font-size:24px;

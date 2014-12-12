@@ -394,6 +394,9 @@ form.navbar-form.navbar-left{
 	.btn-mobile{
 		width:30px!important;
 	}
+	.navbar-form{
+	padding: 15px 10px!important;
+	}
 }
 
 @media (min-width: 767px){
@@ -475,3 +478,5 @@ form.navbar-form.navbar-left{
 
 #menu:hover{
 	color:#1fbad6!important;
+}
+
