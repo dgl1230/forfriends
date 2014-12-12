@@ -155,7 +155,7 @@ ALLOWED_HOSTS = ['*']
     
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-AWS_STORAGE_BUCKET_NAME = 'forfriends-staging'
+AWS_STORAGE_BUCKET_NAME = 'os.environ['AWS_STORAGE_BUCKET_NAME']'
 
 DEFAULT_FILE_STORAGE = 'forfriends.s3utils.MediaRootS3BotoStorage'
 STATICFILES_STORAGE = 'forfriends.s3utils.StaticRootS3BotoStorage'
