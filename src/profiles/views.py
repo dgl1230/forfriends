@@ -915,6 +915,10 @@ def reset_discover(request):
 	return redirect('http://www.frenvu.com/discover/?page=1')
 
 
+#def find_somewhat_close_users(request):
+
+
+
 #def check_if_already_friends(user1, user2):
 
 
@@ -943,6 +947,7 @@ def discover(request):
 		info.save()
 	else:
 		update_user_list(request.user)
+		print "updating user list when it's not supposed to "
 	'''
 	#test lines
 	users = list(User.objects.filter(is_active=True))
@@ -967,6 +972,7 @@ def discover(request):
 	
 	
 	if page_int == 1:
+		print "updating when it is supposed to"
 		update_user_list(request.user)
 	if user_gamification.discover_list.count() == 0:
 		no_users = True
