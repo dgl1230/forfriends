@@ -1023,7 +1023,16 @@ def discover(request):
 			except: 
 				match, created = Match.objects.get_or_create(user1=single_user, user2=request.user)
 			#test to see if friend, and if they are friends, skip
+			'''
 			if (match.user1_approved == True and match.user2_approved == True):
+			page_int = int(page)
+			new_page = page_int + 1
+			new_page_u = unicode(new_page)
+			users = paginator.page(new_page_u)
+			single_user = users.object_list[0]
+			'''
+			#if single user is self, skip
+			if single_user == request.user:
 				page_int = int(page)
 				new_page = page_int + 1
 				new_page_u = unicode(new_page)
