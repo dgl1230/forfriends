@@ -29,6 +29,9 @@ $( "#category8" ).stop(true, false).slideToggle( "slow")
 $( "#category_name_9" ).click(function() {
 $( "#category9" ).stop(true, false).slideToggle( "slow")
 });
+$( "#category_name_10" ).click(function() {
+$( "#category10" ).stop(true, false).slideToggle( "slow")
+});
 $( "#subcategory_name_1a" ).click(function() {
 $( "#subcategory_1a" ).stop(true, false).slideToggle( "slow")
 });

@@ -30,7 +30,6 @@ $('#myTab a').click(function (e) {
       {% endfor %}
     </div>
 </div>
-<div id="sent_container">
   <div class='col-lg-10 col-12' id="message_body_container">
   <div class="body_section">
   <table class='table table-striped' id="items_table">
@@ -46,9 +45,7 @@ $('#myTab a').click(function (e) {
 		<form id="delete_messages_form" method='POST' action='{% url "delete_messages" %}'>
 			{% csrf_token %}
 		</th>
-		
 		</thead>
-
 		<tbody>
 			{% for item in messages_in_inbox %}
 			<tr id="message_row" name="{{ item.id }}" class="message_row">
@@ -84,7 +81,7 @@ $('#myTab a').click(function (e) {
 				</td>
 			</tr>
 			{% endfor %}
-		</body>
+		</tbody>
 
 	</table>
 	<div class="modal fade" id="new_user_modal">

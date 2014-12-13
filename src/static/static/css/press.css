@@ -308,10 +308,7 @@ footer li{
       filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e4edbd', endColorstr='#95af36',GradientType=0 );  
     }  
 
-@media screen and (max-width: 800px) {  
-    body {  
-        padding: 10px 15px;  
-    }  
+@media screen and (max-width: 800px) {   
     #container {  
         width: 100%;  
     }  
@@ -348,9 +345,6 @@ footer li{
       
     /* iPhone Landscape ********/  
     @media only screen and (max-width: 480px) {  
-        body {  
-            padding: 10px 0px;  
-        }  
         select.selmenu {  
             width: 190px;  
         }  
@@ -358,9 +352,6 @@ footer li{
       
     /* iPhone portrait *******/  
     @media only screen and (max-width: 320px) {  
-        body {  
-            padding: 10px 0px;  
-        }  
         #hongkiat-form .txtinput, #hongkiat-form textarea {  
             width: 70%;  
         }  
