@@ -381,6 +381,26 @@
 		{% endfor %}
 		</div><!--End category-->
 		</div><!--End category-->
+		<!--=================Social==============-->
+		<div class="category">
+			<h2 class="category_name" id="category_name_11">Social</h2>
+			<div class="category_hidden" id="category11">
+			{% for interest in social %}
+			<div class='col-sm-4' id="interest">
+			<h4>{{ interest.interest }}</h4>
+			<form method='POST' class="interests_form_1" action='{% url "save_interest" interest.id %}'> {% csrf_token %}
+			{% if interest in user_interests %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='liked' value='Unlike'>
+			{% else %}
+			<input type='hidden' value='{{ interest.id }}' name='interest_id'/>
+			<input type='submit' id="like" class='btn-lg' value='Like it!'>
+			{% endif %}
+		</form>
+		</div><!--End Interest-->
+		{% endfor %}
+		</div><!--End category-->
+		</div><!--End category-->
 <div class="search_interests">
 	<form id="search" class="form-wrapper cf" role="search" action='{% url "search_interests" %}'>
 		<div class="form-group">

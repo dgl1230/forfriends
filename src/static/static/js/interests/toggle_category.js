@@ -32,6 +32,9 @@ $( "#category9" ).stop(true, false).slideToggle( "slow")
 $( "#category_name_10" ).click(function() {
 $( "#category10" ).stop(true, false).slideToggle( "slow")
 });
+$( "#category_name_11" ).click(function() {
+$( "#category11" ).stop(true, false).slideToggle( "slow")
+});
 $( "#subcategory_name_1a" ).click(function() {
 $( "#subcategory_1a" ).stop(true, false).slideToggle( "slow")
 });
