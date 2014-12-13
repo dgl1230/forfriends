@@ -3,7 +3,7 @@
 }
 
 .modal-header{	
-	border-bottom:2px solid black!important;
+	border-bottom:1px solid black!important;
 }
 
 .modal-body{
@@ -11,7 +11,7 @@
 }
 .modal_content{
 	width:100%;
-	border-bottom:2px solid black;
+	border-bottom:1px solid black;
 	height:370px;
 }
 .sign_up_div input{
@@ -156,6 +156,7 @@
   border-radius: 3px 3px 0 0;
   -webkit-box-shadow: 0 1px whitesmoke;
   box-shadow: 0 1px whitesmoke;
+  font-weight: 300;
 }
 .login p {
   margin: 5px 0 0;

@@ -11,6 +11,12 @@
 	color:black;
 
 }
+tbody tr:nth-child(odd){
+	background: #fefefe!important;
+}
+tbody tr:nth-child(even){
+	background: blue!important;
+}
 td p{
 	font-family: 'Roboto', sans-serif;
 }
