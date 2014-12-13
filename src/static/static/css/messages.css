@@ -288,9 +288,3 @@ input{
 		font-size:12px;
 	}
 }
-
-@media(min-width:450px){
-	.body_section{
-		width:80%;
-	}
-}
