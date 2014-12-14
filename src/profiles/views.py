@@ -243,6 +243,13 @@ the user is not logged in, and is shown the landing page.
 def all(request):
 	if request.user.is_authenticated():
 		info, created = Info.objects.get_or_create(user=request.user)
+		address = Address.objects.get(user=request.user)
+		try: 
+			lat = address.lattitude
+			lon = address.longitude
+		except:
+			give_latitude_longitude(request.user)
+
 		
 		try: 
 			if info.signed_up_with_fb_or_goog == True:
@@ -990,7 +997,23 @@ def discover(request):
 	info = Info.objects.get(user=request.user)
 
 	if page_int == 1 and info.new_to_discover == False:
-		update_user_list(request.user)
+		#update_user_list(request.user)
+		give_latitude_longitude(request.user)
+		address = Address.objects.get(user=request.user)
+		user_lat = address.lattitude
+		user_lon = address.longitude
+		lat_diff = find_latitude_range(address.lattitude, address.longitude, 20)
+		lon_diff = find_latitude_range(address.lattitude, address.longitude, 20)
+		left_lat = user_lat - lat_diff
+		right_lat = user_lat + lat_diff
+		bottom_lon = user_lon - lon_diff
+		top_lon = user_lon + lon_diff
+		close_users = User.objects.filter(is_active=True
+			).exclude(address__lattitude__lte=left_lat
+			).exclude(address__lattitude__gte=right_lat
+			).exclude(address__longitude__lte=bottom_lon
+			).exclude(address__longitude__gte=top_lon)
+
 
 	
 	if info.new_to_discover == True:

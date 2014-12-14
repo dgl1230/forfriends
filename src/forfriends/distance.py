@@ -60,9 +60,15 @@ def give_latitude_longitude(user1):
 	address1, (latitude1, longitude1) = geolocator.geocode(user1_city + " " + user1_state)
 	float_lat = float(latitude1)
 	float_lon = float(longitude1)
-	logging.debug("Latitude1 is : " + str(latitude1))
-	logging.debug("Longitude1 is: " + str(longitude1))
-	return (float_lat, float_lon)
+	#logging.debug("Latitude1 is : " + str(latitude1))
+	#logging.debug("Longitude1 is: " + str(longitude1))
+	#return (float_lat, float_lon)
+	user1_address.lattitude = float_lat
+	user1_address.longitude = float_lon
+	user1_address.save()
+	return 
+
+
 
 def calc_distance(user1, user2):
 	geolocator = GoogleV3()
