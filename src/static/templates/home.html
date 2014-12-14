@@ -119,14 +119,11 @@
   <div class="modal fade" id="new_user_modal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button class="close" data-dismiss="modal" type=
-                "button"><span>&times;</span><span class=
-                "sr-only">Close</span></button>
-                <h3 class="modal-title">Sign up here</h3>
-            </div>
             <div class="modal-body">
               <div class="modal_content">
+                 <button class="close" data-dismiss="modal" type=
+                "button"><span>&times;</span><span class=
+                "sr-only">Close</span></button>
                 <div class="col-xs-6" id="login">
                       <div class="signup">
                         <form action='{% url "register_user" %}' id=
@@ -154,7 +151,6 @@
                   </div>
                     </div>
                   </div>
-                <div class="modal-footer"></div>
             </div>
         </div>
     </div>
@@ -162,14 +158,11 @@
 <div class="modal fade" id="login_modal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button class="close" data-dismiss="modal" type=
+            <div class="modal-body">
+              <button class="close" data-dismiss="modal" type=
                 "button"><span>&times;</span><span class=
                 "sr-only">Close</span></button>
-                <h3 class="modal-title">Login here</h3>
-            </div>
-            <div class="modal-body">
-              <div class="modal_content">
+                <div class="modal_content">
                   <div class="col-xs-6" id="login">
                       <div class="login">
                         <h1 data-toggle="modal" data-target="#login_modal">Login with Email</h1>
@@ -182,15 +175,13 @@
                       <a href='{% url "password_reset" %}'>Forgot Password?</a>
                     </div>
                   </div>
-                  <div class="sign_up_div">
+                <div class="sign_up_div">
                 <div id="social_logins">
                   <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}" id="fb_login"><span id="fb_icon"></span><p>Login with Facebook</p></a>
                   </div>
-                </div>
-              
+                </div>  
                 </div>
               </div>
-                <div class="modal-footer"></div>
             </div>
         </div>
     </div>

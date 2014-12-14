@@ -1,18 +1,12 @@
 #register.col-xs-6{
 	width:100%!important;
 }
-
-.modal-header{	
-	border-bottom:1px solid black!important;
-}
-
 .modal-body{
 	padding:0px!important;
 }
 .modal_content{
 	width:100%;
-	border-bottom:1px solid black;
-	height:370px;
+	height:400px;
 }
 .sign_up_div input{
 	width:200px!important;
@@ -85,9 +79,9 @@
   background: white;
   border-radius: 3px;
   opacity: .8;
-  border-bottom: 1px solid black;
-  border-left:1px solid black;
-  border-right: 1px solid black;
+  border-bottom: 1px solid #1fbad6;
+  border-left:1px solid  #1fbad6;
+  border-right: 1px solid  #1fbad6;
   margin-bottom: 30px; 
 }
 
@@ -100,9 +94,9 @@
   background: white;
   border-radius: 3px;
   opacity: .8;
-  border-bottom: 1px solid black;
-  border-left:1px solid black;
-  border-right: 1px solid black;
+  border-bottom: 1px solid #1fbad6;
+  border-left:1px solid  #1fbad6;
+  border-right: 1px solid  #1fbad6;
   margin-bottom: 30px;
 }
 .signup:focus, .signup:hover{
@@ -123,7 +117,7 @@
   text-shadow: 0 1px white;
   background: #f3f3f3;
   border-bottom: 1px solid black;
-  border-top: 1px solid black;
+  border-top: 1px solid #1fbad6;
   border-radius: 3px 3px 0 0;
   -webkit-box-shadow: 0 1px whitesmoke;
   box-shadow: 0 1px whitesmoke;
@@ -146,13 +140,12 @@
 .login h1 {
   margin: -20px -20px 21px;
   line-height: 40px;
-  font-size: 15px;
+  font-size: 18px;
   color: black;
   text-align: center;
   text-shadow: 0 1px white;
   background: #f3f3f3;
-  border-bottom: 1px solid black;
-  border-top: 1px solid black;
+  border-top: 1px solid #1fbad6;
   border-radius: 3px 3px 0 0;
   -webkit-box-shadow: 0 1px whitesmoke;
   box-shadow: 0 1px whitesmoke;
@@ -161,9 +154,14 @@
 .login p {
   margin: 5px 0 0;
   display:inline-block;
-
 }
 
+.modal-title{
+	display:none;
+}
+.modal-header{
+	border:none;
+}
 #un{
 	margin-top:-10px;
 }
@@ -193,6 +191,13 @@
 #login_modal #google_login{
 	margin-top:30px;
 	margin-bottom:15px;
+}
+
+.close{
+	font-size:32px!important;
+	margin-right:10px;
+	font-family:roboto;
+	font-weight:300;
 }
 
 @media (max-width:777px){
@@ -228,7 +233,6 @@
 	}
 	.modal_content{
 	width:100%;
-	border-bottom:2px solid black;
 	height:500px;
 	}
 }
@@ -260,6 +264,6 @@
 
 @media (max-width: 625px){
 	.modal_content{
-		height:620px!important;
+		height:400px!important;
 	}
 }

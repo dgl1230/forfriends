@@ -204,7 +204,7 @@ select{
 /* Registration and Login */
 #contactform h1{
   line-height: 40px;
-  font-size: 15px;
+  font-size: 18px;
   color: #555;
   text-align: center;
   text-shadow: 0 1px white;
@@ -217,6 +217,7 @@ select{
   background-image: linear-gradient(to bottom, whiteffd, #eef2f5);
   -webkit-box-shadow: 0 1px whitesmoke;
   box-shadow: 0 1px whitesmoke;
+  font-weight: 300;
 }
 
 
