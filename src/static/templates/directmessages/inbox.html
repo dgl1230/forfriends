@@ -23,13 +23,13 @@ $('#myTab a').click(function (e) {
 	 		<a href="{% url 'sent' %}" class="half-nav2">Sent Messages</a>
 		</div>
 	</div>
-<div class='row'>
-    <div class="col-md-1" id="tertiary_navbar">
-      {% for message in messages %}
-        <p {% if message.tags %} class="{{ message.tags }}"{% endif %} >{{ message }}</p>
-      {% endfor %}
-    </div>
-</div>
+	<div class='row'>
+	    <div class="col-md-1" id="tertiary_navbar">
+	      {% for message in messages %}
+	        <p {% if message.tags %} class="{{ message.tags }}"{% endif %} >{{ message }}</p>
+	      {% endfor %}
+	    </div>
+	</div>
   <div class='col-lg-10 col-12' id="message_body_container">
   <div class="body_section">
   <table class='table table-striped' id="items_table">
@@ -59,15 +59,13 @@ $('#myTab a').click(function (e) {
 	                </a><p>{{ item.sender|truncatechars:"15" }}</p>
 	                	{% else %}
 						{{ item.sender|truncatechars:"15" }}</a>
-					
 					{% endif %}
 				</td>
 				<td id="inbox_body">
 					{% if item.read %}
 						<span style='color: grey;' class='glyphicon glyphicon-ok'></span>
 					{% endif %}
-					<a {% if item.read %} style='color: grey;' {% endif %} href= '{{ item.get_absolute_url }}'><div class="message_body">{{ item.body|truncatechars:"25" }}</div></a>
-					
+					<a {% if item.read %} style='color: grey;' {% endif %} href= '{{ item.get_absolute_url }}'><div class="message_body">{{ item.body|truncatechars:"25" }}</div></a>	
 				</td>
 				<td id="time_sent">
 					<small>{{ item.sent }}</small> 

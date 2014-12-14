@@ -37,6 +37,8 @@ def all_interests(request):
 	food = Interest.objects.filter(category__title='Food/Cooking')
 	news = Interest.objects.filter(category__title='News/Current Events')
 	indoor = Interest.objects.filter(category__title='Indoor Activities')
+	lifestyle = Interest.objects.filter(category__title='Lifestyle')
+	social = Interest.objects.filter(category__title='Social')
 	
 	return render_to_response('interests/experimental.html', locals(), context_instance=RequestContext(request))
 
