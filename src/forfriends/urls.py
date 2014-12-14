@@ -97,7 +97,10 @@ urlpatterns = patterns('',
 )
 
 
-if True:
+
+
+#change to if TRUE of getting NoReverseMatch u'djdt' is not a registered namespace
+if DEBUG:
     import debug_toolbar
     urlpatterns += patterns('',
         url(r'^__debug__/', include(debug_toolbar.urls)),

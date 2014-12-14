@@ -21,6 +21,9 @@ class Address(models.Model):
 	city = models.CharField(max_length=200)
 	state = models.CharField(max_length=200)
 	zipcode = models.IntegerField(max_length=5, null=True, blank=True)
+
+	lattitude = models.FloatField(blank=True, null=True)
+	longitude = models.FloatField(blank=True, null=True)
 	
 	updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)

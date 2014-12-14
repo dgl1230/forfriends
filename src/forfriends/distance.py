@@ -51,6 +51,19 @@ def find_longitude_range(lat1, lon1, radius):
 	#2 * asin(sqrt(a / (cos(lat1) * cos(lat2)))) = lon2 - lon1
 	#2 * asin(sqrt(a / (cos(lat1) * cos(lat2)))) + lon1 = lon2
 
+#Given a user, returns their latitude and longitude
+def give_latitude_longitude(user1):
+	geolocator = GoogleV3()
+	user1_address = Address.objects.get(user=user1)
+	user1_city = user1_address.city
+	user1_state = user1_address.state
+	address1, (latitude1, longitude1) = geolocator.geocode(user1_city + " " + user1_state)
+	float_lat = float(latitude1)
+	float_lon = float(longitude1)
+	logging.debug("Latitude1 is : " + str(latitude1))
+	logging.debug("Longitude1 is: " + str(longitude1))
+	return (float_lat, float_lon)
+
 def calc_distance(user1, user2):
 	geolocator = GoogleV3()
 	user1_address = Address.objects.get(user=user1)
@@ -100,11 +113,10 @@ def find_nearby_users(logged_in_user, preferred_distance, user_list):
 			pass
 	return list_of_nearby_users
 	
-"""
-user1_city = "Poop"
+
+"""user1_city = "Poop"
 user1_state = "California"
 address1, (latitude1, longitude1) = geolocator.geocode(user1_city)
 address2, (latitude2, longitude2) = geolocator.geocode(user1_city + " " + user1_state)
-print address1
-print address2
-"""
+print latitude1
+print longitude1"""
