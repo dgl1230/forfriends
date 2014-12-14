@@ -27,7 +27,7 @@ from django.views.decorators.clickjacking import xframe_options_exempt
 
 from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG, MEDIA_URL
 from forfriends.matching import match_percentage, find_same_interests
-from forfriends.distance import calc_distance, check_valid_location, find_nearby_users, find_latitude_range, find_longitude_range
+from forfriends.distance import calc_distance, check_valid_location, find_nearby_users, find_latitude_range, find_longitude_range, give_latitude_longitude
 from forfriends.s3utils import delete_s3_pic
 from matches.models import Match
 from .models import Address, Job, Info, UserPicture, Gamification
@@ -1318,7 +1318,6 @@ def login_user(request):
 	username = user1.username
 	user = authenticate(username=username, password=password)
 	logged_in_user = User.objects.get(email=email)
-
 	if user is not None:
 		# if user deactivated their account and logged in, they are no longer deactivated
 		if user.is_active == False:
