@@ -1013,6 +1013,8 @@ def discover(request):
 			).exclude(address__lattitude__gte=right_lat
 			).exclude(address__longitude__lte=bottom_lon
 			).exclude(address__longitude__gte=top_lon)
+		user_gamification = Gamification.objects.get(user=logged_in_user)
+		user_gamification.discover_list.add(*close_users)
 
 
 	
@@ -1141,6 +1143,31 @@ def delete_picture(request, pic_id):
 	delete_s3_pic(user, picture)
 	return HttpResponseRedirect(reverse('view_pictures'))
 
+'''
+def edit_discover(request):
+if request.method == 'POST':
+address = Address.objects.get(user=request.user)
+user_lat = address.lattitude
+user_lon = address.longitude
+lat_diff = find_latitude_range(address.lattitude, address.longitude, 20)
+lon_diff = find_latitude_range(address.lattitude, address.longitude, 20)
+left_lat = user_lat - lat_diff
+right_lat = user_lat + lat_diff
+bottom_lon = user_lon - lon_diff
+top_lon = user_lon + lon_diff
+close_users = User.objects.filter(is_active=True
+).exclude(address__lattitude__lte=left_lat
+).exclude(address__lattitude__gte=right_lat
+).exclude(address__longitude__lte=bottom_lon
+).exclude(address__longitude__gte=top_lon)
+
+
+
+
+else:
+raise Http404
+'''
+
 
 
 
@@ -1156,12 +1183,12 @@ def edit_address(request):
 			for form in formset_a:
 				new_form = form.save(commit=False)
 				new_form.user = request.user
-				print new_form.city
-				print new_form.state
+				
 				if check_valid_location(new_form.city, new_form.state) == False:
 					messages.success(request, "We're sorry but you didn't enter a valid location")
 					return HttpResponseRedirect('/edit/')
 				new_form.save()
+				give_latitude_longitude(request.user)
 			messages.success(request, 'Your location has been updated.')
 		else:
 			messages.error(request, 'Please fill out all fields.')
