@@ -2,7 +2,7 @@ from geopy.geocoders import GoogleV3
 from django.contrib.auth.models import User
 from profiles.models import Address
 from math import radians, cos, sin, asin, sqrt
-
+import logging
 
 geolocator = GoogleV3()
 
@@ -17,6 +17,57 @@ def haversine(lon1, lat1, lon2, lat2):
 	#convert from km to miles
 	miles = km * 0.621371
 	return round(miles)
+
+#Takes an initial latitude, longitude, and specified radius, and returns domain of latitude
+def find_latitude_range(lat1, lon1, radius):
+	lon1, lat1, lon2 = map(radians, [lon1, lat1, lon1])
+	#latitude is changing, not longitude, so dlon = 0
+	#dlon = 0
+	c = radius / 6367.0 / 0.621363
+	a = (sin(c/2.0))**2
+	lat2 = (2 * asin(sqrt(a))) + lat1 
+	lat2 = lat2 * 57.2957795 #convert back to degrees from radians
+	lat1 = lat1 * 57.2957795
+	lat_diff = abs(lat2 - lat1)
+	logging.debug("Latitude_diff is: " + str(lat_diff))
+	return lat_diff #latitude + lat_diff = right_border, latitude - lat_diff = left_border
+
+#Takes an initial latitude, longitude, and specified radius, and returns domain of longitude
+def find_longitude_range(lat1, lon1, radius):
+	lon1, lat1, lat2 = map(radians, [lon1, lat1, lat1])
+	c = radius / 6367.0 / 0.621363
+	a = (sin(c/2.0))**2
+	lon2 = 2 * asin(sqrt(a / (cos(lat1) * cos(lat2)))) + lon1
+	lon2 = lon2 * 57.2957795 #convert back to degrees from radians
+	lon1 = lon1 * 57.2957795
+	lon_diff = abs(lon2 - lon1)
+	logging.debug("Longitude_diff is: " + str(lon_diff))
+	return lon_diff
+	#dlat = 0
+	#a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
+	#a = cos(lat1) * cos(lat2) * sin(dlon/2)**2
+	#a / (cos(lat1) * cos(lat2)) = sin(dlon/2)**2
+	#sqrt(a / (cos(lat1) * cos(lat2))) = sin(dlon/2)
+	#2 * asin(sqrt(a / (cos(lat1) * cos(lat2)))) = lon2 - lon1
+	#2 * asin(sqrt(a / (cos(lat1) * cos(lat2)))) + lon1 = lon2
+
+#Given a user, returns their latitude and longitude
+def give_latitude_longitude(user1):
+	geolocator = GoogleV3()
+	user1_address = Address.objects.get(user=user1)
+	user1_city = user1_address.city
+	user1_state = user1_address.state
+	address1, (latitude1, longitude1) = geolocator.geocode(user1_city + " " + user1_state)
+	float_lat = float(latitude1)
+	float_lon = float(longitude1)
+	#logging.debug("Latitude1 is : " + str(latitude1))
+	#logging.debug("Longitude1 is: " + str(longitude1))
+	#return (float_lat, float_lon)
+	user1_address.lattitude = float_lat
+	user1_address.longitude = float_lon
+	user1_address.save()
+	return 
+
 
 
 def calc_distance(user1, user2):
@@ -68,11 +119,10 @@ def find_nearby_users(logged_in_user, preferred_distance, user_list):
 			pass
 	return list_of_nearby_users
 	
-"""
-user1_city = "Poop"
+
+"""user1_city = "Poop"
 user1_state = "California"
 address1, (latitude1, longitude1) = geolocator.geocode(user1_city)
 address2, (latitude2, longitude2) = geolocator.geocode(user1_city + " " + user1_state)
-print address1
-print address2
-"""
+print latitude1
+print longitude1"""

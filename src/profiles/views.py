@@ -27,7 +27,7 @@ from django.views.decorators.clickjacking import xframe_options_exempt
 
 from forfriends.settings.deployment import EMAIL_HOST_USER, DEBUG, MEDIA_URL
 from forfriends.matching import match_percentage, find_same_interests
-from forfriends.distance import calc_distance, check_valid_location, find_nearby_users
+from forfriends.distance import calc_distance, check_valid_location, find_nearby_users, find_latitude_range, find_longitude_range, give_latitude_longitude
 from forfriends.s3utils import delete_s3_pic
 from matches.models import Match
 from .models import Address, Job, Info, UserPicture, Gamification
@@ -243,6 +243,13 @@ the user is not logged in, and is shown the landing page.
 def all(request):
 	if request.user.is_authenticated():
 		info, created = Info.objects.get_or_create(user=request.user)
+		address = Address.objects.get(user=request.user)
+		try: 
+			lat = address.lattitude
+			lon = address.longitude
+		except:
+			give_latitude_longitude(request.user)
+
 		
 		try: 
 			if info.signed_up_with_fb_or_goog == True:
@@ -751,13 +758,16 @@ def new_user_info(request):
 			
 			
 			request.user.save()
-			user = authenticate(username=request.user.username, password=request.user.password)
+			
 			#user.save()
+			#user = authenticate(username=request.user.username, password=request.user.password)
 			new_user = User.objects.get(username=request.user.username)
 			new_user.username = username
+
 			new_user.first_name = first_name
 			new_user.last_name = last_name
 			new_user.save()
+			user = authenticate(username=request.user.username, password=request.user.password)
 
 
 
@@ -802,27 +812,7 @@ def user_not_new(user):
 #san_francico_area = ['San Francisco']
 #south_san_francisco = ['Daly City', 'Brisbane', 'South San Francisco', 
 
-oakland = ['Oakland', 'San Francisco', 'Alameda', 'Emeryville', 'Piedmont', 'Berkeley']
-san_francisco = ['San Francisco', 'Daly City', 'Brisbane']
-daly_city = ['San Francisco', 'South San Francisco', 'Pacifica', 'San Bruno', 'Daly City', 'Brisbane']
-south_san_francisco = ['Daly City', 'South San Francisco', 'Pacifica', 'Millbrae', 'Brisbane']
-pacifica = ['Pacifica', 'Daly City', 'South San Francisco', 'San Bruno']
-san_bruno = ['South San Francisco', 'Brisbane','San Bruno', 'Millbrae']
-#hillsborough and burlingham included with millbrae
-millbrae = ['San Bruno', 'Millbrae', 'Hillsborough', 'Burlingame', 'South San Francisco', 'San Mateo']
-#foster city, highlands-baywood park can be included here
-san_mateo= ['San Mateo', 'Hillsborough', 'Burlingame', 'Foster City', 'Belmont', 'Highlands-Baywood Park']
-#Belmont, San Carlos, Emerald Hills, 'North Fair Oaks, Woodside, Atherton
-redwood_city = ['Redwood City', 'Belmont', 'San Carlos', 'Emerald Hills', 'North Fair Oaks', 'Atherton', 'Menlo Park', 
-					'West Menlo Park', 'Palo Alto', 'Stanford', 'East Palo Alto', 'Portola Valley', 'Woodside']
-#for Palo Alto, Menlo Park, Portola Valley, West Menlo Park, Stanford
-between_redwood_and_mountainview = ['Redwood City', 'Woodside', 'Emerald Hills', 'North Fair Oaks', 'Atherton', 
-				'Menlo Park', 'West Menlo Park', 'Palo Alto', 'Portola Valley', 'Stanford', 'East Palo Alto']
-#covers mountain view, los altos, SunnyVale, Loyola, Cupertino
-mountainview = ['Mountain View', 'Los Altos', 'Sunnyvale', 'Palo Alto', 'Stanford', 'Santa Clara']
-#Includes San Jose, Santa Clara, Campbell, Cupertino, Milpitas, Cambrian Park, Milpitas, East Foothills
-san_jose = ['San Jose', 'Santa Clara', 'Campbell', 'Cupertino', 'Milpitas', 'Cambrian Park', 'Mountain View', 
-			'Los Altos', 'East Foothills']
+
 
 
 
@@ -864,6 +854,60 @@ def redo_user_list(logged_in_user):
 			user_list.append(match.user2)
 	#save user list
 
+def find_close_cities(city):
+
+	oakland = ['Oakland', 'San Francisco', 'Alameda', 'Emeryville', 'Piedmont', 'Berkeley']
+	san_francisco = ['San Francisco', 'Daly City', 'Brisbane']
+	daly_city = ['San Francisco', 'South San Francisco', 'Pacifica', 'San Bruno', 'Daly City', 'Brisbane']
+	south_san_francisco = ['Daly City', 'South San Francisco', 'Pacifica', 'Millbrae', 'Brisbane']
+	pacifica = ['Pacifica', 'Daly City', 'South San Francisco', 'San Bruno']
+	san_bruno = ['South San Francisco', 'Brisbane','San Bruno', 'Millbrae']
+	#hillsborough and burlingham included with millbrae
+	millbrae = ['San Bruno', 'Millbrae', 'Hillsborough', 'Burlingame', 'South San Francisco', 'San Mateo']
+	#foster city, highlands-baywood park can be included here
+	san_mateo= ['San Mateo', 'Hillsborough', 'Burlingame', 'Foster City', 'Belmont', 'Highlands-Baywood Park']
+	#Belmont, San Carlos, Emerald Hills, 'North Fair Oaks, Woodside, Atherton
+	redwood_city = ['Redwood City', 'Belmont', 'San Carlos', 'Emerald Hills', 'North Fair Oaks', 'Atherton', 'Menlo Park', 
+						'West Menlo Park', 'Palo Alto', 'Stanford', 'East Palo Alto', 'Portola Valley', 'Woodside']
+	#for Palo Alto, Menlo Park, Portola Valley, West Menlo Park, Stanford
+	between_redwood_and_mountainview = ['Redwood City', 'Woodside', 'Emerald Hills', 'North Fair Oaks', 'Atherton', 
+					'Menlo Park', 'West Menlo Park', 'Palo Alto', 'Portola Valley', 'Stanford', 'East Palo Alto']
+	#covers mountain view, los altos, SunnyVale, Loyola, Cupertino
+	mountainview = ['Mountain View', 'Los Altos', 'Sunnyvale', 'Palo Alto', 'Stanford', 'Santa Clara']
+	#Includes San Jose, Santa Clara, Campbell, Cupertino, Milpitas, Cambrian Park, Milpitas, East Foothills
+	san_jose = ['San Jose', 'Santa Clara', 'Campbell', 'Cupertino', 'Milpitas', 'Cambrian Park', 'Mountain View', 
+				'Los Altos', 'East Foothills']
+
+	if city == "Oakland":
+		return oakland
+	if city == "San Francisco":
+		return san_francisco
+	if city == "Daly City":
+		return daly_city
+	if city == "South San Francisco":
+		return south_san_francisco
+	if city == "Pacifica":
+		return pacifica
+	if city == "San Bruno":
+		return san_bruno
+	if city == "Millbrae" or city == "Hillsborough" or city == "Burlingame":
+		return millbrae
+	if city == "Foster City" or city == "Highlands-Baywood Park" or city == "San Mateo":
+		return san_mateo
+	if city == "Belmont" or city == "San Carlos" or city == "Emerald Hills" or city == "North Fair Oaks" or city == "Woodside" or city == "Atherton" or city == "Redwood City":
+		return redwood_city
+
+	if city == "Palo Alto" or city == "Menlo Park" or city == "Portola Valley" or city == "West Menlo Park" or city == "Stanford":
+		return between_redwood_and_mountainview
+	if city == "Mountain View" or city == "Los Altos" or city == "Sunnyvale" or city == "Loyola" or city == "Cupertino":
+		return mountainview
+	if city == "San Jose" or city == "Santa Clara" or city == "Campbell" or city == "Cupertino" or city == "Milpitas" or city == "Cambrian Park" or city == "East Foothills":
+		return san_jose
+	else:
+		return []
+
+
+
 
 
 def update_user_list(logged_in_user):
@@ -877,21 +921,29 @@ def update_user_list(logged_in_user):
 	current_location = Address.objects.get(user=logged_in_user)
 	current_state = current_location.state
 	current_city = current_location.city
-	#new_close_users = new_users.filter(address__state=current_state).filter(address__city=current_city)
+	new_close_users = new_users.filter(address__state=current_state).filter(address__city=current_city)
+	if current_state == 'California':
+		close_cities = find_close_cities(current_city)
+	if close_cities:
+		new_close_users = new_users.filter(address__state=current_state).filter(address__city__in=close_cities)
+	else:
+		new_close_users = new_users.filter(address__state=current_state).filter(address__city=current_city)
 	#user_gamification.discover_list.add(*new_close_users)
 	#user_gamification.save()
+	'''
 	new_close_users = list(new_users.filter(address__state=current_state).filter(address__city=current_city))
 	excluded_users = []
 	matches = Match.objects.filter(
-		Q(user1=logged_in_user, user1_approved=True) | Q(user2=logged_in_user, user2_approved=True)
-		)
+	Q(user1=logged_in_user, user1_approved=True) | Q(user2=logged_in_user, user2_approved=True)
+	)
 	for match in matches:
-		if match.user1 != logged_in_user:
-			excluded_users.append(match.user1)
-		else:
-			excluded_users.append(match.user2)
-	new_users = [x for x in new_close_users if x not in excluded_users]
-	user_gamification.discover_list.add(*new_users)
+	if match.user1 != logged_in_user:
+	excluded_users.append(match.user1)
+	else:
+	excluded_users.append(match.user2)
+	'''
+	#new_users = [x for x in new_close_users if x not in excluded_users]
+	user_gamification.discover_list.add(*new_close_users)
 	user_gamification.save()
 
 
@@ -915,6 +967,10 @@ def reset_discover(request):
 	return redirect('http://www.frenvu.com/discover/?page=1')
 
 
+#def find_somewhat_close_users(request):
+
+
+
 #def check_if_already_friends(user1, user2):
 
 
@@ -935,22 +991,44 @@ def discover(request):
 	except:
 		user_gamification = Gamification.objects.create(user=request.user)
 	
+	page = request.GET.get('page')
+	page_int = int(page)
+
 	info = Info.objects.get(user=request.user)
+
+	if page_int == 1 and info.new_to_discover == False:
+		#update_user_list(request.user)
+		give_latitude_longitude(request.user)
+		address = Address.objects.get(user=request.user)
+		user_lat = address.lattitude
+		user_lon = address.longitude
+		lat_diff = find_latitude_range(address.lattitude, address.longitude, 20)
+		lon_diff = find_latitude_range(address.lattitude, address.longitude, 20)
+		left_lat = user_lat - lat_diff
+		right_lat = user_lat + lat_diff
+		bottom_lon = user_lon - lon_diff
+		top_lon = user_lon + lon_diff
+		close_users = User.objects.filter(is_active=True
+			).exclude(address__lattitude__lte=left_lat
+			).exclude(address__lattitude__gte=right_lat
+			).exclude(address__longitude__lte=bottom_lon
+			).exclude(address__longitude__gte=top_lon
+			).exclude(address__longitude__isnull=True
+			).exclude(address__longitude__isnull=True
+			).exclude(username=request.user.username)
+
+		print close_users
+		user_gamification = Gamification.objects.get(user=request.user)
+		user_gamification.discover_list.clear()
+		user_gamification.discover_list.add(*close_users)
+
+
 	
 	if info.new_to_discover == True:
 		create_user_list(request.user)
 		info.new_to_discover = False
 		info.save()
-	else:
-		update_user_list(request.user)
-	'''
-	#test lines
-	users = list(User.objects.filter(is_active=True))
-	close_users = find_nearby_users(request.user, 20, users)
 
-	user_gamification.discover_list.add(*close_users)
-	#end test lines
-	'''
 	if user_gamification.discover_list.count() == 0:
 		no_users = True
 		return render_to_response('profiles/discover.html', locals(), context_instance=RequestContext(request))
@@ -958,16 +1036,10 @@ def discover(request):
 	else:
 		no_users = False
 
-	page = request.GET.get('page')
-	page_int = int(page)
-
 	user_list = list(user_gamification.discover_list.all())
 	paginator = Paginator(user_list, 1)
 	
-	
-	
-	if page_int == 1:
-		update_user_list(request.user)
+
 	if user_gamification.discover_list.count() == 0:
 		no_users = True
 		return render_to_response('profiles/discover.html', locals(), context_instance=RequestContext(request))
@@ -985,7 +1057,16 @@ def discover(request):
 			except: 
 				match, created = Match.objects.get_or_create(user1=single_user, user2=request.user)
 			#test to see if friend, and if they are friends, skip
+			'''
 			if (match.user1_approved == True and match.user2_approved == True):
+			page_int = int(page)
+			new_page = page_int + 1
+			new_page_u = unicode(new_page)
+			users = paginator.page(new_page_u)
+			single_user = users.object_list[0]
+			'''
+			#if single user is self, skip
+			if single_user == request.user:
 				page_int = int(page)
 				new_page = page_int + 1
 				new_page_u = unicode(new_page)
@@ -1068,6 +1149,31 @@ def delete_picture(request, pic_id):
 	delete_s3_pic(user, picture)
 	return HttpResponseRedirect(reverse('view_pictures'))
 
+'''
+def edit_discover(request):
+if request.method == 'POST':
+address = Address.objects.get(user=request.user)
+user_lat = address.lattitude
+user_lon = address.longitude
+lat_diff = find_latitude_range(address.lattitude, address.longitude, 20)
+lon_diff = find_latitude_range(address.lattitude, address.longitude, 20)
+left_lat = user_lat - lat_diff
+right_lat = user_lat + lat_diff
+bottom_lon = user_lon - lon_diff
+top_lon = user_lon + lon_diff
+close_users = User.objects.filter(is_active=True
+).exclude(address__lattitude__lte=left_lat
+).exclude(address__lattitude__gte=right_lat
+).exclude(address__longitude__lte=bottom_lon
+).exclude(address__longitude__gte=top_lon)
+
+
+
+
+else:
+raise Http404
+'''
+
 
 
 
@@ -1083,12 +1189,12 @@ def edit_address(request):
 			for form in formset_a:
 				new_form = form.save(commit=False)
 				new_form.user = request.user
-				print new_form.city
-				print new_form.state
+				
 				if check_valid_location(new_form.city, new_form.state) == False:
 					messages.success(request, "We're sorry but you didn't enter a valid location")
 					return HttpResponseRedirect('/edit/')
 				new_form.save()
+				give_latitude_longitude(request.user)
 			messages.success(request, 'Your location has been updated.')
 		else:
 			messages.error(request, 'Please fill out all fields.')
@@ -1271,11 +1377,11 @@ def login_user(request):
 	username = user1.username
 	user = authenticate(username=username, password=password)
 	logged_in_user = User.objects.get(email=email)
-
 	if user is not None:
 		# if user deactivated their account and logged in, they are no longer deactivated
 		if user.is_active == False:
-			logged_in_user.is_active = True
+			
+
 			logged_in_user.save()
 			if not DEBUG: 
 				email = request.user.email
