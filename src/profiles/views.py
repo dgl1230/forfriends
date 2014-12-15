@@ -1012,7 +1012,12 @@ def discover(request):
 			).exclude(address__lattitude__lte=left_lat
 			).exclude(address__lattitude__gte=right_lat
 			).exclude(address__longitude__lte=bottom_lon
-			).exclude(address__longitude__gte=top_lon)
+			).exclude(address__longitude__gte=top_lon
+			).exclude(address__longitude__isnull=True
+			).exclude(address__longitude__isnull=True
+			).exclude(username=request.user.username)
+
+		print close_users
 		user_gamification = Gamification.objects.get(user=request.user)
 		user_gamification.discover_list.clear()
 		user_gamification.discover_list.add(*close_users)
