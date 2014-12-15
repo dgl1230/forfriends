@@ -5,44 +5,44 @@
         <h1>Settings</h1>
   </div>
 </div>
-
-  <div class='col-lg-10 col-12'>
+<div class='col-lg-10 col-12'>
 {% if messages %}
 <div class="row">
-<div class="col-md-1" id="tertiary_navbar">
-    {% for message in messages %}
-    <p  id="edit_profile_messages"{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
-    {% endfor %}
-</div>
+  <div class="col-md-1" id="tertiary_navbar">
+      {% for message in messages %}
+      <p  id="edit_profile_messages"{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+      {% endfor %}
+  </div>
 </div>
 {% endif %}
-<div class="col-md-1" id="tertiary_navbar">
+  <div class="col-md-1" id="tertiary_navbar">
       <span class="tertiary_hidden" id="info_change" >Info Saved!</span>
       <span class="tertiary_hidden" id="location_change">Location Saved!</span>
       <span class="tertiary_hidden" id="job_change">Occupation Saved!</span>
       <span class="tertiary_hidden" id="info_change">Changes Saved!</span>
+      <span class="tertiary_hidden" id="discover_change">Discover Settings Saved!</span>
   </div>
 <div id="edit_profile_container">
   <div class="edit_profile_wrapper">
   <ul class="nav nav-tabs" id="myTab">
-    <li class="active"><a href="#home" data-toggle="tab">Occupation</a></li>
+    <li class="active"><a href="#discover" data-toggle="tab">Discover</a></li>
+    <li><a href="#home" data-toggle="tab">Occupation</a></li>
     <li><a href="#locations" data-toggle="tab">Location</a></li>
     <li><a href="#info" data-toggle="tab">Info</a></li>
     <li><a href="#delete_account" data-toggle="tab">Delete Account</a></li>
   </ul>
   <br>
-
   <div class="tab-content">
-    <div class="tab-pane active" id="home">
+    <div class="tab-pane" id="home">
     	<div class='row'>
     		<div class='col-lg-12'>
     			<form id="job_form" method='POST' action='/edit/jobs'> {% csrf_token %}
           {{ formset_j.management_form }}
   			  {{ formset_j.as_p }}
-  			<input class='btn btn-success' type='submit' value='Update' />
-  			</form>
-  		</div>
-  	</div>
+  			  <input class='btn btn-success' type='submit' value='Update'/>
+  			  </form>
+  		  </div>
+  	  </div>
     </div>
     <div class="tab-pane" id="locations">
     	<div class='row'>
@@ -50,37 +50,42 @@
     			<form id="location_form" method='POST' action='/edit/addresses/'> {% csrf_token %}
             {{ formset_a.management_form }}
   			    {{ formset_a.as_p }}
-  			<input class='btn btn-success' type='submit' value='Update' />
-  			</form>
-  		</div>
-  	</div>
+  			  <input class='btn btn-success' type='submit' value='Update' />
+  			  </form>
+  		  </div>
+  	  </div>
     </div>
     <div class="tab-pane" id="info">
       <div class='row'>
         <div class='col-lg-12'>
-        <form id="info_form" method="POST" action="/edit/info/">
-          {% csrf_token %}
-          <div id="info_forms">
-            <p><label for "#first_name_form">First Name:</label><input id="first_name_form" name="first_name_form" type="text" maxlength="30" value="{% if user.first_name %}{{ user.first_name }}{% endif %}" required></p>
-            <p><label for "#last_name_form">Last Name:</label><input maxlength="50"  id="last_name_form" name="last_name_form" type="text" value="{% if user.last_name %}{{ user.last_name }}{% endif %}" required></p>
-            <p>
-              <label for "#gender_form">Gender:</label>
-            <select class="select-style gender" tabindex="1" name="gender_form" id="gender_form" required>
-            {% if is_male %}
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            {% else %}
-            <option value="Male">Male</option>
-            <option value="Female" selected>Female</option>
-            {% endif %}
-            </select><br>
-            </p>
-            <p><label for "#bio_form" id='bio_label'>About Me:</label><input id="bio_form" name="bio_form" type="text" value="{% if info.bio %}{{ info.bio }}{% endif %}"></p>
-            <input class='btn btn-success' type='submit' value='Update'/>
-          </div>
-        </form>
+          <form id="info_form" method="POST" action="/edit/info/">
+            {% csrf_token %}
+            <div id="info_forms">
+              <p><label for "#first_name_form">First Name:</label><input id="first_name_form" name="first_name_form" type="text" maxlength="30" value="{% if user.first_name %}{{ user.first_name }}{% endif %}" required></p>
+              <p><label for "#last_name_form">Last Name:</label><input maxlength="50"  id="last_name_form" name="last_name_form" type="text" value="{% if user.last_name %}{{ user.last_name }}{% endif %}" required></p>
+              <p>
+                <label for "#gender_form">Gender:</label>
+              <select class="select-style gender" tabindex="1" name="gender_form" id="gender_form" required>
+              {% if is_male %}
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              {% else %}
+              <option value="Male">Male</option>
+              <option value="Female" selected>Female</option>
+              {% endif %}
+              </select><br>
+              </p>
+              <p><label for "#bio_form" id='bio_label'>About Me:</label><input id="bio_form" name="bio_form" type="text" value="{% if info.bio %}{{ info.bio }}{% endif %}"></p>
+              <input class='btn btn-success' type='submit' value='Update'/>
+            </div>
+          </form>
+        </div>
       </div>
-      </div>
+    </div>
+    <div class="tab-pane active" id="discover">
+      <h3>Set your maximum Discover Range!</h3>
+      <div class="range-slider" data-slider data-options="step: 5; display_selector: #sliderOutput3; "> <span class="range-slider-handle" role="slider" tabindex="0"></span> <span class="range-slider-active-segment"></span><input type="hidden"></div>
+      <span id="sliderOutput3">Miles</span>
     </div>
     <div class="tab-pane" id="delete_account">
       <div class='row'>
@@ -93,13 +98,17 @@
 
           <h3 class="delete_info"> To reactivate your account, just log in again. </h3>
            <a href='{% url "delete_account" %}'><div class="btn-lg" id="delete_button">Deactivate</div></a>      
-         </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 </div>
-</div>
-
+  <script>
+$(function(){ 
+  $(document).foundation(); 
+  $(window).trigger("resize.fndtn.slider"); 
+});
+  </script>
  <script src="{{ STATIC_URL }}js/profile/edit.js" type="text/javascript"></script>
 {% endblock %}
