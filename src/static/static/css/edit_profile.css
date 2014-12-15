@@ -33,6 +33,14 @@
 	text-align: center;
 }
 
+#discover h3{
+	margin-top:0px!important;
+	font-weight: 300;
+}
+#discover span{
+	font-family: roboto;
+	font-weight: 300;
+}
 .tab-content #delete_button{
 	margin: 0 auto;
 }
@@ -154,7 +162,7 @@ p label{
 }
 #myTab{
 	text-align:center;
-	margin:0px auto 20px;
+	margin:0px auto 0px;
 }
 
 .tab-content .btn-success{
@@ -247,3 +255,86 @@ p a{
 	min-height: 100px;
 	}
 }
+
+/* Slider */
+meta.foundation-data-attribute-namespace{
+	font-family: false;
+}
+.range-slider {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 1rem;
+  border: 1px solid #DDDDDD;
+  margin: 1.25rem 0;
+  -ms-touch-action: none;
+  touch-action: none;
+  background: #FAFAFA; }
+  .range-slider.vertical-range {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 1rem;
+    border: 1px solid #DDDDDD;
+    margin: 1.25rem 0;
+    -ms-touch-action: none;
+    touch-action: none;
+    display: inline-block;
+    width: 1rem;
+    height: 12.5rem; }
+    .range-slider.vertical-range .range-slider-handle {
+      margin-top: 0;
+      margin-left: -0.5rem;
+      position: absolute;
+      bottom: -10.5rem; }
+    .range-slider.vertical-range .range-slider-active-segment {
+      width: 0.875rem;
+      height: auto;
+      bottom: 0; }
+  .range-slider.radius {
+    background: #FAFAFA;
+    border-radius: 3px; }
+    .range-slider.radius .range-slider-handle {
+      background: #1fbad6;
+      border-radius: 3px; }
+      .range-slider.radius .range-slider-handle:hover {
+        background: #1ba4bc; }
+  .range-slider.round {
+    background: #FAFAFA;
+    border-radius: 1000px; }
+    .range-slider.round .range-slider-handle {
+      background: #1fbad6;
+      border-radius: 1000px; }
+      .range-slider.round .range-slider-handle:hover {
+        background: #1ba4bc; }
+  .range-slider.disabled, .range-slider[disabled] {
+    background: #FAFAFA;
+    cursor: default;
+    opacity: 0.7; }
+    .range-slider.disabled .range-slider-handle, .range-slider[disabled] .range-slider-handle {
+      background: #1fbad6;
+      cursor: default;
+      opacity: 0.7; }
+      .range-slider.disabled .range-slider-handle:hover, .range-slider[disabled] .range-slider-handle:hover {
+        background: #1ba4bc; }
+
+.range-slider-active-segment {
+  display: inline-block;
+  position: absolute;
+  height: 0.875rem;
+  background: #e7e7e7; }
+
+.range-slider-handle {
+  display: inline-block;
+  position: absolute;
+  z-index: 1;
+  top: -0.3125rem;
+  width: 2rem;
+  height: 1.375rem;
+  border: 1px solid none;
+  cursor: pointer;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  background: #1fbad6; }
+  .range-slider-handle:hover {
+    background: #1ba4bc; }
