@@ -35,6 +35,11 @@
 
 #discover h3{
 	margin-top:0px!important;
+	font-weight: 300;
+}
+#discover span{
+	font-family: roboto;
+	font-weight: 300;
 }
 .tab-content #delete_button{
 	margin: 0 auto;
@@ -157,7 +162,7 @@ p label{
 }
 #myTab{
 	text-align:center;
-	margin:0px auto 20px;
+	margin:0px auto 0px;
 }
 
 .tab-content .btn-success{
