@@ -113,10 +113,12 @@
   </script>
 
   <script>
-    discover_range = $( '#discover_slider' ).attr('data-slider');
+    
     $('#data-button').click(function(){
-      alert($( '#discover_slider' ).attr('data-slider'));
+      var distance = $('#discover_slider').attr('data-slider');
+      alert(distance);
     });
+
   </script>
  <script src="{{ STATIC_URL }}js/profile/edit.js" type="text/javascript"></script>
 {% endblock %}
