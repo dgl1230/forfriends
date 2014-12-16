@@ -200,6 +200,10 @@
 	font-weight:300;
 }
 
+.close:hover, .close:focus, .close:active{
+	color:#1fbad6!important;
+}
+
 @media (max-width:777px){
 	.modal-body .sign_up_div{
 	width:100%!important;
