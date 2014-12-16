@@ -56,7 +56,6 @@
 .modal-footer{
 	border-bottom: none;
 	border-radius:5px;
-
 }
 
 .modal-content{
@@ -79,9 +78,9 @@
   background: white;
   border-radius: 3px;
   opacity: .8;
-  border-bottom: 1px solid #1fbad6;
-  border-left:1px solid  #1fbad6;
-  border-right: 1px solid  #1fbad6;
+  border-bottom: 3px solid #1fbad6;
+  border-left: 3px solid  #1fbad6;
+  border-right: 3px solid  #1fbad6;
   margin-bottom: 30px; 
 }
 
@@ -94,9 +93,9 @@
   background: white;
   border-radius: 3px;
   opacity: .8;
-  border-bottom: 1px solid #1fbad6;
-  border-left:1px solid  #1fbad6;
-  border-right: 1px solid  #1fbad6;
+  border-bottom: 3px solid #1fbad6;
+  border-left: 3px solid  #1fbad6;
+  border-right: 3px solid  #1fbad6;
   margin-bottom: 30px;
 }
 .signup:focus, .signup:hover{
@@ -116,11 +115,13 @@
   text-align: center;
   text-shadow: 0 1px white;
   background: #f3f3f3;
-  border-bottom: 1px solid black;
-  border-top: 1px solid #1fbad6;
+  border-top: 3px solid #1fbad6;
   border-radius: 3px 3px 0 0;
   -webkit-box-shadow: 0 1px whitesmoke;
   box-shadow: 0 1px whitesmoke;
+}
+#password{
+	margin-bottom:20px;
 }
 .signup p {
   margin: 5px 0 0;
@@ -145,7 +146,7 @@
   text-align: center;
   text-shadow: 0 1px white;
   background: #f3f3f3;
-  border-top: 1px solid #1fbad6;
+  border-top: 3px solid #1fbad6;
   border-radius: 3px 3px 0 0;
   -webkit-box-shadow: 0 1px whitesmoke;
   box-shadow: 0 1px whitesmoke;

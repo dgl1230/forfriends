@@ -7,7 +7,6 @@
 	overflow:hidden;
 }
 
-
 #title{
 	letter-spacing: .25em;
   padding-top:50px;
@@ -209,7 +208,6 @@ select{
   text-align: center;
   text-shadow: 0 1px white;
   background: #f3f3f3;
-  border-bottom: 1px solid #cfcfcf;
   border-radius: 3px 3px 0 0;
   background-image: -webkit-linear-gradient(top, whiteffd, #eef2f5);
   background-image: -moz-linear-gradient(top, whiteffd, #eef2f5);
