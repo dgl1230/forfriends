@@ -85,12 +85,15 @@
     <div class="tab-pane active" id="discover">
       <form id="info_form" method="POST" action="/edit/discover/">
             {% csrf_token %}
-      <h3>Set your maximum Discover Range!</h3>
-      <div id="discover_slider" class="range-slider" data-slider data-options="step: 5; display_selector: #sliderOutput3; "> <span class="range-slider-handle" role="slider" tabindex="0"></span> <span class="range-slider-active-segment"></span><input type="hidden"></div>
-      <span>0 - </span><span id="sliderOutput3"></span><span> Miles</span>
-      <button id="data-button" value="" type="submit">Data</button>
-      <input id="data-button-submit" class='btn btn-success' type='submit' value='' name="distance"/>
-    </form>
+        <h3>Set your maximum Discover Range!</h3>
+        <div id="discover_slider" class="range-slider" data-slider data-options="step: 5; display_selector: #sliderOutput3; start: 5; end: 25;"> <span class="range-slider-handle" role="slider" tabindex="0"></span> <span class="range-slider-active-segment"></span><input type="hidden"></div>
+        <br>
+          <div class="center" id="discover_settings_range">
+            <span>0 - </span><span id="sliderOutput3"></span><span> Miles</span>
+            <br>
+            <input id="data-button-submit" class='btn btn-success' type='submit' value='Save' name="distance"/>
+          </div>
+      </form>
     </div>
     <div class="tab-pane" id="delete_account">
       <div class='row'>
@@ -117,13 +120,11 @@
   </script>
 
   <script>
-    
     $('#data-button-submit').click(function(){
       var distance = $('#discover_slider').attr('data-slider');
       document.getElementById('data-button-submit').value = distance;
-      
-    });
-
+    }); 
+  
   </script>
  <script src="{{ STATIC_URL }}js/profile/edit.js" type="text/javascript"></script>
 {% endblock %}

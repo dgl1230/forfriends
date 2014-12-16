@@ -9,6 +9,7 @@
 
 }
 
+
 #form_container label:first-child{
 	width:100%;
 	font-size:18px;
@@ -16,7 +17,6 @@
 }
 .nav-tabs{
 	border-bottom:none;
-
 }
 
 #info-forms input{
@@ -36,6 +36,7 @@
 #discover h3{
 	margin-top:0px!important;
 	font-weight: 300;
+	text-align: center;
 }
 #discover span{
 	font-family: roboto;
@@ -249,6 +250,7 @@ p a{
 		margin:0 auto;
 
 	}
+	
 }
 @media (max-width:450px){
 	.tab-content{
@@ -256,6 +258,11 @@ p a{
 	}
 }
 
+@media (min-width:300px){
+	#discover_settings_range{
+		margin-top:0px;
+	}
+}
 /* Slider */
 meta.foundation-data-attribute-namespace{
 	font-family: false;
