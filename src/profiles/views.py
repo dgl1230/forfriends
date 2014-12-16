@@ -917,10 +917,11 @@ def update_user_list(logged_in_user):
 		last_user_id = user_list.latest('id').id
 	except: 
 		return 
-	new_users = User.objects.filter(is_active=True).filter(id__gte=last_user_id)
+	new_users = User.objects.filter(is_active=True).filter(id__gt=last_user_id)
 	current_location = Address.objects.get(user=logged_in_user)
 	current_state = current_location.state
 	current_city = current_location.city
+	'''
 	new_close_users = new_users.filter(address__state=current_state).filter(address__city=current_city)
 	if current_state == 'California':
 		close_cities = find_close_cities(current_city)
@@ -928,6 +929,7 @@ def update_user_list(logged_in_user):
 		new_close_users = new_users.filter(address__state=current_state).filter(address__city__in=close_cities)
 	else:
 		new_close_users = new_users.filter(address__state=current_state).filter(address__city=current_city)
+	'''
 	#user_gamification.discover_list.add(*new_close_users)
 	#user_gamification.save()
 	'''
@@ -1149,30 +1151,39 @@ def delete_picture(request, pic_id):
 	delete_s3_pic(user, picture)
 	return HttpResponseRedirect(reverse('view_pictures'))
 
-'''
+
 def edit_discover(request):
-if request.method == 'POST':
-address = Address.objects.get(user=request.user)
-user_lat = address.lattitude
-user_lon = address.longitude
-lat_diff = find_latitude_range(address.lattitude, address.longitude, 20)
-lon_diff = find_latitude_range(address.lattitude, address.longitude, 20)
-left_lat = user_lat - lat_diff
-right_lat = user_lat + lat_diff
-bottom_lon = user_lon - lon_diff
-top_lon = user_lon + lon_diff
-close_users = User.objects.filter(is_active=True
-).exclude(address__lattitude__lte=left_lat
-).exclude(address__lattitude__gte=right_lat
-).exclude(address__longitude__lte=bottom_lon
-).exclude(address__longitude__gte=top_lon)
+	if request.method == 'POST':
+		distance = float(request.POST['distance'])
+		print "the distance is"
+		print distance
+		give_latitude_longitude(request.user)
+		address = Address.objects.get(user=request.user)
+		user_lat = address.lattitude
+		user_lon = address.longitude
+		lat_diff = find_latitude_range(address.lattitude, address.longitude, distance)
+		lon_diff = find_latitude_range(address.lattitude, address.longitude, distance)
+		left_lat = user_lat - lat_diff
+		right_lat = user_lat + lat_diff
+		bottom_lon = user_lon - lon_diff
+		top_lon = user_lon + lon_diff
+		close_users = User.objects.filter(is_active=True
+			).exclude(address__lattitude__lte=left_lat
+			).exclude(address__lattitude__gte=right_lat
+			).exclude(address__longitude__lte=bottom_lon
+			).exclude(address__longitude__gte=top_lon
+			).exclude(address__longitude__isnull=True
+			).exclude(address__longitude__isnull=True
+			).exclude(username=request.user.username)
 
+		user_gamification = Gamification.objects.get(user=request.user)
+		user_gamification.discover_list.clear()
+		user_gamification.discover_list.add(*close_users)
+		messages.success(request, 'Your preferences have been changed.')
+		return HttpResponseRedirect('/edit/')
+	else:
+		raise Http404
 
-
-
-else:
-raise Http404
-'''
 
 
 
